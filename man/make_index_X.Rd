@@ -7,11 +7,11 @@
 make_index_X(pars)
 }
 \arguments{
-\item{pars}{a [list]}
+\item{pars}{a \link{list}}
 }
 \value{
-the modified parameter [list]
+the modified parameter \link{list}
 }
 \description{
-This method dispatches on the type of `pars$Xpar`.
+This method dispatches on the type of \code{pars$Xpar}.
 }

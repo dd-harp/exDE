@@ -11,15 +11,15 @@ dMYZdt(t, y, pars, Lambda, kappa)
 
 \item{y}{state vector}
 
-\item{pars}{a [list]}
+\item{pars}{a \link{list}}
 
 \item{Lambda}{emergence rate of adult mosquitoes}
 
 \item{kappa}{net infectiousness of human population}
 }
 \value{
-a [numeric] vector
+a \link{numeric} vector
 }
 \description{
-This method dispatches on the type of `pars$MYZpar`.
+This method dispatches on the type of \code{pars$MYZpar}.
 }

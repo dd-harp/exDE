@@ -11,13 +11,13 @@
 
 \item{y}{state vector}
 
-\item{pars}{a [list]}
+\item{pars}{a \link{list}}
 
 \item{EIR}{vector giving the per-capita entomological inoculation rate for each strata}
 }
 \value{
-a [numeric] vector
+a \link{numeric} vector
 }
 \description{
-Implements [dXdt] for the SIS model.
+Implements \link{dXdt} for the SIS model.
 }

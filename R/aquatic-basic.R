@@ -34,3 +34,21 @@ make_index_L.basic <- function(pars) {
   pars$max_ix <- tail(pars$L_ix, 1)
   return(pars)
 }
+
+#' @title Make parameters for basic competition aquatic mosquito model
+#' @param psi maturation rates for each aquatic habitat
+#' @param phi density-independent mortality rates for each aquatic habitat
+#' @param theta density-dependent mortality terms for each aquatic habitat
+#' @param L0 initial conditions
+#' @return a [list] with class `basic`.
+#' @export
+make_parameters_L_basic <- function(psi, phi, theta, L0) {
+  stopifnot(is.numeric(psi), is.numeric(phi), is.numeric(theta), is.numeric(L0))
+  Lpar <- list()
+  class(Lpar) <- 'basic'
+  Lpar$L0 <- L0
+  Lpar$psi <- psi
+  Lpar$phi <- phi
+  Lpar$theta <- theta
+  return(Lpar)
+}

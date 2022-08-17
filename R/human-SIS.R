@@ -48,3 +48,19 @@ make_index_X.SIS <- function(pars) {
   pars$max_ix <- tail(pars$X_ix, 1)
   return(pars)
 }
+
+#' @title Make parameters for SIS human model
+#' @param b transmission probability (efficiency) from mosquito to human
+#' @param c transmission probability (efficiency) from human to mosquito
+#' @param r recovery rate
+#' @return a [list] with class `SIS`.
+#' @export
+make_parameters_X_SIS <- function(b, c, r) {
+  stopifnot(is.numeric(b), is.numeric(c), is.numeric(r))
+  Xpar <- list()
+  class(Xpar) <- c('SIS')
+  Xpar$b <- b
+  Xpar$c <- c
+  Xpar$r <- r
+  return(Xpar)
+}

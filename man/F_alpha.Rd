@@ -11,11 +11,11 @@ F_alpha(t, y, pars)
 
 \item{y}{state vector}
 
-\item{pars}{a [list]}
+\item{pars}{a \link{list}}
 }
 \value{
-a [numeric] vector of length `nHabitats`
+a \link{numeric} vector of length \code{nHabitats}
 }
 \description{
-This method dispatches on the type of `pars$Lpar`.
+This method dispatches on the type of \code{pars$Lpar}.
 }

@@ -52,3 +52,23 @@ make_index_X.SIP <- function(pars) {
   pars$max_ix <- tail(pars$P_ix, 1)
   return(pars)
 }
+
+#' @title Make parameters for SIP human model
+#' @param b transmission probability (efficiency) from mosquito to human
+#' @param c transmission probability (efficiency) from human to mosquito
+#' @param r recovery rate
+#' @param rho probability of successful treatment upon infection
+#' @param eta prophylaxis waning rate
+#' @return a [list] with class `SIP`.
+#' @export
+make_parameters_X_SIP <- function(b, c, r, rho, eta) {
+  stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(rho), is.numeric(eta))
+  Xpar <- list()
+  class(Xpar) <- c('SIP')
+  Xpar$b <- b
+  Xpar$c <- c
+  Xpar$r <- r
+  Xpar$rho <- rho
+  Xpar$eta <- eta
+  return(Xpar)
+}

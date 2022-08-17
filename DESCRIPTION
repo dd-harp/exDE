@@ -6,10 +6,18 @@ Authors@R: c(
       person("Sean L.", "Wu", email = "slwood89@gmail.com", role = c("aut","cre"), comment = c(ORCID = "0000-0002-5781-9493")),
       person("David L.", "Smith", email = "smitdave@uw.edu", role = "aut", comment = c(ORCID = "0000-0003-4367-3849"))
     )
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: xDE provides tools to set up modular ordinary and delay differential equation
+  models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved
+  by S3 dispatch on parameter lists for each component which is used to compute
+  the full set of differential equations.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.0
-Imports: deSolve
+Roxygen: list(markdown = TRUE)
+Imports: 
+  deSolve
+Suggests:
+  expm,
+  ggplot2,
+  data.table

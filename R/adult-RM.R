@@ -127,3 +127,63 @@ make_index_MYZ.RM <- function(pars) {
   pars$max_ix <- tail(pars$Z_ix, 1)
   return(pars)
 }
+
+#' @noRd
+make_parameters_MYZ_RM <- function(MYZpar, Omega, OmegaEIP, f, q, nu, eggsPerBatch, M0, G0, Y0, Z0) {
+  stopifnot(vapply(as.list(match.call()), is.numeric, logical(1)))
+  stopifnot(inherits(Omega, 'matrix'), inherits(OmegaEIP, 'matrix'))
+  # stopifnot(is.numeric(psi), is.numeric(phi), is.numeric(theta), is.numeric(L0))
+  MYZpar$Omega <- Omega
+  MYZpar$OmegaEIP <- OmegaEIP
+  MYZpar$f <- f
+  MYZpar$q <- q
+  MYZpar$nu <- nu
+  MYZpar$eggsPerBatch <- eggsPerBatch
+  MYZpar$M0 <- M0
+  MYZpar$G0 <- G0
+  MYZpar$Y0 <- Y0
+  MYZpar$Z0 <- Z0
+  return(MYZpar)
+}
+
+#' @title Make parameters for generalized RM ODE adult mosquito model
+#' @param Omega mosquito demography matrix
+#' @param OmegaEIP mosquito demography matrix through the EIP
+#' @param f feeding rate
+#' @param q human blood fraction
+#' @param nu oviposition rate of gravid mosquitoes
+#' @param eggsPerBatch eggs laid per oviposition
+#' @param M0 total mosquito density at each patch
+#' @param G0 gravid mosquito density at each patch
+#' @param Y0 infected mosquito density at each patch
+#' @param Z0 infectious mosquito density at each patch
+#' @return a [list] with classes `RM`, `RM_ode`.
+#' @export
+make_parameters_MYZ_RM_ode <- function(Omega, OmegaEIP, f, q, nu, eggsPerBatch, M0, G0, Y0, Z0) {
+  MYZpar <- list()
+  class(MYZpar) <- c('RM', 'RM_ode')
+  MYZpar <- make_parameters_MYZ_RM(MYZpar = MYZpar, Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
+  return(MYZpar)
+}
+
+#' @title Make parameters for generalized RM DDE adult mosquito model
+#' @param Omega mosquito demography matrix
+#' @param OmegaEIP mosquito demography matrix through the EIP
+#' @param f feeding rate
+#' @param q human blood fraction
+#' @param nu oviposition rate of gravid mosquitoes
+#' @param eggsPerBatch eggs laid per oviposition
+#' @param M0 total mosquito density at each patch
+#' @param G0 gravid mosquito density at each patch
+#' @param Y0 infected mosquito density at each patch
+#' @param Z0 infectious mosquito density at each patch
+#' @param tau length of extrinsic incubation period
+#' @return a [list] with classes `RM`, `RM_dde`.
+#' @export
+make_parameters_MYZ_RM_dde <- function(Omega, OmegaEIP, f, q, nu, eggsPerBatch, tau, M0, G0, Y0, Z0) {
+  MYZpar <- list()
+  class(MYZpar) <- c('RM', 'RM_dde')
+  MYZpar <- make_parameters_MYZ_RM(MYZpar = MYZpar, Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
+  MYZpar$tau <- tau
+  return(MYZpar)
+}

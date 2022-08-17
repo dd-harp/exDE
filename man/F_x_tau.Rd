@@ -11,13 +11,13 @@ F_x_tau(t, y, pars, tau)
 
 \item{y}{state vector}
 
-\item{pars}{a [list]}
+\item{pars}{a \link{list}}
 
-\item{tau}{duration of lag `t-tau`}
+\item{tau}{duration of lag \code{t-tau}}
 }
 \value{
-a [numeric] vector of length `nStrata`
+a \link{numeric} vector of length \code{nStrata}
 }
 \description{
-This method dispatches on the type of `pars$Xpar`.
+This method dispatches on the type of \code{pars$Xpar}.
 }

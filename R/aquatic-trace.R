@@ -27,3 +27,15 @@ make_index_L.trace <- function(pars) {
   pars$L_ix <- integer(0)
   return(pars)
 }
+
+#' @title Make parameters for trace aquatic mosquito model
+#' @param Lambda vector of emergence rates from each aquatic habitat
+#' @return a [list] with class `trace`.
+#' @export
+make_parameters_L_trace <- function(Lambda) {
+  stopifnot(is.numeric(Lambda))
+  Lpar <- list()
+  class(Lpar) <- 'trace'
+  Lpar$Lambda <- Lambda
+  return(Lpar)
+}

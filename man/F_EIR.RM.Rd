@@ -11,11 +11,11 @@
 
 \item{y}{state vector}
 
-\item{pars}{a [list]}
+\item{pars}{a \link{list}}
 }
 \value{
-a [numeric] vector of length `nStrata`
+a \link{numeric} vector of length \code{nStrata}
 }
 \description{
-Implements [F_EIR] for the generalized RM model.
+Implements \link{F_EIR} for the generalized RM model.
 }

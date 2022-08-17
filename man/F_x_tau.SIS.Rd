@@ -11,13 +11,13 @@
 
 \item{y}{state vector}
 
-\item{pars}{a [list]}
+\item{pars}{a \link{list}}
 
-\item{tau}{duration of lag `t-tau`}
+\item{tau}{duration of lag \code{t-tau}}
 }
 \value{
-a [numeric] vector of length `nStrata`
+a \link{numeric} vector of length \code{nStrata}
 }
 \description{
-Implements [F_x_tau] for the SIS model.
+Implements \link{F_x_tau} for the SIS model.
 }

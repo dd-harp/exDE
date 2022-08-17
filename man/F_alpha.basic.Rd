@@ -11,11 +11,11 @@
 
 \item{y}{state vector}
 
-\item{pars}{a [list]}
+\item{pars}{a \link{list}}
 }
 \value{
-a [numeric] vector of length `nHabitats`
+a \link{numeric} vector of length \code{nHabitats}
 }
 \description{
-Implements [F_alpha] for the basic competition model.
+Implements \link{F_alpha} for the basic competition model.
 }

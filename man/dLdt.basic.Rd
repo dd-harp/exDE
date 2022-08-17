@@ -11,13 +11,13 @@
 
 \item{y}{state vector}
 
-\item{pars}{a [list]}
+\item{pars}{a \link{list}}
 
 \item{eta}{vector giving number of eggs being laid in each larval habitat}
 }
 \value{
-a [numeric] vector
+a \link{numeric} vector
 }
 \description{
-Implements [dLdt] for the basic competition model.
+Implements \link{dLdt} for the basic competition model.
 }

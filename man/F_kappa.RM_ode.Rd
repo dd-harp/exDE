@@ -11,11 +11,11 @@
 
 \item{y}{state vector}
 
-\item{pars}{a [list]}
+\item{pars}{a \link{list}}
 }
 \value{
-a [numeric] vector of length `nPatches`
+a \link{numeric} vector of length \code{nPatches}
 }
 \description{
-Implements [F_kappa] for the generalized RM ODE model.
+Implements \link{F_kappa} for the generalized RM ODE model.
 }

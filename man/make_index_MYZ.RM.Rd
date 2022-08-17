@@ -7,11 +7,11 @@
 \method{make_index_MYZ}{RM}(pars)
 }
 \arguments{
-\item{pars}{a [list]}
+\item{pars}{a \link{list}}
 }
 \value{
-the modified parameter [list]
+the modified parameter \link{list}
 }
 \description{
-Implements [make_index_MYZ] for the generalized RM model.
+Implements \link{make_index_MYZ} for the generalized RM model.
 }

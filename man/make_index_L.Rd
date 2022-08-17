@@ -7,12 +7,12 @@
 make_index_L(pars)
 }
 \arguments{
-\item{pars}{a [list]}
+\item{pars}{a \link{list}}
 }
 \value{
-the modified parameter [list]
+the modified parameter \link{list}
 }
 \description{
-This method dispatches on the type of `pars$Lpar`. Adds field `L_ix`
+This method dispatches on the type of \code{pars$Lpar}. Adds field \code{L_ix}
 to parameter list.
 }
