@@ -18,6 +18,9 @@ Roxygen: list(markdown = TRUE)
 Imports: 
   deSolve
 Suggests:
-  expm,
-  ggplot2,
-  data.table
+    expm,
+    ggplot2,
+    data.table,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

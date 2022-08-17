@@ -1,0 +1,21 @@
+---
+title: "5-3-4 Example"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{5-3-4 Example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(xDE)
+```
+
+Some stuff about this.

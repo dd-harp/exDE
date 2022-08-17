@@ -1,0 +1,104 @@
+---
+title: "Ross-Macdonald Adult Mosquito Model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Ross-Macdonald Adult Mosquito Model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(xDE)
+```
+
+The adult mosquito component blah blah blah.
+
+## Differential Equations
+
+## Delay Differential Equations
+
+These equations are implemented by `xDE::dMYZdt.RM_dde`.
+
+$$
+\dot{M} = \Lambda - \Omega\cdot M 
+$$
+$$
+\dot{G} = \mbox{diag}(f) \cdot (M-G) - \nu G - \Omega \cdot G
+$$
+
+$$
+\dot{Y} = \mbox{diag}(fq\kappa) \cdot (M-Y) - \Omega \cdot Y
+$$
+
+$$
+\dot{Z} = e^{-\Omega \tau} \cdot \mbox{diag}(fq\kappa_{t-\tau}) \cdot (M_{t-\tau}-Y_{t-\tau}) - \Omega \cdot Z
+$$
+## Ordinary Differential Equations
+
+These equations are implemented by `xDE::dMYZdt.RM_ode`.
+
+The system of ODEs is the same as above except for the equation giving the rate of change
+in infectious mosquito density, which becomes:
+
+$$
+\dot{Z} = e^{-\Omega \tau} \cdot \mbox{diag}(fq\kappa) \cdot (M-Y) - \Omega \cdot Z
+$$
+The resulting set of equations is similar in spirit to the simple model presented in
+[Smith & McKenzie (2004)](https://malariajournal.biomedcentral.com/articles/10.1186/1475-2875-3-13) in that
+mortality and dispersal over the EIP is accounted for, but the time lag is not. While
+transient dynamics of the ODE model will not equal the DDE model, they have the same
+equilibrium values, and so for numerical work requiring finding equilibrium points, the faster
+ODE model can be safely substituted.
+
+## Equilibrium solutions
+
+### Starting with $\Lambda$:
+
+Given $\Lambda$ we can solve:
+
+$$
+M = \Omega^{-1} \cdot \Lambda
+$$
+Then given $M$ we set $\dot{Y}$ to zero and factor out $Y$ to get:
+
+$$
+Y = (\mbox{diag}(fq\kappa) + \Omega)^{-1} \cdot \mbox{diag}(fq\kappa) \cdot M
+$$
+We set $\dot{Z}$ to zero to get:
+
+$$
+Z = \Omega^{-1} \cdot e^{-\Omega \tau} \cdot \mbox{diag}(fq\kappa) \cdot (M-Y)
+$$
+
+Because the dynamics of $G$ are independent of the infection dynamics, we can solve it given $M$ as:
+
+$$
+G = (\mbox{diag}(\nu) + \Omega + \mbox{diag}(f))^{-1} \cdot \mbox{diag}(f) \cdot M
+$$
+### Starting with $Z$:
+
+It is more common that we start from an estimate of $Z$, perhpas derived from an estimated EIR (entomological inoculation rate). Given $Z$, we can calculate the other state variables and $\Lambda$. For numerical implementation, note that $(e^{-\Omega\tau})^{-1} = e^{\Omega\tau}$.
+
+$$
+M-Y = \mbox{diag}(1/fq\kappa) \cdot (e^{-\Omega\tau})^{-1} \cdot \Omega \cdot Z
+$$
+
+$$
+Y = \Omega^{-1} \cdot \mbox{diag}(fq\kappa) \cdot (M-Y)
+$$
+
+$$
+M = (M - Y) + Y
+$$
+
+$$
+\Lambda = \Omega \cdot M
+$$
+We can use the same equation for $G$ as above.
