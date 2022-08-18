@@ -130,9 +130,8 @@ make_index_MYZ.RM <- function(pars) {
 
 #' @noRd
 make_parameters_MYZ_RM <- function(MYZpar, Omega, OmegaEIP, f, q, nu, eggsPerBatch, M0, G0, Y0, Z0) {
-  stopifnot(vapply(as.list(match.call()), is.numeric, logical(1)))
   stopifnot(inherits(Omega, 'matrix'), inherits(OmegaEIP, 'matrix'))
-  # stopifnot(is.numeric(psi), is.numeric(phi), is.numeric(theta), is.numeric(L0))
+  stopifnot(is.numeric(f), is.numeric(q), is.numeric(nu), is.numeric(eggsPerBatch), is.numeric(M0), is.numeric(G0), is.numeric(Y0), is.numeric(Z0))
   MYZpar$Omega <- Omega
   MYZpar$OmegaEIP <- OmegaEIP
   MYZpar$f <- f

@@ -18,9 +18,15 @@ knitr::opts_chunk$set(
 library(xDE)
 ```
 
-The adult mosquito component blah blah blah.
+The Ross-Macdonald adult mosquito component blah blah blah.
 
-## Differential Equations
+Recall that
+
+$$
+\Omega =  \mbox{diag(g)} + \left(I- {\cal K}\right) \cdot \mbox{diag}(\sigma)
+$$
+
+# Differential Equations
 
 ## Delay Differential Equations
 
@@ -40,6 +46,7 @@ $$
 $$
 \dot{Z} = e^{-\Omega \tau} \cdot \mbox{diag}(fq\kappa_{t-\tau}) \cdot (M_{t-\tau}-Y_{t-\tau}) - \Omega \cdot Z
 $$
+
 ## Ordinary Differential Equations
 
 These equations are implemented by `xDE::dMYZdt.RM_ode`.
@@ -57,9 +64,9 @@ transient dynamics of the ODE model will not equal the DDE model, they have the 
 equilibrium values, and so for numerical work requiring finding equilibrium points, the faster
 ODE model can be safely substituted.
 
-## Equilibrium solutions
+# Equilibrium solutions
 
-### Starting with $\Lambda$:
+## Starting with $\Lambda$:
 
 Given $\Lambda$ we can solve:
 
@@ -82,7 +89,8 @@ Because the dynamics of $G$ are independent of the infection dynamics, we can so
 $$
 G = (\mbox{diag}(\nu) + \Omega + \mbox{diag}(f))^{-1} \cdot \mbox{diag}(f) \cdot M
 $$
-### Starting with $Z$:
+
+## Starting with $Z$:
 
 It is more common that we start from an estimate of $Z$, perhpas derived from an estimated EIR (entomological inoculation rate). Given $Z$, we can calculate the other state variables and $\Lambda$. For numerical implementation, note that $(e^{-\Omega\tau})^{-1} = e^{\Omega\tau}$.
 

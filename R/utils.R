@@ -24,3 +24,13 @@ diag_inverse <- function(x) {
   }
   return(diag(as.vector(1/x)))
 }
+
+#' @title Check if two numeric values are approximately equal
+#' @param a a [numeric] object
+#' @param b a [numeric] object
+#' @param tol the numeric tolerance
+#' @return a logical value
+#' @export
+approx_equal <- function(a, b, tol = sqrt(.Machine$double.eps)) {
+  abs(a - b) < tol
+}

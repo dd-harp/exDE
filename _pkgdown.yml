@@ -1,0 +1,22 @@
+url: ~
+template:
+  bootstrap: 5
+
+navbar:
+  title: "bayesplot"
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Functions"
+      href: reference/index.html
+    - text: "Models"
+      menu:
+        - text: "Ross-Macdonald Adult Mosquitos"
+          href: articles/adult_RM.html
+    - text: "Examples"
+      menu:
+        - text: "5-3-4 Spatial Example"
+          href: articles/ex_534.html
+  right:
+   - icon: fa-github
+     href: https://github.com/dd-harp/xDE/
