@@ -1,0 +1,34 @@
+url: ~
+template:
+  bootstrap: 5
+
+navbar:
+  title: "bayesplot"
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: "Functions"
+      href: reference/index.html
+    - text: "Adult Mosquito Component"
+      menu:
+        - text: "Ross-Macdonald model"
+          href: articles/adult_RM.html
+    - text: "Aquatic Mosquito Component"
+      menu:
+        - text: "Trace (forced) model"
+          href: articles/aqua_trace.html
+        - text: "Basic competition model"
+          href: articles/aqua_basic.html
+    - text: "Human Component"
+      menu:
+        - text: "SIS model"
+          href: articles/human_sis.html
+        - text: "SIP model"
+          href: articles/human_sip.html
+    - text: "Examples"
+      menu:
+        - text: "5-3-4 Spatial Example"
+          href: articles/ex_534.html
+  right:
+   - icon: fa-github
+     href: https://github.com/dd-harp/xDE/

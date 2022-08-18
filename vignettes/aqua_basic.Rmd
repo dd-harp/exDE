@@ -1,0 +1,49 @@
+---
+title: "Basic Competition Aquatic Mosquito Model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Basic Competition Aquatic Mosquito Model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(xDE)
+```
+
+Something something.
+
+# Differential Equations
+
+Given $\Lambda$ and some egg laying rate from the adult mosquito population we could formulate and solve a dynamical model of aquatic mosquitoes to give that emergence rate. However, in the example here we will simply use a trace-based (forced) emergence model, so that $\Lambda$ completely specifies the aquatic mosquitoes.
+
+The simplest model of aquatic (immature) mosquito dynamics with negative feedback (density dependence) is:
+
+$$
+\dot{L} = \eta - (\psi+\phi+\theta L)L
+$$
+
+Because the equations allow the number of larval habitats $l$ to differ from $p$, in general the emergence rate is given by:
+
+$$
+\Lambda = \mathcal{N}\cdot \alpha
+$$
+
+Where $\mathcal{N}$ is a $p\times l$ matrix and $\alpha$ is a length $l$ column vector given as:
+
+$$
+\alpha = \frac{\psi L}{2}
+$$
+
+In general, if we know the value of $\Lambda$ at equilibrium we can solve for $L$ directly by using the above two equations. Then we can consider $\theta$, the strength of density dependence to be unknown and solve such that:
+
+$$
+\theta = (\eta - \psi L - \phi L) / L^2
+$$

@@ -1,0 +1,45 @@
+---
+title: "SIS (Susceptible-Infected-Susceptible) Human Model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SIS (Susceptible-Infected-Susceptible) Human Model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(xDE)
+```
+
+Let the generalized SIS human model be:
+
+$$
+\dot{X} = \mbox{diag}(bEIR) \cdot (H-X) - rX
+$$
+
+A typical situation when using this model is that $H$ (total population size by strata) and $X$ (number of infectious persons by strata) are known from census and survey data. Then it is of interest to find the value of $EIR$ (Entomological Inoculation Rate) which leads to that prevalence at equilibrium.
+
+$$
+0 = \mbox{diag}(bEIR) \cdot (H-X) - rX 
+$$
+
+$$ 
+rX = \mbox{diag}(b) \cdot \mbox{diag}(EIR) \cdot (H-X) 
+$$
+
+$$
+\frac{rX}{H-X} = \mbox{diag}(b) \cdot \mbox{diag}(EIR)
+$$
+
+$$
+\mbox{diag}(1/b) \cdot \left(\frac{rX}{H-X}\right) = EIR
+$$
+
+Note that in the final line, $EIR$ is a column vector of dimension $n$ due to the operations on the left. Each element gives the per-capita rate at which individuals in that population strata receive potentially infectious bites (summing across all the places they visit).
