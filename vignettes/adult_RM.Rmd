@@ -66,7 +66,7 @@ ODE model can be safely substituted.
 
 # Equilibrium solutions
 
-## Starting with $\Lambda$:
+## Starting with $\Lambda$
 
 Given $\Lambda$ we can solve:
 
@@ -90,7 +90,7 @@ $$
 G = (\mbox{diag}(\nu) + \Omega + \mbox{diag}(f))^{-1} \cdot \mbox{diag}(f) \cdot M
 $$
 
-## Starting with $Z$:
+## Starting with $Z$
 
 It is more common that we start from an estimate of $Z$, perhpas derived from an estimated EIR (entomological inoculation rate). Given $Z$, we can calculate the other state variables and $\Lambda$. For numerical implementation, note that $(e^{-\Omega\tau})^{-1} = e^{\Omega\tau}$.
 

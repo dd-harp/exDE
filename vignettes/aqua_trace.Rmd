@@ -1,0 +1,23 @@
+---
+title: "Trace (exogenously forced) Aquatic Mosquito Model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Trace (exogenously forced) Aquatic Mosquito Model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(xDE)
+```
+
+This is the null model of aquatic mosquito dynamics; there are no endogenous dynamics
+and the model is simply specified by `Lambda`, the rate at which adult mosquitoes
+spontaneously emerge from aquatic habitats.

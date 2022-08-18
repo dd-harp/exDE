@@ -1,0 +1,45 @@
+---
+title: "SIP (Susceptible-Infected-Prophylaxis) Human Model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SIP (Susceptible-Infected-Prophylaxis) Human Model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(xDE)
+```
+
+The modular nature of the equations makes it relatively simple to add complexity to specific components of the framework without reconfiguring the entire system.
+
+One reasonable complication would be to add treatment followed by a duration of protective immunity to reinfection to the SIS model, creating SIP (Susceptible-Infectious-Protected) dynamics. This requires two new parameters, $\rho$, the probability a new infection is treated, and $\eta$ the duration of chemoprophylaxis following treatment. $X$ remains a column vector giving the number of infectious individuals in each strata, and $P$ the number of treated and protected individuals.
+
+The equations are as follows:
+
+$$
+\dot{X} = \mbox{diag}((1-\rho)bEIR)\cdot (H-X-P) - rX
+$$
+
+$$
+\dot{P} = \mbox{diag}(\rho b EIR) \cdot (H-X-P) - \eta P
+$$
+
+Again, we assume $H$ and $X$ to be known. and solve for $EIR$ and $P$.
+
+$$
+P = \mbox{diag}(1/\eta) \cdot \mbox{diag}(\rho/(1-\rho)) \cdot rX
+$$
+
+$$
+EIR = \mbox{diag}(1/b) \cdot \mbox{diag}(1/(1-\rho)) \cdot \left( \frac{rX}{H-X-P} \right)
+$$
+
+Given $EIR$ we can solve for the mosquito population which would have given rise to those equilibrium values.
