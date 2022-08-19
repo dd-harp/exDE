@@ -14,8 +14,249 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r, warning=FALSE, message=FALSE}
 library(xDE)
+library(expm)
+library(data.table)
+library(ggplot2)
 ```
 
-Some stuff about this.
+# Introduction
+
+We show how to setup, solve, and analyze models of mosquito-borne pathogen transmission dynamics and control using modular software. This vignette is designed to explain modular notation by constructing a model with five aquatic habitats ($l=5$), three patches ($p=3$), and four human population strata ($n=4$). We call it `5-3-4`. 
+
+## Diagram 
+
+The model `5-3-4` is designed to illustrate some important features of the framework and notation. We assume that:
+
++ the first three habitats are found in patch 1; the last two are in patch 2; patch 3 has no habitats. 
+
++ patch 1 has no residents; patches 2 and 3 are occupied, each with two different population strata; 
+
++ Transmission among patches is modeled using the concept of *time spent*, which is similar to the *visitation rates* that have been used in other models. While the strata have a residency (i.e; a patch they spend most of their time in), each stratum allocates their time across all the habitats. 
+
+![](534.png)
+
+# Parameters
+
+We already know three important parameters, $l$, $p$ and $n$ because they are determined in the early stages of model building. The `xDE` package expects all parameters to be contained in a list object, containing `nHabitats`, `nPatches`, and `nStrata` which correspond to `l`, `p` and `n`.
+
+```{r}
+params <- list(
+  nHabitats = 5,
+  nPatches = 3,
+  nStrata = 4
+)
+```
+
+## Aquatic Habitat Membership Matrix
+
+The aquatic habitat membership matrix $\mathcal{N}$ is a $p \times l$ matrix mapping aquatic habitats to the patches which contain them. It should be attached directly to the parameters list.
+
+\begin{equation}
+{\cal N} = \left[
+  \begin{array}{ccccc} 
+  1 & 1 & 1 & 0 & 0  \\ 
+  0 & 0 & 0 & 1 & 1\\ 
+  0 & 0 & 0 & 0 & 0\\ 
+  \end{array} \right]
+\end{equation}
+
+
+```{r}
+calN <- matrix(
+  data = c(1,1,1,0,0,
+           0,0,0,1,1,
+           0,0,0,0,0), 
+  nrow = params$nPatches, ncol = params$nHabitats, byrow = TRUE
+)
+params$calN <- calN
+```
+
+## Egg Dispersal Matrix
+
+The egg dispersal matrix $\mathcal{U}$ is a $l \times p$ matrix describing how eggs laid by adult mosquitoes in a patch are allocated among the aquatic habitats in that patch. It is also attached directly to the parameters list.
+
+\begin{equation}
+{\cal U} = \left[
+  \begin{array}{ccccc} 
+  .7 & 0 & 0\\ 
+  .2 & 0 & 0\\ 
+  .1 & 0 & 0\\ 
+  0 & .8 & 0\\ 
+  0 & .2 & 0\\ 
+  \end{array} \right]
+\end{equation}
+
+```{r}
+xi <- matrix(c(.7, .2, .1, .8, .2), 5, 1) 
+params$calU <- t(calN %*% diag(as.vector(xi)))
+```
+
+## Aquatic Mosquito Parameters
+
+For this simulation, we use the basic competition model of larval dynamics (see more [here](aqua_basic.html)). It requires specification of three parameters, $\psi$ (maturation rates), $\phi$ (density-independent mortality rates), and $\theta$ (density-dependent mortality terms), and initial conditions. The function `xDE::make_parameters_L_basic` does basic checking of the input parameters and returns a list with the correct class for method dispatch. The returned list is attached to the main parameter list with name `Lpar`.
+
+```{r}
+L0 <- rep(1, params$nHabitats)
+psi <- rep(1/8, params$nHabitats)
+phi <- rep(1/8, params$nHabitats)
+theta <- c(1/10, 1/20, 1/40, 1/100, 1/10) 
+
+Lpar <- make_parameters_L_basic(psi = psi, phi = phi, theta = theta, L0 = L0)
+
+params$Lpar <- Lpar
+```
+
+## Adult Mosquito Parameters
+
+We use the ODE version of the generalized Ross-Macdonald model (see more [here](adult_RM.html)). Part of the specification of parameters includes the construction of the mosquito dispersal matrix $\mathcal{K}$, and the mosquito demography matrix $\Omega$. Like for the aquatic parameters, we use `xDE::make_parameters_MYZ_RM_ode` to check parameter types and return a list with the correct class for method dispatch. We attach the returned list to the main parameter list with name `MYZpar`.
+
+```{r}
+g <- rep(1/12, params$nPatches) 
+sigma <- rep(1/12/2, params$nPatches) 
+calK <- t(matrix(
+  c(c(0, .6, .3), 
+    c(.4, 0, .7), 
+    c(.6, .4, 0)), 3, 3))
+f <- rep(1/3, params$nPatches) 
+q <- rep(0.9, params$nPatches) 
+nu <- c(1/3,1/3,0)   
+eggsPerBatch <- 30 
+tau <- 12 
+M0 <- rep(100, params$nPatches)
+G0 <- rep(10, params$nPatches)
+Y0 <- rep(1, params$nPatches)
+Z0 <- rep(0, params$nPatches)
+
+Omega <- diag(g) + (diag(1,params$nPatches)-calK) %*% diag(sigma)
+OmegaEIP <- expm::expm(-Omega*tau)
+
+MYZpar <- make_parameters_MYZ_RM_ode(Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
+
+params$MYZpar <- MYZpar
+```
+
+## Human Parameters
+
+We use the basic SIS (Susceptible-Infected-Susceptible) model for the human component (see more [here](human_sis.html)). We set it up like the rest of the components, using `xDE::make_parameters_X_SIS` to make the correct return type, which is attached to the parameter list with name `Xpar`.
+
+```{r}
+H <- matrix(c(10,90, 100, 900), 4, 1)
+X0 <- as.vector(0.2*H)
+r <- rep(1/200, params$nStrata)
+b <- rep(0.55, params$nStrata)
+c <- c(0.1, .02, .1, .02)
+
+Xpar <- make_parameters_X_SIS(b = b, c = c, r = r, X0 = X0)
+
+params$Xpar <- Xpar
+```
+
+## Mixing
+
+Although not directly used in this example, we create the residency membership matrix $\mathcal{J}$, a $p \times n$ matrix indicating which patch each human population strata resides in.
+
+\begin{equation}
+{\cal J} = \left[
+  \begin{array}{cccc} 
+  0 & 0 & 0 & 0 \\ 
+  1 & 1 & 0 & 0 \\ 
+  0 & 0 & 1 & 1 \\ 
+  \end{array} \right]
+\end{equation}
+
+```{r}
+calJ <- t(matrix(
+  c(c(0,0,0,0),
+    c(1,1,0,0),
+    c(0,0,1,1)), 4, 3
+))
+```
+
+We then create the time at risk matrix $\Theta$, a $p \times n$ matrix describing how each human strata spends their time across patches.
+
+\begin{equation}
+\Theta = \left[
+  \begin{array}{cccc}
+  0.01 & .01 & .001 & .001 \\  
+  0.95 & .92 & .04  & .02  \\  
+  0.04 & .02 & .959 & .929 \\
+  \end{array}
+  \right] 
+\end{equation}
+
+```{r}
+Theta <- t(matrix(
+  c(c(0.01,0.01,0.001,0.001),
+    c(.95,.92,.04,.02),
+    c(.04,.02,.959,.929)), 4, 3
+))
+```
+
+Human availability for blood feeding, a vector of length $p$ is computed simply:
+
+```{r}
+W <- Theta %*% H
+```
+
+Availability is used to compute $\beta$, the $n\times p$ biting distribution matrix which is used to compute terms for bloodfeeding and pathogen transmission. We attach it and its transpose to the parameter list.
+
+```{r}
+beta <- t(Theta) %*% diag_inverse(W)
+params$beta <- beta
+params$betaT <- t(beta)
+```
+
+# Simulation
+
+## Initial Conditions
+
+After the parameters for `5-3-4` have been specified, we can generate the indices for the model and attach them to the parameter list.
+
+```{r}
+params <- make_indices(params)
+```
+
+Now we can set the initial conditions of the model.
+
+```{r}
+y <- rep(NaN, max(params$X_ix))
+y[params$L_ix] <- as.vector(L0)
+y[params$M_ix] <- as.vector(M0)
+y[params$G_ix] <- as.vector(G0)
+y[params$Y_ix] <- as.vector(Y0)
+y[params$Z_ix] <- as.vector(Z0)
+y[params$X_ix] <- as.vector(X0)
+```
+
+## Numerical Solution
+
+Now we can pass the vector of initial conditions, `y`, our parameter list `params`, and the function `xDE::xDE_diffeqn` to the differential equation solvers in `deSolve::ode` to generate a numerical trajectory. The classes of `Xpar`, `MYZpar`, and `Lpar` in `params` will ensure that the right methods are invoked (dispatched) to solve your model.
+
+```{r}
+out <- deSolve::ode(y = y, times = 0:365, func = xDE_diffeqn, parms = params, method = "lsoda")
+```
+
+## Plot Output
+
+With a small amount of data wrangling made easier by the `data.table` package, we can plot the output.
+
+```{r, out.width = "100%"}
+colnames(out)[params$L_ix+1] <- paste0('L_', 1:params$nHabitats)
+colnames(out)[params$M_ix+1] <- paste0('M_', 1:params$nPatches)
+colnames(out)[params$G_ix+1] <- paste0('G_', 1:params$nPatches)
+colnames(out)[params$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
+colnames(out)[params$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
+colnames(out)[params$X_ix+1] <- paste0('X_', 1:params$nStrata)
+
+out <- as.data.table(out)
+out <- melt(out, id.vars = 'time')
+out[, c("Component", "Stratification") := tstrsplit(variable, '_', fixed = TRUE)]
+out[, variable := NULL]
+
+ggplot(data = out, mapping = aes(x = time, y = value, color = Stratification)) +
+  geom_line() +
+  facet_wrap(. ~ Component, scales = 'free') +
+  theme_bw()
+```

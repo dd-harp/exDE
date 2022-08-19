@@ -3,10 +3,7 @@ template:
   bootstrap: 5
 
 navbar:
-  title: "bayesplot"
   left:
-    - icon: fa-home fa-lg
-      href: index.html
     - text: "Functions"
       href: reference/index.html
     - text: "Adult Mosquito Component"
@@ -32,3 +29,11 @@ navbar:
   right:
    - icon: fa-github
      href: https://github.com/dd-harp/xDE/
+
+home:
+  sidebar:
+    structure: [links, license, community, citation, authors, dev, custom_news]
+    components:
+      custom_news:
+        title: Changelog
+        text:  <a href="news/index.html">News</a>
