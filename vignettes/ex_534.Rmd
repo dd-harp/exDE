@@ -23,7 +23,7 @@ library(ggplot2)
 
 # Introduction
 
-We show how to setup, solve, and analyze models of mosquito-borne pathogen transmission dynamics and control using modular software. This vignette is designed to explain modular notation by constructing a model with five aquatic habitats ($l=5$), three patches ($p=3$), and four human population strata ($n=4$). We call it `5-3-4`. 
+We show how to setup, solve, and analyze models of mosquito-borne pathogen transmission dynamics and control using modular software. This vignette is designed to explain modular notation by constructing a model with five aquatic habitats ($l=5$), three patches ($p=3$), and four human population strata ($n=4$). We call it `5-3-4`.
 
 ## Diagram 
 
