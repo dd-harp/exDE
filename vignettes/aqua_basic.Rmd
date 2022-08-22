@@ -51,7 +51,8 @@ $$
 $$
 # Example
 
-Here we run a simple example with 3 aquatic habitats at equilibrium.
+Here we run a simple example with 3 aquatic habitats at equilibrium. We use `xDE::make_parameters_L_basic` to
+set up parameters.
 
 ```{r, out.width = "100%"}
 nHabitats <- 3
