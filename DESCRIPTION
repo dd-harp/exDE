@@ -19,6 +19,7 @@ Imports:
   deSolve
 Suggests:
     expm,
+    MASS,
     ggplot2,
     data.table,
     knitr,

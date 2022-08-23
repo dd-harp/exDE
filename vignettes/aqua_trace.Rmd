@@ -14,10 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(xDE)
-```
-
 This is the null model of aquatic mosquito dynamics; there are no endogenous dynamics
 and the model is simply specified by `Lambda`, the rate at which adult mosquitoes
 spontaneously emerge from aquatic habitats.

@@ -52,9 +52,14 @@ $$
 # Example
 
 Here we run a simple example with 3 aquatic habitats at equilibrium. We use `xDE::make_parameters_L_basic` to
-set up parameters.
+set up parameters. Please note that this only runs the aquatic mosquito component and that most users should read [our fully worked example](ex_534.html) to run a full simulation.
 
 ```{r, out.width = "100%"}
+library(xDE)
+library(deSolve)
+library(data.table)
+library(ggplot2)
+
 nHabitats <- 3
 alpha <- c(10, 50, 20)
 eta <- c(250, 500, 170)

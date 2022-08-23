@@ -117,6 +117,7 @@ reference:
 - title: "Generalized spatial differential equations"
   contents:
   - xDE_diffeqn
+  - xDE_diffeqn_mosy
 
 - title: "Utilities"
   contents:
