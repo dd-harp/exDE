@@ -14,10 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(xDE)
-```
-
 The basic competition aquatic mosquito model fulfills the generic interface of the aquatic mosquito component. It has a single compartment "larvae" for each aquatic habitat, and mosquitos in that aquatic habitat suffer density-independent and dependent mortality, and mature at some rate $\psi$.
 
 # Differential Equations

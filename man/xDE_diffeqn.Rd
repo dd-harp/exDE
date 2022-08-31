@@ -4,7 +4,7 @@
 \alias{xDE_diffeqn}
 \title{Generalized spatial differential equation model}
 \usage{
-xDE_diffeqn(t, y, pars)
+xDE_diffeqn(t, y, pars, EIR_delta = NULL, kappa_delta = NULL)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,11 +12,20 @@ xDE_diffeqn(t, y, pars)
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{EIR_delta}{a vector of values to be added to the internal \code{EIR}}
+
+\item{kappa_delta}{a vector of values to be added to the internal \code{kappa}}
 }
 \value{
 a \link{list} containing the vector of all state derivatives
 }
 \description{
 Compute derivatives for \link[deSolve:ode]{deSolve::ode} or \link[deSolve:dede]{deSolve::dede} using
-generic methods for each model component.
+generic methods for each model component. The arguments \code{EIR_delta} and \code{kappa_delta} are
+for adding external forcing to the system from unmodeled sources. This can arise
+if humans can acquire infection by traveling outside the spatial domain, and
+arises for mosquitoes if traveling outside the spatial domain or are being infected
+by unmodeled (non-human) sources. By default these are set to \code{NULL} and are
+turned off.
 }
