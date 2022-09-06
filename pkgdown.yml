@@ -1,0 +1,15 @@
+pandoc: 2.14.2
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  adult_RM: adult_RM.html
+  aqua_basic: aqua_basic.html
+  aqua_trace: aqua_trace.html
+  ex_534: ex_534.html
+  human_sip: human_sip.html
+  human_sis: human_sis.html
+last_built: 2022-09-06T20:11Z
+urls:
+  reference: https://dd-harp.github.io/xDE/reference
+  article: https://dd-harp.github.io/xDE/articles
+
