@@ -4,7 +4,7 @@
 \alias{make_parameters_X_SIP}
 \title{Make parameters for SIP human model}
 \usage{
-make_parameters_X_SIP(b, c, r, rho, eta)
+make_parameters_X_SIP(b, c, r, rho, eta, X0, P0, H)
 }
 \arguments{
 \item{b}{transmission probability (efficiency) from mosquito to human}
@@ -16,6 +16,12 @@ make_parameters_X_SIP(b, c, r, rho, eta)
 \item{rho}{probability of successful treatment upon infection}
 
 \item{eta}{prophylaxis waning rate}
+
+\item{X0}{size of infected population in each strata}
+
+\item{P0}{size of population protected by prophylaxis in each strata}
+
+\item{H}{size of human population in each strata}
 }
 \value{
 a \link{list} with class \code{SIP}.

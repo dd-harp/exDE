@@ -3,6 +3,7 @@
 #' @return modified parameters [list]
 #' @export
 make_indices <- function(pars) {
+  stopifnot(all(c('Lpar', 'MYZpar', 'Xpar') %in% names(pars)))
   pars$max_ix <- 0
   pars <- make_index_L(pars)
   pars <- make_index_MYZ(pars)
@@ -22,7 +23,7 @@ diag_inverse <- function(x) {
   if (length(ix) > 0) {
     x[ix] <- 1
   }
-  return(diag(as.vector(1/x)))
+  return(diag(x = 1/x, nrow = length(x), ncol = length(x), names = FALSE))
 }
 
 #' @title Check if two numeric values are approximately equal

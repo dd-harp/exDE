@@ -53,14 +53,18 @@ make_index_X.SIS <- function(pars) {
 #' @param b transmission probability (efficiency) from mosquito to human
 #' @param c transmission probability (efficiency) from human to mosquito
 #' @param r recovery rate
+#' @param X0 size of infected population in each strata
+#' @param H size of human population in each strata
 #' @return a [list] with class `SIS`.
 #' @export
-make_parameters_X_SIS <- function(b, c, r) {
-  stopifnot(is.numeric(b), is.numeric(c), is.numeric(r))
+make_parameters_X_SIS <- function(b, c, r, X0, H) {
+  stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(X0), is.numeric(H))
   Xpar <- list()
   class(Xpar) <- c('SIS')
   Xpar$b <- b
   Xpar$c <- c
   Xpar$r <- r
+  Xpar$X0 <- X0
+  Xpar$H <- H
   return(Xpar)
 }
