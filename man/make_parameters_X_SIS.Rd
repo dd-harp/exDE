@@ -4,7 +4,7 @@
 \alias{make_parameters_X_SIS}
 \title{Make parameters for SIS human model}
 \usage{
-make_parameters_X_SIS(b, c, r, X0)
+make_parameters_X_SIS(b, c, r, X0, H)
 }
 \arguments{
 \item{b}{transmission probability (efficiency) from mosquito to human}
@@ -14,6 +14,8 @@ make_parameters_X_SIS(b, c, r, X0)
 \item{r}{recovery rate}
 
 \item{X0}{size of infected population in each strata}
+
+\item{H}{size of human population in each strata}
 }
 \value{
 a \link{list} with class \code{SIS}.

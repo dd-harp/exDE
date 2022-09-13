@@ -1,47 +1,50 @@
-url: ~
+url: https://dd-harp.github.io/xDE/
 template:
   bootstrap: 5
-
 navbar:
   left:
-    - text: "Functions"
-      href: reference/index.html
-    - text: "Adult Mosquito Component"
-      menu:
-        - text: "Ross-Macdonald model"
-          href: articles/adult_RM.html
-    - text: "Aquatic Mosquito Component"
-      menu:
-        - text: "Trace (forced) model"
-          href: articles/aqua_trace.html
-        - text: "Basic competition model"
-          href: articles/aqua_basic.html
-    - text: "Human Component"
-      menu:
-        - text: "SIS model"
-          href: articles/human_sis.html
-        - text: "SIP model"
-          href: articles/human_sip.html
-    - text: "Examples"
-      menu:
-        - text: "5-3-4 Spatial Example"
-          href: articles/ex_534.html
+  - text: Functions
+    href: reference/index.html
+  - text: Adult Mosquito Component
+    menu:
+    - text: Ross-Macdonald model
+      href: articles/adult_RM.html
+  - text: Aquatic Mosquito Component
+    menu:
+    - text: Trace (forced) model
+      href: articles/aqua_trace.html
+    - text: Basic competition model
+      href: articles/aqua_basic.html
+  - text: Human Component
+    menu:
+    - text: SIS model
+      href: articles/human_sis.html
+    - text: SIP model
+      href: articles/human_sip.html
+  - text: Examples
+    menu:
+    - text: 5-3-4 Spatial Example
+      href: articles/ex_534.html
   right:
-   - icon: fa-github
-     href: https://github.com/dd-harp/xDE/
-
+  - icon: fa-github
+    href: https://github.com/dd-harp/xDE/
 home:
   sidebar:
-    structure: [links, license, community, citation, authors, dev, custom_news]
+    structure:
+    - links
+    - license
+    - community
+    - citation
+    - authors
+    - dev
+    - custom_news
     components:
       custom_news:
         title: Changelog
-        text:  <a href="news/index.html">News</a>
-
+        text: <a href="news/index.html">News</a>
 reference:
-
-- title: "Adult mosquito component"
-  desc: >
+- title: Adult mosquito component
+  desc: |
     Generic methods for the adult mosquito component.
   contents:
   - F_EIR
@@ -49,8 +52,8 @@ reference:
   - F_eggs
   - dMYZdt
   - make_index_MYZ
-- subtitle: "Ross-Macdonald mosquito model"
-  desc: >
+- subtitle: Ross-Macdonald mosquito model
+  desc: |
     Specialized methods for the generalized Ross-Macdonald model of adult mosquito dynamics.
   contents:
   - F_EIR.RM
@@ -62,41 +65,39 @@ reference:
   - make_index_MYZ.RM
   - make_parameters_MYZ_RM_ode
   - make_parameters_MYZ_RM_dde
-
-- title: "Aquatic mosquito component"
-  desc: >
+- title: Aquatic mosquito component
+  desc: |
     Generic methods for the aquatic (immature) mosquito component.
   contents:
   - F_alpha
   - dLdt
   - make_index_L
-- subtitle: "Trace (forced) aquatic mosquito model"
-  desc: >
+- subtitle: Trace (forced) aquatic mosquito model
+  desc: |
     Specialized methods for the exogeneously forced trace model of aquatic mosquito dynamics.
   contents:
   - F_alpha.trace
   - dLdt.trace
   - make_index_L.trace
   - make_parameters_L_trace
-- subtitle: "Basic competition aquatic mosquito model"
-  desc: >
+- subtitle: Basic competition aquatic mosquito model
+  desc: |
     Specialized methods for the basic competition model of aquatic mosquito dynamics.
   contents:
   - F_alpha.basic
   - dLdt.basic
   - make_index_L.basic
   - make_parameters_L_basic
-
-- title: "Human component"
-  desc: >
+- title: Human component
+  desc: |
     Generic methods for the human component.
   contents:
   - F_x
   - F_x_tau
   - dXdt
   - make_index_X
-- subtitle: "SIS human model"
-  desc: >
+- subtitle: SIS human model
+  desc: |
     Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
   contents:
   - F_x.SIS
@@ -104,8 +105,8 @@ reference:
   - dXdt.SIS
   - make_index_X.SIS
   - make_parameters_X_SIS
-- subtitle: "SIP human model"
-  desc: >
+- subtitle: SIP human model
+  desc: |
     Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
   contents:
   - F_x.SIP
@@ -113,14 +114,13 @@ reference:
   - dXdt.SIP
   - make_index_X.SIP
   - make_parameters_X_SIP
-
-- title: "Generalized spatial differential equations"
+- title: Generalized spatial differential equations
   contents:
   - xDE_diffeqn
   - xDE_diffeqn_mosy
-
-- title: "Utilities"
+- title: Utilities
   contents:
   - make_indices
   - diag_inverse
   - approx_equal
+

@@ -148,7 +148,7 @@ r <- rep(1/200, params$nStrata)
 b <- rep(0.55, params$nStrata)
 c <- c(0.1, .02, .1, .02)
 
-Xpar <- make_parameters_X_SIS(b = b, c = c, r = r, X0 = X0)
+Xpar <- make_parameters_X_SIS(b = b, c = c, r = r, X0 = X0, H = as.vector(H))
 
 params$Xpar <- Xpar
 ```

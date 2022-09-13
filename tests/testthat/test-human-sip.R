@@ -19,7 +19,7 @@ test_that("human SIP model remains at equilibrium", {
     P_ix = 4:6
   )
 
-  Xpar <- make_parameters_X_SIP(b = b, c = c, r = r, rho = rho, eta = eta, X0 = X, P0 = as.vector(P))
+  Xpar <- make_parameters_X_SIP(b = b, c = c, r = r, rho = rho, eta = eta, X0 = X, P0 = as.vector(P), H = H)
   params$Xpar <- Xpar
 
   y0 <- rep(0, 6)

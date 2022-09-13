@@ -15,7 +15,7 @@ test_that("human SIS model remains at equilibrium", {
     X_ix = 1:3
   )
 
-  Xpar <- make_parameters_X_SIS(b = b, c = c, r = r, X0 = X)
+  Xpar <- make_parameters_X_SIS(b = b, c = c, r = r, X0 = X, H = H)
   params$Xpar <- Xpar
 
   y0 <- rep(0, 3)
