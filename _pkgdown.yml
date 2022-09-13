@@ -21,10 +21,12 @@ navbar:
       href: articles/human_sis.html
     - text: SIP model
       href: articles/human_sip.html
-  - text: Examples
+  - text: Articles
     menu:
     - text: 5-3-4 Spatial Example
       href: articles/ex_534.html
+    - text: Spatial Metrics
+      href: articles/spat_metric.html
   right:
   - icon: fa-github
     href: https://github.com/dd-harp/xDE/
@@ -118,6 +120,12 @@ reference:
   contents:
   - xDE_diffeqn
   - xDE_diffeqn_mosy
+- title: Spatial metrics
+  contents:
+  - metric_calV
+  - metric_calD
+  - metric_calR
+  - metric_calZ
 - title: Utilities
   contents:
   - make_indices

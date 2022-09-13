@@ -4,7 +4,7 @@
 \alias{metric_calZ}
 \title{Parasite Dispersal through one Parasite Generation (Mosquitoes)}
 \usage{
-metric_calZ(Omega, tau, f, q, M, calD)
+metric_calZ(Omega, tau, f, q, M, W, calD)
 }
 \arguments{
 \item{Omega}{the mosquito demography matrix}
@@ -16,6 +16,8 @@ metric_calZ(Omega, tau, f, q, M, calD)
 \item{q}{fraction of bloodmeals taken on humans}
 
 \item{M}{size of mosquito population in each patch}
+
+\item{W}{ambient human population at each patch}
 
 \item{calD}{parasite dispersal by humans matrix (see \link{metric_calD})}
 }

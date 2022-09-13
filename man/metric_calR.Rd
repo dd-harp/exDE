@@ -13,6 +13,8 @@ metric_calR(b, beta, calV, W, D, H)
 
 \item{calV}{parasite dispersal by mosquitoes matrix (see \link{metric_calV})}
 
+\item{W}{ambient human population at each patch}
+
 \item{D}{human transmitting capacity}
 
 \item{H}{human population size of each strata}

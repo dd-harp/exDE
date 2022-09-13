@@ -19,8 +19,8 @@ metric_calV <- function(f, q, Omega, tau, M, W) {
   if (length(f) == 1L) {
     f <- rep(f, nrow(Omega))
   }
-  if (length(g) == 1L) {
-    g <- rep(g, nrow(Omega))
+  if (length(q) == 1L) {
+    q <- rep(q, nrow(Omega))
   }
   OmegaEIP <- expm(x = -Omega*tau)
   Omega_inv <- ginv(X = Omega)
@@ -61,6 +61,7 @@ metric_calD <- function(W, beta, b, D, H) {
 #' @param b transmission efficiency from mosquitoes to humans
 #' @param beta the biting distribution matrix
 #' @param calV parasite dispersal by mosquitoes matrix (see [xDE::metric_calV])
+#' @param W ambient human population at each patch
 #' @param D human transmitting capacity
 #' @param H human population size of each strata
 #' @export
@@ -87,18 +88,24 @@ metric_calR <- function(b, beta, calV, W, D, H) {
 #' @param f the feeding rate
 #' @param q fraction of bloodmeals taken on humans
 #' @param M size of mosquito population in each patch
+#' @param W ambient human population at each patch
 #' @param calD parasite dispersal by humans matrix (see [xDE::metric_calD])
 #' @importFrom MASS ginv
 #' @importFrom expm expm
 #' @export
-metric_calZ <- function(Omega, tau, f, q, M, calD) {
+metric_calZ <- function(Omega, tau, f, q, M, W, calD) {
   stopifnot(inherits(Omega, 'matrix'))
   stopifnot(inherits(calD, 'matrix'))
   if (length(f) == 1L) {
     f <- rep(f, nrow(Omega))
   }
-  if (length(g) == 1L) {
-    g <- rep(g, nrow(Omega))
+  if (length(q) == 1L) {
+    q <- rep(q, nrow(Omega))
+  }
+  if (inherits(W, 'matrix')) {
+    W <- diag(as.vector(W), nrow = length(as.vector(W)))
+  } else {
+    W <- diag(W, nrow = length(W))
   }
   OmegaEIP <- expm(x = -Omega*tau)
   Omega_inv <- ginv(X = Omega)
