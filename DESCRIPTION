@@ -18,10 +18,10 @@ URL: https://dd-harp.github.io/xDE/
 BugReports: https://github.com/dd-harp/xDE/issues
 Roxygen: list(markdown = TRUE)
 Imports: 
-  deSolve
+  deSolve,
+  expm,
+  MASS
 Suggests:
-    expm,
-    MASS,
     ggplot2,
     data.table,
     knitr,
