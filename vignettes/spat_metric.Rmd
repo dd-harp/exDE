@@ -195,5 +195,5 @@ D <- c/r
 calV <- metric_calV(f = f, q = q, Omega = Omega, tau = tau, M = M, W = W)
 calD <- metric_calD(W = W, beta = beta, b = b, D = D, H = H)
 calR <- metric_calR(b = b, beta = beta, calV = calV, W = W, D = D, H = H)
-calZ <- metric_calZ(Omega = Omega, tau = tau, f = f, q = q, M = M, calD = calD)
+calZ <- metric_calZ(Omega = Omega, tau = tau, f = f, q = q, M = M, W = W, calD = calD)
 ```
