@@ -135,17 +135,10 @@ In the 1 patch 1 strata case this becomes the same equation as $\mathcal{R}$.
 
 # Example
 
+Here we demonstrate how to calculate these metrics using the [5-3-4 example](ex_534.html).
+
 ```{r}
 library(xDE)
-library(expm)
-library(data.table)
-library(ggplot2)
-
-params <- list(
-  nHabitats = 5,
-  nPatches = 3,
-  nStrata = 4
-)
 
 l <- 5
 p <- 3
@@ -162,7 +155,6 @@ calN <- matrix(
 xi <- matrix(c(.7, .2, .1, .8, .2), 5, 1) 
 calU <- t(calN %*% diag(as.vector(xi)))
 
-
 g <- rep(1/12, p) 
 sigma <- rep(1/12/2, p) 
 calK <- t(matrix(
@@ -174,10 +166,7 @@ q <- rep(0.9, p)
 tau <- 12 
 M <- rep(100, p)
 
-
 Omega <- diag(g) + (diag(1,p)-calK) %*% diag(sigma)
-OmegaEIP <- expm::expm(-Omega*tau)
-
 Lambda <- Omega %*% M
 
 H <- matrix(c(10,90, 100, 900), 4, 1)
@@ -199,11 +188,12 @@ Theta <- t(matrix(
 ))
 
 W <- Theta %*% H
-
 beta <- t(Theta) %*% diag_inverse(W)
 
-
-
+D <- c/r
 
 calV <- metric_calV(f = f, q = q, Omega = Omega, tau = tau, M = M, W = W)
+calD <- metric_calD(W = W, beta = beta, b = b, D = D, H = H)
+calR <- metric_calR(b = b, beta = beta, calV = calV, W = W, D = D, H = H)
+calZ <- metric_calZ(Omega = Omega, tau = tau, f = f, q = q, M = M, calD = calD)
 ```

@@ -42,8 +42,12 @@ metric_calV <- function(f, q, Omega, tau, M, W) {
 #' @export
 metric_calD <- function(W, beta, b, D, H) {
   stopifnot(inherits(beta, 'matrix'))
+  D <- as.vector(D)
+  H <- as.vector(H)
   stopifnot(length(D) == length(H))
-  if (!inherits(W, 'matrix')) {
+  if (inherits(W, 'matrix')) {
+    W <- diag(as.vector(W), nrow = length(as.vector(W)))
+  } else {
     W <- diag(W, nrow = length(W))
   }
   bDH <- diag(b*D*H, nrow = length(H))
@@ -62,9 +66,13 @@ metric_calD <- function(W, beta, b, D, H) {
 #' @export
 metric_calR <- function(b, beta, calV, W, D, H) {
   stopifnot(inherits(beta, 'matrix'))
+  D <- as.vector(D)
+  H <- as.vector(H)
   stopifnot(length(D) == length(H))
   DH <- diag(D*H, nrow = length(H))
-  if (!inherits(W, 'matrix')) {
+  if (inherits(W, 'matrix')) {
+    W <- diag(as.vector(W), nrow = length(as.vector(W)))
+  } else {
     W <- diag(W, nrow = length(W))
   }
   return((b*beta) %*% calV %*% W %*% t(beta) %*% DH)
@@ -98,6 +106,3 @@ metric_calZ <- function(Omega, tau, f, q, M, calD) {
   fqMW <- diag(f*q*as.vector(M)/as.vector(W), nrow = nrow(Omega))
   return(OmegaEIP %*% fqMW %*% calD %*% fq %*% Omega_inv)
 }
-
-
-
