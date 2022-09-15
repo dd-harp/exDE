@@ -21,6 +21,8 @@ navbar:
       href: articles/human_sis.html
     - text: SIP model
       href: articles/human_sip.html
+    - text: MoI hybrid model
+      href: articles/human_hmoi.html
   - text: Articles
     menu:
     - text: 5-3-4 Spatial Example
@@ -98,6 +100,15 @@ reference:
   - F_x_tau
   - dXdt
   - make_index_X
+- subtitle: hybrid MoI model
+  desc: |
+    Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.
+  contents:
+  - F_x.hMoI
+  - F_x_tau.hMoI
+  - dXdt.hMoI
+  - make_index_X.hMoI
+  - make_parameters_X_hMoI
 - subtitle: SIS human model
   desc: |
     Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.

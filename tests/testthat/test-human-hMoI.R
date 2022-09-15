@@ -1,0 +1,39 @@
+library(deSolve)
+
+test_that("human hybrid MoI model remains at equilibrium", {
+  nStrata <- 3
+  H <- c(100, 500, 250)
+  b <- 0.55
+  c1 <- 0.05
+  c2 <- 0.25
+  r1 <- 1/250
+  r2 <- 1/50
+
+  m20 <- 1.5
+  h <- r2*m20
+  m10 <- h/r1
+
+  EIR <- h/b
+
+
+  params <- list(
+    nStrata = nStrata,
+    m1_ix = 1:3,
+    m2_ix = 4:6
+  )
+
+  Xpar <- make_parameters_X_hMoI(b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, m10 = m10, m20 = m20, H = H)
+  params$Xpar <- Xpar
+
+  y0 <- rep(0, 6)
+  y0[params$m1_ix] <- m10
+  y0[params$m2_ix] <- m20
+
+  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, EIR) {
+    list(dXdt(t, y, pars, EIR))
+  }, parms = params, method = 'lsoda', EIR = as.vector(EIR))
+
+  expect_true(all(approx_equal(as.vector(out[2L, params$m1_ix+1]), m10)))
+  expect_true(all(approx_equal(as.vector(out[2L, params$m2_ix+1]), m20)))
+
+})
