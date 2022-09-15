@@ -2,6 +2,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/dd-harp/xDE/workflows/R-CMD-check/badge.svg)](https://github.com/dd-harp/xDE/actions)
+[![codecov](https://codecov.io/gh/dd-harp/xDE/branch/main/graph/badge.svg?token=S6WCEH4L8B)](https://codecov.io/gh/dd-harp/xDE)
 <!-- badges: end -->
   
 xDE provides tools to set up modular ordinary and delay differential equation spatial 
