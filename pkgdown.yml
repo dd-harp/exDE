@@ -6,10 +6,11 @@ articles:
   aqua_basic: aqua_basic.html
   aqua_trace: aqua_trace.html
   ex_534: ex_534.html
+  human_hmoi: human_hmoi.html
   human_sip: human_sip.html
   human_sis: human_sis.html
   spat_metric: spat_metric.html
-last_built: 2022-09-13T22:31Z
+last_built: 2022-09-15T22:50Z
 urls:
   reference: https://dd-harp.github.io/xDE/reference
   article: https://dd-harp.github.io/xDE/articles

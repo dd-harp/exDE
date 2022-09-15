@@ -22,6 +22,9 @@
     <loc>https://dd-harp.github.io/xDE/articles/ex_534.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/xDE/articles/human_hmoi.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/xDE/articles/human_sip.html</loc>
   </url>
   <url>
@@ -79,6 +82,9 @@
     <loc>https://dd-harp.github.io/xDE/reference/F_x.SIS.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/xDE/reference/F_x.hMoI.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/xDE/reference/F_x.html</loc>
   </url>
   <url>
@@ -86,6 +92,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/xDE/reference/F_x_tau.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/xDE/reference/F_x_tau.hMoI.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/xDE/reference/F_x_tau.html</loc>
@@ -118,6 +127,9 @@
     <loc>https://dd-harp.github.io/xDE/reference/dXdt.SIS.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/xDE/reference/dXdt.hMoI.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/xDE/reference/dXdt.html</loc>
   </url>
   <url>
@@ -148,6 +160,9 @@
     <loc>https://dd-harp.github.io/xDE/reference/make_index_X.SIS.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/xDE/reference/make_index_X.hMoI.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/xDE/reference/make_index_X.html</loc>
   </url>
   <url>
@@ -170,6 +185,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/xDE/reference/make_parameters_X_SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/xDE/reference/make_parameters_X_hMoI.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/xDE/reference/metric_calD.html</loc>
