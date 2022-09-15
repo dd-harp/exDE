@@ -71,19 +71,19 @@ make_index_X.hMoI <- function(pars) {
 #' @param m10 mean MoI among inapparent human infections
 #' @param m20 mean MoI among patent human infections
 #' @param H size of human population in each strata
-#' @return a [list] with class `hMOI`.
+#' @return a [list] with class `hMoI`.
 #' @export
-make_parameters_X_SIP <- function(b, c, r, rho, eta, X0, P0, H) {
-  stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(rho), is.numeric(eta), is.numeric(X0), is.numeric(P0), is.numeric(H))
+make_parameters_X_hMoI <- function(b, c1, c2, r1, r2, m10, m20, H) {
+  stopifnot(is.numeric(b), is.numeric(c1), is.numeric(c2), is.numeric(r1), is.numeric(r2), is.numeric(m10), is.numeric(m20), is.numeric(H))
   Xpar <- list()
-  class(Xpar) <- c('hMOI')
+  class(Xpar) <- c('hMoI')
   Xpar$b <- b
-  Xpar$c <- c
-  Xpar$r <- r
-  Xpar$rho <- rho
-  Xpar$eta <- eta
-  Xpar$X0 <- X0
-  Xpar$P0 <- P0
+  Xpar$c1 <- c1
+  Xpar$c2 <- c2
+  Xpar$r1 <- r1
+  Xpar$r2 <- r2
+  Xpar$m10 <- m10
+  Xpar$m20 <- m20
   Xpar$H <- H
   return(Xpar)
 }
