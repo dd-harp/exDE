@@ -98,7 +98,7 @@ Which is equivalent to (after substituting $H=W$) the classic formula from [Smit
 $$
 \mathcal{D} = \mbox{diag}\left(W \right) \cdot \beta^T \cdot \mbox{diag}\left(bDH\right) \cdot \beta
 $$
-We can first examine the multiplication of $\mbox{diag}\left(bDH\right) \cdot \beta$ on the right. This has the effect of multiplying each column of $beta$ by the diagonal of $\mbox{diag}\left(bDH\right)$. This results in a $n\times p$ matrix whose columns give the distribution of potentially transmitting person-time ($\frac{bc}{r}$) a person in each strata contributes to a patch. It is a $p\times p$ matrix.
+We can first examine the multiplication of $\mbox{diag}\left(bDH\right) \cdot \beta$ on the right. This has the effect of multiplying each column of $\beta$ by the diagonal of $\mbox{diag}\left(bDH\right)$. This results in a $n\times p$ matrix whose columns give the distribution of potentially transmitting person-time ($\frac{bc}{r}$) a person in each strata contributes to a patch. It is a $p\times p$ matrix.
 
 On the left $\mbox{diag}\left(W \right) \cdot \beta^T$ multiplies each column of $\beta^T$ by the diagonal of that matrix; this has the effect of recovering the original movement matrix $\Psi$. So multiplying the intermediate matrix produced by the preceding section by this on the left distributes that potentially-transmitting person time across patches. Therefore $i$-th column of $\mathcal{D}$ describes how potentially infectious person-time from a person infected in $i$ is distributed across other patches.
 

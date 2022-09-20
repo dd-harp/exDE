@@ -102,14 +102,12 @@ metric_calZ <- function(Omega, tau, f, q, M, W, calD) {
   if (length(q) == 1L) {
     q <- rep(q, nrow(Omega))
   }
-  if (inherits(W, 'matrix')) {
-    W <- diag(as.vector(W), nrow = length(as.vector(W)))
-  } else {
-    W <- diag(W, nrow = length(W))
-  }
   OmegaEIP <- expm(x = -Omega*tau)
   Omega_inv <- ginv(X = Omega)
   fq <- diag(f*q, nrow = length(f))
-  fqMW <- diag(f*q*as.vector(M)/as.vector(W), nrow = nrow(Omega))
+  # calc seperate; there might be patches w/out people, set those to 0
+  fqMW_diag <- f*q*as.vector(M)/as.vector(W)
+  fqMW_diag[!is.finite(fqMW_diag)] <- 0
+  fqMW <- diag(fqMW_diag, nrow = nrow(Omega))
   return(OmegaEIP %*% fqMW %*% calD %*% fq %*% Omega_inv)
 }
