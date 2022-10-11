@@ -4,6 +4,8 @@
 [![R-CMD-check](https://github.com/dd-harp/xDE/workflows/R-CMD-check/badge.svg)](https://github.com/dd-harp/xDE/actions)
 [![codecov](https://codecov.io/gh/dd-harp/xDE/branch/main/graph/badge.svg?token=S6WCEH4L8B)](https://codecov.io/gh/dd-harp/xDE)
 <!-- badges: end -->
+
+ ## What is xDE?
   
 xDE provides tools to set up modular ordinary and delay differential equation spatial 
 models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved
@@ -14,6 +16,15 @@ with the excellent solver in [deSolve](http://desolve.r-forge.r-project.org/), o
 any other differential equation solvers in R. xDE can be regarded as the continuous-time
 companion to the discrete stochastic [Micro-MoB](https://github.com/dd-harp/MicroMoB/tree/main)
 framework.
+
+## Installation
+
+To install from an R session, run the following lines of code.
+
+```
+library(devtools)
+install_github("dd-harp/xDE")
+```
 
 ## Modular Dynamics
 
