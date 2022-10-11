@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/dd-harp/xDE/branch/main/graph/badge.svg?token=S6WCEH4L8B)](https://codecov.io/gh/dd-harp/xDE)
 <!-- badges: end -->
 
- ## What is xDE?
+## What is xDE?
   
 xDE provides tools to set up modular ordinary and delay differential equation spatial 
 models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved
