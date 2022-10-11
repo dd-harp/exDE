@@ -4,6 +4,8 @@
 [![R-CMD-check](https://github.com/dd-harp/xDE/workflows/R-CMD-check/badge.svg)](https://github.com/dd-harp/xDE/actions)
 [![codecov](https://codecov.io/gh/dd-harp/xDE/branch/main/graph/badge.svg?token=S6WCEH4L8B)](https://codecov.io/gh/dd-harp/xDE)
 <!-- badges: end -->
+
+ ## What is xDE?
   
 xDE provides tools to set up modular ordinary and delay differential equation spatial 
 models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved
@@ -14,6 +16,15 @@ with the excellent solver in [deSolve](http://desolve.r-forge.r-project.org/), o
 any other differential equation solvers in R. xDE can be regarded as the continuous-time
 companion to the discrete stochastic [Micro-MoB](https://github.com/dd-harp/MicroMoB/tree/main)
 framework.
+
+## Installation
+
+To install from an R session, run the following lines of code.
+
+```
+library(devtools)
+install_github("dd-harp/xDE")
+```
 
 ## Modular Dynamics
 
@@ -85,7 +96,61 @@ $$
 d {\mathcal{X}}/dt = F_{\mathcal{X}} \left(E, {\mathcal{X}} \right)
 $$
 
-### Equilibrium
+## Biting distribution
+
+A core dynamical quantity that links the different components together is $\beta$, the biting distribution matrix. Let $n$ denote the number of strata in the human population, and $p$ the number of patches. We will always use $i$ to denote strata indices and $j$ to denote patch indices. 
+
+### Human movement
+
+We start with the fundamental matrix $\Psi$ which is of dimension $p\times n$ , where each column $i$ gives the distribution of time at risk for that strata over places (rows). If all strata are considered to be potentially at risk 100% of the time, then the columns will sum to one, which is the convention we will adopt for this document.
+
+Then $\Psi_{ji}$ is the fraction of time that strata $i$ spends in patch $j$.
+
+### Ambient human population
+
+Let $H$ be a length $n$ column vector giving the population size of each strata. We want to know $W$, a length $p$ column vector which tells us how many people are at each patch (summing over all strata who are there).
+
+We have $W = \Psi \cdot w_{f} H$, where $w_{f}$ is a length $n$ vector giving the biting weights of each human strata.
+
+$$
+W =\begin{bmatrix}
+\sum_{i} \Psi_{1i}w_{f,i}H_{i} \\ \vdots \\ \sum_{i} \Psi_{pi}w_{f,i}H_{i}
+\end{bmatrix}
+$$
+
+The elements of $W$ thus represent the amount of weighted person-time spent at each patch.
+
+### Biting distribution matrix
+
+The biting distribution matrix $\beta$ is a $n \times p$ matrix which is central to formulating mathematically consistent models of bloodfeeding, and, by extension, consistent models of mosquito-borne pathogen transmission
+
+It is given by:
+
+$$
+\beta = \mbox{diag}(w_{f}) \cdot \Psi^{\top} \cdot \mbox{diag}(1/W)
+$$
+
+And it can be written component-wise as:
+
+$$
+\beta = \begin{bmatrix} 
+\frac{\Psi_{11}w_{f,1}}{\sum_{i}\Psi_{1i}w_{f,i}H_{i}} & \cdots & \frac{\Psi_{p1}w_{f,1}}{\sum_{i}\Psi_{pi}w_{f,i}H_{i}} \\
+\vdots & & \vdots \\
+\frac{\Psi_{1n}w_{f,n}}{\sum_{i}\Psi_{1i}w_{f,i}H_{i}} & \cdots & \frac{\Psi_{pn}w_{f,n}}{\sum_{i}\Psi_{pi}w_{f,i}H_{i}} 
+\end{bmatrix}
+$$
+
+Now we can get a clearer impression of what $\beta_{ij}$ is. It is the probability a bite from mosquitoes in patch $j$ lands on any particular person in strata $i$. Another way say this is that it is the proportion of person-time spent by a single person in strata $i$ at patch $j$, out of all person-time spent at that patch.
+
+If we wanted to look at a matrix whose columns sum to unity and elements give the probability of a bite taken on the ambient population in patch $j$ to land on strata $i$, we could look at the following matrix:
+
+$$
+\mbox{diag}(H) \cdot \beta
+$$
+
+This operation has the effect of adding the column vector $H$ to the numerator of each column in $\beta$, so that the columns sum to one.
+
+## Equilibrium
 
 Because the framework is expressed generically, equilibrium solutions can be worked
 out for each specific model independently, with input from other components assumed to
