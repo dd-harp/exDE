@@ -95,7 +95,15 @@
 <div class="page-header"><h1 id="xde-extensible-differential-equations-for-mosquito-borne-pathogen-modeling">xDE (Extensible Differential Equations for mosquito-borne pathogen modeling)<a class="anchor" aria-label="anchor" href="#xde-extensible-differential-equations-for-mosquito-borne-pathogen-modeling"></a>
 </h1></div>
 <!-- badges: start -->
+<p>## What is xDE?</p>
 <p>xDE provides tools to set up modular ordinary and delay differential equation spatial models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved by S3 dispatch on parameter lists for each component which is used to compute the full set of differential equations. The function <code>xDE_diffeqn</code> computes the gradient of all state variables from those modular components and can be used with the excellent solver in <a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a>, or any other differential equation solvers in R. xDE can be regarded as the continuous-time companion to the discrete stochastic <a href="https://github.com/dd-harp/MicroMoB/tree/main" class="external-link">Micro-MoB</a> framework.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>To install from an R session, run the following lines of code.</p>
+<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
+<span><span class="fu">install_github</span><span class="op">(</span><span class="st">"dd-harp/xDE"</span><span class="op">)</span></span></code></pre>
+</div>
 <div class="section level2">
 <h2 id="modular-dynamics">Modular Dynamics<a class="anchor" aria-label="anchor" href="#modular-dynamics"></a>
 </h2>
@@ -153,11 +161,53 @@
 <p><span class="math display"><em>d</em>ℳ/<em>d</em><em>t</em> = <em>F</em><sub>ℳ</sub>(<em>Λ</em>,ℳ)</span></p>
 <p><span class="math display"><em>d</em>𝒴/<em>d</em><em>t</em> = <em>F</em><sub>𝒴</sub>(<em>κ</em>,ℳ,𝒴)</span></p>
 <p><span class="math display"><em>d</em>𝒳/<em>d</em><em>t</em> = <em>F</em><sub>𝒳</sub>(<em>E</em>,𝒳)</span></p>
-<div class="section level3">
-<h3 id="equilibrium">Equilibrium<a class="anchor" aria-label="anchor" href="#equilibrium"></a>
-</h3>
-<p>Because the framework is expressed generically, equilibrium solutions can be worked out for each specific model independently, with input from other components assumed to be constants. Models can be assembled at equilibrium from these individual model solutions. Please see the vignettes for each specific model for closed-form solutions.</p>
 </div>
+<div class="section level2">
+<h2 id="biting-distribution">Biting distribution<a class="anchor" aria-label="anchor" href="#biting-distribution"></a>
+</h2>
+<p>A core dynamical quantity that links the different components together is <span class="math inline"><em>β</em></span>, the biting distribution matrix. Let <span class="math inline"><em>n</em></span> denote the number of strata in the human population, and <span class="math inline"><em>p</em></span> the number of patches. We will always use <span class="math inline"><em>i</em></span> to denote strata indices and <span class="math inline"><em>j</em></span> to denote patch indices.</p>
+<div class="section level3">
+<h3 id="human-movement">Human movement<a class="anchor" aria-label="anchor" href="#human-movement"></a>
+</h3>
+<p>We start with the fundamental matrix <span class="math inline"><em>Ψ</em></span> which is of dimension <span class="math inline"><em>p</em> × <em>n</em></span> , where each column <span class="math inline"><em>i</em></span> gives the distribution of time at risk for that strata over places (rows). If all strata are considered to be potentially at risk 100% of the time, then the columns will sum to one, which is the convention we will adopt for this document.</p>
+<p>Then <span class="math inline"><em>Ψ</em><sub><em>j</em><em>i</em></sub></span> is the fraction of time that strata <span class="math inline"><em>i</em></span> spends in patch <span class="math inline"><em>j</em></span>.</p>
+</div>
+<div class="section level3">
+<h3 id="ambient-human-population">Ambient human population<a class="anchor" aria-label="anchor" href="#ambient-human-population"></a>
+</h3>
+<p>Let <span class="math inline"><em>H</em></span> be a length <span class="math inline"><em>n</em></span> column vector giving the population size of each strata. We want to know <span class="math inline"><em>W</em></span>, a length <span class="math inline"><em>p</em></span> column vector which tells us how many people are at each patch (summing over all strata who are there).</p>
+<p>We have <span class="math inline"><em>W</em> = <em>Ψ</em> ⋅ <em>w</em><sub><em>f</em></sub><em>H</em></span>, where <span class="math inline"><em>w</em><sub><em>f</em></sub></span> is a length <span class="math inline"><em>n</em></span> vector giving the biting weights of each human strata.</p>
+<p><span class="math display">$$
+W =\begin{bmatrix}
+\sum_{i} \Psi_{1i}w_{f,i}H_{i} \\ \vdots \\ \sum_{i} \Psi_{pi}w_{f,i}H_{i}
+\end{bmatrix}
+$$</span></p>
+<p>The elements of <span class="math inline"><em>W</em></span> thus represent the amount of weighted person-time spent at each patch.</p>
+</div>
+<div class="section level3">
+<h3 id="biting-distribution-matrix">Biting distribution matrix<a class="anchor" aria-label="anchor" href="#biting-distribution-matrix"></a>
+</h3>
+<p>The biting distribution matrix <span class="math inline"><em>β</em></span> is a <span class="math inline"><em>n</em> × <em>p</em></span> matrix which is central to formulating mathematically consistent models of bloodfeeding, and, by extension, consistent models of mosquito-borne pathogen transmission</p>
+<p>It is given by:</p>
+<p><span class="math display"><em>β</em> = diag(<em>w</em><sub><em>f</em></sub>) ⋅ <em>Ψ</em><sup>⊤</sup> ⋅ diag(1/<em>W</em>)</span></p>
+<p>And it can be written component-wise as:</p>
+<p><span class="math display">$$
+\beta = \begin{bmatrix} 
+\frac{\Psi_{11}w_{f,1}}{\sum_{i}\Psi_{1i}w_{f,i}H_{i}} &amp; \cdots &amp; \frac{\Psi_{p1}w_{f,1}}{\sum_{i}\Psi_{pi}w_{f,i}H_{i}} \\
+\vdots &amp; &amp; \vdots \\
+\frac{\Psi_{1n}w_{f,n}}{\sum_{i}\Psi_{1i}w_{f,i}H_{i}} &amp; \cdots &amp; \frac{\Psi_{pn}w_{f,n}}{\sum_{i}\Psi_{pi}w_{f,i}H_{i}} 
+\end{bmatrix}
+$$</span></p>
+<p>Now we can get a clearer impression of what <span class="math inline"><em>β</em><sub><em>i</em><em>j</em></sub></span> is. It is the probability a bite from mosquitoes in patch <span class="math inline"><em>j</em></span> lands on any particular person in strata <span class="math inline"><em>i</em></span>. Another way say this is that it is the proportion of person-time spent by a single person in strata <span class="math inline"><em>i</em></span> at patch <span class="math inline"><em>j</em></span>, out of all person-time spent at that patch.</p>
+<p>If we wanted to look at a matrix whose columns sum to unity and elements give the probability of a bite taken on the ambient population in patch <span class="math inline"><em>j</em></span> to land on strata <span class="math inline"><em>i</em></span>, we could look at the following matrix:</p>
+<p><span class="math display">diag(<em>H</em>) ⋅ <em>β</em></span></p>
+<p>This operation has the effect of adding the column vector <span class="math inline"><em>H</em></span> to the numerator of each column in <span class="math inline"><em>β</em></span>, so that the columns sum to one.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="equilibrium">Equilibrium<a class="anchor" aria-label="anchor" href="#equilibrium"></a>
+</h2>
+<p>Because the framework is expressed generically, equilibrium solutions can be worked out for each specific model independently, with input from other components assumed to be constants. Models can be assembled at equilibrium from these individual model solutions. Please see the vignettes for each specific model for closed-form solutions.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
