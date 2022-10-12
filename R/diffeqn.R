@@ -17,6 +17,9 @@
 #' @export
 xDE_diffeqn <- function(t, y, pars, EIR_delta = NULL, kappa_delta = NULL) {
 
+  # vector control
+  # pars <- vector_control(t, y, pars)
+
   # eta: egg laying
   eggs <- F_eggs(t, y, pars)
   eta <- pars$calU %*% eggs

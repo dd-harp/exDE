@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/dd-harp/exDE/workflows/R-CMD-check/badge.svg)](https://github.com/dd-harp/exDE/actions)
-[![codecov](https://codecov.io/gh/dd-harp/xDE/branch/main/graph/badge.svg?token=S6WCEH4L8B)](https://codecov.io/gh/dd-harp/xDE)
+[![codecov](https://codecov.io/gh/dd-harp/exDE/branch/main/graph/badge.svg?token=S6WCEH4L8B)](https://codecov.io/gh/dd-harp/exDE)
 <!-- badges: end -->
 
 ## What is exDE?
