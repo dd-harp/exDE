@@ -60,7 +60,7 @@ metric_calD <- function(W, beta, b, D, H) {
 #' \deqn{\mathcal{R} =   b \beta \cdot {\cal V}  \cdot \mbox{diag}\left(W \right) \cdot \beta^T  \cdot \mbox{diag}\left(DH\right)}
 #' @param b transmission efficiency from mosquitoes to humans
 #' @param beta the biting distribution matrix
-#' @param calV parasite dispersal by mosquitoes matrix (see [xDE::metric_calV])
+#' @param calV parasite dispersal by mosquitoes matrix (see [exDE::metric_calV])
 #' @param W ambient human population at each patch
 #' @param D human transmitting capacity
 #' @param H human population size of each strata
@@ -89,7 +89,7 @@ metric_calR <- function(b, beta, calV, W, D, H) {
 #' @param q fraction of bloodmeals taken on humans
 #' @param M size of mosquito population in each patch
 #' @param W ambient human population at each patch
-#' @param calD parasite dispersal by humans matrix (see [xDE::metric_calD])
+#' @param calD parasite dispersal by humans matrix (see [exDE::metric_calD])
 #' @importFrom MASS ginv
 #' @importFrom expm expm
 #' @export

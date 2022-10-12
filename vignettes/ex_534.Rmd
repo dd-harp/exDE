@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, warning=FALSE, message=FALSE}
-library(xDE)
+library(exDE)
 library(expm)
 library(data.table)
 library(ggplot2)
@@ -39,7 +39,7 @@ The model `5-3-4` is designed to illustrate some important features of the frame
 
 # Parameters
 
-We already know three important parameters, $l$, $p$ and $n$ because they are determined in the early stages of model building. The `xDE` package expects all parameters to be contained in a list object, containing `nHabitats`, `nPatches`, and `nStrata` which correspond to `l`, `p` and `n`.
+We already know three important parameters, $l$, $p$ and $n$ because they are determined in the early stages of model building. The `exDE` package expects all parameters to be contained in a list object, containing `nHabitats`, `nPatches`, and `nStrata` which correspond to `l`, `p` and `n`.
 
 ```{r}
 params <- list(
@@ -95,7 +95,7 @@ params$calU <- t(calN %*% diag(as.vector(xi)))
 
 ## Aquatic Mosquito Parameters
 
-For this simulation, we use the basic competition model of larval dynamics (see more [here](aqua_basic.html)). It requires specification of three parameters, $\psi$ (maturation rates), $\phi$ (density-independent mortality rates), and $\theta$ (density-dependent mortality terms), and initial conditions. The function `xDE::make_parameters_L_basic` does basic checking of the input parameters and returns a list with the correct class for method dispatch. The returned list is attached to the main parameter list with name `Lpar`.
+For this simulation, we use the basic competition model of larval dynamics (see more [here](aqua_basic.html)). It requires specification of three parameters, $\psi$ (maturation rates), $\phi$ (density-independent mortality rates), and $\theta$ (density-dependent mortality terms), and initial conditions. The function `exDE::make_parameters_L_basic` does basic checking of the input parameters and returns a list with the correct class for method dispatch. The returned list is attached to the main parameter list with name `Lpar`.
 
 ```{r}
 L0 <- rep(1, params$nHabitats)
@@ -110,7 +110,7 @@ params$Lpar <- Lpar
 
 ## Adult Mosquito Parameters
 
-We use the ODE version of the generalized Ross-Macdonald model (see more [here](adult_RM.html)). Part of the specification of parameters includes the construction of the mosquito dispersal matrix $\mathcal{K}$, and the mosquito demography matrix $\Omega$. Like for the aquatic parameters, we use `xDE::make_parameters_MYZ_RM_ode` to check parameter types and return a list with the correct class for method dispatch. We attach the returned list to the main parameter list with name `MYZpar`.
+We use the ODE version of the generalized Ross-Macdonald model (see more [here](adult_RM.html)). Part of the specification of parameters includes the construction of the mosquito dispersal matrix $\mathcal{K}$, and the mosquito demography matrix $\Omega$. Like for the aquatic parameters, we use `exDE::make_parameters_MYZ_RM_ode` to check parameter types and return a list with the correct class for method dispatch. We attach the returned list to the main parameter list with name `MYZpar`.
 
 ```{r}
 g <- rep(1/12, params$nPatches) 
@@ -139,7 +139,7 @@ params$MYZpar <- MYZpar
 
 ## Human Parameters
 
-We use the basic SIS (Susceptible-Infected-Susceptible) model for the human component (see more [here](human_sis.html)). We set it up like the rest of the components, using `xDE::make_parameters_X_SIS` to make the correct return type, which is attached to the parameter list with name `Xpar`.
+We use the basic SIS (Susceptible-Infected-Susceptible) model for the human component (see more [here](human_sis.html)). We set it up like the rest of the components, using `exDE::make_parameters_X_SIS` to make the correct return type, which is attached to the parameter list with name `Xpar`.
 
 ```{r}
 H <- matrix(c(10,90, 100, 900), 4, 1)
@@ -232,7 +232,7 @@ y[params$X_ix] <- as.vector(X0)
 
 ## Numerical Solution
 
-Now we can pass the vector of initial conditions, `y`, our parameter list `params`, and the function `xDE::xDE_diffeqn` to the differential equation solvers in `deSolve::ode` to generate a numerical trajectory. The classes of `Xpar`, `MYZpar`, and `Lpar` in `params` will ensure that the right methods are invoked (dispatched) to solve your model.
+Now we can pass the vector of initial conditions, `y`, our parameter list `params`, and the function `exDE::xDE_diffeqn` to the differential equation solvers in `deSolve::ode` to generate a numerical trajectory. The classes of `Xpar`, `MYZpar`, and `Lpar` in `params` will ensure that the right methods are invoked (dispatched) to solve your model.
 
 ```{r}
 out <- deSolve::ode(y = y, times = 0:365, func = xDE_diffeqn, parms = params, method = "lsoda")

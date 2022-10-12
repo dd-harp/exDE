@@ -1,4 +1,4 @@
-url: https://dd-harp.github.io/xDE/
+url: https://dd-harp.github.io/exDE/
 template:
   bootstrap: 5
 navbar:
@@ -31,7 +31,7 @@ navbar:
       href: articles/spat_metric.html
   right:
   - icon: fa-github
-    href: https://github.com/dd-harp/xDE/
+    href: https://github.com/dd-harp/exDE/
 home:
   sidebar:
     structure:

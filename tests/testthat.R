@@ -1,4 +1,4 @@
 library(testthat)
-library(xDE)
+library(exDE)
 
-test_check("xDE")
+test_check("exDE")

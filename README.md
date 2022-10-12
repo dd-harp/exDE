@@ -1,19 +1,19 @@
-# xDE (Extensible Differential Equations for mosquito-borne pathogen modeling)
+# exDE (Extensible Differential Equations for mosquito-borne pathogen modeling)
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/dd-harp/xDE/workflows/R-CMD-check/badge.svg)](https://github.com/dd-harp/xDE/actions)
+[![R-CMD-check](https://github.com/dd-harp/exDE/workflows/R-CMD-check/badge.svg)](https://github.com/dd-harp/exDE/actions)
 [![codecov](https://codecov.io/gh/dd-harp/xDE/branch/main/graph/badge.svg?token=S6WCEH4L8B)](https://codecov.io/gh/dd-harp/xDE)
 <!-- badges: end -->
 
- ## What is xDE?
-  
-xDE provides tools to set up modular ordinary and delay differential equation spatial 
+## What is exDE?
+
+exDE provides tools to set up modular ordinary and delay differential equation spatial 
 models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved
 by S3 dispatch on parameter lists for each component which is used to compute
 the full set of differential equations. The function `xDE_diffeqn` computes the
 gradient of all state variables from those modular components and can be used
 with the excellent solver in [deSolve](http://desolve.r-forge.r-project.org/), or
-any other differential equation solvers in R. xDE can be regarded as the continuous-time
+any other differential equation solvers in R. exDE can be regarded as the continuous-time
 companion to the discrete stochastic [Micro-MoB](https://github.com/dd-harp/MicroMoB/tree/main)
 framework.
 
@@ -23,7 +23,7 @@ To install from an R session, run the following lines of code.
 
 ```
 library(devtools)
-install_github("dd-harp/xDE")
+install_github("dd-harp/exDE")
 ```
 
 ## Modular Dynamics
@@ -72,7 +72,7 @@ Because the framework does not make any assumptions on the specific internal dyn
 of each of the main components, only that they are able to provide the needed quantities
 for the other components, a generalized set of differential equations can be written
 to describe the dynamics of the system. Specific models can be used for each component
-as needed. In `xDE` we use R's S3 dispatch to write generic differential equations
+as needed. In `exDE` we use R's S3 dispatch to write generic differential equations
 which can be specialized to specific models as needed.
 
 The function `xDE_diffeqn` implements this generic differential equation model, which
