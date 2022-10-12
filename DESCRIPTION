@@ -1,6 +1,6 @@
 Package: exDE
 Type: Package
-Title: Extensible Differential Equations for mosquito-borne pathogen modeling
+Title: Extensible Differential Equations for Mosquito-Borne Pathogen Modeling
 Version: 0.1.0
 Authors@R: c(
       person("Sean L.", "Wu", email = "slwood89@gmail.com", role = c("aut","cre"), comment = c(ORCID = "0000-0002-5781-9493")),
