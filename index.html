@@ -5,17 +5,17 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="xDE provides tools to set up modular ordinary and delay differential equation
+<meta name="description" content="exDE provides tools to set up modular ordinary and delay differential equation
   models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved
   by S3 dispatch on parameter lists for each component which is used to compute
   the full set of differential equations.">
-<title>xDE (Extensible Differential Equations for mosquito-borne pathogen modeling) • xDE</title>
+<title>exDE (Extensible Differential Equations for mosquito-borne pathogen modeling) • exDE</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="xDE (Extensible Differential Equations for mosquito-borne pathogen modeling)">
-<meta property="og:description" content="xDE provides tools to set up modular ordinary and delay differential equation
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="exDE (Extensible Differential Equations for mosquito-borne pathogen modeling)">
+<meta property="og:description" content="exDE provides tools to set up modular ordinary and delay differential equation
   models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved
   by S3 dispatch on parameter lists for each component which is used to compute
   the full set of differential equations.">
@@ -30,7 +30,7 @@
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
     
-    <a class="navbar-brand me-2" href="index.html">xDE</a>
+    <a class="navbar-brand me-2" href="index.html">exDE</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
@@ -79,7 +79,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/dd-harp/xDE/">
+  <a class="external-link nav-link" href="https://github.com/dd-harp/exDE/">
     <span class="fa fa-github"></span>
      
   </a>
@@ -92,17 +92,20 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="xde-extensible-differential-equations-for-mosquito-borne-pathogen-modeling">xDE (Extensible Differential Equations for mosquito-borne pathogen modeling)<a class="anchor" aria-label="anchor" href="#xde-extensible-differential-equations-for-mosquito-borne-pathogen-modeling"></a>
+<div class="page-header"><h1 id="exde-extensible-differential-equations-for-mosquito-borne-pathogen-modeling">exDE (Extensible Differential Equations for mosquito-borne pathogen modeling)<a class="anchor" aria-label="anchor" href="#exde-extensible-differential-equations-for-mosquito-borne-pathogen-modeling"></a>
 </h1></div>
 <!-- badges: start -->
-<p>## What is xDE?</p>
-<p>xDE provides tools to set up modular ordinary and delay differential equation spatial models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved by S3 dispatch on parameter lists for each component which is used to compute the full set of differential equations. The function <code>xDE_diffeqn</code> computes the gradient of all state variables from those modular components and can be used with the excellent solver in <a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a>, or any other differential equation solvers in R. xDE can be regarded as the continuous-time companion to the discrete stochastic <a href="https://github.com/dd-harp/MicroMoB/tree/main" class="external-link">Micro-MoB</a> framework.</p>
+<div class="section level2">
+<h2 id="what-is-exde">What is exDE?<a class="anchor" aria-label="anchor" href="#what-is-exde"></a>
+</h2>
+<p>exDE provides tools to set up modular ordinary and delay differential equation spatial models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved by S3 dispatch on parameter lists for each component which is used to compute the full set of differential equations. The function <code>xDE_diffeqn</code> computes the gradient of all state variables from those modular components and can be used with the excellent solver in <a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a>, or any other differential equation solvers in R. exDE can be regarded as the continuous-time companion to the discrete stochastic <a href="https://github.com/dd-harp/MicroMoB/tree/main" class="external-link">Micro-MoB</a> framework.</p>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>To install from an R session, run the following lines of code.</p>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
-<span><span class="fu">install_github</span><span class="op">(</span><span class="st">"dd-harp/xDE"</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">install_github</span><span class="op">(</span><span class="st">"dd-harp/exDE"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="modular-dynamics">Modular Dynamics<a class="anchor" aria-label="anchor" href="#modular-dynamics"></a>
@@ -155,7 +158,7 @@
 <div class="section level2">
 <h2 id="generalized-equations">Generalized equations<a class="anchor" aria-label="anchor" href="#generalized-equations"></a>
 </h2>
-<p>Because the framework does not make any assumptions on the specific internal dynamics of each of the main components, only that they are able to provide the needed quantities for the other components, a generalized set of differential equations can be written to describe the dynamics of the system. Specific models can be used for each component as needed. In <code>xDE</code> we use R’s S3 dispatch to write generic differential equations which can be specialized to specific models as needed.</p>
+<p>Because the framework does not make any assumptions on the specific internal dynamics of each of the main components, only that they are able to provide the needed quantities for the other components, a generalized set of differential equations can be written to describe the dynamics of the system. Specific models can be used for each component as needed. In <code>exDE</code> we use R’s S3 dispatch to write generic differential equations which can be specialized to specific models as needed.</p>
 <p>The function <code>xDE_diffeqn</code> implements this generic differential equation model, which has the following mathematical structure. This function is also responsible for computing <span class="math inline"><em>Λ</em> = 𝒰 ⋅ <em>α</em></span> and <span class="math inline"><em>η</em> = 𝒩 ⋅ <em>α</em></span>. This structure is closely followed in the code.</p>
 <p><span class="math display"><em>d</em>ℒ/<em>d</em><em>t</em> = <em>F</em><sub>ℒ</sub>(<em>η</em>,ℒ)</span></p>
 <p><span class="math display"><em>d</em>ℳ/<em>d</em><em>t</em> = <em>F</em><sub>ℳ</sub>(<em>Λ</em>,ℳ)</span></p>
@@ -213,8 +216,8 @@ $$</span></p>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/dd-harp/xDE/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/dd-harp/xDE/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/dd-harp/exDE/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/dd-harp/exDE/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -230,7 +233,7 @@ $$</span></p>
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing xDE</a></li>
+<li><a href="authors.html#citation">Citing exDE</a></li>
 </ul>
 </div>
 
@@ -245,7 +248,7 @@ $$</span></p>
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/dd-harp/xDE/actions" class="external-link"><img src="https://github.com/dd-harp/xDE/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/dd-harp/exDE/actions" class="external-link"><img src="https://github.com/dd-harp/exDE/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://codecov.io/gh/dd-harp/xDE" class="external-link"><img src="https://codecov.io/gh/dd-harp/xDE/branch/main/graph/badge.svg?token=S6WCEH4L8B" alt="codecov"></a></li>
 </ul>
 </div>

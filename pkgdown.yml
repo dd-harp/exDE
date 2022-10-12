@@ -10,8 +10,8 @@ articles:
   human_sip: human_sip.html
   human_sis: human_sis.html
   spat_metric: spat_metric.html
-last_built: 2022-10-11T20:27Z
+last_built: 2022-10-12T18:58Z
 urls:
-  reference: https://dd-harp.github.io/xDE/reference
-  article: https://dd-harp.github.io/xDE/articles
+  reference: https://dd-harp.github.io/exDE/reference
+  article: https://dd-harp.github.io/exDE/articles
 
