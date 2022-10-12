@@ -6,7 +6,7 @@
 <!-- badges: end -->
 
 ## What is exDE?
-  
+
 exDE provides tools to set up modular ordinary and delay differential equation spatial 
 models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved
 by S3 dispatch on parameter lists for each component which is used to compute
