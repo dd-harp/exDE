@@ -46,7 +46,7 @@ xDE_diffeqn <- function(t, y, pars, EIR_delta = NULL, kappa_delta = NULL) {
 }
 
 #' @title Generalized spatial differential equation model (mosquito only)
-#' @description Mirrors [xDE::xDE_diffeqn] but only includes the adult and aquatic
+#' @description Mirrors [exDE::xDE_diffeqn] but only includes the adult and aquatic
 #' mosquito components.
 #' @param t current simulation time
 #' @param y state vector

@@ -29,7 +29,7 @@ Please note because we have unequal numbers of aquatic habitats and patches, we 
 to compute the generalized inverse of $\mathcal{N}$ to get $\alpha$ required at equilibrium.
 
 ```{r}
-library(xDE)
+library(exDE)
 library(MASS)
 library(expm)
 library(deSolve)
@@ -84,7 +84,7 @@ alpha <- as.vector(ginv(calN) %*% Lambda)
 
 Now we set up the model. Please see the [Ross-Macdonald vignette](adult_RM.html) for details
 on the adult model. We use `alpha` as the `Lambda` parameter of our forced emergence model, in
-`xDE::make_parameters_L_trace`.
+`exDE::make_parameters_L_trace`.
 
 ```{r, out.width = "100%"}
 params <- list(

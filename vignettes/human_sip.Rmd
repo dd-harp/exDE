@@ -44,11 +44,11 @@ Given $EIR$ we can solve for the mosquito population which would have given rise
 
 # Example
 
-Here we run a simple example with 3 population strata at equilibrium. We use `xDE::make_parameters_X_SIP` to
+Here we run a simple example with 3 population strata at equilibrium. We use `exDE::make_parameters_X_SIP` to
 set up parameters. Please note that this only runs the human population component and that most users should read [our fully worked example](ex_534.html) to run a full simulation.
 
 ```{r, out.width = "100%"}
-library(xDE)
+library(exDE)
 library(deSolve)
 library(data.table)
 library(ggplot2)

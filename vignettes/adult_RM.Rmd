@@ -20,7 +20,7 @@ The generalized Ross-Macdonald adult mosquito model fulfills the generic interfa
 
 ## Delay Differential Equations
 
-These equations are implemented by `xDE::dMYZdt.RM_dde`.
+These equations are implemented by `exDE::dMYZdt.RM_dde`.
 
 $$
 \dot{M} = \Lambda - \Omega\cdot M 
@@ -45,7 +45,7 @@ $$
 
 ## Ordinary Differential Equations
 
-These equations are implemented by `xDE::dMYZdt.RM_ode`.
+These equations are implemented by `exDE::dMYZdt.RM_ode`.
 
 The system of ODEs is the same as above except for the equation giving the rate of change
 in infectious mosquito density, which becomes:
@@ -121,7 +121,7 @@ to run a full simulation.
 Here we set up some parameters for a simulation with 3 patches.
 
 ```{r}
-library(xDE)
+library(exDE)
 library(expm)
 library(deSolve)
 library(data.table)
@@ -169,7 +169,7 @@ Y_eq <- as.vector(solve(diag(f*q*kappa) + Omega) %*% diag(f*q*kappa) %*% M_eq)
 Z_eq <- as.vector(Omega_inv %*% OmegaEIP %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
 ```
 
-Now we set up the parameter list with the correct class using `xDE::make_parameters_MYZ_RM_ode`. Then we can set up the initial conditions vector and use `deSolve::ode` to solve the model.
+Now we set up the parameter list with the correct class using `exDE::make_parameters_MYZ_RM_ode`. Then we can set up the initial conditions vector and use `deSolve::ode` to solve the model.
 
 ```{r, out.width = "100%"}
 MYZpar <- make_parameters_MYZ_RM_ode(Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))

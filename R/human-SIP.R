@@ -13,12 +13,13 @@ F_x.SIP <- function(t, y, pars) {
 #' @description Implements [F_x_tau] for the SIP model.
 #' @inheritParams F_x_tau
 #' @return a [numeric] vector of length `nStrata`
+#' @importFrom deSolve lagvalue
 #' @export
 F_x_tau.SIP <- function(t, y, pars, tau) {
   if (t < tau) {
     X_tau <- pars$Xpar$X0
   } else {
-    X_tau <- deSolve::lagvalue(t = t - tau, nr = pars$X_ix)
+    X_tau <- lagvalue(t = t - tau, nr = pars$X_ix)
   }
   X_tau * pars$Xpar$c
 }

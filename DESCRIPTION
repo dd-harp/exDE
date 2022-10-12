@@ -1,12 +1,12 @@
-Package: xDE
+Package: exDE
 Type: Package
-Title: xDE (Extensible Differential Equations for mosquito-borne pathogen modeling)
+Title: exDE (Extensible Differential Equations for mosquito-borne pathogen modeling)
 Version: 0.1.0
 Authors@R: c(
       person("Sean L.", "Wu", email = "slwood89@gmail.com", role = c("aut","cre"), comment = c(ORCID = "0000-0002-5781-9493")),
       person("David L.", "Smith", email = "smitdave@uw.edu", role = "aut", comment = c(ORCID = "0000-0003-4367-3849"))
     )
-Description: xDE provides tools to set up modular ordinary and delay differential equation
+Description: exDE provides tools to set up modular ordinary and delay differential equation
   models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved
   by S3 dispatch on parameter lists for each component which is used to compute
   the full set of differential equations.
@@ -14,8 +14,8 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1.9000
-URL: https://dd-harp.github.io/xDE/
-BugReports: https://github.com/dd-harp/xDE/issues
+URL: https://dd-harp.github.io/exDE/
+BugReports: https://github.com/dd-harp/exDE/issues
 Roxygen: list(markdown = TRUE)
 Imports: 
   deSolve,
