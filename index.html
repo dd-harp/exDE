@@ -100,8 +100,8 @@
 <div class="section level2">
 <h2 id="what-is-exde">What is exDE?<a class="anchor" aria-label="anchor" href="#what-is-exde"></a>
 </h2>
-<p>exDE provides tools to set up modular ordinary and delay differential equation spatial models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved by S3 dispatch on parameter lists for each component which is used to compute the full set of differential equations. The function <code>xDE_diffeqn</code> computes the gradient of all state variables from those modular components and can be used with the excellent solver in <a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a>, or any other differential equation solvers in R. exDE can be regarded as the continuous-time companion to the discrete stochastic <a href="https://github.com/dd-harp/MicroMoB/tree/main" class="external-link">Micro-MoB</a> framework.</p>
-<p>To get started, please consider reading some of the articles in the dropdown panels above, at our <a href="https://dd-harp.github.io/exDE/">website</a>. The 3 sections ending in “Component” describe particular models implementing the interface for each of those components (adult mosquitoes, aquatic mosquitoes, and humans), and show a simulation at their equilibrium values. The section “Articles” has more in-depth examples, including an extended walk through of how to set up and run a model in <code>vignette("5-3-4 Example")</code>. The section “Functions” documents each function exported by the package.</p>
+<p>exDE provides tools to set up modular ordinary and delay differential equation spatial models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved by S3 dispatch on parameter lists for each component which is used to compute the full set of differential equations. The function <code>xDE_diffeqn</code> computes the gradient of all state variables from those modular components and can be used with the excellent solver in <a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a>, or any other differential equation solvers in R. exDE can be regarded as the continuous-time companion to the discrete stochastic <a href="https://github.com/dd-harp/MicroMoB" class="external-link">Micro-MoB</a> framework.</p>
+<p>To get started, please consider reading some of the articles in the dropdown panels above, at our <a href="https://dd-harp.github.io/exDE/">website</a>. The 3 sections ending in “Component” describe particular models implementing the interface for each of those components (adult mosquitoes, aquatic mosquitoes, and humans), and show a simulation at their equilibrium values. The section “Articles” has more in-depth examples, including an extended walk through of how to set up and run a model in “5-3-4 Example”. The section “Functions” documents each function exported by the package.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -113,7 +113,7 @@
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h2>
-<p>For information about how to contribute to the development of exDE, please read our article on how to contribute at <code>vignette("Contributing")</code>!</p>
+<p>For information about how to contribute to the development of exDE, please read our article on how to contribute at <code>vignette("Contribute")</code>!</p>
 </div>
 <div class="section level2">
 <h2 id="modular-dynamics">Modular Dynamics<a class="anchor" aria-label="anchor" href="#modular-dynamics"></a>
@@ -124,29 +124,29 @@
 <p>Two additional components describe parasite infection and transmission (red): parasite infection dynamics in mosquitoes, <span class="math inline"><em>d</em><em>Y</em>/<em>d</em><em>t</em></span> and parasite infection dynamics in humans (purple), described by <span class="math inline"><em>d</em><em>X</em>/<em>d</em><em>t</em></span>. The biting distribution matrix <span class="math inline"><em>β</em></span> links biting from mosquitoes in each patch to the available human population from each strata, which depends on how people spend their time across the landscape. The density of infectious mosquitoes <span class="math inline"><em>Z</em></span> is used to compute the force of infection on humans, <span class="math inline"><em>h</em></span>; likewise the infectious human population <span class="math inline"><em>X</em></span> is used to compute the net infectiousness <span class="math inline"><em>κ</em></span> of humans on mosquitoes.</p>
 <p>The interactions among these modules take place for a stratified human population within a spatial domain structured into patches that contain the aquatic habitats.</p>
 <div class="section level3">
-<h3 id="adult-mosquitos">Adult Mosquitos<a class="anchor" aria-label="anchor" href="#adult-mosquitos"></a>
+<h3 id="adult-mosquitoes">Adult Mosquitoes<a class="anchor" aria-label="anchor" href="#adult-mosquitoes"></a>
 </h3>
 <p>The generic functions which must be implemented for any specific model of adult mosquito dynamics are:</p>
 <ul>
 <li>
 <code>F_EIR</code>: compute <span class="math inline"><em>E</em><em>I</em><em>R</em></span>, which is a component in the force of infection <span class="math inline"><em>h</em></span> upon humans.</li>
 <li>
-<code>F_kappa</code>: computes <span class="math inline"><em>κ</em></span>, the net infectiousness of the human population to mosquitos.</li>
+<code>F_kappa</code>: computes <span class="math inline"><em>κ</em></span>, the net infectiousness of the human population to mosquitoes.</li>
 <li>
-<code>F_eggs</code>: compute <span class="math inline"><em>ν</em></span>, the amount of eggs laid by mosquitos in each patch.</li>
+<code>F_eggs</code>: compute <span class="math inline"><em>ν</em></span>, the amount of eggs laid by mosquitoes in each patch.</li>
 <li>
-<code>dMYZdt</code>: compute the derivatives for all adult mosquitos (both uninfected <span class="math inline"><em>M</em></span> and infected <span class="math inline"><em>Y</em></span>; <span class="math inline"><em>Z</em></span> refers for infected <em>and</em> infectious mosquitos, for models which make that distinction).</li>
+<code>dMYZdt</code>: compute the derivatives for all adult mosquitoes (both uninfected <span class="math inline"><em>M</em></span> and infected <span class="math inline"><em>Y</em></span>; <span class="math inline"><em>Z</em></span> refers for infected <em>and</em> infectious mosquitoes, for models which make that distinction).</li>
 </ul>
 </div>
 <div class="section level3">
-<h3 id="aquatic-mosquitos">Aquatic Mosquitos<a class="anchor" aria-label="anchor" href="#aquatic-mosquitos"></a>
+<h3 id="aquatic-mosquitoes">Aquatic Mosquitoes<a class="anchor" aria-label="anchor" href="#aquatic-mosquitoes"></a>
 </h3>
 <p>The generic functions which must be implemented for any specific model of aquatic mosquito dynamics are:</p>
 <ul>
 <li>
 <code>F_alpha</code>: compute <span class="math inline"><em>α</em></span>, the rate of emergence of new adults from each aquatic habitat.</li>
 <li>
-<code>dLdt</code>: compute the derivatives for aquatic mosquitos.</li>
+<code>dLdt</code>: compute the derivatives for aquatic mosquitoes.</li>
 </ul>
 </div>
 <div class="section level3">
