@@ -101,6 +101,7 @@
 <h2 id="what-is-exde">What is exDE?<a class="anchor" aria-label="anchor" href="#what-is-exde"></a>
 </h2>
 <p>exDE provides tools to set up modular ordinary and delay differential equation spatial models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved by S3 dispatch on parameter lists for each component which is used to compute the full set of differential equations. The function <code>xDE_diffeqn</code> computes the gradient of all state variables from those modular components and can be used with the excellent solver in <a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a>, or any other differential equation solvers in R. exDE can be regarded as the continuous-time companion to the discrete stochastic <a href="https://github.com/dd-harp/MicroMoB/tree/main" class="external-link">Micro-MoB</a> framework.</p>
+<p>To get started, please consider reading some of the articles in the dropdown panels above! The 3 sections ending in “Component” describe particular models implementing the interface for each of those components (adult mosquitoes, aquatic mosquitoes, and humans), and show a simulation at their equilibrium values. The section “Articles” has more in-depth examples, including an extended walk through of how to set up and run a model in <a href="articles/ex_534.html">5-3-4 Spatial Example</a>. The section “Functions” documents each function exported by the package.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -108,6 +109,11 @@
 <p>To install from an R session, run the following lines of code.</p>
 <pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
 <span><span class="fu">install_github</span><span class="op">(</span><span class="st">"dd-harp/exDE"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level2">
+<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
+</h2>
+<p>For information about how to contribute to the development of exDE, please read our <a href="articles/contribute.html">article on how to contribute</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="modular-dynamics">Modular Dynamics<a class="anchor" aria-label="anchor" href="#modular-dynamics"></a>
