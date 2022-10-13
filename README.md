@@ -31,7 +31,7 @@ devtools::install_github("dd-harp/exDE")
 
 ## Contributing
 
-For information about how to contribute to the development of exDE, please read our article on how to contribute at `vignette("Contribute")`!
+For information about how to contribute to the development of exDE, please read our article on how to contribute at `vignette("Contributing")`!
 
 ## Modular Dynamics
 
