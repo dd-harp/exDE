@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/dd-harp/exDE/workflows/R-CMD-check/badge.svg)](https://github.com/dd-harp/exDE/actions)
-[![codecov](https://codecov.io/gh/dd-harp/exDE/branch/main/graph/badge.svg?token=S6WCEH4L8B)](https://codecov.io/gh/dd-harp/exDE)
+[![codecov](https://codecov.io/gh/dd-harp/exDE/branch/main/graph/badge.svg?token=S6WCEH4L8B)](https://app.codecov.io/gh/dd-harp/exDE)
 <!-- badges: end -->
 
 ## What is exDE?
@@ -17,7 +17,7 @@ any other differential equation solvers in R. exDE can be regarded as the contin
 companion to the discrete stochastic [Micro-MoB](https://github.com/dd-harp/MicroMoB/tree/main)
 framework.
 
-To get started, please consider reading some of the articles in the dropdown panels above! The 3 sections ending in "Component" describe particular models implementing
+To get started, please consider reading some of the articles in the dropdown panels above. The 3 sections ending in "Component" describe particular models implementing
 the interface for each of those components (adult mosquitoes, aquatic mosquitoes, and humans), and show a simulation at their equilibrium values. The section "Articles" has more in-depth examples, including an extended walk through of how to set up and run a model in [5-3-4 Spatial Example](articles/ex_534.html). The section "Functions" documents each function exported by the package.
 
 ## Installation
@@ -26,12 +26,12 @@ To install from an R session, run the following lines of code.
 
 ```
 library(devtools)
-install_github("dd-harp/exDE")
+devtools::install_github("dd-harp/exDE")
 ```
 
 ## Contributing
 
-For information about how to contribute to the development of exDE, please read our [article on how to contribute](articles/contribute.html).
+For information about how to contribute to the development of exDE, please read our [article on how to contribute](articles/contribute.html)!
 
 ## Modular Dynamics
 
