@@ -14,11 +14,11 @@ the full set of differential equations. The function `xDE_diffeqn` computes the
 gradient of all state variables from those modular components and can be used
 with the excellent solver in [deSolve](http://desolve.r-forge.r-project.org/), or
 any other differential equation solvers in R. exDE can be regarded as the continuous-time
-companion to the discrete stochastic [Micro-MoB](https://github.com/dd-harp/MicroMoB/tree/main)
+companion to the discrete stochastic [Micro-MoB](https://github.com/dd-harp/MicroMoB)
 framework.
 
 To get started, please consider reading some of the articles in the dropdown panels above, at our [website](https://dd-harp.github.io/exDE/). The 3 sections ending in "Component" describe particular models implementing
-the interface for each of those components (adult mosquitoes, aquatic mosquitoes, and humans), and show a simulation at their equilibrium values. The section "Articles" has more in-depth examples, including an extended walk through of how to set up and run a model in `vignette("5-3-4 Example")`. The section "Functions" documents each function exported by the package.
+the interface for each of those components (adult mosquitoes, aquatic mosquitoes, and humans), and show a simulation at their equilibrium values. The section "Articles" has more in-depth examples, including an extended walk through of how to set up and run a model in "5-3-4 Example". The section "Functions" documents each function exported by the package.
 
 ## Installation
 
@@ -31,7 +31,7 @@ devtools::install_github("dd-harp/exDE")
 
 ## Contributing
 
-For information about how to contribute to the development of exDE, please read our article on how to contribute at `vignette("Contributing")`!
+For information about how to contribute to the development of exDE, please read our article on how to contribute at `vignette("Contribute")`!
 
 ## Modular Dynamics
 
@@ -49,21 +49,21 @@ Two additional components describe parasite infection and transmission (red): pa
 
 The interactions among these modules take place for a stratified human population within a spatial domain structured into patches that contain the aquatic habitats.
 
-### Adult Mosquitos
+### Adult Mosquitoes
 
 The generic functions which must be implemented for any specific model of adult mosquito dynamics are:
 
   * `F_EIR`:  compute $EIR$, which is a component in the force of infection $h$ upon humans.
-  * `F_kappa`: computes $\kappa$, the net infectiousness of the human population to mosquitos.
-  * `F_eggs`: compute $\nu$, the amount of eggs laid by mosquitos in each patch.
-  * `dMYZdt`: compute the derivatives for all adult mosquitos (both uninfected $M$ and infected $Y$; $Z$ refers for infected _and_ infectious mosquitos, for models which make that distinction).
+  * `F_kappa`: computes $\kappa$, the net infectiousness of the human population to mosquitoes.
+  * `F_eggs`: compute $\nu$, the amount of eggs laid by mosquitoes in each patch.
+  * `dMYZdt`: compute the derivatives for all adult mosquitoes (both uninfected $M$ and infected $Y$; $Z$ refers for infected _and_ infectious mosquitoes, for models which make that distinction).
 
-### Aquatic Mosquitos
+### Aquatic Mosquitoes
 
 The generic functions which must be implemented for any specific model of aquatic mosquito dynamics are:
 
   * `F_alpha`: compute $\alpha$, the rate of emergence of new adults from each aquatic habitat.
-  * `dLdt`: compute the derivatives for aquatic mosquitos.
+  * `dLdt`: compute the derivatives for aquatic mosquitoes.
   
 ### Human Population
 

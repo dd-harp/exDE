@@ -69,7 +69,7 @@ $$
 \beta \cdot \mbox{diag}(W)
 $$
 
-## Human transmitting capcity (HTC)
+## Human transmitting capacity (HTC)
 
 Human transmitting capacity is a vector $D$ of length $n$, each element of which gives the number of net infectious days for an infected individual in each strata. For the homogeneous SIS model, it is simply:
 
