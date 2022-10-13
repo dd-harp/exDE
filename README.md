@@ -49,21 +49,21 @@ Two additional components describe parasite infection and transmission (red): pa
 
 The interactions among these modules take place for a stratified human population within a spatial domain structured into patches that contain the aquatic habitats.
 
-### Adult Mosquitos
+### Adult Mosquitoes
 
 The generic functions which must be implemented for any specific model of adult mosquito dynamics are:
 
   * `F_EIR`:  compute $EIR$, which is a component in the force of infection $h$ upon humans.
-  * `F_kappa`: computes $\kappa$, the net infectiousness of the human population to mosquitos.
-  * `F_eggs`: compute $\nu$, the amount of eggs laid by mosquitos in each patch.
-  * `dMYZdt`: compute the derivatives for all adult mosquitos (both uninfected $M$ and infected $Y$; $Z$ refers for infected _and_ infectious mosquitos, for models which make that distinction).
+  * `F_kappa`: computes $\kappa$, the net infectiousness of the human population to mosquitoes.
+  * `F_eggs`: compute $\nu$, the amount of eggs laid by mosquitoes in each patch.
+  * `dMYZdt`: compute the derivatives for all adult mosquitoes (both uninfected $M$ and infected $Y$; $Z$ refers for infected _and_ infectious mosquitoes, for models which make that distinction).
 
-### Aquatic Mosquitos
+### Aquatic Mosquitoes
 
 The generic functions which must be implemented for any specific model of aquatic mosquito dynamics are:
 
   * `F_alpha`: compute $\alpha$, the rate of emergence of new adults from each aquatic habitat.
-  * `dLdt`: compute the derivatives for aquatic mosquitos.
+  * `dLdt`: compute the derivatives for aquatic mosquitoes.
   
 ### Human Population
 
