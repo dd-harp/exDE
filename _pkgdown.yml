@@ -51,8 +51,9 @@ reference:
   desc: |
     Generic methods for the adult mosquito component.
   contents:
-  - F_EIR
   - F_kappa
+  - F_Z
+  - F_Z_tau
   - F_eggs
   - dMYZdt
   - make_index_MYZ
@@ -60,9 +61,10 @@ reference:
   desc: |
     Specialized methods for the generalized Ross-Macdonald model of adult mosquito dynamics.
   contents:
-  - F_EIR.RM
   - F_kappa.RM_ode
   - F_kappa.RM_dde
+  - F_Z.RM
+  - F_Z_tau.RM
   - F_eggs.RM
   - dMYZdt.RM_ode
   - dMYZdt.RM_dde
@@ -96,6 +98,7 @@ reference:
   desc: |
     Generic methods for the human component.
   contents:
+  - F_EIR
   - F_x
   - F_x_tau
   - dXdt
@@ -104,6 +107,7 @@ reference:
   desc: |
     Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.
   contents:
+  - F_EIR.hMoI
   - F_x.hMoI
   - F_x_tau.hMoI
   - dXdt.hMoI
@@ -113,6 +117,7 @@ reference:
   desc: |
     Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
   contents:
+  - F_EIR.SIS
   - F_x.SIS
   - F_x_tau.SIS
   - dXdt.SIS
@@ -122,6 +127,7 @@ reference:
   desc: |
     Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
   contents:
+  - F_EIR.SIP
   - F_x.SIP
   - F_x_tau.SIP
   - dXdt.SIP

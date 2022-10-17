@@ -1,16 +1,5 @@
 # generic methods for adult component
 
-#' @title Entomological inoculation rate on human strata
-#' @description This method dispatches on the type of `pars$MYZpar`.
-#' @param t current simulation time
-#' @param y state vector
-#' @param pars a [list]
-#' @return a [numeric] vector of length `nStrata`
-#' @export
-F_EIR <- function(t, y, pars) {
-  UseMethod("F_EIR", pars$MYZpar)
-}
-
 #' @title Net infectiousness of human population to mosquitoes
 #' @description This method dispatches on the type of `pars$MYZpar`.
 #' @param t current simulation time
@@ -20,6 +9,29 @@ F_EIR <- function(t, y, pars) {
 #' @export
 F_kappa <- function(t, y, pars) {
   UseMethod("F_kappa", pars$MYZpar)
+}
+
+#' @title Density of infectious mosquitoes
+#' @description This method dispatches on the type of `pars$MYZpar`.
+#' @param t current simulation time
+#' @param y state vector
+#' @param pars a [list]
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_Z <- function(t, y, pars) {
+  UseMethod("F_Z", pars$MYZpar)
+}
+
+#' @title Density of lagged infectious mosquitoes
+#' @description This method dispatches on the type of `pars$MYZpar`.
+#' @param t current simulation time
+#' @param y state vector
+#' @param pars a [list]
+#' @param tau duration of lag `t-tau`
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_Z_tau <- function(t, y, pars, tau) {
+  UseMethod("F_Z_tau", pars$MYZpar)
 }
 
 #' @title Number of eggs laid by adult mosquitoes

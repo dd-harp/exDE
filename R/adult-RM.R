@@ -1,19 +1,5 @@
 # specialized methods for the adult mosquito RM model
 
-#' @title Entomological inoculation rate on human strata
-#' @description Implements [F_EIR] for the generalized RM model.
-#' @inheritParams F_EIR
-#' @return a [numeric] vector of length `nStrata`
-#' @export
-F_EIR.RM <- function(t, y, pars) {
-  Z <- y[pars$Z_ix]
-  with(pars$MYZpar, {
-    return(
-      as.vector(pars$beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
-    )
-  })
-}
-
 #' @title Net infectiousness of human population to mosquitoes
 #' @description Implements [F_kappa] for the generalized RM ODE model.
 #' @inheritParams F_kappa
@@ -38,6 +24,29 @@ F_kappa.RM_dde <- function(t, y, pars) {
   kappa[1, ] <- as.vector(pars$betaT %*% x)
   kappa[2, ] <- as.vector(pars$betaT %*% x_tau)
   return(kappa)
+}
+
+#' @title Density of infectious mosquitoes
+#' @description Implements [F_Z] for the generalized RM model.
+#' @inheritParams F_Z
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_Z.RM <- function(t, y, pars) {
+  y[pars$Z_ix]
+}
+
+#' @title Density of lagged infectious mosquitoes
+#' @description Implements [F_Z_tau] for the generalized RM model.
+#' @inheritParams F_Z_tau
+#' @return a [numeric] vector of length `nPatches`
+#' @importFrom deSolve lagvalue
+#' @export
+F_Z_tau.RM <- function(t, y, pars, tau) {
+  if (t < tau) {
+    return(pars$MYZpar$Z0)
+  } else {
+    return(lagvalue(t = t - tau, nr = pars$Z_ix))
+  }
 }
 
 #' @title Number of eggs laid by adult mosquitoes
