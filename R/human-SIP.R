@@ -1,5 +1,20 @@
 # specialized methods for the human SIP model
 
+#' @title Entomological inoculation rate on human strata
+#' @description Implements [F_EIR] for the SIP model.
+#' @param t current simulation time
+#' @param y state vector
+#' @param pars a [list]
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_EIR.SIP <- function(t, y, pars) {
+  # Z <- y[pars$Z_ix] # may want to use wrapper compute_Z (like F_x below)
+  Z <- F_Z(t, y, pars)
+  f <- pars$MYZpar$f # may want to use wrapper compute_f/q
+  q <- pars$MYZpar$q
+  as.vector(pars$beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
+}
+
 #' @title Size of effective infectious human population
 #' @description Implements [F_x] for the SIP model.
 #' @inheritParams F_x

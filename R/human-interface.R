@@ -1,5 +1,16 @@
 # generic methods for human component
 
+#' @title Entomological inoculation rate on human strata
+#' @description This method dispatches on the type of `pars$Xpar`.
+#' @param t current simulation time
+#' @param y state vector
+#' @param pars a [list]
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_EIR <- function(t, y, pars) {
+  UseMethod("F_EIR", pars$Xpar)
+}
+
 #' @title Size of effective infectious human population
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param t current simulation time
