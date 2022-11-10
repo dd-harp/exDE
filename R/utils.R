@@ -3,11 +3,16 @@
 #' @return modified parameters [list]
 #' @export
 make_indices <- function(pars) {
-  stopifnot(all(c('Lpar', 'MYZpar', 'Xpar') %in% names(pars)))
   pars$max_ix <- 0
-  pars <- make_index_L(pars)
-  pars <- make_index_MYZ(pars)
-  pars <- make_index_X(pars)
+  if ('Lpar' %in% names(pars)) {
+    pars <- make_index_L(pars)
+  }
+  if ('MYZpar' %in% names(pars)) {
+    pars <- make_index_MYZ(pars)
+  }
+  if ('Xpar' %in% names(pars)) {
+    pars <- make_index_X(pars)
+  }
   return(pars)
 }
 
