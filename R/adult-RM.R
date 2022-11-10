@@ -18,11 +18,11 @@ F_kappa.RM_ode <- function(t, y, pars) {
 F_kappa.RM_dde <- function(t, y, pars) {
 
   x <- F_x(t, y, pars)
-  x_tau <- F_x_tau(t, y, pars, pars$MYZpar$tau)
+  x_lag <- F_x_lag(t, y, pars, pars$MYZpar$tau)
 
   kappa <- matrix(data = 0, nrow = 2, ncol = pars$nPatches)
   kappa[1, ] <- as.vector(pars$betaT %*% x)
-  kappa[2, ] <- as.vector(pars$betaT %*% x_tau)
+  kappa[2, ] <- as.vector(pars$betaT %*% x_lag)
   return(kappa)
 }
 
@@ -36,16 +36,16 @@ F_Z.RM <- function(t, y, pars) {
 }
 
 #' @title Density of lagged infectious mosquitoes
-#' @description Implements [F_Z_tau] for the generalized RM model.
-#' @inheritParams F_Z_tau
+#' @description Implements [F_Z_lag] for the generalized RM model.
+#' @inheritParams F_Z_lag
 #' @return a [numeric] vector of length `nPatches`
 #' @importFrom deSolve lagvalue
 #' @export
-F_Z_tau.RM <- function(t, y, pars, tau) {
-  if (t < tau) {
+F_Z_lag.RM <- function(t, y, pars, lag) {
+  if (t < lag) {
     return(pars$MYZpar$Z0)
   } else {
-    return(lagvalue(t = t - tau, nr = pars$Z_ix))
+    return(lagvalue(t = t - lag, nr = pars$Z_ix))
   }
 }
 
