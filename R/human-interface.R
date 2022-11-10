@@ -27,11 +27,11 @@ F_x <- function(t, y, pars) {
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
-#' @param tau duration of lag `t-tau`
+#' @param lag duration of lag `t-lag`
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_x_tau <- function(t, y, pars, tau) {
-  UseMethod("F_x_tau", pars$Xpar)
+F_x_lag <- function(t, y, pars, lag) {
+  UseMethod("F_x_lag", pars$Xpar)
 }
 
 #' @title Derivatives for human population

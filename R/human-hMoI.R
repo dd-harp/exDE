@@ -29,19 +29,19 @@ F_x.hMoI <- function(t, y, pars) {
 }
 
 #' @title Size of lagged effective infectious human population
-#' @description Implements [F_x_tau] for the hybrid MoI model.
-#' @inheritParams F_x_tau
+#' @description Implements [F_x_lag] for the hybrid MoI model.
+#' @inheritParams F_x_lag
 #' @return a [numeric] vector of length `nStrata`
 #' @importFrom stats pexp
 #' @importFrom deSolve lagvalue
 #' @export
-F_x_tau.hMoI <- function(t, y, pars, tau) {
-  if (t < tau) {
+F_x_lag.hMoI <- function(t, y, pars, lag) {
+  if (t < lag) {
     m1_tau <- pars$Xpar$m10
     m2_tau <- pars$Xpar$m20
   } else {
-    m1_tau <- lagvalue(t = t - tau, nr = pars$m1_ix)
-    m2_tau <- lagvalue(t = t - tau, nr = pars$m2_ix)
+    m1_tau <- lagvalue(t = t - lag, nr = pars$m1_ix)
+    m2_tau <- lagvalue(t = t - lag, nr = pars$m2_ix)
   }
   x1_tau <- pexp(q = m1_tau)
   x2_tau <- pexp(q = m2_tau)

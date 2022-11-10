@@ -70,7 +70,7 @@ The generic functions which must be implemented for any specific model of aquati
 The generic functions which must be implemented for any specific model of human population dynamics are:
 
   * `F_x`: compute $X$, the net infectious population size.
-  * `F_x_tau`: compute $X_{\tau}$, the lagged net infectious population size.
+  * `F_x_lag`: compute $X_{\tau}$, the lagged net infectious population size.
   * `dXdt`: compute the derivatives of the human population.
 
 ## Generalized equations

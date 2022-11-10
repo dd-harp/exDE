@@ -53,7 +53,7 @@ reference:
   contents:
   - F_kappa
   - F_Z
-  - F_Z_tau
+  - F_Z_lag
   - F_eggs
   - dMYZdt
   - make_index_MYZ
@@ -64,7 +64,7 @@ reference:
   - F_kappa.RM_ode
   - F_kappa.RM_dde
   - F_Z.RM
-  - F_Z_tau.RM
+  - F_Z_lag.RM
   - F_eggs.RM
   - dMYZdt.RM_ode
   - dMYZdt.RM_dde
@@ -100,7 +100,7 @@ reference:
   contents:
   - F_EIR
   - F_x
-  - F_x_tau
+  - F_x_lag
   - dXdt
   - make_index_X
 - subtitle: hybrid MoI model
@@ -109,7 +109,7 @@ reference:
   contents:
   - F_EIR.hMoI
   - F_x.hMoI
-  - F_x_tau.hMoI
+  - F_x_lag.hMoI
   - dXdt.hMoI
   - make_index_X.hMoI
   - make_parameters_X_hMoI
@@ -119,7 +119,7 @@ reference:
   contents:
   - F_EIR.SIS
   - F_x.SIS
-  - F_x_tau.SIS
+  - F_x_lag.SIS
   - dXdt.SIS
   - make_index_X.SIS
   - make_parameters_X_SIS
@@ -129,7 +129,7 @@ reference:
   contents:
   - F_EIR.SIP
   - F_x.SIP
-  - F_x_tau.SIP
+  - F_x_lag.SIP
   - dXdt.SIP
   - make_index_X.SIP
   - make_parameters_X_SIP

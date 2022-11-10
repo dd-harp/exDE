@@ -27,11 +27,11 @@ F_Z <- function(t, y, pars) {
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
-#' @param tau duration of lag `t-tau`
+#' @param lag duration of lag `t-lag`
 #' @return a [numeric] vector of length `nPatches`
 #' @export
-F_Z_tau <- function(t, y, pars, tau) {
-  UseMethod("F_Z_tau", pars$MYZpar)
+F_Z_lag <- function(t, y, pars, lag) {
+  UseMethod("F_Z_lag", pars$MYZpar)
 }
 
 #' @title Number of eggs laid by adult mosquitoes

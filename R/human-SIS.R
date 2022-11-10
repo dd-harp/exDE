@@ -25,16 +25,16 @@ F_x.SIS <- function(t, y, pars) {
 }
 
 #' @title Size of lagged effective infectious human population
-#' @description Implements [F_x_tau] for the SIS model.
-#' @inheritParams F_x_tau
+#' @description Implements [F_x_lag] for the SIS model.
+#' @inheritParams F_x_lag
 #' @return a [numeric] vector of length `nStrata`
 #' @importFrom deSolve lagvalue
 #' @export
-F_x_tau.SIS <- function(t, y, pars, tau) {
-  if (t < tau) {
+F_x_lag.SIS <- function(t, y, pars, lag) {
+  if (t < lag) {
     X_tau <- pars$Xpar$X0
   } else {
-    X_tau <- lagvalue(t = t - tau, nr = pars$X_ix)
+    X_tau <- lagvalue(t = t - lag, nr = pars$X_ix)
   }
   X_tau * pars$Xpar$c
 }
