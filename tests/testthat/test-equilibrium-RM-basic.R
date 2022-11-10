@@ -2,7 +2,7 @@ library(expm)
 library(MASS)
 library(deSolve)
 
-test_that("test equilibrium with RM adults (ODE), SIS humans, basic competition", {
+test_that("test equilibrium with RM adults (ODE), basic competition", {
 
   # set number of patches and strata
   nPatches <- 2
@@ -67,12 +67,21 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, basic competition"
   G <- solve(diag(nu+f, nPatches) + Omega) %*% diag(f, nPatches) %*% M
   Lambda <- Omega %*% M
 
-  # oviposition/emergence matrice
+  # equilibrium solutions for aquatic
   calN <- matrix(0, nPatches, nHabitats)
   diag(calN) <- 1
 
   calU <- matrix(0, nHabitats, nPatches)
   diag(calU) <- 1
+
+  alpha <- as.vector(solve(calN) %*% Lambda)
+
+  psi <- 1/10
+  phi <- 1/12
+  eta <- as.vector(calU %*% G * nu * eggsPerBatch)
+
+  L <- alpha/psi
+  theta <- (eta - psi*L - phi*L)/(L^2)
 
   # parameters for exDE
   params <- new.env()
@@ -85,30 +94,29 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, basic competition"
   params$betaT <- t(beta)
 
   params$MYZpar <- make_parameters_MYZ_RM_ode(Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  params$Xpar <- make_parameters_X_SIS(b = b, c = c, r = r, X0 = X, H = H)
-  params$Lpar <- make_parameters_L_trace(Lambda = as.vector(Lambda))
+  params$Lpar <- Lpar <- make_parameters_L_basic(psi = psi, phi = phi, theta = theta, L0 = L)
 
   params <- make_indices(params)
 
   # set initial conditions
-  y <- rep(NaN, max(params$X_ix))
+  y <- rep(NaN, max(params$Z_ix))
+  y[params$L_ix] <- as.vector(L)
   y[params$M_ix] <- as.vector(M)
   y[params$G_ix] <- as.vector(G)
   y[params$Y_ix] <- as.vector(Y)
   y[params$Z_ix] <- as.vector(Z)
-  y[params$X_ix] <- as.vector(X)
 
   # run simulation
-  out <- deSolve::ode(y = y, times = c(0,50), func = xDE_diffeqn, parms = params, method = "lsoda")
+  out <- deSolve::ode(y = y, times = c(0,50), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = as.vector(kappa))
 
+  expect_equal(as.vector(out[2, params$L_ix+1]), as.vector(L), tolerance = 1e-4)
   expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M))
   expect_equal(as.vector(out[2, params$G_ix+1]), as.vector(G))
   expect_equal(as.vector(out[2, params$Y_ix+1]), as.vector(Y))
   expect_equal(as.vector(out[2, params$Z_ix+1]), as.vector(Z))
-  expect_equal(as.vector(out[2, params$X_ix+1]), as.vector(X))
 })
 
-test_that("test equilibrium with RM adults (DDE), SIS humans, basic competition", {
+test_that("test equilibrium with RM adults (ODE), basic competition", {
 
   # set number of patches and strata
   nPatches <- 2
@@ -165,7 +173,7 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, basic competition"
   # kappa
   kappa <- t(beta) %*% (X*c)
 
-  # equilibrium solutions
+  # equilibrium solutions for adults
   Z <- diag(1/(f*q), nPatches, nPatches) %*% ginv(beta) %*% EIR
   MY <- diag(1/as.vector(f*q*kappa), nPatches, nPatches) %*% OmegaEIP_inv %*% Omega %*% Z
   Y <- Omega_inv %*% (diag(as.vector(f*q*kappa), nPatches, nPatches) %*% MY)
@@ -173,12 +181,21 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, basic competition"
   G <- solve(diag(nu+f, nPatches) + Omega) %*% diag(f, nPatches) %*% M
   Lambda <- Omega %*% M
 
-  # oviposition/emergence matrices
+  # equilibrium solutions for aquatic
   calN <- matrix(0, nPatches, nHabitats)
   diag(calN) <- 1
 
   calU <- matrix(0, nHabitats, nPatches)
   diag(calU) <- 1
+
+  alpha <- as.vector(solve(calN) %*% Lambda)
+
+  psi <- 1/10
+  phi <- 1/12
+  eta <- as.vector(calU %*% G * nu * eggsPerBatch)
+
+  L <- alpha/psi
+  theta <- (eta - psi*L - phi*L)/(L^2)
 
   # parameters for exDE
   params <- new.env()
@@ -191,26 +208,25 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, basic competition"
   params$betaT <- t(beta)
 
   params$MYZpar <- make_parameters_MYZ_RM_dde(Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  params$Xpar <- make_parameters_X_SIS(b = b, c = c, r = r, X0 = X, H = H)
-  params$Lpar <- make_parameters_L_trace(Lambda = as.vector(Lambda))
+  params$Lpar <- Lpar <- make_parameters_L_basic(psi = psi, phi = phi, theta = theta, L0 = L)
 
   params <- make_indices(params)
 
   # set initial conditions
-  y <- rep(NaN, max(params$X_ix))
+  y <- rep(NaN, max(params$Z_ix))
+  y[params$L_ix] <- as.vector(L)
   y[params$M_ix] <- as.vector(M)
   y[params$G_ix] <- as.vector(G)
   y[params$Y_ix] <- as.vector(Y)
   y[params$Z_ix] <- as.vector(Z)
-  y[params$X_ix] <- as.vector(X)
 
   # run simulation
-  out <- deSolve::dede(y = y, times = c(0,50), func = xDE_diffeqn, parms = params, method = "lsoda")
+  out <- deSolve::dede(y = y, times = c(0,50), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = t(cbind(kappa,kappa)))
 
+  expect_equal(as.vector(out[2, params$L_ix+1]), as.vector(L), tolerance = 1e-4)
   expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M))
   expect_equal(as.vector(out[2, params$G_ix+1]), as.vector(G))
   expect_equal(as.vector(out[2, params$Y_ix+1]), as.vector(Y))
   expect_equal(as.vector(out[2, params$Z_ix+1]), as.vector(Z))
-  expect_equal(as.vector(out[2, params$X_ix+1]), as.vector(X))
 })
 
