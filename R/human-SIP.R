@@ -33,8 +33,8 @@ dXdt.SIP <- function(t, y, pars, EIR) {
   X <- y[pars$X_ix]
   P <- y[pars$P_ix]
   with(pars$Xpar, {
-    dXdt <- diag((1-rho)*b*EIR) %*% (H - X - P) - r*X
-    dPdt <- diag(rho*b*EIR) %*% (H - X - P) - eta*P
+    dXdt <- diag((1-rho)*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - r*X
+    dPdt <- diag(rho*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - eta*P
     return(c(dXdt, dPdt))
   })
 }
