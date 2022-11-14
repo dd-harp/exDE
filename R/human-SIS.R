@@ -32,7 +32,7 @@ F_x_tau.SIS <- function(t, y, pars, tau) {
 dXdt.SIS <- function(t, y, pars, EIR) {
   X <- y[pars$X_ix]
   with(pars$Xpar, {
-    dXdt <- diag(b*EIR) %*% (H - X) - r*X
+    dXdt <- diag(b*EIR, nrow = pars$nStrata) %*% (H - X) - r*X
     return(dXdt)
   })
 }
