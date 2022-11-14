@@ -99,16 +99,27 @@
 
     
     
-<p>The basic competition aquatic mosquito model fulfills the generic interface of the aquatic mosquito component. It has a single compartment “larvae” for each aquatic habitat, and mosquitoes in that aquatic habitat suffer density-independent and dependent mortality, and mature at some rate <span class="math inline">\(\psi\)</span>.</p>
+<p>The basic competition aquatic mosquito model fulfills the generic
+interface of the aquatic mosquito component. It has a single compartment
+“larvae” for each aquatic habitat, and mosquitoes in that aquatic
+habitat suffer density-independent and dependent mortality, and mature
+at some rate <span class="math inline">\(\psi\)</span>.</p>
 <div class="section level2">
 <h2 id="differential-equations">Differential Equations<a class="anchor" aria-label="anchor" href="#differential-equations"></a>
 </h2>
-<p>Given <span class="math inline">\(\Lambda\)</span> and some egg laying rate from the adult mosquito population we could formulate and solve a dynamical model of aquatic mosquitoes to give that emergence rate. However, in the example here we will simply use a trace-based (forced) emergence model, so that <span class="math inline">\(\Lambda\)</span> completely specifies the aquatic mosquitoes.</p>
-<p>The simplest model of aquatic (immature) mosquito dynamics with negative feedback (density dependence) is:</p>
+<p>Given <span class="math inline">\(\Lambda\)</span> and some egg
+laying rate from the adult mosquito population we could formulate and
+solve a dynamical model of aquatic mosquitoes to give that emergence
+rate. However, in the example here we will simply use a trace-based
+(forced) emergence model, so that <span class="math inline">\(\Lambda\)</span> completely specifies the aquatic
+mosquitoes.</p>
+<p>The simplest model of aquatic (immature) mosquito dynamics with
+negative feedback (density dependence) is:</p>
 <p><span class="math display">\[
 \dot{L} = \eta - (\psi+\phi+\theta L)L
 \]</span></p>
-<p>Because the equations allow the number of larval habitats <span class="math inline">\(l\)</span> to differ from <span class="math inline">\(p\)</span>, in general the emergence rate is given by:</p>
+<p>Because the equations allow the number of larval habitats <span class="math inline">\(l\)</span> to differ from <span class="math inline">\(p\)</span>, in general the emergence rate is given
+by:</p>
 <p><span class="math display">\[
 \Lambda = \mathcal{N}\cdot \alpha
 \]</span></p>
@@ -120,11 +131,18 @@
 <div class="section level2">
 <h2 id="equilibrium-solutions">Equilibrium solutions<a class="anchor" aria-label="anchor" href="#equilibrium-solutions"></a>
 </h2>
-<p>In general, if we know the value of <span class="math inline">\(\Lambda\)</span> at equilibrium we can solve for <span class="math inline">\(L\)</span> directly by using the above two equations. Then we can consider <span class="math inline">\(\theta\)</span>, the strength of density dependence to be unknown and solve such that:</p>
+<p>In general, if we know the value of <span class="math inline">\(\Lambda\)</span> at equilibrium we can solve for
+<span class="math inline">\(L\)</span> directly by using the above two
+equations. Then we can consider <span class="math inline">\(\theta\)</span>, the strength of density
+dependence to be unknown and solve such that:</p>
 <p><span class="math display">\[
 \theta = (\eta - \psi L - \phi L) / L^2
 \]</span> # Example</p>
-<p>Here we run a simple example with 3 aquatic habitats at equilibrium. We use <code><a href="../reference/make_parameters_L_basic.html">exDE::make_parameters_L_basic</a></code> to set up parameters. Please note that this only runs the aquatic mosquito component and that most users should read <a href="ex_534.html">our fully worked example</a> to run a full simulation.</p>
+<p>Here we run a simple example with 3 aquatic habitats at equilibrium.
+We use <code><a href="../reference/make_parameters_L_basic.html">exDE::make_parameters_L_basic</a></code> to set up parameters.
+Please note that this only runs the aquatic mosquito component and that
+most users should read <a href="ex_534.html">our fully worked
+example</a> to run a full simulation.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/exDE/">exDE</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a></span><span class="op">)</span></span>

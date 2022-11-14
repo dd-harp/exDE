@@ -99,16 +99,19 @@
 
     
     
-<p>The generalized Ross-Macdonald adult mosquito model fulfills the generic interface of the adult mosquito component. It includes state variables for total mosquito density <span class="math inline">\(M\)</span>, gravid mosquito density <span class="math inline">\(G\)</span>, infected mosquito density <span class="math inline">\(Y\)</span>, and infectious mosquito density <span class="math inline">\(Z\)</span>.</p>
+<p>The generalized Ross-Macdonald adult mosquito model fulfills the
+generic interface of the adult mosquito component. It includes state
+variables for total mosquito density <span class="math inline">\(M\)</span>, gravid mosquito density <span class="math inline">\(G\)</span>, infected mosquito density <span class="math inline">\(Y\)</span>, and infectious mosquito density <span class="math inline">\(Z\)</span>.</p>
 <div class="section level2">
 <h2 id="differential-equations">Differential Equations<a class="anchor" aria-label="anchor" href="#differential-equations"></a>
 </h2>
 <div class="section level3">
 <h3 id="delay-differential-equations">Delay Differential Equations<a class="anchor" aria-label="anchor" href="#delay-differential-equations"></a>
 </h3>
-<p>These equations are implemented by <code><a href="../reference/dMYZdt.RM_dde.html">exDE::dMYZdt.RM_dde</a></code>.</p>
+<p>These equations are implemented by
+<code><a href="../reference/dMYZdt.RM_dde.html">exDE::dMYZdt.RM_dde</a></code>.</p>
 <p><span class="math display">\[
-\dot{M} = \Lambda - \Omega\cdot M 
+\dot{M} = \Lambda - \Omega\cdot M
 \]</span> <span class="math display">\[
 \dot{G} = \mbox{diag}(f) \cdot (M-G) - \nu G - \Omega \cdot G
 \]</span></p>
@@ -116,27 +119,43 @@
 \dot{Y} = \mbox{diag}(fq\kappa) \cdot (M-Y) - \Omega \cdot Y
 \]</span></p>
 <p><span class="math display">\[
-\dot{Z} = e^{-\Omega \tau} \cdot \mbox{diag}(fq\kappa_{t-\tau}) \cdot (M_{t-\tau}-Y_{t-\tau}) - \Omega \cdot Z
+\dot{Z} = e^{-\Omega \tau} \cdot \mbox{diag}(fq\kappa_{t-\tau}) \cdot
+(M_{t-\tau}-Y_{t-\tau}) - \Omega \cdot Z
 \]</span></p>
-<p>Recall that the mosquito demography matrix describing mortality and dispersal is given by:</p>
+<p>Recall that the mosquito demography matrix describing mortality and
+dispersal is given by:</p>
 <p><span class="math display">\[
-\Omega =  \mbox{diag(g)} + \left(I- {\cal K}\right) \cdot \mbox{diag}(\sigma)
+\Omega =  \mbox{diag(g)} + \left(I- {\cal K}\right) \cdot
+\mbox{diag}(\sigma)
 \]</span></p>
 </div>
 <div class="section level3">
 <h3 id="ordinary-differential-equations">Ordinary Differential Equations<a class="anchor" aria-label="anchor" href="#ordinary-differential-equations"></a>
 </h3>
-<p>These equations are implemented by <code><a href="../reference/dMYZdt.RM_ode.html">exDE::dMYZdt.RM_ode</a></code>.</p>
-<p>The system of ODEs is the same as above except for the equation giving the rate of change in infectious mosquito density, which becomes:</p>
+<p>These equations are implemented by
+<code><a href="../reference/dMYZdt.RM_ode.html">exDE::dMYZdt.RM_ode</a></code>.</p>
+<p>The system of ODEs is the same as above except for the equation
+giving the rate of change in infectious mosquito density, which
+becomes:</p>
 <p><span class="math display">\[
-\dot{Z} = e^{-\Omega \tau} \cdot \mbox{diag}(fq\kappa) \cdot (M-Y) - \Omega \cdot Z
-\]</span> The resulting set of equations is similar in spirit to the simple model presented in <a href="https://malariajournal.biomedcentral.com/articles/10.1186/1475-2875-3-13" class="external-link">Smith &amp; McKenzie (2004)</a> in that mortality and dispersal over the EIP is accounted for, but the time lag is not. While transient dynamics of the ODE model will not equal the DDE model, they have the same equilibrium values, and so for numerical work requiring finding equilibrium points, the faster ODE model can be safely substituted.</p>
+\dot{Z} = e^{-\Omega \tau} \cdot \mbox{diag}(fq\kappa) \cdot (M-Y) -
+\Omega \cdot Z
+\]</span> The resulting set of equations is similar in spirit to the
+simple model presented in <a href="https://malariajournal.biomedcentral.com/articles/10.1186/1475-2875-3-13" class="external-link">Smith
+&amp; McKenzie (2004)</a> in that mortality and dispersal over the EIP
+is accounted for, but the time lag is not. While transient dynamics of
+the ODE model will not equal the DDE model, they have the same
+equilibrium values, and so for numerical work requiring finding
+equilibrium points, the faster ODE model can be safely substituted.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="equilibrium-solutions">Equilibrium solutions<a class="anchor" aria-label="anchor" href="#equilibrium-solutions"></a>
 </h2>
-<p>There are two logical ways to begin solving the non-trivial equilibrium. The first assumes <span class="math inline">\(\Lambda\)</span> is known, which implies good knowledge of mosquito ecology. The second assumes <span class="math inline">\(Z\)</span> is known, which implies knowledge of the biting rate on the human population. We show both below.</p>
+<p>There are two logical ways to begin solving the non-trivial
+equilibrium. The first assumes <span class="math inline">\(\Lambda\)</span> is known, which implies good
+knowledge of mosquito ecology. The second assumes <span class="math inline">\(Z\)</span> is known, which implies knowledge of
+the biting rate on the human population. We show both below.</p>
 <div class="section level3">
 <h3 id="starting-with-lambda">Starting with <span class="math inline">\(\Lambda\)</span><a class="anchor" aria-label="anchor" href="#starting-with-lambda"></a>
 </h3>
@@ -145,22 +164,32 @@
 M = \Omega^{-1} \cdot \Lambda
 \]</span> Then given <span class="math inline">\(M\)</span> we set <span class="math inline">\(\dot{Y}\)</span> to zero and factor out <span class="math inline">\(Y\)</span> to get:</p>
 <p><span class="math display">\[
-Y = (\mbox{diag}(fq\kappa) + \Omega)^{-1} \cdot \mbox{diag}(fq\kappa) \cdot M
-\]</span> We set <span class="math inline">\(\dot{Z}\)</span> to zero to get:</p>
+Y = (\mbox{diag}(fq\kappa) + \Omega)^{-1} \cdot \mbox{diag}(fq\kappa)
+\cdot M
+\]</span> We set <span class="math inline">\(\dot{Z}\)</span> to zero to
+get:</p>
 <p><span class="math display">\[
-Z = \Omega^{-1} \cdot e^{-\Omega \tau} \cdot \mbox{diag}(fq\kappa) \cdot (M-Y)
+Z = \Omega^{-1} \cdot e^{-\Omega \tau} \cdot \mbox{diag}(fq\kappa) \cdot
+(M-Y)
 \]</span></p>
-<p>Because the dynamics of <span class="math inline">\(G\)</span> are independent of the infection dynamics, we can solve it given <span class="math inline">\(M\)</span> as:</p>
+<p>Because the dynamics of <span class="math inline">\(G\)</span> are
+independent of the infection dynamics, we can solve it given <span class="math inline">\(M\)</span> as:</p>
 <p><span class="math display">\[
-G = (\mbox{diag}(\nu) + \Omega + \mbox{diag}(f))^{-1} \cdot \mbox{diag}(f) \cdot M
+G = (\mbox{diag}(\nu) + \Omega + \mbox{diag}(f))^{-1} \cdot
+\mbox{diag}(f) \cdot M
 \]</span></p>
 </div>
 <div class="section level3">
 <h3 id="starting-with-z">Starting with <span class="math inline">\(Z\)</span><a class="anchor" aria-label="anchor" href="#starting-with-z"></a>
 </h3>
-<p>It is more common that we start from an estimate of <span class="math inline">\(Z\)</span>, perhaps derived from an estimated EIR (entomological inoculation rate). Given <span class="math inline">\(Z\)</span>, we can calculate the other state variables and <span class="math inline">\(\Lambda\)</span>. For numerical implementation, note that <span class="math inline">\((e^{-\Omega\tau})^{-1} = e^{\Omega\tau}\)</span>.</p>
+<p>It is more common that we start from an estimate of <span class="math inline">\(Z\)</span>, perhaps derived from an estimated EIR
+(entomological inoculation rate). Given <span class="math inline">\(Z\)</span>, we can calculate the other state
+variables and <span class="math inline">\(\Lambda\)</span>. For
+numerical implementation, note that <span class="math inline">\((e^{-\Omega\tau})^{-1} =
+e^{\Omega\tau}\)</span>.</p>
 <p><span class="math display">\[
-M-Y = \mbox{diag}(1/fq\kappa) \cdot (e^{-\Omega\tau})^{-1} \cdot \Omega \cdot Z
+M-Y = \mbox{diag}(1/fq\kappa) \cdot (e^{-\Omega\tau})^{-1} \cdot \Omega
+\cdot Z
 \]</span></p>
 <p><span class="math display">\[
 Y = \Omega^{-1} \cdot \mbox{diag}(fq\kappa) \cdot (M-Y)
@@ -176,7 +205,10 @@ M = (M - Y) + Y
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>Here we show an example of starting and solving a model at equilibrium. Please note that this only runs this adult mosquito model and that most users should read <a href="ex_534.html">our fully worked example</a> to run a full simulation.</p>
+<p>Here we show an example of starting and solving a model at
+equilibrium. Please note that this only runs this adult mosquito model
+and that most users should read <a href="ex_534.html">our fully worked
+example</a> to run a full simulation.</p>
 <p>Here we set up some parameters for a simulation with 3 patches.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/exDE/">exDE</a></span><span class="op">)</span></span>
@@ -228,7 +260,10 @@ M = (M - Y) + Y
 <span><span class="va">G_eq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/solve-methods.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">nu</span><span class="op">+</span><span class="va">f</span>, <span class="va">nPatches</span><span class="op">)</span> <span class="op">+</span> <span class="va">Omega</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">f</span>, <span class="va">nPatches</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">M_eq</span><span class="op">)</span></span>
 <span><span class="va">Y_eq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/solve-methods.html" class="external-link">solve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">f</span><span class="op">*</span><span class="va">q</span><span class="op">*</span><span class="va">kappa</span><span class="op">)</span> <span class="op">+</span> <span class="va">Omega</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">f</span><span class="op">*</span><span class="va">q</span><span class="op">*</span><span class="va">kappa</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">M_eq</span><span class="op">)</span></span>
 <span><span class="va">Z_eq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">Omega_inv</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">OmegaEIP</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">f</span><span class="op">*</span><span class="va">q</span><span class="op">*</span><span class="va">kappa</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="op">(</span><span class="va">M_eq</span> <span class="op">-</span> <span class="va">Y_eq</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Now we set up the parameter list with the correct class using <code><a href="../reference/make_parameters_MYZ_RM_ode.html">exDE::make_parameters_MYZ_RM_ode</a></code>. Then we can set up the initial conditions vector and use <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">deSolve::ode</a></code> to solve the model.</p>
+<p>Now we set up the parameter list with the correct class using
+<code><a href="../reference/make_parameters_MYZ_RM_ode.html">exDE::make_parameters_MYZ_RM_ode</a></code>. Then we can set up the
+initial conditions vector and use <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">deSolve::ode</a></code> to solve the
+model.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">MYZpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_parameters_MYZ_RM_ode.html">make_parameters_MYZ_RM_ode</a></span><span class="op">(</span>Omega <span class="op">=</span> <span class="va">Omega</span>, OmegaEIP <span class="op">=</span> <span class="va">OmegaEIP</span>, f <span class="op">=</span> <span class="va">f</span>, q <span class="op">=</span> <span class="va">q</span>, nu <span class="op">=</span> <span class="va">nu</span>, eggsPerBatch <span class="op">=</span> <span class="va">eggsPerBatch</span>, M0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">nPatches</span><span class="op">)</span>, G0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">nPatches</span><span class="op">)</span>, Y0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">nPatches</span><span class="op">)</span>, Z0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">nPatches</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">params</span><span class="op">$</span><span class="va">MYZpar</span> <span class="op">&lt;-</span> <span class="va">MYZpar</span></span>

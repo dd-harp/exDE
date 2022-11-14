@@ -99,11 +99,16 @@
 
     
     
-<p>Thank you for taking the time to contribute to <strong>exDE</strong> (Extensible Differential Equations for mosquito-borne pathogen modeling).</p>
+<p>Thank you for taking the time to contribute to <strong>exDE</strong>
+(Extensible Differential Equations for mosquito-borne pathogen
+modeling).</p>
 <div class="section level2">
 <h2 id="issues">Issues<a class="anchor" aria-label="anchor" href="#issues"></a>
 </h2>
-<p>If you find a bug, have a question about how to use a feature that does not have sufficient documentation, or have a suggestion for improvement, please <a href="https://github.com/dd-harp/exDE/issues" class="external-link">leave an issue</a> at our GitHub repo.</p>
+<p>If you find a bug, have a question about how to use a feature that
+does not have sufficient documentation, or have a suggestion for
+improvement, please <a href="https://github.com/dd-harp/exDE/issues" class="external-link">leave an issue</a> at our
+GitHub repo.</p>
 <p>For bug reports please include:</p>
 <ul>
 <li>
@@ -118,35 +123,66 @@
 <div class="section level2">
 <h2 id="git">Git<a class="anchor" aria-label="anchor" href="#git"></a>
 </h2>
-<p>We use Git on this project. Which means we use <code>main</code>, <code>dev</code>, <code>feat/*</code>, <code>bug/*</code>, and <code>hotfix/*</code> branches. Please refer to <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow" class="external-link">this post</a> for more information of each type of branch.</p>
+<p>We use Git on this project. Which means we use <code>main</code>,
+<code>dev</code>, <code>feat/*</code>, <code>bug/*</code>, and
+<code>hotfix/*</code> branches. Please refer to <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow" class="external-link">this
+post</a> for more information of each type of branch.</p>
 <ul>
 <li>
-<code>main</code>: this branch always stores the last “production” release of the software, and is a protected branch. A pull request should not be submitted to <code>main</code> unless it is from <code>dev</code>, meaning that the software version should be updated.</li>
+<code>main</code>: this branch always stores the last “production”
+release of the software, and is a protected branch. A pull request
+should not be submitted to <code>main</code> unless it is from
+<code>dev</code>, meaning that the software version should be
+updated.</li>
 <li>
-<code>dev</code>: all pull requests from users should be made to the <code>dev</code> branch. This branch is protected from deletion.</li>
+<code>dev</code>: all pull requests from users should be made to the
+<code>dev</code> branch. This branch is protected from deletion.</li>
 <li>
-<code>feat</code>: new and significantly enhanced features are made in <code>feat</code> branches before being merged with <code>dev</code>. After a <code>feat/*</code> branch is merged with <code>dev</code>, it can be deleted.</li>
+<code>feat</code>: new and significantly enhanced features are made
+in <code>feat</code> branches before being merged with <code>dev</code>.
+After a <code>feat/*</code> branch is merged with <code>dev</code>, it
+can be deleted.</li>
 <li>
-<code>bug</code>: these branches fix bugs, usually after being raised as an issue. After a <code>bug/*</code> branch is merged with <code>dev</code>, it can be deleted.</li>
+<code>bug</code>: these branches fix bugs, usually after being
+raised as an issue. After a <code>bug/*</code> branch is merged with
+<code>dev</code>, it can be deleted.</li>
 <li>
-<code>hotfix</code>: the difference between a <code>bug/*</code> and <code>hotfix/*</code> branch is <code>hotfix</code> is for small quick fixes (misspellings, incorrect arguments, etc.) and are short-lived. After being merged with <code>dev</code>, they can be deleted.</li>
+<code>hotfix</code>: the difference between a <code>bug/*</code> and
+<code>hotfix/*</code> branch is <code>hotfix</code> is for small quick
+fixes (misspellings, incorrect arguments, etc.) and are short-lived.
+After being merged with <code>dev</code>, they can be deleted.</li>
 </ul>
-<p>We periodically merge <code>dev</code> into <code>main</code> for release updates. These releases will appear on the <a href="https://github.com/dd-harp/exDE/releases" class="external-link">GitHub releases page</a>.</p>
+<p>We periodically merge <code>dev</code> into <code>main</code> for
+release updates. These releases will appear on the <a href="https://github.com/dd-harp/exDE/releases" class="external-link">GitHub releases
+page</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="continuous-integration">Continuous integration<a class="anchor" aria-label="anchor" href="#continuous-integration"></a>
 </h2>
-<p>We use GitHub Actions as our continuous integration platform to run workflows. The workflows we use are from <a href="https://github.com/r-lib/actions" class="external-link">r-lib/actions</a> for R packages.</p>
+<p>We use GitHub Actions as our continuous integration platform to run
+workflows. The workflows we use are from <a href="https://github.com/r-lib/actions" class="external-link">r-lib/actions</a> for R
+packages.</p>
 <p>We run three types of workflows.</p>
-<p><a href="https://github.com/r-lib/actions/blob/master/examples/check-standard.yaml" class="external-link">R CMD check</a> runs during any pull request to <code>[main, dev]</code> branches.</p>
-<p><a href="https://github.com/r-lib/actions/blob/master/examples/test-coverage.yaml" class="external-link">Test coverage</a> runs during pushes to <code>[main]</code> and uses our <a href="https://app.codecov.io/gh/dd-harp/MicroMoB" class="external-link">codecov.io integration</a> for checking test coverage.</p>
-<p>Finally, <a href="https://github.com/r-lib/actions/blob/master/examples/pkgdown.yaml" class="external-link">pkgdown</a> runs during pushes to <code>[main]</code>.</p>
-<p>Please note that sometimes hard to diagnose bugs can be due to out of date workflows. If you find a strange or unusual bug coming from a workflow, this is something to consider checking.</p>
+<p><a href="https://github.com/r-lib/actions/blob/master/examples/check-standard.yaml" class="external-link">R
+CMD check</a> runs during any pull request to <code>[main, dev]</code>
+branches.</p>
+<p><a href="https://github.com/r-lib/actions/blob/master/examples/test-coverage.yaml" class="external-link">Test
+coverage</a> runs during pushes to <code>[main]</code> and uses our <a href="https://app.codecov.io/gh/dd-harp/MicroMoB" class="external-link">codecov.io
+integration</a> for checking test coverage.</p>
+<p>Finally, <a href="https://github.com/r-lib/actions/blob/master/examples/pkgdown.yaml" class="external-link">pkgdown</a>
+runs during pushes to <code>[main]</code>.</p>
+<p>Please note that sometimes hard to diagnose bugs can be due to out of
+date workflows. If you find a strange or unusual bug coming from a
+workflow, this is something to consider checking.</p>
 </div>
 <div class="section level2">
 <h2 id="pull-requests">Pull Requests<a class="anchor" aria-label="anchor" href="#pull-requests"></a>
 </h2>
-<p>If making a pull request, please only use <code>dev</code> as the base branch. If you are adding a new feature (i.e. the pull is from a <code>feat/*</code> branch), please ensure you have added minimal tests using testthat so that the functionality of your feature can be tested.</p>
+<p>If making a pull request, please only use <code>dev</code> as the
+base branch. If you are adding a new feature (i.e. the pull is from a
+<code>feat/*</code> branch), please ensure you have added minimal tests
+using testthat so that the functionality of your feature can be
+tested.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

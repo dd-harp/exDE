@@ -99,7 +99,9 @@
 
     
     
-<p>The SIS (Susceptible-Infected-Susceptible) human model model fulfills the generic interface of the human population component. It is the simplest model of endemic diseases in humans.</p>
+<p>The SIS (Susceptible-Infected-Susceptible) human model model fulfills
+the generic interface of the human population component. It is the
+simplest model of endemic diseases in humans.</p>
 <div class="section level2">
 <h2 id="differential-equations">Differential Equations<a class="anchor" aria-label="anchor" href="#differential-equations"></a>
 </h2>
@@ -111,12 +113,17 @@
 <div class="section level2">
 <h2 id="equilibrium-solutions">Equilibrium Solutions<a class="anchor" aria-label="anchor" href="#equilibrium-solutions"></a>
 </h2>
-<p>A typical situation when using this model is that <span class="math inline">\(H\)</span> (total population size by strata) and <span class="math inline">\(X\)</span> (number of infectious persons by strata) are known from census and survey data. Then it is of interest to find the value of <span class="math inline">\(EIR\)</span> (Entomological Inoculation Rate) which leads to that prevalence at equilibrium.</p>
+<p>A typical situation when using this model is that <span class="math inline">\(H\)</span> (total population size by strata) and
+<span class="math inline">\(X\)</span> (number of infectious persons by
+strata) are known from census and survey data. Then it is of interest to
+find the value of <span class="math inline">\(EIR\)</span>
+(Entomological Inoculation Rate) which leads to that prevalence at
+equilibrium.</p>
 <p><span class="math display">\[
-0 = \mbox{diag}(bEIR) \cdot (H-X) - rX 
+0 = \mbox{diag}(bEIR) \cdot (H-X) - rX
 \]</span></p>
-<p><span class="math display">\[ 
-rX = \mbox{diag}(b) \cdot \mbox{diag}(EIR) \cdot (H-X) 
+<p><span class="math display">\[
+rX = \mbox{diag}(b) \cdot \mbox{diag}(EIR) \cdot (H-X)
 \]</span></p>
 <p><span class="math display">\[
 \frac{rX}{H-X} = \mbox{diag}(b) \cdot \mbox{diag}(EIR)
@@ -124,12 +131,20 @@ rX = \mbox{diag}(b) \cdot \mbox{diag}(EIR) \cdot (H-X)
 <p><span class="math display">\[
 \mbox{diag}(1/b) \cdot \left(\frac{rX}{H-X}\right) = EIR
 \]</span></p>
-<p>Note that in the final line, <span class="math inline">\(EIR\)</span> is a column vector of dimension <span class="math inline">\(n\)</span> due to the operations on the left. Each element gives the per-capita rate at which individuals in that population strata receive potentially infectious bites (summing across all the places they visit).</p>
+<p>Note that in the final line, <span class="math inline">\(EIR\)</span>
+is a column vector of dimension <span class="math inline">\(n\)</span>
+due to the operations on the left. Each element gives the per-capita
+rate at which individuals in that population strata receive potentially
+infectious bites (summing across all the places they visit).</p>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>Here we run a simple example with 3 population strata at equilibrium. We use <code><a href="../reference/make_parameters_X_SIS.html">exDE::make_parameters_X_SIS</a></code> to set up parameters. Please note that this only runs the human population component and that most users should read <a href="ex_534.html">our fully worked example</a> to run a full simulation.</p>
+<p>Here we run a simple example with 3 population strata at equilibrium.
+We use <code><a href="../reference/make_parameters_X_SIS.html">exDE::make_parameters_X_SIS</a></code> to set up parameters.
+Please note that this only runs the human population component and that
+most users should read <a href="ex_534.html">our fully worked
+example</a> to run a full simulation.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/exDE/">exDE</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a></span><span class="op">)</span></span>

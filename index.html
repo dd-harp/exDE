@@ -97,6 +97,7 @@
 <div class="page-header"><h1 id="exde-extensible-differential-equations-for-mosquito-borne-pathogen-modeling">exDE (Extensible Differential Equations for mosquito-borne pathogen modeling)<a class="anchor" aria-label="anchor" href="#exde-extensible-differential-equations-for-mosquito-borne-pathogen-modeling"></a>
 </h1></div>
 <!-- badges: start -->
+
 <div class="section level2">
 <h2 id="what-is-exde">What is exDE?<a class="anchor" aria-label="anchor" href="#what-is-exde"></a>
 </h2>
@@ -119,7 +120,8 @@
 <h2 id="modular-dynamics">Modular Dynamics<a class="anchor" aria-label="anchor" href="#modular-dynamics"></a>
 </h2>
 <p>Models for malaria transmission dynamics are naturally modular, structured by vector life stage, host population strata, and by the spatial locations (patches) at which transmission occurs (see figure below).</p>
-<p align="center"><img src="reference/figures/modularity.png"></p>
+<p align="center">
+<img src="reference/figures/modularity.png"></p>
 <p>Two components describe mosquito ecology: dynamics of immature mosquitoes in aquatic habitats <span class="math inline"><em>d</em><em>L</em>/<em>d</em><em>t</em></span> (blue component); and dynamics of adult mosquitoes <span class="math inline"><em>d</em><em>M</em>/<em>d</em><em>t</em></span> (green components). Adults lay eggs (<span class="math inline"><em>ν</em></span>) that are allocated among the habitats (<span class="math inline"><em>η</em></span>). The matrix <span class="math inline">𝒩</span> describes the spatial arrangement of patches and aquatic habitats. Some eggs will develop and emerge as mature adults <span class="math inline"><em>α</em></span>, which are added to the mosquito population at each patch <span class="math inline"><em>Λ</em></span>.</p>
 <p>Two additional components describe parasite infection and transmission (red): parasite infection dynamics in mosquitoes, <span class="math inline"><em>d</em><em>Y</em>/<em>d</em><em>t</em></span> and parasite infection dynamics in humans (purple), described by <span class="math inline"><em>d</em><em>X</em>/<em>d</em><em>t</em></span>. The biting distribution matrix <span class="math inline"><em>β</em></span> links biting from mosquitoes in each patch to the available human population from each strata, which depends on how people spend their time across the landscape. The density of infectious mosquitoes <span class="math inline"><em>Z</em></span> is used to compute the force of infection on humans, <span class="math inline"><em>h</em></span>; likewise the infectious human population <span class="math inline"><em>X</em></span> is used to compute the net infectiousness <span class="math inline"><em>κ</em></span> of humans on mosquitoes.</p>
 <p>The interactions among these modules take place for a stratified human population within a spatial domain structured into patches that contain the aquatic habitats.</p>

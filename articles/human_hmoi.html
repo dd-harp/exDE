@@ -99,7 +99,13 @@
 
     
     
-<p>This is a hybrid model which tracks the mean multiplicity of infection (superinfection) in two compartments. The first, <span class="math inline">\(m1\)</span> is all infections, and the second <span class="math inline">\(m2\)</span> are apparent (patent) infections. Therefore <span class="math inline">\(m2\)</span> is “nested” within <span class="math inline">\(m1\)</span>. It is a “hybrid” model in the sense of <a href="https://link.springer.com/book/10.1007/978-3-662-01609-1" class="external-link">Nåsell (1985)</a>.</p>
+<p>This is a hybrid model which tracks the mean multiplicity of
+infection (superinfection) in two compartments. The first, <span class="math inline">\(m1\)</span> is all infections, and the second
+<span class="math inline">\(m2\)</span> are apparent (patent)
+infections. Therefore <span class="math inline">\(m2\)</span> is
+“nested” within <span class="math inline">\(m1\)</span>. It is a
+“hybrid” model in the sense of <a href="https://link.springer.com/book/10.1007/978-3-662-01609-1" class="external-link">Nåsell
+(1985)</a>.</p>
 <div class="section level2">
 <h2 id="differential-equations">Differential Equations<a class="anchor" aria-label="anchor" href="#differential-equations"></a>
 </h2>
@@ -108,31 +114,44 @@
 \dot{m_{1}} = h - r_{1}m_{1}
 \]</span> <span class="math display">\[
 \dot{m_{2}} = h - r_{2}m_{2}
-\]</span> Where <span class="math inline">\(h = b EIR\)</span>, is the force of infection. Prevalence can be calculated from these MoI values by:</p>
+\]</span> Where <span class="math inline">\(h = b EIR\)</span>, is the
+force of infection. Prevalence can be calculated from these MoI values
+by:</p>
 <p><span class="math display">\[
 x_{1} = 1-e^{-m_{1}}
 \]</span> <span class="math display">\[
 x_{2} = 1-e^{-m_{2}}
-\]</span> The net infectious probability to mosquitoes is therefore given by:</p>
+\]</span> The net infectious probability to mosquitoes is therefore
+given by:</p>
 <p><span class="math display">\[
 x = c_{2}x_{2} + c_{1}(x_{1}-x_{2})
 \]</span></p>
-<p>Where <span class="math inline">\(c_{1}\)</span> is the infectiousness of inapparent infections, and <span class="math inline">\(c_{2}\)</span> is the infectiousness of patent infections.</p>
+<p>Where <span class="math inline">\(c_{1}\)</span> is the
+infectiousness of inapparent infections, and <span class="math inline">\(c_{2}\)</span> is the infectiousness of patent
+infections.</p>
 </div>
 <div class="section level2">
 <h2 id="equilibrium-solutions">Equilibrium solutions<a class="anchor" aria-label="anchor" href="#equilibrium-solutions"></a>
 </h2>
-<p>One way to proceed is assume that <span class="math inline">\(m_{2}\)</span> is known, as it models the MoI of patent (observable) infections. Then we have:</p>
+<p>One way to proceed is assume that <span class="math inline">\(m_{2}\)</span> is known, as it models the MoI of
+patent (observable) infections. Then we have:</p>
 <p><span class="math display">\[
 h = r_{2}/m_{2}
 \]</span> <span class="math display">\[
 m_{1} = h/r_{1}
-\]</span> We can use this to calculate the net infectious probability, and then <span class="math inline">\(\kappa = x \cdot H\)</span>, allowing the equilibrium solutions of this model to feed into the other components.</p>
+\]</span> We can use this to calculate the net infectious probability,
+and then <span class="math inline">\(\kappa = x \cdot H\)</span>,
+allowing the equilibrium solutions of this model to feed into the other
+components.</p>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>Here we run a simple example with 3 population strata at equilibrium. We use <code><a href="../reference/make_parameters_X_hMoI.html">exDE::make_parameters_X_hMoI</a></code> to set up parameters. Please note that this only runs the human population component and that most users should read <a href="ex_534.html">our fully worked example</a> to run a full simulation.</p>
+<p>Here we run a simple example with 3 population strata at equilibrium.
+We use <code><a href="../reference/make_parameters_X_hMoI.html">exDE::make_parameters_X_hMoI</a></code> to set up parameters.
+Please note that this only runs the human population component and that
+most users should read <a href="ex_534.html">our fully worked
+example</a> to run a full simulation.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/exDE/">exDE</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a></span><span class="op">)</span></span>

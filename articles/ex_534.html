@@ -107,15 +107,28 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>We show how to setup, solve, and analyze models of mosquito-borne pathogen transmission dynamics and control using modular software. This vignette is designed to explain modular notation by constructing a model with five aquatic habitats (<span class="math inline">\(l=5\)</span>), three patches (<span class="math inline">\(p=3\)</span>), and four human population strata (<span class="math inline">\(n=4\)</span>). We call it <code>5-3-4</code>.</p>
+<p>We show how to setup, solve, and analyze models of mosquito-borne
+pathogen transmission dynamics and control using modular software. This
+vignette is designed to explain modular notation by constructing a model
+with five aquatic habitats (<span class="math inline">\(l=5\)</span>),
+three patches (<span class="math inline">\(p=3\)</span>), and four human
+population strata (<span class="math inline">\(n=4\)</span>). We call it
+<code>5-3-4</code>.</p>
 <div class="section level3">
 <h3 id="diagram">Diagram<a class="anchor" aria-label="anchor" href="#diagram"></a>
 </h3>
-<p>The model <code>5-3-4</code> is designed to illustrate some important features of the framework and notation. We assume that:</p>
+<p>The model <code>5-3-4</code> is designed to illustrate some important
+features of the framework and notation. We assume that:</p>
 <ul>
-<li><p>the first three habitats are found in patch 1; the last two are in patch 2; patch 3 has no habitats.</p></li>
-<li><p>patch 1 has no residents; patches 2 and 3 are occupied, each with two different population strata;</p></li>
-<li><p>Transmission among patches is modeled using the concept of <em>time spent</em>, which is similar to the <em>visitation rates</em> that have been used in other models. While the strata have a residency (i.e; a patch they spend most of their time in), each stratum allocates their time across all the habitats.</p></li>
+<li><p>the first three habitats are found in patch 1; the last two are
+in patch 2; patch 3 has no habitats.</p></li>
+<li><p>patch 1 has no residents; patches 2 and 3 are occupied, each with
+two different population strata;</p></li>
+<li><p>Transmission among patches is modeled using the concept of
+<em>time spent</em>, which is similar to the <em>visitation rates</em>
+that have been used in other models. While the strata have a residency
+(i.e; a patch they spend most of their time in), each stratum allocates
+their time across all the habitats.</p></li>
 </ul>
 <p><img src="534.png"></p>
 </div>
@@ -123,7 +136,13 @@
 <div class="section level2">
 <h2 id="parameters">Parameters<a class="anchor" aria-label="anchor" href="#parameters"></a>
 </h2>
-<p>We already know three important parameters, <span class="math inline">\(l\)</span>, <span class="math inline">\(p\)</span> and <span class="math inline">\(n\)</span> because they are determined in the early stages of model building. The <code>exDE</code> package expects all parameters to be contained in a list object, containing <code>nHabitats</code>, <code>nPatches</code>, and <code>nStrata</code> which correspond to <code>l</code>, <code>p</code> and <code>n</code>.</p>
+<p>We already know three important parameters, <span class="math inline">\(l\)</span>, <span class="math inline">\(p\)</span>
+and <span class="math inline">\(n\)</span> because they are determined
+in the early stages of model building. The <code>exDE</code> package
+expects all parameters to be contained in a list object, containing
+<code>nHabitats</code>, <code>nPatches</code>, and <code>nStrata</code>
+which correspond to <code>l</code>, <code>p</code> and
+<code>n</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  nHabitats <span class="op">=</span> <span class="fl">5</span>,</span>
@@ -133,13 +152,15 @@
 <div class="section level3">
 <h3 id="aquatic-habitat-membership-matrix">Aquatic Habitat Membership Matrix<a class="anchor" aria-label="anchor" href="#aquatic-habitat-membership-matrix"></a>
 </h3>
-<p>The aquatic habitat membership matrix <span class="math inline">\(\mathcal{N}\)</span> is a <span class="math inline">\(p \times l\)</span> matrix mapping aquatic habitats to the patches which contain them. It should be attached directly to the parameters list.</p>
+<p>The aquatic habitat membership matrix <span class="math inline">\(\mathcal{N}\)</span> is a <span class="math inline">\(p \times l\)</span> matrix mapping aquatic
+habitats to the patches which contain them. It should be attached
+directly to the parameters list.</p>
 <p><span class="math display">\[\begin{equation}
 {\cal N} = \left[
-  \begin{array}{ccccc} 
-  1 &amp; 1 &amp; 1 &amp; 0 &amp; 0  \\ 
-  0 &amp; 0 &amp; 0 &amp; 1 &amp; 1\\ 
-  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\ 
+  \begin{array}{ccccc}
+  1 &amp; 1 &amp; 1 &amp; 0 &amp; 0  \\
+  0 &amp; 0 &amp; 0 &amp; 1 &amp; 1\\
+  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
   \end{array} \right]
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -154,15 +175,18 @@
 <div class="section level3">
 <h3 id="egg-dispersal-matrix">Egg Dispersal Matrix<a class="anchor" aria-label="anchor" href="#egg-dispersal-matrix"></a>
 </h3>
-<p>The egg dispersal matrix <span class="math inline">\(\mathcal{U}\)</span> is a <span class="math inline">\(l \times p\)</span> matrix describing how eggs laid by adult mosquitoes in a patch are allocated among the aquatic habitats in that patch. It is also attached directly to the parameters list.</p>
+<p>The egg dispersal matrix <span class="math inline">\(\mathcal{U}\)</span> is a <span class="math inline">\(l \times p\)</span> matrix describing how eggs
+laid by adult mosquitoes in a patch are allocated among the aquatic
+habitats in that patch. It is also attached directly to the parameters
+list.</p>
 <p><span class="math display">\[\begin{equation}
 {\cal U} = \left[
-  \begin{array}{ccccc} 
-  .7 &amp; 0 &amp; 0\\ 
-  .2 &amp; 0 &amp; 0\\ 
-  .1 &amp; 0 &amp; 0\\ 
-  0 &amp; .8 &amp; 0\\ 
-  0 &amp; .2 &amp; 0\\ 
+  \begin{array}{ccccc}
+  .7 &amp; 0 &amp; 0\\
+  .2 &amp; 0 &amp; 0\\
+  .1 &amp; 0 &amp; 0\\
+  0 &amp; .8 &amp; 0\\
+  0 &amp; .2 &amp; 0\\
   \end{array} \right]
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -172,7 +196,15 @@
 <div class="section level3">
 <h3 id="aquatic-mosquito-parameters">Aquatic Mosquito Parameters<a class="anchor" aria-label="anchor" href="#aquatic-mosquito-parameters"></a>
 </h3>
-<p>For this simulation, we use the basic competition model of larval dynamics (see more <a href="aqua_basic.html">here</a>). It requires specification of three parameters, <span class="math inline">\(\psi\)</span> (maturation rates), <span class="math inline">\(\phi\)</span> (density-independent mortality rates), and <span class="math inline">\(\theta\)</span> (density-dependent mortality terms), and initial conditions. The function <code><a href="../reference/make_parameters_L_basic.html">exDE::make_parameters_L_basic</a></code> does basic checking of the input parameters and returns a list with the correct class for method dispatch. The returned list is attached to the main parameter list with name <code>Lpar</code>.</p>
+<p>For this simulation, we use the basic competition model of larval
+dynamics (see more <a href="aqua_basic.html">here</a>). It requires
+specification of three parameters, <span class="math inline">\(\psi\)</span> (maturation rates), <span class="math inline">\(\phi\)</span> (density-independent mortality
+rates), and <span class="math inline">\(\theta\)</span>
+(density-dependent mortality terms), and initial conditions. The
+function <code><a href="../reference/make_parameters_L_basic.html">exDE::make_parameters_L_basic</a></code> does basic checking
+of the input parameters and returns a list with the correct class for
+method dispatch. The returned list is attached to the main parameter
+list with name <code>Lpar</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">L0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">params</span><span class="op">$</span><span class="va">nHabitats</span><span class="op">)</span></span>
 <span><span class="va">psi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">8</span>, <span class="va">params</span><span class="op">$</span><span class="va">nHabitats</span><span class="op">)</span></span>
@@ -186,7 +218,16 @@
 <div class="section level3">
 <h3 id="adult-mosquito-parameters">Adult Mosquito Parameters<a class="anchor" aria-label="anchor" href="#adult-mosquito-parameters"></a>
 </h3>
-<p>We use the ODE version of the generalized Ross-Macdonald model (see more <a href="adult_RM.html">here</a>). Part of the specification of parameters includes the construction of the mosquito dispersal matrix <span class="math inline">\(\mathcal{K}\)</span>, and the mosquito demography matrix <span class="math inline">\(\Omega\)</span>. Like for the aquatic parameters, we use <code><a href="../reference/make_parameters_MYZ_RM_ode.html">exDE::make_parameters_MYZ_RM_ode</a></code> to check parameter types and return a list with the correct class for method dispatch. We attach the returned list to the main parameter list with name <code>MYZpar</code>.</p>
+<p>We use the ODE version of the generalized Ross-Macdonald model (see
+more <a href="adult_RM.html">here</a>). Part of the specification of
+parameters includes the construction of the mosquito dispersal matrix
+<span class="math inline">\(\mathcal{K}\)</span>, and the mosquito
+demography matrix <span class="math inline">\(\Omega\)</span>. Like for
+the aquatic parameters, we use
+<code><a href="../reference/make_parameters_MYZ_RM_ode.html">exDE::make_parameters_MYZ_RM_ode</a></code> to check parameter types
+and return a list with the correct class for method dispatch. We attach
+the returned list to the main parameter list with name
+<code>MYZpar</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">12</span>, <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span> </span>
 <span><span class="va">sigma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">12</span><span class="op">/</span><span class="fl">2</span>, <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span> </span>
@@ -214,7 +255,12 @@
 <div class="section level3">
 <h3 id="human-parameters">Human Parameters<a class="anchor" aria-label="anchor" href="#human-parameters"></a>
 </h3>
-<p>We use the basic SIS (Susceptible-Infected-Susceptible) model for the human component (see more <a href="human_sis.html">here</a>). We set it up like the rest of the components, using <code><a href="../reference/make_parameters_X_SIS.html">exDE::make_parameters_X_SIS</a></code> to make the correct return type, which is attached to the parameter list with name <code>Xpar</code>.</p>
+<p>We use the basic SIS (Susceptible-Infected-Susceptible) model for the
+human component (see more <a href="human_sis.html">here</a>). We set it
+up like the rest of the components, using
+<code><a href="../reference/make_parameters_X_SIS.html">exDE::make_parameters_X_SIS</a></code> to make the correct return
+type, which is attached to the parameter list with name
+<code>Xpar</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">90</span>, <span class="fl">100</span>, <span class="fl">900</span><span class="op">)</span>, <span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">X0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">*</span><span class="va">H</span><span class="op">)</span></span>
@@ -229,13 +275,16 @@
 <div class="section level3">
 <h3 id="mixing">Mixing<a class="anchor" aria-label="anchor" href="#mixing"></a>
 </h3>
-<p>Although not directly used in this example, we create the residency membership matrix <span class="math inline">\(\mathcal{J}\)</span>, a <span class="math inline">\(p \times n\)</span> matrix indicating which patch each human population strata resides in.</p>
+<p>Although not directly used in this example, we create the residency
+membership matrix <span class="math inline">\(\mathcal{J}\)</span>, a
+<span class="math inline">\(p \times n\)</span> matrix indicating which
+patch each human population strata resides in.</p>
 <p><span class="math display">\[\begin{equation}
 {\cal J} = \left[
-  \begin{array}{cccc} 
-  0 &amp; 0 &amp; 0 &amp; 0 \\ 
-  1 &amp; 1 &amp; 0 &amp; 0 \\ 
-  0 &amp; 0 &amp; 1 &amp; 1 \\ 
+  \begin{array}{cccc}
+  0 &amp; 0 &amp; 0 &amp; 0 \\
+  1 &amp; 1 &amp; 0 &amp; 0 \\
+  0 &amp; 0 &amp; 1 &amp; 1 \\
   \end{array} \right]
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -244,7 +293,9 @@
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="fl">4</span>, <span class="fl">3</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>We then create the time at risk matrix <span class="math inline">\(\Theta\)</span>, a <span class="math inline">\(p \times n\)</span> matrix describing how each human strata spends their time across patches.</p>
+<p>We then create the time at risk matrix <span class="math inline">\(\Theta\)</span>, a <span class="math inline">\(p
+\times n\)</span> matrix describing how each human strata spends their
+time across patches.</p>
 <p><span class="math display">\[\begin{equation}
 \Theta = \left[
   \begin{array}{cccc}
@@ -252,7 +303,7 @@
   0.95 &amp; .92 &amp; .04  &amp; .02  \\  
   0.04 &amp; .02 &amp; .959 &amp; .929 \\
   \end{array}
-  \right] 
+  \right]
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
@@ -263,7 +314,9 @@
 <p>Human availability for blood feeding, a vector of length <span class="math inline">\(p\)</span> is computed simply:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">W</span> <span class="op">&lt;-</span> <span class="va">Theta</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">H</span></span></code></pre></div>
-<p>Availability is used to compute <span class="math inline">\(\beta\)</span>, the <span class="math inline">\(n\times p\)</span> biting distribution matrix which is used to compute terms for bloodfeeding and pathogen transmission. We attach it and its transpose to the parameter list.</p>
+<p>Availability is used to compute <span class="math inline">\(\beta\)</span>, the <span class="math inline">\(n\times p\)</span> biting distribution matrix
+which is used to compute terms for bloodfeeding and pathogen
+transmission. We attach it and its transpose to the parameter list.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">Theta</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="../reference/diag_inverse.html">diag_inverse</a></span><span class="op">(</span><span class="va">W</span><span class="op">)</span></span>
 <span><span class="va">params</span><span class="op">$</span><span class="va">beta</span> <span class="op">&lt;-</span> <span class="va">beta</span></span>
@@ -276,7 +329,9 @@
 <div class="section level3">
 <h3 id="initial-conditions">Initial Conditions<a class="anchor" aria-label="anchor" href="#initial-conditions"></a>
 </h3>
-<p>After the parameters for <code>5-3-4</code> have been specified, we can generate the indices for the model and attach them to the parameter list.</p>
+<p>After the parameters for <code>5-3-4</code> have been specified, we
+can generate the indices for the model and attach them to the parameter
+list.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can set the initial conditions of the model.</p>
@@ -292,14 +347,21 @@
 <div class="section level3">
 <h3 id="numerical-solution">Numerical Solution<a class="anchor" aria-label="anchor" href="#numerical-solution"></a>
 </h3>
-<p>Now we can pass the vector of initial conditions, <code>y</code>, our parameter list <code>params</code>, and the function <code><a href="../reference/xDE_diffeqn.html">exDE::xDE_diffeqn</a></code> to the differential equation solvers in <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">deSolve::ode</a></code> to generate a numerical trajectory. The classes of <code>Xpar</code>, <code>MYZpar</code>, and <code>Lpar</code> in <code>params</code> will ensure that the right methods are invoked (dispatched) to solve your model.</p>
+<p>Now we can pass the vector of initial conditions, <code>y</code>, our
+parameter list <code>params</code>, and the function
+<code><a href="../reference/xDE_diffeqn.html">exDE::xDE_diffeqn</a></code> to the differential equation solvers in
+<code><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">deSolve::ode</a></code> to generate a numerical trajectory. The
+classes of <code>Xpar</code>, <code>MYZpar</code>, and <code>Lpar</code>
+in <code>params</code> will ensure that the right methods are invoked
+(dispatched) to solve your model.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">deSolve</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">ode</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y</span>, times <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">365</span>, func <span class="op">=</span> <span class="va">xDE_diffeqn</span>, parms <span class="op">=</span> <span class="va">params</span>, method <span class="op">=</span> <span class="st">"lsoda"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="plot-output">Plot Output<a class="anchor" aria-label="anchor" href="#plot-output"></a>
 </h3>
-<p>With a small amount of data wrangling made easier by the <code>data.table</code> package, we can plot the output.</p>
+<p>With a small amount of data wrangling made easier by the
+<code>data.table</code> package, we can plot the output.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">[</span><span class="va">params</span><span class="op">$</span><span class="va">L_ix</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'L_'</span>, <span class="fl">1</span><span class="op">:</span><span class="va">params</span><span class="op">$</span><span class="va">nHabitats</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">[</span><span class="va">params</span><span class="op">$</span><span class="va">M_ix</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'M_'</span>, <span class="fl">1</span><span class="op">:</span><span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span></span>

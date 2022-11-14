@@ -99,46 +99,78 @@
 
     
     
-<p>All state components are assumed to be column vectors. Additionally, <span class="math inline">\(n\)</span> will always denote the number of strata in the human population, <span class="math inline">\(l\)</span> the number of aquatic habitats and <span class="math inline">\(p\)</span> the number of patches.</p>
+<p>All state components are assumed to be column vectors. Additionally,
+<span class="math inline">\(n\)</span> will always denote the number of
+strata in the human population, <span class="math inline">\(l\)</span>
+the number of aquatic habitats and <span class="math inline">\(p\)</span> the number of patches.</p>
 <div class="section level3">
 <h3 id="human-movement">Human Movement<a class="anchor" aria-label="anchor" href="#human-movement"></a>
 </h3>
-<p>We start with the fundamental matrix <span class="math inline">\(\Psi\)</span> which is of dimension <span class="math inline">\(p\times n\)</span> , where each column <span class="math inline">\(i\)</span> gives the distribution of time at risk for that strata over places (rows). If all strata are considered to be potentially at risk 100% of the time, then the columns will sum to one, which is the convention we will adopt for this document.</p>
-<p>Then <span class="math inline">\(\Psi_{ji}\)</span> is the fraction of time that strata <span class="math inline">\(i\)</span> spends in patch <span class="math inline">\(j\)</span>.</p>
+<p>We start with the fundamental matrix <span class="math inline">\(\Psi\)</span> which is of dimension <span class="math inline">\(p\times n\)</span> , where each column <span class="math inline">\(i\)</span> gives the distribution of time at risk
+for that strata over places (rows). If all strata are considered to be
+potentially at risk 100% of the time, then the columns will sum to one,
+which is the convention we will adopt for this document.</p>
+<p>Then <span class="math inline">\(\Psi_{ji}\)</span> is the fraction
+of time that strata <span class="math inline">\(i\)</span> spends in
+patch <span class="math inline">\(j\)</span>.</p>
 </div>
 <div class="section level3">
 <h3 id="ambient-human-population">Ambient Human Population<a class="anchor" aria-label="anchor" href="#ambient-human-population"></a>
 </h3>
-<p>Let <span class="math inline">\(H\)</span> be a length <span class="math inline">\(n\)</span> column vector giving the population size of each strata. Let <span class="math inline">\(w_{f}\)</span> be a length <span class="math inline">\(n\)</span> column vector giving the biting weights on each strata (the null value is <span class="math inline">\(1\)</span>). We want to know <span class="math inline">\(W\)</span>, a length <span class="math inline">\(p\)</span> column vector which tells us how many people are at each patch (summing over all strata who are there).</p>
+<p>Let <span class="math inline">\(H\)</span> be a length <span class="math inline">\(n\)</span> column vector giving the population
+size of each strata. Let <span class="math inline">\(w_{f}\)</span> be a
+length <span class="math inline">\(n\)</span> column vector giving the
+biting weights on each strata (the null value is <span class="math inline">\(1\)</span>). We want to know <span class="math inline">\(W\)</span>, a length <span class="math inline">\(p\)</span> column vector which tells us how many
+people are at each patch (summing over all strata who are there).</p>
 <p><span class="math display">\[
 W =\begin{bmatrix}
 \sum_{i} \Psi_{1i}w_{f1}H_{i} \\ \vdots \\ \sum_{i} \Psi_{pi}w_{fi}H_{i}
 \end{bmatrix} = \Psi \cdot w_{f} H
-\]</span> Each element of <span class="math inline">\(W\)</span> then gives the total weighted person-time spent by all strata at that location.</p>
+\]</span> Each element of <span class="math inline">\(W\)</span> then
+gives the total weighted person-time spent by all strata at that
+location.</p>
 </div>
 <div class="section level3">
 <h3 id="biting-distribution-matrix">Biting Distribution Matrix<a class="anchor" aria-label="anchor" href="#biting-distribution-matrix"></a>
 </h3>
-<p>The biting distribution matrix <span class="math inline">\(\beta\)</span> is a <span class="math inline">\(n \times p\)</span> matrix which is central to formulating mathematically consistent models of bloodfeeding, and, by extension, consistent models of mosquito-borne pathogen transmission.</p>
+<p>The biting distribution matrix <span class="math inline">\(\beta\)</span> is a <span class="math inline">\(n
+\times p\)</span> matrix which is central to formulating mathematically
+consistent models of bloodfeeding, and, by extension, consistent models
+of mosquito-borne pathogen transmission.</p>
 <p>It is given mathematically as:</p>
 <p><span class="math display">\[
 \beta = \mbox{diag}(w_{f}) \cdot \Psi^{\top} \cdot \mbox{diag}(1/W)
 \]</span></p>
 <p>And it can be written out component-wise as:</p>
 <p><span class="math display">\[
-\beta = \begin{bmatrix} 
-\frac{\Psi_{11}w_{f1}}{\sum_{i}\Psi_{1i}w_{fi}H_{i}} &amp; \cdots &amp; \frac{\Psi_{p1}w_{f1}}{\sum_{i}\Psi_{pi}w_{fi}H_{i}} \\
+\beta = \begin{bmatrix}
+\frac{\Psi_{11}w_{f1}}{\sum_{i}\Psi_{1i}w_{fi}H_{i}} &amp; \cdots &amp;
+\frac{\Psi_{p1}w_{f1}}{\sum_{i}\Psi_{pi}w_{fi}H_{i}} \\
 \vdots &amp; &amp; \vdots \\
-\frac{\Psi_{1n}w_{fn}}{\sum_{i}\Psi_{1i}w_{fi}H_{i}} &amp; \cdots &amp; \frac{\Psi_{pn}w_{fn}}{\sum_{i}\Psi_{pi}w_{fi}H_{i}} 
+\frac{\Psi_{1n}w_{fn}}{\sum_{i}\Psi_{1i}w_{fi}H_{i}} &amp; \cdots &amp;
+\frac{\Psi_{pn}w_{fn}}{\sum_{i}\Psi_{pi}w_{fi}H_{i}}
 \end{bmatrix}
 \]</span></p>
-<p>Now we can get a clearer impression of what <span class="math inline">\(\beta_{ij}\)</span> is. It is the probability a bite from mosquitoes in patch <span class="math inline">\(j\)</span> lands on any particular person in strata <span class="math inline">\(i\)</span>. Another way say this is that it is the proportion of person-time spent by a single person in strata <span class="math inline">\(i\)</span> at patch <span class="math inline">\(j\)</span>, out of all person-time spent at that patch.</p>
-<p>If we wanted to look at a matrix whose columns sum to unity and elements give the probability of a bite taken on the ambient population in patch <span class="math inline">\(j\)</span> to land on strata <span class="math inline">\(i\)</span>, we could look at the following matrix:</p>
+<p>Now we can get a clearer impression of what <span class="math inline">\(\beta_{ij}\)</span> is. It is the probability a
+bite from mosquitoes in patch <span class="math inline">\(j\)</span>
+lands on any particular person in strata <span class="math inline">\(i\)</span>. Another way say this is that it is the
+proportion of person-time spent by a single person in strata <span class="math inline">\(i\)</span> at patch <span class="math inline">\(j\)</span>, out of all person-time spent at that
+patch.</p>
+<p>If we wanted to look at a matrix whose columns sum to unity and
+elements give the probability of a bite taken on the ambient population
+in patch <span class="math inline">\(j\)</span> to land on strata <span class="math inline">\(i\)</span>, we could look at the following
+matrix:</p>
 <p><span class="math display">\[
 \mbox{diag}(H) \cdot \beta
 \]</span></p>
-<p>This operation has the effect of multiplying each column in <span class="math inline">\(\beta\)</span> by the diagonal of of the matrix on the left, so that the columns sum to one (or the column sums of <span class="math inline">\(\Psi\)</span>, in case the total time at risk is <span class="math inline">\(&lt; 1\)</span>).</p>
-<p>Likewise if we want to recover <span class="math inline">\(\Psi^{\top}\)</span>, a <span class="math inline">\(n \times p\)</span> matrix whose rows describe how each strata distributes its time across patches, one can simply multiply on the right by <span class="math inline">\(\mbox{diag}(W)\)</span> which has the effect of multiplying each column of <span class="math inline">\(\beta\)</span> by that element of the diagonal of <span class="math inline">\(\mbox{diag}(W)\)</span>.</p>
+<p>This operation has the effect of multiplying each column in <span class="math inline">\(\beta\)</span> by the diagonal of of the matrix on
+the left, so that the columns sum to one (or the column sums of <span class="math inline">\(\Psi\)</span>, in case the total time at risk is
+<span class="math inline">\(&lt; 1\)</span>).</p>
+<p>Likewise if we want to recover <span class="math inline">\(\Psi^{\top}\)</span>, a <span class="math inline">\(n \times p\)</span> matrix whose rows describe how
+each strata distributes its time across patches, one can simply multiply
+on the right by <span class="math inline">\(\mbox{diag}(W)\)</span>
+which has the effect of multiplying each column of <span class="math inline">\(\beta\)</span> by that element of the diagonal of
+<span class="math inline">\(\mbox{diag}(W)\)</span>.</p>
 <p><span class="math display">\[
 \beta \cdot \mbox{diag}(W)
 \]</span></p>
@@ -146,7 +178,9 @@ W =\begin{bmatrix}
 <div class="section level3">
 <h3 id="human-transmitting-capacity-htc">Human transmitting capacity (HTC)<a class="anchor" aria-label="anchor" href="#human-transmitting-capacity-htc"></a>
 </h3>
-<p>Human transmitting capacity is a vector <span class="math inline">\(D\)</span> of length <span class="math inline">\(n\)</span>, each element of which gives the number of net infectious days for an infected individual in each strata. For the homogeneous SIS model, it is simply:</p>
+<p>Human transmitting capacity is a vector <span class="math inline">\(D\)</span> of length <span class="math inline">\(n\)</span>, each element of which gives the number
+of net infectious days for an infected individual in each strata. For
+the homogeneous SIS model, it is simply:</p>
 <p><span class="math display">\[
 D = \frac{c}{r}
 \]</span></p>
@@ -154,22 +188,50 @@ D = \frac{c}{r}
 <div class="section level3">
 <h3 id="parasite-dispersal-by-mosquitoes">Parasite dispersal by mosquitoes<a class="anchor" aria-label="anchor" href="#parasite-dispersal-by-mosquitoes"></a>
 </h3>
-<p>The parasite dispersal by mosquitoes matrix, <span class="math inline">\(\mathcal{V}\)</span> is the spatial analogue to vectorial capacity, which is the expected number of humans infected per infected human, per day, assuming perfect transmission efficiency.</p>
+<p>The parasite dispersal by mosquitoes matrix, <span class="math inline">\(\mathcal{V}\)</span> is the spatial analogue to
+vectorial capacity, which is the expected number of humans infected per
+infected human, per day, assuming perfect transmission efficiency.</p>
 <p><span class="math display">\[
-\mathcal{V} = fq\Omega^{-1} \cdot e^{-\Omega\tau} \cdot \mbox{diag}\left(\frac{fqM}{W}\right)
-\]</span> It can be understood by going from right to left. The matrix <span class="math inline">\(\mbox{diag}\left(\frac{fqM}{W}\right)\)</span> is a <span class="math inline">\(p\times p\)</span> matrix, the diagonal giving the numbers of bloodmeals taken on each person in each patch, per day. Multiplying on the left by <span class="math inline">\(e^{-\Omega\tau}\)</span> has the effect of multiplying each column of the matrix on the left by the corresponding element of the diagonal of the matrix on the right. That intermediate matrix will have columns which describe how those bites/person from each patch are distributed across other patches over the extrinsic incubation period, accounting for mortality during that period. The final multiplication on the left distributes those bites after the EIP has passed.</p>
+\mathcal{V} = fq\Omega^{-1} \cdot e^{-\Omega\tau} \cdot
+\mbox{diag}\left(\frac{fqM}{W}\right)
+\]</span> It can be understood by going from right to left. The matrix
+<span class="math inline">\(\mbox{diag}\left(\frac{fqM}{W}\right)\)</span> is
+a <span class="math inline">\(p\times p\)</span> matrix, the diagonal
+giving the numbers of bloodmeals taken on each person in each patch, per
+day. Multiplying on the left by <span class="math inline">\(e^{-\Omega\tau}\)</span> has the effect of
+multiplying each column of the matrix on the left by the corresponding
+element of the diagonal of the matrix on the right. That intermediate
+matrix will have columns which describe how those bites/person from each
+patch are distributed across other patches over the extrinsic incubation
+period, accounting for mortality during that period. The final
+multiplication on the left distributes those bites after the EIP has
+passed.</p>
 <p>If we only have a single patch, the formula becomes:</p>
 <p><span class="math display">\[
 \frac{fq}{g} e^{-g\tau}fq\frac{M}{H}
-\]</span> Which is equivalent to (after substituting <span class="math inline">\(H=W\)</span>) the classic formula from <a href="https://malariajournal.biomedcentral.com/articles/10.1186/1475-2875-3-13" class="external-link">Smith and McKenzie (2004)</a>: <span class="math inline">\(\frac{fq}{g}e^{-g\tau}fq\frac{M}{H}\)</span>.</p>
+\]</span> Which is equivalent to (after substituting <span class="math inline">\(H=W\)</span>) the classic formula from <a href="https://malariajournal.biomedcentral.com/articles/10.1186/1475-2875-3-13" class="external-link">Smith
+and McKenzie (2004)</a>: <span class="math inline">\(\frac{fq}{g}e^{-g\tau}fq\frac{M}{H}\)</span>.</p>
 </div>
 <div class="section level3">
 <h3 id="parasite-dispersal-by-humans">Parasite dispersal by humans<a class="anchor" aria-label="anchor" href="#parasite-dispersal-by-humans"></a>
 </h3>
 <p><span class="math display">\[
-\mathcal{D} = \mbox{diag}\left(W \right) \cdot \beta^T \cdot \mbox{diag}\left(bDH\right) \cdot \beta
-\]</span> We can first examine the multiplication of <span class="math inline">\(\mbox{diag}\left(bDH\right) \cdot \beta\)</span> on the right. This has the effect of multiplying each column of <span class="math inline">\(\beta\)</span> by the diagonal of <span class="math inline">\(\mbox{diag}\left(bDH\right)\)</span>. This results in a <span class="math inline">\(n\times p\)</span> matrix whose columns give the distribution of potentially transmitting person-time (<span class="math inline">\(\frac{bc}{r}\)</span>) a person in each strata contributes to a patch. It is a <span class="math inline">\(p\times p\)</span> matrix.</p>
-<p>On the left <span class="math inline">\(\mbox{diag}\left(W \right) \cdot \beta^T\)</span> multiplies each column of <span class="math inline">\(\beta^T\)</span> by the diagonal of that matrix; this has the effect of recovering the original movement matrix <span class="math inline">\(\Psi\)</span>. So multiplying the intermediate matrix produced by the preceding section by this on the left distributes that potentially-transmitting person time across patches. Therefore <span class="math inline">\(i\)</span>-th column of <span class="math inline">\(\mathcal{D}\)</span> describes how potentially infectious person-time from a person infected in <span class="math inline">\(i\)</span> is distributed across other patches.</p>
+\mathcal{D} = \mbox{diag}\left(W \right) \cdot \beta^T \cdot
+\mbox{diag}\left(bDH\right) \cdot \beta
+\]</span> We can first examine the multiplication of <span class="math inline">\(\mbox{diag}\left(bDH\right) \cdot \beta\)</span>
+on the right. This has the effect of multiplying each column of <span class="math inline">\(\beta\)</span> by the diagonal of <span class="math inline">\(\mbox{diag}\left(bDH\right)\)</span>. This results
+in a <span class="math inline">\(n\times p\)</span> matrix whose columns
+give the distribution of potentially transmitting person-time (<span class="math inline">\(\frac{bc}{r}\)</span>) a person in each strata
+contributes to a patch. It is a <span class="math inline">\(p\times
+p\)</span> matrix.</p>
+<p>On the left <span class="math inline">\(\mbox{diag}\left(W \right)
+\cdot \beta^T\)</span> multiplies each column of <span class="math inline">\(\beta^T\)</span> by the diagonal of that matrix;
+this has the effect of recovering the original movement matrix <span class="math inline">\(\Psi\)</span>. So multiplying the intermediate
+matrix produced by the preceding section by this on the left distributes
+that potentially-transmitting person time across patches. Therefore
+<span class="math inline">\(i\)</span>-th column of <span class="math inline">\(\mathcal{D}\)</span> describes how potentially
+infectious person-time from a person infected in <span class="math inline">\(i\)</span> is distributed across other
+patches.</p>
 <p>In the 1 patch, 1 strata case, it simplifies considerably to:</p>
 <p><span class="math display">\[
 \mathcal{D} = \frac{bc}{r}
@@ -178,20 +240,42 @@ D = \frac{c}{r}
 <div class="section level3">
 <h3 id="parasite-dispersal-through-one-parasite-generation">Parasite Dispersal through one Parasite Generation<a class="anchor" aria-label="anchor" href="#parasite-dispersal-through-one-parasite-generation"></a>
 </h3>
-<p>One way to look at parasite dispersal is to look at how parasites are dispersed through one parasite generation. This can be done with from mosquito to mosquito, or human to human. Below we show the equation for parasite dispersal through a generation, beginning and ending with a human host.</p>
+<p>One way to look at parasite dispersal is to look at how parasites are
+dispersed through one parasite generation. This can be done with from
+mosquito to mosquito, or human to human. Below we show the equation for
+parasite dispersal through a generation, beginning and ending with a
+human host.</p>
 <p><span class="math display">\[
-\mathcal{R} =   b \beta \cdot {\cal V}  \cdot \mbox{diag}\left(W \right) \cdot \beta^T  \cdot \mbox{diag}\left(DH\right)
+\mathcal{R} =   b \beta \cdot {\cal V}  \cdot \mbox{diag}\left(W \right)
+\cdot \beta^T  \cdot \mbox{diag}\left(DH\right)
 \]</span></p>
-<p>Here <span class="math inline">\(\mathcal{R}\)</span> is a <span class="math inline">\(n\times n\)</span> matrix, the columns of which describe how infections starting in that strata are disseminated among other strata after one generation. Once again we can learn how to interpret the equation by walking from left to right. <span class="math inline">\(\mbox{diag}\left(W \right) \cdot \beta^T \cdot \mbox{diag}\left(DH\right)\)</span> produces a <span class="math inline">\(p\times n\)</span> matrix which describes how infectious person-time in each strata is spread across patches. Multiplication by <span class="math inline">\(\mathcal{V}\)</span> then describes how this infectious person-time is transformed into potentially infectious bites by mosquitoes, distributed over space and accounting for mortality during the EIP. Final multiplication by <span class="math inline">\(\beta\)</span> and <span class="math inline">\(b\)</span> takes into account where persons will contact those infectious bites, and the transmission efficiency back to human hosts.</p>
-<p>Once again, we can take the 1 patch, 1 strata case to see how this formula simplifies:</p>
+<p>Here <span class="math inline">\(\mathcal{R}\)</span> is a <span class="math inline">\(n\times n\)</span> matrix, the columns of which
+describe how infections starting in that strata are disseminated among
+other strata after one generation. Once again we can learn how to
+interpret the equation by walking from left to right. <span class="math inline">\(\mbox{diag}\left(W \right) \cdot \beta^T \cdot
+\mbox{diag}\left(DH\right)\)</span> produces a <span class="math inline">\(p\times n\)</span> matrix which describes how
+infectious person-time in each strata is spread across patches.
+Multiplication by <span class="math inline">\(\mathcal{V}\)</span> then
+describes how this infectious person-time is transformed into
+potentially infectious bites by mosquitoes, distributed over space and
+accounting for mortality during the EIP. Final multiplication by <span class="math inline">\(\beta\)</span> and <span class="math inline">\(b\)</span> takes into account where persons will
+contact those infectious bites, and the transmission efficiency back to
+human hosts.</p>
+<p>Once again, we can take the 1 patch, 1 strata case to see how this
+formula simplifies:</p>
 <p><span class="math display">\[
 \frac{bc}{r} \cdot \frac{fq}{g} e^{-g\tau}fq\frac{M}{H}
 \]</span></p>
-<p>Which is precisely the formula for <span class="math inline">\(R_{0}\)</span> in <a href="https://malariajournal.biomedcentral.com/articles/10.1186/1475-2875-3-13" class="external-link">Smith and McKenzie (2004)</a>. Therefore <span class="math inline">\(\mathcal{R}\)</span> is the “logical” spatial version of this threshold metric.</p>
-<p>If we track parasite dispersal from mosquitoes to mosquitoes we arrive at the <span class="math inline">\(p\times p\)</span> matrix:</p>
+<p>Which is precisely the formula for <span class="math inline">\(R_{0}\)</span> in <a href="https://malariajournal.biomedcentral.com/articles/10.1186/1475-2875-3-13" class="external-link">Smith
+and McKenzie (2004)</a>. Therefore <span class="math inline">\(\mathcal{R}\)</span> is the “logical” spatial
+version of this threshold metric.</p>
+<p>If we track parasite dispersal from mosquitoes to mosquitoes we
+arrive at the <span class="math inline">\(p\times p\)</span> matrix:</p>
 <p><span class="math display">\[
-\mathcal{Z} = e^{-\Omega\tau} \cdot \mbox{diag}\left( \frac{fq M}{W} \right) \cdot {\cal D} \cdot  fq\Omega^{-1} 
-\]</span> In the 1 patch 1 strata case this becomes the same equation as <span class="math inline">\(\mathcal{R}\)</span>.</p>
+\mathcal{Z} = e^{-\Omega\tau} \cdot \mbox{diag}\left( \frac{fq M}{W}
+\right) \cdot {\cal D} \cdot  fq\Omega^{-1}
+\]</span> In the 1 patch 1 strata case this becomes the same equation as
+<span class="math inline">\(\mathcal{R}\)</span>.</p>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>

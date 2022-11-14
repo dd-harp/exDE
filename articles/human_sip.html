@@ -99,7 +99,14 @@
 
     
     
-<p>The basic SIP (Susceptible-Infected-Prophylaxis) human model model fulfills the generic interface of the human population component. It is a reasonable first complication of the <a href="human_sis.html">SIS human model</a>. This requires two new parameters, <span class="math inline">\(\rho\)</span>, the probability a new infection is treated, and <span class="math inline">\(\eta\)</span> the duration of chemoprophylaxis following treatment. <span class="math inline">\(X\)</span> remains a column vector giving the number of infectious individuals in each strata, and <span class="math inline">\(P\)</span> the number of treated and protected individuals.</p>
+<p>The basic SIP (Susceptible-Infected-Prophylaxis) human model model
+fulfills the generic interface of the human population component. It is
+a reasonable first complication of the <a href="human_sis.html">SIS
+human model</a>. This requires two new parameters, <span class="math inline">\(\rho\)</span>, the probability a new infection is
+treated, and <span class="math inline">\(\eta\)</span> the duration of
+chemoprophylaxis following treatment. <span class="math inline">\(X\)</span> remains a column vector giving the
+number of infectious individuals in each strata, and <span class="math inline">\(P\)</span> the number of treated and protected
+individuals.</p>
 <div class="section level2">
 <h2 id="differential-equations">Differential Equations<a class="anchor" aria-label="anchor" href="#differential-equations"></a>
 </h2>
@@ -119,14 +126,21 @@
 P = \mbox{diag}(1/\eta) \cdot \mbox{diag}(\rho/(1-\rho)) \cdot rX
 \]</span></p>
 <p><span class="math display">\[
-EIR = \mbox{diag}(1/b) \cdot \mbox{diag}(1/(1-\rho)) \cdot \left( \frac{rX}{H-X-P} \right)
+EIR = \mbox{diag}(1/b) \cdot \mbox{diag}(1/(1-\rho)) \cdot \left(
+\frac{rX}{H-X-P} \right)
 \]</span></p>
-<p>Given <span class="math inline">\(EIR\)</span> we can solve for the mosquito population which would have given rise to those equilibrium values.</p>
+<p>Given <span class="math inline">\(EIR\)</span> we can solve for the
+mosquito population which would have given rise to those equilibrium
+values.</p>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>Here we run a simple example with 3 population strata at equilibrium. We use <code><a href="../reference/make_parameters_X_SIP.html">exDE::make_parameters_X_SIP</a></code> to set up parameters. Please note that this only runs the human population component and that most users should read <a href="ex_534.html">our fully worked example</a> to run a full simulation.</p>
+<p>Here we run a simple example with 3 population strata at equilibrium.
+We use <code><a href="../reference/make_parameters_X_SIP.html">exDE::make_parameters_X_SIP</a></code> to set up parameters.
+Please note that this only runs the human population component and that
+most users should read <a href="ex_534.html">our fully worked
+example</a> to run a full simulation.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/exDE/">exDE</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a></span><span class="op">)</span></span>
