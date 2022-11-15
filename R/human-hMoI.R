@@ -81,18 +81,23 @@ make_index_X.hMoI <- function(pars) {
 
 #' @title Make parameters for hybrid MoI human model
 #' @description MoI stands for Multiplicity of Infection, and refers to malarial superinfection.
+#' @param pars an [environment]
 #' @param b transmission probability (efficiency) from mosquito to human
 #' @param c1 transmission probability (efficiency) from inapparent human infections to mosquito
 #' @param c2 transmission probability (efficiency) from patent human infections to mosquito
 #' @param r1 recovery rate from inapparent infections
 #' @param r2 recovery rate from patent infections
+#' @param Psi a [matrix] of dimensions `nPatches` by `nStrata`
 #' @param m10 mean MoI among inapparent human infections
 #' @param m20 mean MoI among patent human infections
 #' @param H size of human population in each strata
 #' @return a [list] with class `hMoI`.
 #' @export
-make_parameters_X_hMoI <- function(b, c1, c2, r1, r2, m10, m20, H) {
+make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2, Psi, m10, m20, H) {
   stopifnot(is.numeric(b), is.numeric(c1), is.numeric(c2), is.numeric(r1), is.numeric(r2), is.numeric(m10), is.numeric(m20), is.numeric(H))
+  stopifnot(is.environment(pars))
+  stopifnot(nrow(Psi) == pars$nPatches)
+  stopifnot(ncol(Psi) == pars$nStrata)
   Xpar <- list()
   class(Xpar) <- c('hMoI')
   Xpar$b <- b
@@ -100,8 +105,9 @@ make_parameters_X_hMoI <- function(b, c1, c2, r1, r2, m10, m20, H) {
   Xpar$c2 <- c2
   Xpar$r1 <- r1
   Xpar$r2 <- r2
+  Xpar$Psi <- Psi
   Xpar$m10 <- m10
   Xpar$m20 <- m20
   Xpar$H <- H
-  return(Xpar)
+  pars$Xpar <- Xpar
 }
