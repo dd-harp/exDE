@@ -13,7 +13,7 @@ VectorControl.null <- function(t, y, pars, MosyBehavior) {
 #' @param pars an [environment]
 #' @return none
 #' @export
-make_parameters_vc_lemenach <- function(pars) {
+make_parameters_vc_null <- function(pars) {
   stopifnot(is.environment(pars))
   VCpar <- list()
   class(VCpar) <- 'null'
