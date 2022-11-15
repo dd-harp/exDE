@@ -34,6 +34,29 @@ F_x_lag <- function(t, y, pars, lag) {
   UseMethod("F_x_lag", pars$Xpar)
 }
 
+#' @title Biting distribution matrix
+#' @description This method dispatches on the type of `pars$Xpar`.
+#' @param t current simulation time
+#' @param y state vector
+#' @param pars a [list]
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_beta <- function(t, y, pars) {
+  UseMethod("F_beta", pars$Xpar)
+}
+
+#' @title Lagged biting distribution matrix
+#' @description This method dispatches on the type of `pars$Xpar`.
+#' @param t current simulation time
+#' @param y state vector
+#' @param pars a [list]
+#' @param lag duration of lag `t-lag`
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_beta_lag <- function(t, y, pars, lag) {
+  UseMethod("F_beta_lag", pars$Xpar)
+}
+
 #' @title Derivatives for human population
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param t current simulation time

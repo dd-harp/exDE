@@ -39,6 +39,30 @@ F_x_lag.SIS <- function(t, y, pars, lag) {
   X_tau * pars$Xpar$c
 }
 
+#' @title Biting distribution matrix
+#' @description Implements [F_beta] for the SIS model.
+#' @inheritParams F_beta
+#' @return a [matrix] of dimensions `nStrata` by `nPatches`
+#' @export
+F_beta.SIS <- function(t, y, pars) {
+  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * pars$Xpar$H))
+  return(
+    diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nStrata)
+  )
+}
+
+#' @title Lagged biting distribution matrix
+#' @description Implements [F_beta_lag] for the SIS model.
+#' @inheritParams F_beta_lag
+#' @return a [matrix] of dimensions `nStrata` by `nPatches`
+#' @export
+F_beta_lag.SIS <- function(t, y, pars, lag) {
+  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * pars$Xpar$H))
+  return(
+    diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nStrata)
+  )
+}
+
 #' @title Derivatives for human population
 #' @description Implements [dXdt] for the SIS model.
 #' @inheritParams dXdt
@@ -65,21 +89,27 @@ make_index_X.SIS <- function(pars) {
 }
 
 #' @title Make parameters for SIS human model
+#' @param pars an [environment]
 #' @param b transmission probability (efficiency) from mosquito to human
 #' @param c transmission probability (efficiency) from human to mosquito
 #' @param r recovery rate
+#' @param Psi a [matrix] of dimensions `nPatches` by `nStrata`
 #' @param X0 size of infected population in each strata
 #' @param H size of human population in each strata
 #' @return a [list] with class `SIS`.
 #' @export
-make_parameters_X_SIS <- function(b, c, r, X0, H) {
+make_parameters_X_SIS <- function(pars, b, c, r, Psi, X0, H) {
   stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(X0), is.numeric(H))
+  stopifnot(is.environment(pars))
+  stopifnot(nrow(Psi) == pars$nPatches)
+  stopifnot(ncol(Psi) == pars$nStrata)
   Xpar <- list()
   class(Xpar) <- c('SIS')
   Xpar$b <- b
   Xpar$c <- c
   Xpar$r <- r
+  Xpar$Psi <- Psi
   Xpar$X0 <- X0
   Xpar$H <- H
-  return(Xpar)
+  pars$Xpar <- Xpar
 }

@@ -137,6 +137,8 @@ make_index_MYZ.RM <- function(pars) {
   return(pars)
 }
 
+# need to update the parameters to take g, sigma, K instead of Omega/OmegaEIP
+
 #' @noRd
 make_parameters_MYZ_RM <- function(MYZpar, Omega, OmegaEIP, f, q, nu, eggsPerBatch, M0, G0, Y0, Z0) {
   stopifnot(inherits(Omega, 'matrix'), inherits(OmegaEIP, 'matrix'))
@@ -155,6 +157,7 @@ make_parameters_MYZ_RM <- function(MYZpar, Omega, OmegaEIP, f, q, nu, eggsPerBat
 }
 
 #' @title Make parameters for generalized RM ODE adult mosquito model
+#' @param pars an [environment]
 #' @param Omega mosquito demography matrix
 #' @param OmegaEIP mosquito demography matrix through the EIP
 #' @param f feeding rate
@@ -167,11 +170,13 @@ make_parameters_MYZ_RM <- function(MYZpar, Omega, OmegaEIP, f, q, nu, eggsPerBat
 #' @param Z0 infectious mosquito density at each patch
 #' @return a [list] with classes `RM`, `RM_ode`.
 #' @export
-make_parameters_MYZ_RM_ode <- function(Omega, OmegaEIP, f, q, nu, eggsPerBatch, M0, G0, Y0, Z0) {
+make_parameters_MYZ_RM_ode <- function(pars, Omega, OmegaEIP, f, q, nu, eggsPerBatch, M0, G0, Y0, Z0) {
+  stopifnot(is.environment(pars))
+  stopifnot(nrow(Omega) == pars$nPatches && ncol(Omega) == pars$nPatches)
   MYZpar <- list()
   class(MYZpar) <- c('RM', 'RM_ode')
   MYZpar <- make_parameters_MYZ_RM(MYZpar = MYZpar, Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
-  return(MYZpar)
+  pars$MYZpar <- MYZpar
 }
 
 #' @title Make parameters for generalized RM DDE adult mosquito model
