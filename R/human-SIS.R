@@ -48,7 +48,7 @@ F_x_lag.SIS <- function(t, y, pars, lag) {
 F_beta.SIS <- function(t, y, pars) {
   W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * pars$Xpar$H))
   return(
-    diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nStrata)
+    diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nPatches)
   )
 }
 
@@ -60,7 +60,7 @@ F_beta.SIS <- function(t, y, pars) {
 F_beta_lag.SIS <- function(t, y, pars, lag) {
   W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * pars$Xpar$H))
   return(
-    diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nStrata)
+    diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nPatches)
   )
 }
 
