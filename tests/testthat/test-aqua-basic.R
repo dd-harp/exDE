@@ -11,13 +11,13 @@ test_that("basic competition stays at equilibrium", {
   theta <- (eta - psi*L - phi*L)/(L^2)
 
   params <- list(
-    nHabitats = nHabitats,
-    L_ix = 1:3
+    nHabitats = nHabitats
   )
+  params <- list2env(params)
 
   # ODE
-  Lpar <- make_parameters_L_basic(psi = psi, phi = phi, theta = theta, L0 = L)
-  params$Lpar <- Lpar
+  make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L)
+  make_indices(params)
 
   y0 <- rep(0, 3)
 

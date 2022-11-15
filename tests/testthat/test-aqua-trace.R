@@ -24,13 +24,13 @@ test_that("forced emergence works with equilibrium", {
   calU[2,2] <- 1
   calU[3:4,3] <- 0.5
 
-  K <- matrix(0, nPatches, nPatches)
-  K[1, 2:3] <- c(0.2, 0.8)
-  K[2, c(1,3)] <- c(0.5, 0.5)
-  K[3, 1:2] <- c(0.7, 0.3)
-  K <- t(K)
+  calK <- matrix(0, nPatches, nPatches)
+  calK[1, 2:3] <- c(0.2, 0.8)
+  calK[2, c(1,3)] <- c(0.5, 0.5)
+  calK[3, 1:2] <- c(0.7, 0.3)
+  calK <- t(calK)
 
-  Omega <- diag(g, nPatches) + ((diag(nPatches) - K) %*% diag(sigma, nPatches))
+  Omega <- make_Omega(g, sigma, calK, nPatches)
   OmegaEIP <- expm::expm(-Omega * tau)
 
   kappa <- c(0.1, 0.075, 0.025)
@@ -52,26 +52,30 @@ test_that("forced emergence works with equilibrium", {
     nPatches = nPatches,
     nHabitats = nHabitats,
     calU = calU,
-    calN = calN,
-    M_ix = 1:3,
-    G_ix = 4:6,
-    Y_ix = 7:9,
-    Z_ix = 10:12
+    calN = calN
   )
+  params <- list2env(params)
 
   # ODE
-  MYZpar <- make_parameters_MYZ_RM_ode(Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
-  Lpar <- make_parameters_L_trace(Lambda = alpha)
-  params$MYZpar <- MYZpar
-  params$Lpar <- Lpar
+  make_parameters_MYZ_RM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
+  make_parameters_L_trace(pars = params, Lambda = alpha)
+  make_indices(params)
 
-  y0 <- rep(0, 12)
+  y0 <- rep(0, max(params$Upsilon_ix))
   y0[params$M_ix] <- M_eq
   y0[params$G_ix] <- G_eq
   y0[params$Y_ix] <- Y_eq
   y0[params$Z_ix] <- Z_eq
+  y0[params$Upsilon_ix] <- as.vector(OmegaEIP)
 
-  out <- deSolve::ode(y = y0, times = c(0, 365), func = xDE_diffeqn_mosy, parms = params, method = 'lsoda', kappa = kappa)
+  # mimic MosyBehavior
+  MosyBehavior <- list()
+  MosyBehavior$f <- rep(params$MYZpar$f, 2)
+  attr(MosyBehavior$f, 'time') <- c(0, 0 - params$MYZpar$tau)
+  MosyBehavior$q <- rep(params$MYZpar$q, 2)
+  MosyBehavior$g <- rep(params$MYZpar$g, 2)
+
+  out <- deSolve::ode(y = y0, times = c(0, 365), func = xDE_diffeqn_mosy, parms = params, method = 'lsoda', kappa = kappa, MosyBehavior = MosyBehavior)
 
   M_sim <- as.vector(out[2, params$M_ix+1])
   G_sim <- as.vector(out[2, params$G_ix+1])

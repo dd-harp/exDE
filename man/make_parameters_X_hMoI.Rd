@@ -4,9 +4,11 @@
 \alias{make_parameters_X_hMoI}
 \title{Make parameters for hybrid MoI human model}
 \usage{
-make_parameters_X_hMoI(b, c1, c2, r1, r2, m10, m20, H)
+make_parameters_X_hMoI(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20, H)
 }
 \arguments{
+\item{pars}{an \link{environment}}
+
 \item{b}{transmission probability (efficiency) from mosquito to human}
 
 \item{c1}{transmission probability (efficiency) from inapparent human infections to mosquito}
@@ -16,6 +18,10 @@ make_parameters_X_hMoI(b, c1, c2, r1, r2, m10, m20, H)
 \item{r1}{recovery rate from inapparent infections}
 
 \item{r2}{recovery rate from patent infections}
+
+\item{Psi}{a \link{matrix} of dimensions \code{nPatches} by \code{nStrata}}
+
+\item{wf}{vector of biting weights of length \code{nStrata}}
 
 \item{m10}{mean MoI among inapparent human infections}
 

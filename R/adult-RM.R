@@ -1,5 +1,30 @@
 # specialized methods for the adult mosquito RM model
 
+#' @title Compute bloodfeeding and mortality rates
+#' @description Implements [MosquitoBehavior] for the generalized RM model.
+#' @inheritParams MosquitoBehavior
+#' @return a named [list]
+#' @export
+MosquitoBehavior.RM <- function(t, y, pars) {
+
+  MosyBehavior <- list()
+  MosyBehavior$f <- rep(pars$MYZpar$f, 2)
+  attr(MosyBehavior$f, 'time') <- c(t, t - pars$MYZpar$tau)
+  MosyBehavior$q <- rep(pars$MYZpar$q, 2)
+  MosyBehavior$g <- rep(pars$MYZpar$g, 2)
+
+  return(MosyBehavior)
+}
+
+#' @title Time spent host seeking/feeding and resting/ovipositing
+#' @description Implements [F_tau] for the generalized RM model.
+#' @inheritParams F_tau
+#' @return [NULL]
+#' @export
+F_tau.RM <- function(t, y, pars) {
+  NULL
+}
+
 #' @title Net infectiousness of human population to mosquitoes
 #' @description Implements [F_kappa] for the generalized RM ODE model.
 #' @inheritParams F_kappa
@@ -7,7 +32,8 @@
 #' @export
 F_kappa.RM_ode <- function(t, y, pars) {
   x <- F_x(t, y, pars)
-  as.vector(pars$betaT %*% x)
+  beta <- F_beta(t, y, pars)
+  as.vector(t(beta) %*% x)
 }
 
 #' @title Net infectiousness of human population to mosquitoes
@@ -20,9 +46,12 @@ F_kappa.RM_dde <- function(t, y, pars) {
   x <- F_x(t, y, pars)
   x_lag <- F_x_lag(t, y, pars, pars$MYZpar$tau)
 
+  beta <- F_beta(t, y, pars)
+  beta_lag <- F_beta_lag(t, y, pars, pars$MYZpar$tau)
+
   kappa <- matrix(data = 0, nrow = 2, ncol = pars$nPatches)
-  kappa[1, ] <- as.vector(pars$betaT %*% x)
-  kappa[2, ] <- as.vector(pars$betaT %*% x_lag)
+  kappa[1, ] <- as.vector(t(beta) %*% x)
+  kappa[2, ] <- as.vector(t(beta_lag) %*% x_lag)
   return(kappa)
 }
 
@@ -66,20 +95,29 @@ F_eggs.RM <- function(t, y, pars) {
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
-dMYZdt.RM_ode <- function(t, y, pars, Lambda, kappa) {
+dMYZdt.RM_ode <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
+
+  nPatches <- pars$nPatches
 
   M <- y[pars$M_ix]
   G <- y[pars$G_ix]
   Y <- y[pars$Y_ix]
   Z <- y[pars$Z_ix]
+  Upsilon <- matrix(data = y[pars$Upsilon_ix], nrow = nPatches, ncol = nPatches)
 
-  with(pars$MYZpar, {
-    dMdt <- Lambda - (Omega %*% M)
-    dGdt <- diag(f, pars$nPatches, pars$nPatches) %*% (M - G) - (nu * G) - (Omega %*% G)
-    dYdt <- diag(f*q*kappa) %*% (M - Y) - (Omega %*% Y)
-    dZdt <- OmegaEIP %*% diag(f*q*kappa) %*% (M - Y) - (Omega %*% Z)
-    return(c(dMdt, dGdt, dYdt, dZdt))
-  })
+  f <- MosyBehavior$f
+  q <- MosyBehavior$q
+  g <- MosyBehavior$g
+
+  Omega <- make_Omega(g = g[1], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
+  Omega_eip <- make_Omega(g = g[2], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
+
+  dMdt <- Lambda - (Omega %*% M)
+  dGdt <- diag(f[1], nPatches) %*% (M - G) - (pars$MYZpar$nu * G) - (Omega %*% G)
+  dYdt <- diag(f[1]*q[1]*kappa, nPatches) %*% (M - Y) - (Omega %*% Y)
+  dZdt <- Upsilon %*% diag(f[2]*q[2]*kappa, nPatches) %*% (M - Y) - (Omega %*% Z)
+  dUdt <- as.vector((Omega_eip - Omega) %*% Upsilon)
+  return(c(dMdt, dGdt, dYdt, dZdt, dUdt))
 }
 
 #' @title Derivatives for adult mosquitoes
@@ -88,14 +126,17 @@ dMYZdt.RM_ode <- function(t, y, pars, Lambda, kappa) {
 #' @return a [numeric] vector
 #' @importFrom deSolve lagvalue
 #' @export
-dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa) {
+dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
   kappa_t <- kappa[1, ]
-  kappa_tau <- kappa[2, ]
+  kappa_eip <- kappa[2, ]
+
+  nPatches <- pars$nPatches
 
   M <- y[pars$M_ix]
   G <- y[pars$G_ix]
   Y <- y[pars$Y_ix]
   Z <- y[pars$Z_ix]
+  Upsilon <- matrix(data = y[pars$Upsilon_ix], nrow = nPatches, ncol = nPatches)
 
   tau <- pars$MYZpar$tau
 
@@ -107,13 +148,19 @@ dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa) {
     Y_tau <- lagvalue(t = t - tau, nr = pars$Y_ix)
   }
 
-  with(pars$MYZpar, {
-    dMdt <- Lambda - (Omega %*% M)
-    dGdt <- diag(f, pars$nPatches, pars$nPatches) %*% (M - G) - (nu * G) - (Omega %*% G)
-    dYdt <- diag(f*q*kappa_t) %*% (M - Y) - (Omega %*% Y)
-    dZdt <- OmegaEIP %*% diag(f*q*kappa_tau) %*% (M_tau - Y_tau) - (Omega %*% Z)
-    return(c(dMdt, dGdt, dYdt, dZdt))
-  })
+  f <- MosyBehavior$f
+  q <- MosyBehavior$q
+  g <- MosyBehavior$g
+
+  Omega <- make_Omega(g = g[1], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
+  Omega_eip <- make_Omega(g = g[2], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
+
+  dMdt <- Lambda - (Omega %*% M)
+  dGdt <- diag(f[1], nPatches) %*% (M - G) - (pars$MYZpar$nu * G) - (Omega %*% G)
+  dYdt <- diag(f[1]*q[1]*kappa_t, nPatches) %*% (M - Y) - (Omega %*% Y)
+  dZdt <- Upsilon %*% diag(f[2]*q[2]*kappa_eip, nPatches) %*% (M_tau - Y_tau) - (Omega %*% Z)
+  dUdt <- as.vector((Omega_eip - Omega) %*% Upsilon)
+  return(c(dMdt, dGdt, dYdt, dZdt, dUdt))
 }
 
 #' @title Add indices for adult mosquitoes to parameter list
@@ -134,19 +181,24 @@ make_index_MYZ.RM <- function(pars) {
 
   pars$Z_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
   pars$max_ix <- tail(pars$Z_ix, 1)
+
+  pars$Upsilon_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches^2)
+  pars$max_ix <- tail(pars$Upsilon_ix, 1)
   return(pars)
 }
 
+
 #' @noRd
-make_parameters_MYZ_RM <- function(MYZpar, Omega, OmegaEIP, f, q, nu, eggsPerBatch, M0, G0, Y0, Z0) {
-  stopifnot(inherits(Omega, 'matrix'), inherits(OmegaEIP, 'matrix'))
-  stopifnot(is.numeric(f), is.numeric(q), is.numeric(nu), is.numeric(eggsPerBatch), is.numeric(M0), is.numeric(G0), is.numeric(Y0), is.numeric(Z0))
-  MYZpar$Omega <- Omega
-  MYZpar$OmegaEIP <- OmegaEIP
+make_parameters_MYZ_RM <- function(MYZpar, g, sigma, calK, f, q, nu, eggsPerBatch, tau, M0, G0, Y0, Z0) {
+  stopifnot(is.numeric(g), is.numeric(sigma), is.numeric(f), is.numeric(q), is.numeric(nu), is.numeric(eggsPerBatch), is.numeric(M0), is.numeric(G0), is.numeric(Y0), is.numeric(Z0))
+  MYZpar$g <- g
+  MYZpar$sigma <- sigma
+  MYZpar$calK <- calK
   MYZpar$f <- f
   MYZpar$q <- q
   MYZpar$nu <- nu
   MYZpar$eggsPerBatch <- eggsPerBatch
+  MYZpar$tau <- tau
   MYZpar$M0 <- M0
   MYZpar$G0 <- G0
   MYZpar$Y0 <- Y0
@@ -155,43 +207,49 @@ make_parameters_MYZ_RM <- function(MYZpar, Omega, OmegaEIP, f, q, nu, eggsPerBat
 }
 
 #' @title Make parameters for generalized RM ODE adult mosquito model
-#' @param Omega mosquito demography matrix
-#' @param OmegaEIP mosquito demography matrix through the EIP
+#' @param pars an [environment]
+#' @param g mosquito mortality rate
+#' @param sigma emigration rate
+#' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
 #' @param f feeding rate
 #' @param q human blood fraction
 #' @param nu oviposition rate of gravid mosquitoes
 #' @param eggsPerBatch eggs laid per oviposition
+#' @param tau length of extrinsic incubation period
 #' @param M0 total mosquito density at each patch
 #' @param G0 gravid mosquito density at each patch
 #' @param Y0 infected mosquito density at each patch
 #' @param Z0 infectious mosquito density at each patch
-#' @return a [list] with classes `RM`, `RM_ode`.
+#' @return nothing
 #' @export
-make_parameters_MYZ_RM_ode <- function(Omega, OmegaEIP, f, q, nu, eggsPerBatch, M0, G0, Y0, Z0) {
+make_parameters_MYZ_RM_ode <- function(pars, g, sigma, calK, f, q, nu, eggsPerBatch, tau, M0, G0, Y0, Z0) {
+  stopifnot(is.environment(pars))
+  stopifnot(nrow(calK) == pars$nPatches && ncol(calK) == pars$nPatches)
   MYZpar <- list()
   class(MYZpar) <- c('RM', 'RM_ode')
-  MYZpar <- make_parameters_MYZ_RM(MYZpar = MYZpar, Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
-  return(MYZpar)
+  MYZpar <- make_parameters_MYZ_RM(MYZpar = MYZpar, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
+  pars$MYZpar <- MYZpar
 }
 
 #' @title Make parameters for generalized RM DDE adult mosquito model
-#' @param Omega mosquito demography matrix
-#' @param OmegaEIP mosquito demography matrix through the EIP
+#' @param pars an [environment]
+#' @param g mosquito mortality rate
+#' @param sigma emigration rate
+#' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
 #' @param f feeding rate
 #' @param q human blood fraction
 #' @param nu oviposition rate of gravid mosquitoes
 #' @param eggsPerBatch eggs laid per oviposition
+#' @param tau length of extrinsic incubation period
 #' @param M0 total mosquito density at each patch
 #' @param G0 gravid mosquito density at each patch
 #' @param Y0 infected mosquito density at each patch
 #' @param Z0 infectious mosquito density at each patch
-#' @param tau length of extrinsic incubation period
-#' @return a [list] with classes `RM`, `RM_dde`.
+#' @return nothing
 #' @export
-make_parameters_MYZ_RM_dde <- function(Omega, OmegaEIP, f, q, nu, eggsPerBatch, tau, M0, G0, Y0, Z0) {
+make_parameters_MYZ_RM_dde <- function(pars, g, sigma, calK, f, q, nu, eggsPerBatch, tau, M0, G0, Y0, Z0) {
   MYZpar <- list()
   class(MYZpar) <- c('RM', 'RM_dde')
-  MYZpar <- make_parameters_MYZ_RM(MYZpar = MYZpar, Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
-  MYZpar$tau <- tau
-  return(MYZpar)
+  MYZpar <- make_parameters_MYZ_RM(MYZpar = MYZpar, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
+  pars$MYZpar <- MYZpar
 }

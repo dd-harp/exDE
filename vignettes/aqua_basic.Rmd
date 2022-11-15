@@ -66,12 +66,12 @@ L <- alpha/psi
 theta <- (eta - psi*L - phi*L)/(L^2)
 
 params <- list(
-  nHabitats = nHabitats,
-  L_ix = 1:3
+  nHabitats = nHabitats
 )
+params <- list2env(params)
 
-Lpar <- make_parameters_L_basic(psi = psi, phi = phi, theta = theta, L0 = L)
-params$Lpar <- Lpar
+make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L)
+make_indices(params)
 
 y0 <- L
 
