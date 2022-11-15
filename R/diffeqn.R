@@ -56,38 +56,6 @@ xDE_diffeqn <- function(t, y, pars, EIR_delta = NULL, kappa_delta = NULL) {
   return(list(c(dL, dMYZ, dX)))
 }
 
-
-
-# xDE_diffeqn <- function(t, y, pars, EIR_delta = NULL, kappa_delta = NULL) {
-#
-#   # eta: egg laying
-#   eggs <- F_eggs(t, y, pars)
-#   eta <- pars$calU %*% eggs
-#
-#   # lambda: emergence of adults
-#   alpha <- F_alpha(t, y, pars)
-#   Lambda <- pars$calN %*% alpha
-#
-#   # EIR: entomological inoculation rate
-#   EIR <- F_EIR(t, y, pars)
-#   if (!is.null(EIR_delta)) {
-#     EIR <- EIR + EIR_delta
-#   }
-#
-#   # kappa: net infectiousness of humans
-#   kappa <- F_kappa(t, y, pars)
-#   if (!is.null(kappa_delta)) {
-#     kappa <- kappa + kappa_delta
-#   }
-#
-#   # state derivatives
-#   dL <- dLdt(t, y, pars, eta)
-#   dMYZ <- dMYZdt(t, y, pars, Lambda, kappa)
-#   dX <- dXdt(t, y, pars, EIR)
-#
-#   return(list(c(dL, dMYZ, dX)))
-# }
-
 #' @title Generalized spatial differential equation model (mosquito only)
 #' @description Mirrors [exDE::xDE_diffeqn] but only includes the adult and aquatic
 #' mosquito components.
