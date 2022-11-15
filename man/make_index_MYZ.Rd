@@ -7,7 +7,7 @@
 make_index_MYZ(pars)
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{pars}{an \link{environment}}
 }
 \value{
 the modified parameter \link{list}

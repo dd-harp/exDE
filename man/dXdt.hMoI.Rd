@@ -11,7 +11,7 @@
 
 \item{y}{state vector}
 
-\item{pars}{a \link{list}}
+\item{pars}{an \link{environment}}
 
 \item{EIR}{vector giving the per-capita entomological inoculation rate for each strata}
 }

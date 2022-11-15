@@ -11,13 +11,13 @@ test_that("RM models reach equilibrium", {
   nu <- 1/2
   eggsPerBatch <- 30
 
-  K <- matrix(0, nPatches, nPatches)
-  K[1, 2:3] <- c(0.2, 0.8)
-  K[2, c(1,3)] <- c(0.5, 0.5)
-  K[3, 1:2] <- c(0.7, 0.3)
-  K <- t(K)
+  calK <- matrix(0, nPatches, nPatches)
+  calK[1, 2:3] <- c(0.2, 0.8)
+  calK[2, c(1,3)] <- c(0.5, 0.5)
+  calK[3, 1:2] <- c(0.7, 0.3)
+  calK <- t(calK)
 
-  Omega <- diag(g, nPatches) + ((diag(nPatches) - K) %*% diag(sigma, nPatches))
+  Omega <- make_Omega(g, sigma, calK, nPatches)
   OmegaEIP <- expm::expm(-Omega * tau)
 
   kappa <- c(0.1, 0.075, 0.025)
@@ -30,16 +30,27 @@ test_that("RM models reach equilibrium", {
     Y_ix = 7:9,
     Z_ix = 10:12
   )
+  params <- list2env(params)
 
   # ODE
-  MYZpar <- make_parameters_MYZ_RM_ode(Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
-  params$MYZpar <- MYZpar
+  make_parameters_MYZ_RM_ode(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
 
-  y0 <- rep(0, 12)
+  # mimic MosyBehavior
+  MosyBehavior <- list()
+  MosyBehavior$f <- rep(params$MYZpar$f, 2)
+  attr(MosyBehavior$f, 'time') <- c(0, 0 - params$MYZpar$tau)
+  MosyBehavior$q <- rep(params$MYZpar$q, 2)
+  MosyBehavior$g <- rep(params$MYZpar$g, 2)
 
-  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, Lambda, kappa) {
-    list(dMYZdt(t, y, pars, Lambda, kappa))
-  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa)
+  # make indices and set up initial conditions
+  make_indices(params)
+  y0 <- rep(0, max(params$Upsilon_ix))
+  y0[params$Upsilon_ix] <- as.vector(OmegaEIP)
+
+  # solve ODEs
+  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, Lambda, kappa, MosyBehavior) {
+    list(dMYZdt(t, y, pars, Lambda, kappa, MosyBehavior))
+  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa, MosyBehavior = MosyBehavior)
 
   # equilibrium solutions (forward)
   Omega_inv <- solve(Omega)
@@ -78,12 +89,12 @@ test_that("RM models reach equilibrium", {
   expect_true(all(approx_equal(Lambda_eq, Lambda, tol = 1e-4)))
 
   # DDE
-  MYZpar <- make_parameters_MYZ_RM_dde(Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
-  params$MYZpar <- MYZpar
+  make_parameters_MYZ_RM_dde(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
 
-  out <- deSolve::dede(y = y0, times = c(0, 365), func = function(t, y, pars, Lambda, kappa) {
-    list(dMYZdt(t, y, pars, Lambda, kappa))
-  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = rbind(kappa, kappa))
+  # solve DDEs
+  out <- deSolve::dede(y = y0, times = c(0, 365), func = function(t, y, pars, Lambda, kappa, MosyBehavior) {
+    list(dMYZdt(t, y, pars, Lambda, kappa, MosyBehavior))
+  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = rbind(kappa, kappa), MosyBehavior = MosyBehavior)
 
   # equilibrium solutions (forward)
   M_eq <- as.vector(Omega_inv %*% Lambda)

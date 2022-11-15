@@ -5,12 +5,15 @@
 \title{Make parameters for generalized RM ODE adult mosquito model}
 \usage{
 make_parameters_MYZ_RM_ode(
-  Omega,
-  OmegaEIP,
+  pars,
+  g,
+  sigma,
+  calK,
   f,
   q,
   nu,
   eggsPerBatch,
+  tau,
   M0,
   G0,
   Y0,
@@ -18,9 +21,13 @@ make_parameters_MYZ_RM_ode(
 )
 }
 \arguments{
-\item{Omega}{mosquito demography matrix}
+\item{pars}{an \link{environment}}
 
-\item{OmegaEIP}{mosquito demography matrix through the EIP}
+\item{g}{mosquito mortality rate}
+
+\item{sigma}{emigration rate}
+
+\item{calK}{mosquito dispersal matrix of dimensions \code{nPatches} by \code{nPatches}}
 
 \item{f}{feeding rate}
 
@@ -29,6 +36,8 @@ make_parameters_MYZ_RM_ode(
 \item{nu}{oviposition rate of gravid mosquitoes}
 
 \item{eggsPerBatch}{eggs laid per oviposition}
+
+\item{tau}{length of extrinsic incubation period}
 
 \item{M0}{total mosquito density at each patch}
 
@@ -39,7 +48,7 @@ make_parameters_MYZ_RM_ode(
 \item{Z0}{infectious mosquito density at each patch}
 }
 \value{
-a \link{list} with classes \code{RM}, \code{RM_ode}.
+nothing
 }
 \description{
 Make parameters for generalized RM ODE adult mosquito model

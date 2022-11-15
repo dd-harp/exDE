@@ -9,7 +9,7 @@ MosquitoBehavior.RM <- function(t, y, pars) {
 
   MosyBehavior <- list()
   MosyBehavior$f <- rep(pars$MYZpar$f, 2)
-  attr(MosyBehavior$f, 'time') <- c(t, t - pars$MYZpar$eip)
+  attr(MosyBehavior$f, 'time') <- c(t, t - pars$MYZpar$tau)
   MosyBehavior$q <- rep(pars$MYZpar$q, 2)
   MosyBehavior$g <- rep(pars$MYZpar$g, 2)
 
@@ -105,8 +105,8 @@ dMYZdt.RM_ode <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
   q <- MosyBehavior$q
   g <- MosyBehavior$g
 
-  Omega <- make_Omega(g = g[1], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, p = nPatches)
-  Omega_eip <- make_Omega(g = g[2], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, p = nPatches)
+  Omega <- make_Omega(g = g[1], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
+  Omega_eip <- make_Omega(g = g[2], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
 
   dMdt <- Lambda - (Omega %*% M)
   dGdt <- diag(f[1], nPatches) %*% (M - G) - (pars$MYZpar$nu * G) - (Omega %*% G)
@@ -156,8 +156,8 @@ dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
   q <- MosyBehavior$q
   g <- MosyBehavior$g
 
-  Omega <- make_Omega(g = g[1], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, p = nPatches)
-  Omega_eip <- make_Omega(g = g[2], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, p = nPatches)
+  Omega <- make_Omega(g = g[1], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
+  Omega_eip <- make_Omega(g = g[2], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
 
   dMdt <- Lambda - (Omega %*% M)
   dGdt <- diag(f[1], nPatches) %*% (M - G) - (pars$MYZpar$nu * G) - (Omega %*% G)
@@ -262,6 +262,6 @@ make_parameters_MYZ_RM_ode <- function(pars, g, sigma, calK, f, q, nu, eggsPerBa
 make_parameters_MYZ_RM_dde <- function(pars, g, sigma, calK, f, q, nu, eggsPerBatch, tau, M0, G0, Y0, Z0) {
   MYZpar <- list()
   class(MYZpar) <- c('RM', 'RM_dde')
-  MYZpar <- make_parameters_MYZ_RM(MYZpar = MYZpar, Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
+  MYZpar <- make_parameters_MYZ_RM(MYZpar = MYZpar, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
   pars$MYZpar <- MYZpar
 }

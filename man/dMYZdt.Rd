@@ -4,18 +4,20 @@
 \alias{dMYZdt}
 \title{Derivatives for adult mosquitoes}
 \usage{
-dMYZdt(t, y, pars, Lambda, kappa)
+dMYZdt(t, y, pars, Lambda, kappa, MosyBehavior)
 }
 \arguments{
 \item{t}{current simulation time}
 
 \item{y}{state vector}
 
-\item{pars}{a \link{list}}
+\item{pars}{an \link{environment}}
 
 \item{Lambda}{emergence rate of adult mosquitoes}
 
 \item{kappa}{net infectiousness of human population}
+
+\item{MosyBehavior}{values returned by \link{MosquitoBehavior}, potentially modified by control \link{VectorControl}}
 }
 \value{
 a \link{numeric} vector

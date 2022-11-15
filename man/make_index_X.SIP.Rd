@@ -7,7 +7,7 @@
 \method{make_index_X}{SIP}(pars)
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{pars}{an \link{environment}}
 }
 \value{
 the modified parameter \link{list}

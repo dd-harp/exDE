@@ -4,14 +4,18 @@
 \alias{make_parameters_X_SIS}
 \title{Make parameters for SIS human model}
 \usage{
-make_parameters_X_SIS(b, c, r, X0, H)
+make_parameters_X_SIS(pars, b, c, r, Psi, X0, H)
 }
 \arguments{
+\item{pars}{an \link{environment}}
+
 \item{b}{transmission probability (efficiency) from mosquito to human}
 
 \item{c}{transmission probability (efficiency) from human to mosquito}
 
 \item{r}{recovery rate}
+
+\item{Psi}{a \link{matrix} of dimensions \code{nPatches} by \code{nStrata}}
 
 \item{X0}{size of infected population in each strata}
 

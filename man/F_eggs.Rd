@@ -11,7 +11,7 @@ F_eggs(t, y, pars)
 
 \item{y}{state vector}
 
-\item{pars}{a \link{list}}
+\item{pars}{an \link{environment}}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}
