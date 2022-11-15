@@ -61,18 +61,18 @@ c <- 0.15
 r <- 1/200
 eta <- c(1/30, 1/40, 1/35)
 rho <- c(0.05, 0.1, 0.15)
+Psi <- matrix(data = 1,nrow = 1, ncol = nStrata)
 
 P <- diag(1/eta) %*% diag(rho/(1-rho)) %*% (r*X)
 EIR <- diag(1/b, nStrata) %*% diag(1/(1-rho)) %*% ((r*X)/(H-X-P))
 
 params <- list(
-  nStrata = nStrata,
-  X_ix = 1:3,
-  P_ix = 4:6
+  nStrata = nStrata
 )
+params <- list2env(params)
 
-Xpar <- make_parameters_X_SIP(b = b, c = c, r = r, rho = rho, eta = eta, X0 = X, P0 = as.vector(P), H = H)
-params$Xpar <- Xpar
+make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, Psi = Psi, X0 = X, P0 = as.vector(P), H = H)
+make_indices(params)
 
 y0 <- rep(0, 6)
 y0[params$X_ix] <- X
