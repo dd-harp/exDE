@@ -2,7 +2,7 @@ library(expm)
 library(MASS)
 library(deSolve)
 
-test_that("test equilibrium with RM adults (ODE), SIS humans, basic competition", {
+test_that("test equilibrium with RM adults (ODE), SIS humans, trace", {
 
   # set number of patches and strata
   nPatches <- 2
@@ -25,14 +25,14 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, basic competition"
   tau <- 11
 
   # mosquito movement calK
-  K <- matrix(0, nPatches, nPatches)
-  K[upper.tri(K)] <- rexp(sum(1:(nPatches-1)))
-  K[lower.tri(K)] <- rexp(sum(1:(nPatches-1)))
-  K <- K/rowSums(K)
-  K <- t(K)
+  calK <- matrix(0, nPatches, nPatches)
+  calK[upper.tri(calK)] <- rexp(sum(1:(nPatches-1)))
+  calK[lower.tri(calK)] <- rexp(sum(1:(nPatches-1)))
+  calK <- calK/rowSums(calK)
+  calK <- t(calK)
 
   # omega matrix
-  Omega <- diag(g, nPatches) + (diag(sigma, nPatches) %*% (diag(nPatches) - K))
+  Omega <- make_Omega(g, sigma, calK, nPatches)
   Omega_inv <- solve(Omega)
   OmegaEIP <- expm::expm(-Omega * tau)
   OmegaEIP_inv <- expm::expm(Omega * tau)
@@ -67,7 +67,7 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, basic competition"
   G <- solve(diag(nu+f, nPatches) + Omega) %*% diag(f, nPatches) %*% M
   Lambda <- Omega %*% M
 
-  # oviposition/emergence matrice
+  # equilibrium solutions for aquatic
   calN <- matrix(0, nPatches, nHabitats)
   diag(calN) <- 1
 
@@ -81,14 +81,14 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, basic competition"
   params$nHabitats <- nHabitats
   params$calU <- calU
   params$calN <- calN
-  params$beta <- beta
-  params$betaT <- t(beta)
 
-  params$MYZpar <- make_parameters_MYZ_RM_ode(Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  params$Xpar <- make_parameters_X_SIS(b = b, c = c, r = r, X0 = X, H = H)
-  params$Lpar <- make_parameters_L_trace(Lambda = as.vector(Lambda))
+  make_parameters_MYZ_RM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
+  make_parameters_X_SIS(pars = params, Psi = Psi, b = b, c = c, r = r, X0 = X, H = H)
+  make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
+  make_parameters_exogenous_null(pars = params)
+  make_parameters_vc_null(pars = params)
 
-  params <- make_indices(params)
+  make_indices(params)
 
   # set initial conditions
   y <- rep(NaN, max(params$X_ix))
@@ -96,6 +96,7 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, basic competition"
   y[params$G_ix] <- as.vector(G)
   y[params$Y_ix] <- as.vector(Y)
   y[params$Z_ix] <- as.vector(Z)
+  y[params$Upsilon_ix] <- as.vector(OmegaEIP)
   y[params$X_ix] <- as.vector(X)
 
   # run simulation
@@ -108,7 +109,7 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, basic competition"
   expect_equal(as.vector(out[2, params$X_ix+1]), as.vector(X))
 })
 
-test_that("test equilibrium with RM adults (DDE), SIS humans, basic competition", {
+test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
 
   # set number of patches and strata
   nPatches <- 2
@@ -131,14 +132,14 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, basic competition"
   tau <- 11
 
   # mosquito movement calK
-  K <- matrix(0, nPatches, nPatches)
-  K[upper.tri(K)] <- rexp(sum(1:(nPatches-1)))
-  K[lower.tri(K)] <- rexp(sum(1:(nPatches-1)))
-  K <- K/rowSums(K)
-  K <- t(K)
+  calK <- matrix(0, nPatches, nPatches)
+  calK[upper.tri(calK)] <- rexp(sum(1:(nPatches-1)))
+  calK[lower.tri(calK)] <- rexp(sum(1:(nPatches-1)))
+  calK <- calK/rowSums(calK)
+  calK <- t(calK)
 
   # omega matrix
-  Omega <- diag(g, nPatches) + (diag(sigma, nPatches) %*% (diag(nPatches) - K))
+  Omega <- make_Omega(g, sigma, calK, nPatches)
   Omega_inv <- solve(Omega)
   OmegaEIP <- expm::expm(-Omega * tau)
   OmegaEIP_inv <- expm::expm(Omega * tau)
@@ -165,7 +166,7 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, basic competition"
   # kappa
   kappa <- t(beta) %*% (X*c)
 
-  # equilibrium solutions
+  # equilibrium solutions for adults
   Z <- diag(1/(f*q), nPatches, nPatches) %*% ginv(beta) %*% EIR
   MY <- diag(1/as.vector(f*q*kappa), nPatches, nPatches) %*% OmegaEIP_inv %*% Omega %*% Z
   Y <- Omega_inv %*% (diag(as.vector(f*q*kappa), nPatches, nPatches) %*% MY)
@@ -173,7 +174,7 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, basic competition"
   G <- solve(diag(nu+f, nPatches) + Omega) %*% diag(f, nPatches) %*% M
   Lambda <- Omega %*% M
 
-  # oviposition/emergence matrices
+  # equilibrium solutions for aquatic
   calN <- matrix(0, nPatches, nHabitats)
   diag(calN) <- 1
 
@@ -187,14 +188,14 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, basic competition"
   params$nHabitats <- nHabitats
   params$calU <- calU
   params$calN <- calN
-  params$beta <- beta
-  params$betaT <- t(beta)
 
-  params$MYZpar <- make_parameters_MYZ_RM_dde(Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  params$Xpar <- make_parameters_X_SIS(b = b, c = c, r = r, X0 = X, H = H)
-  params$Lpar <- make_parameters_L_trace(Lambda = as.vector(Lambda))
+  make_parameters_MYZ_RM_dde(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
+  make_parameters_X_SIS(pars = params, Psi = Psi, b = b, c = c, r = r, X0 = X, H = H)
+  make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
+  make_parameters_exogenous_null(pars = params)
+  make_parameters_vc_null(pars = params)
 
-  params <- make_indices(params)
+  make_indices(params)
 
   # set initial conditions
   y <- rep(NaN, max(params$X_ix))
@@ -202,6 +203,7 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, basic competition"
   y[params$G_ix] <- as.vector(G)
   y[params$Y_ix] <- as.vector(Y)
   y[params$Z_ix] <- as.vector(Z)
+  y[params$Upsilon_ix] <- as.vector(OmegaEIP)
   y[params$X_ix] <- as.vector(X)
 
   # run simulation
@@ -213,4 +215,3 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, basic competition"
   expect_equal(as.vector(out[2, params$Z_ix+1]), as.vector(Z))
   expect_equal(as.vector(out[2, params$X_ix+1]), as.vector(X))
 })
-

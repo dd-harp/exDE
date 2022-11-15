@@ -12,7 +12,8 @@ F_EIR.SIP <- function(t, y, pars) {
   Z <- F_Z(t, y, pars)
   f <- pars$MYZpar$f # may want to use wrapper compute_f/q
   q <- pars$MYZpar$q
-  as.vector(pars$beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
+  beta <- F_beta(t, y, pars)
+  as.vector(beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
 }
 
 #' @title Size of effective infectious human population
@@ -77,14 +78,19 @@ make_index_X.SIP <- function(pars) {
 #' @param rho probability of successful treatment upon infection
 #' @param eta prophylaxis waning rate
 #' @param Psi a [matrix] of dimensions `nPatches` by `nStrata`
+#' @param wf vector of biting weights of length `nStrata`
 #' @param X0 size of infected population in each strata
 #' @param P0 size of population protected by prophylaxis in each strata
 #' @param H size of human population in each strata
 #' @return a [list] with class `SIP`.
 #' @export
-make_parameters_X_SIP <- function(pars, b, c, r, rho, eta, Psi, X0, P0, H) {
+make_parameters_X_SIP <- function(pars, b, c, r, rho, eta, Psi, wf = 1, X0, P0, H) {
   stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(rho), is.numeric(eta), is.numeric(X0), is.numeric(P0), is.numeric(H))
   stopifnot(is.environment(pars))
+  if (length(wf) == 1) {
+    wf <- rep(wf, pars$nStrata)
+  }
+  stopifnot(length(wf) == pars$nStrata)
   stopifnot(nrow(Psi) == pars$nPatches)
   stopifnot(ncol(Psi) == pars$nStrata)
   Xpar <- list()
@@ -95,6 +101,7 @@ make_parameters_X_SIP <- function(pars, b, c, r, rho, eta, Psi, X0, P0, H) {
   Xpar$rho <- rho
   Xpar$eta <- eta
   Xpar$Psi <- Psi
+  Xpar$wf <- wf
   Xpar$X0 <- X0
   Xpar$P0 <- P0
   Xpar$H <- H

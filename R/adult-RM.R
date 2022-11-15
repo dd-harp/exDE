@@ -32,7 +32,8 @@ F_tau.RM <- function(t, y, pars) {
 #' @export
 F_kappa.RM_ode <- function(t, y, pars) {
   x <- F_x(t, y, pars)
-  as.vector(pars$betaT %*% x)
+  beta <- F_beta(t, y, pars)
+  as.vector(t(beta) %*% x)
 }
 
 #' @title Net infectiousness of human population to mosquitoes
@@ -45,9 +46,12 @@ F_kappa.RM_dde <- function(t, y, pars) {
   x <- F_x(t, y, pars)
   x_lag <- F_x_lag(t, y, pars, pars$MYZpar$tau)
 
+  beta <- F_beta(t, y, pars)
+  beta_lag <- F_beta_lag(t, y, pars, pars$MYZpar$tau)
+
   kappa <- matrix(data = 0, nrow = 2, ncol = pars$nPatches)
-  kappa[1, ] <- as.vector(pars$betaT %*% x)
-  kappa[2, ] <- as.vector(pars$betaT %*% x_lag)
+  kappa[1, ] <- as.vector(t(beta) %*% x)
+  kappa[2, ] <- as.vector(t(beta_lag) %*% x_lag)
   return(kappa)
 }
 

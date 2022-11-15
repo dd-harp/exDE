@@ -12,7 +12,8 @@ F_EIR.SIS <- function(t, y, pars) {
   Z <- F_Z(t, y, pars)
   f <- pars$MYZpar$f # may want to use wrapper compute_f/q
   q <- pars$MYZpar$q
-  as.vector(pars$beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
+  beta <- F_beta(t, y, pars)
+  as.vector(beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
 }
 
 #' @title Size of effective infectious human population
@@ -94,13 +95,18 @@ make_index_X.SIS <- function(pars) {
 #' @param c transmission probability (efficiency) from human to mosquito
 #' @param r recovery rate
 #' @param Psi a [matrix] of dimensions `nPatches` by `nStrata`
+#' @param wf vector of biting weights of length `nStrata`
 #' @param X0 size of infected population in each strata
 #' @param H size of human population in each strata
 #' @return a [list] with class `SIS`.
 #' @export
-make_parameters_X_SIS <- function(pars, b, c, r, Psi, X0, H) {
+make_parameters_X_SIS <- function(pars, b, c, r, Psi, wf = 1, X0, H) {
   stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(X0), is.numeric(H))
   stopifnot(is.environment(pars))
+  if (length(wf) == 1) {
+    wf <- rep(wf, pars$nStrata)
+  }
+  stopifnot(length(wf) == pars$nStrata)
   stopifnot(nrow(Psi) == pars$nPatches)
   stopifnot(ncol(Psi) == pars$nStrata)
   Xpar <- list()
@@ -109,6 +115,7 @@ make_parameters_X_SIS <- function(pars, b, c, r, Psi, X0, H) {
   Xpar$c <- c
   Xpar$r <- r
   Xpar$Psi <- Psi
+  Xpar$wf <- wf
   Xpar$X0 <- X0
   Xpar$H <- H
   pars$Xpar <- Xpar

@@ -12,7 +12,8 @@ F_EIR.hMoI <- function(t, y, pars) {
   Z <- F_Z(t, y, pars)
   f <- pars$MYZpar$f # may want to use wrapper compute_f/q
   q <- pars$MYZpar$q
-  as.vector(pars$beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
+  beta <- F_beta(t, y, pars)
+  as.vector(beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
 }
 
 #' @title Size of effective infectious human population
@@ -88,14 +89,19 @@ make_index_X.hMoI <- function(pars) {
 #' @param r1 recovery rate from inapparent infections
 #' @param r2 recovery rate from patent infections
 #' @param Psi a [matrix] of dimensions `nPatches` by `nStrata`
+#' @param wf vector of biting weights of length `nStrata`
 #' @param m10 mean MoI among inapparent human infections
 #' @param m20 mean MoI among patent human infections
 #' @param H size of human population in each strata
 #' @return a [list] with class `hMoI`.
 #' @export
-make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2, Psi, m10, m20, H) {
+make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20, H) {
   stopifnot(is.numeric(b), is.numeric(c1), is.numeric(c2), is.numeric(r1), is.numeric(r2), is.numeric(m10), is.numeric(m20), is.numeric(H))
   stopifnot(is.environment(pars))
+  if (length(wf) == 1) {
+    wf <- rep(wf, pars$nStrata)
+  }
+  stopifnot(length(wf) == pars$nStrata)
   stopifnot(nrow(Psi) == pars$nPatches)
   stopifnot(ncol(Psi) == pars$nStrata)
   Xpar <- list()
@@ -106,6 +112,7 @@ make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2, Psi, m10, m20, H) {
   Xpar$r1 <- r1
   Xpar$r2 <- r2
   Xpar$Psi <- Psi
+  Xpar$wf <- wf
   Xpar$m10 <- m10
   Xpar$m20 <- m20
   Xpar$H <- H
