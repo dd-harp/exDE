@@ -24,16 +24,13 @@ test_that("RM models reach equilibrium", {
   Lambda <- c(5, 10, 8)
 
   params <- list(
-    nPatches = nPatches,
-    M_ix = 1:3,
-    G_ix = 4:6,
-    Y_ix = 7:9,
-    Z_ix = 10:12
+    nPatches = nPatches
   )
   params <- list2env(params)
 
   # ODE
   make_parameters_MYZ_RM_ode(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
+  make_indices(params)
 
   # mimic MosyBehavior
   MosyBehavior <- list()
