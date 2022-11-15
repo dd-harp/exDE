@@ -57,26 +57,25 @@ calU[1,1] <- 1
 calU[2,2] <- 1
 calU[3:4,3] <- 0.5
 
-K <- matrix(0, nPatches, nPatches)
-K[1, 2:3] <- c(0.2, 0.8)
-K[2, c(1,3)] <- c(0.5, 0.5)
-K[3, 1:2] <- c(0.7, 0.3)
-K <- t(K)
+calK <- matrix(0, nPatches, nPatches)
+calK[1, 2:3] <- c(0.2, 0.8)
+calK[2, c(1,3)] <- c(0.5, 0.5)
+calK[3, 1:2] <- c(0.7, 0.3)
+calK <- t(calK)
 
-Omega <- diag(g, nPatches) + ((diag(nPatches) - K) %*% diag(sigma, nPatches))
-OmegaEIP <- expm::expm(-Omega * tau)
+Omega <- make_Omega(g, sigma, calK, nPatches)
+Upsilon <- expm::expm(-Omega * tau)
 
 kappa <- c(0.1, 0.075, 0.025)
 Lambda <- c(5, 10, 8)
 
-# equilibrium solutions (forward)
+# equilibrium solutions
 Omega_inv <- solve(Omega)
-OmegaEIP_inv <- expm::expm(Omega * tau)
 
 M_eq <- as.vector(Omega_inv %*% Lambda)
 G_eq <- as.vector(solve(diag(nu+f, nPatches) + Omega) %*% diag(f, nPatches) %*% M_eq)
 Y_eq <- as.vector(solve(diag(f*q*kappa) + Omega) %*% diag(f*q*kappa) %*% M_eq)
-Z_eq <- as.vector(Omega_inv %*% OmegaEIP %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
+Z_eq <- as.vector(Omega_inv %*% Upsilon %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
 
 # the "Lambda" for the dLdt model
 alpha <- as.vector(ginv(calN) %*% Lambda)
@@ -84,34 +83,36 @@ alpha <- as.vector(ginv(calN) %*% Lambda)
 
 Now we set up the model. Please see the [Ross-Macdonald vignette](adult_RM.html) for details
 on the adult model. We use `alpha` as the `Lambda` parameter of our forced emergence model, in
-`exDE::make_parameters_L_trace`.
+`exDE::make_parameters_L_trace`. Again, because we are not running the full transmission model,
+we must use `exDE::MosquitoBehavior` to pass the equilibrium values of those bionomic parameters 
+to `exDE::xDE_diffeqn_mosy`.
 
 ```{r, out.width = "100%"}
 params <- list(
   nPatches = nPatches,
   nHabitats = nHabitats,
   calU = calU,
-  calN = calN,
-  M_ix = 1:3,
-  G_ix = 4:6,
-  Y_ix = 7:9,
-  Z_ix = 10:12
+  calN = calN
 )
+params <- list2env(params)
 
 # ODE
-MYZpar <- make_parameters_MYZ_RM_ode(Omega = Omega, OmegaEIP = OmegaEIP, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
-Lpar <- make_parameters_L_trace(Lambda = alpha)
-params$MYZpar <- MYZpar
-params$Lpar <- Lpar
+make_parameters_MYZ_RM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
+make_parameters_L_trace(pars = params, Lambda = alpha)
+make_indices(params)
 
-y0 <- rep(0, 12)
+y0 <- rep(0, max(params$Upsilon_ix))
 y0[params$M_ix] <- M_eq
 y0[params$G_ix] <- G_eq
 y0[params$Y_ix] <- Y_eq
 y0[params$Z_ix] <- Z_eq
+y0[params$Upsilon_ix] <- as.vector(Upsilon)
 
-out <- deSolve::ode(y = y0, times = 0:50, func = xDE_diffeqn_mosy, parms = params, method = 'lsoda', kappa = kappa)
+MosyBehavior <- MosquitoBehavior(0, y, params)
 
+out <- deSolve::ode(y = y0, times = 0:50, func = xDE_diffeqn_mosy, parms = params, method = 'lsoda', kappa = kappa, MosyBehavior = MosyBehavior)
+
+out <- out[, -c(params$Upsilon_ix+1)]
 colnames(out)[params$M_ix+1] <- paste0('M_', 1:params$nPatches)
 colnames(out)[params$G_ix+1] <- paste0('G_', 1:params$nPatches)
 colnames(out)[params$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
