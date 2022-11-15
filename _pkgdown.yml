@@ -51,6 +51,8 @@ reference:
   desc: |
     Generic methods for the adult mosquito component.
   contents:
+  - MosquitoBehavior
+  - F_tau
   - F_kappa
   - F_Z
   - F_Z_lag
@@ -61,6 +63,8 @@ reference:
   desc: |
     Specialized methods for the generalized Ross-Macdonald model of adult mosquito dynamics.
   contents:
+  - MosquitoBehavior.RM
+  - F_tau.RM
   - F_kappa.RM_ode
   - F_kappa.RM_dde
   - F_Z.RM
@@ -101,6 +105,8 @@ reference:
   - F_EIR
   - F_x
   - F_x_lag
+  - F_beta
+  - F_beta_lag
   - dXdt
   - make_index_X
 - subtitle: hybrid MoI model
@@ -110,6 +116,8 @@ reference:
   - F_EIR.hMoI
   - F_x.hMoI
   - F_x_lag.hMoI
+  - F_beta.hMoI
+  - F_beta_lag.hMoI
   - dXdt.hMoI
   - make_index_X.hMoI
   - make_parameters_X_hMoI
@@ -120,6 +128,8 @@ reference:
   - F_EIR.SIS
   - F_x.SIS
   - F_x_lag.SIS
+  - F_beta.SIS
+  - F_beta_lag.SIS
   - dXdt.SIS
   - make_index_X.SIS
   - make_parameters_X_SIS
@@ -130,6 +140,8 @@ reference:
   - F_EIR.SIP
   - F_x.SIP
   - F_x_lag.SIP
+  - F_beta.SIP
+  - F_beta_lag.SIP
   - dXdt.SIP
   - make_index_X.SIP
   - make_parameters_X_SIP
@@ -148,4 +160,5 @@ reference:
   - make_indices
   - diag_inverse
   - approx_equal
+  - make_Omega
 

@@ -40,6 +40,30 @@ F_x_lag.SIP <- function(t, y, pars, lag) {
   X_tau * pars$Xpar$c
 }
 
+#' @title Biting distribution matrix
+#' @description Implements [F_beta] for the SIP model.
+#' @inheritParams F_beta
+#' @return a [matrix] of dimensions `nStrata` by `nPatches`
+#' @export
+F_beta.SIP <- function(t, y, pars) {
+  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * pars$Xpar$H))
+  return(
+    diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nPatches)
+  )
+}
+
+#' @title Lagged biting distribution matrix
+#' @description Implements [F_beta_lag] for the SIP model.
+#' @inheritParams F_beta_lag
+#' @return a [matrix] of dimensions `nStrata` by `nPatches`
+#' @export
+F_beta_lag.SIP <- function(t, y, pars, lag) {
+  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * pars$Xpar$H))
+  return(
+    diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nPatches)
+  )
+}
+
 #' @title Derivatives for human population
 #' @description Implements [dXdt] for the SIP model.
 #' @inheritParams dXdt

@@ -118,14 +118,6 @@ dMYZdt.RM_ode <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
   dZdt <- Upsilon %*% diag(f[2]*q[2]*kappa, nPatches) %*% (M - Y) - (Omega %*% Z)
   dUdt <- as.vector((Omega_eip - Omega) %*% Upsilon)
   return(c(dMdt, dGdt, dYdt, dZdt, dUdt))
-
-  # with(pars$MYZpar, {
-  #   dMdt <- Lambda - (Omega %*% M)
-  #   dGdt <- diag(f, pars$nPatches, pars$nPatches) %*% (M - G) - (nu * G) - (Omega %*% G)
-  #   dYdt <- diag(f*q*kappa) %*% (M - Y) - (Omega %*% Y)
-  #   dZdt <- OmegaEIP %*% diag(f*q*kappa) %*% (M - Y) - (Omega %*% Z)
-  #   return(c(dMdt, dGdt, dYdt, dZdt))
-  # })
 }
 
 #' @title Derivatives for adult mosquitoes
@@ -169,14 +161,6 @@ dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
   dZdt <- Upsilon %*% diag(f[2]*q[2]*kappa_eip, nPatches) %*% (M_tau - Y_tau) - (Omega %*% Z)
   dUdt <- as.vector((Omega_eip - Omega) %*% Upsilon)
   return(c(dMdt, dGdt, dYdt, dZdt, dUdt))
-
-  # with(pars$MYZpar, {
-  #   dMdt <- Lambda - (Omega %*% M)
-  #   dGdt <- diag(f, pars$nPatches, pars$nPatches) %*% (M - G) - (nu * G) - (Omega %*% G)
-  #   dYdt <- diag(f*q*kappa_t) %*% (M - Y) - (Omega %*% Y)
-  #   dZdt <- OmegaEIP %*% diag(f*q*kappa_tau) %*% (M_tau - Y_tau) - (Omega %*% Z)
-  #   return(c(dMdt, dGdt, dYdt, dZdt))
-  # })
 }
 
 #' @title Add indices for adult mosquitoes to parameter list
