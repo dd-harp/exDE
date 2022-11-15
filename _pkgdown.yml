@@ -47,6 +47,22 @@ home:
         title: Changelog
         text: <a href="news/index.html">News</a>
 reference:
+- title: Exogeneous Forcing
+  desc: |
+    Methods to implement exogeneous forcing.
+  contents:
+  - ExogenousForcing
+  - ExogenousForcing.null
+  - make_parameters_exogenous_null
+- title: Vector Control
+  desc: |
+    Methods to implement vector control.
+  contents:
+  - VectorControl
+  - VectorControl.null
+  - make_parameters_vc_null
+  - VectorControl.lemenach
+  - make_parameters_vc_lemenach
 - title: Adult mosquito component
   desc: |
     Generic methods for the adult mosquito component.
