@@ -184,11 +184,11 @@ out <- deSolve::ode(y = y0, times = 0:50, func = function(t, y, pars, Lambda, ka
   list(dMYZdt(t, y, pars, Lambda, kappa, MosyBehavior))
 }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa, MosyBehavior = MosyBehavior)
 
-out <- out[, -c(params$Upsilon_ix+1)]
 colnames(out)[params$M_ix+1] <- paste0('M_', 1:params$nPatches)
 colnames(out)[params$G_ix+1] <- paste0('G_', 1:params$nPatches)
 colnames(out)[params$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
 colnames(out)[params$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
+out <- out[, -c(params$Upsilon_ix+1)]
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

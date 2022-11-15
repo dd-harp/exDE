@@ -72,6 +72,7 @@ c1 <- 0.05
 c2 <- 0.25
 r1 <- 1/250
 r2 <- 1/50
+Psi <- matrix(data = 1,nrow = 1, ncol = nStrata)
 
 m20 <- 1.5
 h <- r2*m20
@@ -79,15 +80,13 @@ m10 <- h/r1
 
 EIR <- h/b
 
-
 params <- list(
-  nStrata = nStrata,
-  m1_ix = 1:3,
-  m2_ix = 4:6
+  nStrata = nStrata
 )
+params <- list2env(params)
 
-Xpar <- make_parameters_X_hMoI(b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, m10 = m10, m20 = m20, H = H)
-params$Xpar <- Xpar
+make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20, H = H)
+make_indices(params)
 
 y0 <- rep(0, 6)
 y0[params$m1_ix] <- m10
