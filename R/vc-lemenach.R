@@ -5,6 +5,7 @@
 #' @description Implements [VectorControl] for the Le Menach ITN model of vector control
 #' @inheritParams VectorControl
 #' @return a named [list]
+#' @importFrom stats pexp
 #' @export
 VectorControl.lemenach <- function(t, y, pars, MosyBehavior) {
 
