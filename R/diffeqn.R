@@ -111,7 +111,7 @@ xDE_diffeqn_mosy <- function(t, y, pars, kappa, MosyBehavior) {
 
   # state derivatives
   dL <- dLdt(t, y, pars, eta)
-  dMYZ <- dMYZdt(t, y, pars, Lambda, kappa)
+  dMYZ <- dMYZdt(t, y, pars, Lambda, kappa, MosyBehavior)
 
   return(list(c(dL, dMYZ)))
 }
