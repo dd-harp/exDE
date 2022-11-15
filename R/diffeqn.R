@@ -10,7 +10,7 @@
 #' turned off.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars a [list]
+#' @param pars an [environment]
 #' @param EIR_delta a vector of values to be added to the internal `EIR`
 #' @param kappa_delta a vector of values to be added to the internal `kappa`
 #' @return a [list] containing the vector of all state derivatives
@@ -50,7 +50,7 @@ xDE_diffeqn <- function(t, y, pars, EIR_delta = NULL, kappa_delta = NULL) {
 #' mosquito components.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars a [list]
+#' @param pars an [environment]
 #' @param kappa a vector
 #' @return a [list] containing the vector of all state derivatives
 #' @export

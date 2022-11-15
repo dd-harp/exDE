@@ -1,5 +1,5 @@
 #' @title Set indices for generalized spatial model
-#' @param pars a [list]
+#' @param pars an [environment]
 #' @return modified parameters [list]
 #' @export
 make_indices <- function(pars) {

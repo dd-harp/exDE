@@ -4,7 +4,7 @@
 #' @description Implements [F_EIR] for the SIS model.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars a [list]
+#' @param pars an [environment]
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_EIR.SIS <- function(t, y, pars) {
