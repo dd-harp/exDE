@@ -24,6 +24,8 @@ library(data.table)
 library(ggplot2)
 ```
 
+## Parameters
+
 This case study will use a simple model with 3 patches, 3 population strata, and 3 aquatic habitats. As usual, we set up parameter values and compute the values of state variables at equilibrium. As part of the equilibrium calculation we must compute $\Upsilon(0) = \exp\left(-\int_{-\tau}^{0} \Omega(s) ds \right)$; the value of the integrated mosquito demography matrix at the initial time point. To simplify things, we simply assume that conditions were constant prior to $t=0$ so that $\Upsilon(0) = e^{-\Omega\tau}$.
 
 ```{r}
@@ -73,6 +75,8 @@ Upsilon <- expm::expm(-Omega * tau)
 Upsilon_inv <- expm::expm(Omega * tau)
 ```
 
+## Equilibrium
+
 Now we compute the equilibrium conditions for the adult mosquitoes and human populations, such that the PfPR in the human population would be maintained at the input levels if conditions were unchanging.
 
 ```{r}
@@ -118,6 +122,8 @@ L <- alpha/psi
 theta <- (eta - psi*L - phi*L)/(L^2)
 ```
 
+## Setup
+
 Now that all state variables have been solved at equilibrium, we can set up the parameters and components of the system. We also need to set up a time-varying function to compute the coverage of ITNs at any time point. We use a sine curve with a period of 365 days which goes from 0 to 1 over that period. This must be a function that takes a single argument `t` (time) and returns a scalar value.
 
 ```{r}
@@ -135,6 +141,8 @@ make_parameters_L_basic(pars = pars, psi = psi, phi = phi, theta = theta, L0 = L
 make_parameters_X_SIS(pars = pars, b = b, c = c, r = r, Psi = Psi, wf = wf, X0 = X, H = H)
 make_indices(pars = pars)
 ```
+
+## Solve
 
 After setting parameters we must set the initial conditions of the model. Then we're ready to solve the model! We integrate over a 5 year interval, to show the effects of the "seasonal" ITN coverage.
 
