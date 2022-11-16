@@ -56,15 +56,17 @@ We can use this to calculate the net infectious probability, and then $\kappa = 
 
 # Example
 
-Here we run a simple example with 3 population strata at equilibrium. We use `exDE::make_parameters_X_hMoI` to
-set up parameters. Please note that this only runs the human population component and that most users should read [our fully worked example](ex_534.html) to run a full simulation.
-
-```{r, out.width = "100%"}
+```{r, message=FALSE, warning=FALSE}
 library(exDE)
 library(deSolve)
 library(data.table)
 library(ggplot2)
+```
 
+Here we run a simple example with 3 population strata at equilibrium. We use `exDE::make_parameters_X_hMoI` to
+set up parameters. Please note that this only runs the human population component and that most users should read [our fully worked example](ex_534.html) to run a full simulation.
+
+```{r, out.width = "100%"}
 nStrata <- 3
 H <- c(100, 500, 250)
 b <- 0.55

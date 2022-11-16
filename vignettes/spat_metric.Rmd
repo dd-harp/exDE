@@ -135,11 +135,14 @@ In the 1 patch 1 strata case this becomes the same equation as $\mathcal{R}$.
 
 # Example
 
+```{r, message=FALSE, warning=FALSE}
+library(exDE)
+```
+
+
 Here we demonstrate how to calculate these metrics using the [5-3-4 example](ex_534.html).
 
 ```{r}
-library(exDE)
-
 l <- 5
 p <- 3
 n <- 4

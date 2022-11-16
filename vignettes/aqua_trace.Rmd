@@ -14,6 +14,15 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, message=FALSE, warning=FALSE}
+library(exDE)
+library(MASS)
+library(expm)
+library(deSolve)
+library(data.table)
+library(ggplot2)
+```
+
 This is the null model of aquatic mosquito dynamics; there are no endogenous dynamics
 and the model is simply specified by `Lambda`, the rate at which adult mosquitoes
 spontaneously emerge from aquatic habitats.
@@ -29,13 +38,6 @@ Please note because we have unequal numbers of aquatic habitats and patches, we 
 to compute the generalized inverse of $\mathcal{N}$ to get $\alpha$ required at equilibrium.
 
 ```{r}
-library(exDE)
-library(MASS)
-library(expm)
-library(deSolve)
-library(data.table)
-library(ggplot2)
-
 nPatches <- 3
 nHabitats <- 4
 f <- 0.3
