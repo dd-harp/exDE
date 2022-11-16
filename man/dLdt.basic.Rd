@@ -11,7 +11,7 @@
 
 \item{y}{state vector}
 
-\item{pars}{a \link{list}}
+\item{pars}{an \link{environment}}
 
 \item{eta}{vector giving number of eggs being laid in each larval habitat}
 }

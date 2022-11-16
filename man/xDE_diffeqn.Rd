@@ -11,7 +11,7 @@ xDE_diffeqn(t, y, pars, EIR_delta = NULL, kappa_delta = NULL)
 
 \item{y}{state vector}
 
-\item{pars}{a \link{list}}
+\item{pars}{an \link{environment}}
 
 \item{EIR_delta}{a vector of values to be added to the internal \code{EIR}}
 

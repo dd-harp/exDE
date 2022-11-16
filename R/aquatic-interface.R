@@ -4,7 +4,7 @@
 #' @description This method dispatches on the type of `pars$Lpar`.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars a [list]
+#' @param pars an [environment]
 #' @return a [numeric] vector of length `nHabitats`
 #' @export
 F_alpha <- function(t, y, pars) {
@@ -15,7 +15,7 @@ F_alpha <- function(t, y, pars) {
 #' @description This method dispatches on the type of `pars$Lpar`.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars a [list]
+#' @param pars an [environment]
 #' @param eta vector giving number of eggs being laid in each larval habitat
 #' @return a [numeric] vector of length `pars$L_ix`
 #' @export
@@ -26,7 +26,7 @@ dLdt <- function(t, y, pars, eta) {
 #' @title Add indices for aquatic stage mosquitoes to parameter list
 #' @description This method dispatches on the type of `pars$Lpar`. Adds field `L_ix`
 #' to parameter list.
-#' @param pars a [list]
+#' @param pars an [environment]
 #' @return the modified parameter [list]
 #' @export
 make_index_L <- function(pars) {

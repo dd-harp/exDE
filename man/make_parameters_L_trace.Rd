@@ -4,9 +4,11 @@
 \alias{make_parameters_L_trace}
 \title{Make parameters for trace aquatic mosquito model}
 \usage{
-make_parameters_L_trace(Lambda)
+make_parameters_L_trace(pars, Lambda)
 }
 \arguments{
+\item{pars}{an \link{environment}}
+
 \item{Lambda}{vector of emergence rates from each aquatic habitat}
 }
 \value{

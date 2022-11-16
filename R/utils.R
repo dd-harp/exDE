@@ -1,13 +1,18 @@
 #' @title Set indices for generalized spatial model
-#' @param pars a [list]
+#' @param pars an [environment]
 #' @return modified parameters [list]
 #' @export
 make_indices <- function(pars) {
-  stopifnot(all(c('Lpar', 'MYZpar', 'Xpar') %in% names(pars)))
   pars$max_ix <- 0
-  pars <- make_index_L(pars)
-  pars <- make_index_MYZ(pars)
-  pars <- make_index_X(pars)
+  if ('Lpar' %in% names(pars)) {
+    pars <- make_index_L(pars)
+  }
+  if ('MYZpar' %in% names(pars)) {
+    pars <- make_index_MYZ(pars)
+  }
+  if ('Xpar' %in% names(pars)) {
+    pars <- make_index_X(pars)
+  }
   return(pars)
 }
 
@@ -34,4 +39,15 @@ diag_inverse <- function(x) {
 #' @export
 approx_equal <- function(a, b, tol = sqrt(.Machine$double.eps)) {
   abs(a - b) < tol
+}
+
+#' @title Make the mosquito demography matrix
+#' @param g mortality rate
+#' @param sigma emigration  rate
+#' @param K mosquito dispersal matrix
+#' @param nPatches number of patches
+#' @return a [matrix] of dimensions `nPatches` by `nPatches`
+#' @export
+make_Omega <- function(g, sigma, K, nPatches) {
+  diag(g, nPatches) + ((diag(nPatches) - K) %*% diag(sigma, nPatches))
 }

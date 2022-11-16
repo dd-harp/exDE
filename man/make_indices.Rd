@@ -7,7 +7,7 @@
 make_indices(pars)
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{pars}{an \link{environment}}
 }
 \value{
 modified parameters \link{list}

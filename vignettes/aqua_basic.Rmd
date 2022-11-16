@@ -47,15 +47,17 @@ $$
 $$
 # Example
 
-Here we run a simple example with 3 aquatic habitats at equilibrium. We use `exDE::make_parameters_L_basic` to
-set up parameters. Please note that this only runs the aquatic mosquito component and that most users should read [our fully worked example](ex_534.html) to run a full simulation.
-
-```{r, out.width = "100%"}
+```{r, message=FALSE, warning=FALSE}
 library(exDE)
 library(deSolve)
 library(data.table)
 library(ggplot2)
+```
 
+Here we run a simple example with 3 aquatic habitats at equilibrium. We use `exDE::make_parameters_L_basic` to
+set up parameters. Please note that this only runs the aquatic mosquito component and that most users should read [our fully worked example](ex_534.html) to run a full simulation.
+
+```{r, out.width = "100%"}
 nHabitats <- 3
 alpha <- c(10, 50, 20)
 eta <- c(250, 500, 170)
@@ -66,12 +68,12 @@ L <- alpha/psi
 theta <- (eta - psi*L - phi*L)/(L^2)
 
 params <- list(
-  nHabitats = nHabitats,
-  L_ix = 1:3
+  nHabitats = nHabitats
 )
+params <- list2env(params)
 
-Lpar <- make_parameters_L_basic(psi = psi, phi = phi, theta = theta, L0 = L)
-params$Lpar <- Lpar
+make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L)
+make_indices(params)
 
 y0 <- L
 
