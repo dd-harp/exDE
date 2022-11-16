@@ -5,6 +5,14 @@ navbar:
   left:
   - text: Functions
     href: reference/index.html
+  - text: Articles
+    menu:
+    - text: 5-3-4 Spatial Example
+      href: articles/ex_534.html
+    - text: Spatial Metrics
+      href: articles/spat_metric.html
+    - text: Vector Control Example
+      href: articles/vc_lemenach
   - text: Adult Mosquito Component
     menu:
     - text: Ross-Macdonald model
@@ -23,14 +31,6 @@ navbar:
       href: articles/human_sip.html
     - text: MoI hybrid model
       href: articles/human_hmoi.html
-  - text: Articles
-    menu:
-    - text: 5-3-4 Spatial Example
-      href: articles/ex_534.html
-    - text: Spatial Metrics
-      href: articles/spat_metric.html
-    - text: Vector Control Example
-      href: articles/vc_lemenach
   right:
   - icon: fa-github
     href: https://github.com/dd-harp/exDE/

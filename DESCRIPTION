@@ -10,7 +10,8 @@ Description: Provides tools to set up modular ordinary and delay differential eq
   models for mosquito-borne pathogens, focusing on malaria. Modular design is achieved
   by S3 dispatch on parameter lists for each component which is used to compute
   the full set of differential equations which may be solved using
-  any of the packages for numerical simulation of differential equations in R.
+  any of the packages for numerical simulation of differential equations in R. The
+  methods implemented by this package are described in Wu et al. (2022) <https://doi.org/10.1101/2022.11.07.22282044>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
