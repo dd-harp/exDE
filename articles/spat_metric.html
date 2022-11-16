@@ -38,6 +38,14 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Functions</a>
 </li>
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/ex_534.html">5-3-4 Spatial Example</a>
+    <a class="dropdown-item" href="../articles/spat_metric.html">Spatial Metrics</a>
+    <a class="dropdown-item" href="../articles/vc_lemenach">Vector Control Example</a>
+  </div>
+</li>
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-adult-mosquito-component">Adult Mosquito Component</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-adult-mosquito-component">
@@ -57,13 +65,6 @@
     <a class="dropdown-item" href="../articles/human_sis.html">SIS model</a>
     <a class="dropdown-item" href="../articles/human_sip.html">SIP model</a>
     <a class="dropdown-item" href="../articles/human_hmoi.html">MoI hybrid model</a>
-  </div>
-</li>
-<li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/ex_534.html">5-3-4 Spatial Example</a>
-    <a class="dropdown-item" href="../articles/spat_metric.html">Spatial Metrics</a>
   </div>
 </li>
       </ul>
@@ -280,11 +281,11 @@ arrive at the <span class="math inline">\(p\times p\)</span> matrix:</p>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>Here we demonstrate how to calculate these metrics using the <a href="ex_534.html">5-3-4 example</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/exDE/">exDE</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/exDE/">exDE</a></span><span class="op">)</span></span></code></pre></div>
+<p>Here we demonstrate how to calculate these metrics using the <a href="ex_534.html">5-3-4 example</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span></span>

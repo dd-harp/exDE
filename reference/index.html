@@ -22,6 +22,14 @@
   <a class="nav-link" href="../reference/index.html">Functions</a>
 </li>
 <li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/ex_534.html">5-3-4 Spatial Example</a>
+    <a class="dropdown-item" href="../articles/spat_metric.html">Spatial Metrics</a>
+    <a class="dropdown-item" href="../articles/vc_lemenach">Vector Control Example</a>
+  </div>
+</li>
+<li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-adult-mosquito-component">Adult Mosquito Component</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-adult-mosquito-component">
     <a class="dropdown-item" href="../articles/adult_RM.html">Ross-Macdonald model</a>
@@ -40,13 +48,6 @@
     <a class="dropdown-item" href="../articles/human_sis.html">SIS model</a>
     <a class="dropdown-item" href="../articles/human_sip.html">SIP model</a>
     <a class="dropdown-item" href="../articles/human_hmoi.html">MoI hybrid model</a>
-  </div>
-</li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/ex_534.html">5-3-4 Spatial Example</a>
-    <a class="dropdown-item" href="../articles/spat_metric.html">Spatial Metrics</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -69,6 +70,68 @@
     </div>
 
     <div class="section level2">
+      <h2 id="exogeneous-forcing">Exogeneous Forcing<a class="anchor" aria-label="anchor" href="#exogeneous-forcing"></a></h2>
+      
+      <p class="section-desc"></p><p>Methods to implement exogeneous forcing.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="ExogenousForcing.html">ExogenousForcing()</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="ExogenousForcing.null.html">ExogenousForcing(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_exogenous_null.html">make_parameters_exogenous_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model of exogenous forcing (do nothing)</dd>
+      </dl></div><div class="section level2">
+      <h2 id="vector-control">Vector Control<a class="anchor" aria-label="anchor" href="#vector-control"></a></h2>
+      
+      <p class="section-desc"></p><p>Methods to implement vector control.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="VectorControl.html">VectorControl()</a></code> 
+        </dt>
+        <dd>Modify baseline values due to vector control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="VectorControl.null.html">VectorControl(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify baseline values due to vector control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_vc_null.html">make_parameters_vc_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model of vector control (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="VectorControl.lemenach.html">VectorControl(<i>&lt;lemenach&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify baseline values due to vector control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_vc_lemenach.html">make_parameters_vc_lemenach()</a></code> 
+        </dt>
+        <dd>Make parameters for Le Menach ITN model of vector control</dd>
+      </dl></div><div class="section level2">
       <h2 id="adult-mosquito-component">Adult mosquito component<a class="anchor" aria-label="anchor" href="#adult-mosquito-component"></a></h2>
       
       <p class="section-desc"></p><p>Generic methods for the adult mosquito component.</p>
@@ -81,14 +144,29 @@
 
       <dl><dt>
           
-          <code><a href="F_EIR.html">F_EIR()</a></code> 
+          <code><a href="MosquitoBehavior.html">MosquitoBehavior()</a></code> 
         </dt>
-        <dd>Entomological inoculation rate on human strata</dd>
+        <dd>Compute bloodfeeding and mortality rates</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_tau.html">F_tau()</a></code> 
+        </dt>
+        <dd>Time spent host seeking/feeding and resting/ovipositing</dd>
       </dl><dl><dt>
           
           <code><a href="F_kappa.html">F_kappa()</a></code> 
         </dt>
         <dd>Net infectiousness of human population to mosquitoes</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_Z.html">F_Z()</a></code> 
+        </dt>
+        <dd>Density of infectious mosquitoes</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_Z_lag.html">F_Z_lag()</a></code> 
+        </dt>
+        <dd>Density of lagged infectious mosquitoes</dd>
       </dl><dl><dt>
           
           <code><a href="F_eggs.html">F_eggs()</a></code> 
@@ -117,9 +195,14 @@
 
       <dl><dt>
           
-          <code><a href="F_EIR.RM.html">F_EIR(<i>&lt;RM&gt;</i>)</a></code> 
+          <code><a href="MosquitoBehavior.RM.html">MosquitoBehavior(<i>&lt;RM&gt;</i>)</a></code> 
         </dt>
-        <dd>Entomological inoculation rate on human strata</dd>
+        <dd>Compute bloodfeeding and mortality rates</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_tau.RM.html">F_tau(<i>&lt;RM&gt;</i>)</a></code> 
+        </dt>
+        <dd>Time spent host seeking/feeding and resting/ovipositing</dd>
       </dl><dl><dt>
           
           <code><a href="F_kappa.RM_ode.html">F_kappa(<i>&lt;RM_ode&gt;</i>)</a></code> 
@@ -130,6 +213,16 @@
           <code><a href="F_kappa.RM_dde.html">F_kappa(<i>&lt;RM_dde&gt;</i>)</a></code> 
         </dt>
         <dd>Net infectiousness of human population to mosquitoes</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_Z.RM.html">F_Z(<i>&lt;RM&gt;</i>)</a></code> 
+        </dt>
+        <dd>Density of infectious mosquitoes</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_Z_lag.RM.html">F_Z_lag(<i>&lt;RM&gt;</i>)</a></code> 
+        </dt>
+        <dd>Density of lagged infectious mosquitoes</dd>
       </dl><dl><dt>
           
           <code><a href="F_eggs.RM.html">F_eggs(<i>&lt;RM&gt;</i>)</a></code> 
@@ -261,14 +354,29 @@
 
       <dl><dt>
           
+          <code><a href="F_EIR.html">F_EIR()</a></code> 
+        </dt>
+        <dd>Entomological inoculation rate on human strata</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_x.html">F_x()</a></code> 
         </dt>
         <dd>Size of effective infectious human population</dd>
       </dl><dl><dt>
           
-          <code><a href="F_x_tau.html">F_x_tau()</a></code> 
+          <code><a href="F_x_lag.html">F_x_lag()</a></code> 
         </dt>
         <dd>Size of lagged effective infectious human population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_beta.html">F_beta()</a></code> 
+        </dt>
+        <dd>Biting distribution matrix</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_beta_lag.html">F_beta_lag()</a></code> 
+        </dt>
+        <dd>Lagged biting distribution matrix</dd>
       </dl><dl><dt>
           
           <code><a href="dXdt.html">dXdt()</a></code> 
@@ -292,14 +400,29 @@
 
       <dl><dt>
           
+          <code><a href="F_EIR.hMoI.html">F_EIR(<i>&lt;hMoI&gt;</i>)</a></code> 
+        </dt>
+        <dd>Entomological inoculation rate on human strata</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_x.hMoI.html">F_x(<i>&lt;hMoI&gt;</i>)</a></code> 
         </dt>
         <dd>Size of effective infectious human population</dd>
       </dl><dl><dt>
           
-          <code><a href="F_x_tau.hMoI.html">F_x_tau(<i>&lt;hMoI&gt;</i>)</a></code> 
+          <code><a href="F_x_lag.hMoI.html">F_x_lag(<i>&lt;hMoI&gt;</i>)</a></code> 
         </dt>
         <dd>Size of lagged effective infectious human population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_beta.hMoI.html">F_beta(<i>&lt;hMoI&gt;</i>)</a></code> 
+        </dt>
+        <dd>Biting distribution matrix</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_beta_lag.hMoI.html">F_beta_lag(<i>&lt;hMoI&gt;</i>)</a></code> 
+        </dt>
+        <dd>Lagged biting distribution matrix</dd>
       </dl><dl><dt>
           
           <code><a href="dXdt.hMoI.html">dXdt(<i>&lt;hMoI&gt;</i>)</a></code> 
@@ -328,14 +451,29 @@
 
       <dl><dt>
           
+          <code><a href="F_EIR.SIS.html">F_EIR(<i>&lt;SIS&gt;</i>)</a></code> 
+        </dt>
+        <dd>Entomological inoculation rate on human strata</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_x.SIS.html">F_x(<i>&lt;SIS&gt;</i>)</a></code> 
         </dt>
         <dd>Size of effective infectious human population</dd>
       </dl><dl><dt>
           
-          <code><a href="F_x_tau.SIS.html">F_x_tau(<i>&lt;SIS&gt;</i>)</a></code> 
+          <code><a href="F_x_lag.SIS.html">F_x_lag(<i>&lt;SIS&gt;</i>)</a></code> 
         </dt>
         <dd>Size of lagged effective infectious human population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_beta.SIS.html">F_beta(<i>&lt;SIS&gt;</i>)</a></code> 
+        </dt>
+        <dd>Biting distribution matrix</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_beta_lag.SIS.html">F_beta_lag(<i>&lt;SIS&gt;</i>)</a></code> 
+        </dt>
+        <dd>Lagged biting distribution matrix</dd>
       </dl><dl><dt>
           
           <code><a href="dXdt.SIS.html">dXdt(<i>&lt;SIS&gt;</i>)</a></code> 
@@ -364,14 +502,29 @@
 
       <dl><dt>
           
+          <code><a href="F_EIR.SIP.html">F_EIR(<i>&lt;SIP&gt;</i>)</a></code> 
+        </dt>
+        <dd>Entomological inoculation rate on human strata</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_x.SIP.html">F_x(<i>&lt;SIP&gt;</i>)</a></code> 
         </dt>
         <dd>Size of effective infectious human population</dd>
       </dl><dl><dt>
           
-          <code><a href="F_x_tau.SIP.html">F_x_tau(<i>&lt;SIP&gt;</i>)</a></code> 
+          <code><a href="F_x_lag.SIP.html">F_x_lag(<i>&lt;SIP&gt;</i>)</a></code> 
         </dt>
         <dd>Size of lagged effective infectious human population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_beta.SIP.html">F_beta(<i>&lt;SIP&gt;</i>)</a></code> 
+        </dt>
+        <dd>Biting distribution matrix</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_beta_lag.SIP.html">F_beta_lag(<i>&lt;SIP&gt;</i>)</a></code> 
+        </dt>
+        <dd>Lagged biting distribution matrix</dd>
       </dl><dl><dt>
           
           <code><a href="dXdt.SIP.html">dXdt(<i>&lt;SIP&gt;</i>)</a></code> 
@@ -465,6 +618,11 @@
           <code><a href="approx_equal.html">approx_equal()</a></code> 
         </dt>
         <dd>Check if two numeric values are approximately equal</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_Omega.html">make_Omega()</a></code> 
+        </dt>
+        <dd>Make the mosquito demography matrix</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

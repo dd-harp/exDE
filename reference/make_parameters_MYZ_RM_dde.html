@@ -22,6 +22,14 @@
   <a class="nav-link" href="../reference/index.html">Functions</a>
 </li>
 <li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/ex_534.html">5-3-4 Spatial Example</a>
+    <a class="dropdown-item" href="../articles/spat_metric.html">Spatial Metrics</a>
+    <a class="dropdown-item" href="../articles/vc_lemenach">Vector Control Example</a>
+  </div>
+</li>
+<li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-adult-mosquito-component">Adult Mosquito Component</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-adult-mosquito-component">
     <a class="dropdown-item" href="../articles/adult_RM.html">Ross-Macdonald model</a>
@@ -40,13 +48,6 @@
     <a class="dropdown-item" href="../articles/human_sis.html">SIS model</a>
     <a class="dropdown-item" href="../articles/human_sip.html">SIP model</a>
     <a class="dropdown-item" href="../articles/human_hmoi.html">MoI hybrid model</a>
-  </div>
-</li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/ex_534.html">5-3-4 Spatial Example</a>
-    <a class="dropdown-item" href="../articles/spat_metric.html">Spatial Metrics</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -77,8 +78,10 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_parameters_MYZ_RM_dde</span><span class="op">(</span></span>
-<span>  <span class="va">Omega</span>,</span>
-<span>  <span class="va">OmegaEIP</span>,</span>
+<span>  <span class="va">pars</span>,</span>
+<span>  <span class="va">g</span>,</span>
+<span>  <span class="va">sigma</span>,</span>
+<span>  <span class="va">calK</span>,</span>
 <span>  <span class="va">f</span>,</span>
 <span>  <span class="va">q</span>,</span>
 <span>  <span class="va">nu</span>,</span>
@@ -93,12 +96,20 @@
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>Omega</dt>
-<dd><p>mosquito demography matrix</p></dd>
+    <dl><dt>pars</dt>
+<dd><p>an <a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></p></dd>
 
 
-<dt>OmegaEIP</dt>
-<dd><p>mosquito demography matrix through the EIP</p></dd>
+<dt>g</dt>
+<dd><p>mosquito mortality rate</p></dd>
+
+
+<dt>sigma</dt>
+<dd><p>emigration rate</p></dd>
+
+
+<dt>calK</dt>
+<dd><p>mosquito dispersal matrix of dimensions <code>nPatches</code> by <code>nPatches</code></p></dd>
 
 
 <dt>f</dt>
@@ -141,7 +152,7 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> with classes <code>RM</code>, <code>RM_dde</code>.</p>
+<p>nothing</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
