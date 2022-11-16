@@ -114,6 +114,14 @@ We can use the same equation for $G$ as above.
 
 # Example
 
+```{r, message=FALSE, warning=FALSE}
+library(exDE)
+library(expm)
+library(deSolve)
+library(data.table)
+library(ggplot2)
+```
+
 Here we show an example of starting and solving a model at equilibrium. Please note that this only
 runs this adult mosquito model and that most users should read [our fully worked example](ex_534.html)
 to run a full simulation.
@@ -121,12 +129,6 @@ to run a full simulation.
 Here we set up some parameters for a simulation with 3 patches.
 
 ```{r}
-library(exDE)
-library(expm)
-library(deSolve)
-library(data.table)
-library(ggplot2)
-
 nPatches <- 3
 f <- 0.3
 q <- 0.9

@@ -29,6 +29,8 @@ navbar:
       href: articles/ex_534.html
     - text: Spatial Metrics
       href: articles/spat_metric.html
+    - text: Vector Control Example
+      href: articles/vc_lemenach
   right:
   - icon: fa-github
     href: https://github.com/dd-harp/exDE/
