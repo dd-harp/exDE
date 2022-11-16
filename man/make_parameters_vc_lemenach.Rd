@@ -8,7 +8,10 @@ make_parameters_vc_lemenach(
   pars,
   tau0_frac = c(0.68/3, 2.32/3),
   r = 0.56,
-  s = 0.03
+  s = 0.03,
+  phi = function(t) {
+     0
+ }
 )
 }
 \arguments{
@@ -20,10 +23,12 @@ in host seeking/bloodfeeding and resting/oviposition}
 \item{r}{probability of mosquito being repelled upon contact with ITN}
 
 \item{s}{probability of mosquito successfully feeding upon contact with ITN}
+
+\item{phi}{a \link{function} that takes a single argument \code{t} and returns the level of ITN coverage at that time}
 }
 \value{
 none
 }
 \description{
-Make parameters for Le Menach ITN model of vector control
+This model of ITN based vector control was originally described in \url{https://malariajournal.biomedcentral.com/articles/10.1186/1475-2875-6-10}.
 }
