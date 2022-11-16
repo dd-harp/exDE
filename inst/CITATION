@@ -1,0 +1,28 @@
+citHeader("To cite exDE in publications use:")
+
+bibentry(
+  bibtype    = "Article",
+  title    = "Spatial Dynamics of Malaria Transmission",
+  author   = c(person("Sean L.", "Wu"),
+               person("John M.", "Henry"),
+               person("Daniel T.", "Citron"),
+               person("Doreen M.", "Ssebuliba"),
+               person("Juliet N.", "Nsumba"),
+               person("Héctor M.", "Sánchez C."),
+               person("Oliver J.", "Brady"),
+               person("Carlos A.", "Guerra"),
+               person("Guillermo A.", "García"),
+               person("Austin R.", "Carter"),
+               person("Heather M.", "Ferguson"),
+               person("Bakare E.", "Afolabi"),
+               person("Simon I.", "Hay"),
+               person("Robert C.", "Reiner"),
+               person("Samson", "Kiware"),
+               person("David L.", "Smith")
+              ),
+  journal  = "medRxiv",
+  year     = "2022",
+  publisher = "Cold Spring Harbor Laboratory Press",
+  url      = "https://www.medrxiv.org/content/10.1101/2022.11.07.22282044v1",
+  doi      = "10.1101/2022.11.07.22282044"
+)
