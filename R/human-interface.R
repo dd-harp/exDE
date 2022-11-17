@@ -5,9 +5,10 @@
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars an [environment]
+#' @param MosyBehavior values returned by [exDE::MosquitoBehavior], potentially modified by control [exDE::VectorControl]
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_EIR <- function(t, y, pars) {
+F_EIR <- function(t, y, pars, MosyBehavior) {
   UseMethod("F_EIR", pars$Xpar)
 }
 

@@ -125,14 +125,14 @@ theta <- (eta - psi*L - phi*L)/(L^2)
 
 ## Setup
 
-Now that all state variables have been solved at equilibrium, we can set up the parameters and components of the system. We also need to set up a time-varying function to compute the coverage of ITNs at any time point. We use a sine curve with a period of 365 days which goes from 0 to 1 over that period. This must be a function that takes a single argument `t` (time) and returns a scalar value.
+Now that all state variables have been solved at equilibrium, we can set up the parameters and components of the system. We also need to set up a time-varying function to compute the coverage of ITNs at any time point. We use a sine curve with a period of 365 days which goes from 0 to 1 over that period, with the phase shifted so that at 0 it returns 0. The function also returns 0 for any $t<0$. This must be a function that takes a single argument `t` (time) and returns a scalar value.
 
 ```{r}
 pars$calU <- calU
 pars$calN <- calN
 
 # ITN coverage
-ITN_cov <- function(t) {(sin(2*pi*t / 365) + 1) / 2}
+ITN_cov <- function(t) {ifelse(t < 0, 0, (sin(2*pi*(t-365/4) / 365) + 1) / 2)}
 
 # set parameters
 make_parameters_exogenous_null(pars)
