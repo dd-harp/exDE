@@ -37,7 +37,7 @@ xDE_diffeqn <- function(t, y, pars, EIR_delta = NULL, kappa_delta = NULL) {
   # bloodmeal
 
   # EIR: entomological inoculation rate
-  EIR <- F_EIR(t, y, pars)
+  EIR <- F_EIR(t, y, pars, MosyBehavior)
   if (!is.null(EIR_delta)) {
     EIR <- EIR + EIR_delta
   }

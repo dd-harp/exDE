@@ -4,7 +4,7 @@
 \alias{F_EIR.SIS}
 \title{Entomological inoculation rate on human strata}
 \usage{
-\method{F_EIR}{SIS}(t, y, pars)
+\method{F_EIR}{SIS}(t, y, pars, MosyBehavior)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@
 \item{y}{state vector}
 
 \item{pars}{an \link{environment}}
+
+\item{MosyBehavior}{values returned by \link{MosquitoBehavior}, potentially modified by control \link{VectorControl}}
 }
 \value{
 a \link{numeric} vector of length \code{nStrata}

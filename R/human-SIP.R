@@ -2,15 +2,13 @@
 
 #' @title Entomological inoculation rate on human strata
 #' @description Implements [F_EIR] for the SIP model.
-#' @param t current simulation time
-#' @param y state vector
-#' @param pars an [environment]
+#' @inheritParams F_EIR
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_EIR.SIP <- function(t, y, pars) {
+F_EIR.SIP <- function(t, y, pars, MosyBehavior) {
   Z <- F_Z(t, y, pars)
-  f <- pars$MYZpar$f # may want to use wrapper compute_f/q
-  q <- pars$MYZpar$q
+  f <- MosyBehavior$f[1]
+  q <- MosyBehavior$q[1]
   beta <- F_beta(t, y, pars)
   as.vector(beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
 }
