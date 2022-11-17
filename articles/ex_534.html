@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">exDE</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -313,11 +313,11 @@ type, which is attached to the parameter list with name
 <h2 id="simulation">Simulation<a class="anchor" aria-label="anchor" href="#simulation"></a>
 </h2>
 <div class="section level3">
-<h3 id="exogeneous-forcing-and-vector-control">Exogeneous forcing and vector control<a class="anchor" aria-label="anchor" href="#exogeneous-forcing-and-vector-control"></a>
+<h3 id="exogenous-forcing-and-vector-control">Exogenous forcing and vector control<a class="anchor" aria-label="anchor" href="#exogenous-forcing-and-vector-control"></a>
 </h3>
-<p>We need to specify models for exogeneous forcing and vector control.
+<p>We need to specify models for exogenous forcing and vector control.
 We simply use the null models for both (no presence of vector control
-and no exogeneous forcing).</p>
+and no exogenous forcing).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/make_parameters_exogenous_null.html">make_parameters_exogenous_null</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/make_parameters_vc_null.html">make_parameters_vc_null</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
@@ -329,8 +329,7 @@ and no exogeneous forcing).</p>
 can generate the indices for the model and attach them to the parameter
 list.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x5596596c5b68&gt;</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can set the initial conditions of the model.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">NaN</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">X_ix</span><span class="op">)</span><span class="op">)</span></span>

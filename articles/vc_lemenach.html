@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">exDE</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -241,8 +241,7 @@ argument <code>t</code> (time) and returns a scalar value.</p>
 <span><span class="fu"><a href="../reference/make_parameters_MYZ_RM_dde.html">make_parameters_MYZ_RM_dde</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">pars</span>, g <span class="op">=</span> <span class="va">g</span>, sigma <span class="op">=</span> <span class="va">sigma</span>, calK <span class="op">=</span> <span class="va">calK</span>, f <span class="op">=</span> <span class="va">f</span>, q <span class="op">=</span> <span class="va">q</span>, nu <span class="op">=</span> <span class="va">nu</span>, eggsPerBatch <span class="op">=</span> <span class="va">eggsPerBatch</span>, tau <span class="op">=</span> <span class="va">tau</span>, M0 <span class="op">=</span> <span class="va">M</span>, G0 <span class="op">=</span> <span class="va">G</span>, Y0 <span class="op">=</span> <span class="va">Y</span>, Z0 <span class="op">=</span> <span class="va">Z</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/make_parameters_L_basic.html">make_parameters_L_basic</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">pars</span>, psi <span class="op">=</span> <span class="va">psi</span>, phi <span class="op">=</span> <span class="va">phi</span>, theta <span class="op">=</span> <span class="va">theta</span>, L0 <span class="op">=</span> <span class="va">L</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/make_parameters_X_SIS.html">make_parameters_X_SIS</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">pars</span>, b <span class="op">=</span> <span class="va">b</span>, c <span class="op">=</span> <span class="va">c</span>, r <span class="op">=</span> <span class="va">r</span>, Psi <span class="op">=</span> <span class="va">Psi</span>, wf <span class="op">=</span> <span class="va">wf</span>, X0 <span class="op">=</span> <span class="va">X</span>, H <span class="op">=</span> <span class="va">H</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">pars</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x55756a988ff0&gt;</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="solve">Solve<a class="anchor" aria-label="anchor" href="#solve"></a>
@@ -273,7 +272,7 @@ feeding rate and proportion of bloodmeals taken on humans due to the
 repellency effect, we see the densities of infected and infectious
 mosquitoes (<span class="math inline">\(Y\)</span> and <span class="math inline">\(Z\)</span>) steadily decrease over time as there
 are no longer sufficient bloodmeals being taken to sustain prevalence. A
-similar pattern appears in huamn prevalence <span class="math inline">\(X\)</span>, with slower dynamics due to the slow
+similar pattern appears in human prevalence <span class="math inline">\(X\)</span>, with slower dynamics due to the slow
 recovery rate of untreated infection.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">[</span><span class="va">pars</span><span class="op">$</span><span class="va">L_ix</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'L_'</span>, <span class="fl">1</span><span class="op">:</span><span class="va">pars</span><span class="op">$</span><span class="va">nHabitats</span><span class="op">)</span></span>
