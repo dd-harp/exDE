@@ -132,8 +132,7 @@ pars$calU <- calU
 pars$calN <- calN
 
 # ITN coverage
-# ITN_cov <- function(t) {ifelse(t < 0, 0, (sin(2*pi*(t-365/4) / 365) + 1) / 2)}
-ITN_cov <- function(t) {ifelse(t < 0, 0, 0.5)}
+ITN_cov <- function(t) {ifelse(t < 0, 0, (sin(2*pi*(t-365/4) / 365) + 1) / 2)}
 
 # set parameters
 make_parameters_exogenous_null(pars)
