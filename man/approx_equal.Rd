@@ -14,7 +14,7 @@ approx_equal(a, b, tol = sqrt(.Machine$double.eps))
 \item{tol}{the numeric tolerance}
 }
 \value{
-a logical value
+a \link{logical} value
 }
 \description{
 Check if two numeric values are approximately equal

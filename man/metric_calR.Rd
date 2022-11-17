@@ -19,6 +19,9 @@ metric_calR(b, beta, calV, W, D, H)
 
 \item{H}{human population size of each strata}
 }
+\value{
+a numeric \link{matrix}
+}
 \description{
 Computes a \code{n} by \code{n} matrix describing parasite dispersal from infecteds (columns)
 to infectees (rows).

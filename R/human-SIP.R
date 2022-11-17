@@ -8,7 +8,6 @@
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_EIR.SIP <- function(t, y, pars) {
-  # Z <- y[pars$Z_ix] # may want to use wrapper compute_Z (like F_x below)
   Z <- F_Z(t, y, pars)
   f <- pars$MYZpar$f # may want to use wrapper compute_f/q
   q <- pars$MYZpar$q

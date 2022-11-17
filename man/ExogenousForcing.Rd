@@ -14,7 +14,7 @@ ExogenousForcing(t, y, pars)
 \item{pars}{an \link{environment}}
 }
 \value{
-nothing
+none
 }
 \description{
 This method dispatches on the type of \code{pars$EXpar}.

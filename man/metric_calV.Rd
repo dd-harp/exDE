@@ -19,6 +19,9 @@ metric_calV(f, q, Omega, tau, M, W)
 
 \item{W}{ambient human population at each patch}
 }
+\value{
+a numeric \link{matrix}
+}
 \description{
 Compute the \code{p} by \code{p} matrix \eqn{\mathcal{V}} whose columns describe
 how infective bites arising from all the mosquitoes biting a single human on a
