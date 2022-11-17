@@ -13,6 +13,7 @@
 #' @param W ambient human population at each patch
 #' @importFrom MASS ginv
 #' @importFrom expm expm
+#' @return a numeric [matrix]
 #' @export
 metric_calV <- function(f, q, Omega, tau, M, W) {
   stopifnot(inherits(Omega, 'matrix'))
@@ -39,6 +40,7 @@ metric_calV <- function(f, q, Omega, tau, M, W) {
 #' @param b transmission efficiency from mosquitoes to humans
 #' @param D human transmitting capacity
 #' @param H human population size of each strata
+#' @return a numeric [matrix]
 #' @export
 metric_calD <- function(W, beta, b, D, H) {
   stopifnot(inherits(beta, 'matrix'))
@@ -64,6 +66,7 @@ metric_calD <- function(W, beta, b, D, H) {
 #' @param W ambient human population at each patch
 #' @param D human transmitting capacity
 #' @param H human population size of each strata
+#' @return a numeric [matrix]
 #' @export
 metric_calR <- function(b, beta, calV, W, D, H) {
   stopifnot(inherits(beta, 'matrix'))
@@ -92,6 +95,7 @@ metric_calR <- function(b, beta, calV, W, D, H) {
 #' @param calD parasite dispersal by humans matrix (see [exDE::metric_calD])
 #' @importFrom MASS ginv
 #' @importFrom expm expm
+#' @return a numeric [matrix]
 #' @export
 metric_calZ <- function(Omega, tau, f, q, M, W, calD) {
   stopifnot(inherits(Omega, 'matrix'))

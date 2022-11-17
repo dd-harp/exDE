@@ -3,7 +3,7 @@
 #' @title Modify parameters due to exogenous forcing
 #' @description Implements [ExogenousForcing] for the null model of exogenous forcing (do nothing)
 #' @inheritParams ExogenousForcing
-#' @return nothing
+#' @return none
 #' @export
 ExogenousForcing.null <- function(t, y, pars) {}
 

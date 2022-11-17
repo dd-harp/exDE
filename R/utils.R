@@ -1,6 +1,6 @@
 #' @title Set indices for generalized spatial model
 #' @param pars an [environment]
-#' @return nothing
+#' @return none
 #' @export
 make_indices <- function(pars) {
   stopifnot(is.environment(pars))
