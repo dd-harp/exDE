@@ -1,8 +1,9 @@
 #' @title Set indices for generalized spatial model
 #' @param pars an [environment]
-#' @return modified parameters [list]
+#' @return nothing
 #' @export
 make_indices <- function(pars) {
+  stopifnot(is.environment(pars))
   pars$max_ix <- 0
   if ('Lpar' %in% names(pars)) {
     pars <- make_index_L(pars)
@@ -13,7 +14,6 @@ make_indices <- function(pars) {
   if ('Xpar' %in% names(pars)) {
     pars <- make_index_X(pars)
   }
-  return(pars)
 }
 
 #' @title Invert a diagonal matrix
@@ -35,7 +35,7 @@ diag_inverse <- function(x) {
 #' @param a a [numeric] object
 #' @param b a [numeric] object
 #' @param tol the numeric tolerance
-#' @return a logical value
+#' @return a [logical] value
 #' @export
 approx_equal <- function(a, b, tol = sqrt(.Machine$double.eps)) {
   abs(a - b) < tol
