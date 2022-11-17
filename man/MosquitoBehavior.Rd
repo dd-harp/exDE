@@ -22,6 +22,6 @@ at a minimum return the values \code{f}, \code{q}, \code{g} (blood feeding rate,
 proportion, and mortality rate) at the current time, although it may return
 vectors of these values at multiple times for models with delay. These baseline
 values will be modified by the vector control component. The return type is a
-named list with those 3 values, and \code{f}  should have an \link{attr} labled \code{time}
+named list with those 3 values, and \code{f}  should have an \link{attr} labeled \code{time}
 giving the time(s) in the simulation that these bionomic values correspond to.
 }

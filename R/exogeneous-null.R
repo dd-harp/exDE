@@ -1,7 +1,7 @@
 # specialized methods for the null model of exogenous forcing
 
 #' @title Modify parameters due to exogenous forcing
-#' @description Implements [ExogenousForcing] for the null model of exogeneous forcing (do nothing)
+#' @description Implements [ExogenousForcing] for the null model of exogenous forcing (do nothing)
 #' @inheritParams ExogenousForcing
 #' @return nothing
 #' @export
