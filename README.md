@@ -10,7 +10,7 @@
 
 exDE provides tools to set up modular ordinary and delay differential equation spatial 
 models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved
-by S3 dispatch on parameter lists for each component which is used to compute
+by method dispatch on parameter lists for each component which is used to compute
 the full set of differential equations. The function `exDE::xDE_diffeqn` computes the
 gradient of all state variables from those modular components and can be used
 with the excellent solvers in [deSolve](http://desolve.r-forge.r-project.org/), or
@@ -18,10 +18,10 @@ other differential equation solvers in R. exDE can be regarded as the continuous
 companion to the discrete stochastic [Micro-MoB](https://github.com/dd-harp/MicroMoB)
 framework.
 
-To get started, please consider reading some of the articles in the dropdown panels above, at our [website](https://dd-harp.github.io/exDE/). The 3 sections ending in "Component" describe particular models implementing
+To get started, please consider reading some of the articles in the drop down panels above, at our [website](https://dd-harp.github.io/exDE/). The 3 sections ending in "Component" describe particular models implementing
 the interface for each of those components (adult mosquitoes, aquatic mosquitoes, and humans), and show a simulation at their equilibrium values. 
 
-The section "Articles" has more in-depth examples, including an extended walk through of how to set up and run a model in "5-3-4 Example", a guide on how to contribute, and an example of running a model in exDE with external forcing under a model of ITN (insecticide treated nets) based vector control. 
+The section "Articles" has more in-depth examples, including an extended walk through of how to set up and run a model in `vignette("ex_534")`, a guide on how to contribute, and an example of running a model in exDE with external forcing under a model of ITN (insecticide treated nets) based vector control in `vignette("vc_lemenach")`. 
 
 The section "Functions" documents each function exported by the package.
 
@@ -54,7 +54,7 @@ Models in the exDE framework are constructed from 3 dynamical components:
   * $\mathcal{L}$: aquatic (immature) mosquitoes, whose dynamics are described by $d\mathcal{L}/dt$
   * $\mathcal{X}$: human population, whose dynamics are described by $d\mathcal{X}/dt$
   
-The combined state from these 3 components is the entire state of the dynamical model, and their combined dynamics described by their differential equations represnts the full endogeneous dynamics of the system. In addition there are 2 more components which do not directly contribute to the state of the model, but instead modify parameters and compute intermediate quantities to represent external influences on the system. These are:
+The combined state from these 3 components is the entire state of the dynamical model, and their combined dynamics described by their differential equations represents the full endogenous dynamics of the system. In addition there are 2 more components which do not directly contribute to the state of the model, but instead modify parameters and compute intermediate quantities to represent external influences on the system. These are:
 
   * Exogenous forcing: weather, climate, unmodeled populations
   * Vector control: public health and mosquito control interventions which affect the dynamical components

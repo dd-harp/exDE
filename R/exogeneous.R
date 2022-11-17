@@ -5,7 +5,7 @@
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars an [environment]
-#' @return nothing
+#' @return none
 #' @export
 ExogenousForcing <- function(t, y, pars) {
   UseMethod("ExogenousForcing", pars$EXpar)

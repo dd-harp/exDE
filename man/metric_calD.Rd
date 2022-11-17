@@ -17,6 +17,9 @@ metric_calD(W, beta, b, D, H)
 
 \item{H}{human population size of each strata}
 }
+\value{
+a numeric \link{matrix}
+}
 \description{
 Compute the \code{p} by \code{p} matrix \eqn{\mathcal{D}} whose columns describe
 how potentially infectious person time from persons in that patch are dispersed

@@ -48,7 +48,7 @@ make_parameters_MYZ_RM_dde(
 \item{Z0}{infectious mosquito density at each patch}
 }
 \value{
-nothing
+none
 }
 \description{
 Make parameters for generalized RM DDE adult mosquito model

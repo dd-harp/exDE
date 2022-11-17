@@ -14,8 +14,8 @@
 \item{pars}{an \link{environment}}
 }
 \value{
-nothing
+none
 }
 \description{
-Implements \link{ExogenousForcing} for the null model of exogeneous forcing (do nothing)
+Implements \link{ExogenousForcing} for the null model of exogenous forcing (do nothing)
 }

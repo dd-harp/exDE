@@ -10,7 +10,7 @@ make_indices(pars)
 \item{pars}{an \link{environment}}
 }
 \value{
-modified parameters \link{list}
+none
 }
 \description{
 Set indices for generalized spatial model

@@ -162,7 +162,7 @@ y[pars$Upsilon_ix] <- as.vector(Upsilon)
 out <- dede(y = y, times = 0:(365*5), func = xDE_diffeqn, parms = pars)
 ```
 
-We can plot the output to study the effects of the seasonal ITN coverage on the state variables. We see that total and parous mosquito densities $M$ and $G$ now vary in a sinusoidal manner as coverage changes, as does $L$, larval density, as the number of ovipositing mosquitoes changes. Because in addition to increasing mosquito mortality, ITNs also decrease the feeding rate and proportion of bloodmeals taken on humans due to the repellency effect, we see the densities of infected and infectious mosquitoes ($Y$ and $Z$) steadily decrease over time as there are no longer sufficient bloodmeals being taken to sustain prevalence. A similar pattern appears in huamn prevalence $X$, with slower dynamics due to the slow recovery rate of untreated infection.
+We can plot the output to study the effects of the seasonal ITN coverage on the state variables. We see that total and parous mosquito densities $M$ and $G$ now vary in a sinusoidal manner as coverage changes, as does $L$, larval density, as the number of ovipositing mosquitoes changes. Because in addition to increasing mosquito mortality, ITNs also decrease the feeding rate and proportion of bloodmeals taken on humans due to the repellency effect, we see the densities of infected and infectious mosquitoes ($Y$ and $Z$) steadily decrease over time as there are no longer sufficient bloodmeals being taken to sustain prevalence. A similar pattern appears in human prevalence $X$, with slower dynamics due to the slow recovery rate of untreated infection.
 
 ```{r, out.width = "100%"}
 colnames(out)[pars$L_ix+1] <- paste0('L_', 1:pars$nHabitats)

@@ -21,6 +21,9 @@ metric_calZ(Omega, tau, f, q, M, W, calD)
 
 \item{calD}{parasite dispersal by humans matrix (see \link{metric_calD})}
 }
+\value{
+a numeric \link{matrix}
+}
 \description{
 Computes a \code{p} by \code{p} matrix describing parasite dispersal from infecteds (columns)
 to infectees (rows).

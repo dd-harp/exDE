@@ -6,7 +6,7 @@
 #' proportion, and mortality rate) at the current time, although it may return
 #' vectors of these values at multiple times for models with delay. These baseline
 #' values will be modified by the vector control component. The return type is a
-#' named list with those 3 values, and `f`  should have an [attr] labled `time`
+#' named list with those 3 values, and `f`  should have an [attr] labeled `time`
 #' giving the time(s) in the simulation that these bionomic values correspond to.
 #' @param t current simulation time
 #' @param y state vector

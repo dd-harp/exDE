@@ -192,9 +192,9 @@ make_parameters_X_SIS(pars = params, b = b, c = c, r = r, Psi = Psi, X0 = X0, H 
 
 # Simulation
 
-## Exogeneous forcing and vector control
+## Exogenous forcing and vector control
 
-We need to specify models for exogeneous forcing and vector control. We simply use the null models for both (no presence of vector control and no exogeneous forcing).
+We need to specify models for exogenous forcing and vector control. We simply use the null models for both (no presence of vector control and no exogenous forcing).
 
 ```{r}
 make_parameters_exogenous_null(params)

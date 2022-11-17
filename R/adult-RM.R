@@ -220,7 +220,7 @@ make_parameters_MYZ_RM <- function(MYZpar, g, sigma, calK, f, q, nu, eggsPerBatc
 #' @param G0 gravid mosquito density at each patch
 #' @param Y0 infected mosquito density at each patch
 #' @param Z0 infectious mosquito density at each patch
-#' @return nothing
+#' @return none
 #' @export
 make_parameters_MYZ_RM_ode <- function(pars, g, sigma, calK, f, q, nu, eggsPerBatch, tau, M0, G0, Y0, Z0) {
   stopifnot(is.environment(pars))
@@ -245,7 +245,7 @@ make_parameters_MYZ_RM_ode <- function(pars, g, sigma, calK, f, q, nu, eggsPerBa
 #' @param G0 gravid mosquito density at each patch
 #' @param Y0 infected mosquito density at each patch
 #' @param Z0 infectious mosquito density at each patch
-#' @return nothing
+#' @return none
 #' @export
 make_parameters_MYZ_RM_dde <- function(pars, g, sigma, calK, f, q, nu, eggsPerBatch, tau, M0, G0, Y0, Z0) {
   MYZpar <- list()
