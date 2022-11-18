@@ -13,6 +13,8 @@ navbar:
       href: articles/spat_metric.html
     - text: Vector Control Example
       href: articles/vc_lemenach
+    - text: Contributing
+      href: articles/Contributing
   - text: Adult Mosquito Component
     menu:
     - text: Ross-Macdonald model
