@@ -45,6 +45,7 @@ In general, if we know the value of $\Lambda$ at equilibrium we can solve for $L
 $$
 \theta = (\eta - \psi L - \phi L) / L^2
 $$
+
 # Example
 
 ```{r, message=FALSE, warning=FALSE}
