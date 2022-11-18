@@ -28,11 +28,17 @@ The section "Functions" documents each function exported by the package.
 
 ## Installation
 
-To install from an R session, run the following lines of code.
+To install the latest version from GitHub, run the following lines of code in an R session.
 
 ```
 library(devtools)
 devtools::install_github("dd-harp/exDE")
+```
+
+Alternatively, you can install directly from [CRAN](https://cran.r-project.org/package=exDE) (please be aware that the version on CRAN may not be the latest version on GitHub):
+
+```
+install.packages("exDE")
 ```
 
 ## Contributing
