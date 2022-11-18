@@ -4,6 +4,7 @@
 [![R-CMD-check](https://github.com/dd-harp/exDE/workflows/R-CMD-check/badge.svg)](https://github.com/dd-harp/exDE/actions)
 [![codecov](https://codecov.io/gh/dd-harp/exDE/branch/main/graph/badge.svg?token=S6WCEH4L8B)](https://app.codecov.io/gh/dd-harp/exDE)
 [![medRxiv](https://img.shields.io/badge/medRxiv-2022.11.07.22282044-brightgreen)](https://www.medrxiv.org/content/10.1101/2022.11.07.22282044v1)
+[![CRAN](https://www.r-pkg.org/badges/version/exDE)](https://cran.r-project.org/package=exDE)
 <!-- badges: end -->
 
 ## What is exDE?
@@ -27,11 +28,17 @@ The section "Functions" documents each function exported by the package.
 
 ## Installation
 
-To install from an R session, run the following lines of code.
+To install the latest version from GitHub, run the following lines of code in an R session.
 
 ```
 library(devtools)
 devtools::install_github("dd-harp/exDE")
+```
+
+Alternatively, you can install directly from [CRAN](https://cran.r-project.org/package=exDE) (please be aware that the version on CRAN may not be the latest version on GitHub):
+
+```
+install.packages("exDE")
 ```
 
 ## Contributing
