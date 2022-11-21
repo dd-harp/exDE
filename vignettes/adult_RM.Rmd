@@ -8,7 +8,7 @@ vignette: >
 ---
 
 ```{r}
-source("../R/adult-GeRM.R")
+source("../R/adult-RM.R")
 ```
 
 ```{r, include = FALSE}
@@ -24,7 +24,7 @@ The generalized Ross-Macdonald adult mosquito model fulfills the generic interfa
 
 ## Delay Differential Equations
 
-These equations are implemented by `exDE::dMYZdt.GeRM_dde`.
+These equations are implemented by `exDE::dMYZdt.RM_dde`.
 
 $$
 \dot{M} = \Lambda - \Omega\cdot M 
@@ -49,7 +49,7 @@ $$
 
 ## Ordinary Differential Equations
 
-These equations are implemented by `exDE::dMYZdt.GeRM_ode`.
+These equations are implemented by `exDE::dMYZdt.RM_ode`.
 
 The system of ODEs is the same as above except for the equation giving the rate of change
 in infectious mosquito density, which becomes:
@@ -171,10 +171,10 @@ Y_eq <- as.vector(solve(diag(f*q*kappa) + Omega) %*% diag(f*q*kappa) %*% M_eq)
 Z_eq <- as.vector(Omega_inv %*% Upsilon %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
 ```
 
-Now we set up the parameter environment with the correct class using `exDE::make_parameters_MYZ_GeRM_ode`, and set the indices with `exDE::make_indices`. Then we can set up the initial conditions vector and use `deSolve::ode` to solve the model. Please note that we need to use `exDE::MosquitoBehavior` to set up the bionomic parameters at equilibrium which are passed to `exDE::dMYZdt`; this is necessary when running the adult mosquito component alone without the full model. Normally these values would be computed within `exDE::xDE_diffeqn`.
+Now we set up the parameter environment with the correct class using `exDE::make_parameters_MYZ_RM_ode`, and set the indices with `exDE::make_indices`. Then we can set up the initial conditions vector and use `deSolve::ode` to solve the model. Please note that we need to use `exDE::MosquitoBehavior` to set up the bionomic parameters at equilibrium which are passed to `exDE::dMYZdt`; this is necessary when running the adult mosquito component alone without the full model. Normally these values would be computed within `exDE::xDE_diffeqn`.
 
 ```{r, out.width = "100%"}
- make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
+ make_parameters_MYZ_RM_ode(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
   make_indices(params)
 
 y0 <- rep(NaN, 12)
