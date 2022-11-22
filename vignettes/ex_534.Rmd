@@ -131,7 +131,7 @@ Z0 <- rep(0, params$nPatches)
 Omega <- make_Omega(g, sigma, calK, params$nPatches)
 Upsilon <- expm::expm(-Omega*tau)
 
-make_parameters_MYZ_RM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
+make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
 ```
 
 ## Human Parameters
