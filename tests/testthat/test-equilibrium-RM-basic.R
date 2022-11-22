@@ -91,7 +91,7 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   params$calU <- calU
   params$calN <- calN
 
-  make_parameters_MYZ_RM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
+  make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
   make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L)
 
   make_indices(params)
@@ -211,7 +211,7 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   params$calU <- calU
   params$calN <- calN
 
-  make_parameters_MYZ_RM_dde(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
+  make_parameters_MYZ_GeRM_dde(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
   make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L)
 
   make_indices(params)
