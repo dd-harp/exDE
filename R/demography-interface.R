@@ -92,7 +92,7 @@ dHdt.dynamic <- function(t, y, dy, pars, D = NULL) {
 #' @title Add indices for human population denominators to parameter list
 #' @description This method dispatches on the type of `pars$Hpar`.
 #' @param pars an [environment]
-#' @return the modified parameter [list]
+#' @return none
 #' @export
 make_index_H <- function(pars) {
   UseMethod("make_index_H", pars$Hpar)
@@ -101,31 +101,28 @@ make_index_H <- function(pars) {
 #' @title Add indices for human population denominators to parameter list
 #' @description Implements [make_index_H] for null model.
 #' @inheritParams make_index_H
-#' @return the modified parameter [list]
+#' @return none
 #' @export
 make_index_H.null <- function(pars) {
   pars$H_ix <- integer(0)
-  return(pars)
 }
 
 #' @title Add indices for human population denominators to parameter list
 #' @description Implements [make_index_H] for forced (trace) model.
 #' @inheritParams make_index_H
-#' @return the modified parameter [list]
+#' @return none
 #' @export
 make_index_H.trace <- function(pars) {
   pars$H_ix <- integer(0)
-  return(pars)
 }
 
 #' @title Add indices for human population denominators to parameter list
 #' @description Implements [make_index_H] for dynamic models.
 #' @inheritParams make_index_H
-#' @return the modified parameter [list]
+#' @return none
 #' @importFrom utils tail
 #' @export
 make_index_H.dynamic <- function(pars) {
   pars$H_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
   pars$max_ix <- tail(pars$H_ix, 1)
-  return(pars)
 }

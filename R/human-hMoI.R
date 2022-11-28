@@ -89,7 +89,7 @@ dXdt.hMoI <- function(t, y, pars, EIR) {
 #' @title Add indices for human population to parameter list
 #' @description Implements [make_index_X] for the hybrid MoI model.
 #' @inheritParams make_index_X
-#' @return the modified parameter [list]
+#' @return none
 #' @importFrom utils tail
 #' @export
 make_index_X.hMoI <- function(pars) {
@@ -98,7 +98,6 @@ make_index_X.hMoI <- function(pars) {
 
   pars$m2_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
   pars$max_ix <- tail(pars$m2_ix, 1)
-  return(pars)
 }
 
 #' @title Make parameters for hybrid MoI human model

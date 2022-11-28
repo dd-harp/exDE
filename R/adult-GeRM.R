@@ -166,7 +166,7 @@ dMYZdt.GeRM_dde <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
 #' @title Add indices for adult mosquitoes to parameter list
 #' @description Implements [make_index_MYZ] for the generalized GeRM model.
 #' @inheritParams make_index_MYZ
-#' @return the modified parameter [list]
+#' @return none
 #' @importFrom utils tail
 #' @export
 make_index_MYZ.GeRM <- function(pars) {
@@ -184,7 +184,6 @@ make_index_MYZ.GeRM <- function(pars) {
 
   pars$Upsilon_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches^2)
   pars$max_ix <- tail(pars$Upsilon_ix, 1)
-  return(pars)
 }
 
 

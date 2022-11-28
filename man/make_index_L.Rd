@@ -10,7 +10,7 @@ make_index_L(pars)
 \item{pars}{an \link{environment}}
 }
 \value{
-the modified parameter \link{list}
+none
 }
 \description{
 This method dispatches on the type of \code{pars$Lpar}. Adds field \code{L_ix}
