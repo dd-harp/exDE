@@ -73,7 +73,7 @@ dXdt <- function(t, y, pars, EIR) {
 #' @title Add indices for human population to parameter list
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param pars an [environment]
-#' @return the modified parameter [list]
+#' @return none
 #' @export
 make_index_X <- function(pars) {
   UseMethod("make_index_X", pars$Xpar)

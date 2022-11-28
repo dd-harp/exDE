@@ -77,13 +77,12 @@ dXdt.SIS <- function(t, y, pars, EIR) {
 #' @title Add indices for human population to parameter list
 #' @description Implements [make_index_X] for the SIS model.
 #' @inheritParams make_index_X
-#' @return the modified parameter [list]
+#' @return none
 #' @importFrom utils tail
 #' @export
 make_index_X.SIS <- function(pars) {
   pars$X_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
   pars$max_ix <- tail(pars$X_ix, 1)
-  return(pars)
 }
 
 #' @title Make parameters for SIS human model

@@ -27,7 +27,7 @@ dLdt <- function(t, y, pars, eta) {
 #' @description This method dispatches on the type of `pars$Lpar`. Adds field `L_ix`
 #' to parameter list.
 #' @param pars an [environment]
-#' @return the modified parameter [list]
+#' @return none
 #' @export
 make_index_L <- function(pars) {
   UseMethod("make_index_L", pars$Lpar)

@@ -26,13 +26,12 @@ dLdt.basic <- function(t, y, pars, eta) {
 #' @title Add indices for aquatic stage mosquitoes to parameter list
 #' @description Implements [make_index_L] for basic competition model.
 #' @inheritParams make_index_L
-#' @return the modified parameter [list]
+#' @return none
 #' @importFrom utils tail
 #' @export
 make_index_L.basic <- function(pars) {
   pars$L_ix <- seq(from = pars$max_ix+1, length.out = pars$nHabitats)
   pars$max_ix <- tail(pars$L_ix, 1)
-  return(pars)
 }
 
 #' @title Make parameters for basic competition aquatic mosquito model

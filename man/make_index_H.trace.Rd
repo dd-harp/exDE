@@ -10,7 +10,7 @@
 \item{pars}{an \link{environment}}
 }
 \value{
-the modified parameter \link{list}
+none
 }
 \description{
 Implements \link{make_index_H} for forced (trace) model.
