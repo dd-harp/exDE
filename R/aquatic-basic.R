@@ -40,7 +40,7 @@ make_index_L.basic <- function(pars) {
 #' @param phi density-independent mortality rates for each aquatic habitat
 #' @param theta density-dependent mortality terms for each aquatic habitat
 #' @param L0 initial conditions
-#' @return a [list] with class `basic`.
+#' @return none
 #' @export
 make_parameters_L_basic <- function(pars, psi, phi, theta, L0) {
   stopifnot(is.numeric(psi), is.numeric(phi), is.numeric(theta), is.numeric(L0))
