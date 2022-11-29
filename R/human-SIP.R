@@ -102,7 +102,7 @@ make_index_X.SIP <- function(pars) {
 #' @param X0 size of infected population in each strata
 #' @param P0 size of population protected by prophylaxis in each strata
 #' @param H size of human population in each strata
-#' @return a [list] with class `SIP`.
+#' @return none
 #' @export
 make_parameters_X_SIP <- function(pars, b, c, r, rho, eta, Psi, wf = 1, X0, P0, H) {
   stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(rho), is.numeric(eta), is.numeric(X0), is.numeric(P0), is.numeric(H))

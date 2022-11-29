@@ -113,7 +113,7 @@ make_index_X.hMoI <- function(pars) {
 #' @param m10 mean MoI among inapparent human infections
 #' @param m20 mean MoI among patent human infections
 #' @param H size of human population in each strata
-#' @return a [list] with class `hMoI`.
+#' @return none
 #' @export
 make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20, H) {
   stopifnot(is.numeric(b), is.numeric(c1), is.numeric(c2), is.numeric(r1), is.numeric(r2), is.numeric(m10), is.numeric(m20), is.numeric(H))

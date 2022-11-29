@@ -94,7 +94,7 @@ make_index_X.SIS <- function(pars) {
 #' @param wf vector of biting weights of length `nStrata`
 #' @param X0 size of infected population in each strata
 #' @param H size of human population in each strata
-#' @return a [list] with class `SIS`.
+#' @return none
 #' @export
 make_parameters_X_SIS <- function(pars, b, c, r, Psi, wf = 1, X0, H) {
   stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(X0), is.numeric(H))
