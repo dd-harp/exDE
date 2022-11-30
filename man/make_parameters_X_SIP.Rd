@@ -30,7 +30,7 @@ make_parameters_X_SIP(pars, b, c, r, rho, eta, Psi, wf = 1, X0, P0, H)
 \item{H}{size of human population in each strata}
 }
 \value{
-a \link{list} with class \code{SIP}.
+none
 }
 \description{
 Make parameters for SIP human model
