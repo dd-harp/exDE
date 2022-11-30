@@ -118,9 +118,9 @@ reference:
   - dLdt.basic
   - make_index_L.basic
   - make_parameters_L_basic
-- title: Human component
+- title: Human disease component
   desc: |
-    Generic methods for the human component.
+    Generic methods for the human disease component.
   contents:
   - F_EIR
   - F_x
@@ -165,6 +165,42 @@ reference:
   - dXdt.SIP
   - make_index_X.SIP
   - make_parameters_X_SIP
+- title: Human demography component
+  desc: |
+    Generic methods for the human demography component.
+  contents:
+  - F_H
+  - F_H_lag
+  - dHdt
+  - make_index_H
+  - make_calD
+- subtitle: Null demography model
+  desc: |
+    Specialized methods for the null (constant) demographic model
+  contents:
+  - F_H.null
+  - F_H_lag.null
+  - dHdt.null
+  - make_index_H.null
+  - make_parameters_demography_null
+- subtitle: Trace (forced) demography model
+  desc: |
+    Specialized methods for the trace (forced) demographic model
+  contents:
+  - F_H.trace
+  - F_H_lag.trace
+  - dHdt.trace
+  - make_index_H.trace
+  - make_parameters_demography_trace
+- subtitle: Dynamic demography model
+  desc: |
+    Specialized methods for the dynamic demography model
+  contents:
+  - F_H.dynamic
+  - F_H_lag.dynamic
+  - dHdt.dynamic
+  - make_index_H.dynamic
+  - make_parameters_demography_dynamic
 - title: Generalized spatial differential equations
   contents:
   - xDE_diffeqn
