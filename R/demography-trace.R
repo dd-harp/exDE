@@ -9,6 +9,15 @@ F_H.trace <- function(t, y, pars) {
   pars$Hpar$H(t)
 }
 
+#' @title Size of lagged human population denominators
+#' @description Implements [F_H_lag] for forced (trace) model.
+#' @inheritParams F_H_lag
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_H_lag.trace <- function(t, y, pars, lag) {
+  pars$Hpar$H(t-lag)
+}
+
 #' @title Derivatives of demographic changes in human populations
 #' @description Implements [dHdt] for the forced (trace) model.
 #' @inheritParams dHdt

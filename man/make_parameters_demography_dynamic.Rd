@@ -4,7 +4,7 @@
 \alias{make_parameters_demography_dynamic}
 \title{Make parameters for forced (trace) human demography model}
 \usage{
-make_parameters_demography_dynamic(pars, b, d, m)
+make_parameters_demography_dynamic(pars, b, d, m, H0)
 }
 \arguments{
 \item{pars}{an \link{environment}}
@@ -14,6 +14,8 @@ make_parameters_demography_dynamic(pars, b, d, m)
 \item{d}{a list containing vectors of death rates for each state in \eqn{\mathcal{X}}; each vector should be of length \code{nStrata}}
 
 \item{m}{a list containing vectors of ageing rates for each state in \eqn{\mathcal{X}}; each vector should be of length \code{nStrata-1}}
+
+\item{H0}{initial size of human population in each strata at time 0}
 }
 \value{
 none

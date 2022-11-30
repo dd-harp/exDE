@@ -4,7 +4,7 @@
 \alias{make_parameters_X_SIP}
 \title{Make parameters for SIP human model}
 \usage{
-make_parameters_X_SIP(pars, b, c, r, rho, eta, Psi, wf = 1, X0, P0, H)
+make_parameters_X_SIP(pars, b, c, r, rho, eta, Psi, wf = 1, X0, P0)
 }
 \arguments{
 \item{pars}{an \link{environment}}
@@ -26,8 +26,6 @@ make_parameters_X_SIP(pars, b, c, r, rho, eta, Psi, wf = 1, X0, P0, H)
 \item{X0}{size of infected population in each strata}
 
 \item{P0}{size of population protected by prophylaxis in each strata}
-
-\item{H}{size of human population in each strata}
 }
 \value{
 none
