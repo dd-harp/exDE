@@ -2,21 +2,19 @@
 % Please edit documentation in R/demography-interface.R
 \name{dHdt}
 \alias{dHdt}
-\title{Dynamics of human population denominators}
+\title{Derivatives of demographic changes in human populations}
 \usage{
-dHdt(t, y, dy, pars, D = NULL)
+dHdt(pars, ...)
 }
 \arguments{
+\item{...}{additional arguments which must be of the form \code{D}, \code{Y}, etc. \code{D}
+is a \code{nStrata} by \code{nStrata} demography matrix and \code{Y} is a state vector. There
+should be at least one pair of these passed to the function.}
+
 \item{t}{current simulation time}
-
-\item{y}{state vector}
-
-\item{pars}{an \link{environment}}
-
-\item{D}{a demography matrix, which should be of dimensions \code{nStrata} by \code{nStrata}}
 }
 \value{
-a \link{numeric} vector of length \code{nStrata}
+see help pages for specific methods
 }
 \description{
 This method dispatches on the type of \code{pars$Hpar}.

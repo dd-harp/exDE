@@ -18,7 +18,7 @@ make_parameters_L_basic(pars, psi, phi, theta, L0)
 \item{L0}{initial conditions}
 }
 \value{
-a \link{list} with class \code{basic}.
+none
 }
 \description{
 Make parameters for basic competition aquatic mosquito model

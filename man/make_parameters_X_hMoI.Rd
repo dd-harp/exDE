@@ -30,7 +30,7 @@ make_parameters_X_hMoI(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20, H)
 \item{H}{size of human population in each strata}
 }
 \value{
-a \link{list} with class \code{hMoI}.
+none
 }
 \description{
 MoI stands for Multiplicity of Infection, and refers to malarial superinfection.

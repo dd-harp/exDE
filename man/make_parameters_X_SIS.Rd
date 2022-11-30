@@ -24,7 +24,7 @@ make_parameters_X_SIS(pars, b, c, r, Psi, wf = 1, X0, H)
 \item{H}{size of human population in each strata}
 }
 \value{
-a \link{list} with class \code{SIS}.
+none
 }
 \description{
 Make parameters for SIS human model
