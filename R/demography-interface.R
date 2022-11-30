@@ -20,12 +20,12 @@ F_H <- function(t, y, pars) {
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_H_lag <- function(t, y, pars, lag) {
-  UseMethod("F_H", pars$Hpar)
+  UseMethod("F_H_lag", pars$Hpar)
 }
 
 #' @title Derivatives of demographic changes in human populations
 #' @description This method dispatches on the type of `pars$Hpar`.
-#' @param t current simulation time
+#' @param pars an [environment]
 #' @param ... additional arguments which must be of the form `D`, `Y`, etc. `D`
 #' is a `nStrata` by `nStrata` demography matrix and `Y` is a state vector. There
 #' should be at least one pair of these passed to the function.

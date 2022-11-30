@@ -21,7 +21,8 @@ test_that("human hybrid MoI model remains at equilibrium", {
   )
   params <- list2env(params)
 
-  make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20, H = H)
+  make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20)
+  make_parameters_demography_null(pars = params, H = H)
   make_indices(params)
 
   y0 <- rep(0, 6)

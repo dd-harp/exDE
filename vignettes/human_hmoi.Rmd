@@ -66,6 +66,8 @@ library(ggplot2)
 Here we run a simple example with 3 population strata at equilibrium. We use `exDE::make_parameters_X_hMoI` to
 set up parameters. Please note that this only runs the human population component and that most users should read [our fully worked example](ex_534.html) to run a full simulation.
 
+We use the null (constant) model of human demography ($H$ constant for all time). While $H$ does not appear in the equations above, it must be specified as the model of bloodfeeding ($\beta$) relies on $H$ to compute consistent values.
+
 ```{r, out.width = "100%"}
 nStrata <- 3
 H <- c(100, 500, 250)
@@ -87,7 +89,8 @@ params <- list(
 )
 params <- list2env(params)
 
-make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20, H = H)
+make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20)
+make_parameters_demography_null(pars = params, H = H)
 make_indices(params)
 
 y0 <- rep(0, 6)

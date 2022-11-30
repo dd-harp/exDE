@@ -127,6 +127,8 @@ theta <- (eta - psi*L - phi*L)/(L^2)
 
 Now that all state variables have been solved at equilibrium, we can set up the parameters and components of the system. We also need to set up a time-varying function to compute the coverage of ITNs at any time point. We use a sine curve with a period of 365 days which goes from 0 to 1 over that period, with the phase shifted so that at 0 it returns 0. The function also returns 0 for any $t<0$. This must be a function that takes a single argument `t` (time) and returns a scalar value.
 
+We use the null model of human demographic dynamics, which assumes $H$ is constant for all time.
+
 ```{r}
 pars$calU <- calU
 pars$calN <- calN
@@ -139,7 +141,8 @@ make_parameters_exogenous_null(pars)
 make_parameters_vc_lemenach(pars, phi = ITN_cov)
 make_parameters_MYZ_GeRM_dde(pars = pars, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M, G0 = G, Y0 = Y, Z0 = Z)
 make_parameters_L_basic(pars = pars, psi = psi, phi = phi, theta = theta, L0 = L)
-make_parameters_X_SIS(pars = pars, b = b, c = c, r = r, Psi = Psi, wf = wf, X0 = X, H = H)
+make_parameters_X_SIS(pars = pars, b = b, c = c, r = r, Psi = Psi, wf = wf, X0 = X)
+make_parameters_demography_null(pars = pars, H = H)
 make_indices(pars = pars)
 ```
 

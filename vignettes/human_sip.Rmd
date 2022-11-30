@@ -54,6 +54,8 @@ library(ggplot2)
 Here we run a simple example with 3 population strata at equilibrium. We use `exDE::make_parameters_X_SIP` to
 set up parameters. Please note that this only runs the human population component and that most users should read [our fully worked example](ex_534.html) to run a full simulation.
 
+We use the null (constant) model of human demography ($H$ constant for all time).
+
 ```{r, out.width = "100%"}
 nStrata <- 3
 H <- c(100, 500, 250)
@@ -73,7 +75,8 @@ params <- list(
 )
 params <- list2env(params)
 
-make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, Psi = Psi, X0 = X, P0 = as.vector(P), H = H)
+make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, Psi = Psi, X0 = X, P0 = as.vector(P))
+make_parameters_demography_null(pars = params, H = H)
 make_indices(params)
 
 y0 <- rep(0, 6)
