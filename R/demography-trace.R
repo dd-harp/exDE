@@ -32,3 +32,19 @@ dHdt.trace <- function(pars, ...) {
 make_index_H.trace <- function(pars) {
   pars$H_ix <- integer(0)
 }
+
+#' @title Make parameters for forced (trace) human demography model
+#' @param pars an [environment]
+#' @param H a function taking a single argument `t` and returning a vector of length
+#' `nStrata`.
+#' @return none
+#' @export
+make_parameters_demography_trace <- function(pars, H) {
+  stopifnot(is.environment(pars))
+  stopifnot(length(formals(H)) == 1)
+  stopifnot(length(H(0)) == pars$nStrata)
+  Hpar <- list()
+  class(Hpar) <- c('trace')
+  Hpar$H <- H
+  pars$Hpar <- Hpar
+}

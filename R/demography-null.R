@@ -32,3 +32,17 @@ dHdt.null <- function(pars, ...) {
 make_index_H.null <- function(pars) {
   pars$H_ix <- integer(0)
 }
+
+#' @title Make parameters for null human demography model
+#' @param pars an [environment]
+#' @param H size of human population in each strata
+#' @return none
+#' @export
+make_parameters_demography_null <- function(pars, H) {
+  stopifnot(is.environment(pars))
+  stopifnot(length(H) == pars$nStrata)
+  Hpar <- list()
+  class(Hpar) <- c('null')
+  Hpar$H <- H
+  pars$Hpar <- Hpar
+}
