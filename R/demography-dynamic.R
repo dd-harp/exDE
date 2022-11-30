@@ -9,6 +9,19 @@ F_H.dynamic <- function(t, y, pars) {
   y[pars$H_ix]
 }
 
+#' @title Size of lagged human population denominators
+#' @description Implements [F_H_lag] for dynamic models.
+#' @inheritParams F_H_lag
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_H_lag.dynamic <- function(t, y, pars, lag) {
+  if (t < lag) {
+    return(pars$Hpar$H0)
+  } else {
+    return(lagvalue(t = t - lag, nr = pars$H_ix))
+  }
+}
+
 #' @title Derivatives of demographic changes in human populations
 #' @description Implements [dHdt] for dynamic models.
 #' @inheritParams dHdt
@@ -42,18 +55,21 @@ make_index_H.dynamic <- function(pars) {
 #' @param b a list containing vectors of birth rates for each state in \eqn{\mathcal{X}}; each vector should be of length `nStrata`
 #' @param d a list containing vectors of death rates for each state in \eqn{\mathcal{X}}; each vector should be of length `nStrata`
 #' @param m a list containing vectors of ageing rates for each state in \eqn{\mathcal{X}}; each vector should be of length `nStrata-1`
+#' @param H0 initial size of human population in each strata at time 0
 #' @return none
 #' @export
-make_parameters_demography_dynamic <- function(pars, b, d, m) {
+make_parameters_demography_dynamic <- function(pars, b, d, m, H0) {
   stopifnot(is.environment(pars))
   stopifnot(is.list(b), is.list(d), is.list(m))
   stopifnot(all(vapply(b, function(x) {length(x) == pars$nStrata}, logical(1))))
   stopifnot(all(vapply(d, function(x) {length(x) == pars$nStrata}, logical(1))))
   stopifnot(all(vapply(m, function(x) {length(x) == pars$nStrata - 1}, logical(1))))
+  stopifnot(length(H0) == pars$nStrata)
   Hpar <- list()
   class(Hpar) <- c('dynamic')
   Hpar$b <- b
   Hpar$d <- d
   Hpar$m <- m
+  Hpar$H0 <- H0
   pars$Hpar <- Hpar
 }

@@ -43,7 +43,8 @@ F_x_lag.SIP <- function(t, y, pars, lag) {
 #' @return a [matrix] of dimensions `nStrata` by `nPatches`
 #' @export
 F_beta.SIP <- function(t, y, pars) {
-  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * pars$Xpar$H))
+  H <- F_H(t, y, pars)
+  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * H))
   return(
     diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nPatches)
   )
@@ -55,7 +56,8 @@ F_beta.SIP <- function(t, y, pars) {
 #' @return a [matrix] of dimensions `nStrata` by `nPatches`
 #' @export
 F_beta_lag.SIP <- function(t, y, pars, lag) {
-  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * pars$Xpar$H))
+  H <- F_H_lag(t, y, pars, lag)
+  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * H))
   return(
     diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nPatches)
   )
@@ -69,10 +71,26 @@ F_beta_lag.SIP <- function(t, y, pars, lag) {
 dXdt.SIP <- function(t, y, pars, EIR) {
   X <- y[pars$X_ix]
   P <- y[pars$P_ix]
+  H <- F_H(t, y, pars)
   with(pars$Xpar, {
-    dXdt <- diag((1-rho)*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - r*X
-    dPdt <- diag(rho*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - eta*P
-    return(c(dXdt, dPdt))
+    # disease dynamics
+    dX <- diag((1-rho)*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - r*X
+    dP <- diag(rho*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - eta*P
+
+    # demographic dynamics
+    calDX <- make_calD(d = pars$Hpar$d[[1]], m = pars$Hpar$m[[1]])
+    dX <- dX + dHdt(pars, calDX, X)
+
+    calDP <- make_calD(d = pars$Hpar$d[[2]], m = pars$Hpar$m[[2]])
+    dP <- dP + dHdt(pars, calDP, P)
+
+    calDX <- make_calD(d = pars$Hpar$d[[1]], m = pars$Hpar$m[[1]], b = pars$Hpar$b[[1]])
+    calDP <- make_calD(d = pars$Hpar$d[[2]], m = pars$Hpar$m[[2]], b = pars$Hpar$b[[2]])
+    calDS <- make_calD(d = pars$Hpar$d[[3]], m = pars$Hpar$m[[3]], b = pars$Hpar$b[[3]])
+    dH <- dHdt(pars, calDX, X, calDP, P, calDS, H - X - P)
+
+    # return derivatives
+    return(c(dX, dP, dH))
   })
 }
 
@@ -101,11 +119,10 @@ make_index_X.SIP <- function(pars) {
 #' @param wf vector of biting weights of length `nStrata`
 #' @param X0 size of infected population in each strata
 #' @param P0 size of population protected by prophylaxis in each strata
-#' @param H size of human population in each strata
 #' @return none
 #' @export
-make_parameters_X_SIP <- function(pars, b, c, r, rho, eta, Psi, wf = 1, X0, P0, H) {
-  stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(rho), is.numeric(eta), is.numeric(X0), is.numeric(P0), is.numeric(H))
+make_parameters_X_SIP <- function(pars, b, c, r, rho, eta, Psi, wf = 1, X0, P0) {
+  stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(rho), is.numeric(eta), is.numeric(X0), is.numeric(P0))
   stopifnot(is.environment(pars))
   if (length(wf) == 1) {
     wf <- rep(wf, pars$nStrata)
@@ -124,6 +141,5 @@ make_parameters_X_SIP <- function(pars, b, c, r, rho, eta, Psi, wf = 1, X0, P0, 
   Xpar$wf <- wf
   Xpar$X0 <- X0
   Xpar$P0 <- P0
-  Xpar$H <- H
   pars$Xpar <- Xpar
 }
