@@ -4,7 +4,7 @@
 \alias{make_parameters_X_SIS}
 \title{Make parameters for SIS human model}
 \usage{
-make_parameters_X_SIS(pars, b, c, r, Psi, wf = 1, X0, H)
+make_parameters_X_SIS(pars, b, c, r, Psi, wf = 1, X0)
 }
 \arguments{
 \item{pars}{an \link{environment}}
@@ -20,8 +20,6 @@ make_parameters_X_SIS(pars, b, c, r, Psi, wf = 1, X0, H)
 \item{wf}{vector of biting weights of length \code{nStrata}}
 
 \item{X0}{size of infected population in each strata}
-
-\item{H}{size of human population in each strata}
 }
 \value{
 none

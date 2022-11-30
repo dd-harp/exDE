@@ -4,7 +4,7 @@
 \alias{make_parameters_X_hMoI}
 \title{Make parameters for hybrid MoI human model}
 \usage{
-make_parameters_X_hMoI(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20, H)
+make_parameters_X_hMoI(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20)
 }
 \arguments{
 \item{pars}{an \link{environment}}
@@ -26,8 +26,6 @@ make_parameters_X_hMoI(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20, H)
 \item{m10}{mean MoI among inapparent human infections}
 
 \item{m20}{mean MoI among patent human infections}
-
-\item{H}{size of human population in each strata}
 }
 \value{
 none

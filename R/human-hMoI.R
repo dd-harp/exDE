@@ -53,7 +53,8 @@ F_x_lag.hMoI <- function(t, y, pars, lag) {
 #' @return a [matrix] of dimensions `nStrata` by `nPatches`
 #' @export
 F_beta.hMoI <- function(t, y, pars) {
-  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * pars$Xpar$H))
+  H <- F_H(t, y, pars)
+  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * H))
   return(
     diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nPatches)
   )
@@ -65,7 +66,8 @@ F_beta.hMoI <- function(t, y, pars) {
 #' @return a [matrix] of dimensions `nStrata` by `nPatches`
 #' @export
 F_beta_lag.hMoI <- function(t, y, pars, lag) {
-  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * pars$Xpar$H))
+  H <- F_H_lag(t, y, pars, lag)
+  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * H))
   return(
     diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nPatches)
   )
@@ -112,11 +114,10 @@ make_index_X.hMoI <- function(pars) {
 #' @param wf vector of biting weights of length `nStrata`
 #' @param m10 mean MoI among inapparent human infections
 #' @param m20 mean MoI among patent human infections
-#' @param H size of human population in each strata
 #' @return none
 #' @export
-make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20, H) {
-  stopifnot(is.numeric(b), is.numeric(c1), is.numeric(c2), is.numeric(r1), is.numeric(r2), is.numeric(m10), is.numeric(m20), is.numeric(H))
+make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20) {
+  stopifnot(is.numeric(b), is.numeric(c1), is.numeric(c2), is.numeric(r1), is.numeric(r2), is.numeric(m10), is.numeric(m20))
   stopifnot(is.environment(pars))
   if (length(wf) == 1) {
     wf <- rep(wf, pars$nStrata)
@@ -135,6 +136,5 @@ make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m2
   Xpar$wf <- wf
   Xpar$m10 <- m10
   Xpar$m20 <- m20
-  Xpar$H <- H
   pars$Xpar <- Xpar
 }

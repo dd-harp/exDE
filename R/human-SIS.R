@@ -43,7 +43,8 @@ F_x_lag.SIS <- function(t, y, pars, lag) {
 #' @return a [matrix] of dimensions `nStrata` by `nPatches`
 #' @export
 F_beta.SIS <- function(t, y, pars) {
-  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * pars$Xpar$H))
+  H <- F_H(t, y, pars)
+  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * H))
   return(
     diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nPatches)
   )
@@ -55,7 +56,8 @@ F_beta.SIS <- function(t, y, pars) {
 #' @return a [matrix] of dimensions `nStrata` by `nPatches`
 #' @export
 F_beta_lag.SIS <- function(t, y, pars, lag) {
-  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * pars$Xpar$H))
+  H <- F_H_lag(t, y, pars, lag)
+  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * H))
   return(
     diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nPatches)
   )
@@ -68,9 +70,20 @@ F_beta_lag.SIS <- function(t, y, pars, lag) {
 #' @export
 dXdt.SIS <- function(t, y, pars, EIR) {
   X <- y[pars$X_ix]
+  H <- F_H(t, y, pars)
   with(pars$Xpar, {
-    dXdt <- diag(b*EIR, nrow = pars$nStrata) %*% (H - X) - r*X
-    return(dXdt)
+    # disease dynamics
+    dX <- diag(b*EIR, nrow = pars$nStrata) %*% (H - X) - r*X
+
+    # demographic dynamics
+    calDX <- make_calD(d = pars$Hpar$d[[1]], m = pars$Hpar$m[[1]])
+    dX <- dX + dHdt(pars, calDX, X)
+
+    calDX <- make_calD(d = pars$Hpar$d[[1]], m = pars$Hpar$m[[1]], b = pars$Hpar$b[[1]])
+    calDS <- make_calD(d = pars$Hpar$d[[2]], m = pars$Hpar$m[[2]], b = pars$Hpar$b[[2]])
+    dH <- dHdt(pars, calDX, X, calDS, H - X)
+
+    return(c(dX, dH))
   })
 }
 
@@ -93,11 +106,10 @@ make_index_X.SIS <- function(pars) {
 #' @param Psi a [matrix] of dimensions `nPatches` by `nStrata`
 #' @param wf vector of biting weights of length `nStrata`
 #' @param X0 size of infected population in each strata
-#' @param H size of human population in each strata
 #' @return none
 #' @export
-make_parameters_X_SIS <- function(pars, b, c, r, Psi, wf = 1, X0, H) {
-  stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(X0), is.numeric(H))
+make_parameters_X_SIS <- function(pars, b, c, r, Psi, wf = 1, X0) {
+  stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(X0))
   stopifnot(is.environment(pars))
   if (length(wf) == 1) {
     wf <- rep(wf, pars$nStrata)
@@ -113,6 +125,5 @@ make_parameters_X_SIS <- function(pars, b, c, r, Psi, wf = 1, X0, H) {
   Xpar$Psi <- Psi
   Xpar$wf <- wf
   Xpar$X0 <- X0
-  Xpar$H <- H
   pars$Xpar <- Xpar
 }
