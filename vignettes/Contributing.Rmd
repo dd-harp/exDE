@@ -45,7 +45,7 @@ Please note, we assume some familiarity with Git commands here. For a reference 
   3. Now you will switch to the `dev` branch by doing `git checkout dev`. You can make sure it's up to date by running `git pull origin dev`.
   4. Let's say you want to call your new feature branch `feat/UpdateContributing`. You can make it and switch to it by running `git checkout -b feat/UpdateContributing`.
   5. To push this new branch to the remote repository, run `git push origin feat/UpdateContributing`. It will now appear in the [list of branches](https://github.com/dd-harp/exDE/branches).
-  6. Now, make your changes!
+  6. Now, make your changes! We recommend editing the package in [RStudio](https://posit.co/products/open-source/rstudio/) using the R project file `exDE.Rproj` in the repository. This will be explained more in Section [3](#sec3).
   7. Once you are ready to push your changes, use `git add` to either add files to a commit one by one, or if you know you want to add all new and/or modified files, you can use `git add .`.
   8. Run `git commit -m "your message explaining what these changes do"` to make a commit with a message. We do not mind many small commits, so if that is your Git style, please do not feel pressure to only make large commits.
   9. Now `git push origin feat/UpdateContributing` to push the commit to the remote branch `feat/UpdateContributing`! If you navigate to that branch on the GitHub repository, you should see your changes.
@@ -54,21 +54,96 @@ Now repeat steps 6 to 9 until you are ready to start testing your changes and su
 
 ## 2. The **exDE** R package {#sec2}
 
-Code organization, whats auto-generated, whats part of pkgdown, etc
+**exDE** is an R package, so if you are going to be making substantial changes, it is necessary to have a sense of how it is organized and how the package must be rebuilt for creating documentation, exporting functions, and testing. The most extensive documentation for how an R package is structured comes from the official R manual, [Writing R Extensions](https://cran.r-project.org/doc/manuals/R-exts.html). A shorter guide with tips on current best practice is the book [R Packages](https://r-pkgs.org/), if you are unfamiliar with R packages, we reccomend briefly skimming the book as a starting point.
 
-## 3. How to make large changes {#sec3}
+The building of **exDE** is supported by [pkgdown](https://pkgdown.r-lib.org/index.html), which is responsible for automatically building the documentation website you are browsing right now, and [testthat](https://testthat.r-lib.org/) which is used to test the package.
 
-tests vignettes, etc
+Some files in the top level directory that are important to be aware of are:
+
+  * `_pkgdown.yml`: this controls how the website is generated, and is explained in [this article](https://pkgdown.r-lib.org/articles/pkgdown.html). If you add or delete functions or objects with documentation to the package, or add or delete vignettes, you must modify this file for the website to build properly.
+  * `DESCRIPTION`: this file provides critical information about the package, and documentation for it is at the [official manual](https://cran.r-project.org/doc/manuals/R-exts.html#The-DESCRIPTION-file) and the [R packages book](https://r-pkgs.org/metadata.html). It should be updated only for version releases, to include additional authors, or to add additional packages to `Imports` or `Suggests`.
+  * `NAMESPACE`: a *read-only* file produced when running [roxygen2](https://roxygen2.r-lib.org/) to build documentation for the package, it tells R what functions are exported by this package into a user's R session when the load **exDE** with `library(exDE)`. It should never be modified by hand.
+  * `NEWS.md`: the NEWS page on the package's [CRAN page](https://cran.r-project.org/package=exDE) as well as the News tab on the [GitHub pages website](https://dd-harp.github.io/exDE/) are built from this file; it should only be modified by the dev team when ready to update `main` with a new version. For more information, see the `utils::news` help file.
+  * `README.md`: this is the main readme file which is displayed on the GitHub repository, the main page of the [GitHub pages website](https://dd-harp.github.io/exDE/), and the README page on the package's [CRAN page](https://cran.r-project.org/package=exDE).
+  
+The rest of the package is organized in directories. For more detail, we recommend reading the guides linked to earlier.
+
+  * `.github/`: files that control [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) used to automatically test the package when a PR is made, automatically build the package website, and automatically check code coverage (% of code checked in tests). Much more detail will be given in Section [6](#sec6).
+  * `docs/`: this contains the pkgdown website which is built and pushed to `gh-pages` automatically by a GitHub Action. If you trigger a manual (local) build of the website to test something using `pkgdown::build_site`, it will build in this folder. This folder should be considered "read-only".
+  * `inst/`: this folder serves many purposes for general R packages (see resources above for details), but currently contains the `CITATION` file used to generate the citation found in `utils::citation`.
+  * `man/`: this folder contains the package function/object documentation automatically generated by [roxygen2](https://roxygen2.r-lib.org/), and should be considered "read-only".
+  * `R/`: the source code of the package lives here; we will describe below the naming convention of the files so you can quickly identify where existing code is, or how to organize and name new code.
+  * `tests/`: within this folder is a sub-directory `testthat/` which contains all the automated tests included in the package. Most of them test that models initialized at equilibrium remain at equilibrium after being integrated for some time.
+  * `vignettes/`: this folder contains .Rmd files contains the vignettes of the R package, longer form articles that document specific functionality in **exDE**. They are available on the [GitHub pages website](https://dd-harp.github.io/exDE/) via the top drop down menus and the package's [CRAN page](https://cran.r-project.org/package=exDE).
+
+### `R/` folder
+
+Each model component will have a "base" file ending in `-interface` that defines the generic interface which any model for that component must implement. For example `human-interface.R` defines the generic methods any human disease model must implement and `human-SIS.R` defines specific methods for the SIS model of human disease dynamics.
+
+  * **Adult mosquito component**: base file `adult-interface.R`
+    - `adult-GeRM.R`: the generalized Ross-Macdonald model of adult mosquito dynamics.
+  * **Aquatic mosquito component**: base file `aquatic-interface.R`
+    - `aquatic-basic.R`: the basic competition model of aquatic mosquito dynamics.
+    - `aquatic-trace.R`: the trace (exogenously forced) model of aquatic mosquito dynamics.
+  * **Human disease component**: base file `human-interface.R`
+    - `human-SIS.R`: the SIS model of human disease dynamics.
+    - `human-SIP.R`: the SIP model of human disease dynamics.
+    - `human-hMoI.R`: the hybrid MoI model of human disease dynamics.
+  * **Exogenous forcing component**: base file `exogeneous-interface.R`
+    - `exogenous-null`: null (no) exogenous forcing.
+  * **Vector control component**: base file `vc-interface.R`
+    - `vc-null.R`: null (no) vector control.
+    - `vc-lemenach.R`: the Le Menach model of ITN based adult vector control.
+  * `diffeqn.R`: the **exDE** generalized differential equations which implement the framework; these should not typically be modified.
+  * `metrics.R`: spatial metrics (as defined in the [Spatial Dynamics paper](https://www.medrxiv.org/content/10.1101/2022.11.07.22282044v1))
+  * `utils.R`: utility functions
+
+## 3. Making large changes or additions to **exDE** {#sec3}
+
+After reading Section [2](#sec2) you should have a reasonable grasp of how **exDE** as an R package is organized, but to really understand how to implement new models, more detail is necessary on what files one should actually modify or add. We will also describe best practices on what contributors should add to the package when making a large change.
+
+Let's say someone wanted to add a new human disease model, say an SIR model. The basic steps are below:
+
+  1. Within `R/`, make a new file `human-SIR.R` and implement all generic methods from `human-interface.R` for your new model. Also make a function named something like `make_parameters_human_SIR` that will modify the parameter environment to implement the SIR model. You can check the other human disease models as reference.
+  2. In RStudio, run Build -> Document (control/command + shift + D) to run roxygen2 which builds functions documentation and updates the `NAMESPACE` with your new functions. Then run Build -> Install Package (control/command + shift + B) to re-install and load the package. This only works if you have opened the `exDE.Rproj` file in RStudio as a project.
+  3. Make a new vignette named something like "human_vignette.Rmd" in `vignettes/` describing the model and its parameters, and perhaps a simple simulation of it.
+  4. Make a test named something like `test-human-sir.R` in `tests/testthat/` which tests the SIR model behaves as expected under conditions where the outcome is known (e.g. when no infected persons are present, the number of susceptible persons can never decrease).
+  5. If you added new functions and vignettes, add them to the `_pkgdown.yml` file in the appropriate place. You can use `pkgdown::build_site` at this point to test that the website still builds.
+  6. We will go over more details about how to test your package locally in Section [4](#sec4) and how to make a pull request in Section [5](#sec5).
+
+When writing a new model or modifying an existing one, please note that **exDE** achieves modularity through the extensive use of S3 dispatch, which is similar to single dispatch from other programming languages. More details are at `base::UseMethod` or the [S3 chapter](https://adv-r.hadley.nz/s3.html) of Advanced R. Use of S3 dispatch appears extensively in the source code of **exDE**.
+
+If writing new functions, they must be documented. Again, the existing code provides a good reference. **exDE** depends upon [roxygen2](https://roxygen2.r-lib.org/index.html) to build documentation, and its website provides help on how to write the appropriate tags (e.g. `#' @export` which makes that function appear in the **exDE** `NAMESPACE`).
 
 ## 4. How to test locally {#sec4}
+
+rebuild docs
 
 How to use testthat and devtools
 
 ## 5. How to make or review a pull request {#sec5}
 
-Stress that a PR can be a collaborative process...if you think your idea ought to work and would be a great addition to the package, its ok if you cant get it to work locally, make a PR and ask for help from other persons on the team.
+### How to make a PR
+
+At this point, you might be a little tired of reading, and maybe somewhat anxious about actually contributing at all. So it is a good time to say that making a PR can absolutely be a collaborative process. If after following the previous sections your local tests are not working, but you think your idea or new feature ought to work and would be a good addition to **exDE**, please consider submitting a PR and tagging other persons on the dev team who can help you get it past the finish line.
+
+To make a pull request, first, navigate to your branch where you have made changes (i.e. a `feat/*` or `bugfix/*` branch). To open the PR, follow the [GitHub documentation](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/working-with-your-remote-repository-on-github-or-github-enterprise/creating-an-issue-or-pull-request#creating-a-pull-request), and remember that PRs should only be made into `dev` (e.g. with `dev` as the "base").
+
+When making the PR, you will be prompted to enter a description which explains what the PR does. Please make sure the text description contains the following elements:
+
+  * If the PR addresses or solves an active issue, tag it in the PR (i.e. if it addresses issue 75, type in the text box `#75` and GitHub will automatically link the two).
+  * If the PR adds new files in `R/`, `tests/testthat`, or `vignettes` please list them and write a brief description about what is in each one. This does not apply to any auto-generated files (i.e. anything in `docs/`, `man/`, or `NAMESPACE`).
+  * If the PR significantly modifies any files, please list them and write brief descriptions about what was changed. This does not apply to any auto-generated files (i.e. anything in `docs/`, `man/`, or `NAMESPACE`).
+  * If this is an in-progress PR (i.e. tests do not pass), please tag someone on the team for help and describe what specific problems you are encountering.
+  * Finally, this is crucial, select someone to review your PR using the "Reviewers" tab in the upper right hand corner of the page. Your PR cannot be merged into `dev` until it has passed review by at least one team member.
+
+### How to review a PR
+
+How to pull someone else's branch and build it locally to investigate oddities.
 
 ## 6. How to deal with continuous integration {#sec6}
+
+what are the workflows, when do they run, how to update etc
 
 ## 7. How to get ready for a version update {#sec7}
 
