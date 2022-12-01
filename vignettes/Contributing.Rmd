@@ -20,7 +20,7 @@ Thank you for taking the time to contribute to **exDE** (Extensible Differential
   
 This document is intended to be a complete guide on how to get started developing with **exDE**. As this document is part of the package, if you find something about it incorrect, baffling, or just have a suggestion, please follow the steps for bug/issue reporting to let us know!
 
-## 1. Git workflow
+## 1. Git workflow {#sec1}
 
 The **exDE** project is hosted on GitHub ([at this repository](https://github.com/dd-harp/exDE)), and we use a Git workflow based loosely on "Gitflow", described in great detail [here](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow). A Git workflow is a way to use the repository in such a way to invite collaboration in an organized way that protects the latest stable version of the software from unintended changes.
 
@@ -36,31 +36,45 @@ Some of our branches use [GitHub's branch protection rules](https://docs.github.
 
 ### Example
 
-  1. To start to work on **exDE**, you should first clone the repository. In a terminal window, navigate to the directory you want the `exDE` folder to appear in, and then run `git clone git@github.com:dd-harp/exDE.git`, if you use SSH keys, or `git clone https://github.com/dd-harp/exDE.git` to clone with HTTPS. These links can be found if you click the green "Code" button from the main repository page.
+Let's say you have a great idea for a new feature, which is a change to improve this document. Here's how you would get started with our Git workflow to get your feature on the road to being merged into the **exDE** software.
+
+Please note, we assume some familiarity with Git commands here. For a reference on the meaning of these commands, please see the [Git documentation](https://git-scm.com/docs).
+
+  1. To start to work on **exDE**, you should first clone the repository. In a terminal window, navigate to the directory you want the `exDE` folder to appear in, and then run `git clone git@github.com:dd-harp/exDE.git`, if you use SSH keys, or `git clone https://github.com/dd-harp/exDE.git` to clone with HTTPS. These links can be found if you click the green "Code" button from the [main repository page](https://github.com/dd-harp/exDE).
   2. Once you clone the repository, go inside it with `cd exDE`. Then run `git fetch --all` which retrieves information about all the branches on the remote (the repository on the GitHub website) into your local repository (the one on your computer).
+  3. Now you will switch to the `dev` branch by doing `git checkout dev`. You can make sure it's up to date by running `git pull origin dev`.
+  4. Let's say you want to call your new feature branch `feat/UpdateContributing`. You can make it and switch to it by running `git checkout -b feat/UpdateContributing`.
+  5. To push this new branch to the remote repository, run `git push origin feat/UpdateContributing`. It will now appear in the [list of branches](https://github.com/dd-harp/exDE/branches).
+  6. Now, make your changes!
+  7. Once you are ready to push your changes, use `git add` to either add files to a commit one by one, or if you know you want to add all new and/or modified files, you can use `git add .`.
+  8. Run `git commit -m "your message explaining what these changes do"` to make a commit with a message. We do not mind many small commits, so if that is your Git style, please do not feel pressure to only make large commits.
+  9. Now `git push origin feat/UpdateContributing` to push the commit to the remote branch `feat/UpdateContributing`! If you navigate to that branch on the GitHub repository, you should see your changes.
   
+Now repeat steps 6 to 9 until you are ready to start testing your changes and submit a pull request (covered in Sections [4](#sec4) and [5](#sec5)).
 
-## 2. The **exDE** R package
+## 2. The **exDE** R package {#sec2}
 
-Code orgnization, whats auto-generated, whats part of pkgdown, etc
+Code organization, whats auto-generated, whats part of pkgdown, etc
 
-## 3. How to make large changes
+## 3. How to make large changes {#sec3}
 
-## 4. How to test locally
+tests vignettes, etc
+
+## 4. How to test locally {#sec4}
 
 How to use testthat and devtools
 
-## 5. How to make or review a pull request
+## 5. How to make or review a pull request {#sec5}
 
 Stress that a PR can be a collaborative process...if you think your idea ought to work and would be a great addition to the package, its ok if you cant get it to work locally, make a PR and ask for help from other persons on the team.
 
-## 6. How to deal with continuous integration
+## 6. How to deal with continuous integration {#sec6}
 
-## 7. How to get ready for a version update
+## 7. How to get ready for a version update {#sec7}
 
 update DESCRIPTION version, how to submit to CRAN, check that pkgdown website worked, etc.
 
-## 8. How to report bugs or raise issues?
+## 8. How to report bugs or raise issues? {#sec8}
 
 
 
