@@ -9,20 +9,23 @@ vignette: >
 
 Thank you for taking the time to contribute to **exDE** (Extensible Differential Equations for mosquito-borne pathogen modeling). In this document we will explain the following topics:
 
-  1. What is our Git workflow?
-  2. How is the R package organized?
-  3. If I am making a large addition (e.g. a new human disease model), what should I add to the package?
-  4. After making changes locally, how to rebuild the package and run tests?
-  5. How to make a good pull request (PR), and how should reviewers review pull requests?
-  6. If the GitHub continuous integration (CI) tests fail, how to diagnose the problems and address them?
-  7. How to get ready for a version update (for core dev team)?
-  8. If I find a bug or something I just can't figure out, how to ask for help?
+  [1.](#sec1) What is our Git workflow?
+  [2.](#sec2) How is the R package organized?
+  [3.](#sec3) If I am making a large addition (e.g. a new human disease model), what should I add to the package?
+  [4.](#sec4) After making changes locally, how to rebuild the package and run tests?
+  [5.](#sec5) How to make a good pull request (PR), and how should reviewers review pull requests?
+  [6.](#sec6) If the GitHub continuous integration (CI) tests fail, how to diagnose the problems and address them?
+  [7.](#sec7) How to get ready for a version update (for core dev team)?
+  [8.](#sec8) If I find a bug or something I just can't figure out, how to ask for help?
   
 This document is intended to be a complete guide on how to get started developing with **exDE**. As this document is part of the package, if you find something about it incorrect, baffling, or just have a suggestion, please follow the steps for bug/issue reporting to let us know!
 
-## 1. Git workflow {#sec1}
+<!-- 1 --> 
+## Git workflow {#sec1}
 
-The **exDE** project is hosted on GitHub ([at this repository](https://github.com/dd-harp/exDE)), and we use a Git workflow based loosely on "Gitflow", described in great detail [here](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow). A Git workflow is a way to use the repository in such a way to invite collaboration in an organized way that protects the latest stable version of the software from unintended changes.
+The **exDE** project is hosted on GitHub ([at this repository](https://github.com/dd-harp/exDE)), and we use a Git workflow similar to "Gitflow" (albeit without a separate `release` branch, `main` takes over that role), described [here](https://www.atlassian.com/git/tutorials/comparing-workflows). A Git workflow is a way to use the repository in such a way to invite collaboration in an organized way that protects the latest stable version of the software from unintended changes.
+
+If you are new to Git or need some reminders, please check out the excellent documentation at [Atlassian](https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud). We recommend reading ["Getting Started"](https://www.atlassian.com/git/tutorials/setting-up-a-repository) to learn how to set up a repository, followed by ["Collaborating"](https://www.atlassian.com/git/tutorials/syncing) to learn about how to work with branches, pull requests, merging, and other common Git activities.
 
 Our workflow is designed around branches. The `main`, `dev`, and `gh-pages` branches always exist in the repository. Other branches exist as long as the person(s) working on them need them, and should be deleted after they have been merged into `dev`.
 
@@ -33,6 +36,10 @@ Our workflow is designed around branches. The `main`, `dev`, and `gh-pages` bran
   * `bugfix/*`: for small bugfixes (spelling errors, misnamed variables, etc), it may be appropriate to make a `bugfix/` branch. The same rules apply to these as for `feat/` branches.
   
 Some of our branches use [GitHub's branch protection rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches) to enforce these rules. Core dev team members can access these by going to Settings -> Branches. Both `main` and `dev` are protected from deletion. PRs made to `dev` must be reviewed and approved by at least 1 reviewer before they are allowed to be merged.
+
+![](GitFlow.png)
+
+We show an example of our workflow above. The `main` branch, in blue, starts at the left side, and `dev` is created from it, below in purple. After that, two `feat/*` or `bugfix/*` branches are created from `dev` at that time, shown in green. The upper one has two updates before it is merged back into `dev`, via a pull request. After that pull request, the lower one must pull the updates from `dev` so it is working with the latest version of the code. After another update, it is ready to be merged into `dev` via a pull request. At this point, we decide that these two features are enough for a version update, so we make a pull request from `dev` into `main` to update to version 0.1. After being merged, we can again start making `feat/*` or `bugfix/*` branches from `dev`  to start developing for version 0.2!
 
 ### Example
 
@@ -52,7 +59,8 @@ Please note, we assume some familiarity with Git commands here. For a reference 
   
 Now repeat steps 6 to 9 until you are ready to start testing your changes and submit a pull request (covered in Sections [4](#sec4) and [5](#sec5)).
 
-## 2. The **exDE** R package {#sec2}
+<!-- 2 --> 
+## The **exDE** R package {#sec2}
 
 **exDE** is an R package, so if you are going to be making substantial changes, it is necessary to have a sense of how it is organized and how the package must be rebuilt for creating documentation, exporting functions, and testing. The most extensive documentation for how an R package is structured comes from the official R manual, [Writing R Extensions](https://cran.r-project.org/doc/manuals/R-exts.html). A shorter guide with tips on current best practice is the book [R Packages](https://r-pkgs.org/), if you are unfamiliar with R packages, we reccomend briefly skimming the book as a starting point.
 
@@ -98,7 +106,8 @@ Each model component will have a "base" file ending in `-interface` that defines
   * `metrics.R`: spatial metrics (as defined in the [Spatial Dynamics paper](https://www.medrxiv.org/content/10.1101/2022.11.07.22282044v1))
   * `utils.R`: utility functions
 
-## 3. Making large changes or additions to **exDE** {#sec3}
+<!-- 3 --> 
+## Making large changes or additions to **exDE** {#sec3}
 
 After reading Section [2](#sec2) you should have a reasonable grasp of how **exDE** as an R package is organized, but to really understand how to implement new models, more detail is necessary on what files one should actually modify or add. We will also describe best practices on what contributors should add to the package when making a large change.
 
@@ -115,7 +124,8 @@ When writing a new model or modifying an existing one, please note that **exDE**
 
 If writing new functions, they must be documented. Again, the existing code provides a good reference. **exDE** depends upon [roxygen2](https://roxygen2.r-lib.org/index.html) to build documentation, and its website provides help on how to write the appropriate tags (e.g. `#' @export` which makes that function appear in the **exDE** `NAMESPACE`).
 
-## 4. How to test locally {#sec4}
+<!-- 4 --> 
+## How to test locally {#sec4}
 
 After making changes to **exDE** but before submitting a PR, you should take some time to do local tests to make sure that the package still works. It is extremely important to make sure that after you change the code, to re-document and re-install the package. From RStudio, Build -> Document (control/command + shift + D) re-documents the package and Build -> Install Package (control/command + shift + B) re-installs the package. Without doing this your package `NAMESPACE` file may not include your changes, and `library(exDE)` will not be using the most recent version of your code.
 
@@ -133,7 +143,8 @@ A crucial function to use is `devtools::check`; it includes running local tests 
 
 It is always a good idea to make sure the package website still builds after making changes. If you have added or removed and functions, changed any function names, or added or removed and vignettes, you will need to have updated `_pkgdown.yml` accordingly. To make sure everything works as expected, run `pkgdown::build_site`, which will build the website locally in the `docs/` folder (and will open automatically in your browser when it is done). Please address problems until it builds successfully.
 
-## 5. How to make or review a pull request {#sec5}
+<!-- 5 --> 
+## How to make or review a pull request {#sec5}
 
 ### How to make a PR
 
@@ -173,7 +184,8 @@ In some cases it may be necessary to investigate issues locally, on branch being
   
 After any problems have been resolved and the CI tests pass, the PR is ready to be merged into `dev`! You may want to delete the merged branch or let the author know they can do so at this point.
 
-## 6. How to deal with continuous integration {#sec6}
+<!-- 6 --> 
+## How to deal with continuous integration {#sec6}
 
 In **exDE** we use [GitHub Actions](https://docs.github.com/en/actions) to automatically run continuous integration workflows, which are automated scripts which run when triggered by certain events (i.e. PRs or pushing to certain branches). The 3 workflows we run can be found in `.github/workflows`:
 
@@ -187,7 +199,8 @@ These workflows may encounter errors. Do not panic when this happens. Errors can
 
 Finally if you encounter truly strange errors from the workflows (e.g. software not being installed, strange operating specific errors, etc), it may be because the .yaml workflow scripts are outdated and need to be updated. In this case find the latest updated workflow scripts at [https://github.com/r-lib/actions/tree/v2-branch/examples](https://github.com/r-lib/actions/tree/v2-branch/examples). When doing this, be careful to not overwrite the existing rules about when to execute the workflows (i.e. only update from the line `name` onward). You can push an update to a branch `bugfix/check-standard.yaml`, to update that workflow, for example.
 
-## 7. How to get ready for a version update {#sec7}
+<!-- 7 --> 
+## How to get ready for a version update {#sec7}
 
 (For dev team only)
 
@@ -209,7 +222,8 @@ To do so:
   * *after* the new version has been accepted by CRAN make a new [GitHub release](https://github.com/dd-harp/exDE/releases) to accompany the new version.
   * celebrate, or go rest.
 
-## 8. How to report bugs or raise issues? {#sec8}
+<!-- 8 --> 
+## How to report bugs or raise issues? {#sec8}
 
 We expect that the most common way for most users to interact with GitHub will be through the [issues tab](https://github.com/dd-harp/exDE/issues). This should be the first point of contact with the **exDE** team, please do not hesitate to raise issues which may either be full bug reports, questions, or comments/suggestions. We prefer more rather than less communication. If you are considering large feature changes, it may be nice to discuss with the dev team in an issue first before making a `feat/*` branch and submitting a PR; this is also a great time to solicit collaboration on feature development!
 
