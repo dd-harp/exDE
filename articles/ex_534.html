@@ -43,8 +43,8 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/ex_534.html">5-3-4 Spatial Example</a>
     <a class="dropdown-item" href="../articles/spat_metric.html">Spatial Metrics</a>
-    <a class="dropdown-item" href="../articles/vc_lemenach">Vector Control Example</a>
-    <a class="dropdown-item" href="../articles/Contributing">Contributing</a>
+    <a class="dropdown-item" href="../articles/vc_lemenach.html">Vector Control Example</a>
+    <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
   </div>
 </li>
 <li class="nav-item dropdown">
@@ -225,7 +225,7 @@ parameters includes the construction of the mosquito dispersal matrix
 <span class="math inline">\(\mathcal{K}\)</span>, and the mosquito
 demography matrix <span class="math inline">\(\Omega\)</span>. Like for
 the aquatic parameters, we use
-<code><a href="../reference/make_parameters_MYZ_RM_ode.html">exDE::make_parameters_MYZ_RM_ode</a></code> to check parameter types
+<code>exDE::make_parameters_MYZ_RM_ode</code> to check parameter types
 and return a list with the correct class for method dispatch. We attach
 the returned list to the main parameter list with name
 <code>MYZpar</code>.</p>
@@ -249,7 +249,7 @@ the returned list to the main parameter list with name
 <span><span class="va">Omega</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_Omega.html">make_Omega</a></span><span class="op">(</span><span class="va">g</span>, <span class="va">sigma</span>, <span class="va">calK</span>, <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span></span>
 <span><span class="va">Upsilon</span> <span class="op">&lt;-</span> <span class="fu">expm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/expm/man/expm.html" class="external-link">expm</a></span><span class="op">(</span><span class="op">-</span><span class="va">Omega</span><span class="op">*</span><span class="va">tau</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/make_parameters_MYZ_RM_ode.html">make_parameters_MYZ_RM_ode</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, g <span class="op">=</span> <span class="va">g</span>, sigma <span class="op">=</span> <span class="va">sigma</span>, calK <span class="op">=</span> <span class="va">calK</span>, tau <span class="op">=</span> <span class="va">tau</span>, f <span class="op">=</span> <span class="va">f</span>, q <span class="op">=</span> <span class="va">q</span>, nu <span class="op">=</span> <span class="va">nu</span>, eggsPerBatch <span class="op">=</span> <span class="va">eggsPerBatch</span>, M0 <span class="op">=</span> <span class="va">M0</span>, G0 <span class="op">=</span> <span class="va">G0</span>, Y0 <span class="op">=</span> <span class="va">Y0</span>, Z0 <span class="op">=</span> <span class="va">Z0</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/make_parameters_MYZ_GeRM_ode.html">make_parameters_MYZ_GeRM_ode</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, g <span class="op">=</span> <span class="va">g</span>, sigma <span class="op">=</span> <span class="va">sigma</span>, calK <span class="op">=</span> <span class="va">calK</span>, tau <span class="op">=</span> <span class="va">tau</span>, f <span class="op">=</span> <span class="va">f</span>, q <span class="op">=</span> <span class="va">q</span>, nu <span class="op">=</span> <span class="va">nu</span>, eggsPerBatch <span class="op">=</span> <span class="va">eggsPerBatch</span>, M0 <span class="op">=</span> <span class="va">M0</span>, G0 <span class="op">=</span> <span class="va">G0</span>, Y0 <span class="op">=</span> <span class="va">Y0</span>, Z0 <span class="op">=</span> <span class="va">Z0</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="human-parameters">Human Parameters<a class="anchor" aria-label="anchor" href="#human-parameters"></a>

@@ -38,13 +38,13 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Functions</a>
 </li>
-<li class="nav-item dropdown">
+<li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/ex_534.html">5-3-4 Spatial Example</a>
     <a class="dropdown-item" href="../articles/spat_metric.html">Spatial Metrics</a>
-    <a class="dropdown-item" href="../articles/vc_lemenach">Vector Control Example</a>
-    <a class="dropdown-item" href="../articles/Contributing">Contributing</a>
+    <a class="dropdown-item" href="../articles/vc_lemenach.html">Vector Control Example</a>
+    <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
   </div>
 </li>
 <li class="nav-item dropdown">
@@ -103,88 +103,654 @@
     
 <p>Thank you for taking the time to contribute to <strong>exDE</strong>
 (Extensible Differential Equations for mosquito-borne pathogen
-modeling).</p>
+modeling). In this document we will explain the following topics:</p>
+<ol style="list-style-type: decimal">
+<li>What is our Git workflow?</li>
+<li>How is the R package organized?</li>
+<li>If I am making a large addition (e.g. a new human disease model),
+what should I add to the package?</li>
+<li>After making changes locally, how to rebuild the package and run
+tests?</li>
+<li>How to make a good pull request (PR), and how should reviewers
+review pull requests?</li>
+<li>If the GitHub continuous integration (CI) tests fail, how to
+diagnose the problems and address them?</li>
+<li>How to get ready for a version update (for core dev team)?</li>
+<li>If I find a bug or something I just can’t figure out, how to ask for
+help?</li>
+</ol>
+<p>This document is intended to be a complete guide on how to get
+started developing with <strong>exDE</strong>. As this document is part
+of the package, if you find something about it incorrect, baffling, or
+just have a suggestion, please follow the steps for bug/issue reporting
+to let us know!</p>
 <div class="section level2">
-<h2 id="issues">Issues<a class="anchor" aria-label="anchor" href="#issues"></a>
+<h2 id="sec1">1. Git workflow<a class="anchor" aria-label="anchor" href="#sec1"></a>
 </h2>
-<p>If you find a bug, have a question about how to use a feature that
-does not have sufficient documentation, or have a suggestion for
-improvement, please <a href="https://github.com/dd-harp/exDE/issues" class="external-link">leave an issue</a> at our
-GitHub repo.</p>
-<p>For bug reports please include:</p>
+<p>The <strong>exDE</strong> project is hosted on GitHub (<a href="https://github.com/dd-harp/exDE" class="external-link">at this repository</a>), and we
+use a Git workflow based loosely on “Gitflow”, described in great detail
+<a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow" class="external-link">here</a>.
+A Git workflow is a way to use the repository in such a way to invite
+collaboration in an organized way that protects the latest stable
+version of the software from unintended changes.</p>
+<p>Our workflow is designed around branches. The <code>main</code>,
+<code>dev</code>, and <code>gh-pages</code> branches always exist in the
+repository. Other branches exist as long as the person(s) working on
+them need them, and should be deleted after they have been merged into
+<code>dev</code>.</p>
+<ul>
+<li>
+<code>main</code>: this is the branch that contains the latest
+version release of <strong>exDE</strong>, and when it is updated the <a href="https://cran.r-project.org/package=exDE" class="external-link">CRAN version</a> will
+also be updated. PRs should not be submitted to it except by the core
+dev team, as updated to <code>main</code> will mean we need to update
+the package on CRAN and do various other housekeeping tasks to accompany
+a version update (i.e. create an archival <a href="https://github.com/dd-harp/exDE/releases" class="external-link">release</a> once the
+update is accepted by CRAN).</li>
+<li>
+<code>dev</code>: this is the branch that all PRs from collaborators
+should be made to. The version of the code at <code>dev</code> should
+always be useable (i.e. pass all automated tests), and will contain the
+latest cutting edge features. Periodically when <code>dev</code> has
+accumulated a sufficient number of new features, a member of the core
+dev team will make a PR from <code>dev</code> into <code>main</code>.
+Because after <code>main</code> is updated we will update the CRAN
+package, these should not be too often, as CRAN themselves request that
+package maintainers submit updates <a href="https://cran.r-project.org/web/packages/policies.html#Submission" class="external-link">“no
+more than every 1–2 months”</a>.</li>
+<li>
+<code>gh-pages</code>: this branch exists to support our GitHub
+pages website (the one you are browsing right now). It is updated
+automatically by our <a href="https://github.com/dd-harp/exDE/blob/main/.github/workflows/pkgdown.yaml" class="external-link">pkgdown
+continuous integration workflow</a> which rebuilds the website when
+<code>main</code> is pushed to (i.e. when a PR is merged into
+<code>main</code>). <code>gh-pages</code> should be considered a
+“read-only” branch, even for the core dev team.</li>
+<li>
+<code>feat/*</code>: branches starting with <code>feat/</code>
+should be how collaborators (and core dev) names branches which are
+updating or including new features, including but not limited to code,
+documentation, or tests. For example, a branch which improved
+documentation for this document could be called
+<code>feat/UpdateContributing</code>. After the PR from a
+<code>feat/</code> branch is merged into <code>dev</code>, that
+<code>feat/</code> branch should be deleted. PRs should never be made
+from <code>feat/</code> branches into <code>main</code>.</li>
+<li>
+<code>bugfix/*</code>: for small bugfixes (spelling errors, misnamed
+variables, etc), it may be appropriate to make a <code>bugfix/</code>
+branch. The same rules apply to these as for <code>feat/</code>
+branches.</li>
+</ul>
+<p>Some of our branches use <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches" class="external-link">GitHub’s
+branch protection rules</a> to enforce these rules. Core dev team
+members can access these by going to Settings -&gt; Branches. Both
+<code>main</code> and <code>dev</code> are protected from deletion. PRs
+made to <code>dev</code> must be reviewed and approved by at least 1
+reviewer before they are allowed to be merged.</p>
+<div class="section level3">
+<h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h3>
+<p>Let’s say you have a great idea for a new feature, which is a change
+to improve this document. Here’s how you would get started with our Git
+workflow to get your feature on the road to being merged into the
+<strong>exDE</strong> software.</p>
+<p>Please note, we assume some familiarity with Git commands here. For a
+reference on the meaning of these commands, please see the <a href="https://git-scm.com/docs" class="external-link">Git documentation</a>.</p>
+<ol style="list-style-type: decimal">
+<li>To start to work on <strong>exDE</strong>, you should first clone
+the repository. In a terminal window, navigate to the directory you want
+the <code>exDE</code> folder to appear in, and then run
+<code>git clone git@github.com:dd-harp/exDE.git</code>, if you use SSH
+keys, or <code>git clone https://github.com/dd-harp/exDE.git</code> to
+clone with HTTPS. These links can be found if you click the green “Code”
+button from the <a href="https://github.com/dd-harp/exDE" class="external-link">main
+repository page</a>.</li>
+<li>Once you clone the repository, go inside it with
+<code>cd exDE</code>. Then run <code>git fetch --all</code> which
+retrieves information about all the branches on the remote (the
+repository on the GitHub website) into your local repository (the one on
+your computer).</li>
+<li>Now you will switch to the <code>dev</code> branch by doing
+<code>git checkout dev</code>. You can make sure it’s up to date by
+running <code>git pull origin dev</code>.</li>
+<li>Let’s say you want to call your new feature branch
+<code>feat/UpdateContributing</code>. You can make it and switch to it
+by running <code>git checkout -b feat/UpdateContributing</code>.</li>
+<li>To push this new branch to the remote repository, run
+<code>git push origin feat/UpdateContributing</code>. It will now appear
+in the <a href="https://github.com/dd-harp/exDE/branches" class="external-link">list of
+branches</a>.</li>
+<li>Now, make your changes! We recommend editing the package in <a href="https://posit.co/products/open-source/rstudio/" class="external-link">RStudio</a> using
+the R project file <code>exDE.Rproj</code> in the repository. This will
+be explained more in Section <a href="#sec3">3</a>.</li>
+<li>Once you are ready to push your changes, use <code>git add</code> to
+either add files to a commit one by one, or if you know you want to add
+all new and/or modified files, you can use <code>git add .</code>.</li>
+<li>Run
+<code>git commit -m "your message explaining what these changes do"</code>
+to make a commit with a message. We do not mind many small commits, so
+if that is your Git style, please do not feel pressure to only make
+large commits.</li>
+<li>Now <code>git push origin feat/UpdateContributing</code> to push the
+commit to the remote branch <code>feat/UpdateContributing</code>! If you
+navigate to that branch on the GitHub repository, you should see your
+changes.</li>
+</ol>
+<p>Now repeat steps 6 to 9 until you are ready to start testing your
+changes and submit a pull request (covered in Sections <a href="#sec4">4</a> and <a href="#sec5">5</a>).</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="sec2">2. The <strong>exDE</strong> R package<a class="anchor" aria-label="anchor" href="#sec2"></a>
+</h2>
+<p><strong>exDE</strong> is an R package, so if you are going to be
+making substantial changes, it is necessary to have a sense of how it is
+organized and how the package must be rebuilt for creating
+documentation, exporting functions, and testing. The most extensive
+documentation for how an R package is structured comes from the official
+R manual, <a href="https://cran.r-project.org/doc/manuals/R-exts.html" class="external-link">Writing R
+Extensions</a>. A shorter guide with tips on current best practice is
+the book <a href="https://r-pkgs.org/" class="external-link">R Packages</a>, if you are
+unfamiliar with R packages, we reccomend briefly skimming the book as a
+starting point.</p>
+<p>The building of <strong>exDE</strong> is supported by <a href="https://pkgdown.r-lib.org/index.html" class="external-link">pkgdown</a>, which is
+responsible for automatically building the documentation website you are
+browsing right now, and <a href="https://testthat.r-lib.org/" class="external-link">testthat</a> which is used to test
+the package.</p>
+<p>Some files in the top level directory that are important to be aware
+of are:</p>
+<ul>
+<li>
+<code>_pkgdown.yml</code>: this controls how the website is
+generated, and is explained in <a href="https://pkgdown.r-lib.org/articles/pkgdown.html" class="external-link">this article</a>.
+If you add or delete functions or objects with documentation to the
+package, or add or delete vignettes, you must modify this file for the
+website to build properly.</li>
+<li>
+<code>DESCRIPTION</code>: this file provides critical information
+about the package, and documentation for it is at the <a href="https://cran.r-project.org/doc/manuals/R-exts.html#The-DESCRIPTION-file" class="external-link">official
+manual</a> and the <a href="https://r-pkgs.org/metadata.html" class="external-link">R packages
+book</a>. It should be updated only for version releases, to include
+additional authors, or to add additional packages to
+<code>Imports</code> or <code>Suggests</code>.</li>
+<li>
+<code>NAMESPACE</code>: a <em>read-only</em> file produced when
+running <a href="https://roxygen2.r-lib.org/" class="external-link">roxygen2</a> to build
+documentation for the package, it tells R what functions are exported by
+this package into a user’s R session when the load <strong>exDE</strong>
+with <code><a href="https://dd-harp.github.io/exDE/">library(exDE)</a></code>. It should never be modified by
+hand.</li>
+<li>
+<code>NEWS.md</code>: the NEWS page on the package’s <a href="https://cran.r-project.org/package=exDE" class="external-link">CRAN page</a> as well as
+the News tab on the <a href="https://dd-harp.github.io/exDE/">GitHub
+pages website</a> are built from this file; it should only be modified
+by the dev team when ready to update <code>main</code> with a new
+version. For more information, see the <code><a href="https://rdrr.io/r/utils/news.html" class="external-link">utils::news</a></code> help
+file.</li>
+<li>
+<code>README.md</code>: this is the main readme file which is
+displayed on the GitHub repository, the main page of the <a href="https://dd-harp.github.io/exDE/">GitHub pages website</a>, and the
+README page on the package’s <a href="https://cran.r-project.org/package=exDE" class="external-link">CRAN page</a>.</li>
+</ul>
+<p>The rest of the package is organized in directories. For more detail,
+we recommend reading the guides linked to earlier.</p>
+<ul>
+<li>
+<code>.github/</code>: files that control <a href="https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions" class="external-link">GitHub
+Actions</a> used to automatically test the package when a PR is made,
+automatically build the package website, and automatically check code
+coverage (% of code checked in tests). Much more detail will be given in
+Section <a href="#sec6">6</a>.</li>
+<li>
+<code>docs/</code>: this contains the pkgdown website which is built
+and pushed to <code>gh-pages</code> automatically by a GitHub Action. If
+you trigger a manual (local) build of the website to test something
+using <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site</a></code>, it will build in this folder.
+This folder should be considered “read-only”.</li>
+<li>
+<code>inst/</code>: this folder serves many purposes for general R
+packages (see resources above for details), but currently contains the
+<code>CITATION</code> file used to generate the citation found in
+<code><a href="https://rdrr.io/r/utils/citation.html" class="external-link">utils::citation</a></code>.</li>
+<li>
+<code>man/</code>: this folder contains the package function/object
+documentation automatically generated by <a href="https://roxygen2.r-lib.org/" class="external-link">roxygen2</a>, and should be
+considered “read-only”.</li>
+<li>
+<code>R/</code>: the source code of the package lives here; we will
+describe below the naming convention of the files so you can quickly
+identify where existing code is, or how to organize and name new
+code.</li>
+<li>
+<code>tests/</code>: within this folder is a sub-directory
+<code>testthat/</code> which contains all the automated tests included
+in the package. Most of them test that models initialized at equilibrium
+remain at equilibrium after being integrated for some time.</li>
+<li>
+<code>vignettes/</code>: this folder contains .Rmd files contains
+the vignettes of the R package, longer form articles that document
+specific functionality in <strong>exDE</strong>. They are available on
+the <a href="https://dd-harp.github.io/exDE/">GitHub pages website</a>
+via the top drop down menus and the package’s <a href="https://cran.r-project.org/package=exDE" class="external-link">CRAN page</a>.</li>
+</ul>
+<div class="section level3">
+<h3 id="r-folder">
+<code>R/</code> folder<a class="anchor" aria-label="anchor" href="#r-folder"></a>
+</h3>
+<p>Each model component will have a “base” file ending in
+<code>-interface</code> that defines the generic interface which any
+model for that component must implement. For example
+<code>human-interface.R</code> defines the generic methods any human
+disease model must implement and <code>human-SIS.R</code> defines
+specific methods for the SIS model of human disease dynamics.</p>
+<ul>
+<li>
+<strong>Adult mosquito component</strong>: base file
+<code>adult-interface.R</code>
+<ul>
+<li>
+<code>adult-GeRM.R</code>: the generalized Ross-Macdonald model of
+adult mosquito dynamics.</li>
+</ul>
+</li>
+<li>
+<strong>Aquatic mosquito component</strong>: base file
+<code>aquatic-interface.R</code>
+<ul>
+<li>
+<code>aquatic-basic.R</code>: the basic competition model of aquatic
+mosquito dynamics.</li>
+<li>
+<code>aquatic-trace.R</code>: the trace (exogenously forced) model
+of aquatic mosquito dynamics.</li>
+</ul>
+</li>
+<li>
+<strong>Human disease component</strong>: base file
+<code>human-interface.R</code>
+<ul>
+<li>
+<code>human-SIS.R</code>: the SIS model of human disease
+dynamics.</li>
+<li>
+<code>human-SIP.R</code>: the SIP model of human disease
+dynamics.</li>
+<li>
+<code>human-hMoI.R</code>: the hybrid MoI model of human disease
+dynamics.</li>
+</ul>
+</li>
+<li>
+<strong>Exogenous forcing component</strong>: base file
+<code>exogeneous-interface.R</code>
+<ul>
+<li>
+<code>exogenous-null</code>: null (no) exogenous forcing.</li>
+</ul>
+</li>
+<li>
+<strong>Vector control component</strong>: base file
+<code>vc-interface.R</code>
+<ul>
+<li>
+<code>vc-null.R</code>: null (no) vector control.</li>
+<li>
+<code>vc-lemenach.R</code>: the Le Menach model of ITN based adult
+vector control.</li>
+</ul>
+</li>
+<li>
+<code>diffeqn.R</code>: the <strong>exDE</strong> generalized
+differential equations which implement the framework; these should not
+typically be modified.</li>
+<li>
+<code>metrics.R</code>: spatial metrics (as defined in the <a href="https://www.medrxiv.org/content/10.1101/2022.11.07.22282044v1" class="external-link">Spatial
+Dynamics paper</a>)</li>
+<li>
+<code>utils.R</code>: utility functions</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="sec3">3. Making large changes or additions to <strong>exDE</strong><a class="anchor" aria-label="anchor" href="#sec3"></a>
+</h2>
+<p>After reading Section <a href="#sec2">2</a> you should have a
+reasonable grasp of how <strong>exDE</strong> as an R package is
+organized, but to really understand how to implement new models, more
+detail is necessary on what files one should actually modify or add. We
+will also describe best practices on what contributors should add to the
+package when making a large change.</p>
+<p>Let’s say someone wanted to add a new human disease model, say an SIR
+model. The basic steps are below:</p>
+<ol style="list-style-type: decimal">
+<li>Within <code>R/</code>, make a new file <code>human-SIR.R</code> and
+implement all generic methods from <code>human-interface.R</code> for
+your new model. Also make a function named something like
+<code>make_parameters_human_SIR</code> that will modify the parameter
+environment to implement the SIR model. You can check the other human
+disease models as reference.</li>
+<li>In RStudio, run Build -&gt; Document (control/command + shift + D)
+to run roxygen2 which builds functions documentation and updates the
+<code>NAMESPACE</code> with your new functions. Then run Build -&gt;
+Install Package (control/command + shift + B) to re-install and load the
+package. This only works if you have opened the <code>exDE.Rproj</code>
+file in RStudio as a project.</li>
+<li>Make a new vignette named something like “human_vignette.Rmd” in
+<code>vignettes/</code> describing the model and its parameters, and
+perhaps a simple simulation of it.</li>
+<li>Make a test named something like <code>test-human-sir.R</code> in
+<code>tests/testthat/</code> which tests the SIR model behaves as
+expected under conditions where the outcome is known (e.g. when no
+infected persons are present, the number of susceptible persons can
+never decrease). Please see the <a href="https://testthat.r-lib.org/" class="external-link">testthat documentation</a> and the <a href="https://r-pkgs.org/testing-basics.html" class="external-link">R packages chapter on
+testing</a> for more information.</li>
+<li>If you added new functions and vignettes, add them to the
+<code>_pkgdown.yml</code> file in the appropriate place. You can use
+<code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site</a></code> at this point to test that the website
+still builds.</li>
+<li>We will go over more details about how to test your package locally
+in Section <a href="#sec4">4</a> and how to make a pull request in
+Section <a href="#sec5">5</a>.</li>
+</ol>
+<p>When writing a new model or modifying an existing one, please note
+that <strong>exDE</strong> achieves modularity through the extensive use
+of S3 dispatch, which is similar to single dispatch from other
+programming languages. More details are at <code><a href="https://rdrr.io/r/base/UseMethod.html" class="external-link">base::UseMethod</a></code>
+or the <a href="https://adv-r.hadley.nz/s3.html" class="external-link">S3 chapter</a> of
+Advanced R. Use of S3 dispatch appears extensively in the source code of
+<strong>exDE</strong>.</p>
+<p>If writing new functions, they must be documented. Again, the
+existing code provides a good reference. <strong>exDE</strong> depends
+upon <a href="https://roxygen2.r-lib.org/index.html" class="external-link">roxygen2</a> to
+build documentation, and its website provides help on how to write the
+appropriate tags (e.g. <code>#' @export</code> which makes that function
+appear in the <strong>exDE</strong> <code>NAMESPACE</code>).</p>
+</div>
+<div class="section level2">
+<h2 id="sec4">4. How to test locally<a class="anchor" aria-label="anchor" href="#sec4"></a>
+</h2>
+<p>After making changes to <strong>exDE</strong> but before submitting a
+PR, you should take some time to do local tests to make sure that the
+package still works. It is extremely important to make sure that after
+you change the code, to re-document and re-install the package. From
+RStudio, Build -&gt; Document (control/command + shift + D) re-documents
+the package and Build -&gt; Install Package (control/command + shift +
+B) re-installs the package. Without doing this your package
+<code>NAMESPACE</code> file may not include your changes, and
+<code><a href="https://dd-harp.github.io/exDE/">library(exDE)</a></code> will not be using the most recent version of
+your code.</p>
+<div class="section level3">
+<h3 id="testthat">testthat<a class="anchor" aria-label="anchor" href="#testthat"></a>
+</h3>
+<p>If you have added tests, or changed existing code and want to make
+sure that tests still pass, run <code><a href="https://testthat.r-lib.org/reference/test_package.html" class="external-link">testthat::test_local</a></code> to run
+tests. If an error or warning appears, re-run all tests again to make
+sure it is not a false positive (due to numerical precision errors, some
+small fraction of tests will give false positive results). If the error
+comes up consistently, please fix the offending code before continuing
+onward.</p>
+<p>Remember, the tests run in <code>tests/testthat</code> can only check
+the code you have specifically put there to be tested! Any large changes
+should have tests to cover functionality under cases where expected
+behavior is known in advance. If you are unsure how to make appropriate
+tests, please either consult existing test files, or make a PR without
+the tests and tell your reviewer that you have not yet included tests
+and need help making them.</p>
+</div>
+<div class="section level3">
+<h3 id="devtools">devtools<a class="anchor" aria-label="anchor" href="#devtools"></a>
+</h3>
+<p>A crucial function to use is <code>devtools::check</code>; it
+includes running local tests but also an extensive set of additional
+checks from <code>R CMD check</code> (see the <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Checking-packages" class="external-link">official
+documentation</a> for exactly what it does). Because this also rebuilds
+vignettes, it takes longer that just running tests, so it is normally
+done more seldom, when one is ready to submit a PR.</p>
+</div>
+<div class="section level3">
+<h3 id="pkgdown">pkgdown<a class="anchor" aria-label="anchor" href="#pkgdown"></a>
+</h3>
+<p>It is always a good idea to make sure the package website still
+builds after making changes. If you have added or removed and functions,
+changed any function names, or added or removed and vignettes, you will
+need to have updated <code>_pkgdown.yml</code> accordingly. To make sure
+everything works as expected, run <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site</a></code>,
+which will build the website locally in the <code>docs/</code> folder
+(and will open automatically in your browser when it is done). Please
+address problems until it builds successfully.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="sec5">5. How to make or review a pull request<a class="anchor" aria-label="anchor" href="#sec5"></a>
+</h2>
+<div class="section level3">
+<h3 id="how-to-make-a-pr">How to make a PR<a class="anchor" aria-label="anchor" href="#how-to-make-a-pr"></a>
+</h3>
+<p>At this point, you might be a little tired of reading, and maybe
+somewhat anxious about actually contributing at all. So it is a good
+time to say that making a PR can absolutely be a collaborative process.
+If after following the previous sections your local tests are not
+working, but you think your idea or new feature ought to work and would
+be a good addition to <strong>exDE</strong>, please consider submitting
+a PR and tagging other persons on the dev team who can help you get it
+past the finish line.</p>
+<p>To make a pull request, first, navigate to your branch where you have
+made changes (i.e. a <code>feat/*</code> or <code>bugfix/*</code>
+branch). To open the PR, follow the <a href="https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/working-with-your-remote-repository-on-github-or-github-enterprise/creating-an-issue-or-pull-request#creating-a-pull-request" class="external-link">GitHub
+documentation</a>, and remember that PRs should only be made into
+<code>dev</code> (e.g. with <code>dev</code> as the “base”).</p>
+<p>When making the PR, you will be prompted to enter a description which
+explains what the PR does. Please ensure that a PR does not include too
+many disparate modifications, and that it represents a self-contained
+piece of work (e.g. do not submit PRs that change both a human and a
+mosquito model; please submit two separate PRs for each). Please make
+sure the text description contains the following elements:</p>
+<ul>
+<li>If the PR addresses or solves an active issue, tag it in the PR
+(i.e. if it addresses issue 75, type in the text box <code>#75</code>
+and GitHub will automatically link the two; you can also just type
+<code>#</code> and GitHub will begin to auto-complete issues).</li>
+<li>If the PR adds new files in <code>R/</code>,
+<code>tests/testthat</code>, or <code>vignettes</code> please list them
+and write a brief description about what is in each one. This does not
+apply to any auto-generated files (i.e. anything in <code>docs/</code>,
+<code>man/</code>, or <code>NAMESPACE</code>).</li>
+<li>If the PR significantly modifies any files, please list them and
+write brief descriptions about what was changed. This does not apply to
+any auto-generated files (i.e. anything in <code>docs/</code>,
+<code>man/</code>, or <code>NAMESPACE</code>).</li>
+<li>If this is an in-progress PR (i.e. tests do not pass), please tag
+someone on the team for help and describe what specific problems you are
+encountering.</li>
+<li>Finally, this is crucial, select someone to review your PR using the
+“Reviewers” tab in the upper right hand corner of the page. Your PR
+cannot be merged into <code>dev</code> until it has passed review by at
+least one team member.</li>
+</ul>
+<p>At this point the review process can start. Your reviewer may ask for
+additional changes, remember to keep making those in the branch you have
+been working in. After your PR has been merged with <code>dev</code>,
+please delete the old <code>feat/*</code> or <code>bugfix/*</code>
+branch.</p>
+</div>
+<div class="section level3">
+<h3 id="how-to-review-a-pr">How to review a PR<a class="anchor" aria-label="anchor" href="#how-to-review-a-pr"></a>
+</h3>
+<p>If you are requested to be a reviewer, it’s your responsibility
+to:</p>
+<ul>
+<li>Evaluate whether or not the proposed addition is within the scope of
+the software (e.g. directly-transmitted diseases are outside the scope
+of <strong>exDE</strong>).</li>
+<li>Ensure the PR is being made to <code>dev</code> only.</li>
+<li>If the code is not passing tests, identify problems and suggest
+solutions to the author (see Section <a href="#sec6">6</a> for more
+details on how to do this).</li>
+<li>If the PR makes significant modifications to <strong>exDE</strong>,
+work with the author (if they have not already done so) until the PR has
+tests and vignettes to document the new functions, and that those are
+added to the <code>_pkgdown.yml</code> file so the new features appear
+on the website.</li>
+<li>While in general, <strong>exDE</strong>’s design philosophy is that
+elegant and clear design that mirrors the mathematical description of
+the model is to be preferred over fast code in cases where there is a
+decision to be made, please correct obvious inefficiencies (e.g. be
+aware of matrix operations and try to structure parentheses to minimize
+computational cost).</li>
+<li>If you are not confident that you can provide a helpful review which
+addresses (possibly) mathematical, conceptual, design, and software
+issues related to the PR, please either pass it off to someone else or
+bring in additional reviewers.</li>
+<li>Please either be familiar with or review the GitHub docs on <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews" class="external-link">how
+to review PRs</a>.</li>
+</ul>
+<p>In some cases it may be necessary to investigate issues locally, on
+branch being merged. Assuming the branch is called
+<code>feat/MyFeature</code>, to do this:</p>
+<ol style="list-style-type: decimal">
+<li>Navigate to the <code>exDE</code> repository on your computer</li>
+<li>
+<code>git fetch --all</code> to update the information on what
+branches are present in the remote</li>
+<li>
+<code>git checkout -b feat/MyFeature</code> to switch to that
+branch</li>
+<li>
+<code>git pull origin feat/MyFeature</code> to make sure it includes
+the most recent commits</li>
+<li>Investigate locally, you may push fixes to
+<code>feat/MyFeature</code> but be sure to alert the PR author that you
+have done so as they may not expect a reviewer to make changes to their
+branch</li>
+</ol>
+<p>After any problems have been resolved and the CI tests pass, the PR
+is ready to be merged into <code>dev</code>! You may want to delete the
+merged branch or let the author know they can do so at this point.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="sec6">6. How to deal with continuous integration<a class="anchor" aria-label="anchor" href="#sec6"></a>
+</h2>
+<p>In <strong>exDE</strong> we use <a href="https://docs.github.com/en/actions" class="external-link">GitHub Actions</a> to
+automatically run continuous integration workflows, which are automated
+scripts which run when triggered by certain events (i.e. PRs or pushing
+to certain branches). The 3 workflows we run can be found in
+<code>.github/workflows</code>:</p>
+<ul>
+<li>
+<code>check-standard.yaml</code>: this runs <code>R CMD check</code>
+on several common operating systems (see <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Checking-packages" class="external-link">official
+documentation</a> for what it does). This runs any time a pull request
+is made to <code>main</code> or <code>dev</code>.</li>
+<li>
+<code>pkgdown.yaml</code>: this runs
+<code><a href="https://pkgdown.r-lib.org/reference/build_site_github_pages.html" class="external-link">pkgdown::build_site_github_pages</a></code> and pushes the new website
+to the <code>gh-pages</code> branch. It runs on pushes to
+<code>main</code> (i.e. when a PR is merged into <code>main</code>) and
+when a new <a href="https://github.com/dd-harp/exDE/releases" class="external-link">GitHub
+release</a> is made.</li>
+<li>
+<code>test-coverage.yaml</code>: this runs
+<code>covr::codecov</code> which updates <strong>exDE</strong>’s <a href="https://app.codecov.io/gh/dd-harp/exDE" class="external-link">codecov</a> integration.
+It runs on pushes to <code>main</code>.</li>
+</ul>
+<p>These three workflows are standard for R packages, and originated
+from <a href="https://github.com/r-lib/actions" class="external-link">https://github.com/r-lib/actions</a>.</p>
+<p>These workflows may encounter errors. Do not panic when this happens.
+Errors can be investigated by clicking on the failing workflow in the <a href="https://github.com/dd-harp/exDE/actions" class="external-link">Actions</a> tab, and then
+by clicking on the specific failing job(s) on the left hand side of the
+screen under “Jobs”. The errors will then be displayed. Errors in
+<code>R-CMD-check</code> stemming from tests may sometimes be due to
+numerical errors; because <strong>exDE</strong> can only solve the model
+up to floating point errors, sometimes false positive errors are
+reported when the numerical routines encounter problems. Restart the
+tests by clicking “Re-run jobs” in the upper right hand and see if the
+errors persist. Errors in <code>pkgdown</code> are most likely cause by
+an ill-formed <code>_pkgdown.yml</code> file, please consult the <a href="https://pkgdown.r-lib.org/articles/pkgdown.html" class="external-link">pkgdown
+documentation</a> or post an issue to get more help.</p>
+<p>Finally if you encounter truly strange errors from the workflows
+(e.g. software not being installed, strange operating specific errors,
+etc), it may be because the .yaml workflow scripts are outdated and need
+to be updated. In this case find the latest updated workflow scripts at
+<a href="https://github.com/r-lib/actions/tree/v2-branch/examples" class="external-link">https://github.com/r-lib/actions/tree/v2-branch/examples</a>.
+When doing this, be careful to not overwrite the existing rules about
+when to execute the workflows (i.e. only update from the line
+<code>name</code> onward). You can push an update to a branch
+<code>bugfix/check-standard.yaml</code>, to update that workflow, for
+example.</p>
+</div>
+<div class="section level2">
+<h2 id="sec7">7. How to get ready for a version update<a class="anchor" aria-label="anchor" href="#sec7"></a>
+</h2>
+<p>(For dev team only)</p>
+<p>When a sufficient number of new features have been added to
+<code>dev</code> that the version number of <strong>exDE</strong> should
+be increased, and a sufficient duration of time has passed since the
+last update to CRAN (<a href="https://cran.r-project.org/web/packages/policies.html#Submission" class="external-link">“no
+more than every 1–2 months”</a>), it is time to make a PR from
+<code>dev</code> to <code>main</code> to get ready to update the
+software. Before doing so please make sure:</p>
+<ul>
+<li>there are no open PRs (please resolve or close these before updating
+the version)</li>
+<li>all <code>feat/*</code> and <code>bugfix/*</code> branches have been
+deleted after resolving open PRs</li>
+<li>update <code>NEWS.md</code> with the new version number and
+significant additions (consider making links in <code>NEWS.md</code> to
+the PRs that are included in this update)</li>
+<li>update <code>DESCRIPTION</code> with the new version number</li>
+<li>make sure the website still builds (test with
+<code>devtools::build_site</code>)</li>
+<li>please use the <a href="https://r-hub.github.io/rhub/" class="external-link">rhub builder
+service</a> to check that the package builds without errors on Windows
+and using CRAN standards (you can use the function
+<code>rhub::check_for_cran</code> to do this)</li>
+</ul>
+<p>You are now ready to create a PR from <code>dev</code> to
+<code>main</code>. After following the standard procedure (Section <a href="#sec5">5</a>) with the exception of deleting <code>dev</code>
+(protected from deletion), you are ready to update the <a href="https://cran.r-project.org/package=exDE" class="external-link">CRAN version</a> of
+<strong>exDE</strong>.</p>
+<p>To do so:</p>
+<ul>
+<li>make or update the file <code>cran-comments.md</code> informing CRAN
+this is a version update, all tests pass, etc; follow the guide <a href="https://r-pkgs.org/release.html#sec-release-process" class="external-link">at the R
+packages book</a>.</li>
+<li>use <code>devtools::release</code> to actually submit the package to
+CRAN, this function asks many useful questions to make sure that your
+package is actually ready to be submitted.</li>
+<li>
+<em>after</em> the new version has been accepted by CRAN make a new
+<a href="https://github.com/dd-harp/exDE/releases" class="external-link">GitHub release</a> to
+accompany the new version.</li>
+<li>celebrate, or go rest.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="sec8">8. How to report bugs or raise issues?<a class="anchor" aria-label="anchor" href="#sec8"></a>
+</h2>
+<p>We expect that the most common way for most users to interact with
+GitHub will be through the <a href="https://github.com/dd-harp/exDE/issues" class="external-link">issues tab</a>. This
+should be the first point of contact with the <strong>exDE</strong>
+team, please do not hesitate to raise issues which may either be full
+bug reports, questions, or comments/suggestions. We prefer more rather
+than less communication. If you are considering large feature changes,
+it may be nice to discuss with the dev team in an issue first before
+making a <code>feat/*</code> branch and submitting a PR; this is also a
+great time to solicit collaboration on feature development!</p>
+<p>If you do find a bug, please remember to include a minimum
+reproducible example of the bug in R code in addition to describing what
+is wrong. Please remember to include:</p>
 <ul>
 <li>
 <strong>exDE</strong> version</li>
 <li>Operating System</li>
 <li>R version</li>
 <li>Steps to recreate</li>
-<li>Expected behaviour</li>
-<li>Actual behaviour</li>
+<li>Expected behavior</li>
+<li>Actual behavior</li>
+<li>Minimum reproducible example (R code)</li>
 </ul>
-</div>
-<div class="section level2">
-<h2 id="git">Git<a class="anchor" aria-label="anchor" href="#git"></a>
-</h2>
-<p>We use Git on this project. Which means we use <code>main</code>,
-<code>dev</code>, <code>feat/*</code>, <code>bug/*</code>, and
-<code>hotfix/*</code> branches. Please refer to <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow" class="external-link">this
-post</a> for more information of each type of branch.</p>
-<ul>
-<li>
-<code>main</code>: this branch always stores the last “production”
-release of the software, and is a protected branch. A pull request
-should not be submitted to <code>main</code> unless it is from
-<code>dev</code>, meaning that the software version should be
-updated.</li>
-<li>
-<code>dev</code>: all pull requests from users should be made to the
-<code>dev</code> branch. This branch is protected from deletion.</li>
-<li>
-<code>feat</code>: new and significantly enhanced features are made
-in <code>feat</code> branches before being merged with <code>dev</code>.
-After a <code>feat/*</code> branch is merged with <code>dev</code>, it
-can be deleted.</li>
-<li>
-<code>bug</code>: these branches fix bugs, usually after being
-raised as an issue. After a <code>bug/*</code> branch is merged with
-<code>dev</code>, it can be deleted.</li>
-<li>
-<code>hotfix</code>: the difference between a <code>bug/*</code> and
-<code>hotfix/*</code> branch is <code>hotfix</code> is for small quick
-fixes (misspellings, incorrect arguments, etc.) and are short-lived.
-After being merged with <code>dev</code>, they can be deleted.</li>
-</ul>
-<p>We periodically merge <code>dev</code> into <code>main</code> for
-release updates. These releases will appear on the <a href="https://github.com/dd-harp/exDE/releases" class="external-link">GitHub releases
-page</a>.</p>
-</div>
-<div class="section level2">
-<h2 id="continuous-integration">Continuous integration<a class="anchor" aria-label="anchor" href="#continuous-integration"></a>
-</h2>
-<p>We use GitHub Actions as our continuous integration platform to run
-workflows. The workflows we use are from <a href="https://github.com/r-lib/actions" class="external-link">r-lib/actions</a> for R
-packages.</p>
-<p>We run three types of workflows.</p>
-<p><a href="https://github.com/r-lib/actions/blob/master/examples/check-standard.yaml" class="external-link">R
-CMD check</a> runs during any pull request to <code>[main, dev]</code>
-branches.</p>
-<p><a href="https://github.com/r-lib/actions/blob/master/examples/test-coverage.yaml" class="external-link">Test
-coverage</a> runs during pushes to <code>[main]</code> and uses our <a href="https://app.codecov.io/gh/dd-harp/MicroMoB" class="external-link">codecov.io
-integration</a> for checking test coverage.</p>
-<p>Finally, <a href="https://github.com/r-lib/actions/blob/master/examples/pkgdown.yaml" class="external-link">pkgdown</a>
-runs during pushes to <code>[main]</code>.</p>
-<p>Please note that sometimes hard to diagnose bugs can be due to out of
-date workflows. If you find a strange or unusual bug coming from a
-workflow, this is something to consider checking.</p>
-</div>
-<div class="section level2">
-<h2 id="pull-requests">Pull Requests<a class="anchor" aria-label="anchor" href="#pull-requests"></a>
-</h2>
-<p>If making a pull request, please only use <code>dev</code> as the
-base branch. If you are adding a new feature (i.e. the pull is from a
-<code>feat/*</code> branch), please ensure you have added minimal tests
-using testthat so that the functionality of your feature can be
-tested.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
