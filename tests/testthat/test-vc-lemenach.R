@@ -73,7 +73,7 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   # set parameters
   make_parameters_exogenous_null(pars)
   make_parameters_vc_lemenach(pars)
-  make_parameters_MYZ_RM_ode(pars = pars, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M, G0 = G, Y0 = Y, Z0 = Z)
+  make_parameters_MYZ_GeRM_ode(pars = pars, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M, G0 = G, Y0 = Y, Z0 = Z)
   make_parameters_L_trace(pars = pars, Lambda = as.vector(Lambda))
   make_parameters_X_SIS(pars = pars, b = b, c = c, r = r, Psi = Psi, wf = wf, X0 = X, H = H)
   make_indices(pars = pars)

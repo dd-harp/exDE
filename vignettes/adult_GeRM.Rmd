@@ -1,11 +1,15 @@
 ---
-title: "Ross-Macdonald Adult Mosquito Model"
+title: "A Generalized Ross-Macdonald Adult Mosquito Model"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Ross-Macdonald Adult Mosquito Model}
+  %\VignetteIndexEntry{A Generalized Ross-Macdonald Adult Mosquito Model}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+```{r}
+source("../R/adult-GeRM.R")
+```
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -14,13 +18,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-The generalized Ross-Macdonald adult mosquito model fulfills the generic interface of the adult mosquito component. It includes state variables for total mosquito density $M$, gravid mosquito density $G$, infected mosquito density $Y$, and infectious mosquito density $Z$.
+The generalized Ross-Macdonald adult mosquito model fulfills the generic interface of the adult mosquito component. It was first published in this form in [Spatial Dynamics of Malaria Transmission](https://www.medrxiv.org/content/10.1101/2022.11.07.22282044v1). It includes state variables for total mosquito density $M$, gravid mosquito density $G$, infected mosquito density $Y$, and infectious mosquito density $Z$.
 
 # Differential Equations
 
 ## Delay Differential Equations
 
-These equations are implemented by `exDE::dMYZdt.RM_dde`.
+These equations are implemented by `exDE::dMYZdt.GeRM_dde`.
 
 $$
 \dot{M} = \Lambda - \Omega\cdot M 
@@ -45,7 +49,7 @@ $$
 
 ## Ordinary Differential Equations
 
-These equations are implemented by `exDE::dMYZdt.RM_ode`.
+These equations are implemented by `exDE::dMYZdt.GeRM_ode`.
 
 The system of ODEs is the same as above except for the equation giving the rate of change
 in infectious mosquito density, which becomes:
@@ -167,10 +171,10 @@ Y_eq <- as.vector(solve(diag(f*q*kappa) + Omega) %*% diag(f*q*kappa) %*% M_eq)
 Z_eq <- as.vector(Omega_inv %*% Upsilon %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
 ```
 
-Now we set up the parameter environment with the correct class using `exDE::make_parameters_MYZ_RM_ode`, and set the indices with `exDE::make_indices`. Then we can set up the initial conditions vector and use `deSolve::ode` to solve the model. Please note that we need to use `exDE::MosquitoBehavior` to set up the bionomic parameters at equilibrium which are passed to `exDE::dMYZdt`; this is necessary when running the adult mosquito component alone without the full model. Normally these values would be computed within `exDE::xDE_diffeqn`.
+Now we set up the parameter environment with the correct class using `exDE::make_parameters_MYZ_GeRM_ode`, and set the indices with `exDE::make_indices`. Then we can set up the initial conditions vector and use `deSolve::ode` to solve the model. Please note that we need to use `exDE::MosquitoBehavior` to set up the bionomic parameters at equilibrium which are passed to `exDE::dMYZdt`; this is necessary when running the adult mosquito component alone without the full model. Normally these values would be computed within `exDE::xDE_diffeqn`.
 
 ```{r, out.width = "100%"}
- make_parameters_MYZ_RM_ode(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
+ make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
   make_indices(params)
 
 y0 <- rep(NaN, 12)

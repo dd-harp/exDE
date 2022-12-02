@@ -29,7 +29,7 @@ test_that("RM models reach equilibrium", {
   params <- list2env(params)
 
   # ODE
-  make_parameters_MYZ_RM_ode(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
+  make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
   make_indices(params)
 
   # mimic MosyBehavior
@@ -86,7 +86,7 @@ test_that("RM models reach equilibrium", {
   expect_true(all(approx_equal(Lambda_eq, Lambda, tol = 1e-4)))
 
   # DDE
-  make_parameters_MYZ_RM_dde(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
+  make_parameters_MYZ_GeRM_dde(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
 
   # solve DDEs
   out <- deSolve::dede(y = y0, times = c(0, 365), func = function(t, y, pars, Lambda, kappa, MosyBehavior) {

@@ -12,9 +12,9 @@ navbar:
     - text: Spatial Metrics
       href: articles/spat_metric.html
     - text: Vector Control Example
-      href: articles/vc_lemenach
+      href: articles/vc_lemenach.html
     - text: Contributing
-      href: articles/Contributing
+      href: articles/Contributing.html
   - text: Adult Mosquito Component
     menu:
     - text: Ross-Macdonald model
@@ -83,18 +83,18 @@ reference:
   desc: |
     Specialized methods for the generalized Ross-Macdonald model of adult mosquito dynamics.
   contents:
-  - MosquitoBehavior.RM
-  - F_tau.RM
-  - F_kappa.RM_ode
-  - F_kappa.RM_dde
-  - F_Z.RM
-  - F_Z_lag.RM
-  - F_eggs.RM
-  - dMYZdt.RM_ode
-  - dMYZdt.RM_dde
-  - make_index_MYZ.RM
-  - make_parameters_MYZ_RM_ode
-  - make_parameters_MYZ_RM_dde
+  - MosquitoBehavior.GeRM
+  - F_tau.GeRM
+  - F_kappa.GeRM_ode
+  - F_kappa.GeRM_dde
+  - F_Z.GeRM
+  - F_Z_lag.GeRM
+  - F_eggs.GeRM
+  - dMYZdt.GeRM_ode
+  - dMYZdt.GeRM_dde
+  - make_index_MYZ.GeRM
+  - make_parameters_MYZ_GeRM_ode
+  - make_parameters_MYZ_GeRM_dde
 - title: Aquatic mosquito component
   desc: |
     Generic methods for the aquatic (immature) mosquito component.
