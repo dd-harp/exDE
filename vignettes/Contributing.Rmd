@@ -9,16 +9,16 @@ vignette: >
 
 Thank you for taking the time to contribute to **exDE** (Extensible Differential Equations for mosquito-borne pathogen modeling). In this document we will explain the following topics:
 
-  [1.](#sec1) What is our Git workflow?
-  [2.](#sec2) How is the R package organized?
-  [3.](#sec3) If I am making a large addition (e.g. a new human disease model), what should I add to the package?
-  [4.](#sec4) After making changes locally, how to rebuild the package and run tests?
-  [5.](#sec5) How to make a good pull request (PR), and how should reviewers review pull requests?
-  [6.](#sec6) If the GitHub continuous integration (CI) tests fail, how to diagnose the problems and address them?
-  [7.](#sec7) How to get ready for a version update (for core dev team)?
-  [8.](#sec8) If I find a bug or something I just can't figure out, how to ask for help?
+  * [1.](#sec1) What is our Git workflow?
+  * [2.](#sec2) How is the R package organized?
+  * [3.](#sec3) If I am making a large addition (e.g. a new human disease model), what should I add to the package?
+  * [4.](#sec4) After making changes locally, how to rebuild the package and run tests?
+  * [5.](#sec5) How to make a good pull request (PR), and how should reviewers review pull requests?
+  * [6.](#sec6) If the GitHub continuous integration (CI) tests fail, how to diagnose the problems and address them?
+  * [7.](#sec7) How to get ready for a version update (for core dev team)?
+  * [8.](#sec8) If I find a bug or something I just can't figure out, how to ask for help?
   
-This document is intended to be a complete guide on how to get started developing with **exDE**. As this document is part of the package, if you find something about it incorrect, baffling, or just have a suggestion, please follow the steps for bug/issue reporting to let us know!
+This document is intended to be a complete guide on how to get started developing with **exDE**. As this document is part of the package, if you find something about it incorrect, baffling, or just have a suggestion, please follow the steps for [bug/issue reporting](#sec8) to let us know!
 
 <!-- 1 --> 
 ## Git workflow {#sec1}
@@ -39,7 +39,10 @@ Some of our branches use [GitHub's branch protection rules](https://docs.github.
 
 ![](GitFlow.png)
 
-We show an example of our workflow above. The `main` branch, in blue, starts at the left side, and `dev` is created from it, below in purple. After that, two `feat/*` or `bugfix/*` branches are created from `dev` at that time, shown in green. The upper one has two updates before it is merged back into `dev`, via a pull request. After that pull request, the lower one must pull the updates from `dev` so it is working with the latest version of the code. After another update, it is ready to be merged into `dev` via a pull request. At this point, we decide that these two features are enough for a version update, so we make a pull request from `dev` into `main` to update to version 0.1. After being merged, we can again start making `feat/*` or `bugfix/*` branches from `dev`  to start developing for version 0.2!
+
+We show an example of our workflow above. 
+
+The `main` branch, in blue, starts at the left side, and `dev` is created from it, below in purple. After that, two `feat/*` or `bugfix/*` branches are created from `dev` at that time, shown in green. The upper one has two updates before it is merged back into `dev`, via a pull request. After that pull request, the lower one must pull the updates from `dev` so it is working with the latest version of the code. After another update, it is ready to be merged into `dev` via a pull request. At this point, we decide that these two features are enough for a version update, so we make a pull request from `dev` into `main` to update to version 0.1. After being merged, we can again start making `feat/*` or `bugfix/*` branches from `dev`  to start developing for version 0.2!
 
 ### Example
 
@@ -77,9 +80,9 @@ Some files in the top level directory that are important to be aware of are:
 The rest of the package is organized in directories. For more detail, we recommend reading the guides linked to earlier.
 
   * `.github/`: files that control [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) used to automatically test the package when a PR is made, automatically build the package website, and automatically check code coverage (% of code checked in tests). Much more detail will be given in Section [6](#sec6).
-  * `docs/`: this contains the pkgdown website which is built and pushed to `gh-pages` automatically by a GitHub Action. If you trigger a manual (local) build of the website to test something using `pkgdown::build_site`, it will build in this folder. This folder should be considered "read-only".
+  * `docs/`: this contains the pkgdown website which is built and pushed to `gh-pages` automatically by a GitHub Action. If you trigger a manual (local) build of the website to test something using `pkgdown::build_site`, it will build in this folder. This folder should be considered *read-only*.
   * `inst/`: this folder serves many purposes for general R packages (see resources above for details), but currently contains the `CITATION` file used to generate the citation found in `utils::citation`.
-  * `man/`: this folder contains the package function/object documentation automatically generated by [roxygen2](https://roxygen2.r-lib.org/), and should be considered "read-only".
+  * `man/`: this folder contains the package function/object documentation automatically generated by [roxygen2](https://roxygen2.r-lib.org/), and should be considered *read-only*.
   * `R/`: the source code of the package lives here; we will describe below the naming convention of the files so you can quickly identify where existing code is, or how to organize and name new code.
   * `tests/`: within this folder is a sub-directory `testthat/` which contains all the automated tests included in the package. Most of them test that models initialized at equilibrium remain at equilibrium after being integrated for some time.
   * `vignettes/`: this folder contains .Rmd files contains the vignettes of the R package, longer form articles that document specific functionality in **exDE**. They are available on the [GitHub pages website](https://dd-harp.github.io/exDE/) via the top drop down menus and the package's [CRAN page](https://cran.r-project.org/package=exDE).
@@ -127,7 +130,7 @@ If writing new functions, they must be documented. Again, the existing code prov
 <!-- 4 --> 
 ## How to test locally {#sec4}
 
-After making changes to **exDE** but before submitting a PR, you should take some time to do local tests to make sure that the package still works. It is extremely important to make sure that after you change the code, to re-document and re-install the package. From RStudio, Build -> Document (control/command + shift + D) re-documents the package and Build -> Install Package (control/command + shift + B) re-installs the package. Without doing this your package `NAMESPACE` file may not include your changes, and `library(exDE)` will not be using the most recent version of your code.
+After making changes to **exDE** but before submitting a PR, you should take some time to do local tests to make sure that the package still works. It is extremely important to make sure that after you implement changes, to re-document and re-install the package. From RStudio, Build -> Document (control/command + shift + D) re-documents the package and Build -> Install Package (control/command + shift + B) re-installs the package. Without doing this your package `NAMESPACE` file may not include your changes, and `library(exDE)` will not be using the most recent version of your code.
 
 ### testthat
 
@@ -150,11 +153,11 @@ It is always a good idea to make sure the package website still builds after mak
 
 At this point, you might be a little tired of reading, and maybe somewhat anxious about actually contributing at all. So it is a good time to say that making a PR can absolutely be a collaborative process. If after following the previous sections your local tests are not working, but you think your idea or new feature ought to work and would be a good addition to **exDE**, please consider submitting a PR and tagging other persons on the dev team who can help you get it past the finish line.
 
-To make a pull request, first, navigate to your branch where you have made changes (i.e. a `feat/*` or `bugfix/*` branch). To open the PR, follow the [GitHub documentation](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/working-with-your-remote-repository-on-github-or-github-enterprise/creating-an-issue-or-pull-request#creating-a-pull-request), and remember that PRs should only be made into `dev` (e.g. with `dev` as the "base").
+To make a pull request, first, navigate to your branch where you have made changes (i.e. a `feat/*` or `bugfix/*` branch). To open the PR, follow the [GitHub documentation](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/working-with-your-remote-repository-on-github-or-github-enterprise/creating-an-issue-or-pull-request#creating-a-pull-request) or [Atlassian documentation](https://www.atlassian.com/git/tutorials/making-a-pull-request), and remember that PRs should only be made into `dev` (e.g. with `dev` as the "base").
 
-When making the PR, you will be prompted to enter a description which explains what the PR does. Please ensure that a PR does not include too many disparate modifications, and that it represents a self-contained piece of work (e.g. do not submit PRs that change both a human and a mosquito model; please submit two separate PRs for each). Please make sure the text description contains the following elements:
+When making the PR, you will be prompted to enter a description which explains what the PR does. Please ensure that a PR does not include too many disparate modifications, and that it represents a self-contained piece of work (i.e. do not submit PRs that change both a human and a mosquito model; please submit two separate PRs for each). Please make sure the text description contains the following elements:
 
-  * If the PR addresses or solves an active issue, tag it in the PR (i.e. if it addresses issue 75, type in the text box `#75` and GitHub will automatically link the two; you can also just type `#` and GitHub will begin to auto-complete issues).
+  * If the PR addresses or solves an active issue, tag it in the PR (i.e. if it addresses issue 75, type in the text box `#75` and GitHub will automatically link the two; you can also just type `#` and GitHub will begin to automatically link open issues).
   * If the PR adds new files in `R/`, `tests/testthat`, or `vignettes` please list them and write a brief description about what is in each one. This does not apply to any auto-generated files (i.e. anything in `docs/`, `man/`, or `NAMESPACE`).
   * If the PR significantly modifies any files, please list them and write brief descriptions about what was changed. This does not apply to any auto-generated files (i.e. anything in `docs/`, `man/`, or `NAMESPACE`).
   * If this is an in-progress PR (i.e. tests do not pass), please tag someone on the team for help and describe what specific problems you are encountering.
@@ -195,9 +198,11 @@ In **exDE** we use [GitHub Actions](https://docs.github.com/en/actions) to autom
 
 These three workflows are standard for R packages, and originated from [https://github.com/r-lib/actions](https://github.com/r-lib/actions).
 
-These workflows may encounter errors. Do not panic when this happens. Errors can be investigated by clicking on the failing workflow in the [Actions](https://github.com/dd-harp/exDE/actions) tab, and then by clicking on the specific failing job(s) on the left hand side of the screen under "Jobs". The errors will then be displayed. Errors in `R-CMD-check` stemming from tests may sometimes be due to numerical errors; because **exDE** can only solve the model up to floating point errors, sometimes false positive errors are reported when the numerical routines encounter problems. Restart the tests by clicking "Re-run jobs" in the upper right hand and see if the errors persist. Errors in `pkgdown` are most likely cause by an ill-formed `_pkgdown.yml` file, please consult the [pkgdown documentation](https://pkgdown.r-lib.org/articles/pkgdown.html) or post an issue to get more help.
+These workflows may encounter errors. Do not panic when this happens. Errors can be investigated by clicking on the failing workflow in the [Actions](https://github.com/dd-harp/exDE/actions) tab, and then by clicking on the specific failing job(s) on the left hand side of the screen under "Jobs". The errors will then be displayed. The [Github Actions documentation](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/using-workflow-run-logs) also describes how to diagnose errors.
 
-Finally if you encounter truly strange errors from the workflows (e.g. software not being installed, strange operating specific errors, etc), it may be because the .yaml workflow scripts are outdated and need to be updated. In this case find the latest updated workflow scripts at [https://github.com/r-lib/actions/tree/v2-branch/examples](https://github.com/r-lib/actions/tree/v2-branch/examples). When doing this, be careful to not overwrite the existing rules about when to execute the workflows (i.e. only update from the line `name` onward). You can push an update to a branch `bugfix/check-standard.yaml`, to update that workflow, for example.
+Errors in `R-CMD-check` stemming from tests may sometimes be due to numerical errors; because **exDE** can only solve the model up to floating point errors, sometimes false positive errors are reported when the numerical routines encounter problems. Restart the tests by clicking "Re-run jobs" in the upper right hand and see if the errors persist. Errors in `pkgdown` are most likely cause by an ill-formed `_pkgdown.yml` file, please consult the [pkgdown documentation](https://pkgdown.r-lib.org/articles/pkgdown.html) or post an issue to get more help.
+
+Finally if you encounter truly strange errors from the workflows (e.g. software not being installed, strange operating system specific errors, etc), it may be because the .yaml workflow scripts are outdated and need to be updated. In this case find the latest updated workflow scripts at [https://github.com/r-lib/actions/tree/v2-branch/examples](https://github.com/r-lib/actions/tree/v2-branch/examples). When doing this, be careful to not overwrite the existing rules about when to execute the workflows (i.e. only update from the line `name` onward). You can push an update to a branch `bugfix/check-standard.yaml`, to update that workflow, for example.
 
 <!-- 7 --> 
 ## How to get ready for a version update {#sec7}
@@ -225,7 +230,7 @@ To do so:
 <!-- 8 --> 
 ## How to report bugs or raise issues? {#sec8}
 
-We expect that the most common way for most users to interact with GitHub will be through the [issues tab](https://github.com/dd-harp/exDE/issues). This should be the first point of contact with the **exDE** team, please do not hesitate to raise issues which may either be full bug reports, questions, or comments/suggestions. We prefer more rather than less communication. If you are considering large feature changes, it may be nice to discuss with the dev team in an issue first before making a `feat/*` branch and submitting a PR; this is also a great time to solicit collaboration on feature development!
+We expect that the most common way for most users to interact with GitHub will be through the [issues tab](https://github.com/dd-harp/exDE/issues). This should be the first point of contact with the **exDE** team, please do not hesitate to raise issues which may either be bug reports, questions, or comments/suggestions. We prefer more rather than less communication. If you are considering large feature changes, it may be nice to discuss with the dev team in an issue first before making a `feat/*` branch and submitting a PR; this is also a great time to solicit collaboration on feature development!
 
 If you do find a bug, please remember to include a minimum reproducible example of the bug in R code in addition to describing what is wrong. Please remember to include:
 
