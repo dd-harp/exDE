@@ -117,13 +117,21 @@ If writing new functions, they must be documented. Again, the existing code prov
 
 ## 4. How to test locally {#sec4}
 
-After making changes to **exDE** but before submitting a PR, you should take some time to do local tests to make sure that the package still works.
+After making changes to **exDE** but before submitting a PR, you should take some time to do local tests to make sure that the package still works. It is extremely important to make sure that after you change the code, to re-document and re-install the package. From RStudio, Build -> Document (control/command + shift + D) re-documents the package and Build -> Install Package (control/command + shift + B) re-installs the package. Without doing this your package `NAMESPACE` file may not include your changes, and `library(exDE)` will not be using the most recent version of your code.
 
-Remember, the tests run in `tests/testthat` can only check the code you have specifically put there to be tested! Any large changes 
+### testthat
 
-rebuild docs
+If you have added tests, or changed existing code and want to make sure that tests still pass, run `testthat::test_local` to run tests. If an error or warning appears, re-run all tests again to make sure it is not a false positive (due to numerical precision errors, some small fraction of tests will give false positive results). If the error comes up consistently, please fix the offending code before continuing onward.
 
-How to use testthat and devtools
+Remember, the tests run in `tests/testthat` can only check the code you have specifically put there to be tested! Any large changes should have tests to cover functionality under cases where expected behavior is known in advance. If you are unsure how to make appropriate tests, please either consult existing test files, or make a PR without the tests and tell your reviewer that you have not yet included tests and need help making them.
+
+### devtools
+
+A crucial function to use is `devtools::check`; it includes running local tests but also an extensive set of additional checks from `R CMD check` (see the [official documentation](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Checking-packages) for exactly what it does). Because this also rebuilds vignettes, it takes longer that just running tests, so it is normally done more seldom, when one is ready to submit a PR.
+
+### pkgdown
+
+It is always a good idea to make sure the package website still builds after making changes. If you have added or removed and functions, changed any function names, or added or removed and vignettes, you will need to have updated `_pkgdown.yml` accordingly. To make sure everything works as expected, run `pkgdown::build_site`, which will build the website locally in the `docs/` folder (and will open automatically in your browser when it is done). Please address problems until it builds successfully.
 
 ## 5. How to make or review a pull request {#sec5}
 
