@@ -104,35 +104,51 @@
 <p>Thank you for taking the time to contribute to <strong>exDE</strong>
 (Extensible Differential Equations for mosquito-borne pathogen
 modeling). In this document we will explain the following topics:</p>
-<ol style="list-style-type: decimal">
-<li>What is our Git workflow?</li>
-<li>How is the R package organized?</li>
-<li>If I am making a large addition (e.g. a new human disease model),
-what should I add to the package?</li>
-<li>After making changes locally, how to rebuild the package and run
-tests?</li>
-<li>How to make a good pull request (PR), and how should reviewers
-review pull requests?</li>
-<li>If the GitHub continuous integration (CI) tests fail, how to
-diagnose the problems and address them?</li>
-<li>How to get ready for a version update (for core dev team)?</li>
-<li>If I find a bug or something I just can’t figure out, how to ask for
-help?</li>
-</ol>
+<ul>
+<li>
+<a href="#sec1">1.</a> What is our Git workflow?</li>
+<li>
+<a href="#sec2">2.</a> How is the R package organized?</li>
+<li>
+<a href="#sec3">3.</a> If I am making a large addition (e.g. a new
+human disease model), what should I add to the package?</li>
+<li>
+<a href="#sec4">4.</a> After making changes locally, how to rebuild
+the package and run tests?</li>
+<li>
+<a href="#sec5">5.</a> How to make a good pull request (PR), and how
+should reviewers review pull requests?</li>
+<li>
+<a href="#sec6">6.</a> If the GitHub continuous integration (CI)
+tests fail, how to diagnose the problems and address them?</li>
+<li>
+<a href="#sec7">7.</a> How to get ready for a version update (for
+core dev team)?</li>
+<li>
+<a href="#sec8">8.</a> If I find a bug or something I just can’t
+figure out, how to ask for help?</li>
+</ul>
 <p>This document is intended to be a complete guide on how to get
 started developing with <strong>exDE</strong>. As this document is part
 of the package, if you find something about it incorrect, baffling, or
-just have a suggestion, please follow the steps for bug/issue reporting
-to let us know!</p>
+just have a suggestion, please follow the steps for <a href="#sec8">bug/issue reporting</a> to let us know!</p>
+<!-- 1 -->
 <div class="section level2">
-<h2 id="sec1">1. Git workflow<a class="anchor" aria-label="anchor" href="#sec1"></a>
+<h2 id="sec1">Git workflow<a class="anchor" aria-label="anchor" href="#sec1"></a>
 </h2>
 <p>The <strong>exDE</strong> project is hosted on GitHub (<a href="https://github.com/dd-harp/exDE" class="external-link">at this repository</a>), and we
-use a Git workflow based loosely on “Gitflow”, described in great detail
-<a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow" class="external-link">here</a>.
+use a Git workflow similar to “Gitflow” (albeit without a separate
+<code>release</code> branch, <code>main</code> takes over that role),
+described <a href="https://www.atlassian.com/git/tutorials/comparing-workflows" class="external-link">here</a>.
 A Git workflow is a way to use the repository in such a way to invite
 collaboration in an organized way that protects the latest stable
 version of the software from unintended changes.</p>
+<p>If you are new to Git or need some reminders, please check out the
+excellent documentation at <a href="https://www.atlassian.com/git/tutorials/learn-git-with-bitbucket-cloud" class="external-link">Atlassian</a>.
+We recommend reading <a href="https://www.atlassian.com/git/tutorials/setting-up-a-repository" class="external-link">“Getting
+Started”</a> to learn how to set up a repository, followed by <a href="https://www.atlassian.com/git/tutorials/syncing" class="external-link">“Collaborating”</a>
+to learn about how to work with branches, pull requests, merging, and
+other common Git activities.</p>
 <p>Our workflow is designed around branches. The <code>main</code>,
 <code>dev</code>, and <code>gh-pages</code> branches always exist in the
 repository. Other branches exist as long as the person(s) working on
@@ -188,6 +204,22 @@ members can access these by going to Settings -&gt; Branches. Both
 <code>main</code> and <code>dev</code> are protected from deletion. PRs
 made to <code>dev</code> must be reviewed and approved by at least 1
 reviewer before they are allowed to be merged.</p>
+<p><img src="GitFlow.png"></p>
+<p>We show an example of our workflow above.</p>
+<p>The <code>main</code> branch, in blue, starts at the left side, and
+<code>dev</code> is created from it, below in purple. After that, two
+<code>feat/*</code> or <code>bugfix/*</code> branches are created from
+<code>dev</code> at that time, shown in green. The upper one has two
+updates before it is merged back into <code>dev</code>, via a pull
+request. After that pull request, the lower one must pull the updates
+from <code>dev</code> so it is working with the latest version of the
+code. After another update, it is ready to be merged into
+<code>dev</code> via a pull request. At this point, we decide that these
+two features are enough for a version update, so we make a pull request
+from <code>dev</code> into <code>main</code> to update to version 0.1.
+After being merged, we can again start making <code>feat/*</code> or
+<code>bugfix/*</code> branches from <code>dev</code> to start developing
+for version 0.2!</p>
 <div class="section level3">
 <h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h3>
@@ -239,10 +271,11 @@ changes.</li>
 </ol>
 <p>Now repeat steps 6 to 9 until you are ready to start testing your
 changes and submit a pull request (covered in Sections <a href="#sec4">4</a> and <a href="#sec5">5</a>).</p>
+<!-- 2 -->
 </div>
 </div>
 <div class="section level2">
-<h2 id="sec2">2. The <strong>exDE</strong> R package<a class="anchor" aria-label="anchor" href="#sec2"></a>
+<h2 id="sec2">The <strong>exDE</strong> R package<a class="anchor" aria-label="anchor" href="#sec2"></a>
 </h2>
 <p><strong>exDE</strong> is an R package, so if you are going to be
 making substantial changes, it is necessary to have a sense of how it is
@@ -307,7 +340,7 @@ Section <a href="#sec6">6</a>.</li>
 and pushed to <code>gh-pages</code> automatically by a GitHub Action. If
 you trigger a manual (local) build of the website to test something
 using <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site</a></code>, it will build in this folder.
-This folder should be considered “read-only”.</li>
+This folder should be considered <em>read-only</em>.</li>
 <li>
 <code>inst/</code>: this folder serves many purposes for general R
 packages (see resources above for details), but currently contains the
@@ -316,7 +349,7 @@ packages (see resources above for details), but currently contains the
 <li>
 <code>man/</code>: this folder contains the package function/object
 documentation automatically generated by <a href="https://roxygen2.r-lib.org/" class="external-link">roxygen2</a>, and should be
-considered “read-only”.</li>
+considered <em>read-only</em>.</li>
 <li>
 <code>R/</code>: the source code of the package lives here; we will
 describe below the naming convention of the files so you can quickly
@@ -410,10 +443,11 @@ Dynamics paper</a>)</li>
 <li>
 <code>utils.R</code>: utility functions</li>
 </ul>
+<!-- 3 -->
 </div>
 </div>
 <div class="section level2">
-<h2 id="sec3">3. Making large changes or additions to <strong>exDE</strong><a class="anchor" aria-label="anchor" href="#sec3"></a>
+<h2 id="sec3">Making large changes or additions to <strong>exDE</strong><a class="anchor" aria-label="anchor" href="#sec3"></a>
 </h2>
 <p>After reading Section <a href="#sec2">2</a> you should have a
 reasonable grasp of how <strong>exDE</strong> as an R package is
@@ -466,14 +500,15 @@ upon <a href="https://roxygen2.r-lib.org/index.html" class="external-link">roxyg
 build documentation, and its website provides help on how to write the
 appropriate tags (e.g. <code>#' @export</code> which makes that function
 appear in the <strong>exDE</strong> <code>NAMESPACE</code>).</p>
+<!-- 4 -->
 </div>
 <div class="section level2">
-<h2 id="sec4">4. How to test locally<a class="anchor" aria-label="anchor" href="#sec4"></a>
+<h2 id="sec4">How to test locally<a class="anchor" aria-label="anchor" href="#sec4"></a>
 </h2>
 <p>After making changes to <strong>exDE</strong> but before submitting a
 PR, you should take some time to do local tests to make sure that the
 package still works. It is extremely important to make sure that after
-you change the code, to re-document and re-install the package. From
+you implement changes, to re-document and re-install the package. From
 RStudio, Build -&gt; Document (control/command + shift + D) re-documents
 the package and Build -&gt; Install Package (control/command + shift +
 B) re-installs the package. Without doing this your package
@@ -519,10 +554,11 @@ everything works as expected, run <code><a href="https://pkgdown.r-lib.org/refer
 which will build the website locally in the <code>docs/</code> folder
 (and will open automatically in your browser when it is done). Please
 address problems until it builds successfully.</p>
+<!-- 5 -->
 </div>
 </div>
 <div class="section level2">
-<h2 id="sec5">5. How to make or review a pull request<a class="anchor" aria-label="anchor" href="#sec5"></a>
+<h2 id="sec5">How to make or review a pull request<a class="anchor" aria-label="anchor" href="#sec5"></a>
 </h2>
 <div class="section level3">
 <h3 id="how-to-make-a-pr">How to make a PR<a class="anchor" aria-label="anchor" href="#how-to-make-a-pr"></a>
@@ -538,19 +574,21 @@ past the finish line.</p>
 <p>To make a pull request, first, navigate to your branch where you have
 made changes (i.e. a <code>feat/*</code> or <code>bugfix/*</code>
 branch). To open the PR, follow the <a href="https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/working-with-your-remote-repository-on-github-or-github-enterprise/creating-an-issue-or-pull-request#creating-a-pull-request" class="external-link">GitHub
+documentation</a> or <a href="https://www.atlassian.com/git/tutorials/making-a-pull-request" class="external-link">Atlassian
 documentation</a>, and remember that PRs should only be made into
 <code>dev</code> (e.g. with <code>dev</code> as the “base”).</p>
 <p>When making the PR, you will be prompted to enter a description which
 explains what the PR does. Please ensure that a PR does not include too
 many disparate modifications, and that it represents a self-contained
-piece of work (e.g. do not submit PRs that change both a human and a
+piece of work (i.e. do not submit PRs that change both a human and a
 mosquito model; please submit two separate PRs for each). Please make
 sure the text description contains the following elements:</p>
 <ul>
 <li>If the PR addresses or solves an active issue, tag it in the PR
 (i.e. if it addresses issue 75, type in the text box <code>#75</code>
 and GitHub will automatically link the two; you can also just type
-<code>#</code> and GitHub will begin to auto-complete issues).</li>
+<code>#</code> and GitHub will begin to automatically link open
+issues).</li>
 <li>If the PR adds new files in <code>R/</code>,
 <code>tests/testthat</code>, or <code>vignettes</code> please list them
 and write a brief description about what is in each one. This does not
@@ -627,10 +665,11 @@ branch</li>
 <p>After any problems have been resolved and the CI tests pass, the PR
 is ready to be merged into <code>dev</code>! You may want to delete the
 merged branch or let the author know they can do so at this point.</p>
+<!-- 6 -->
 </div>
 </div>
 <div class="section level2">
-<h2 id="sec6">6. How to deal with continuous integration<a class="anchor" aria-label="anchor" href="#sec6"></a>
+<h2 id="sec6">How to deal with continuous integration<a class="anchor" aria-label="anchor" href="#sec6"></a>
 </h2>
 <p>In <strong>exDE</strong> we use <a href="https://docs.github.com/en/actions" class="external-link">GitHub Actions</a> to
 automatically run continuous integration workflows, which are automated
@@ -660,28 +699,30 @@ from <a href="https://github.com/r-lib/actions" class="external-link">https://gi
 <p>These workflows may encounter errors. Do not panic when this happens.
 Errors can be investigated by clicking on the failing workflow in the <a href="https://github.com/dd-harp/exDE/actions" class="external-link">Actions</a> tab, and then
 by clicking on the specific failing job(s) on the left hand side of the
-screen under “Jobs”. The errors will then be displayed. Errors in
-<code>R-CMD-check</code> stemming from tests may sometimes be due to
-numerical errors; because <strong>exDE</strong> can only solve the model
-up to floating point errors, sometimes false positive errors are
-reported when the numerical routines encounter problems. Restart the
+screen under “Jobs”. The errors will then be displayed. The <a href="https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/using-workflow-run-logs" class="external-link">Github
+Actions documentation</a> also describes how to diagnose errors.</p>
+<p>Errors in <code>R-CMD-check</code> stemming from tests may sometimes
+be due to numerical errors; because <strong>exDE</strong> can only solve
+the model up to floating point errors, sometimes false positive errors
+are reported when the numerical routines encounter problems. Restart the
 tests by clicking “Re-run jobs” in the upper right hand and see if the
 errors persist. Errors in <code>pkgdown</code> are most likely cause by
 an ill-formed <code>_pkgdown.yml</code> file, please consult the <a href="https://pkgdown.r-lib.org/articles/pkgdown.html" class="external-link">pkgdown
 documentation</a> or post an issue to get more help.</p>
 <p>Finally if you encounter truly strange errors from the workflows
-(e.g. software not being installed, strange operating specific errors,
-etc), it may be because the .yaml workflow scripts are outdated and need
-to be updated. In this case find the latest updated workflow scripts at
-<a href="https://github.com/r-lib/actions/tree/v2-branch/examples" class="external-link">https://github.com/r-lib/actions/tree/v2-branch/examples</a>.
+(e.g. software not being installed, strange operating system specific
+errors, etc), it may be because the .yaml workflow scripts are outdated
+and need to be updated. In this case find the latest updated workflow
+scripts at <a href="https://github.com/r-lib/actions/tree/v2-branch/examples" class="external-link">https://github.com/r-lib/actions/tree/v2-branch/examples</a>.
 When doing this, be careful to not overwrite the existing rules about
 when to execute the workflows (i.e. only update from the line
 <code>name</code> onward). You can push an update to a branch
 <code>bugfix/check-standard.yaml</code>, to update that workflow, for
 example.</p>
+<!-- 7 -->
 </div>
 <div class="section level2">
-<h2 id="sec7">7. How to get ready for a version update<a class="anchor" aria-label="anchor" href="#sec7"></a>
+<h2 id="sec7">How to get ready for a version update<a class="anchor" aria-label="anchor" href="#sec7"></a>
 </h2>
 <p>(For dev team only)</p>
 <p>When a sufficient number of new features have been added to
@@ -725,19 +766,20 @@ package is actually ready to be submitted.</li>
 accompany the new version.</li>
 <li>celebrate, or go rest.</li>
 </ul>
+<!-- 8 -->
 </div>
 <div class="section level2">
-<h2 id="sec8">8. How to report bugs or raise issues?<a class="anchor" aria-label="anchor" href="#sec8"></a>
+<h2 id="sec8">How to report bugs or raise issues?<a class="anchor" aria-label="anchor" href="#sec8"></a>
 </h2>
 <p>We expect that the most common way for most users to interact with
 GitHub will be through the <a href="https://github.com/dd-harp/exDE/issues" class="external-link">issues tab</a>. This
 should be the first point of contact with the <strong>exDE</strong>
-team, please do not hesitate to raise issues which may either be full
-bug reports, questions, or comments/suggestions. We prefer more rather
-than less communication. If you are considering large feature changes,
-it may be nice to discuss with the dev team in an issue first before
-making a <code>feat/*</code> branch and submitting a PR; this is also a
-great time to solicit collaboration on feature development!</p>
+team, please do not hesitate to raise issues which may either be bug
+reports, questions, or comments/suggestions. We prefer more rather than
+less communication. If you are considering large feature changes, it may
+be nice to discuss with the dev team in an issue first before making a
+<code>feat/*</code> branch and submitting a PR; this is also a great
+time to solicit collaboration on feature development!</p>
 <p>If you do find a bug, please remember to include a minimum
 reproducible example of the bug in R code in addition to describing what
 is wrong. Please remember to include:</p>
