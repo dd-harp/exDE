@@ -107,7 +107,7 @@ Let's say someone wanted to add a new human disease model, say an SIR model. The
   1. Within `R/`, make a new file `human-SIR.R` and implement all generic methods from `human-interface.R` for your new model. Also make a function named something like `make_parameters_human_SIR` that will modify the parameter environment to implement the SIR model. You can check the other human disease models as reference.
   2. In RStudio, run Build -> Document (control/command + shift + D) to run roxygen2 which builds functions documentation and updates the `NAMESPACE` with your new functions. Then run Build -> Install Package (control/command + shift + B) to re-install and load the package. This only works if you have opened the `exDE.Rproj` file in RStudio as a project.
   3. Make a new vignette named something like "human_vignette.Rmd" in `vignettes/` describing the model and its parameters, and perhaps a simple simulation of it.
-  4. Make a test named something like `test-human-sir.R` in `tests/testthat/` which tests the SIR model behaves as expected under conditions where the outcome is known (e.g. when no infected persons are present, the number of susceptible persons can never decrease).
+  4. Make a test named something like `test-human-sir.R` in `tests/testthat/` which tests the SIR model behaves as expected under conditions where the outcome is known (e.g. when no infected persons are present, the number of susceptible persons can never decrease). Please see the [testthat documentation](https://testthat.r-lib.org/) and the [R packages chapter on testing](https://r-pkgs.org/testing-basics.html) for more information.
   5. If you added new functions and vignettes, add them to the `_pkgdown.yml` file in the appropriate place. You can use `pkgdown::build_site` at this point to test that the website still builds.
   6. We will go over more details about how to test your package locally in Section [4](#sec4) and how to make a pull request in Section [5](#sec5).
 
@@ -116,6 +116,10 @@ When writing a new model or modifying an existing one, please note that **exDE**
 If writing new functions, they must be documented. Again, the existing code provides a good reference. **exDE** depends upon [roxygen2](https://roxygen2.r-lib.org/index.html) to build documentation, and its website provides help on how to write the appropriate tags (e.g. `#' @export` which makes that function appear in the **exDE** `NAMESPACE`).
 
 ## 4. How to test locally {#sec4}
+
+After making changes to **exDE** but before submitting a PR, you should take some time to do local tests to make sure that the package still works.
+
+Remember, the tests run in `tests/testthat` can only check the code you have specifically put there to be tested! Any large changes 
 
 rebuild docs
 
@@ -165,77 +169,48 @@ After any problems have been resolved and the CI tests pass, the PR is ready to 
 
 In **exDE** we use [GitHub Actions](https://docs.github.com/en/actions) to automatically run continuous integration workflows, which are automated scripts which run when triggered by certain events (i.e. PRs or pushing to certain branches). The 3 workflows we run can be found in `.github/workflows`:
 
-  * `check-standard.yaml`
-  * `pkgdown.yaml`
-  * `test-coverage.yaml`
+  * `check-standard.yaml`: this runs `R CMD check` on several common operating systems (see [official documentation](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Checking-packages) for what it does). This runs any time a pull request is made to `main` or `dev`.
+  * `pkgdown.yaml`: this runs `pkgdown::build_site_github_pages` and pushes the new website to the `gh-pages` branch. It runs on pushes to `main` (i.e. when a PR is merged into `main`) and when a new [GitHub release](https://github.com/dd-harp/exDE/releases) is made.
+  * `test-coverage.yaml`: this runs `covr::codecov` which updates **exDE**'s [codecov](https://app.codecov.io/gh/dd-harp/exDE) integration. It runs on pushes to `main`.
 
-what are the workflows, when do they run, how to update etc
+These three workflows are standard for R packages, and originated from [https://github.com/r-lib/actions](https://github.com/r-lib/actions).
 
-Finally if you encounter truly strange errors from the workflows (e.g. software not being installed, strange operating specific errors, etc), it may be because the .yaml workflow scripts are outdated and need to be updated. In this case find the latest updated workflow scripts at [https://github.com/r-lib/actions/tree/v2-branch/examples](https://github.com/r-lib/actions/tree/v2-branch/examples).
+These workflows may encounter errors. Do not panic when this happens. Errors can be investigated by clicking on the failing workflow in the [Actions](https://github.com/dd-harp/exDE/actions) tab, and then by clicking on the specific failing job(s) on the left hand side of the screen under "Jobs". The errors will then be displayed. Errors in `R-CMD-check` stemming from tests may sometimes be due to numerical errors; because **exDE** can only solve the model up to floating point errors, sometimes false positive errors are reported when the numerical routines encounter problems. Restart the tests by clicking "Re-run jobs" in the upper right hand and see if the errors persist. Errors in `pkgdown` are most likely cause by an ill-formed `_pkgdown.yml` file, please consult the [pkgdown documentation](https://pkgdown.r-lib.org/articles/pkgdown.html) or post an issue to get more help.
+
+Finally if you encounter truly strange errors from the workflows (e.g. software not being installed, strange operating specific errors, etc), it may be because the .yaml workflow scripts are outdated and need to be updated. In this case find the latest updated workflow scripts at [https://github.com/r-lib/actions/tree/v2-branch/examples](https://github.com/r-lib/actions/tree/v2-branch/examples). When doing this, be careful to not overwrite the existing rules about when to execute the workflows (i.e. only update from the line `name` onward). You can push an update to a branch `bugfix/check-standard.yaml`, to update that workflow, for example.
 
 ## 7. How to get ready for a version update {#sec7}
 
-update DESCRIPTION version, how to submit to CRAN, check that pkgdown website worked, etc.
+(For dev team only)
+
+When a sufficient number of new features have been added to `dev` that the version number of **exDE** should be increased, and a sufficient duration of time has passed since the last update to CRAN (["no more than every 1–2 months"](https://cran.r-project.org/web/packages/policies.html#Submission)), it is time to make a PR from `dev` to `main` to get ready to update the software. Before doing so please make sure:
+
+  * there are no open PRs (please resolve or close these before updating the version)
+  * all `feat/*` and `bugfix/*` branches have been deleted after resolving open PRs
+  * update `NEWS.md` with the new version number and significant additions (consider making links in `NEWS.md` to the PRs that are included in this update)
+  * update `DESCRIPTION` with the new version number
+  * make sure the website still builds (test with `devtools::build_site`)
+  * please use the [rhub builder service](https://r-hub.github.io/rhub/) to check that the package builds without errors on Windows and using CRAN standards (you can use the function `rhub::check_for_cran` to do this)
+
+You are now ready to create a PR from `dev` to `main`. After following the standard procedure (Section [5](#sec5)) with the exception of deleting `dev` (protected from deletion), you are ready to update the [CRAN version](https://cran.r-project.org/package=exDE) of **exDE**.
+  
+To do so:  
+  
+  * make or update the file `cran-comments.md` informing CRAN this is a version update, all tests pass, etc; follow the guide [at the R packages book](https://r-pkgs.org/release.html#sec-release-process).
+  * use `devtools::release` to actually submit the package to CRAN, this function asks many useful questions to make sure that your package is actually ready to be submitted.
+  * *after* the new version has been accepted by CRAN make a new [GitHub release](https://github.com/dd-harp/exDE/releases) to accompany the new version.
+  * celebrate, or go rest.
 
 ## 8. How to report bugs or raise issues? {#sec8}
 
+We expect that the most common way for most users to interact with GitHub will be through the [issues tab](https://github.com/dd-harp/exDE/issues). This should be the first point of contact with the **exDE** team, please do not hesitate to raise issues which may either be full bug reports, questions, or comments/suggestions. We prefer more rather than less communication. If you are considering large feature changes, it may be nice to discuss with the dev team in an issue first before making a `feat/*` branch and submitting a PR; this is also a great time to solicit collaboration on feature development!
 
-
-
-
-
-
-## Issues
-
-If you find a bug, have a question about how to use a feature that does not have sufficient documentation, or have a suggestion for improvement, please [leave an issue](https://github.com/dd-harp/exDE/issues) at our GitHub repo.
-
-For bug reports please include:
+If you do find a bug, please remember to include a minimum reproducible example of the bug in R code in addition to describing what is wrong. Please remember to include:
 
  * **exDE** version
  * Operating System
  * R version
  * Steps to recreate
- * Expected behaviour
- * Actual behaviour
-
-## Git
-
-We use Git on this project. Which means we use `main`, `dev`, `feat/*`, `bug/*`, and `hotfix/*` branches. Please refer to [this post](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) for more information of each type of branch. 
-
-  * `main`: this branch always stores the last "production" release of the software, and is a protected branch. A pull request should
-  not be submitted to `main` unless it is from `dev`, meaning that the software version should be updated.
-  * `dev`: all pull requests from users should be made to the `dev` branch. This branch is protected from deletion.
-  * `feat`: new and significantly enhanced features are made in `feat` branches before being merged with `dev`. After a `feat/*` branch is merged
-  with `dev`, it can be deleted.
-  * `bug`: these branches fix bugs, usually after being raised as an issue. After a `bug/*` branch is merged with `dev`, it can be deleted.
-  * `hotfix`: the difference between a `bug/*` and `hotfix/*` branch is `hotfix` is for small quick fixes (misspellings, incorrect arguments, etc.)
-  and are short-lived. After being merged with `dev`, they can be deleted.
-
-We periodically merge `dev` into `main` for release updates. These releases will appear on the [GitHub releases page](https://github.com/dd-harp/exDE/releases). 
-
-## Continuous integration
-
-We use GitHub Actions as our continuous integration platform to run workflows.
-The workflows we use are from [r-lib/actions](https://github.com/r-lib/actions)
-for R packages.
-
-We run three types of workflows.
-
-[R CMD check](https://github.com/r-lib/actions/blob/master/examples/check-standard.yaml)
-runs during any pull request to `[main, dev]` branches.
-
-[Test coverage](https://github.com/r-lib/actions/blob/master/examples/test-coverage.yaml)
-runs during pushes to `[main]` and uses our [codecov.io integration](https://app.codecov.io/gh/dd-harp/MicroMoB)
-for checking test coverage.
-
-Finally, [pkgdown](https://github.com/r-lib/actions/blob/master/examples/pkgdown.yaml)
-runs during pushes to `[main]`.
-
-Please note that sometimes hard to diagnose bugs can be due to out of date
-workflows. If you find a strange or unusual bug coming from a workflow, this
-is something to consider checking.
-
-## Pull Requests
-
-If making a pull request, please only use `dev` as the base branch. If you are adding a new feature (i.e. the pull is from a `feat/*` branch),
-please ensure you have added minimal tests using testthat so that the functionality of your feature can be tested.
+ * Expected behavior
+ * Actual behavior
+ * Minimum reproducible example (R code)
