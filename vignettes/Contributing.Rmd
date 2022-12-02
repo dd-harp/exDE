@@ -129,21 +129,49 @@ At this point, you might be a little tired of reading, and maybe somewhat anxiou
 
 To make a pull request, first, navigate to your branch where you have made changes (i.e. a `feat/*` or `bugfix/*` branch). To open the PR, follow the [GitHub documentation](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/working-with-your-remote-repository-on-github-or-github-enterprise/creating-an-issue-or-pull-request#creating-a-pull-request), and remember that PRs should only be made into `dev` (e.g. with `dev` as the "base").
 
-When making the PR, you will be prompted to enter a description which explains what the PR does. Please make sure the text description contains the following elements:
+When making the PR, you will be prompted to enter a description which explains what the PR does. Please ensure that a PR does not include too many disparate modifications, and that it represents a self-contained piece of work (e.g. do not submit PRs that change both a human and a mosquito model; please submit two separate PRs for each). Please make sure the text description contains the following elements:
 
-  * If the PR addresses or solves an active issue, tag it in the PR (i.e. if it addresses issue 75, type in the text box `#75` and GitHub will automatically link the two).
+  * If the PR addresses or solves an active issue, tag it in the PR (i.e. if it addresses issue 75, type in the text box `#75` and GitHub will automatically link the two; you can also just type `#` and GitHub will begin to auto-complete issues).
   * If the PR adds new files in `R/`, `tests/testthat`, or `vignettes` please list them and write a brief description about what is in each one. This does not apply to any auto-generated files (i.e. anything in `docs/`, `man/`, or `NAMESPACE`).
   * If the PR significantly modifies any files, please list them and write brief descriptions about what was changed. This does not apply to any auto-generated files (i.e. anything in `docs/`, `man/`, or `NAMESPACE`).
   * If this is an in-progress PR (i.e. tests do not pass), please tag someone on the team for help and describe what specific problems you are encountering.
   * Finally, this is crucial, select someone to review your PR using the "Reviewers" tab in the upper right hand corner of the page. Your PR cannot be merged into `dev` until it has passed review by at least one team member.
+  
+At this point the review process can start. Your reviewer may ask for additional changes, remember to keep making those in the branch you have been working in. After your PR has been merged with `dev`, please delete the old `feat/*` or `bugfix/*` branch.
 
 ### How to review a PR
 
-How to pull someone else's branch and build it locally to investigate oddities.
+If you are requested to be a reviewer, it's your responsibility to:
+
+  * Evaluate whether or not the proposed addition is within the scope of the software (e.g. directly-transmitted diseases are outside the scope of **exDE**).
+  * Ensure the PR is being made to `dev` only.
+  * If the code is not passing tests, identify problems and suggest solutions to the author (see Section [6](#sec6) for more details on how to do this).
+  * If the PR makes significant modifications to **exDE**, work with the author (if they have not already done so) until the PR has tests and vignettes to document the new functions, and that those are added to the `_pkgdown.yml` file so the new features appear on the website.
+  * While in general, **exDE**'s design philosophy is that elegant and clear design that mirrors the mathematical description of the model is to be preferred over fast code in cases where there is a decision to be made, please correct obvious inefficiencies (e.g. be aware of matrix operations and try to structure parentheses to minimize computational cost).
+  * If you are not confident that you can provide a helpful review which addresses (possibly) mathematical, conceptual, design, and software issues related to the PR, please either pass it off to someone else or bring in additional reviewers.
+  * Please either be familiar with or review the GitHub docs on [how to review PRs](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews).
+
+In some cases it may be necessary to investigate issues locally, on branch being merged. Assuming the branch is called `feat/MyFeature`, to do this:
+
+  1. Navigate to the `exDE` repository on your computer
+  2. `git fetch --all` to update the information on what branches are present in the remote
+  3. `git checkout -b feat/MyFeature` to switch to that branch
+  4. `git pull origin feat/MyFeature` to make sure it includes the most recent commits
+  5. Investigate locally, you may push fixes to `feat/MyFeature` but be sure to alert the PR author that you have done so as they may not expect a reviewer to make changes to their branch
+  
+After any problems have been resolved and the CI tests pass, the PR is ready to be merged into `dev`! You may want to delete the merged branch or let the author know they can do so at this point.
 
 ## 6. How to deal with continuous integration {#sec6}
 
+In **exDE** we use [GitHub Actions](https://docs.github.com/en/actions) to automatically run continuous integration workflows, which are automated scripts which run when triggered by certain events (i.e. PRs or pushing to certain branches). The 3 workflows we run can be found in `.github/workflows`:
+
+  * `check-standard.yaml`
+  * `pkgdown.yaml`
+  * `test-coverage.yaml`
+
 what are the workflows, when do they run, how to update etc
+
+Finally if you encounter truly strange errors from the workflows (e.g. software not being installed, strange operating specific errors, etc), it may be because the .yaml workflow scripts are outdated and need to be updated. In this case find the latest updated workflow scripts at [https://github.com/r-lib/actions/tree/v2-branch/examples](https://github.com/r-lib/actions/tree/v2-branch/examples).
 
 ## 7. How to get ready for a version update {#sec7}
 
