@@ -177,7 +177,7 @@ Now we set up the parameter environment with the correct class using `exDE::make
  make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
   make_indices(params)
 
-y0 <- rep(NaN, 12)
+y0 <- rep(NaN, params$max_ix)
 y0[params$M_ix] <- M_eq
 y0[params$G_ix] <- G_eq
 y0[params$Y_ix] <- Y_eq
