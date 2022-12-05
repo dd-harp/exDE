@@ -212,7 +212,7 @@ make_indices(params)
 Now we can set the initial conditions of the model.
 
 ```{r}
-y <- rep(NaN, max(params$X_ix))
+y <- rep(NaN, params$max_ix)
 y[params$L_ix] <- as.vector(L0)
 y[params$M_ix] <- as.vector(M0)
 y[params$G_ix] <- as.vector(G0)

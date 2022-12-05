@@ -1,5 +1,7 @@
 library(deSolve)
 
+numeric_tol <- 1e-5
+
 test_that("human SIP model remains at equilibrium", {
   nStrata <- 3
   H <- c(100, 500, 250)
@@ -30,6 +32,6 @@ test_that("human SIP model remains at equilibrium", {
     list(dXdt(t, y, pars, EIR))
   }, parms = params, method = 'lsoda', EIR = as.vector(EIR))
 
-  expect_true(all(approx_equal(as.vector(out[2L, params$X_ix+1]), X)))
-  expect_true(all(approx_equal(as.vector(out[2L, params$P_ix+1]), as.vector(P))))
+  expect_equal(as.vector(out[2L, params$X_ix+1]), X, tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$P_ix+1]), as.vector(P), tolerance = numeric_tol)
 })

@@ -1,6 +1,9 @@
 library(expm)
 library(deSolve)
 
+# tolerance for tests comparing floats
+numeric_tol <- 1e-4
+
 test_that("RM models reach equilibrium", {
   nPatches <- 3
   f <- 0.3
@@ -41,7 +44,7 @@ test_that("RM models reach equilibrium", {
 
   # make indices and set up initial conditions
   make_indices(params)
-  y0 <- rep(0, max(params$Upsilon_ix))
+  y0 <- rep(0, params$max_ix)
   y0[params$Upsilon_ix] <- as.vector(OmegaEIP)
 
   # solve ODEs
@@ -65,10 +68,10 @@ test_that("RM models reach equilibrium", {
   Z_eq <- as.vector(Omega_inv %*% OmegaEIP %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
   Z_sim <- as.vector(out[2, params$Z_ix+1])
 
-  expect_true(all(approx_equal(M_eq, M_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(G_eq, G_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(Y_eq, Y_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(Z_eq, Z_sim, tol = 1e-4)))
+  expect_equal(M_eq, M_sim, tolerance = numeric_tol)
+  expect_equal(G_eq, G_sim, tolerance = numeric_tol)
+  expect_equal(Y_eq, Y_sim, tolerance = numeric_tol)
+  expect_equal(Z_eq, Z_sim, tolerance = numeric_tol)
 
   # equilibrium solutions (backward)
   MY_eq <- as.vector(diag(1/(f*q*kappa)) %*% OmegaEIP_inv %*% Omega %*% Z_eq)
@@ -80,10 +83,10 @@ test_that("RM models reach equilibrium", {
 
   Lambda_eq <- as.vector(Omega %*% M_eq)
 
-  expect_true(all(approx_equal(MY_eq, MY_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(Y_eq, Y_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(M_eq, M_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(Lambda_eq, Lambda, tol = 1e-4)))
+  expect_equal(MY_eq, MY_sim, tolerance = numeric_tol)
+  expect_equal(Y_eq, Y_sim, tolerance = numeric_tol)
+  expect_equal(M_eq, M_sim, tolerance = numeric_tol)
+  expect_equal(Lambda_eq, Lambda, tolerance = numeric_tol)
 
   # DDE
   make_parameters_MYZ_GeRM_dde(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
@@ -106,10 +109,10 @@ test_that("RM models reach equilibrium", {
   Z_eq <- as.vector(Omega_inv %*% OmegaEIP %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
   Z_sim <- as.vector(out[2, params$Z_ix+1])
 
-  expect_true(all(approx_equal(M_eq, M_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(G_eq, G_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(Y_eq, Y_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(Z_eq, Z_sim, tol = 1e-4)))
+  expect_equal(M_eq, M_sim, tolerance = numeric_tol)
+  expect_equal(G_eq, G_sim, tolerance = numeric_tol)
+  expect_equal(Y_eq, Y_sim, tolerance = numeric_tol)
+  expect_equal(Z_eq, Z_sim, tolerance = numeric_tol)
 
   # equilibrium solutions (backward)
   MY_eq <- as.vector(diag(1/(f*q*kappa)) %*% OmegaEIP_inv %*% Omega %*% Z_eq)
@@ -121,8 +124,8 @@ test_that("RM models reach equilibrium", {
 
   Lambda_eq <- as.vector(Omega %*% M_eq)
 
-  expect_true(all(approx_equal(MY_eq, MY_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(Y_eq, Y_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(M_eq, M_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(Lambda_eq, Lambda, tol = 1e-4)))
+  expect_equal(MY_eq, MY_sim, tolerance = numeric_tol)
+  expect_equal(Y_eq, Y_sim, tolerance = numeric_tol)
+  expect_equal(M_eq, M_sim, tolerance = numeric_tol)
+  expect_equal(Lambda_eq, Lambda, tolerance = numeric_tol)
 })
