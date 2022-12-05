@@ -84,7 +84,7 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   pars$calN <- diag(pars$nHabitats)
 
   # ICs
-  y <- rep(NaN, max(pars$X_ix))
+  y <- rep(NaN, pars$max_ix)
   y[pars$X_ix] <- pars$Xpar$X0
   y[pars$M_ix] <- pars$MYZpar$M0
   y[pars$G_ix] <- pars$MYZpar$G0

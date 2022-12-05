@@ -93,7 +93,7 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, trace", {
   make_indices(params)
 
   # set initial conditions
-  y <- rep(NaN, max(params$X_ix))
+  y <- rep(NaN, params$max_ix)
   y[params$M_ix] <- as.vector(M)
   y[params$G_ix] <- as.vector(G)
   y[params$Y_ix] <- as.vector(Y)
@@ -200,7 +200,7 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
   make_indices(params)
 
   # set initial conditions
-  y <- rep(NaN, max(params$X_ix))
+  y <- rep(NaN, params$max_ix)
   y[params$M_ix] <- as.vector(M)
   y[params$G_ix] <- as.vector(G)
   y[params$Y_ix] <- as.vector(Y)

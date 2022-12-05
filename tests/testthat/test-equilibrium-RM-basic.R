@@ -99,7 +99,7 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   make_indices(params)
 
   # set initial conditions
-  y <- rep(NaN, max(params$Upsilon_ix))
+  y <- rep(NaN, params$max_ix)
   y[params$L_ix] <- as.vector(L)
   y[params$M_ix] <- as.vector(M)
   y[params$G_ix] <- as.vector(G)
@@ -219,7 +219,7 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   make_indices(params)
 
   # set initial conditions
-  y <- rep(NaN, max(params$Upsilon_ix))
+  y <- rep(NaN, params$max_ix)
   y[params$L_ix] <- as.vector(L)
   y[params$M_ix] <- as.vector(M)
   y[params$G_ix] <- as.vector(G)

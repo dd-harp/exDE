@@ -63,7 +63,7 @@ test_that("forced emergence works with equilibrium", {
   make_parameters_L_trace(pars = params, Lambda = alpha)
   make_indices(params)
 
-  y0 <- rep(0, max(params$Upsilon_ix))
+  y0 <- rep(0, params$max_ix)
   y0[params$M_ix] <- M_eq
   y0[params$G_ix] <- G_eq
   y0[params$Y_ix] <- Y_eq

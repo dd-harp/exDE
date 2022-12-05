@@ -44,7 +44,7 @@ test_that("RM models reach equilibrium", {
 
   # make indices and set up initial conditions
   make_indices(params)
-  y0 <- rep(0, max(params$Upsilon_ix))
+  y0 <- rep(0, params$max_ix)
   y0[params$Upsilon_ix] <- as.vector(OmegaEIP)
 
   # solve ODEs
