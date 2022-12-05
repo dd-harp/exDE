@@ -2,6 +2,8 @@ library(expm)
 library(MASS)
 library(deSolve)
 
+numeric_tol <- 1e-5
+
 test_that("test equilibrium with RM adults (ODE), SIS humans, trace", {
 
   # set number of patches and strata
@@ -48,7 +50,7 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, trace", {
   Psi <- t(Psi)
 
   # derived EIR to sustain equilibrium pfpr
-  EIR <- diag(1/b, nPatches, nPatches) %*% ((r*X) / (H - X))
+  EIR <- diag(1/b, nStrata, nStrata) %*% ((r*X) / (H - X))
 
   # ambient pop
   W <- Psi %*% H
@@ -91,7 +93,7 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, trace", {
   make_indices(params)
 
   # set initial conditions
-  y <- rep(NaN, max(params$X_ix))
+  y <- rep(NaN, params$max_ix)
   y[params$M_ix] <- as.vector(M)
   y[params$G_ix] <- as.vector(G)
   y[params$Y_ix] <- as.vector(Y)
@@ -102,11 +104,11 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, trace", {
   # run simulation
   out <- deSolve::ode(y = y, times = c(0,50), func = xDE_diffeqn, parms = params, method = "lsoda")
 
-  expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M))
-  expect_equal(as.vector(out[2, params$G_ix+1]), as.vector(G))
-  expect_equal(as.vector(out[2, params$Y_ix+1]), as.vector(Y))
-  expect_equal(as.vector(out[2, params$Z_ix+1]), as.vector(Z))
-  expect_equal(as.vector(out[2, params$X_ix+1]), as.vector(X))
+  expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$G_ix+1]), as.vector(G), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$X_ix+1]), as.vector(X), tolerance = numeric_tol)
 })
 
 test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
@@ -155,7 +157,7 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
   Psi <- t(Psi)
 
   # derived EIR to sustain equilibrium pfpr
-  EIR <- diag(1/b, nPatches, nPatches) %*% ((r*X) / (H - X))
+  EIR <- diag(1/b, nStrata, nStrata) %*% ((r*X) / (H - X))
 
   # ambient pop
   W <- Psi %*% H
@@ -198,7 +200,7 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
   make_indices(params)
 
   # set initial conditions
-  y <- rep(NaN, max(params$X_ix))
+  y <- rep(NaN, params$max_ix)
   y[params$M_ix] <- as.vector(M)
   y[params$G_ix] <- as.vector(G)
   y[params$Y_ix] <- as.vector(Y)
@@ -209,9 +211,9 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
   # run simulation
   out <- deSolve::dede(y = y, times = c(0,50), func = xDE_diffeqn, parms = params, method = "lsoda")
 
-  expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M))
-  expect_equal(as.vector(out[2, params$G_ix+1]), as.vector(G))
-  expect_equal(as.vector(out[2, params$Y_ix+1]), as.vector(Y))
-  expect_equal(as.vector(out[2, params$Z_ix+1]), as.vector(Z))
-  expect_equal(as.vector(out[2, params$X_ix+1]), as.vector(X))
+  expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$G_ix+1]), as.vector(G), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$X_ix+1]), as.vector(X), tolerance = numeric_tol)
 })

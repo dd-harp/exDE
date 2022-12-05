@@ -1,3 +1,5 @@
+numeric_tol <- sqrt(.Machine$double.eps)
+
 test_that("metrics calculations work in 1 patch/strata", {
   f <- 0.3
   q <- 0.9
@@ -12,7 +14,7 @@ test_that("metrics calculations work in 1 patch/strata", {
   vc <- (f*q/g) * exp(-g*tau) * (f*q*M)/W
   calV <- metric_calV(f = f, q = q, Omega = Omega, tau = tau, M = M, W = W)
 
-  expect_true(approx_equal(as.vector(calV), vc))
+  expect_equal(as.vector(calV), vc, tolerance = numeric_tol)
   Psi <- matrix(1,1,1)
   beta <- t(Psi) %*% diag_inverse(W)
   b <- 0.55
@@ -21,12 +23,12 @@ test_that("metrics calculations work in 1 patch/strata", {
   D <- c/r
 
   calD <- metric_calD(W = W, beta = beta, b = b, D = D, H = W)
-  expect_true(approx_equal(b*c/r, as.vector(calD)))
+  expect_equal(b*c/r, as.vector(calD), tolerance = numeric_tol)
 
   calR <- metric_calR(b = b, beta = beta, calV = calV, W = W, D = D, H = W)
   r0 <- (f*q/g) * exp(-g*tau) * (f*q*M)/W * (b*c/r)
-  expect_true(approx_equal(r0, as.vector(calR)))
+  expect_equal(r0, as.vector(calR), tolerance = numeric_tol)
 
   calZ <- metric_calZ(Omega = Omega, tau = tau, f = f, q = q, M = M, W = W, calD = calD)
-  expect_true(approx_equal(r0, as.vector(calZ)))
+  expect_equal(r0, as.vector(calZ), tolerance = numeric_tol)
 })

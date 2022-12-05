@@ -2,6 +2,8 @@ library(MASS)
 library(expm)
 library(deSolve)
 
+numeric_tol <- 1e-5
+
 test_that("forced emergence works with equilibrium", {
   nPatches <- 3
   nHabitats <- 4
@@ -61,7 +63,7 @@ test_that("forced emergence works with equilibrium", {
   make_parameters_L_trace(pars = params, Lambda = alpha)
   make_indices(params)
 
-  y0 <- rep(0, max(params$Upsilon_ix))
+  y0 <- rep(0, params$max_ix)
   y0[params$M_ix] <- M_eq
   y0[params$G_ix] <- G_eq
   y0[params$Y_ix] <- Y_eq
@@ -82,9 +84,9 @@ test_that("forced emergence works with equilibrium", {
   Y_sim <- as.vector(out[2, params$Y_ix+1])
   Z_sim <- as.vector(out[2, params$Z_ix+1])
 
-  expect_true(all(approx_equal(M_eq, M_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(G_eq, G_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(Y_eq, Y_sim, tol = 1e-4)))
-  expect_true(all(approx_equal(Z_eq, Z_sim, tol = 1e-4)))
+  expect_equal(M_eq, M_sim, tolerance = numeric_tol)
+  expect_equal(G_eq, G_sim, tolerance = numeric_tol)
+  expect_equal(Y_eq, Y_sim, tolerance = numeric_tol)
+  expect_equal(Z_eq, Z_sim, tolerance = numeric_tol)
 
 })

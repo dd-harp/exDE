@@ -1,5 +1,7 @@
 library(deSolve)
 
+numeric_tol <- 1e-5
+
 test_that("human hybrid MoI model remains at equilibrium", {
   nStrata <- 3
   H <- c(100, 500, 250)
@@ -32,7 +34,7 @@ test_that("human hybrid MoI model remains at equilibrium", {
     list(dXdt(t, y, pars, EIR))
   }, parms = params, method = 'lsoda', EIR = as.vector(EIR))
 
-  expect_true(all(approx_equal(as.vector(out[2L, params$m1_ix+1]), m10)))
-  expect_true(all(approx_equal(as.vector(out[2L, params$m2_ix+1]), m20)))
+  expect_equal(as.vector(out[2L, params$m1_ix+1]), rep(m10, nStrata), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$m2_ix+1]), rep(m20, nStrata), tolerance = numeric_tol)
 
 })

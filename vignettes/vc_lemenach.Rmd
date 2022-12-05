@@ -149,7 +149,7 @@ After setting parameters we must set the initial conditions of the model. Then w
 
 ```{r}
 # ICs
-y <- rep(NaN, max(pars$X_ix))
+y <- rep(NaN, pars$max_ix)
 y[pars$L_ix] <- pars$Lpar$L0
 y[pars$X_ix] <- pars$Xpar$X0
 y[pars$M_ix] <- pars$MYZpar$M0

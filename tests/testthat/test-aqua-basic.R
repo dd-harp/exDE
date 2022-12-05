@@ -1,5 +1,7 @@
 library(deSolve)
 
+numeric_tol <- 1e-5
+
 test_that("basic competition stays at equilibrium", {
   nHabitats <- 3
   alpha <- c(10, 50, 20)
@@ -25,5 +27,5 @@ test_that("basic competition stays at equilibrium", {
     list(dLdt(t, y, pars, eta))
   }, parms = params, method = 'lsoda', eta = eta)
 
-  expect_true(all(approx_equal(as.vector(out[2L, 2:4]), L)))
+  expect_equal(as.vector(out[2L, 2:4]), L, tolerance = numeric_tol)
 })
