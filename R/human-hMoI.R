@@ -20,10 +20,11 @@ F_EIR.hMoI <- function(t, y, pars, MosyBehavior) {
 #' @importFrom stats pexp
 #' @export
 F_x.hMoI <- function(t, y, pars) {
+  H <- F_H(t, y, pars)
   x1 <- pexp(q = y[pars$m1_ix])
   x2 <- pexp(q = y[pars$m2_ix])
   x <- (pars$Xpar$c2 * x2) + (pars$Xpar$c1 * (x1 - x2))
-  return(x * as.vector(pars$Xpar$H))
+  return(x * H)
 }
 
 #' @title Size of lagged effective infectious human population
@@ -41,10 +42,11 @@ F_x_lag.hMoI <- function(t, y, pars, lag) {
     m1_tau <- lagvalue(t = t - lag, nr = pars$m1_ix)
     m2_tau <- lagvalue(t = t - lag, nr = pars$m2_ix)
   }
+  H <- F_H_lag(t, y, pars, lag)
   x1_tau <- pexp(q = m1_tau)
   x2_tau <- pexp(q = m2_tau)
   x_tau <- (pars$Xpar$c2 * x2_tau) + (pars$Xpar$c1 * (x1_tau - x2_tau))
-  return(x_tau * as.vector(pars$Xpar$H))
+  return(x_tau * H)
 }
 
 #' @title Biting distribution matrix

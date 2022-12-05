@@ -93,7 +93,8 @@ test_that("test equilibrium with RM adults (ODE), hMoI humans, trace", {
   params$calN <- calN
 
   make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20, H = H)
+  make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20)
+  make_parameters_demography_null(pars = params, H = H)
   make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
   make_parameters_exogenous_null(pars = params)
   make_parameters_vc_null(pars = params)
@@ -210,7 +211,8 @@ test_that("test equilibrium with RM adults (DDE), hMoI humans, trace", {
   params$calN <- calN
 
   make_parameters_MYZ_GeRM_dde(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20, H = H)
+  make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20)
+  make_parameters_demography_null(pars = params, H = H)
   make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
   make_parameters_exogenous_null(pars = params)
   make_parameters_vc_null(pars = params)
