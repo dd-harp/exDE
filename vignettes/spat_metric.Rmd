@@ -137,6 +137,7 @@ In the 1 patch 1 strata case this becomes the same equation as $\mathcal{R}$.
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
+library(ggplot2)
 ```
 
 
@@ -199,4 +200,20 @@ calV <- metric_calV(f = f, q = q, Omega = Omega, tau = tau, M = M, W = W)
 calD <- metric_calD(W = W, beta = beta, b = b, D = D, H = H)
 calR <- metric_calR(b = b, beta = beta, calV = calV, W = W, D = D, H = H)
 calZ <- metric_calZ(Omega = Omega, tau = tau, f = f, q = q, M = M, W = W, calD = calD)
+```
+
+We can visualize the matrices as heatmaps.
+
+```{r, out.width = "100%"}
+calV_df <- data.frame(
+  value = as.vector(calV),
+  x = rep(1:nrow(calV), times = nrow(calV)),
+  y = rep(1:nrow(calV), each = nrow(calV))
+)
+
+ggplot(calV_df, aes(x=x,y=y,fill=log(value))) +
+    geom_raster() +
+    scale_y_reverse() +
+    guides(fill = 'none') +
+    theme(axis.title = element_blank())
 ```
