@@ -4,7 +4,7 @@ library(deSolve)
 
 numeric_tol <- 1e-5
 
-test_that("test equilibrium with RM adults (ODE), basic competition", {
+test_that("test equilibrium with RM adults (ODE), SIP humans, trace", {
 
   # set number of patches and strata
   nPatches <- 2
@@ -15,6 +15,8 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   b <- 0.55
   c <- 0.15
   r <- 1/200
+  eta <- c(1/30, 1/40)
+  rho <- c(0.05, 0.1)
   wf <- rep(1, nStrata)
 
   f <- 0.3
@@ -43,6 +45,7 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   pfpr <- rep(0.3, times = nStrata)
   H <- rpois(n = nStrata, lambda = 1000)
   X <- rbinom(n = nStrata, size = H, prob = pfpr)
+  P <- diag(1/eta) %*% diag(rho/(1-rho)) %*% (r*X)
 
   # TaR
   Psi <- matrix(rexp(n = nStrata*nPatches), nStrata, nPatches)
@@ -50,7 +53,7 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   Psi <- t(Psi)
 
   # derived EIR to sustain equilibrium pfpr
-  EIR <- diag(1/b, nPatches, nPatches) %*% ((r*X) / (H - X))
+  EIR <- diag(1/b, nStrata) %*% diag(1/(1-rho)) %*% ((r*X)/(H-X-P))
 
   # ambient pop
   W <- Psi %*% H
@@ -75,15 +78,6 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
 
   calU <- matrix(0, nHabitats, nPatches)
   diag(calU) <- 1
-
-  alpha <- as.vector(solve(calN) %*% Lambda)
-
-  psi <- 1/10
-  phi <- 1/12
-  eta <- as.vector(calU %*% G * nu * eggsPerBatch)
-
-  L <- alpha/psi
-  theta <- (eta - psi*L - phi*L)/(L^2)
 
   # parameters for exDE
   params <- new.env()
@@ -94,37 +88,34 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   params$calN <- calN
 
   make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L)
+  make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, Psi = Psi, X0 = X, P0 = as.vector(P), H = H)
+  make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
+  make_parameters_exogenous_null(pars = params)
+  make_parameters_vc_null(pars = params)
 
   make_indices(params)
 
   # set initial conditions
-  y <- rep(NaN, max(params$Upsilon_ix))
-  y[params$L_ix] <- as.vector(L)
+  y <- rep(NaN, max(params$P_ix))
   y[params$M_ix] <- as.vector(M)
   y[params$G_ix] <- as.vector(G)
   y[params$Y_ix] <- as.vector(Y)
   y[params$Z_ix] <- as.vector(Z)
   y[params$Upsilon_ix] <- as.vector(OmegaEIP)
-
-  # mimic MosyBehavior
-  MosyBehavior <- list()
-  MosyBehavior$f <- rep(params$MYZpar$f, 2)
-  attr(MosyBehavior$f, 'time') <- c(0, 0 - params$MYZpar$tau)
-  MosyBehavior$q <- rep(params$MYZpar$q, 2)
-  MosyBehavior$g <- rep(params$MYZpar$g, 2)
+  y[params$X_ix] <- as.vector(X)
+  y[params$P_ix] <- as.vector(P)
 
   # run simulation
-  out <- deSolve::ode(y = y, times = c(0,50), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = as.vector(kappa), MosyBehavior = MosyBehavior)
+  out <- deSolve::ode(y = y, times = c(0,50), func = xDE_diffeqn, parms = params, method = "lsoda")
 
-  expect_equal(as.vector(out[2, params$L_ix+1]), as.vector(L), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$G_ix+1]), as.vector(G), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$X_ix+1]), as.vector(X), tolerance = numeric_tol)
 })
 
-test_that("test equilibrium with RM adults (DDE), basic competition", {
+test_that("test equilibrium with RM adults (DDE), SIP humans, trace", {
 
   # set number of patches and strata
   nPatches <- 2
@@ -135,6 +126,8 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   b <- 0.55
   c <- 0.15
   r <- 1/200
+  eta <- c(1/30, 1/40)
+  rho <- c(0.05, 0.1)
   wf <- rep(1, nStrata)
 
   f <- 0.3
@@ -163,6 +156,7 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   pfpr <- rep(0.3, times = nStrata)
   H <- rpois(n = nStrata, lambda = 1000)
   X <- rbinom(n = nStrata, size = H, prob = pfpr)
+  P <- diag(1/eta) %*% diag(rho/(1-rho)) %*% (r*X)
 
   # TaR
   Psi <- matrix(rexp(n = nStrata*nPatches), nStrata, nPatches)
@@ -170,7 +164,7 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   Psi <- t(Psi)
 
   # derived EIR to sustain equilibrium pfpr
-  EIR <- diag(1/b, nPatches, nPatches) %*% ((r*X) / (H - X))
+  EIR <- diag(1/b, nStrata) %*% diag(1/(1-rho)) %*% ((r*X)/(H-X-P))
 
   # ambient pop
   W <- Psi %*% H
@@ -196,15 +190,6 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   calU <- matrix(0, nHabitats, nPatches)
   diag(calU) <- 1
 
-  alpha <- as.vector(solve(calN) %*% Lambda)
-
-  psi <- 1/10
-  phi <- 1/12
-  eta <- as.vector(calU %*% G * nu * eggsPerBatch)
-
-  L <- alpha/psi
-  theta <- (eta - psi*L - phi*L)/(L^2)
-
   # parameters for exDE
   params <- new.env()
   params$nStrata <- nStrata
@@ -214,32 +199,29 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   params$calN <- calN
 
   make_parameters_MYZ_GeRM_dde(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L)
+  make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, Psi = Psi, X0 = X, P0 = as.vector(P), H = H)
+  make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
+  make_parameters_exogenous_null(pars = params)
+  make_parameters_vc_null(pars = params)
 
   make_indices(params)
 
   # set initial conditions
-  y <- rep(NaN, max(params$Upsilon_ix))
-  y[params$L_ix] <- as.vector(L)
+  y <- rep(NaN, max(params$P_ix))
   y[params$M_ix] <- as.vector(M)
   y[params$G_ix] <- as.vector(G)
   y[params$Y_ix] <- as.vector(Y)
   y[params$Z_ix] <- as.vector(Z)
   y[params$Upsilon_ix] <- as.vector(OmegaEIP)
-
-  # mimic MosyBehavior
-  MosyBehavior <- list()
-  MosyBehavior$f <- rep(params$MYZpar$f, 2)
-  attr(MosyBehavior$f, 'time') <- c(0, 0 - params$MYZpar$tau)
-  MosyBehavior$q <- rep(params$MYZpar$q, 2)
-  MosyBehavior$g <- rep(params$MYZpar$g, 2)
+  y[params$X_ix] <- as.vector(X)
+  y[params$P_ix] <- as.vector(P)
 
   # run simulation
-  out <- deSolve::dede(y = y, times = c(0,50), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = t(cbind(kappa,kappa)), MosyBehavior = MosyBehavior)
+  out <- deSolve::dede(y = y, times = c(0,50), func = xDE_diffeqn, parms = params, method = "lsoda")
 
-  expect_equal(as.vector(out[2, params$L_ix+1]), as.vector(L), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$G_ix+1]), as.vector(G), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$X_ix+1]), as.vector(X), tolerance = numeric_tol)
 })

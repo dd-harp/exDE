@@ -2,6 +2,8 @@ library(MASS)
 library(expm)
 library(deSolve)
 
+numeric_tol <- 1e-5
+
 test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
 
   pars <- new.env()
@@ -94,5 +96,5 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   out = ode(y = y, times = c(0, 365), func = xDE_diffeqn, parms = pars)
 
   # check it stays at equilibrium with phi = 0 for all time
-  expect_equal(out[1, -1], out[2, -1], tolerance = 1e-4)
+  expect_equal(out[1, -1], out[2, -1], tolerance = numeric_tol)
 })
