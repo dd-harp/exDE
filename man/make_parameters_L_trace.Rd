@@ -12,7 +12,7 @@ make_parameters_L_trace(pars, Lambda)
 \item{Lambda}{vector of emergence rates from each aquatic habitat}
 }
 \value{
-a \link{list} with class \code{trace}.
+none
 }
 \description{
 Make parameters for trace aquatic mosquito model

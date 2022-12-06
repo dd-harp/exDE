@@ -6,13 +6,16 @@ make_indices <- function(pars) {
   stopifnot(is.environment(pars))
   pars$max_ix <- 0
   if ('Lpar' %in% names(pars)) {
-    pars <- make_index_L(pars)
+    make_index_L(pars)
   }
   if ('MYZpar' %in% names(pars)) {
-    pars <- make_index_MYZ(pars)
+    make_index_MYZ(pars)
   }
   if ('Xpar' %in% names(pars)) {
-    pars <- make_index_X(pars)
+    make_index_X(pars)
+  }
+  if ('Hpar' %in% names(pars)) {
+    make_index_H(pars)
   }
 }
 

@@ -88,7 +88,8 @@ test_that("test equilibrium with RM adults (ODE), SIP humans, trace", {
   params$calN <- calN
 
   make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, Psi = Psi, X0 = X, P0 = as.vector(P), H = H)
+  make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, Psi = Psi, X0 = X, P0 = as.vector(P))
+  make_parameters_demography_null(pars = params, H = H)
   make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
   make_parameters_exogenous_null(pars = params)
   make_parameters_vc_null(pars = params)
@@ -199,7 +200,8 @@ test_that("test equilibrium with RM adults (DDE), SIP humans, trace", {
   params$calN <- calN
 
   make_parameters_MYZ_GeRM_dde(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, Psi = Psi, X0 = X, P0 = as.vector(P), H = H)
+  make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, Psi = Psi, X0 = X, P0 = as.vector(P))
+  make_parameters_demography_null(pars = params, H = H)
   make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
   make_parameters_exogenous_null(pars = params)
   make_parameters_vc_null(pars = params)
