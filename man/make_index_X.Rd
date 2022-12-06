@@ -10,7 +10,7 @@ make_index_X(pars)
 \item{pars}{an \link{environment}}
 }
 \value{
-the modified parameter \link{list}
+none
 }
 \description{
 This method dispatches on the type of \code{pars$Xpar}.

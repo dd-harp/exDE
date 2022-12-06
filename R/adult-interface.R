@@ -90,7 +90,7 @@ dMYZdt <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
 #' @title Add indices for adult mosquitoes to parameter list
 #' @description This method dispatches on the type of `pars$MYZpar`.
 #' @param pars an [environment]
-#' @return the modified parameter [list]
+#' @return none
 #' @export
 make_index_MYZ <- function(pars) {
   UseMethod("make_index_MYZ", pars$MYZpar)
