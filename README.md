@@ -43,7 +43,9 @@ install.packages("exDE")
 
 ## Contributing
 
-For information about how to contribute to the development of exDE, please read our article on how to contribute at `vignette("Contributing")`!
+For information about how to contribute to the development of exDE, please read our article on how to contribute at `vignette("Contributing")`! 
+
+If you have any questions, comments, bug reports, or suggestions, the first point of contact with the development team is through [GitHub Issues](https://github.com/dd-harp/exDE/issues). If you are specifically submitting a bug report, please check out our [bug reporting guide](https://dd-harp.github.io/exDE/articles/Contributing.html#sec8). We welcome issues and encourage contribution regardless of experience; the length of the contributing guide is not intended to be intimidating, merely complete. It is the responsibility of the package maintainers to help new contributors understand our conventions and guide contributions to a successful conclusion.
 
 ## Model building in exDE
 
