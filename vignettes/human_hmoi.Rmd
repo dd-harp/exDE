@@ -52,7 +52,7 @@ $$
 $$
 m_{1} = h/r_{1}
 $$
-We can use this to calculate the net infectious probability, and then $\kappa = x \cdot H$, allowing the equilibrium solutions of this model to feed into the other components.
+We can use this to calculate the net infectious probability, and then $\kappa = \beta^{\top} \cdot x$, allowing the equilibrium solutions of this model to feed into the other components.
 
 # Example
 
