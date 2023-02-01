@@ -16,4 +16,5 @@ make_parameters_exogenous_null <- function(pars) {
   EXpar <- list()
   class(EXpar) <- 'null'
   pars$EXpar <- EXpar
+  return(pars)
 }

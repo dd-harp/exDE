@@ -54,4 +54,5 @@ make_parameters_demography_null <- function(pars, H) {
   class(Hpar) <- c('null')
   Hpar$H <- H
   pars$Hpar <- Hpar
+  return(pars)
 }
