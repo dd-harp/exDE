@@ -150,8 +150,7 @@ which correspond to <code>l</code>, <code>p</code> and
 <span>  nHabitats <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  nPatches <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  nStrata <span class="op">=</span> <span class="fl">4</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list2env.html" class="external-link">list2env</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="aquatic-habitat-membership-matrix">Aquatic Habitat Membership Matrix<a class="anchor" aria-label="anchor" href="#aquatic-habitat-membership-matrix"></a>
 </h3>
@@ -214,8 +213,7 @@ list with name <code>Lpar</code>.</p>
 <span><span class="va">phi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">8</span>, <span class="va">params</span><span class="op">$</span><span class="va">nHabitats</span><span class="op">)</span></span>
 <span><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">20</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">40</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="fu"><a href="../reference/make_parameters_L_basic.html">make_parameters_L_basic</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, psi <span class="op">=</span> <span class="va">psi</span>, phi <span class="op">=</span> <span class="va">phi</span>, theta <span class="op">=</span> <span class="va">theta</span>, L0 <span class="op">=</span> <span class="va">L0</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x559391d184b8&gt;</span></span></code></pre></div>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_L_basic.html">make_parameters_L_basic</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, psi <span class="op">=</span> <span class="va">psi</span>, phi <span class="op">=</span> <span class="va">phi</span>, theta <span class="op">=</span> <span class="va">theta</span>, L0 <span class="op">=</span> <span class="va">L0</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="adult-mosquito-parameters">Adult Mosquito Parameters<a class="anchor" aria-label="anchor" href="#adult-mosquito-parameters"></a>
@@ -250,8 +248,7 @@ the returned list to the main parameter list with name
 <span><span class="va">Omega</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_Omega.html">make_Omega</a></span><span class="op">(</span><span class="va">g</span>, <span class="va">sigma</span>, <span class="va">calK</span>, <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span></span>
 <span><span class="va">Upsilon</span> <span class="op">&lt;-</span> <span class="fu">expm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/expm/man/expm.html" class="external-link">expm</a></span><span class="op">(</span><span class="op">-</span><span class="va">Omega</span><span class="op">*</span><span class="va">tau</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/make_parameters_MYZ_GeRM_ode.html">make_parameters_MYZ_GeRM_ode</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, g <span class="op">=</span> <span class="va">g</span>, sigma <span class="op">=</span> <span class="va">sigma</span>, calK <span class="op">=</span> <span class="va">calK</span>, tau <span class="op">=</span> <span class="va">tau</span>, f <span class="op">=</span> <span class="va">f</span>, q <span class="op">=</span> <span class="va">q</span>, nu <span class="op">=</span> <span class="va">nu</span>, eggsPerBatch <span class="op">=</span> <span class="va">eggsPerBatch</span>, M0 <span class="op">=</span> <span class="va">M0</span>, G0 <span class="op">=</span> <span class="va">G0</span>, Y0 <span class="op">=</span> <span class="va">Y0</span>, Z0 <span class="op">=</span> <span class="va">Z0</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x559391d184b8&gt;</span></span></code></pre></div>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_MYZ_GeRM_ode.html">make_parameters_MYZ_GeRM_ode</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, g <span class="op">=</span> <span class="va">g</span>, sigma <span class="op">=</span> <span class="va">sigma</span>, calK <span class="op">=</span> <span class="va">calK</span>, tau <span class="op">=</span> <span class="va">tau</span>, f <span class="op">=</span> <span class="va">f</span>, q <span class="op">=</span> <span class="va">q</span>, nu <span class="op">=</span> <span class="va">nu</span>, eggsPerBatch <span class="op">=</span> <span class="va">eggsPerBatch</span>, M0 <span class="op">=</span> <span class="va">M0</span>, G0 <span class="op">=</span> <span class="va">G0</span>, Y0 <span class="op">=</span> <span class="va">Y0</span>, Z0 <span class="op">=</span> <span class="va">Z0</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="human-parameters">Human Parameters<a class="anchor" aria-label="anchor" href="#human-parameters"></a>
@@ -311,10 +308,8 @@ population size (constant <span class="math inline">\(H\)</span>).</p>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0.55</span>, <span class="va">params</span><span class="op">$</span><span class="va">nStrata</span><span class="op">)</span></span>
 <span><span class="va">c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">.02</span>, <span class="fl">.1</span>, <span class="fl">.02</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/make_parameters_X_SIS.html">make_parameters_X_SIS</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, b <span class="op">=</span> <span class="va">b</span>, c <span class="op">=</span> <span class="va">c</span>, r <span class="op">=</span> <span class="va">r</span>, Psi <span class="op">=</span> <span class="va">Psi</span>, X0 <span class="op">=</span> <span class="va">X0</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x559391d184b8&gt;</span></span>
-<span><span class="fu"><a href="../reference/make_parameters_demography_null.html">make_parameters_demography_null</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, H <span class="op">=</span> <span class="va">H</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x559391d184b8&gt;</span></span></code></pre></div>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_X_SIS.html">make_parameters_X_SIS</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, b <span class="op">=</span> <span class="va">b</span>, c <span class="op">=</span> <span class="va">c</span>, r <span class="op">=</span> <span class="va">r</span>, Psi <span class="op">=</span> <span class="va">Psi</span>, X0 <span class="op">=</span> <span class="va">X0</span><span class="op">)</span></span>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_demography_null.html">make_parameters_demography_null</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, H <span class="op">=</span> <span class="va">H</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -327,10 +322,8 @@ population size (constant <span class="math inline">\(H\)</span>).</p>
 We simply use the null models for both (no presence of vector control
 and no exogenous forcing).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/make_parameters_exogenous_null.html">make_parameters_exogenous_null</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x559391d184b8&gt;</span></span>
-<span><span class="fu"><a href="../reference/make_parameters_vc_null.html">make_parameters_vc_null</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x559391d184b8&gt;</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_exogenous_null.html">make_parameters_exogenous_null</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_vc_null.html">make_parameters_vc_null</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="initial-conditions">Initial Conditions<a class="anchor" aria-label="anchor" href="#initial-conditions"></a>
@@ -339,8 +332,7 @@ and no exogenous forcing).</p>
 can generate the indices for the model and attach them to the parameter
 list.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x559391d184b8&gt;</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can set the initial conditions of the model.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">NaN</span>, <span class="va">params</span><span class="op">$</span><span class="va">max_ix</span><span class="op">)</span></span>
