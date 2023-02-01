@@ -25,6 +25,7 @@ dLdt.trace <- function(t, y, pars, eta) {
 #' @export
 make_index_L.trace <- function(pars) {
   pars$L_ix <- integer(0)
+  return(pars)
 }
 
 #' @title Make parameters for trace aquatic mosquito model
@@ -39,4 +40,5 @@ make_parameters_L_trace <- function(pars, Lambda) {
   class(Lpar) <- 'trace'
   Lpar$Lambda <- Lambda
   pars$Lpar <- Lpar
+  return(pars)
 }

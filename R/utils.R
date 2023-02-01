@@ -6,17 +6,18 @@ make_indices <- function(pars) {
   stopifnot(is.environment(pars))
   pars$max_ix <- 0
   if ('Lpar' %in% names(pars)) {
-    make_index_L(pars)
+    pars = make_index_L(pars)
   }
   if ('MYZpar' %in% names(pars)) {
-    make_index_MYZ(pars)
+    pars = make_index_MYZ(pars)
   }
   if ('Xpar' %in% names(pars)) {
-    make_index_X(pars)
+    pats = make_index_X(pars)
   }
   if ('Hpar' %in% names(pars)) {
-    make_index_H(pars)
+    pars = make_index_H(pars)
   }
+  return(pars)
 }
 
 #' @title Invert a diagonal matrix

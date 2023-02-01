@@ -18,4 +18,5 @@ make_parameters_vc_null <- function(pars) {
   VCpar <- list()
   class(VCpar) <- 'null'
   pars$VCpar <- VCpar
+  return(pars)
 }

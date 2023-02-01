@@ -71,4 +71,5 @@ make_parameters_vc_lemenach <- function(pars, tau0_frac = c(0.68/3, 2.32/3), r =
   VCpar$phi <- phi
 
   pars$VCpar <- VCpar
+  return(pars)
 }
