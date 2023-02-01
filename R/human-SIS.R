@@ -96,6 +96,7 @@ dXdt.SIS <- function(t, y, pars, EIR) {
 make_index_X.SIS <- function(pars) {
   pars$X_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
   pars$max_ix <- tail(pars$X_ix, 1)
+  return(pars)
 }
 
 #' @title Make parameters for SIS human model
@@ -110,7 +111,6 @@ make_index_X.SIS <- function(pars) {
 #' @export
 make_parameters_X_SIS <- function(pars, b, c, r, Psi, wf = 1, X0) {
   stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(X0))
-  stopifnot(is.environment(pars))
   if (length(wf) == 1) {
     wf <- rep(wf, pars$nStrata)
   }
@@ -126,4 +126,5 @@ make_parameters_X_SIS <- function(pars, b, c, r, Psi, wf = 1, X0) {
   Xpar$wf <- wf
   Xpar$X0 <- X0
   pars$Xpar <- Xpar
+  return(pars)
 }

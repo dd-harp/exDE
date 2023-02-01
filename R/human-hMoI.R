@@ -102,6 +102,7 @@ make_index_X.hMoI <- function(pars) {
 
   pars$m2_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
   pars$max_ix <- tail(pars$m2_ix, 1)
+  return(pars)
 }
 
 #' @title Make parameters for hybrid MoI human model
@@ -120,7 +121,6 @@ make_index_X.hMoI <- function(pars) {
 #' @export
 make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20) {
   stopifnot(is.numeric(b), is.numeric(c1), is.numeric(c2), is.numeric(r1), is.numeric(r2), is.numeric(m10), is.numeric(m20))
-  stopifnot(is.environment(pars))
   if (length(wf) == 1) {
     wf <- rep(wf, pars$nStrata)
   }
@@ -139,4 +139,5 @@ make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m2
   Xpar$m10 <- m10
   Xpar$m20 <- m20
   pars$Xpar <- Xpar
+  return(pars)
 }

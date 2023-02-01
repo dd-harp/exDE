@@ -184,6 +184,7 @@ make_index_MYZ.GeRM <- function(pars) {
 
   pars$Upsilon_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches^2)
   pars$max_ix <- tail(pars$Upsilon_ix, 1)
+  return(pars)
 }
 
 
@@ -222,12 +223,12 @@ make_parameters_MYZ_GeRM <- function(MYZpar, g, sigma, calK, f, q, nu, eggsPerBa
 #' @return none
 #' @export
 make_parameters_MYZ_GeRM_ode <- function(pars, g, sigma, calK, f, q, nu, eggsPerBatch, tau, M0, G0, Y0, Z0) {
-  stopifnot(is.environment(pars))
   stopifnot(nrow(calK) == pars$nPatches && ncol(calK) == pars$nPatches)
   MYZpar <- list()
   class(MYZpar) <- c('GeRM', 'GeRM_ode')
   MYZpar <- make_parameters_MYZ_GeRM(MYZpar = MYZpar, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
   pars$MYZpar <- MYZpar
+  return(pars)
 }
 
 #' @title Make parameters for generalized GeRM DDE adult mosquito model
@@ -251,4 +252,5 @@ make_parameters_MYZ_GeRM_dde <- function(pars, g, sigma, calK, f, q, nu, eggsPer
   class(MYZpar) <- c('GeRM', 'GeRM_dde')
   MYZpar <- make_parameters_MYZ_GeRM(MYZpar = MYZpar, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
   pars$MYZpar <- MYZpar
+  return(pars)
 }

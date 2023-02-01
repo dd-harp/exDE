@@ -32,6 +32,7 @@ dLdt.basic <- function(t, y, pars, eta) {
 make_index_L.basic <- function(pars) {
   pars$L_ix <- seq(from = pars$max_ix+1, length.out = pars$nHabitats)
   pars$max_ix <- tail(pars$L_ix, 1)
+  return(pars)
 }
 
 #' @title Make parameters for basic competition aquatic mosquito model
@@ -44,7 +45,6 @@ make_index_L.basic <- function(pars) {
 #' @export
 make_parameters_L_basic <- function(pars, psi, phi, theta, L0) {
   stopifnot(is.numeric(psi), is.numeric(phi), is.numeric(theta), is.numeric(L0))
-  stopifnot(is.environment(pars))
   Lpar <- list()
   class(Lpar) <- 'basic'
   Lpar$L0 <- L0
@@ -52,4 +52,5 @@ make_parameters_L_basic <- function(pars, psi, phi, theta, L0) {
   Lpar$phi <- phi
   Lpar$theta <- theta
   pars$Lpar <- Lpar
+  return(pars)
 }
