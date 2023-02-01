@@ -40,6 +40,7 @@ dHdt.trace <- function(pars, ...) {
 #' @export
 make_index_H.trace <- function(pars) {
   pars$H_ix <- integer(0)
+  return(pars)
 }
 
 #' @title Make parameters for forced (trace) human demography model
@@ -56,4 +57,5 @@ make_parameters_demography_trace <- function(pars, H) {
   class(Hpar) <- c('trace')
   Hpar$H <- H
   pars$Hpar <- Hpar
+  return(pars)
 }

@@ -40,6 +40,7 @@ dHdt.null <- function(pars, ...) {
 #' @export
 make_index_H.null <- function(pars) {
   pars$H_ix <- integer(0)
+  return(pars)
 }
 
 #' @title Make parameters for null human demography model
