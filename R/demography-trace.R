@@ -50,7 +50,6 @@ make_index_H.trace <- function(pars) {
 #' @return none
 #' @export
 make_parameters_demography_trace <- function(pars, H) {
-  stopifnot(is.environment(pars))
   stopifnot(length(formals(H)) == 1)
   stopifnot(length(H(0)) == pars$nStrata)
   Hpar <- list()

@@ -87,11 +87,10 @@ EIR <- h/b
 params <- list(
   nStrata = nStrata
 )
-params <- list2env(params)
 
-make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20)
-make_parameters_demography_null(pars = params, H = H)
-make_indices(params)
+params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20)
+params = make_parameters_demography_null(pars = params, H = H)
+params = make_indices(params)
 
 y0 <- rep(0, params$max_ix)
 y0[params$m1_ix] <- m10

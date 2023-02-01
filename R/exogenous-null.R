@@ -12,7 +12,6 @@ ExogenousForcing.null <- function(t, y, pars) {}
 #' @return none
 #' @export
 make_parameters_exogenous_null <- function(pars) {
-  stopifnot(is.environment(pars))
   EXpar <- list()
   class(EXpar) <- 'null'
   pars$EXpar <- EXpar
