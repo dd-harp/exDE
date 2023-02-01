@@ -47,7 +47,7 @@ params <- list(
   nPatches = 3,
   nStrata = 4
 )
-params <- list2env(params)
+#params <- list2env(params)
 ```
 
 ## Aquatic Habitat Membership Matrix
@@ -104,7 +104,7 @@ psi <- rep(1/8, params$nHabitats)
 phi <- rep(1/8, params$nHabitats)
 theta <- c(1/10, 1/20, 1/40, 1/100, 1/10) 
 
-make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L0)
+params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L0)
 ```
 
 ## Adult Mosquito Parameters
@@ -131,7 +131,7 @@ Z0 <- rep(0, params$nPatches)
 Omega <- make_Omega(g, sigma, calK, params$nPatches)
 Upsilon <- expm::expm(-Omega*tau)
 
-make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
+params = make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
 ```
 
 ## Human Parameters
@@ -188,8 +188,8 @@ r <- rep(1/200, params$nStrata)
 b <- rep(0.55, params$nStrata)
 c <- c(0.1, .02, .1, .02)
 
-make_parameters_X_SIS(pars = params, b = b, c = c, r = r, Psi = Psi, X0 = X0)
-make_parameters_demography_null(pars = params, H = H)
+params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r, Psi = Psi, X0 = X0)
+params = make_parameters_demography_null(pars = params, H = H)
 ```
 
 
@@ -200,8 +200,8 @@ make_parameters_demography_null(pars = params, H = H)
 We need to specify models for exogenous forcing and vector control. We simply use the null models for both (no presence of vector control and no exogenous forcing).
 
 ```{r}
-make_parameters_exogenous_null(params)
-make_parameters_vc_null(params)
+params = make_parameters_exogenous_null(params)
+params = make_parameters_vc_null(params)
 ```
 
 ## Initial Conditions
@@ -209,7 +209,7 @@ make_parameters_vc_null(params)
 After the parameters for `5-3-4` have been specified, we can generate the indices for the model and attach them to the parameter list.
 
 ```{r}
-make_indices(params)
+params = make_indices(params)
 ```
 
 Now we can set the initial conditions of the model.

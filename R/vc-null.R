@@ -14,7 +14,6 @@ VectorControl.null <- function(t, y, pars, MosyBehavior) {
 #' @return none
 #' @export
 make_parameters_vc_null <- function(pars) {
-  stopifnot(is.environment(pars))
   VCpar <- list()
   class(VCpar) <- 'null'
   pars$VCpar <- VCpar

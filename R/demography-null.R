@@ -49,7 +49,6 @@ make_index_H.null <- function(pars) {
 #' @return none
 #' @export
 make_parameters_demography_null <- function(pars, H) {
-  stopifnot(is.environment(pars))
   stopifnot(length(H) == pars$nStrata)
   Hpar <- list()
   class(Hpar) <- c('null')

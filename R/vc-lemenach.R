@@ -57,7 +57,6 @@ VectorControl.lemenach <- function(t, y, pars, MosyBehavior) {
 #' @return none
 #' @export
 make_parameters_vc_lemenach <- function(pars, tau0_frac = c(0.68/3, 2.32/3), r = 0.56, s = 0.03, phi = function(t) {0}) {
-  stopifnot(is.environment(pars))
   stopifnot(sum(tau0_frac) == 1)
   stopifnot(is.function(phi))
   stopifnot(phi(0) >= 0)
