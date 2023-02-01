@@ -96,12 +96,11 @@ params <- list(
   calU = calU,
   calN = calN
 )
-params <- list2env(params)
 
 # ODE
-make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
-make_parameters_L_trace(pars = params, Lambda = alpha)
-make_indices(params)
+params = make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
+params = make_parameters_L_trace(pars = params, Lambda = alpha)
+params = make_indices(params)
 
 y0 <- rep(0, params$max_ix)
 y0[params$M_ix] <- M_eq

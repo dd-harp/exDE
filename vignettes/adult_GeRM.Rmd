@@ -157,7 +157,6 @@ Lambda <- c(5, 10, 8)
 params <- list(
   nPatches = nPatches
 )
-params <- list2env(params)
 ```
 
 Now we solve for the equilibrium values.
@@ -174,8 +173,8 @@ Z_eq <- as.vector(Omega_inv %*% Upsilon %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
 Now we set up the parameter environment with the correct class using `exDE::make_parameters_MYZ_GeRM_ode`, and set the indices with `exDE::make_indices`. Then we can set up the initial conditions vector and use `deSolve::ode` to solve the model. Please note that we need to use `exDE::MosquitoBehavior` to set up the bionomic parameters at equilibrium which are passed to `exDE::dMYZdt`; this is necessary when running the adult mosquito component alone without the full model. Normally these values would be computed within `exDE::xDE_diffeqn`.
 
 ```{r, out.width = "100%"}
- make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
-  make_indices(params)
+params = make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
+params = make_indices(params)
 
 y0 <- rep(NaN, params$max_ix)
 y0[params$M_ix] <- M_eq

@@ -47,7 +47,6 @@ params <- list(
   nPatches = 3,
   nStrata = 4
 )
-#params <- list2env(params)
 ```
 
 ## Aquatic Habitat Membership Matrix

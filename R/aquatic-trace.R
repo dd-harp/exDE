@@ -35,7 +35,6 @@ make_index_L.trace <- function(pars) {
 #' @export
 make_parameters_L_trace <- function(pars, Lambda) {
   stopifnot(is.numeric(Lambda))
-  stopifnot(is.environment(pars))
   Lpar <- list()
   class(Lpar) <- 'trace'
   Lpar$Lambda <- Lambda

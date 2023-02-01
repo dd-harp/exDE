@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+
 In this vignette we demonstrate how to set up a model incorporating the Le Menach model of ITN based vector control (see [this paper](https://malariajournal.biomedcentral.com/articles/10.1186/1475-2875-6-10)). We use the generalized Ross-Macdonald model of adult mosquito dynamics, the SIS model of human population dynamics, and the basic competition model of aquatic mosquito dynamics to fill the dynamical components $\mathcal{M}, \mathcal{X}, \mathcal{L}$.
 
 ```{r, message=FALSE, warning=FALSE}
@@ -30,7 +31,8 @@ library(ggplot2)
 This case study will use a simple model with 3 patches, 3 population strata, and 3 aquatic habitats. As usual, we set up parameter values and compute the values of state variables at equilibrium. As part of the equilibrium calculation we must compute $\Upsilon(0) = \exp\left(-\int_{-\tau}^{0} \Omega(s) ds \right)$; the value of the integrated mosquito demography matrix at the initial time point. To simplify things, we simply assume that conditions were constant prior to $t=0$ so that $\Upsilon(0) = e^{-\Omega\tau}$.
 
 ```{r}
-pars <- new.env()
+#pars <- new.env()
+pars = list() 
 pars$nPatches <- 3
 pars$nStrata <- 3
 pars$nHabitats <- 3
@@ -137,13 +139,13 @@ pars$calN <- calN
 ITN_cov <- function(t) {ifelse(t < 0, 0, (sin(2*pi*(t-365/4) / 365) + 1) / 2)}
 
 # set parameters
-make_parameters_exogenous_null(pars)
-make_parameters_vc_lemenach(pars, phi = ITN_cov)
-make_parameters_MYZ_GeRM_dde(pars = pars, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M, G0 = G, Y0 = Y, Z0 = Z)
-make_parameters_L_basic(pars = pars, psi = psi, phi = phi, theta = theta, L0 = L)
-make_parameters_X_SIS(pars = pars, b = b, c = c, r = r, Psi = Psi, wf = wf, X0 = X)
-make_parameters_demography_null(pars = pars, H = H)
-make_indices(pars = pars)
+pars = make_parameters_exogenous_null(pars)
+pars = make_parameters_vc_lemenach(pars, phi = ITN_cov)
+pars = make_parameters_MYZ_GeRM_dde(pars = pars, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M, G0 = G, Y0 = Y, Z0 = Z)
+pars = make_parameters_L_basic(pars = pars, psi = psi, phi = phi, theta = theta, L0 = L)
+pars = make_parameters_X_SIS(pars = pars, b = b, c = c, r = r, Psi = Psi, wf = wf, X0 = X)
+pars =make_parameters_demography_null(pars = pars, H = H)
+pars = make_indices(pars = pars)
 ```
 
 ## Solve
