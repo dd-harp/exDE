@@ -16,11 +16,10 @@ test_that("human SIS model remains at equilibrium", {
   params <- list(
     nStrata = nStrata
   )
-  params <- list2env(params)
 
-  make_parameters_X_SIS(pars = params, b = b, c = c, r = r, Psi = Psi, X0 = X)
-  make_parameters_demography_null(pars = params, H = H)
-  make_indices(params)
+  params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r, Psi = Psi, X0 = X)
+  params = make_parameters_demography_null(pars = params, H = H)
+  params = make_indices(params)
 
   y0 <- rep(0, 3)
   y0[params$X_ix] <- X

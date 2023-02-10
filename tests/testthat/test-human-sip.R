@@ -19,11 +19,10 @@ test_that("human SIP model remains at equilibrium", {
   params <- list(
     nStrata = nStrata
   )
-  params <- list2env(params)
 
-  make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, Psi = Psi, X0 = X, P0 = as.vector(P))
-  make_parameters_demography_null(pars = params, H = H)
-  make_indices(params)
+  params <- make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, Psi = Psi, X0 = X, P0 = as.vector(P))
+  params <- make_parameters_demography_null(pars = params, H = H)
+  params <- make_indices(params)
 
   y0 <- rep(0, 6)
   y0[params$X_ix] <- X
