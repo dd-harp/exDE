@@ -72,22 +72,12 @@ dXdt.SIP <- function(t, y, pars, EIR) {
   X <- y[pars$X_ix]
   P <- y[pars$P_ix]
   H <- F_H(t, y, pars)
+
   with(pars$Xpar, {
     # disease dynamics
-    dX <- diag((1-rho)*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - r*X
-    dP <- diag(rho*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - eta*P
-
-    # demographic dynamics
-    calDX <- make_calD(d = pars$Hpar$d[[1]], m = pars$Hpar$m[[1]])
-    dX <- dX + dHdt(pars, calDX, X)
-
-    calDP <- make_calD(d = pars$Hpar$d[[2]], m = pars$Hpar$m[[2]])
-    dP <- dP + dHdt(pars, calDP, P)
-
-    calDX <- make_calD(d = pars$Hpar$d[[1]], m = pars$Hpar$m[[1]], b = pars$Hpar$b[[1]])
-    calDP <- make_calD(d = pars$Hpar$d[[2]], m = pars$Hpar$m[[2]], b = pars$Hpar$b[[2]])
-    calDS <- make_calD(d = pars$Hpar$d[[3]], m = pars$Hpar$m[[3]], b = pars$Hpar$b[[3]])
-    dH <- dHdt(pars, calDX, X, calDP, P, calDS, H - X - P)
+    dX <- diag((1-rho)*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - r*X + dHdt(t, X, pars)
+    dP <- diag(rho*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - eta*P + dHdt(t, P, pars)
+    dH <- Births(t, H, pars) + dHdt(t, H, pars)
 
     # return derivatives
     return(c(dX, dP, dH))

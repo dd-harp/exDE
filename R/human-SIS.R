@@ -71,17 +71,11 @@ F_beta_lag.SIS <- function(t, y, pars, lag) {
 dXdt.SIS <- function(t, y, pars, EIR) {
   X <- y[pars$X_ix]
   H <- F_H(t, y, pars)
+
   with(pars$Xpar, {
     # disease dynamics
-    dX <- diag(b*EIR, nrow = pars$nStrata) %*% (H - X) - r*X
-
-    # demographic dynamics
-    calDX <- make_calD(d = pars$Hpar$d[[1]], m = pars$Hpar$m[[1]])
-    dX <- dX + dHdt(pars, calDX, X)
-
-    calDX <- make_calD(d = pars$Hpar$d[[1]], m = pars$Hpar$m[[1]], b = pars$Hpar$b[[1]])
-    calDS <- make_calD(d = pars$Hpar$d[[2]], m = pars$Hpar$m[[2]], b = pars$Hpar$b[[2]])
-    dH <- dHdt(pars, calDX, X, calDS, H - X)
+    dX <- diag(b*EIR, nrow = pars$nStrata) %*% (H - X) - r*X + dHdt(t, X, pars)
+    dH <- Births(t, H, pars) + dHdt(t, H, pars)
 
     return(c(dX, dH))
   })

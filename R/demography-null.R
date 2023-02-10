@@ -21,16 +21,19 @@ F_H_lag.null <- function(t, y, pars, lag) {
 #' @title Derivatives of demographic changes in human populations
 #' @description Implements [dHdt] for the null model.
 #' @inheritParams dHdt
-#' @return a [numeric] vector of length `nStrata` or of length 0
+#' @return a [numeric] vector of length 0
 #' @export
-dHdt.null <- function(pars, ...) {
-  if (...length() > 2) {
-    # being called to evaluate \dot{H}
-    numeric(0)
-  } else {
-    # being called to evaluate a component \dot{X}
-    rep(0, length(...elt(2)))
-  }
+Births.null <- function(t, y, pars){
+  if(class(y) == 'param') numeric(0) else 0*y
+}
+
+#' @title Derivatives of demographic changes in human populations
+#' @description Implements [dHdt] for the null model.
+#' @inheritParams dHdt
+#' @return a [numeric] vector of length 0
+#' @export
+dHdt.null <- function(t, y, pars){
+  if(class(y) == 'param') numeric(0) else 0*y
 }
 
 #' @title Add indices for human population denominators to parameter list
@@ -53,6 +56,7 @@ make_parameters_demography_null <- function(pars, H) {
   Hpar <- list()
   class(Hpar) <- c('null')
   Hpar$H <- H
+  class(Hpar$H) <- 'param'
   pars$Hpar <- Hpar
   return(pars)
 }

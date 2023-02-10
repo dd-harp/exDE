@@ -25,15 +25,20 @@ F_H_lag <- function(t, y, pars, lag) {
 
 #' @title Derivatives of demographic changes in human populations
 #' @description This method dispatches on the type of `pars$Hpar`.
-#' @param pars an [environment]
-#' @param ... additional arguments which must be of the form `D`, `Y`, etc. `D`
-#' is a `nStrata` by `nStrata` demography matrix and `Y` is a state vector. There
-#' should be at least one pair of these passed to the function.
 #' @return see help pages for specific methods
 #' @export
-dHdt <- function(pars, ...) {
+dHdt <- function(t, y, pars){
   UseMethod("dHdt", pars$Hpar)
 }
+
+#' @title A function that computes the birth rate for human populations
+#' @description This method dispatches on the type of `pars$Hpar`.
+#' @return see help pages for specific methods
+#' @export
+Births <- function(t, y, pars){
+  UseMethod("Births", pars$Hpar)
+}
+
 
 #' @title Add indices for human population denominators to parameter list
 #' @description This method dispatches on the type of `pars$Hpar`.
