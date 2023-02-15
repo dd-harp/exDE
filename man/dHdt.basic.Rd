@@ -6,9 +6,16 @@
 \usage{
 \method{dHdt}{basic}(t, y, pars)
 }
+\arguments{
+\item{t}{current simulation time}
+
+\item{y}{state vector}
+
+\item{pars}{an \link{environment}}
+}
 \value{
 a \link{numeric} vector of length \code{nStrata} or of length 0
 }
 \description{
-Implements \link{dHdt} for the forced (basic) model.
+Implements \link{dHdt} for the basic demography model
 }

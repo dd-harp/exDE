@@ -7,6 +7,9 @@
 make_parameters_demography_basic(
   pars,
   H,
+  membershipH,
+  searchWtsH,
+  TimeSpent,
   F_birth,
   birthrate,
   deathrate,
@@ -18,6 +21,20 @@ make_parameters_demography_basic(
 
 \item{H}{a function taking a single argument \code{t} and returning a vector of length
 \code{nStrata}.}
+
+\item{membershipH}{is a vector describing patch residency}
+
+\item{searchWtsH}{is a vector describing blood feeding search weights}
+
+\item{TimeSpent}{is a matrix describing time spent among patches}
+
+\item{F_birth}{is function that returns the birth rate as a function of time}
+
+\item{birthrate}{is a parameter describing the current birthrate for each stratum}
+
+\item{deathrate}{is a parameter describing the current deathrate for each stratum}
+
+\item{birthsXstrata}{is a parameter describing which strata get births}
 }
 \value{
 none

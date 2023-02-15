@@ -50,8 +50,6 @@ $$
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
-#source ("../R/aquatic-interface.R")
-#source ("../R/aquatic-basic.R")
 library(deSolve)
 library(data.table)
 library(ggplot2)

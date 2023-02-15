@@ -41,3 +41,23 @@ make_parameters_L_trace <- function(pars, Lambda) {
   pars$Lpar <- Lpar
   return(pars)
 }
+
+#' @title Make parameters for trace aquatic mosquito model
+#' @param pars an [environment]
+#' @param L0 is set to NULL for the trace model
+#' @return none
+#' @export
+make_inits_L_trace<- function(pars, L0=NULL) {
+  pars$Linits = numeric(0)
+  return(pars)
+}
+
+#' @title Return initial values as a vector
+#' @description Implements [get_inits_L] for the GeRM model.
+#' @inheritParams get_inits_L
+#' @return none
+#' @export
+get_inits_L.trace <- function(pars){
+  numeric(0)
+}
+

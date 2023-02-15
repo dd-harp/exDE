@@ -44,6 +44,8 @@ test_that("test equilibrium with RM adults (ODE), hMoI humans, trace", {
 
   # MoI at equilibrium
   H <- c(100, 120)
+  membershipH = c(1,2)
+  searchWtsH = c(1,1)
   m20 <- 1.5
   h <- r2*m20
   m10 <- h/r1
@@ -85,34 +87,31 @@ test_that("test equilibrium with RM adults (ODE), hMoI humans, trace", {
   diag(calU) <- 1
 
   # parameters for exDE
-  params <- new.env()
+  params <- list()
   params$nStrata <- nStrata
   params$nPatches <- nPatches
   params$nHabitats <- nHabitats
   params$calU <- calU
   params$calN <- calN
 
-  make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20)
-  make_parameters_demography_null(pars = params, H = H)
-  make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
-  make_parameters_exogenous_null(pars = params)
-  make_parameters_vc_null(pars = params)
+  params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
+  params = make_inits_MYZ_GeRM(pars = params, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=OmegaEIP)
+  params = make_parameters_demography_null(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
+  params = make_parameters_BF_static(params)
+  params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
+  params = make_inits_X_hMoI(pars = params, m10 = rep(m10,2), m20 = rep(m20,2))
+  params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
+  params = make_parameters_exogenous_null(pars = params)
+  params = make_parameters_vc_null(pars = params)
 
-  make_indices(params)
+  params = make_indices(params)
+
 
   # set initial conditions
-  y <- rep(NaN, params$max_ix)
-  y[params$M_ix] <- as.vector(M)
-  y[params$G_ix] <- as.vector(G)
-  y[params$Y_ix] <- as.vector(Y)
-  y[params$Z_ix] <- as.vector(Z)
-  y[params$Upsilon_ix] <- as.vector(OmegaEIP)
-  y[params$m1_ix] <- m10
-  y[params$m2_ix] <- m20
+  y0 <- get_inits(params)
 
   # run simulation
-  out <- deSolve::ode(y = y, times = c(0,50), func = xDE_diffeqn, parms = params, method = "lsoda")
+  out <- deSolve::ode(y = y0, times = c(0,50), func = xDE_diffeqn, parms = params, method = "lsoda")
 
   expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$G_ix+1]), as.vector(G), tolerance = numeric_tol)
@@ -162,6 +161,8 @@ test_that("test equilibrium with RM adults (DDE), hMoI humans, trace", {
 
   # MoI at equilibrium
   H <- c(100, 120)
+  membershipH = c(1,2)
+  searchWtsH = c(1,1)
   m20 <- 1.5
   h <- r2*m20
   m10 <- h/r1
@@ -210,27 +211,24 @@ test_that("test equilibrium with RM adults (DDE), hMoI humans, trace", {
   params$calU <- calU
   params$calN <- calN
 
-  make_parameters_MYZ_GeRM_dde(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20)
-  make_parameters_demography_null(pars = params, H = H)
-  make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
-  make_parameters_exogenous_null(pars = params)
-  make_parameters_vc_null(pars = params)
+  params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
+  params = make_inits_MYZ_GeRM(pars = params, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=OmegaEIP)
+  params = make_parameters_demography_null(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
+  params = make_parameters_BF_static(params)
+  params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
+  params = make_inits_X_hMoI(pars = params, m10 = rep(m10,2), m20 = rep(m20,2))
+  params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
+  params = make_parameters_exogenous_null(pars = params)
+  params = make_parameters_vc_null(pars = params)
 
-  make_indices(params)
+  params = make_indices(params)
+
 
   # set initial conditions
-  y <- rep(NaN, params$max_ix)
-  y[params$M_ix] <- as.vector(M)
-  y[params$G_ix] <- as.vector(G)
-  y[params$Y_ix] <- as.vector(Y)
-  y[params$Z_ix] <- as.vector(Z)
-  y[params$Upsilon_ix] <- as.vector(OmegaEIP)
-  y[params$m1_ix] <- m10
-  y[params$m2_ix] <- m20
+  y0 <- get_inits(params)
 
   # run simulation
-  out <- deSolve::dede(y = y, times = c(0,50), func = xDE_diffeqn, parms = params, method = "lsoda")
+  out <- deSolve::dede(y = y0, times = c(0,50), func = xDE_diffeqn, parms = params, method = "lsoda")
 
   expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$G_ix+1]), as.vector(G), tolerance = numeric_tol)

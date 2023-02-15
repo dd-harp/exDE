@@ -17,21 +17,7 @@ make_inits_MYZ_GeRM(pars, M0, G0, Y0, Z0, Upsilon0)
 
 \item{Z0}{infectious mosquito density at each patch}
 
-\item{g}{mosquito mortality rate}
-
-\item{sigma}{emigration rate}
-
-\item{calK}{mosquito dispersal matrix of dimensions \code{nPatches} by \code{nPatches}}
-
-\item{f}{feeding rate}
-
-\item{q}{human blood fraction}
-
-\item{nu}{oviposition rate of gravid mosquitoes}
-
-\item{eggsPerBatch}{eggs laid per oviposition}
-
-\item{tau}{length of extrinsic incubation period}
+\item{Upsilon0}{the initial values of Upsilon}
 }
 \value{
 none

@@ -6,8 +6,15 @@
 \usage{
 \method{dHdt}{null}(t, y, pars)
 }
+\arguments{
+\item{t}{current simulation time}
+
+\item{y}{state vector}
+
+\item{pars}{an \link{environment}}
+}
 \value{
-a \link{numeric} vector of length 0
+a \link{numeric} vector of 0s or of length 0
 }
 \description{
 Implements \link{dHdt} for the null model.

@@ -55,13 +55,11 @@ make_indices_X.SIS <- function(pars) {
 }
 
 #' @title Make parameters for SIS human model
-#' @param pars an [environment]
+#' @param pars an [list]
 #' @param b transmission probability (efficiency) from mosquito to human
 #' @param c transmission probability (efficiency) from human to mosquito
 #' @param r recovery rate
-#' @param Psi a [matrix] of dimensions `nPatches` by `nStrata`
-#' @param wf vector of biting weights of length `nStrata`
-#' @return none
+#' @return a [list]
 #' @export
 make_parameters_X_SIS <- function(pars, b, c, r) {
   stopifnot(is.numeric(b), is.numeric(c), is.numeric(r))

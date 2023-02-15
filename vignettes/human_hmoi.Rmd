@@ -58,13 +58,6 @@ We can use this to calculate the net infectious probability, and then $\kappa = 
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
-#source ("../R/utils.R")
-#source ("../R/human-interface.R")
-#source ("../R/human-hMoI.R")
-#source ("../R/diffeqn.R") 
-#source ("../R/bloodfeeding.R") 
-#source ("../R/demography-interface.R")
-#source ("../R/demography-null.R")
 library(deSolve)
 library(data.table)
 library(ggplot2)
@@ -102,7 +95,7 @@ params = make_parameters_demography_null(pars = params, H=H,
              membershipH = membershipH, searchWtsH = searchWtsH, 
              TimeSpent = Psi)
 params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
-params = make_inits_X_hMoI(pars = params, m10, m20) 
+params = make_inits_X_hMoI(pars = params, rep(m10, nStrata), rep(m20, nStrata)) 
 params = make_indices(params)
 
 y0 <- get_inits(params)

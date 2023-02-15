@@ -15,11 +15,11 @@ test_that("basic competition stays at equilibrium", {
   params <- list(
     nHabitats = nHabitats
   )
-  params <- list2env(params)
 
   # ODE
-  make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L)
-  make_indices(params)
+  params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
+  params = make_inits_L_basic(pars = params, L0 = L)
+  params = make_indices(params)
 
   y0 <- rep(0, 3)
 

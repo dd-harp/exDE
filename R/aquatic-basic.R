@@ -37,12 +37,11 @@ make_indices_L.basic <- function(pars) {
 
 
 #' @title Make parameters for basic competition aquatic mosquito model
-#' @param pars an [environment]
+#' @param pars an [list]
 #' @param psi maturation rates for each aquatic habitat
 #' @param phi density-independent mortality rates for each aquatic habitat
 #' @param theta density-dependent mortality terms for each aquatic habitat
-#' @param L0 initial conditions
-#' @return none
+#' @return a [list] with Lpar added
 #' @export
 make_parameters_L_basic <- function(pars, psi, phi, theta) {
   stopifnot(is.numeric(psi), is.numeric(phi), is.numeric(theta))

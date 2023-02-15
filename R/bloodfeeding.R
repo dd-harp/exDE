@@ -44,6 +44,7 @@ F_beta <- function(t, y, pars) {
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars an [environment]
+#' @param lag is the lag value
 #' @return a [matrix] of dimensions `nStrata` by `nPatches`
 #' @export
 F_beta_lag <- function(t, y, pars, lag) {
@@ -95,10 +96,9 @@ F_beta_lag.dynamic <- function(t, y, pars, lag) {
 }
 
 
-#' @title Sets up beta for a static matrix
-#' @description Implements [F_beta_lag] for dynamic denominators
-#' @inheritParams F_beta_lag
-#' @return a [matrix] of dimensions `nStrata` by `nPatches`
+#' @title Sets up BFpars for a model with static availability
+#' @param params is a list
+#' @return a [list] with BFpar added
 #' @export
 make_parameters_BF_static <- function(params){with(params$Hpar,{
   BFpar <- list()

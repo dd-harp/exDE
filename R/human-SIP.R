@@ -67,10 +67,6 @@ make_indices_X.SIP <- function(pars) {
 #' @param r recovery rate
 #' @param rho probability of successful treatment upon infection
 #' @param eta prophylaxis waning rate
-#' @param Psi a [matrix] of dimensions `nPatches` by `nStrata`
-#' @param wf vector of biting weights of length `nStrata`
-#' @param X0 size of infected population in each strata
-#' @param P0 size of population protected by prophylaxis in each strata
 #' @return none
 #' @export
 make_parameters_X_SIP <- function(pars, b, c, r, rho, eta){
@@ -88,13 +84,6 @@ make_parameters_X_SIP <- function(pars, b, c, r, rho, eta){
 
 #' @title Make inits for SIP human model
 #' @param pars an [environment]
-#' @param b transmission probability (efficiency) from mosquito to human
-#' @param c transmission probability (efficiency) from human to mosquito
-#' @param r recovery rate
-#' @param rho probability of successful treatment upon infection
-#' @param eta prophylaxis waning rate
-#' @param Psi a [matrix] of dimensions `nPatches` by `nStrata`
-#' @param wf vector of biting weights of length `nStrata`
 #' @param X0 size of infected population in each strata
 #' @param P0 size of population protected by prophylaxis in each strata
 #' @return none

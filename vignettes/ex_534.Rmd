@@ -16,21 +16,6 @@ knitr::opts_chunk$set(
 
 ```{r, warning=FALSE, message=FALSE}
 library(exDE)
-#source ("../R/adult-interface.R")
-#source ("../R/adult-GeRM.R")
-#source ("../R/utils.R")
-#source ("../R/aquatic-interface.R")
-#source ("../R/aquatic-basic.R")
-#source ("../R/human-interface.R")
-#source ("../R/human-SIS.R")
-#source ("../R/diffeqn.R") 
-#source ("../R/bloodfeeding.R") 
-#source ("../R/demography-interface.R")
-#source ("../R/demography-null.R")
-#source ("../R/exogenous-interface.R")
-#source ("../R/exogenous-null.R")
-#source ("../R/vc-interface.R")
-#source ("../R/vc-null.R")
 library(expm)
 library(data.table)
 library(ggplot2)
@@ -149,7 +134,6 @@ Upsilon <- expm::expm(-Omega*tau)
 
 params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode") 
 params = make_inits_MYZ_GeRM(params, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0, Upsilon0=Upsilon)
-params = attach_inits_MYZ(params)
 ```
 
 ## Human Parameters
@@ -220,7 +204,6 @@ c <- c(0.1, .02, .1, .02)
 
 params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
 params = make_inits_X_SIS(params, X0)
-params = attach_inits_X(params)
 ```
 
 

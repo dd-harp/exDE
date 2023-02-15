@@ -50,13 +50,6 @@ Note that in the final line, $EIR$ is a column vector of dimension $n$ due to th
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
-#source ("../R/utils.R")
-#source ("../R/human-interface.R")
-#source ("../R/human-SIS.R")
-#source ("../R/diffeqn.R") 
-#source ("../R/bloodfeeding.R") 
-#source ("../R/demography-interface.R")
-#source ("../R/demography-null.R")
 library(deSolve)
 library(data.table)
 library(ggplot2)

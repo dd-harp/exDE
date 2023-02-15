@@ -30,7 +30,7 @@ Births.null <- function(t, y, pars){
 #' @title Derivatives of demographic changes in human populations
 #' @description Implements [dHdt] for the null model.
 #' @inheritParams dHdt
-#' @return a [numeric] vector of length 0
+#' @return a [numeric] vector of 0s or of length 0
 #' @export
 dHdt.null <- function(t, y, pars){
   if(class(y) == 'param') numeric(0) else 0*y
@@ -59,6 +59,9 @@ get_inits_H.null<- function(pars){
 #' @title Make parameters for null human demography model
 #' @param pars an [environment]
 #' @param H size of human population in each strata
+#' @param membershipH is a vector describing patch residency
+#' @param searchWtsH is a vector describing blood feeding search weights
+#' @param TimeSpent is a matrix describing time spent among patches
 #' @return none
 #' @export
 make_parameters_demography_null <- function(pars, H, membershipH, searchWtsH, TimeSpent) {

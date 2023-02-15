@@ -46,13 +46,6 @@ Given $EIR$ we can solve for the mosquito population which would have given rise
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
-#source ("../R/utils.R")
-#source ("../R/human-interface.R")
-#source ("../R/human-SIP.R")
-#source ("../R/diffeqn.R") 
-#source ("../R/bloodfeeding.R") 
-#source ("../R/demography-interface.R")
-#source ("../R/demography-null.R")
 library(deSolve)
 library(data.table)
 library(ggplot2)

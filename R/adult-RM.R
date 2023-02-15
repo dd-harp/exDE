@@ -137,8 +137,8 @@ dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
   tau <- pars$MYZpar$tau
 
   if (t < tau) {
-    M_tau <- inits$MYZinits$M0
-    Y_tau <- inits$MYZinits$Y0
+    M_tau <- pars$MYZinits$M0
+    Y_tau <- pars$MYZinits$Y0
   } else {
     M_tau <- lagvalue(t = t - tau, nr = pars$M_ix)
     Y_tau <- lagvalue(t = t - tau, nr = pars$Y_ix)
@@ -180,9 +180,6 @@ make_indices_MYZ.RM <- function(pars) {
 }
 
 
-#' @noRd
-
-
 #' @title Make parameters for generalized RM ODE adult mosquito model
 #' @param pars an [environment]
 #' @param g mosquito mortality rate
@@ -193,6 +190,7 @@ make_indices_MYZ.RM <- function(pars) {
 #' @param nu oviposition rate of gravid mosquitoes
 #' @param eggsPerBatch eggs laid per oviposition
 #' @param tau length of extrinsic incubation period
+#' @param solve_as is either `ode` to solve as an ode or `dde` to solve as a dde
 #' @return none
 #' @export
 make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, tau, calK, solve_as = 'dde') {
@@ -217,6 +215,7 @@ make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, tau, 
 #' @param M0 total mosquito density at each patch
 #' @param Y0 infected mosquito density at each patch
 #' @param Z0 infectious mosquito density at each patch
+#' @param Upsilon0 the initial values of Upsilon
 #' @return none
 #' @export
 make_inits_MYZ_RM <- function(pars, M0, Y0, Z0, Upsilon0) {

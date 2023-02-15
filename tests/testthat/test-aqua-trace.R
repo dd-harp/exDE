@@ -1,4 +1,3 @@
-library(MASS)
 library(expm)
 library(deSolve)
 
@@ -56,19 +55,17 @@ test_that("forced emergence works with equilibrium", {
     calU = calU,
     calN = calN
   )
-  params <- list2env(params)
 
   # ODE
-  make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
-  make_parameters_L_trace(pars = params, Lambda = alpha)
-  make_indices(params)
+  params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode")
+  params = make_inits_MYZ_GeRM(pars = params, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches), Upsilon0 = OmegaEIP)
+  params = make_parameters_L_trace(pars = params, Lambda = alpha)
+  params = make_parameters_vc_null(pars = params)
+  params = make_parameters_exogenous_null(pars = params)
 
-  y0 <- rep(0, params$max_ix)
-  y0[params$M_ix] <- M_eq
-  y0[params$G_ix] <- G_eq
-  y0[params$Y_ix] <- Y_eq
-  y0[params$Z_ix] <- Z_eq
-  y0[params$Upsilon_ix] <- as.vector(OmegaEIP)
+  params = make_indices(params)
+
+  y0 <- get_inits(params)
 
   # mimic MosyBehavior
   MosyBehavior <- list()

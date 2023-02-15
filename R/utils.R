@@ -25,7 +25,19 @@ make_indices <- function(pars) {
 #' @return none
 #' @export
 get_inits <- function(pars){
-  c(get_inits_L(pars), get_inits_MYZ(pars), get_inits_X(pars), get_inits_H(pars))
+  if ('Lpar' %in% names(pars)) {
+    Li = get_inits_L(pars)
+  } else {Li = numeric(0)}
+  if ('MYZpar' %in% names(pars)) {
+    MYZi = get_inits_MYZ(pars)
+  } else {MYZi = numeric(0)}
+  if ('Xpar' %in% names(pars)) {
+    Xi = get_inits_X(pars)
+  } else {Xi = numeric(0)}
+  if ('Hpar' %in% names(pars)) {
+    Hi = get_inits_H(pars)
+  } else {Hi = numeric(0)}
+  return(c(Li, MYZi, Xi, Hi))
 }
 
 #' @title Invert a diagonal matrix

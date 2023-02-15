@@ -18,14 +18,6 @@ make_parameters_X_SIP(pars, b, c, r, rho, eta)
 \item{rho}{probability of successful treatment upon infection}
 
 \item{eta}{prophylaxis waning rate}
-
-\item{Psi}{a \link{matrix} of dimensions \code{nPatches} by \code{nStrata}}
-
-\item{wf}{vector of biting weights of length \code{nStrata}}
-
-\item{X0}{size of infected population in each strata}
-
-\item{P0}{size of population protected by prophylaxis in each strata}
 }
 \value{
 none

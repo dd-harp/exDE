@@ -6,6 +6,13 @@
 \usage{
 \method{Births}{null}(t, y, pars)
 }
+\arguments{
+\item{t}{current simulation time}
+
+\item{y}{state vector}
+
+\item{pars}{an \link{environment}}
+}
 \value{
 a \link{numeric} vector of length 0
 }

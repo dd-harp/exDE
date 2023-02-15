@@ -1,5 +1,5 @@
 ---
-title: "A Generalized Ross-Macdonald (GeRM) Adult Mosquito Model"
+title: "A Generalized Ross-Macdonald Adult Mosquito Model"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{A Generalized Ross-Macdonald Adult Mosquito Model}
@@ -115,9 +115,6 @@ We can use the same equation for $G$ as above.
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
-#source("../R/adult-interface.R")
-#source("../R/adult-GeRM.R")
-#source("../R/utils.R")
 library(expm)
 library(deSolve)
 library(data.table)

@@ -13,5 +13,5 @@
 none
 }
 \description{
-Implements \link{make_indices_H} for forced (basic) model.
+Implements \link{make_indices_H} for the basic demography model.
 }

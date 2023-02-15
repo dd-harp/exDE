@@ -12,6 +12,8 @@
 \item{y}{state vector}
 
 \item{pars}{an \link{environment}}
+
+\item{lag}{is the lag value}
 }
 \value{
 a \link{matrix} of dimensions \code{nStrata} by \code{nPatches}

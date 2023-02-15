@@ -5,8 +5,7 @@ library(deSolve)
 numeric_tol <- 1e-5
 
 test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
-
-  pars <- new.env()
+  pars <- list()
   pars$nPatches <- 3
   pars$nStrata <- 3
   pars$nHabitats <- 3
@@ -42,6 +41,8 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   pfpr <- runif(n = pars$nStrata, min = 0.25, max = 0.35)
   H <- rpois(n = pars$nStrata, lambda = 1000)
   X <- rbinom(n = pars$nStrata, size = H, prob = pfpr)
+  membershipH = 1:pars$nStrata
+  searchWtsH = rep(1, pars$nStrata)
 
   Psi <- matrix(
     data = c(
@@ -73,28 +74,27 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   Lambda <- Omega %*% M
 
   # set parameters
-  make_parameters_exogenous_null(pars)
-  make_parameters_vc_lemenach(pars)
-  make_parameters_MYZ_GeRM_ode(pars = pars, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M, G0 = G, Y0 = Y, Z0 = Z)
-  make_parameters_L_trace(pars = pars, Lambda = as.vector(Lambda))
-  make_parameters_X_SIS(pars = pars, b = b, c = c, r = r, Psi = Psi, wf = wf, X0 = X)
-  make_parameters_demography_null(pars = pars, H = H)
-  make_indices(pars = pars)
+  pars = make_parameters_demography_null(pars = pars, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
+  pars = make_parameters_BF_static(pars)
+  pars = make_parameters_MYZ_GeRM(pars = pars, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
+  pars = make_inits_MYZ_GeRM(pars = pars, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=Upsilon)
+  pars = make_parameters_L_trace(pars = pars,  Lambda = as.vector(Lambda))
+  pars = make_inits_L_trace(pars = pars)
+  pars = make_parameters_vc_lemenach(pars = pars)
+  pars = make_parameters_exogenous_null(pars = pars)
+  pars = make_parameters_X_SIS(pars = pars, b = b, c = c, r = r)
+  pars = make_inits_X_SIS(pars = pars, X)
 
   pars$calU <- diag(pars$nPatches)
   pars$calN <- diag(pars$nHabitats)
 
+  pars= make_indices(pars)
+
   # ICs
-  y <- rep(NaN, pars$max_ix)
-  y[pars$X_ix] <- pars$Xpar$X0
-  y[pars$M_ix] <- pars$MYZpar$M0
-  y[pars$G_ix] <- pars$MYZpar$G0
-  y[pars$Y_ix] <- pars$MYZpar$Y0
-  y[pars$Z_ix] <- pars$MYZpar$Z0
-  y[pars$Upsilon_ix] <- as.vector(Upsilon)
+  y0 <- get_inits(pars)
 
   # solve the model
-  out = ode(y = y, times = c(0, 365), func = xDE_diffeqn, parms = pars)
+  out = ode(y = y0, times = c(0, 365), func = xDE_diffeqn, parms = pars)
 
   # check it stays at equilibrium with phi = 0 for all time
   expect_equal(out[1, -1], out[2, -1], tolerance = numeric_tol)

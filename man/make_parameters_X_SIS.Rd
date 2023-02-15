@@ -7,20 +7,16 @@
 make_parameters_X_SIS(pars, b, c, r)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{an \link{list}}
 
 \item{b}{transmission probability (efficiency) from mosquito to human}
 
 \item{c}{transmission probability (efficiency) from human to mosquito}
 
 \item{r}{recovery rate}
-
-\item{Psi}{a \link{matrix} of dimensions \code{nPatches} by \code{nStrata}}
-
-\item{wf}{vector of biting weights of length \code{nStrata}}
 }
 \value{
-none
+a \link{list}
 }
 \description{
 Make parameters for SIS human model

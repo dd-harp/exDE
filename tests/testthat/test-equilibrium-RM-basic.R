@@ -86,26 +86,24 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   theta <- (eta - psi*L - phi*L)/(L^2)
 
   # parameters for exDE
-  params <- new.env()
+  params <- list()
   params$nStrata <- nStrata
   params$nPatches <- nPatches
   params$nHabitats <- nHabitats
   params$calU <- calU
   params$calN <- calN
 
-  make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L)
+  params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode")
+  params = make_inits_MYZ_GeRM(pars = params, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=OmegaEIP)
+  params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
+  params = make_inits_L_basic(pars = params,  L0 = L)
+  params = make_parameters_vc_null(pars = params)
+  params = make_parameters_exogenous_null(pars = params)
 
-  make_indices(params)
+  params = make_indices(params)
 
   # set initial conditions
-  y <- rep(NaN, params$max_ix)
-  y[params$L_ix] <- as.vector(L)
-  y[params$M_ix] <- as.vector(M)
-  y[params$G_ix] <- as.vector(G)
-  y[params$Y_ix] <- as.vector(Y)
-  y[params$Z_ix] <- as.vector(Z)
-  y[params$Upsilon_ix] <- as.vector(OmegaEIP)
+  y0 <- get_inits(params)
 
   # mimic MosyBehavior
   MosyBehavior <- list()
@@ -115,7 +113,7 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   MosyBehavior$g <- rep(params$MYZpar$g, 2)
 
   # run simulation
-  out <- deSolve::ode(y = y, times = c(0,50), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = as.vector(kappa), MosyBehavior = MosyBehavior)
+  out <- deSolve::ode(y = y0, times = c(0,50), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = as.vector(kappa), MosyBehavior = MosyBehavior)
 
   expect_equal(as.vector(out[2, params$L_ix+1]), as.vector(L), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M), tolerance = numeric_tol)
@@ -205,27 +203,25 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   L <- alpha/psi
   theta <- (eta - psi*L - phi*L)/(L^2)
 
-  # parameters for exDE
-  params <- new.env()
+  params <- list()
   params$nStrata <- nStrata
   params$nPatches <- nPatches
   params$nHabitats <- nHabitats
   params$calU <- calU
   params$calN <- calN
 
-  make_parameters_MYZ_GeRM_dde(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L)
+  # parameters for exDE
+  params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch)
+  params = make_inits_MYZ_GeRM(pars = params, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=OmegaEIP)
+  params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
+  params = make_inits_L_basic(pars = params,  L0 = L)
+  params = make_parameters_vc_null(pars = params)
+  params = make_parameters_exogenous_null(pars = params)
 
-  make_indices(params)
+  params = make_indices(params)
 
   # set initial conditions
-  y <- rep(NaN, params$max_ix)
-  y[params$L_ix] <- as.vector(L)
-  y[params$M_ix] <- as.vector(M)
-  y[params$G_ix] <- as.vector(G)
-  y[params$Y_ix] <- as.vector(Y)
-  y[params$Z_ix] <- as.vector(Z)
-  y[params$Upsilon_ix] <- as.vector(OmegaEIP)
+  y0 <- get_inits(params)
 
   # mimic MosyBehavior
   MosyBehavior <- list()
@@ -235,7 +231,7 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   MosyBehavior$g <- rep(params$MYZpar$g, 2)
 
   # run simulation
-  out <- deSolve::dede(y = y, times = c(0,50), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = t(cbind(kappa,kappa)), MosyBehavior = MosyBehavior)
+  out <- deSolve::dede(y = y0, times = c(0,50), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = t(cbind(kappa,kappa)), MosyBehavior = MosyBehavior)
 
   expect_equal(as.vector(out[2, params$L_ix+1]), as.vector(L), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M), tolerance = numeric_tol)

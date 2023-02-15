@@ -12,20 +12,6 @@ make_inits_X_SIP(pars, X0, P0)
 \item{X0}{size of infected population in each strata}
 
 \item{P0}{size of population protected by prophylaxis in each strata}
-
-\item{b}{transmission probability (efficiency) from mosquito to human}
-
-\item{c}{transmission probability (efficiency) from human to mosquito}
-
-\item{r}{recovery rate}
-
-\item{rho}{probability of successful treatment upon infection}
-
-\item{eta}{prophylaxis waning rate}
-
-\item{Psi}{a \link{matrix} of dimensions \code{nPatches} by \code{nStrata}}
-
-\item{wf}{vector of biting weights of length \code{nStrata}}
 }
 \value{
 none

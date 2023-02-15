@@ -17,5 +17,5 @@
 a \link{numeric} vector of length \code{nStrata}
 }
 \description{
-Implements \link{F_H} for the forced (basic) model.
+Implements \link{F_H} for the basic demography model
 }

@@ -14,6 +14,8 @@ make_inits_MYZ_RM(pars, M0, Y0, Z0, Upsilon0)
 \item{Y0}{infected mosquito density at each patch}
 
 \item{Z0}{infectious mosquito density at each patch}
+
+\item{Upsilon0}{the initial values of Upsilon}
 }
 \value{
 none

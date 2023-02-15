@@ -113,10 +113,6 @@ make_indices_X.hMoI <- function(pars) {
 #' @param c2 transmission probability (efficiency) from patent human infections to mosquito
 #' @param r1 recovery rate from inapparent infections
 #' @param r2 recovery rate from patent infections
-#' @param Psi a [matrix] of dimensions `nPatches` by `nStrata`
-#' @param wf vector of biting weights of length `nStrata`
-#' @param m10 mean MoI among inapparent human infections
-#' @param m20 mean MoI among patent human infections
 #' @return none
 #' @export
 make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2) {
@@ -144,3 +140,12 @@ make_inits_X_hMoI <- function(pars, m10, m20) {
   pars$Xinits = list(m10 = m10, m20 = m20)
   return(pars)
 }
+
+#' @title Return initial values as a vector
+#' @description This method dispatches on the type of `pars$Xpar`.
+#' @param pars an [environment]
+#' @return none
+#' @export
+get_inits_X.hMoI <- function(pars){with(pars$Xinits,{
+  c(m10, m20)
+})}

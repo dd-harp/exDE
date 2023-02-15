@@ -2,13 +2,16 @@
 % Please edit documentation in R/bloodfeeding.R
 \name{make_parameters_BF_static}
 \alias{make_parameters_BF_static}
-\title{Sets up beta for a static matrix}
+\title{Sets up BFpars for a model with static availability}
 \usage{
 make_parameters_BF_static(params)
 }
+\arguments{
+\item{params}{is a list}
+}
 \value{
-a \link{matrix} of dimensions \code{nStrata} by \code{nPatches}
+a \link{list} with BFpar added
 }
 \description{
-Implements \link{F_beta_lag} for dynamic denominators
+Sets up BFpars for a model with static availability
 }
