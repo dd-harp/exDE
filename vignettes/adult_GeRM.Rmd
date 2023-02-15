@@ -1,15 +1,11 @@
 ---
-title: "A Generalized Ross-Macdonald Adult Mosquito Model"
+title: "A Generalized Ross-Macdonald (GeRM) Adult Mosquito Model"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{A Generalized Ross-Macdonald Adult Mosquito Model}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-```{r}
-source("../R/adult-GeRM.R")
-```
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -24,7 +20,7 @@ The generalized Ross-Macdonald adult mosquito model fulfills the generic interfa
 
 ## Delay Differential Equations
 
-These equations are implemented by `exDE::dMYZdt.GeRM_dde`.
+These equations are naturally implemented by `exDE::dMYZdt.GeRM_dde,` but they can also be implemented in a closely related set of odes using `exDE::dMYZdt.GeRM_ode` (see below). 
 
 $$
 \dot{M} = \Lambda - \Omega\cdot M 
@@ -49,10 +45,9 @@ $$
 
 ## Ordinary Differential Equations
 
-These equations are implemented by `exDE::dMYZdt.GeRM_ode`.
+In the following, the equation are solved by `exDE::dMYZdt.GeRM_ode`.
 
-The system of ODEs is the same as above except for the equation giving the rate of change
-in infectious mosquito density, which becomes:
+The system of ODEs is the same as above except for the equation giving the rate of change in infectious mosquito density, which becomes:
 
 $$
 \dot{Z} = e^{-\Omega \tau} \cdot \mbox{diag}(fq\kappa) \cdot (M-Y) - \Omega \cdot Z
@@ -120,6 +115,9 @@ We can use the same equation for $G$ as above.
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
+#source("../R/adult-interface.R")
+#source("../R/adult-GeRM.R")
+#source("../R/utils.R")
 library(expm)
 library(deSolve)
 library(data.table)
@@ -150,18 +148,26 @@ calK <- t(calK)
 
 Omega <- make_Omega(g, sigma, calK, nPatches)
 Upsilon <- expm::expm(-Omega * tau)
+``` 
 
+
+Now we set up the parameter environment with the correct class using `exDE::make_parameters_MYZ_GeRM,` noting that we will be solving as an `ode.`  
+
+```{r}
+params <- list(nPatches = nPatches)
+
+params = make_parameters_MYZ_GeRM(params, g = g, sigma = sigma, calK = calK, 
+                                  f = f, q = q, 
+                                  nu = nu, eggsPerBatch = eggsPerBatch, 
+                                  tau = tau, solve_as = 'ode')  
+```
+
+Now we set the values of $\kappa$ and $\Lambda$ and solve for the equilibrium values.
+
+```{r}
 kappa <- c(0.1, 0.075, 0.025)
 Lambda <- c(5, 10, 8)
 
-params <- list(
-  nPatches = nPatches
-)
-```
-
-Now we solve for the equilibrium values.
-
-```{r}
 Omega_inv <- solve(Omega)
 
 M_eq <- as.vector(Omega_inv %*% Lambda)
@@ -170,25 +176,44 @@ Y_eq <- as.vector(solve(diag(f*q*kappa) + Omega) %*% diag(f*q*kappa) %*% M_eq)
 Z_eq <- as.vector(Omega_inv %*% Upsilon %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
 ```
 
-Now we set up the parameter environment with the correct class using `exDE::make_parameters_MYZ_GeRM_ode`, and set the indices with `exDE::make_indices`. Then we can set up the initial conditions vector and use `deSolve::ode` to solve the model. Please note that we need to use `exDE::MosquitoBehavior` to set up the bionomic parameters at equilibrium which are passed to `exDE::dMYZdt`; this is necessary when running the adult mosquito component alone without the full model. Normally these values would be computed within `exDE::xDE_diffeqn`.
+We use `exDE::make_inits_MYZ_GeRM` to store the initial values. These equations have been implemented to compute $\Upsilon$ dynamically, so we attach `Upsilon` as initial values:
+
+```{r}
+params = make_inits_MYZ_GeRM(pars = params, 
+                             M0 = M_eq, G0 = G_eq, Y0 = Y_eq, Z0 = Z_eq, 
+                             Upsilon0 = Upsilon)
+```
+
+We and set the indices with `exDE::make_indices`. 
+
+```{r}
+params$max_ix = 0 
+params = make_indices(params)
+```
+
+Please note that we need to use `exDE::MosquitoBehavior` to set up the bionomic parameters at equilibrium which are passed to `exDE::dMYZdt`; this is necessary when running the adult mosquito component alone without the full model.
+
+```{r}
+MosyBehavior <- MosquitoBehavior(0, y, params)
+```
+
+Then we can set up the initial conditions vector and use `deSolve::ode` to solve the model.  Normally these values would be computed within `exDE::xDE_diffeqn`. Here, we set up a local version: 
 
 ```{r, out.width = "100%"}
-params = make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
-params = make_indices(params)
+y0 = get_inits_MYZ(params) 
 
-y0 <- rep(NaN, params$max_ix)
-y0[params$M_ix] <- M_eq
-y0[params$G_ix] <- G_eq
-y0[params$Y_ix] <- Y_eq
-y0[params$Z_ix] <- Z_eq
-y0[params$Upsilon_ix] <- as.vector(Upsilon)
-
-MosyBehavior <- MosquitoBehavior(0, y, params)
-
-out <- deSolve::ode(y = y0, times = 0:50, func = function(t, y, pars, Lambda, kappa, MosyBehavior) {
+dMYZdt_local = func=function(t, y, pars, Lambda, kappa, MosyBehavior) {
   list(dMYZdt(t, y, pars, Lambda, kappa, MosyBehavior))
-}, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa, MosyBehavior = MosyBehavior)
+}
 
+out <- deSolve::ode(y = y0, times = 0:50, dMYZdt_local, parms=params, 
+                    method = 'lsoda', Lambda = Lambda, kappa = kappa, 
+                    MosyBehavior = MosyBehavior)
+```
+
+The output is plotted below. The flat lines shown here is a verification that the steady state solutions that we computed above match the steady states computed by solving the equations: 
+
+```{r, out.width = "100%"}
 colnames(out)[params$M_ix+1] <- paste0('M_', 1:params$nPatches)
 colnames(out)[params$G_ix+1] <- paste0('G_', 1:params$nPatches)
 colnames(out)[params$Y_ix+1] <- paste0('Y_', 1:params$nPatches)

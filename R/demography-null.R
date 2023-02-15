@@ -37,13 +37,23 @@ dHdt.null <- function(t, y, pars){
 }
 
 #' @title Add indices for human population denominators to parameter list
-#' @description Implements [make_index_H] for null model.
-#' @inheritParams make_index_H
+#' @description Implements [make_indices_H] for null model.
+#' @inheritParams make_indices_H
 #' @return none
 #' @export
-make_index_H.null <- function(pars) {
+make_indices_H.null <- function(pars) {
   pars$H_ix <- integer(0)
   return(pars)
+}
+
+
+#' @title Return initial values as a vector
+#' @description This method dispatches on the type of `pars$Xpar`.
+#' @param pars an [environment]
+#' @return none
+#' @export
+get_inits_H.null<- function(pars){
+  return(numeric(0))
 }
 
 #' @title Make parameters for null human demography model
@@ -51,12 +61,17 @@ make_index_H.null <- function(pars) {
 #' @param H size of human population in each strata
 #' @return none
 #' @export
-make_parameters_demography_null <- function(pars, H) {
+make_parameters_demography_null <- function(pars, H, membershipH, searchWtsH, TimeSpent) {
   stopifnot(length(H) == pars$nStrata)
   Hpar <- list()
   class(Hpar) <- c('null')
   Hpar$H <- H
   class(Hpar$H) <- 'param'
+  Hpar$membershipH <- membershipH
+  Hpar$searchWtsH <- searchWtsH
+  Hpar$TimeSpent <- TimeSpent
+  class(Hpar$TimeSpent) <- 'static'
   pars$Hpar <- Hpar
+  pars$nStrata = length(H)
   return(pars)
 }

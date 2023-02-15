@@ -1,3 +1,4 @@
+
 #' @title Set indices for generalized spatial model
 #' @param pars an [environment]
 #' @return none
@@ -5,18 +6,26 @@
 make_indices <- function(pars) {
   pars$max_ix <- 0
   if ('Lpar' %in% names(pars)) {
-    pars = make_index_L(pars)
+    pars = make_indices_L(pars)
   }
   if ('MYZpar' %in% names(pars)) {
-    pars = make_index_MYZ(pars)
+    pars = make_indices_MYZ(pars)
   }
   if ('Xpar' %in% names(pars)) {
-    pars = make_index_X(pars)
+    pars = make_indices_X(pars)
   }
   if ('Hpar' %in% names(pars)) {
-    pars = make_index_H(pars)
+    pars = make_indices_H(pars)
   }
   return(pars)
+}
+
+#' @title Get the initial values as a vector
+#' @param pars an [environment]
+#' @return none
+#' @export
+get_inits <- function(pars){
+  c(get_inits_L(pars), get_inits_MYZ(pars), get_inits_X(pars), get_inits_H(pars))
 }
 
 #' @title Invert a diagonal matrix
@@ -44,13 +53,3 @@ approx_equal <- function(a, b, tol = sqrt(.Machine$double.eps)) {
   abs(a - b) < tol
 }
 
-#' @title Make the mosquito demography matrix
-#' @param g mortality rate
-#' @param sigma emigration  rate
-#' @param K mosquito dispersal matrix
-#' @param nPatches number of patches
-#' @return a [matrix] of dimensions `nPatches` by `nPatches`
-#' @export
-make_Omega <- function(g, sigma, K, nPatches) {
-  diag(g, nPatches) + ((diag(nPatches) - K) %*% diag(sigma, nPatches))
-}

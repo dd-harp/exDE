@@ -4,7 +4,7 @@
 \alias{make_parameters_X_hMoI}
 \title{Make parameters for hybrid MoI human model}
 \usage{
-make_parameters_X_hMoI(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20)
+make_parameters_X_hMoI(pars, b, c1, c2, r1, r2)
 }
 \arguments{
 \item{pars}{an \link{environment}}

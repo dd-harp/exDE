@@ -16,6 +16,12 @@ knitr::opts_chunk$set(
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
+#source ("../R/adult-interface.R")
+#source ("../R/adult-GeRM.R")
+#source ("../R/utils.R")
+#source ("../R/aquatic-interface.R")
+#source ("../R/aquatic-trace.R")
+#source ("../R/diffeqn.R") 
 library(MASS)
 library(expm)
 library(deSolve)
@@ -98,7 +104,8 @@ params <- list(
 )
 
 # ODE
-params = make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
+params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode") 
+params = make_inits_MYZ_GeRM(params, M_eq, G_eq, Y_eq, Z_eq, Upsilon)
 params = make_parameters_L_trace(pars = params, Lambda = alpha)
 params = make_indices(params)
 

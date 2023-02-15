@@ -4,7 +4,7 @@
 \alias{make_parameters_X_SIP}
 \title{Make parameters for SIP human model}
 \usage{
-make_parameters_X_SIP(pars, b, c, r, rho, eta, Psi, wf = 1, X0, P0)
+make_parameters_X_SIP(pars, b, c, r, rho, eta)
 }
 \arguments{
 \item{pars}{an \link{environment}}

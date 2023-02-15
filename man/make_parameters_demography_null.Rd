@@ -4,7 +4,7 @@
 \alias{make_parameters_demography_null}
 \title{Make parameters for null human demography model}
 \usage{
-make_parameters_demography_null(pars, H)
+make_parameters_demography_null(pars, H, membershipH, searchWtsH, TimeSpent)
 }
 \arguments{
 \item{pars}{an \link{environment}}

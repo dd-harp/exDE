@@ -42,7 +42,6 @@ F_kappa.GeRM_ode <- function(t, y, pars) {
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_kappa.GeRM_dde <- function(t, y, pars) {
-
   x <- F_x(t, y, pars)
   x_lag <- F_x_lag(t, y, pars, pars$MYZpar$tau)
 
@@ -72,7 +71,7 @@ F_Z.GeRM <- function(t, y, pars) {
 #' @export
 F_Z_lag.GeRM <- function(t, y, pars, lag) {
   if (t < lag) {
-    return(pars$MYZpar$Z0)
+    return(pars$MYZinits$Z0)
   } else {
     return(lagvalue(t = t - lag, nr = pars$Z_ix))
   }
@@ -141,8 +140,8 @@ dMYZdt.GeRM_dde <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
   tau <- pars$MYZpar$tau
 
   if (t < tau) {
-    M_tau <- pars$MYZpar$M0
-    Y_tau <- pars$MYZpar$Y0
+    M_tau <- inits$MYZinits$M0
+    Y_tau <- inits$MYZinits$Y0
   } else {
     M_tau <- lagvalue(t = t - tau, nr = pars$M_ix)
     Y_tau <- lagvalue(t = t - tau, nr = pars$Y_ix)
@@ -164,12 +163,12 @@ dMYZdt.GeRM_dde <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
 }
 
 #' @title Add indices for adult mosquitoes to parameter list
-#' @description Implements [make_index_MYZ] for the generalized GeRM model.
-#' @inheritParams make_index_MYZ
+#' @description Implements [make_indices_MYZ] for the generalized GeRM model.
+#' @inheritParams make_indices_MYZ
 #' @return none
 #' @importFrom utils tail
 #' @export
-make_index_MYZ.GeRM <- function(pars) {
+make_indices_MYZ.GeRM <- function(pars) {
   pars$M_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
   pars$max_ix <- tail(pars$M_ix, 1)
 
@@ -189,22 +188,7 @@ make_index_MYZ.GeRM <- function(pars) {
 
 
 #' @noRd
-make_parameters_MYZ_GeRM <- function(MYZpar, g, sigma, calK, f, q, nu, eggsPerBatch, tau, M0, G0, Y0, Z0) {
-  stopifnot(is.numeric(g), is.numeric(sigma), is.numeric(f), is.numeric(q), is.numeric(nu), is.numeric(eggsPerBatch), is.numeric(M0), is.numeric(G0), is.numeric(Y0), is.numeric(Z0))
-  MYZpar$g <- g
-  MYZpar$sigma <- sigma
-  MYZpar$calK <- calK
-  MYZpar$f <- f
-  MYZpar$q <- q
-  MYZpar$nu <- nu
-  MYZpar$eggsPerBatch <- eggsPerBatch
-  MYZpar$tau <- tau
-  MYZpar$M0 <- M0
-  MYZpar$G0 <- G0
-  MYZpar$Y0 <- Y0
-  MYZpar$Z0 <- Z0
-  return(MYZpar)
-}
+
 
 #' @title Make parameters for generalized GeRM ODE adult mosquito model
 #' @param pars an [environment]
@@ -222,16 +206,24 @@ make_parameters_MYZ_GeRM <- function(MYZpar, g, sigma, calK, f, q, nu, eggsPerBa
 #' @param Z0 infectious mosquito density at each patch
 #' @return none
 #' @export
-make_parameters_MYZ_GeRM_ode <- function(pars, g, sigma, calK, f, q, nu, eggsPerBatch, tau, M0, G0, Y0, Z0) {
-  stopifnot(nrow(calK) == pars$nPatches && ncol(calK) == pars$nPatches)
+make_parameters_MYZ_GeRM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, tau, calK, solve_as = 'dde') {
+  stopifnot(is.numeric(g), is.numeric(sigma), is.numeric(f), is.numeric(q), is.numeric(nu), is.numeric(eggsPerBatch))
   MYZpar <- list()
-  class(MYZpar) <- c('GeRM', 'GeRM_ode')
-  MYZpar <- make_parameters_MYZ_GeRM(MYZpar = MYZpar, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
+  if(solve_as == 'dde') class(MYZpar) <- c('GeRM', 'GeRM_dde')
+  else if(solve_as == 'ode') class(MYZpar) <- c('GeRM', 'GeRM_ode')
+  MYZpar$g <- g
+  MYZpar$sigma <- sigma
+  MYZpar$f <- f
+  MYZpar$q <- q
+  MYZpar$nu <- nu
+  MYZpar$eggsPerBatch <- eggsPerBatch
+  MYZpar$tau <- tau
+  MYZpar$calK <- calK
   pars$MYZpar <- MYZpar
   return(pars)
 }
 
-#' @title Make parameters for generalized GeRM DDE adult mosquito model
+#' @title Make inits for generalized GeRM ODE adult mosquito model
 #' @param pars an [environment]
 #' @param g mosquito mortality rate
 #' @param sigma emigration rate
@@ -247,10 +239,17 @@ make_parameters_MYZ_GeRM_ode <- function(pars, g, sigma, calK, f, q, nu, eggsPer
 #' @param Z0 infectious mosquito density at each patch
 #' @return none
 #' @export
-make_parameters_MYZ_GeRM_dde <- function(pars, g, sigma, calK, f, q, nu, eggsPerBatch, tau, M0, G0, Y0, Z0) {
-  MYZpar <- list()
-  class(MYZpar) <- c('GeRM', 'GeRM_dde')
-  MYZpar <- make_parameters_MYZ_GeRM(MYZpar = MYZpar, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
-  pars$MYZpar <- MYZpar
+make_inits_MYZ_GeRM <- function(pars, M0, G0, Y0, Z0, Upsilon0) {
+  pars$MYZinits = list(M0=M0, G0=G0, Y0=Y0, Z0=Z0, Upsilon0=Upsilon0)
   return(pars)
 }
+
+#' @title Return initial values as a vector
+#' @description Implements [get_inits_MYZ] for the GeRM model.
+#' @inheritParams get_inits_MYZ
+#' @return none
+#' @export
+get_inits_MYZ.GeRM <- function(pars) {with(pars$MYZinits,{
+  c(M0, G0, Y0, Z0, as.vector(Upsilon0))
+})}
+

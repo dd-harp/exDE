@@ -24,7 +24,7 @@ F_H_lag.basic <- function(t, y, pars, lag) {
 #' @return a [numeric] vector of length `nStrata` or of length 0
 #' @export
 dHdt.basic <- function(t, y, pars){
-  deaths%*%y
+  pars$Hpar$deaths%*%y
 }
 
 #' @title Derivatives of demographic changes in human populations
@@ -37,11 +37,11 @@ Births.basic <- function(t, y, pars){with(pars$Hpar,{
 })}
 
 #' @title Add indices for human population denominators to parameter list
-#' @description Implements [make_index_H] for forced (basic) model.
-#' @inheritParams make_index_H
+#' @description Implements [make_indices_H] for forced (basic) model.
+#' @inheritParams make_indices_H
 #' @return none
 #' @export
-make_index_H.basic <- function(pars) {
+make_indices_H.basic <- function(pars) {
   pars$H_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
   pars$max_ix <- tail(pars$H_ix, 1)
   return(pars)
@@ -53,15 +53,26 @@ make_index_H.basic <- function(pars) {
 #' `nStrata`.
 #' @return none
 #' @export
-make_parameters_demography_basic <- function(pars, H, F_birth, deathrate, birthsXstrata) {
+make_parameters_demography_basic <- function(pars, H, F_birth, birthrate, deathrate, birthsXstrata) {
   stopifnot(length(H) == pars$nStrata)
   stopifnot(length(deathrate) == pars$nStrata)
   Hpar <- list()
   class(Hpar) <- c('basic')
   Hpar$H <- H
   Hpar$F_birth <- F_birth
+  Hpar$birthrate <- birthrate
   Hpar$birthXstrata <- birthsXstrata
   Hpar$deaths <- diag(-deathrate)
   pars$Hpar <- Hpar
+  return(pars)
+}
+
+#' @title Attach initial values to parameter list
+#' @description Implements [attach_inits_H] for the basic model.
+#' @inheritParams attach_inits_H
+#' @return none
+#' @export
+attach_inits_H.basic <- function(pars) {
+  pars$Hpar$H0 = pars$Hpar$inits$H0
   return(pars)
 }

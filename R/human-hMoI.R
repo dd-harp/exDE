@@ -36,8 +36,8 @@ F_x.hMoI <- function(t, y, pars) {
 #' @export
 F_x_lag.hMoI <- function(t, y, pars, lag) {
   if (t < lag) {
-    m1_tau <- pars$Xpar$m10
-    m2_tau <- pars$Xpar$m20
+    m1_tau <- pars$Xinits$m10
+    m2_tau <- pars$Xinits$m20
   } else {
     m1_tau <- lagvalue(t = t - lag, nr = pars$m1_ix)
     m2_tau <- lagvalue(t = t - lag, nr = pars$m2_ix)
@@ -91,12 +91,12 @@ dXdt.hMoI <- function(t, y, pars, EIR) {
 }
 
 #' @title Add indices for human population to parameter list
-#' @description Implements [make_index_X] for the hybrid MoI model.
-#' @inheritParams make_index_X
+#' @description Implements [make_indices_X] for the hybrid MoI model.
+#' @inheritParams make_indices_X
 #' @return none
 #' @importFrom utils tail
 #' @export
-make_index_X.hMoI <- function(pars) {
+make_indices_X.hMoI <- function(pars) {
   pars$m1_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
   pars$max_ix <- tail(pars$m1_ix, 1)
 
@@ -119,14 +119,8 @@ make_index_X.hMoI <- function(pars) {
 #' @param m20 mean MoI among patent human infections
 #' @return none
 #' @export
-make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20) {
-  stopifnot(is.numeric(b), is.numeric(c1), is.numeric(c2), is.numeric(r1), is.numeric(r2), is.numeric(m10), is.numeric(m20))
-  if (length(wf) == 1) {
-    wf <- rep(wf, pars$nStrata)
-  }
-  stopifnot(length(wf) == pars$nStrata)
-  stopifnot(nrow(Psi) == pars$nPatches)
-  stopifnot(ncol(Psi) == pars$nStrata)
+make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2) {
+  stopifnot(is.numeric(b), is.numeric(c1), is.numeric(c2), is.numeric(r1), is.numeric(r2))
   Xpar <- list()
   class(Xpar) <- c('hMoI')
   Xpar$b <- b
@@ -134,10 +128,19 @@ make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m2
   Xpar$c2 <- c2
   Xpar$r1 <- r1
   Xpar$r2 <- r2
-  Xpar$Psi <- Psi
-  Xpar$wf <- wf
-  Xpar$m10 <- m10
-  Xpar$m20 <- m20
   pars$Xpar <- Xpar
+  return(pars)
+}
+
+#' @title Make inits for hybrid MoI human model
+#' @description MoI stands for Multiplicity of Infection, and refers to malarial superinfection.
+#' @param pars an [environment]
+#' @param m10 mean MoI among inapparent human infections
+#' @param m20 mean MoI among patent human infections
+#' @return none
+#' @export
+make_inits_X_hMoI <- function(pars, m10, m20) {
+  stopifnot(is.numeric(m10), is.numeric(m20))
+  pars$Xinits = list(m10 = m10, m20 = m20)
   return(pars)
 }

@@ -19,11 +19,11 @@ dLdt.trace <- function(t, y, pars, eta) {
 }
 
 #' @title Add indices for aquatic stage mosquitoes to parameter list
-#' @description Implements [make_index_L] for trace (forced emergence) model.
-#' @inheritParams make_index_L
+#' @description Implements [make_indices_L] for trace (forced emergence) model.
+#' @inheritParams make_indices_L
 #' @return none
 #' @export
-make_index_L.trace <- function(pars) {
+make_indices_L.trace <- function(pars) {
   pars$L_ix <- integer(0)
   return(pars)
 }

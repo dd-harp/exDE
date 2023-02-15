@@ -25,7 +25,6 @@ xDE_diffeqn <- function(t, y, pars, EIR_delta = NULL, kappa_delta = NULL) {
 
   # mosquito feeding and mortality under control
   MosyBehavior <- VectorControl(t, y, pars, MosyBehavior0)
-
   # eta: egg laying
   eggs <- F_eggs(t, y, pars)
   eta <- pars$calU %*% eggs

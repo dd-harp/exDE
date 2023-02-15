@@ -4,7 +4,7 @@
 \alias{make_parameters_L_basic}
 \title{Make parameters for basic competition aquatic mosquito model}
 \usage{
-make_parameters_L_basic(pars, psi, phi, theta, L0)
+make_parameters_L_basic(pars, psi, phi, theta)
 }
 \arguments{
 \item{pars}{an \link{environment}}

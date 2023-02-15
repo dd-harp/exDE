@@ -4,17 +4,10 @@
 \alias{dHdt.null}
 \title{Derivatives of demographic changes in human populations}
 \usage{
-\method{dHdt}{null}(pars, ...)
-}
-\arguments{
-\item{pars}{an \link{environment}}
-
-\item{...}{additional arguments which must be of the form \code{D}, \code{Y}, etc. \code{D}
-is a \code{nStrata} by \code{nStrata} demography matrix and \code{Y} is a state vector. There
-should be at least one pair of these passed to the function.}
+\method{dHdt}{null}(t, y, pars)
 }
 \value{
-a \link{numeric} vector of length \code{nStrata} or of length 0
+a \link{numeric} vector of length 0
 }
 \description{
 Implements \link{dHdt} for the null model.

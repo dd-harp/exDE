@@ -15,7 +15,7 @@ Description: Provides tools to set up modular ordinary and delay differential eq
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.1.9000
+RoxygenNote: 7.2.3
 URL: https://dd-harp.github.io/exDE/
 BugReports: https://github.com/dd-harp/exDE/issues
 Roxygen: list(markdown = TRUE)

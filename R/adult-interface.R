@@ -92,6 +92,26 @@ dMYZdt <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
 #' @param pars an [environment]
 #' @return none
 #' @export
-make_index_MYZ <- function(pars) {
-  UseMethod("make_index_MYZ", pars$MYZpar)
+make_indices_MYZ <- function(pars) {
+  UseMethod("make_indices_MYZ", pars$MYZpar)
+}
+
+#' @title Return initial values as a vector
+#' @description This method dispatches on the type of `pars$MYZpar`.
+#' @param pars an [environment]
+#' @return none
+#' @export
+get_inits_MYZ <- function(pars) {
+  UseMethod("get_inits_MYZ", pars$MYZpar)
+}
+
+#' @title Make the mosquito demography matrix
+#' @param g mortality rate
+#' @param sigma emigration  rate
+#' @param K mosquito dispersal matrix
+#' @param nPatches number of patches
+#' @return a [matrix] of dimensions `nPatches` by `nPatches`
+#' @export
+make_Omega <- function(g, sigma, K, nPatches) {
+  diag(g, nPatches) + ((diag(nPatches) - K) %*% diag(sigma, nPatches))
 }
