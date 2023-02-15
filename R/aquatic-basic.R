@@ -55,9 +55,9 @@ make_parameters_L_basic <- function(pars, psi, phi, theta) {
 }
 
 #' @title Make inits for basic competition aquatic mosquito model
-#' @param pars an [environment]
+#' @param pars an [list]
 #' @param L0 initial conditions
-#' @return none
+#' @return a [list] with Linits added
 #' @export
 make_inits_L_basic <- function(pars, L0) {
   stopifnot(is.numeric(L0))

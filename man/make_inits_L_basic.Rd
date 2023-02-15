@@ -7,12 +7,12 @@
 make_inits_L_basic(pars, L0)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{an \link{list}}
 
 \item{L0}{initial conditions}
 }
 \value{
-none
+a \link{list} with Linits added
 }
 \description{
 Make inits for basic competition aquatic mosquito model
