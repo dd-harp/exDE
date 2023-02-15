@@ -18,7 +18,7 @@ navbar:
   - text: Adult Mosquito Component
     menu:
     - text: Ross-Macdonald model
-      href: articles/adult_RM.html
+      href: articles/adult_GeRM.html
   - text: Aquatic Mosquito Component
     menu:
     - text: Trace (forced) model
