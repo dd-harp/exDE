@@ -24,33 +24,53 @@ dLdt.basic <- function(t, y, pars, eta) {
 }
 
 #' @title Add indices for aquatic stage mosquitoes to parameter list
-#' @description Implements [make_index_L] for basic competition model.
-#' @inheritParams make_index_L
+#' @description Implements [make_indices_L] for basic competition model.
+#' @inheritParams make_indices_L
 #' @return none
 #' @importFrom utils tail
 #' @export
-make_index_L.basic <- function(pars) {
+make_indices_L.basic <- function(pars) {
   pars$L_ix <- seq(from = pars$max_ix+1, length.out = pars$nHabitats)
   pars$max_ix <- tail(pars$L_ix, 1)
   return(pars)
 }
 
+
 #' @title Make parameters for basic competition aquatic mosquito model
-#' @param pars an [environment]
+#' @param pars an [list]
 #' @param psi maturation rates for each aquatic habitat
 #' @param phi density-independent mortality rates for each aquatic habitat
 #' @param theta density-dependent mortality terms for each aquatic habitat
-#' @param L0 initial conditions
-#' @return none
+#' @return a [list] with Lpar added
 #' @export
-make_parameters_L_basic <- function(pars, psi, phi, theta, L0) {
-  stopifnot(is.numeric(psi), is.numeric(phi), is.numeric(theta), is.numeric(L0))
+make_parameters_L_basic <- function(pars, psi, phi, theta) {
+  stopifnot(is.numeric(psi), is.numeric(phi), is.numeric(theta))
   Lpar <- list()
   class(Lpar) <- 'basic'
-  Lpar$L0 <- L0
   Lpar$psi <- psi
   Lpar$phi <- phi
   Lpar$theta <- theta
   pars$Lpar <- Lpar
   return(pars)
 }
+
+#' @title Make inits for basic competition aquatic mosquito model
+#' @param pars an [environment]
+#' @param L0 initial conditions
+#' @return none
+#' @export
+make_inits_L_basic <- function(pars, L0) {
+  stopifnot(is.numeric(L0))
+  pars$Linits <- list(L0=L0)
+  return(pars)
+}
+
+#' @title Return initial values as a vector
+#' @description Implements [get_inits_L] for the GeRM model.
+#' @inheritParams get_inits_L
+#' @return none
+#' @export
+get_inits_L.basic <- function(pars){
+  pars$Linits$L0
+}
+

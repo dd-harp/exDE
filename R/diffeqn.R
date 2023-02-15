@@ -69,6 +69,15 @@ xDE_diffeqn <- function(t, y, pars, EIR_delta = NULL, kappa_delta = NULL) {
 #' @export
 xDE_diffeqn_mosy <- function(t, y, pars, kappa, MosyBehavior) {
 
+  # weather, climate, etc
+  ExogenousForcing(t, y, pars)
+
+  # baseline mosquito feeding and mortality
+  MosyBehavior0 <- MosquitoBehavior(t, y, pars)
+
+  # mosquito feeding and mortality under control
+  MosyBehavior <- VectorControl(t, y, pars, MosyBehavior0)
+
   # eta: egg laying
   eggs <- F_eggs(t, y, pars)
   eta <- pars$calU %*% eggs

@@ -19,6 +19,7 @@ library(exDE)
 library(expm)
 library(data.table)
 library(ggplot2)
+library(deSolve)
 ```
 
 # Introduction
@@ -103,7 +104,8 @@ psi <- rep(1/8, params$nHabitats)
 phi <- rep(1/8, params$nHabitats)
 theta <- c(1/10, 1/20, 1/40, 1/100, 1/10) 
 
-params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L0)
+params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
+params = make_inits_L_basic(pars = params, L0)
 ```
 
 ## Adult Mosquito Parameters
@@ -130,12 +132,20 @@ Z0 <- rep(0, params$nPatches)
 Omega <- make_Omega(g, sigma, calK, params$nPatches)
 Upsilon <- expm::expm(-Omega*tau)
 
-params = make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0)
+params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode") 
+params = make_inits_MYZ_GeRM(params, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0, Upsilon0=Upsilon)
 ```
 
 ## Human Parameters
 
 ## Mixing
+
+In this model, we define four population strata. We can describe their residency with a vector describing membership: 
+
+```{r}
+membershipH = c(2,2,3,3)
+searchWtsH = c(1,1,1,1)
+``` 
 
 Although not directly used in this example, we create the residency membership matrix $\mathcal{J}$, a $p \times n$ matrix indicating which patch each human population strata resides in.
 
@@ -182,13 +192,18 @@ We use the null demographic model, which assumes a constant population size (con
 
 ```{r}
 H <- matrix(c(10,90, 100, 900), 4, 1)
+params = make_parameters_demography_null(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
+params = make_parameters_BF_static(params)
+```
+
+```{r}
 X0 <- as.vector(0.2*H)
 r <- rep(1/200, params$nStrata)
 b <- rep(0.55, params$nStrata)
 c <- c(0.1, .02, .1, .02)
 
-params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r, Psi = Psi, X0 = X0)
-params = make_parameters_demography_null(pars = params, H = H)
+params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
+params = make_inits_X_SIS(params, X0)
 ```
 
 
@@ -214,14 +229,7 @@ params = make_indices(params)
 Now we can set the initial conditions of the model.
 
 ```{r}
-y <- rep(NaN, params$max_ix)
-y[params$L_ix] <- as.vector(L0)
-y[params$M_ix] <- as.vector(M0)
-y[params$G_ix] <- as.vector(G0)
-y[params$Y_ix] <- as.vector(Y0)
-y[params$Z_ix] <- as.vector(Z0)
-y[params$Upsilon_ix] <- as.vector(Upsilon)
-y[params$X_ix] <- as.vector(X0)
+y0 = get_inits(params)
 ```
 
 ## Numerical Solution
@@ -229,7 +237,7 @@ y[params$X_ix] <- as.vector(X0)
 Now we can pass the vector of initial conditions, `y`, our parameter list `params`, and the function `exDE::xDE_diffeqn` to the differential equation solvers in `deSolve::ode` to generate a numerical trajectory. The classes of `Xpar`, `MYZpar`, and `Lpar` in `params` will ensure that the right methods are invoked (dispatched) to solve your model.
 
 ```{r}
-out <- deSolve::ode(y = y, times = 0:365, func = xDE_diffeqn, parms = params, method = "lsoda")
+out <- deSolve::ode(y = y0, times = 0:365, func = xDE_diffeqn, parms = params, method = "lsoda")
 ```
 
 ## Plot Output

@@ -19,11 +19,11 @@ dLdt.trace <- function(t, y, pars, eta) {
 }
 
 #' @title Add indices for aquatic stage mosquitoes to parameter list
-#' @description Implements [make_index_L] for trace (forced emergence) model.
-#' @inheritParams make_index_L
+#' @description Implements [make_indices_L] for trace (forced emergence) model.
+#' @inheritParams make_indices_L
 #' @return none
 #' @export
-make_index_L.trace <- function(pars) {
+make_indices_L.trace <- function(pars) {
   pars$L_ix <- integer(0)
   return(pars)
 }
@@ -41,3 +41,23 @@ make_parameters_L_trace <- function(pars, Lambda) {
   pars$Lpar <- Lpar
   return(pars)
 }
+
+#' @title Make parameters for trace aquatic mosquito model
+#' @param pars an [environment]
+#' @param L0 is set to NULL for the trace model
+#' @return none
+#' @export
+make_inits_L_trace<- function(pars, L0=NULL) {
+  pars$Linits = numeric(0)
+  return(pars)
+}
+
+#' @title Return initial values as a vector
+#' @description Implements [get_inits_L] for the GeRM model.
+#' @inheritParams get_inits_L
+#' @return none
+#' @export
+get_inits_L.trace <- function(pars){
+  numeric(0)
+}
+

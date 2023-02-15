@@ -29,11 +29,12 @@ test_that("RM models reach equilibrium", {
   params <- list(
     nPatches = nPatches
   )
-  params <- list2env(params)
 
   # ODE
-  make_parameters_MYZ_GeRM_ode(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
-  make_indices(params)
+  params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode")
+  params = make_inits_MYZ_GeRM(pars = params, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 =rep(0, nPatches), Upsilon0=OmegaEIP)
+
+  params = make_indices(params)
 
   # mimic MosyBehavior
   MosyBehavior <- list()
@@ -43,12 +44,10 @@ test_that("RM models reach equilibrium", {
   MosyBehavior$g <- rep(params$MYZpar$g, 2)
 
   # make indices and set up initial conditions
-  make_indices(params)
-  y0 <- rep(0, params$max_ix)
-  y0[params$Upsilon_ix] <- as.vector(OmegaEIP)
+  y0 <- get_inits(params)
 
   # solve ODEs
-  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, Lambda, kappa, MosyBehavior) {
+  out <- deSolve::ode(y = y0, times = c(0, 730), func = function(t, y, pars, Lambda, kappa, MosyBehavior) {
     list(dMYZdt(t, y, pars, Lambda, kappa, MosyBehavior))
   }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa, MosyBehavior = MosyBehavior)
 
@@ -89,7 +88,9 @@ test_that("RM models reach equilibrium", {
   expect_equal(Lambda_eq, Lambda, tolerance = numeric_tol)
 
   # DDE
-  make_parameters_MYZ_GeRM_dde(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches))
+  params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch)
+  params = make_inits_MYZ_GeRM(pars = params, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 =rep(0, nPatches), Upsilon0=OmegaEIP)
+  params = make_indices(params)
 
   # solve DDEs
   out <- deSolve::dede(y = y0, times = c(0, 365), func = function(t, y, pars, Lambda, kappa, MosyBehavior) {

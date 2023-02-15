@@ -63,6 +63,8 @@ We use the null (constant) model of human demography ($H$ constant for all time)
 ```{r, out.width = "100%"}
 nStrata <- 3
 H <- c(100, 500, 250)
+membershipH <- rep(1,3) 
+searchWtsH <- rep(1,3) 
 X <- c(20, 120, 80)
 b <- 0.55
 c <- 0.15
@@ -74,18 +76,23 @@ EIR <- diag(1/b, nStrata) %*% ((r*X)/(H-X))
 params <- list(
   nStrata = nStrata
 )
-params <- list2env(params)
 
-make_parameters_X_SIS(pars = params, b = b, c = c, r = r, Psi = Psi, X0 = X)
-make_parameters_demography_null(pars = params, H = H)
-make_indices(params)
+params = make_parameters_demography_null(pars = params, H=H, 
+             membershipH = membershipH, searchWtsH = searchWtsH, 
+             TimeSpent = Psi)
 
-y0 <- rep(0, params$max_ix)
-y0[params$X_ix] <- X
+params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
 
-out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, EIR) {
+params = make_inits_X_SIS(pars = params, X)
+params = make_indices(params)
+
+y0 <- get_inits_X(params)
+
+dXdt_local = function(t, y, pars, EIR) {
   list(dXdt(t, y, pars, EIR))
-}, parms = params, method = 'lsoda', EIR = as.vector(EIR))
+}
+
+out <- deSolve::ode(y = y0, times = c(0, 365), dXdt_local, parms = params, method = 'lsoda', EIR = as.vector(EIR))
 
 colnames(out)[params$X_ix+1] <- paste0('X_', 1:params$nStrata)
 

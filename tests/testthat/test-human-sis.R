@@ -5,6 +5,8 @@ numeric_tol <- 1e-5
 test_that("human SIS model remains at equilibrium", {
   nStrata <- 3
   H <- c(100, 500, 250)
+  membershipH = 1:nStrata
+  searchWtsH = rep(1, nStrata)
   X <- c(20, 120, 80)
   b <- 0.55
   c <- 0.15
@@ -16,11 +18,16 @@ test_that("human SIS model remains at equilibrium", {
   params <- list(
     nStrata = nStrata
   )
-  params <- list2env(params)
 
-  make_parameters_X_SIS(pars = params, b = b, c = c, r = r, Psi = Psi, X0 = X)
-  make_parameters_demography_null(pars = params, H = H)
-  make_indices(params)
+  params = make_parameters_demography_null(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
+  params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
+  params = make_inits_X_SIS(pars = params, X)
+
+  params = make_indices(params)
+
+
+  # set initial conditions
+  y0 <- get_inits(params)
 
   y0 <- rep(0, 3)
   y0[params$X_ix] <- X

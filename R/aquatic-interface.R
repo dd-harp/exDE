@@ -29,6 +29,15 @@ dLdt <- function(t, y, pars, eta) {
 #' @param pars an [environment]
 #' @return none
 #' @export
-make_index_L <- function(pars) {
-  UseMethod("make_index_L", pars$Lpar)
+make_indices_L <- function(pars) {
+  UseMethod("make_indices_L", pars$Lpar)
+}
+
+#' @title Return initial values as a vector
+#' @description This method dispatches on the type of `pars$Lpar`.
+#' @param pars an [environment]
+#' @return none
+#' @export
+get_inits_L <- function(pars) {
+  UseMethod("get_inits_L", pars$Lpar)
 }

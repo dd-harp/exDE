@@ -4,14 +4,14 @@
 \alias{dHdt}
 \title{Derivatives of demographic changes in human populations}
 \usage{
-dHdt(pars, ...)
+dHdt(t, y, pars)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{t}{current simulation time}
 
-\item{...}{additional arguments which must be of the form \code{D}, \code{Y}, etc. \code{D}
-is a \code{nStrata} by \code{nStrata} demography matrix and \code{Y} is a state vector. There
-should be at least one pair of these passed to the function.}
+\item{y}{state vector}
+
+\item{pars}{an \link{environment}}
 }
 \value{
 see help pages for specific methods

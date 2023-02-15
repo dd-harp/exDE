@@ -4,21 +4,19 @@
 \alias{make_parameters_L_basic}
 \title{Make parameters for basic competition aquatic mosquito model}
 \usage{
-make_parameters_L_basic(pars, psi, phi, theta, L0)
+make_parameters_L_basic(pars, psi, phi, theta)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{an \link{list}}
 
 \item{psi}{maturation rates for each aquatic habitat}
 
 \item{phi}{density-independent mortality rates for each aquatic habitat}
 
 \item{theta}{density-dependent mortality terms for each aquatic habitat}
-
-\item{L0}{initial conditions}
 }
 \value{
-none
+a \link{list} with Lpar added
 }
 \description{
 Make parameters for basic competition aquatic mosquito model

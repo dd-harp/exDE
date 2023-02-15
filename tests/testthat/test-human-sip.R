@@ -5,6 +5,8 @@ numeric_tol <- 1e-5
 test_that("human SIP model remains at equilibrium", {
   nStrata <- 3
   H <- c(100, 500, 250)
+  membershipH = 1:nStrata
+  searchWtsH = rep(1, nStrata)
   X <- c(20, 120, 80)
   b <- 0.55
   c <- 0.15
@@ -19,15 +21,17 @@ test_that("human SIP model remains at equilibrium", {
   params <- list(
     nStrata = nStrata
   )
-  params <- list2env(params)
 
-  make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, Psi = Psi, X0 = X, P0 = as.vector(P))
-  make_parameters_demography_null(pars = params, H = H)
-  make_indices(params)
+  params = make_parameters_demography_null(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
+  params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, eta=eta, rho=rho)
+  params = make_inits_X_SIP(pars = params, X, P)
 
-  y0 <- rep(0, 6)
-  y0[params$X_ix] <- X
-  y0[params$P_ix] <- P
+  params = make_indices(params)
+
+
+  # set initial conditions
+  y0 <- get_inits(params)
+
 
   out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, EIR) {
     list(dXdt(t, y, pars, EIR))

@@ -13,7 +13,7 @@
 
 \item{pars}{an \link{environment}}
 
-\item{lag}{duration of lag \code{t-lag}}
+\item{lag}{is the lag value}
 }
 \value{
 a \link{matrix} of dimensions \code{nStrata} by \code{nPatches}

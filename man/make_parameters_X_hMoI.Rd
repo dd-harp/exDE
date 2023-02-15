@@ -4,7 +4,7 @@
 \alias{make_parameters_X_hMoI}
 \title{Make parameters for hybrid MoI human model}
 \usage{
-make_parameters_X_hMoI(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20)
+make_parameters_X_hMoI(pars, b, c1, c2, r1, r2)
 }
 \arguments{
 \item{pars}{an \link{environment}}
@@ -18,14 +18,6 @@ make_parameters_X_hMoI(pars, b, c1, c2, r1, r2, Psi, wf = 1, m10, m20)
 \item{r1}{recovery rate from inapparent infections}
 
 \item{r2}{recovery rate from patent infections}
-
-\item{Psi}{a \link{matrix} of dimensions \code{nPatches} by \code{nStrata}}
-
-\item{wf}{vector of biting weights of length \code{nStrata}}
-
-\item{m10}{mean MoI among inapparent human infections}
-
-\item{m20}{mean MoI among patent human infections}
 }
 \value{
 none

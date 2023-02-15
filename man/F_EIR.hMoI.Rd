@@ -4,7 +4,7 @@
 \alias{F_EIR.hMoI}
 \title{Entomological inoculation rate on human strata}
 \usage{
-\method{F_EIR}{hMoI}(t, y, pars, MosyBehavior)
+F_EIR.hMoI(t, y, pars, MosyBehavior)
 }
 \arguments{
 \item{t}{current simulation time}

@@ -72,14 +72,18 @@ params <- list(
   nHabitats = nHabitats
 )
 
-params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta, L0 = L)
+params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
+params = make_inits_L_basic(params, L)
 params = make_indices(params)
 
-y0 <- L
+y0 <- get_inits_L(params) 
 
-out <- deSolve::ode(y = y0, times = 0:50, func = function(t, y, pars, eta) {
+dLdt_local = function(t, y, pars, eta) {
   list(dLdt(t, y, pars, eta))
-}, parms = params, method = 'lsoda', eta = eta)
+}
+  
+
+out <- deSolve::ode(y = y0, times = 0:50, dLdt_local, parms = params, method = 'lsoda', eta = eta)
 
 colnames(out)[params$L_ix+1] <- paste0('L_', 1:params$nHabitats)
 

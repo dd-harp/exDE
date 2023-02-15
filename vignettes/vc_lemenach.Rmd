@@ -37,6 +37,7 @@ pars$nPatches <- 3
 pars$nStrata <- 3
 pars$nHabitats <- 3
 
+
 # human parameters
 b <- 0.55
 c <- 0.15
@@ -46,6 +47,8 @@ wf <- rep(1, pars$nStrata)
 pfpr <- runif(n = pars$nStrata, min = 0.25, max = 0.35)
 H <- rpois(n = pars$nStrata, lambda = 1000)
 X <- rbinom(n = pars$nStrata, size = H, prob = pfpr)
+membershipH = c(1:3)
+searchWtsH = rep(1,3) 
 
 Psi <- matrix(
   data = c(
@@ -119,7 +122,7 @@ alpha <- as.vector(solve(calN) %*% Lambda)
 
 psi <- 1/10
 phi <- 1/12
-eta <- as.vector(calU %*% G * nu * eggsPerBatch)
+eta <- as.vector(calU %*% (G * nu * eggsPerBatch))
 
 L <- alpha/psi
 theta <- (eta - psi*L - phi*L)/(L^2)
@@ -141,10 +144,23 @@ ITN_cov <- function(t) {ifelse(t < 0, 0, (sin(2*pi*(t-365/4) / 365) + 1) / 2)}
 # set parameters
 pars = make_parameters_exogenous_null(pars)
 pars = make_parameters_vc_lemenach(pars, phi = ITN_cov)
-pars = make_parameters_MYZ_GeRM_dde(pars = pars, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, tau = tau, M0 = M, G0 = G, Y0 = Y, Z0 = Z)
-pars = make_parameters_L_basic(pars = pars, psi = psi, phi = phi, theta = theta, L0 = L)
-pars = make_parameters_X_SIS(pars = pars, b = b, c = c, r = r, Psi = Psi, wf = wf, X0 = X)
-pars =make_parameters_demography_null(pars = pars, H = H)
+pars = make_parameters_MYZ_GeRM(pars = pars, g = g, 
+                                sigma = sigma, calK = calK, 
+                                f = f, q = q, nu = nu, 
+                                eggsPerBatch = eggsPerBatch, 
+                                tau = tau)
+pars = make_inits_MYZ_GeRM(pars = pars, M0 = M, G0 = G, 
+                           Y0 = Y, Z0 = Z,Upsilon0=Upsilon)
+pars = make_parameters_L_basic(pars = pars, psi = psi, 
+                               phi = phi, theta = theta)
+pars = make_inits_L_basic(pars = pars, L0 = L)
+pars = make_parameters_X_SIS(pars = pars, b = b, c = c, r = r)
+pars = make_inits_X_SIS(pars = pars, X0=X)
+pars = make_parameters_demography_null(pars = pars, H = H,
+                                       membershipH = membershipH,
+                                       searchWtsH = searchWtsH, 
+                                       TimeSpent = Psi)
+pars = make_parameters_BF_static(pars)
 pars = make_indices(pars = pars)
 ```
 
@@ -154,17 +170,12 @@ After setting parameters we must set the initial conditions of the model. Then w
 
 ```{r}
 # ICs
-y <- rep(NaN, pars$max_ix)
-y[pars$L_ix] <- pars$Lpar$L0
-y[pars$X_ix] <- pars$Xpar$X0
-y[pars$M_ix] <- pars$MYZpar$M0
-y[pars$G_ix] <- pars$MYZpar$G0
-y[pars$Y_ix] <- pars$MYZpar$Y0
-y[pars$Z_ix] <- pars$MYZpar$Z0
-y[pars$Upsilon_ix] <- as.vector(Upsilon)
+y0 <- get_inits(pars) 
+```
 
+```{r}
 # solve the model
-out <- dede(y = y, times = 0:(365*5), func = xDE_diffeqn, parms = pars)
+out <- dede(y = y0, times = 0:(365*5), func = xDE_diffeqn, parms = pars)
 ```
 
 We can plot the output to study the effects of the seasonal ITN coverage on the state variables. We see that total and parous mosquito densities $M$ and $G$ now vary in a sinusoidal manner as coverage changes, as does $L$, larval density, as the number of ovipositing mosquitoes changes. Because in addition to increasing mosquito mortality, ITNs also decrease the feeding rate and proportion of bloodmeals taken on humans due to the repellency effect, we see the densities of infected and infectious mosquitoes ($Y$ and $Z$) steadily decrease over time as there are no longer sufficient bloodmeals being taken to sustain prevalence. A similar pattern appears in human prevalence $X$, with slower dynamics due to the slow recovery rate of untreated infection.

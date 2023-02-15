@@ -4,12 +4,18 @@
 \alias{make_parameters_demography_null}
 \title{Make parameters for null human demography model}
 \usage{
-make_parameters_demography_null(pars, H)
+make_parameters_demography_null(pars, H, membershipH, searchWtsH, TimeSpent)
 }
 \arguments{
 \item{pars}{an \link{environment}}
 
 \item{H}{size of human population in each strata}
+
+\item{membershipH}{is a vector describing patch residency}
+
+\item{searchWtsH}{is a vector describing blood feeding search weights}
+
+\item{TimeSpent}{is a matrix describing time spent among patches}
 }
 \value{
 none

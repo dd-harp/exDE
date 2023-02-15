@@ -5,6 +5,8 @@ numeric_tol <- 1e-5
 test_that("human hybrid MoI model remains at equilibrium", {
   nStrata <- 3
   H <- c(100, 500, 250)
+  membershipH = 1:nStrata
+  searchWtsH = rep(1, nStrata)
   b <- 0.55
   c1 <- 0.05
   c2 <- 0.25
@@ -21,15 +23,15 @@ test_that("human hybrid MoI model remains at equilibrium", {
   params <- list(
     nStrata = nStrata
   )
-  params <- list2env(params)
 
-  make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2, Psi = Psi, m10 = m10, m20 = m20)
-  make_parameters_demography_null(pars = params, H = H)
-  make_indices(params)
+  params = make_parameters_demography_null(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
+  params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
+  params = make_inits_X_hMoI(pars = params, m10 = rep(m10,nStrata), m20 = rep(m20,nStrata))
 
-  y0 <- rep(0, 6)
-  y0[params$m1_ix] <- m10
-  y0[params$m2_ix] <- m20
+  params = make_indices(params)
+
+  # set initial conditions
+  y0 <- get_inits(params)
 
   out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, EIR) {
     list(dXdt(t, y, pars, EIR))

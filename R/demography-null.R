@@ -21,38 +21,60 @@ F_H_lag.null <- function(t, y, pars, lag) {
 #' @title Derivatives of demographic changes in human populations
 #' @description Implements [dHdt] for the null model.
 #' @inheritParams dHdt
-#' @return a [numeric] vector of length `nStrata` or of length 0
+#' @return a [numeric] vector of length 0
 #' @export
-dHdt.null <- function(pars, ...) {
-  if (...length() > 2) {
-    # being called to evaluate \dot{H}
-    numeric(0)
-  } else {
-    # being called to evaluate a component \dot{X}
-    rep(0, length(...elt(2)))
-  }
+Births.null <- function(t, y, pars){
+  if(class(y) == 'param') numeric(0) else 0*y
+}
+
+#' @title Derivatives of demographic changes in human populations
+#' @description Implements [dHdt] for the null model.
+#' @inheritParams dHdt
+#' @return a [numeric] vector of 0s or of length 0
+#' @export
+dHdt.null <- function(t, y, pars){
+  if(class(y) == 'param') numeric(0) else 0*y
 }
 
 #' @title Add indices for human population denominators to parameter list
-#' @description Implements [make_index_H] for null model.
-#' @inheritParams make_index_H
+#' @description Implements [make_indices_H] for null model.
+#' @inheritParams make_indices_H
 #' @return none
 #' @export
-make_index_H.null <- function(pars) {
+make_indices_H.null <- function(pars) {
   pars$H_ix <- integer(0)
   return(pars)
+}
+
+
+#' @title Return initial values as a vector
+#' @description This method dispatches on the type of `pars$Xpar`.
+#' @param pars an [environment]
+#' @return none
+#' @export
+get_inits_H.null<- function(pars){
+  return(numeric(0))
 }
 
 #' @title Make parameters for null human demography model
 #' @param pars an [environment]
 #' @param H size of human population in each strata
+#' @param membershipH is a vector describing patch residency
+#' @param searchWtsH is a vector describing blood feeding search weights
+#' @param TimeSpent is a matrix describing time spent among patches
 #' @return none
 #' @export
-make_parameters_demography_null <- function(pars, H) {
+make_parameters_demography_null <- function(pars, H, membershipH, searchWtsH, TimeSpent) {
   stopifnot(length(H) == pars$nStrata)
   Hpar <- list()
   class(Hpar) <- c('null')
   Hpar$H <- H
+  class(Hpar$H) <- 'param'
+  Hpar$membershipH <- membershipH
+  Hpar$searchWtsH <- searchWtsH
+  Hpar$TimeSpent <- TimeSpent
+  class(Hpar$TimeSpent) <- 'static'
   pars$Hpar <- Hpar
+  pars$nStrata = length(H)
   return(pars)
 }
