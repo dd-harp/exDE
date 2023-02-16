@@ -4,19 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Provides tools to set up modular ordinary and delay differential equation
-  models for mosquito-borne pathogens, focusing on malaria. Modular design is achieved
-  by S3 dispatch on parameter lists for each component which is used to compute
-  the full set of differential equations which may be solved using
-  any of the packages for numerical simulation of differential equations in R. The
-  methods implemented by this package are described in Wu et al. (2022) &lt;doi:10.1101/2022.11.07.22282044&gt;.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Extensible Differential Equations for Mosquito-Borne Pathogen Modeling • exDE</title>
-<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Extensible Differential Equations for Mosquito-Borne Pathogen Modeling">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="Extensible Differential Equations for Mosquito-Borne Pathogen Modeling">
 <meta property="og:description" content="Provides tools to set up modular ordinary and delay differential equation
   models for mosquito-borne pathogens, focusing on malaria. Modular design is achieved
   by S3 dispatch on parameter lists for each component which is used to compute
@@ -28,76 +23,93 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
-    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+<body data-spy="scroll" data-target="#toc">
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
-    
-    <a class="navbar-brand me-2" href="index.html">exDE</a>
+    <div class="container template-home">
+      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="index.html">exDE</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+      </span>
+    </div>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
-
-    
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="reference/index.html">Functions</a>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+<li>
+  <a href="reference/index.html">Reference</a>
 </li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="articles/ex_534.html">5-3-4 Spatial Example</a>
-    <a class="dropdown-item" href="articles/spat_metric.html">Spatial Metrics</a>
-    <a class="dropdown-item" href="articles/vc_lemenach.html">Vector Control Example</a>
-    <a class="dropdown-item" href="articles/Contributing.html">Contributing</a>
-  </div>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/Contributing.html">Contributing</a>
+    </li>
+    <li>
+      <a href="articles/adult_GeRM.html">A Generalized Ross-Macdonald Adult Mosquito Model</a>
+    </li>
+    <li>
+      <a href="articles/aqua_basic.html">Basic Competition Aquatic Mosquito Model</a>
+    </li>
+    <li>
+      <a href="articles/aqua_trace.html">Trace (exogenously forced) Aquatic Mosquito Model</a>
+    </li>
+    <li>
+      <a href="articles/ex_534.html">5-3-4 Example</a>
+    </li>
+    <li>
+      <a href="articles/human_hmoi.html">Hybrid MoI (Multiplicity of Infection) Human Model</a>
+    </li>
+    <li>
+      <a href="articles/human_sip.html">SIP (Susceptible-Infected-Prophylaxis) Human Model</a>
+    </li>
+    <li>
+      <a href="articles/human_sis.html">SIS (Susceptible-Infected-Susceptible) Human Model</a>
+    </li>
+    <li>
+      <a href="articles/spat_metric.html">Spatial Metrics</a>
+    </li>
+    <li>
+      <a href="articles/vc_lemenach.html">ITN-based Vector Control</a>
+    </li>
+  </ul>
 </li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-adult-mosquito-component">Adult Mosquito Component</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-adult-mosquito-component">
-    <a class="dropdown-item" href="articles/adult_RM.html">Ross-Macdonald model</a>
-  </div>
-</li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-aquatic-mosquito-component">Aquatic Mosquito Component</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-aquatic-mosquito-component">
-    <a class="dropdown-item" href="articles/aqua_trace.html">Trace (forced) model</a>
-    <a class="dropdown-item" href="articles/aqua_basic.html">Basic competition model</a>
-  </div>
-</li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-human-component">Human Component</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-human-component">
-    <a class="dropdown-item" href="articles/human_sis.html">SIS model</a>
-    <a class="dropdown-item" href="articles/human_sip.html">SIP model</a>
-    <a class="dropdown-item" href="articles/human_hmoi.html">MoI hybrid model</a>
-  </div>
+<li>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/dd-harp/exDE/">
-    <span class="fa fa-github"></span>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/dd-harp/exDE/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
 </div>
-
-    
+<!--/.nav-collapse -->
   </div>
-</nav><div class="container template-home">
-<div class="row">
-  <main id="main" class="col-md-9"><div class="section level1">
+<!--/.container -->
+</div>
+<!--/.navbar -->
+
+      
+
+      </header><div class="row">
+  <div class="contents col-md-9">
+<div class="section level1">
 <div class="page-header"><h1 id="exde-extensible-differential-equations-for-mosquito-borne-pathogen-modeling">exDE (Extensible Differential Equations for mosquito-borne pathogen modeling)<a class="anchor" aria-label="anchor" href="#exde-extensible-differential-equations-for-mosquito-borne-pathogen-modeling"></a>
 </h1></div>
 <!-- badges: start -->
@@ -106,7 +118,7 @@
 <h2 id="what-is-exde">What is exDE?<a class="anchor" aria-label="anchor" href="#what-is-exde"></a>
 </h2>
 <p>exDE provides tools to set up modular ordinary and delay differential equation spatial models for mosquito-borne pathogens, focusing on malaria. Modularity is achieved by method dispatch on parameter lists for each component which is used to compute the full set of differential equations. The function <code><a href="reference/xDE_diffeqn.html">exDE::xDE_diffeqn</a></code> computes the gradient of all state variables from those modular components and can be used with the excellent solvers in <a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a>, or other differential equation solvers in R. exDE can be regarded as the continuous-time companion to the discrete stochastic <a href="https://github.com/dd-harp/MicroMoB" class="external-link">Micro-MoB</a> framework.</p>
-<p>To get started, please consider reading some of the articles in the drop down panels above, at our <a href="https://dd-harp.github.io/exDE/">website</a>. The 3 sections ending in “Component” describe particular models implementing the interface for each of those components (adult mosquitoes, aquatic mosquitoes, and humans), and show a simulation at their equilibrium values.</p>
+<p>To get started, please consider reading some of the articles in the drop down panels above, at our <a href="https://dd-harp.github.io/exDE/" class="external-link">website</a>. The 3 sections ending in “Component” describe particular models implementing the interface for each of those components (adult mosquitoes, aquatic mosquitoes, and humans), and show a simulation at their equilibrium values.</p>
 <p>The section “Articles” has more in-depth examples, including an extended walk through of how to set up and run a model in <code><a href="articles/ex_534.html">vignette("ex_534")</a></code>, a guide on how to contribute, and an example of running a model in exDE with external forcing under a model of ITN (insecticide treated nets) based vector control in <code><a href="articles/vc_lemenach.html">vignette("vc_lemenach")</a></code>.</p>
 <p>The section “Functions” documents each function exported by the package.</p>
 </div>
@@ -123,7 +135,7 @@
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h2>
 <p>For information about how to contribute to the development of exDE, please read our article on how to contribute at <code><a href="articles/Contributing.html">vignette("Contributing")</a></code>!</p>
-<p>If you have any questions, comments, bug reports, or suggestions, the first point of contact with the development team is through <a href="https://github.com/dd-harp/exDE/issues" class="external-link">GitHub Issues</a>. If you are specifically submitting a bug report, please check out our <a href="https://dd-harp.github.io/exDE/articles/Contributing.html#sec8">bug reporting guide</a>. We welcome issues and encourage contribution regardless of experience; the length of the contributing guide is not intended to be intimidating, merely complete. It is the responsibility of the package maintainers to help new contributors understand our conventions and guide contributions to a successful conclusion.</p>
+<p>If you have any questions, comments, bug reports, or suggestions, the first point of contact with the development team is through <a href="https://github.com/dd-harp/exDE/issues" class="external-link">GitHub Issues</a>. If you are specifically submitting a bug report, please check out our <a href="https://dd-harp.github.io/exDE/articles/Contributing.html#sec8" class="external-link">bug reporting guide</a>. We welcome issues and encourage contribution regardless of experience; the length of the contributing guide is not intended to be intimidating, merely complete. It is the responsibility of the package maintainers to help new contributors understand our conventions and guide contributions to a successful conclusion.</p>
 </div>
 <div class="section level2">
 <h2 id="model-building-in-exde">Model building in exDE<a class="anchor" aria-label="anchor" href="#model-building-in-exde"></a>
@@ -165,7 +177,10 @@
 <p>Funding to develop models of West Nile Virus to support Harris County Public Health was funded by the NSF as part of a project, <strong>Computing the Biome</strong> (PI= Janos Sztipanovits). The project was part of the Convergence Accelerator program of the National Science Foundation, Directorate for Technology, Innovation, and Partnerships (TIP) (<a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2040688" class="external-link">NSF 2040688</a> and <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2134862" class="external-link">NSF 2040688</a>, PI=Janos Sztipanovits, Vanderbilt University).</p>
 </div>
 </div>
-  </main><aside class="col-md-3"><div class="links">
+  </div>
+
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=exDE" class="external-link">View on CRAN</a></li>
@@ -208,31 +223,25 @@
 </ul>
 </div>
 
-<div class="changelog">
-<h2 data-toc-skip>Changelog</h2>
-<ul class="list-unstyled">
-<li><p><a href="news/index.html">News</a></p></li>
-</ul>
-</div>
-
-  </aside>
+  </div>
 </div>
 
 
-    <footer><div class="pkgdown-footer-left">
+      <footer><div class="copyright">
   <p></p>
 <p>Developed by Sean L. Wu, David L. Smith.</p>
 </div>
 
-<div class="pkgdown-footer-right">
+<div class="pkgdown">
   <p></p>
 <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
-    </footer>
+      </footer>
 </div>
 
   
+
 
   
 
