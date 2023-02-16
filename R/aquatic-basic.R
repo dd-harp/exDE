@@ -59,7 +59,7 @@ make_parameters_L_basic <- function(pars, psi, phi, theta) {
 #' @param L0 initial conditions
 #' @return a [list] with Linits added
 #' @export
-make_inits_L_basic <- function(pars, L0) {
+make_inits_L_basic <- function(pars, L0){
   stopifnot(is.numeric(L0))
   pars$Linits <- list(L0=L0)
   return(pars)
