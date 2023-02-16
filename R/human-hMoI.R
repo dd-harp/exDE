@@ -1,18 +1,5 @@
 # a hybrid model tracking mean MoI for all and apparent infections
 
-#' @title Entomological inoculation rate on human strata
-#' @description Implements [F_EIR] for the hybrid MoI model.
-#' @inheritParams F_EIR
-#' @return a [numeric] vector of length `nStrata`
-#' @export
-F_EIR.hMoI <- function(t, y, pars, MosyBehavior) {
-  Z <- F_Z(t, y, pars)
-  f <- MosyBehavior$f[1]
-  q <- MosyBehavior$q[1]
-  beta <- F_beta(t, y, pars)
-  as.vector(beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
-}
-
 #' @title Size of effective infectious human population
 #' @description Implements [F_x] for the hybrid MoI model.
 #' @inheritParams F_x
@@ -47,32 +34,6 @@ F_x_lag.hMoI <- function(t, y, pars, lag) {
   x2_tau <- pexp(q = m2_tau)
   x_tau <- (pars$Xpar$c2 * x2_tau) + (pars$Xpar$c1 * (x1_tau - x2_tau))
   return(x_tau * H)
-}
-
-#' @title Biting distribution matrix
-#' @description Implements [F_beta] for the hybrid MoI model.
-#' @inheritParams F_beta
-#' @return a [matrix] of dimensions `nStrata` by `nPatches`
-#' @export
-F_beta.hMoI <- function(t, y, pars) {
-  H <- F_H(t, y, pars)
-  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * H))
-  return(
-    diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nPatches)
-  )
-}
-
-#' @title Lagged biting distribution matrix
-#' @description Implements [F_beta_lag] for the hybrid MoI model.
-#' @inheritParams F_beta_lag
-#' @return a [matrix] of dimensions `nStrata` by `nPatches`
-#' @export
-F_beta_lag.hMoI <- function(t, y, pars, lag) {
-  H <- F_H_lag(t, y, pars, lag)
-  W <- as.vector(pars$Xpar$Psi %*% (pars$Xpar$wf * H))
-  return(
-    diag(pars$Xpar$wf, pars$nStrata) %*% t(pars$Xpar$Psi) %*% diag(1/W, pars$nPatches)
-  )
 }
 
 #' @title Derivatives for human population

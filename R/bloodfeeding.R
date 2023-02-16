@@ -1,3 +1,5 @@
+# utilities to configure blood feeding
+
 #' @title Entomological inoculation rate on human strata
 #' @param t current simulation time
 #' @param y state vector

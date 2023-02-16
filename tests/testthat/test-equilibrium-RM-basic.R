@@ -231,7 +231,7 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   MosyBehavior$g <- rep(params$MYZpar$g, 2)
 
   # run simulation
-  out <- deSolve::dede(y = y0, times = c(0,50), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = t(cbind(kappa,kappa)), MosyBehavior = MosyBehavior)
+  out <- deSolve::dede(y = y0, times = c(0,70), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = t(cbind(kappa,kappa)), MosyBehavior = MosyBehavior)
 
   expect_equal(as.vector(out[2, params$L_ix+1]), as.vector(L), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M), tolerance = numeric_tol)
