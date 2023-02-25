@@ -52,13 +52,13 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/Births.basic.html</loc>
+    <loc>/reference/Births.dynamic.html</loc>
   </url>
   <url>
     <loc>/reference/Births.html</loc>
   </url>
   <url>
-    <loc>/reference/Births.null.html</loc>
+    <loc>/reference/Births.static.html</loc>
   </url>
   <url>
     <loc>/reference/ExogenousForcing.html</loc>
@@ -67,34 +67,40 @@
     <loc>/reference/ExogenousForcing.null.html</loc>
   </url>
   <url>
+    <loc>/reference/F_EIR.dde.html</loc>
+  </url>
+  <url>
     <loc>/reference/F_EIR.html</loc>
   </url>
   <url>
-    <loc>/reference/F_EIR_lag.html</loc>
+    <loc>/reference/F_EIR.ode.html</loc>
   </url>
   <url>
-    <loc>/reference/F_H.basic.html</loc>
+    <loc>/reference/F_H.dynamic.html</loc>
   </url>
   <url>
     <loc>/reference/F_H.html</loc>
   </url>
   <url>
-    <loc>/reference/F_H.null.html</loc>
+    <loc>/reference/F_H.static.html</loc>
   </url>
   <url>
-    <loc>/reference/F_H_lag.basic.html</loc>
+    <loc>/reference/F_H_lag.dynamic.html</loc>
   </url>
   <url>
     <loc>/reference/F_H_lag.html</loc>
   </url>
   <url>
-    <loc>/reference/F_H_lag.null.html</loc>
+    <loc>/reference/F_H_lag.static.html</loc>
   </url>
   <url>
     <loc>/reference/F_Z.GeRM.html</loc>
   </url>
   <url>
     <loc>/reference/F_Z.RM.html</loc>
+  </url>
+  <url>
+    <loc>/reference/F_Z.Ztrace.html</loc>
   </url>
   <url>
     <loc>/reference/F_Z.html</loc>
@@ -104,6 +110,9 @@
   </url>
   <url>
     <loc>/reference/F_Z_lag.RM.html</loc>
+  </url>
+  <url>
+    <loc>/reference/F_Z_lag.Ztrace.html</loc>
   </url>
   <url>
     <loc>/reference/F_Z_lag.html</loc>
@@ -118,22 +127,19 @@
     <loc>/reference/F_alpha.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/F_beta.dynamic.html</loc>
+    <loc>/reference/F_beta.dde.html</loc>
   </url>
   <url>
     <loc>/reference/F_beta.html</loc>
   </url>
   <url>
-    <loc>/reference/F_beta.static.html</loc>
+    <loc>/reference/F_beta.ode.html</loc>
   </url>
   <url>
-    <loc>/reference/F_beta_lag.dynamic.html</loc>
+    <loc>/reference/F_births.0.html</loc>
   </url>
   <url>
-    <loc>/reference/F_beta_lag.html</loc>
-  </url>
-  <url>
-    <loc>/reference/F_beta_lag.static.html</loc>
+    <loc>/reference/F_births.html</loc>
   </url>
   <url>
     <loc>/reference/F_eggs.GeRM.html</loc>
@@ -145,19 +151,13 @@
     <loc>/reference/F_eggs.html</loc>
   </url>
   <url>
-    <loc>/reference/F_kappa.GeRM_dde.html</loc>
-  </url>
-  <url>
-    <loc>/reference/F_kappa.GeRM_ode.html</loc>
-  </url>
-  <url>
-    <loc>/reference/F_kappa.RM_dde.html</loc>
-  </url>
-  <url>
-    <loc>/reference/F_kappa.RM_ode.html</loc>
+    <loc>/reference/F_kappa.dde.html</loc>
   </url>
   <url>
     <loc>/reference/F_kappa.html</loc>
+  </url>
+  <url>
+    <loc>/reference/F_kappa.ode.html</loc>
   </url>
   <url>
     <loc>/reference/F_tau.GeRM.html</loc>
@@ -214,13 +214,16 @@
     <loc>/reference/approx_equal.html</loc>
   </url>
   <url>
-    <loc>/reference/dHdt.basic.html</loc>
+    <loc>/reference/compute_beta.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dHdt.dynamic.html</loc>
   </url>
   <url>
     <loc>/reference/dHdt.html</loc>
   </url>
   <url>
-    <loc>/reference/dHdt.null.html</loc>
+    <loc>/reference/dHdt.static.html</loc>
   </url>
   <url>
     <loc>/reference/dLdt.basic.html</loc>
@@ -242,6 +245,9 @@
   </url>
   <url>
     <loc>/reference/dMYZdt.RM_ode.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dMYZdt.Ztrace.html</loc>
   </url>
   <url>
     <loc>/reference/dMYZdt.html</loc>
@@ -268,7 +274,7 @@
     <loc>/reference/get_inits_H.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_H.null.html</loc>
+    <loc>/reference/get_inits_H.static.html</loc>
   </url>
   <url>
     <loc>/reference/get_inits_L.basic.html</loc>
@@ -284,6 +290,9 @@
   </url>
   <url>
     <loc>/reference/get_inits_MYZ.RM.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_inits_MYZ.Ztrace.html</loc>
   </url>
   <url>
     <loc>/reference/get_inits_MYZ.html</loc>
@@ -307,16 +316,34 @@
     <loc>/reference/make_Omega.html</loc>
   </url>
   <url>
+    <loc>/reference/make_beta.dynamic.html</loc>
+  </url>
+  <url>
+    <loc>/reference/make_beta.html</loc>
+  </url>
+  <url>
+    <loc>/reference/make_beta.static.html</loc>
+  </url>
+  <url>
+    <loc>/reference/make_beta_lag.dynamic.html</loc>
+  </url>
+  <url>
+    <loc>/reference/make_beta_lag.html</loc>
+  </url>
+  <url>
+    <loc>/reference/make_beta_lag.static.html</loc>
+  </url>
+  <url>
     <loc>/reference/make_indices.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_H.basic.html</loc>
+    <loc>/reference/make_indices_H.dynamic.html</loc>
   </url>
   <url>
     <loc>/reference/make_indices_H.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_H.null.html</loc>
+    <loc>/reference/make_indices_H.static.html</loc>
   </url>
   <url>
     <loc>/reference/make_indices_L.basic.html</loc>
@@ -332,6 +359,9 @@
   </url>
   <url>
     <loc>/reference/make_indices_MYZ.RM.html</loc>
+  </url>
+  <url>
+    <loc>/reference/make_indices_MYZ.Ztrace.html</loc>
   </url>
   <url>
     <loc>/reference/make_indices_MYZ.html</loc>
@@ -361,6 +391,9 @@
     <loc>/reference/make_inits_MYZ_RM.html</loc>
   </url>
   <url>
+    <loc>/reference/make_inits_MYZ_Ztrace.html</loc>
+  </url>
+  <url>
     <loc>/reference/make_inits_X_SIP.html</loc>
   </url>
   <url>
@@ -368,9 +401,6 @@
   </url>
   <url>
     <loc>/reference/make_inits_X_hMoI.html</loc>
-  </url>
-  <url>
-    <loc>/reference/make_parameters_BF_static.html</loc>
   </url>
   <url>
     <loc>/reference/make_parameters_L_basic.html</loc>
@@ -385,6 +415,9 @@
     <loc>/reference/make_parameters_MYZ_RM.html</loc>
   </url>
   <url>
+    <loc>/reference/make_parameters_MYZ_Ztrace.html</loc>
+  </url>
+  <url>
     <loc>/reference/make_parameters_X_SIP.html</loc>
   </url>
   <url>
@@ -394,10 +427,10 @@
     <loc>/reference/make_parameters_X_hMoI.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_demography_basic.html</loc>
+    <loc>/reference/make_parameters_demography_dynamic.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_demography_null.html</loc>
+    <loc>/reference/make_parameters_demography_static.html</loc>
   </url>
   <url>
     <loc>/reference/make_parameters_exogenous_null.html</loc>
@@ -407,6 +440,9 @@
   </url>
   <url>
     <loc>/reference/make_parameters_vc_null.html</loc>
+  </url>
+  <url>
+    <loc>/reference/make_parameters_xde.html</loc>
   </url>
   <url>
     <loc>/reference/metric_calD.html</loc>

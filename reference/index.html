@@ -92,11 +92,11 @@
         </td>
         <td><p>A function that computes the birth rate for human populations</p></td>
       </tr><tr><td>
-          <p><code><a href="Births.basic.html">Births(<i>&lt;basic&gt;</i>)</a></code> </p>
+          <p><code><a href="Births.dynamic.html">Births(<i>&lt;dynamic&gt;</i>)</a></code> </p>
         </td>
         <td><p>Derivatives of demographic changes in human populations</p></td>
       </tr><tr><td>
-          <p><code><a href="Births.null.html">Births(<i>&lt;null&gt;</i>)</a></code> </p>
+          <p><code><a href="Births.static.html">Births(<i>&lt;static&gt;</i>)</a></code> </p>
         </td>
         <td><p>Derivatives of demographic changes in human populations</p></td>
       </tr><tr><td>
@@ -112,19 +112,23 @@
         </td>
         <td><p>Entomological inoculation rate on human strata</p></td>
       </tr><tr><td>
-          <p><code><a href="F_EIR_lag.html">F_EIR_lag()</a></code> </p>
+          <p><code><a href="F_EIR.dde.html">F_EIR(<i>&lt;dde&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Entomological inoculation rate on human strata at a lag</p></td>
+        <td><p>Entomological inoculation rate on human strata</p></td>
+      </tr><tr><td>
+          <p><code><a href="F_EIR.ode.html">F_EIR(<i>&lt;ode&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Entomological inoculation rate on human strata</p></td>
       </tr><tr><td>
           <p><code><a href="F_H.html">F_H()</a></code> </p>
         </td>
         <td><p>Size of human population denominators</p></td>
       </tr><tr><td>
-          <p><code><a href="F_H.basic.html">F_H(<i>&lt;basic&gt;</i>)</a></code> </p>
+          <p><code><a href="F_H.dynamic.html">F_H(<i>&lt;dynamic&gt;</i>)</a></code> </p>
         </td>
         <td><p>Size of human population denominators</p></td>
       </tr><tr><td>
-          <p><code><a href="F_H.null.html">F_H(<i>&lt;null&gt;</i>)</a></code> </p>
+          <p><code><a href="F_H.static.html">F_H(<i>&lt;static&gt;</i>)</a></code> </p>
         </td>
         <td><p>Size of human population denominators</p></td>
       </tr><tr><td>
@@ -132,11 +136,11 @@
         </td>
         <td><p>Size of lagged human population denominators</p></td>
       </tr><tr><td>
-          <p><code><a href="F_H_lag.basic.html">F_H_lag(<i>&lt;basic&gt;</i>)</a></code> </p>
+          <p><code><a href="F_H_lag.dynamic.html">F_H_lag(<i>&lt;dynamic&gt;</i>)</a></code> </p>
         </td>
         <td><p>Size of lagged human population denominators</p></td>
       </tr><tr><td>
-          <p><code><a href="F_H_lag.null.html">F_H_lag(<i>&lt;null&gt;</i>)</a></code> </p>
+          <p><code><a href="F_H_lag.static.html">F_H_lag(<i>&lt;static&gt;</i>)</a></code> </p>
         </td>
         <td><p>Size of lagged human population denominators</p></td>
       </tr><tr><td>
@@ -152,6 +156,10 @@
         </td>
         <td><p>Density of infectious mosquitoes</p></td>
       </tr><tr><td>
+          <p><code><a href="F_Z.Ztrace.html">F_Z(<i>&lt;Ztrace&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Number of infective adults in each patch</p></td>
+      </tr><tr><td>
           <p><code><a href="F_Z_lag.GeRM.html">F_Z_lag(<i>&lt;GeRM&gt;</i>)</a></code> </p>
         </td>
         <td><p>Density of lagged infectious mosquitoes</p></td>
@@ -163,6 +171,10 @@
           <p><code><a href="F_Z_lag.html">F_Z_lag()</a></code> </p>
         </td>
         <td><p>Density of lagged infectious mosquitoes</p></td>
+      </tr><tr><td>
+          <p><code><a href="F_Z_lag.Ztrace.html">F_Z_lag(<i>&lt;Ztrace&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Number of infective adults in each patch</p></td>
       </tr><tr><td>
           <p><code><a href="F_alpha.html">F_alpha()</a></code> </p>
         </td>
@@ -180,25 +192,21 @@
         </td>
         <td><p>Biting distribution matrix</p></td>
       </tr><tr><td>
-          <p><code><a href="F_beta.dynamic.html">F_beta(<i>&lt;dynamic&gt;</i>)</a></code> </p>
+          <p><code><a href="F_beta.dde.html">F_beta(<i>&lt;dde&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Biting distribution matrix</p></td>
+        <td><p>Net infectiousness of human population to mosquitoes</p></td>
       </tr><tr><td>
-          <p><code><a href="F_beta.static.html">F_beta(<i>&lt;static&gt;</i>)</a></code> </p>
+          <p><code><a href="F_beta.ode.html">F_beta(<i>&lt;ode&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Biting distribution matrix</p></td>
+        <td><p>Net infectiousness of human population to mosquitoes</p></td>
       </tr><tr><td>
-          <p><code><a href="F_beta_lag.html">F_beta_lag()</a></code> </p>
+          <p><code><a href="F_births.0.html">F_births.0</a></code> </p>
         </td>
-        <td><p>Lagged biting distribution matrix</p></td>
+        <td><p>A function that computes the human population birth rate</p></td>
       </tr><tr><td>
-          <p><code><a href="F_beta_lag.dynamic.html">F_beta_lag(<i>&lt;dynamic&gt;</i>)</a></code> </p>
+          <p><code><a href="F_births.html">F_births()</a></code> </p>
         </td>
-        <td><p>Lagged biting distribution matrix</p></td>
-      </tr><tr><td>
-          <p><code><a href="F_beta_lag.static.html">F_beta_lag(<i>&lt;static&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Biting distribution matrix</p></td>
+        <td><p>A function that computes the human population birth rate</p></td>
       </tr><tr><td>
           <p><code><a href="F_eggs.GeRM.html">F_eggs(<i>&lt;GeRM&gt;</i>)</a></code> </p>
         </td>
@@ -212,23 +220,15 @@
         </td>
         <td><p>Number of eggs laid by adult mosquitoes</p></td>
       </tr><tr><td>
-          <p><code><a href="F_kappa.GeRM_dde.html">F_kappa(<i>&lt;GeRM_dde&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Net infectiousness of human population to mosquitoes</p></td>
-      </tr><tr><td>
-          <p><code><a href="F_kappa.GeRM_ode.html">F_kappa(<i>&lt;GeRM_ode&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Net infectiousness of human population to mosquitoes</p></td>
-      </tr><tr><td>
-          <p><code><a href="F_kappa.RM_dde.html">F_kappa(<i>&lt;RM_dde&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Net infectiousness of human population to mosquitoes</p></td>
-      </tr><tr><td>
-          <p><code><a href="F_kappa.RM_ode.html">F_kappa(<i>&lt;RM_ode&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Net infectiousness of human population to mosquitoes</p></td>
-      </tr><tr><td>
           <p><code><a href="F_kappa.html">F_kappa()</a></code> </p>
+        </td>
+        <td><p>Net infectiousness of human population to mosquitoes</p></td>
+      </tr><tr><td>
+          <p><code><a href="F_kappa.dde.html">F_kappa(<i>&lt;dde&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Net infectiousness of human population to mosquitoes</p></td>
+      </tr><tr><td>
+          <p><code><a href="F_kappa.ode.html">F_kappa(<i>&lt;ode&gt;</i>)</a></code> </p>
         </td>
         <td><p>Net infectiousness of human population to mosquitoes</p></td>
       </tr><tr><td>
@@ -304,15 +304,19 @@
         </td>
         <td><p>Check if two numeric values are approximately equal</p></td>
       </tr><tr><td>
+          <p><code><a href="compute_beta.html">compute_beta()</a></code> </p>
+        </td>
+        <td><p>Compute beta, the biting distribution matrix</p></td>
+      </tr><tr><td>
           <p><code><a href="dHdt.html">dHdt()</a></code> </p>
         </td>
         <td><p>Derivatives of demographic changes in human populations</p></td>
       </tr><tr><td>
-          <p><code><a href="dHdt.basic.html">dHdt(<i>&lt;basic&gt;</i>)</a></code> </p>
+          <p><code><a href="dHdt.dynamic.html">dHdt(<i>&lt;dynamic&gt;</i>)</a></code> </p>
         </td>
         <td><p>Derivatives of demographic changes in human populations</p></td>
       </tr><tr><td>
-          <p><code><a href="dHdt.null.html">dHdt(<i>&lt;null&gt;</i>)</a></code> </p>
+          <p><code><a href="dHdt.static.html">dHdt(<i>&lt;static&gt;</i>)</a></code> </p>
         </td>
         <td><p>Derivatives of demographic changes in human populations</p></td>
       </tr><tr><td>
@@ -348,6 +352,10 @@
         </td>
         <td><p>Derivatives for adult mosquitoes</p></td>
       </tr><tr><td>
+          <p><code><a href="dMYZdt.Ztrace.html">dMYZdt(<i>&lt;Ztrace&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Derivatives for aquatic stage mosquitoes</p></td>
+      </tr><tr><td>
           <p><code><a href="dXdt.html">dXdt()</a></code> </p>
         </td>
         <td><p>Derivatives for human population</p></td>
@@ -376,7 +384,7 @@
         </td>
         <td><p>Return initial values as a vector</p></td>
       </tr><tr><td>
-          <p><code><a href="get_inits_H.null.html">get_inits_H(<i>&lt;null&gt;</i>)</a></code> </p>
+          <p><code><a href="get_inits_H.static.html">get_inits_H(<i>&lt;static&gt;</i>)</a></code> </p>
         </td>
         <td><p>Return initial values as a vector</p></td>
       </tr><tr><td>
@@ -404,6 +412,10 @@
         </td>
         <td><p>Return initial values as a vector</p></td>
       </tr><tr><td>
+          <p><code><a href="get_inits_MYZ.Ztrace.html">get_inits_MYZ(<i>&lt;Ztrace&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Return initial values as a vector</p></td>
+      </tr><tr><td>
           <p><code><a href="get_inits_X.html">get_inits_X()</a></code> </p>
         </td>
         <td><p>Return initial values as a vector</p></td>
@@ -424,6 +436,30 @@
         </td>
         <td><p>Make the mosquito demography matrix</p></td>
       </tr><tr><td>
+          <p><code><a href="make_beta.html">make_beta()</a></code> </p>
+        </td>
+        <td><p>Compute beta, the biting distribution matrix</p></td>
+      </tr><tr><td>
+          <p><code><a href="make_beta.dynamic.html">make_beta(<i>&lt;dynamic&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Biting distribution matrix</p></td>
+      </tr><tr><td>
+          <p><code><a href="make_beta.static.html">make_beta(<i>&lt;static&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Biting distribution matrix</p></td>
+      </tr><tr><td>
+          <p><code><a href="make_beta_lag.html">make_beta_lag()</a></code> </p>
+        </td>
+        <td><p>Compute beta_lag, the lagged biting distribution matrix</p></td>
+      </tr><tr><td>
+          <p><code><a href="make_beta_lag.dynamic.html">make_beta_lag(<i>&lt;dynamic&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Lagged biting distribution matrix</p></td>
+      </tr><tr><td>
+          <p><code><a href="make_beta_lag.static.html">make_beta_lag(<i>&lt;static&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Biting distribution matrix</p></td>
+      </tr><tr><td>
           <p><code><a href="make_indices.html">make_indices()</a></code> </p>
         </td>
         <td><p>Set indices for generalized spatial model</p></td>
@@ -432,11 +468,11 @@
         </td>
         <td><p>Add indices for human population denominators to parameter list</p></td>
       </tr><tr><td>
-          <p><code><a href="make_indices_H.basic.html">make_indices_H(<i>&lt;basic&gt;</i>)</a></code> </p>
+          <p><code><a href="make_indices_H.dynamic.html">make_indices_H(<i>&lt;dynamic&gt;</i>)</a></code> </p>
         </td>
         <td><p>Add indices for human population denominators to parameter list</p></td>
       </tr><tr><td>
-          <p><code><a href="make_indices_H.null.html">make_indices_H(<i>&lt;null&gt;</i>)</a></code> </p>
+          <p><code><a href="make_indices_H.static.html">make_indices_H(<i>&lt;static&gt;</i>)</a></code> </p>
         </td>
         <td><p>Add indices for human population denominators to parameter list</p></td>
       </tr><tr><td>
@@ -463,6 +499,10 @@
           <p><code><a href="make_indices_MYZ.html">make_indices_MYZ()</a></code> </p>
         </td>
         <td><p>Add indices for adult mosquitoes to parameter list</p></td>
+      </tr><tr><td>
+          <p><code><a href="make_indices_MYZ.Ztrace.html">make_indices_MYZ(<i>&lt;Ztrace&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Add indices for aquatic stage mosquitoes to parameter list</p></td>
       </tr><tr><td>
           <p><code><a href="make_indices_X.html">make_indices_X()</a></code> </p>
         </td>
@@ -496,6 +536,10 @@
         </td>
         <td><p>Make inits for generalized RM ODE adult mosquito model</p></td>
       </tr><tr><td>
+          <p><code><a href="make_inits_MYZ_Ztrace.html">make_inits_MYZ_Ztrace()</a></code> </p>
+        </td>
+        <td><p>Make parameters for Ztrace aquatic mosquito model</p></td>
+      </tr><tr><td>
           <p><code><a href="make_inits_X_SIP.html">make_inits_X_SIP()</a></code> </p>
         </td>
         <td><p>Make inits for SIP human model</p></td>
@@ -507,10 +551,6 @@
           <p><code><a href="make_inits_X_hMoI.html">make_inits_X_hMoI()</a></code> </p>
         </td>
         <td><p>Make inits for hybrid MoI human model</p></td>
-      </tr><tr><td>
-          <p><code><a href="make_parameters_BF_static.html">make_parameters_BF_static()</a></code> </p>
-        </td>
-        <td><p>Sets up BFpars for a model with static availability</p></td>
       </tr><tr><td>
           <p><code><a href="make_parameters_L_basic.html">make_parameters_L_basic()</a></code> </p>
         </td>
@@ -528,6 +568,10 @@
         </td>
         <td><p>Make parameters for generalized RM ODE adult mosquito model</p></td>
       </tr><tr><td>
+          <p><code><a href="make_parameters_MYZ_Ztrace.html">make_parameters_MYZ_Ztrace()</a></code> </p>
+        </td>
+        <td><p>Make parameters for Ztrace aquatic mosquito model</p></td>
+      </tr><tr><td>
           <p><code><a href="make_parameters_X_SIP.html">make_parameters_X_SIP()</a></code> </p>
         </td>
         <td><p>Make parameters for SIP human model</p></td>
@@ -540,13 +584,13 @@
         </td>
         <td><p>Make parameters for hybrid MoI human model</p></td>
       </tr><tr><td>
-          <p><code><a href="make_parameters_demography_basic.html">make_parameters_demography_basic()</a></code> </p>
+          <p><code><a href="make_parameters_demography_dynamic.html">make_parameters_demography_dynamic()</a></code> </p>
         </td>
-        <td><p>Make parameters for forced (basic) human demography model</p></td>
+        <td><p>Make parameters for forced (dynamic) human demography model</p></td>
       </tr><tr><td>
-          <p><code><a href="make_parameters_demography_null.html">make_parameters_demography_null()</a></code> </p>
+          <p><code><a href="make_parameters_demography_static.html">make_parameters_demography_static()</a></code> </p>
         </td>
-        <td><p>Make parameters for null human demography model</p></td>
+        <td><p>Make parameters for static human demography model</p></td>
       </tr><tr><td>
           <p><code><a href="make_parameters_exogenous_null.html">make_parameters_exogenous_null()</a></code> </p>
         </td>
@@ -559,6 +603,10 @@
           <p><code><a href="make_parameters_vc_null.html">make_parameters_vc_null()</a></code> </p>
         </td>
         <td><p>Make parameters for the null model of vector control (do nothing)</p></td>
+      </tr><tr><td>
+          <p><code><a href="make_parameters_xde.html">make_parameters_xde()</a></code> </p>
+        </td>
+        <td><p>Make base parameters</p></td>
       </tr><tr><td>
           <p><code><a href="metric_calD.html">metric_calD()</a></code> </p>
         </td>

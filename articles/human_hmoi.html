@@ -186,7 +186,7 @@ it must be specified as the model of bloodfeeding (<span class="math inline">\(\
 <span><span class="va">c2</span> <span class="op">&lt;-</span> <span class="fl">0.25</span></span>
 <span><span class="va">r1</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">250</span></span>
 <span><span class="va">r2</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">50</span></span>
-<span><span class="va">Psi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fl">1</span>,nrow <span class="op">=</span> <span class="fl">1</span>, ncol <span class="op">=</span> <span class="va">nStrata</span><span class="op">)</span></span>
+<span><span class="va">Psi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fl">1</span>, nrow <span class="op">=</span> <span class="fl">1</span>, ncol <span class="op">=</span> <span class="va">nStrata</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">m20</span> <span class="op">&lt;-</span> <span class="fl">1.5</span></span>
 <span><span class="va">h</span> <span class="op">&lt;-</span> <span class="va">r2</span><span class="op">*</span><span class="va">m20</span></span>
@@ -194,12 +194,12 @@ it must be specified as the model of bloodfeeding (<span class="math inline">\(\
 <span></span>
 <span><span class="va">EIR</span> <span class="op">&lt;-</span> <span class="va">h</span><span class="op">/</span><span class="va">b</span></span>
 <span></span>
-<span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  nStrata <span class="op">=</span> <span class="va">nStrata</span></span>
-<span><span class="op">)</span></span>
+<span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_parameters_xde.html">make_parameters_xde</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">nStrata</span> <span class="op">=</span> <span class="va">nStrata</span></span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">nPatches</span> <span class="op">=</span> <span class="fl">1</span> </span>
 <span></span>
 <span></span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_demography_null.html">make_parameters_demography_null</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, H<span class="op">=</span><span class="va">H</span>, </span>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_demography_static.html">make_parameters_demography_static</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, H<span class="op">=</span><span class="va">H</span>, </span>
 <span>             membershipH <span class="op">=</span> <span class="va">membershipH</span>, searchWtsH <span class="op">=</span> <span class="va">searchWtsH</span>, </span>
 <span>             TimeSpent <span class="op">=</span> <span class="va">Psi</span><span class="op">)</span></span>
 <span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_X_hMoI.html">make_parameters_X_hMoI</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, b <span class="op">=</span> <span class="va">b</span>, c1 <span class="op">=</span> <span class="va">c1</span>, c2 <span class="op">=</span> <span class="va">c2</span>, r1 <span class="op">=</span> <span class="va">r1</span>, r2 <span class="op">=</span> <span class="va">r2</span><span class="op">)</span></span>

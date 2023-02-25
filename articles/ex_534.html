@@ -161,11 +161,10 @@ expects all parameters to be contained in a list object, containing
 which correspond to <code>l</code>, <code>p</code> and
 <code>n</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  nHabitats <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>  nPatches <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>  nStrata <span class="op">=</span> <span class="fl">4</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_xde.html">make_parameters_xde</a></span><span class="op">(</span><span class="op">)</span> </span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">nHabitats</span> <span class="op">=</span> <span class="fl">5</span></span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">nPatches</span> <span class="op">=</span> <span class="fl">3</span></span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">nStrata</span> <span class="op">=</span> <span class="fl">4</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="aquatic-habitat-membership-matrix">Aquatic Habitat Membership Matrix<a class="anchor" aria-label="anchor" href="#aquatic-habitat-membership-matrix"></a>
 </h3>
@@ -325,8 +324,7 @@ type, which is attached to the parameter list with name
 population size (constant <span class="math inline">\(H\)</span>).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">90</span>, <span class="fl">100</span>, <span class="fl">900</span><span class="op">)</span>, <span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_demography_null.html">make_parameters_demography_null</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, H <span class="op">=</span> <span class="va">H</span>, membershipH<span class="op">=</span><span class="va">membershipH</span>, searchWtsH<span class="op">=</span><span class="va">searchWtsH</span>, TimeSpent<span class="op">=</span><span class="va">Psi</span><span class="op">)</span></span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_BF_static.html">make_parameters_BF_static</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_demography_static.html">make_parameters_demography_static</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, H <span class="op">=</span> <span class="va">H</span>, membershipH<span class="op">=</span><span class="va">membershipH</span>, searchWtsH<span class="op">=</span><span class="va">searchWtsH</span>, TimeSpent<span class="op">=</span><span class="va">Psi</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">X0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">*</span><span class="va">H</span><span class="op">)</span></span>
 <span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">200</span>, <span class="va">params</span><span class="op">$</span><span class="va">nStrata</span><span class="op">)</span></span>
