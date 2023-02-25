@@ -1,6 +1,6 @@
 # generic methods to compute mixing matrices, beta and beta_lag
 
-#' @title Compute beta, the biting distribution matrix
+#' @title Call compute_beta as needed
 #' @description This method dispatches on the type of `pars$Hpar`
 #' @param t current simulation time
 #' @param y state vector
@@ -11,7 +11,7 @@ make_beta <- function(t, y, pars) {
   UseMethod("make_beta", pars$Hpar)
 }
 
-#' @title Compute beta_lag, the lagged biting distribution matrix
+#' @title Call compute_beta with lagged variables, as needed
 #' @description This method dispatches on the type of `pars$Hpar`
 #' @param t current simulation time
 #' @param y state vector
@@ -24,7 +24,6 @@ make_beta_lag <- function(t, y, pars, lag) {
 }
 
 #' @title Compute beta, the biting distribution matrix
-#' @description This method dispatches on the type of `pars$Hpar`
 #' @param H the human population size
 #' @param wf the blood feeding search weights
 #' @param Psi (time at risk), a [matrix]  dimensions `nPatches` by `nStrata`

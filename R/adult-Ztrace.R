@@ -1,4 +1,4 @@
-# specialized methods for the aquatic mosquito Ztrace model
+# specialized methods for the adult mosquito Ztrace model
 
 #' @title Number of infective adults in each patch
 #' @description Implements [F_Z] for the Ztrace  model.

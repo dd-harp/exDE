@@ -1,8 +1,10 @@
 library(deSolve)
 
-numeric_tol <- 1e-5
 
 test_that("basic competition stays at equilibrium", {
+
+  numeric_tol <- 1e-5
+
   nHabitats <- 3
   alpha <- c(10, 50, 20)
   eta <- c(250, 500, 170)

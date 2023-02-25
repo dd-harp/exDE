@@ -158,7 +158,6 @@ make_indices_MYZ.GeRM <- function(pars) {
 }
 
 
-
 #' @title Make parameters for generalized GeRM ODE adult mosquito model
 #' @param pars an [environment]
 #' @param g mosquito mortality rate
@@ -218,4 +217,3 @@ make_inits_MYZ_GeRM <- function(pars, M0, G0, Y0, Z0, Upsilon0) {
 get_inits_MYZ.GeRM <- function(pars) {with(pars$MYZinits,{
   c(M0, G0, Y0, Z0, as.vector(Upsilon0))
 })}
-

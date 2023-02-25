@@ -1,10 +1,12 @@
 library(expm)
 library(deSolve)
 
-# tolerance for tests comparing floats
-numeric_tol <- 1e-4
 
 test_that("RM models reach equilibrium", {
+
+  # tolerance for tests comparing floats
+  numeric_tol <- 1e-4
+
   nPatches <- 3
   f <- 0.3
   q <- 0.9

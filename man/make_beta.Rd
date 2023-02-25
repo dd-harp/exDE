@@ -2,7 +2,7 @@
 % Please edit documentation in R/mixing-interface.R
 \name{make_beta}
 \alias{make_beta}
-\title{Compute beta, the biting distribution matrix}
+\title{Call compute_beta as needed}
 \usage{
 make_beta(t, y, pars)
 }
