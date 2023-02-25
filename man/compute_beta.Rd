@@ -17,5 +17,5 @@ compute_beta(H, wf, Psi)
 a \link{matrix} of dimensions \code{nStrata} by \code{nPatches}
 }
 \description{
-This method dispatches on the type of \code{pars$Hpar}
+Compute beta, the biting distribution matrix
 }

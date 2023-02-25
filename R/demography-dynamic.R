@@ -32,9 +32,9 @@ dHdt.dynamic <- function(t, y, pars){
 #' @inheritParams Births
 #' @return a [numeric] vector of length `nStrata` or of length 0
 #' @export
-Births.dynamic <- function(t, y, pars){with(pars$Hpar,{
-  F_births(t, y, pars)*birthsXstrata
-})}
+Births.dynamic <- function(t, y, pars){
+  F_births(t, y, pars)*pars$Hpar$birthsXstrata
+}
 
 
 #' @title Add indices for human population denominators to parameter list
@@ -46,6 +46,15 @@ make_indices_H.dynamic <- function(pars) {
   pars$H_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
   pars$max_ix <- tail(pars$H_ix, 1)
   return(pars)
+}
+
+#' @title Return initial values as a vector
+#' @description This method dispatches on the type of `pars$Xpar`.
+#' @param pars an [environment]
+#' @return none
+#' @export
+get_inits_H.dynamic <- function(pars){
+  return(par$Hpar$H)
 }
 
 #' @title Make parameters for forced (dynamic) human demography model
@@ -78,4 +87,5 @@ make_parameters_demography_dynamic <- function(pars, H, membershipH, searchWtsH,
   pars$Hpar <- Hpar
   return(pars)
 }
+
 

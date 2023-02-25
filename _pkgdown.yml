@@ -1,0 +1,289 @@
+url: https://dd-harp.github.io/exDE/
+template:
+  bootstrap: 5
+navbar:
+  left:
+  - text: Functions
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: 5-3-4 Spatial Example
+      href: articles/ex_534.html
+    - text: Spatial Metrics
+      href: articles/spat_metric.html
+    - text: Vector Control Example
+      href: articles/vc_lemenach.html
+    - text: Contributing
+      href: articles/Contributing.html
+  - text: Adult Mosquito Component
+    menu:
+    - text: Ross-Macdonald model
+      href: articles/adult_RM.html
+  - text: Aquatic Mosquito Component
+    menu:
+    - text: Trace (forced) model
+      href: articles/aqua_trace.html
+    - text: Basic competition model
+      href: articles/aqua_basic.html
+  - text: Human Component
+    menu:
+    - text: SIS model
+      href: articles/human_sis.html
+    - text: SIP model
+      href: articles/human_sip.html
+    - text: MoI hybrid model
+      href: articles/human_hmoi.html
+  right:
+  - icon: fa-github
+    href: https://github.com/dd-harp/exDE/
+home:
+  sidebar:
+    structure:
+    - links
+    - license
+    - community
+    - citation
+    - authors
+    - dev
+    - custom_news
+    components:
+      custom_news:
+        title: Changelog
+        text: <a href="news/index.html">News</a>
+reference:
+- title: Exogeneous Forcing
+  desc: |
+    Methods to implement exogeneous forcing.
+  contents:
+  - ExogenousForcing
+  - ExogenousForcing.null
+  - make_parameters_exogenous_null
+- title: Vector Control
+  desc: |
+    Methods to implement vector control.
+  contents:
+  - VectorControl
+  - VectorControl.null
+  - make_parameters_vc_null
+  - VectorControl.lemenach
+  - make_parameters_vc_lemenach
+- title: Adult mosquito component
+  desc: |
+    Generic methods for the adult mosquito component.
+  contents:
+  - MosquitoBehavior
+  - F_tau
+  - F_Z
+  - F_Z_lag
+  - F_eggs
+  - dMYZdt
+  - make_indices_MYZ
+  - get_inits_MYZ
+  - make_Omega
+- subtitle: A Ross-Macdonald mosquito model
+  desc: |
+    Specialized methods for a Ross-Macdonald model of adult mosquito dynamics.
+  contents:
+  - MosquitoBehavior.RM
+  - F_tau.RM
+  - F_Z.RM
+  - F_Z_lag.RM
+  - F_eggs.RM
+  - dMYZdt.RM_ode
+  - dMYZdt.RM_dde
+  - make_indices_MYZ.RM
+  - make_parameters_MYZ_RM
+  - make_inits_MYZ_RM
+  - get_inits_MYZ.RM
+- subtitle: Generalized Ross-Macdonald mosquito model
+  desc: |
+    Specialized methods for the generalized Ross-Macdonald model of adult mosquito dynamics.
+  contents:
+  - MosquitoBehavior.GeRM
+  - F_tau.GeRM
+  - F_Z.GeRM
+  - F_Z_lag.GeRM
+  - F_eggs.GeRM
+  - dMYZdt.GeRM_ode
+  - dMYZdt.GeRM_dde
+  - make_indices_MYZ.GeRM
+  - make_parameters_MYZ_GeRM
+  - make_inits_MYZ_GeRM
+  - get_inits_MYZ.GeRM
+- subtitle: specialized methods for the adult mosquito Ztrace model
+  desc: |
+    Specialized methods for the Z-trace of adult mosquito dynamics.
+  contents:
+  - F_Z.Ztrace
+  - F_Z_lag.Ztrace
+  - dMYZdt.Ztrace
+  - make_indices_MYZ.Ztrace
+  - make_parameters_MYZ_Ztrace
+  - make_inits_MYZ_Ztrace
+  - get_inits_MYZ.Ztrace
+- title: Aquatic mosquito component
+  desc: |
+    Generic methods for the aquatic (immature) mosquito component.
+  contents:
+  - F_alpha
+  - dLdt
+  - make_indices_L
+  - get_inits_L
+- subtitle: Trace (forced) aquatic mosquito model
+  desc: |
+    Specialized methods for the exogeneously forced trace model of aquatic mosquito dynamics.
+  contents:
+  - F_alpha.trace
+  - dLdt.trace
+  - make_indices_L.trace
+  - make_parameters_L_trace
+  - make_inits_L_trace
+  - get_inits_L.trace
+- subtitle: Basic competition aquatic mosquito model
+  desc: |
+    Specialized methods for the basic competition model of aquatic mosquito dynamics.
+  contents:
+  - F_alpha.basic
+  - dLdt.basic
+  - make_indices_L.basic
+  - make_parameters_L_basic
+  - make_inits_L_basic
+  - get_inits_L.basic
+- title: Transmission and Mixing
+  desc: |
+    Generic methods for transmission and mixing.
+  contents:
+  - F_beta
+  - F_EIR
+  - F_kappa
+- subtitle: Transmission for ODEs
+  desc: |
+    Specialized methods for transmission / mixing for ODEs
+  contents:
+  - F_kappa.ode
+  - F_EIR.ode
+  - F_beta.ode
+- subtitle: Transmission for DDEs
+  desc: |
+    Specialized methods for transmission / mixing for ODEs
+  contents:
+  - F_kappa.dde
+  - F_EIR.dde
+  - F_beta.dde
+- title: Mixing matrix
+  desc: |
+    Generic methods to compute the mixing matrix mixing.
+  contents:
+  - make_beta
+  - make_beta_lag
+  - compute_beta
+- subtitle: static
+  desc: |
+    Specialized methods for static denominators
+  contents:
+  - make_beta.static
+  - make_beta_lag.static
+- subtitle: dynamic
+  desc: |
+    Specialized methods for dynamic denominators
+  contents:
+  - make_beta.dynamic
+  - make_beta_lag.dynamic
+- title: Human disease component
+  desc: |
+    Generic methods for the human disease component.
+  contents:
+  - F_x
+  - F_x_lag
+  - dXdt
+  - make_indices_X
+  - get_inits_X
+- subtitle: hybrid MoI model
+  desc: |
+    Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.
+  contents:
+  - F_x.hMoI
+  - F_x_lag.hMoI
+  - dXdt.hMoI
+  - make_indices_X.hMoI
+  - make_parameters_X_hMoI
+  - make_inits_X_hMoI
+  - get_inits_X.hMoI
+- subtitle: SIS human model
+  desc: |
+    Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
+  contents:
+  - F_x.SIS
+  - F_x_lag.SIS
+  - dXdt.SIS
+  - make_indices_X.SIS
+  - make_parameters_X_SIS
+  - make_inits_X_SIS
+  - get_inits_X.SIS
+- subtitle: SIP human model
+  desc: |
+    Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
+  contents:
+  - F_x.SIP
+  - F_x_lag.SIP
+  - dXdt.SIP
+  - make_indices_X.SIP
+  - make_parameters_X_SIP
+  - make_inits_X_SIP
+  - get_inits_X.SIP
+- title: Human demography component
+  desc: |
+    Generic methods for the human demography component.
+  contents:
+  - F_H
+  - F_H_lag
+  - dHdt
+  - Births
+  - make_indices_H
+  - get_inits_H
+  - F_births
+- subtitle: Static demography model
+  desc: |
+    Specialized methods for the static (constant) demographic model
+  contents:
+  - F_H.static
+  - F_H_lag.static
+  - Births.static
+  - dHdt.static
+  - make_indices_H.static
+  - get_inits_H.static
+  - make_parameters_demography_static
+- subtitle: Dynamic demography model
+  desc: |
+    Specialized methods for the demographic model with dynamic denominators
+  contents:
+  - F_H.dynamic
+  - F_H_lag.dynamic
+  - Births.dynamic
+  - dHdt.dynamic
+  - make_indices_H.dynamic
+  - get_inits_H.dynamic
+  - make_parameters_demography_dynamic
+- subtitle: Compute Birth Rates 
+  desc: |
+    Specialized methods to compute birth rates 
+  contents:
+  - F_births.constant
+  - F_births.exp
+- title: Generalized spatial differential equations
+  contents:
+  - xDE_diffeqn
+  - xDE_diffeqn_mosy
+- title: Spatial metrics
+  contents:
+  - metric_calV
+  - metric_calD
+  - metric_calR
+  - metric_calZ
+- title: Utilities
+  contents:
+  - make_parameters_xde
+  - make_indices
+  - get_inits
+  - diag_inverse
+  - approx_equal

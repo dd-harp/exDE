@@ -1,12 +1,13 @@
+# methods for transmission involving ordinary differential equations
 
 #' @title Net infectiousness of human population to mosquitoes
-#' @description Implements [F_beta] for an ODE model.
-#' @inheritParams F_beta
-#' @return a [list] vector of length `nPatches`
+#' @description Implements [F_kappa] for when MYZ is an ODE model.
+#' @inheritParams F_kappa
+#' @return a [numeric] vector of length `nPatches`
 #' @export
-F_beta.ode <- function(t, y, pars) {
-  pars <- make_beta(t, y, pars)
-  return(pars)
+F_kappa.ode <- function(t, y, pars) {
+  x <- F_x(t, y, pars)
+  as.vector(t(pars$beta) %*% x)
 }
 
 #' @title Entomological inoculation rate on human strata
@@ -22,11 +23,11 @@ F_EIR.ode <- function(t, y, pars, MosyBehavior) {
 }
 
 #' @title Net infectiousness of human population to mosquitoes
-#' @description Implements [F_kappa] for when MYZ is an ODE model.
-#' @inheritParams F_kappa
-#' @return a [numeric] vector of length `nPatches`
+#' @description Implements [F_beta] for an ODE model.
+#' @inheritParams F_beta
+#' @return a [list] vector of length `nPatches`
 #' @export
-F_kappa.ode <- function(t, y, pars) {
-  x <- F_x(t, y, pars)
-  as.vector(t(pars$beta) %*% x)
+F_beta.ode <- function(t, y, pars) {
+  pars <- make_beta(t, y, pars)
+  return(pars)
 }

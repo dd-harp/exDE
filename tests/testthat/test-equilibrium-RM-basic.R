@@ -2,9 +2,10 @@ library(expm)
 library(MASS)
 library(deSolve)
 
-numeric_tol <- 1e-5
 
 test_that("test equilibrium with RM adults (ODE), basic competition", {
+
+  numeric_tol <- 1e-5
 
   # set number of patches and strata
   nPatches <- 2
@@ -123,6 +124,8 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
 })
 
 test_that("test equilibrium with RM adults (DDE), basic competition", {
+
+  numeric_tol <- 1e-5
 
   # set number of patches and strata
   nPatches <- 2

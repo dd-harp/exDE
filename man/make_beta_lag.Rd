@@ -2,7 +2,7 @@
 % Please edit documentation in R/mixing-interface.R
 \name{make_beta_lag}
 \alias{make_beta_lag}
-\title{Compute beta_lag, the lagged biting distribution matrix}
+\title{Call compute_beta with lagged variables, as needed}
 \usage{
 make_beta_lag(t, y, pars, lag)
 }
