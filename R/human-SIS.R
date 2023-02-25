@@ -65,6 +65,9 @@ make_parameters_X_SIS <- function(pars, b, c, r) {
   stopifnot(is.numeric(b), is.numeric(c), is.numeric(r))
   Xpar <- list()
   class(Xpar) <- c('SIS')
+  xde <-  'ode'
+  class(xde) <- 'ode'
+  Xpar$xde <- xde
   Xpar$b <- b
   Xpar$c <- c
   Xpar$r <- r

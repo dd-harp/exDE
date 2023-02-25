@@ -28,16 +28,6 @@ F_tau <- function(t, y, pars) {
   UseMethod("F_tau", pars$MYZpar)
 }
 
-#' @title Net infectiousness of human population to mosquitoes
-#' @description This method dispatches on the type of `pars$MYZpar`.
-#' @param t current simulation time
-#' @param y state vector
-#' @param pars an [environment]
-#' @return a [numeric] vector of length `nPatches`
-#' @export
-F_kappa <- function(t, y, pars) {
-  UseMethod("F_kappa", pars$MYZpar)
-}
 
 #' @title Density of infectious mosquitoes
 #' @description This method dispatches on the type of `pars$MYZpar`.

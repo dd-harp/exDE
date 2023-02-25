@@ -43,11 +43,10 @@ The model `5-3-4` is designed to illustrate some important features of the frame
 We already know three important parameters, $l$, $p$ and $n$ because they are determined in the early stages of model building. The `exDE` package expects all parameters to be contained in a list object, containing `nHabitats`, `nPatches`, and `nStrata` which correspond to `l`, `p` and `n`.
 
 ```{r}
-params <- list(
-  nHabitats = 5,
-  nPatches = 3,
-  nStrata = 4
-)
+params = make_parameters_xde() 
+params$nHabitats = 5
+params$nPatches = 3
+params$nStrata = 4
 ```
 
 ## Aquatic Habitat Membership Matrix
@@ -192,8 +191,7 @@ We use the null demographic model, which assumes a constant population size (con
 
 ```{r}
 H <- matrix(c(10,90, 100, 900), 4, 1)
-params = make_parameters_demography_null(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
-params = make_parameters_BF_static(params)
+params = make_parameters_demography_static(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
 ```
 
 ```{r}

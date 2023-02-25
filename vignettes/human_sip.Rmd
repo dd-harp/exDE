@@ -72,11 +72,11 @@ Psi <- matrix(data = 1,nrow = 1, ncol = nStrata)
 P <- diag(1/eta) %*% diag(rho/(1-rho)) %*% (r*X)
 EIR <- diag(1/b, nStrata) %*% diag(1/(1-rho)) %*% ((r*X)/(H-X-P))
 
-params <- list(
-  nStrata = nStrata
-)
+params <- make_parameters_xde()
+params$nStrata = nStrata
+params$nPatches = 1 
 
-params = make_parameters_demography_null(pars = params, H=H, 
+params = make_parameters_demography_static(pars = params, H=H, 
              membershipH = membershipH, searchWtsH = searchWtsH, 
              TimeSpent = Psi)
 

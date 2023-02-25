@@ -73,6 +73,9 @@ make_parameters_X_SIP <- function(pars, b, c, r, rho, eta){
   stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(rho), is.numeric(eta))
   Xpar <- list()
   class(Xpar) <- c('SIP')
+  xde <-  'ode'
+  class(xde) <- 'ode'
+  Xpar$xde <- xde
   Xpar$b <- b
   Xpar$c <- c
   Xpar$r <- r

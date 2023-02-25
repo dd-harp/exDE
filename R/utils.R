@@ -1,4 +1,16 @@
 
+#' @title Make base parameters
+#' @param solve_as, either "ode" or "dde"
+#' @return a [list]
+#' @export
+make_parameters_xde = function(solve_as='ode'){
+  pars = list()
+  xde <- 'ode'
+  class(xde) <- xde
+  pars$xde = xde
+  return(pars)
+}
+
 #' @title Set indices for generalized spatial model
 #' @param pars an [environment]
 #' @return none

@@ -80,6 +80,9 @@ make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2) {
   stopifnot(is.numeric(b), is.numeric(c1), is.numeric(c2), is.numeric(r1), is.numeric(r2))
   Xpar <- list()
   class(Xpar) <- c('hMoI')
+  xde <-  'ode'
+  class(xde) <- 'ode'
+  Xpar$xde <- xde
   Xpar$b <- b
   Xpar$c1 <- c1
   Xpar$c2 <- c2

@@ -5,7 +5,7 @@ library(deSolve)
 numeric_tol <- 1e-5
 
 test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
-  pars <- list()
+  pars <- make_parameters_xde()
   pars$nPatches <- 3
   pars$nStrata <- 3
   pars$nHabitats <- 3
@@ -74,8 +74,7 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   Lambda <- Omega %*% M
 
   # set parameters
-  pars = make_parameters_demography_null(pars = pars, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
-  pars = make_parameters_BF_static(pars)
+  pars = make_parameters_demography_static(pars = pars, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
   pars = make_parameters_MYZ_GeRM(pars = pars, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
   pars = make_inits_MYZ_GeRM(pars = pars, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=Upsilon)
   pars = make_parameters_L_trace(pars = pars,  Lambda = as.vector(Lambda))

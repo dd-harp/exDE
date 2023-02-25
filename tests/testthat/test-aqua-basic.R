@@ -12,9 +12,8 @@ test_that("basic competition stays at equilibrium", {
   L <- alpha/psi
   theta <- (eta - psi*L - phi*L)/(L^2)
 
-  params <- list(
-    nHabitats = nHabitats
-  )
+  params <- make_parameters_xde()
+  params$nHabitats = nHabitats
 
   # ODE
   params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)

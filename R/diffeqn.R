@@ -1,5 +1,6 @@
 # generalized spatial differential equations
 
+
 #' @title Generalized spatial differential equation model
 #' @description Compute derivatives for [deSolve::ode] or [deSolve::dede] using
 #' generic methods for each model component. The arguments `EIR_delta` and `kappa_delta` are
@@ -35,6 +36,7 @@ xDE_diffeqn <- function(t, y, pars, EIR_delta = NULL, kappa_delta = NULL) {
   Lambda <- pars$calN %*% alpha
 
   # bloodmeal
+  pars <- F_beta(t, y, pars)
 
   # EIR: entomological inoculation rate
   EIR <- F_EIR(t, y, pars, MosyBehavior)

@@ -87,7 +87,7 @@ test_that("test equilibrium with RM adults (ODE), hMoI humans, trace", {
   diag(calU) <- 1
 
   # parameters for exDE
-  params <- list()
+  params <- make_parameters_xde()
   params$nStrata <- nStrata
   params$nPatches <- nPatches
   params$nHabitats <- nHabitats
@@ -96,8 +96,7 @@ test_that("test equilibrium with RM adults (ODE), hMoI humans, trace", {
 
   params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
   params = make_inits_MYZ_GeRM(pars = params, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=OmegaEIP)
-  params = make_parameters_demography_null(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
-  params = make_parameters_BF_static(params)
+  params = make_parameters_demography_static(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
   params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
   params = make_inits_X_hMoI(pars = params, m10 = rep(m10,2), m20 = rep(m20,2))
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
@@ -204,7 +203,7 @@ test_that("test equilibrium with RM adults (DDE), hMoI humans, trace", {
   diag(calU) <- 1
 
   # parameters for exDE
-  params <- new.env()
+  params <- make_parameters_xde()
   params$nStrata <- nStrata
   params$nPatches <- nPatches
   params$nHabitats <- nHabitats
@@ -213,8 +212,7 @@ test_that("test equilibrium with RM adults (DDE), hMoI humans, trace", {
 
   params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
   params = make_inits_MYZ_GeRM(pars = params, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=OmegaEIP)
-  params = make_parameters_demography_null(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
-  params = make_parameters_BF_static(params)
+  params = make_parameters_demography_static(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
   params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
   params = make_inits_X_hMoI(pars = params, m10 = rep(m10,2), m20 = rep(m20,2))
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))

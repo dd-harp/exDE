@@ -31,8 +31,7 @@ library(ggplot2)
 This case study will use a simple model with 3 patches, 3 population strata, and 3 aquatic habitats. As usual, we set up parameter values and compute the values of state variables at equilibrium. As part of the equilibrium calculation we must compute $\Upsilon(0) = \exp\left(-\int_{-\tau}^{0} \Omega(s) ds \right)$; the value of the integrated mosquito demography matrix at the initial time point. To simplify things, we simply assume that conditions were constant prior to $t=0$ so that $\Upsilon(0) = e^{-\Omega\tau}$.
 
 ```{r}
-#pars <- new.env()
-pars = list() 
+pars = make_parameters_xde() 
 pars$nPatches <- 3
 pars$nStrata <- 3
 pars$nHabitats <- 3
@@ -156,11 +155,13 @@ pars = make_parameters_L_basic(pars = pars, psi = psi,
 pars = make_inits_L_basic(pars = pars, L0 = L)
 pars = make_parameters_X_SIS(pars = pars, b = b, c = c, r = r)
 pars = make_inits_X_SIS(pars = pars, X0=X)
-pars = make_parameters_demography_null(pars = pars, H = H,
+pars = make_parameters_demography_static(pars = pars, H = H,
                                        membershipH = membershipH,
                                        searchWtsH = searchWtsH, 
                                        TimeSpent = Psi)
-pars = make_parameters_BF_static(pars)
+W = as.vector(pars$Hpar$TimeSpent %*% (pars$Hpar$searchWtsH * H))
+pars$beta = diag(pars$Hpar$searchWtsH, pars$nStrata) %*% t(pars$Hpar$TimeSpent) %*% diag(1/W, pars$nPatches)
+pars$beta_lag = pars$beta
 pars = make_indices(pars = pars)
 ```
 
@@ -170,7 +171,8 @@ After setting parameters we must set the initial conditions of the model. Then w
 
 ```{r}
 # ICs
-y0 <- get_inits(pars) 
+y0 <- get_inits(pars)
+
 ```
 
 ```{r}

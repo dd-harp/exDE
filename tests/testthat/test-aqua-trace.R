@@ -1,5 +1,6 @@
 library(expm)
 library(deSolve)
+library(MASS)
 
 numeric_tol <- 1e-5
 
@@ -49,12 +50,12 @@ test_that("forced emergence works with equilibrium", {
   # the "Lambda" for the dLdt model
   alpha <- as.vector(ginv(calN) %*% Lambda)
 
-  params <- list(
-    nPatches = nPatches,
-    nHabitats = nHabitats,
-    calU = calU,
-    calN = calN
-  )
+  params <- make_parameters_xde()
+  params$nPatches = nPatches
+  params$nHabitats = nHabitats
+  params$calU = calU
+  params$calN = calN
+
 
   # ODE
   params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode")

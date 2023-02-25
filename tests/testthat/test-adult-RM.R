@@ -26,9 +26,8 @@ test_that("RM models reach equilibrium", {
   kappa <- c(0.1, 0.075, 0.025)
   Lambda <- c(5, 10, 8)
 
-  params <- list(
-    nPatches = nPatches
-  )
+  params <-make_parameters_xde()
+  params$nPatches = nPatches
 
   # ODE
   params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode")
