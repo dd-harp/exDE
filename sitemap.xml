@@ -1,465 +1,471 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://dd-harp.github.io/exDE/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://dd-harp.github.io/exDE/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://dd-harp.github.io/exDE/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/articles/Contributing.html</loc>
+    <loc>https://dd-harp.github.io/exDE/articles/Contributing.html</loc>
   </url>
   <url>
-    <loc>/articles/adult_GeRM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/articles/adult_GeRM.html</loc>
   </url>
   <url>
-    <loc>/articles/aqua_basic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/articles/aqua_basic.html</loc>
   </url>
   <url>
-    <loc>/articles/aqua_trace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/articles/aqua_trace.html</loc>
   </url>
   <url>
-    <loc>/articles/ex_534.html</loc>
+    <loc>https://dd-harp.github.io/exDE/articles/ex_534.html</loc>
   </url>
   <url>
-    <loc>/articles/human_hmoi.html</loc>
+    <loc>https://dd-harp.github.io/exDE/articles/human_hmoi.html</loc>
   </url>
   <url>
-    <loc>/articles/human_sip.html</loc>
+    <loc>https://dd-harp.github.io/exDE/articles/human_sip.html</loc>
   </url>
   <url>
-    <loc>/articles/human_sis.html</loc>
+    <loc>https://dd-harp.github.io/exDE/articles/human_sis.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://dd-harp.github.io/exDE/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/spat_metric.html</loc>
+    <loc>https://dd-harp.github.io/exDE/articles/spat_metric.html</loc>
   </url>
   <url>
-    <loc>/articles/vc_lemenach.html</loc>
+    <loc>https://dd-harp.github.io/exDE/articles/vc_lemenach.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://dd-harp.github.io/exDE/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://dd-harp.github.io/exDE/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://dd-harp.github.io/exDE/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/Births.dynamic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/Births.dynamic.html</loc>
   </url>
   <url>
-    <loc>/reference/Births.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/Births.html</loc>
   </url>
   <url>
-    <loc>/reference/Births.static.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/Births.static.html</loc>
   </url>
   <url>
-    <loc>/reference/ExogenousForcing.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/ExogenousForcing.html</loc>
   </url>
   <url>
-    <loc>/reference/ExogenousForcing.null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/ExogenousForcing.null.html</loc>
   </url>
   <url>
-    <loc>/reference/F_EIR.dde.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_EIR.dde.html</loc>
   </url>
   <url>
-    <loc>/reference/F_EIR.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_EIR.html</loc>
   </url>
   <url>
-    <loc>/reference/F_EIR.ode.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_EIR.ode.html</loc>
   </url>
   <url>
-    <loc>/reference/F_H.dynamic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_H.dynamic.html</loc>
   </url>
   <url>
-    <loc>/reference/F_H.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_H.html</loc>
   </url>
   <url>
-    <loc>/reference/F_H.static.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_H.static.html</loc>
   </url>
   <url>
-    <loc>/reference/F_H_lag.dynamic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_H_lag.dynamic.html</loc>
   </url>
   <url>
-    <loc>/reference/F_H_lag.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_H_lag.html</loc>
   </url>
   <url>
-    <loc>/reference/F_H_lag.static.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_H_lag.static.html</loc>
   </url>
   <url>
-    <loc>/reference/F_Z.GeRM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_Z.GeRM.html</loc>
   </url>
   <url>
-    <loc>/reference/F_Z.RM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_Z.RM.html</loc>
   </url>
   <url>
-    <loc>/reference/F_Z.Ztrace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_Z.Ztrace.html</loc>
   </url>
   <url>
-    <loc>/reference/F_Z.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_Z.html</loc>
   </url>
   <url>
-    <loc>/reference/F_Z_lag.GeRM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_Z_lag.GeRM.html</loc>
   </url>
   <url>
-    <loc>/reference/F_Z_lag.RM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_Z_lag.RM.html</loc>
   </url>
   <url>
-    <loc>/reference/F_Z_lag.Ztrace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_Z_lag.Ztrace.html</loc>
   </url>
   <url>
-    <loc>/reference/F_Z_lag.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_Z_lag.html</loc>
   </url>
   <url>
-    <loc>/reference/F_alpha.basic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_alpha.basic.html</loc>
   </url>
   <url>
-    <loc>/reference/F_alpha.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_alpha.html</loc>
   </url>
   <url>
-    <loc>/reference/F_alpha.trace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_alpha.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/F_beta.dde.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_beta.dde.html</loc>
   </url>
   <url>
-    <loc>/reference/F_beta.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_beta.html</loc>
   </url>
   <url>
-    <loc>/reference/F_beta.ode.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_beta.ode.html</loc>
   </url>
   <url>
-    <loc>/reference/F_births.0.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_births.constant.html</loc>
   </url>
   <url>
-    <loc>/reference/F_births.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_births.exp.html</loc>
   </url>
   <url>
-    <loc>/reference/F_eggs.GeRM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_births.html</loc>
   </url>
   <url>
-    <loc>/reference/F_eggs.RM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_eggs.GeRM.html</loc>
   </url>
   <url>
-    <loc>/reference/F_eggs.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_eggs.RM.html</loc>
   </url>
   <url>
-    <loc>/reference/F_kappa.dde.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_eggs.html</loc>
   </url>
   <url>
-    <loc>/reference/F_kappa.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_kappa.dde.html</loc>
   </url>
   <url>
-    <loc>/reference/F_kappa.ode.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_kappa.html</loc>
   </url>
   <url>
-    <loc>/reference/F_tau.GeRM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_kappa.ode.html</loc>
   </url>
   <url>
-    <loc>/reference/F_tau.RM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_tau.GeRM.html</loc>
   </url>
   <url>
-    <loc>/reference/F_tau.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_tau.RM.html</loc>
   </url>
   <url>
-    <loc>/reference/F_x.SIP.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_tau.html</loc>
   </url>
   <url>
-    <loc>/reference/F_x.SIS.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_x.SIP.html</loc>
   </url>
   <url>
-    <loc>/reference/F_x.hMoI.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_x.SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/F_x.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_x.hMoI.html</loc>
   </url>
   <url>
-    <loc>/reference/F_x_lag.SIP.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_x.html</loc>
   </url>
   <url>
-    <loc>/reference/F_x_lag.SIS.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_x_lag.SIP.html</loc>
   </url>
   <url>
-    <loc>/reference/F_x_lag.hMoI.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_x_lag.SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/F_x_lag.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_x_lag.hMoI.html</loc>
   </url>
   <url>
-    <loc>/reference/MosquitoBehavior.GeRM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_x_lag.html</loc>
   </url>
   <url>
-    <loc>/reference/MosquitoBehavior.RM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.GeRM.html</loc>
   </url>
   <url>
-    <loc>/reference/MosquitoBehavior.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.RM.html</loc>
   </url>
   <url>
-    <loc>/reference/VectorControl.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.html</loc>
   </url>
   <url>
-    <loc>/reference/VectorControl.lemenach.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/VectorControl.html</loc>
   </url>
   <url>
-    <loc>/reference/VectorControl.null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/VectorControl.lemenach.html</loc>
   </url>
   <url>
-    <loc>/reference/approx_equal.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/VectorControl.null.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_beta.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/approx_equal.html</loc>
   </url>
   <url>
-    <loc>/reference/dHdt.dynamic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_beta.html</loc>
   </url>
   <url>
-    <loc>/reference/dHdt.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dHdt.dynamic.html</loc>
   </url>
   <url>
-    <loc>/reference/dHdt.static.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dHdt.html</loc>
   </url>
   <url>
-    <loc>/reference/dLdt.basic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dHdt.static.html</loc>
   </url>
   <url>
-    <loc>/reference/dLdt.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dLdt.basic.html</loc>
   </url>
   <url>
-    <loc>/reference/dLdt.trace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dLdt.html</loc>
   </url>
   <url>
-    <loc>/reference/dMYZdt.GeRM_dde.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dLdt.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/dMYZdt.GeRM_ode.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dMYZdt.GeRM_dde.html</loc>
   </url>
   <url>
-    <loc>/reference/dMYZdt.RM_dde.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dMYZdt.GeRM_ode.html</loc>
   </url>
   <url>
-    <loc>/reference/dMYZdt.RM_ode.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dMYZdt.RM_dde.html</loc>
   </url>
   <url>
-    <loc>/reference/dMYZdt.Ztrace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dMYZdt.RM_ode.html</loc>
   </url>
   <url>
-    <loc>/reference/dMYZdt.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dMYZdt.Ztrace.html</loc>
   </url>
   <url>
-    <loc>/reference/dXdt.SIP.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dMYZdt.html</loc>
   </url>
   <url>
-    <loc>/reference/dXdt.SIS.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SIP.html</loc>
   </url>
   <url>
-    <loc>/reference/dXdt.hMoI.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/dXdt.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dXdt.hMoI.html</loc>
   </url>
   <url>
-    <loc>/reference/diag_inverse.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dXdt.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/diag_inverse.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_H.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_H.static.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_H.dynamic.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_L.basic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_H.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_L.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_H.static.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_L.trace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_L.basic.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_MYZ.GeRM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_L.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_MYZ.RM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_L.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_MYZ.Ztrace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_MYZ.GeRM.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_MYZ.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_MYZ.RM.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_X.SIP.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_MYZ.Ztrace.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_X.SIS.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_MYZ.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_X.hMoI.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_X.SIP.html</loc>
   </url>
   <url>
-    <loc>/reference/get_inits_X.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_X.SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_X.hMoI.html</loc>
   </url>
   <url>
-    <loc>/reference/make_Omega.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_X.html</loc>
   </url>
   <url>
-    <loc>/reference/make_beta.dynamic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/make_beta.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_Omega.html</loc>
   </url>
   <url>
-    <loc>/reference/make_beta.static.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_beta.dynamic.html</loc>
   </url>
   <url>
-    <loc>/reference/make_beta_lag.dynamic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_beta.html</loc>
   </url>
   <url>
-    <loc>/reference/make_beta_lag.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_beta.static.html</loc>
   </url>
   <url>
-    <loc>/reference/make_beta_lag.static.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_beta_lag.dynamic.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_beta_lag.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_H.dynamic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_beta_lag.static.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_H.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_H.static.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_H.dynamic.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_L.basic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_H.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_L.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_H.static.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_L.trace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_L.basic.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_MYZ.GeRM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_L.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_MYZ.RM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_L.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_MYZ.Ztrace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_MYZ.GeRM.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_MYZ.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_MYZ.RM.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_X.SIP.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_MYZ.Ztrace.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_X.SIS.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_MYZ.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_X.hMoI.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_X.SIP.html</loc>
   </url>
   <url>
-    <loc>/reference/make_indices_X.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_X.SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/make_inits_L_basic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_X.hMoI.html</loc>
   </url>
   <url>
-    <loc>/reference/make_inits_L_trace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_X.html</loc>
   </url>
   <url>
-    <loc>/reference/make_inits_MYZ_GeRM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_inits_L_basic.html</loc>
   </url>
   <url>
-    <loc>/reference/make_inits_MYZ_RM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_inits_L_trace.html</loc>
   </url>
   <url>
-    <loc>/reference/make_inits_MYZ_Ztrace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_inits_MYZ_GeRM.html</loc>
   </url>
   <url>
-    <loc>/reference/make_inits_X_SIP.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_inits_MYZ_RM.html</loc>
   </url>
   <url>
-    <loc>/reference/make_inits_X_SIS.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_inits_MYZ_Ztrace.html</loc>
   </url>
   <url>
-    <loc>/reference/make_inits_X_hMoI.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_inits_X_SIP.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_L_basic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_inits_X_SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_L_trace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_inits_X_hMoI.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_MYZ_GeRM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_L_basic.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_MYZ_RM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_L_trace.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_MYZ_Ztrace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_MYZ_GeRM.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_X_SIP.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_MYZ_RM.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_X_SIS.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_MYZ_Ztrace.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_X_hMoI.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_X_SIP.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_demography_dynamic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_X_SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_demography_static.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_X_hMoI.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_exogenous_null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_demography_dynamic.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_vc_lemenach.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_demography_static.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_vc_null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_exogenous_null.html</loc>
   </url>
   <url>
-    <loc>/reference/make_parameters_xde.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_vc_lemenach.html</loc>
   </url>
   <url>
-    <loc>/reference/metric_calD.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_vc_null.html</loc>
   </url>
   <url>
-    <loc>/reference/metric_calR.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_xde.html</loc>
   </url>
   <url>
-    <loc>/reference/metric_calV.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/metric_calD.html</loc>
   </url>
   <url>
-    <loc>/reference/metric_calZ.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/metric_calR.html</loc>
   </url>
   <url>
-    <loc>/reference/xDE_diffeqn.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/metric_calV.html</loc>
   </url>
   <url>
-    <loc>/reference/xDE_diffeqn_mosy.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/metric_calZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn_mosy.html</loc>
   </url>
 </urlset>
