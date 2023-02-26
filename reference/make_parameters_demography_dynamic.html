@@ -84,9 +84,9 @@
 <span>  <span class="va">membershipH</span>,</span>
 <span>  <span class="va">searchWtsH</span>,</span>
 <span>  <span class="va">TimeSpent</span>,</span>
-<span>  <span class="va">F_birth</span>,</span>
+<span>  <span class="va">birthF</span>,</span>
 <span>  <span class="va">birthrate</span>,</span>
-<span>  <span class="va">deathrate</span>,</span>
+<span>  <span class="va">Hmatrix</span>,</span>
 <span>  <span class="va">birthsXstrata</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -114,20 +114,20 @@
 <dd><p>is a matrix describing time spent among patches</p></dd>
 
 
-<dt>F_birth</dt>
-<dd><p>is function that returns the birth rate as a function of time</p></dd>
+<dt>birthF</dt>
+<dd><p>dispatches <code>F_birth</code></p></dd>
 
 
 <dt>birthrate</dt>
-<dd><p>is a parameter describing the current birthrate for each stratum</p></dd>
+<dd><p>is the population birthrate</p></dd>
 
 
-<dt>deathrate</dt>
-<dd><p>is a parameter describing the current deathrate for each stratum</p></dd>
+<dt>Hmatrix</dt>
+<dd><p>does a set of state transitions</p></dd>
 
 
 <dt>birthsXstrata</dt>
-<dd><p>is a parameter describing which strata get births</p></dd>
+<dd><p>distributes births to the youngest strata</p></dd>
 
 </dl></div>
     <div class="section level2">
