@@ -269,6 +269,7 @@ reference:
     Specialized methods to compute birth rates 
   contents:
   - F_births.constant
+  - F_births.forced
   - F_births.exp
 - title: Generalized spatial differential equations
   contents:

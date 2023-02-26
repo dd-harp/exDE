@@ -2,7 +2,7 @@
 % Please edit documentation in R/demography-births.R
 \name{F_births.exp}
 \alias{F_births.exp}
-\title{Constant per-capita human population birth rate}
+\title{Constant per-capita human population birth rate (endogenous)}
 \usage{
 \method{F_births}{exp}(t, y, pars)
 }

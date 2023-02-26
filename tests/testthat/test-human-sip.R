@@ -22,7 +22,11 @@ test_that("human SIP model remains at equilibrium", {
   params$nStrata <- nStrata
   params$nPatches <- 1
 
-  params = make_parameters_demography_static(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
+  params = make_parameters_demography_static(pars = params, H=H, membershipH=membershipH,
+                                           searchWtsH=searchWtsH, TimeSpent=Psi,
+                                           birthF = "constant", birthrate = 0,
+                                           Hmatrix = diag(1, length(H)),
+                                           birthsXstrata = rep(1,length(H)))
   params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, eta=eta, rho=rho)
   params = make_inits_X_SIP(pars = params, X, P)
 

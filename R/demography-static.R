@@ -62,9 +62,14 @@ get_inits_H.static<- function(pars){
 #' @param membershipH is a vector describing patch residency
 #' @param searchWtsH is a vector describing blood feeding search weights
 #' @param TimeSpent is a matrix describing time spent among patches
+#' @param birthF dispatches `F_birth`
+#' @param birthrate is the population birthrate
+#' @param Hmatrix does a set of state transitions
+#' @param birthsXstrata distributes births to the youngest strata
 #' @return none
 #' @export
-make_parameters_demography_static <- function(pars, H, membershipH, searchWtsH, TimeSpent) {
+make_parameters_demography_static <- function(pars, H, membershipH, searchWtsH, TimeSpent,
+                                              birthF, birthrate, Hmatrix, birthsXstrata) {
   stopifnot(length(H) == pars$nStrata)
   Hpar <- list()
   class(Hpar) <- c('static')
@@ -73,6 +78,11 @@ make_parameters_demography_static <- function(pars, H, membershipH, searchWtsH, 
   Hpar$membershipH <- membershipH
   Hpar$searchWtsH <- searchWtsH
   Hpar$TimeSpent <- TimeSpent
+  Hpar$birthF <- birthF
+  class(Hpar$birthF) <- birthF
+  Hpar$birthrate <- birthrate
+  Hpar$birthXstrata <- birthsXstrata
+  Hpar$Hmatrix <- Hmatrix
   pars$Hpar <- Hpar
   pars$nStrata <- length(H)
   pars$beta <- compute_beta(H, searchWtsH, TimeSpent)

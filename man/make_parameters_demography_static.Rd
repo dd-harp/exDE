@@ -4,7 +4,17 @@
 \alias{make_parameters_demography_static}
 \title{Make parameters for static human demography model}
 \usage{
-make_parameters_demography_static(pars, H, membershipH, searchWtsH, TimeSpent)
+make_parameters_demography_static(
+  pars,
+  H,
+  membershipH,
+  searchWtsH,
+  TimeSpent,
+  birthF,
+  birthrate,
+  Hmatrix,
+  birthsXstrata
+)
 }
 \arguments{
 \item{pars}{an \link{environment}}
@@ -16,6 +26,14 @@ make_parameters_demography_static(pars, H, membershipH, searchWtsH, TimeSpent)
 \item{searchWtsH}{is a vector describing blood feeding search weights}
 
 \item{TimeSpent}{is a matrix describing time spent among patches}
+
+\item{birthF}{dispatches \code{F_birth}}
+
+\item{birthrate}{is the population birthrate}
+
+\item{Hmatrix}{does a set of state transitions}
+
+\item{birthsXstrata}{distributes births to the youngest strata}
 }
 \value{
 none

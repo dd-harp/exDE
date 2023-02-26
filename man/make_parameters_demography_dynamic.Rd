@@ -10,9 +10,9 @@ make_parameters_demography_dynamic(
   membershipH,
   searchWtsH,
   TimeSpent,
-  F_birth,
+  birthF,
   birthrate,
-  deathrate,
+  Hmatrix,
   birthsXstrata
 )
 }
@@ -28,13 +28,13 @@ make_parameters_demography_dynamic(
 
 \item{TimeSpent}{is a matrix describing time spent among patches}
 
-\item{F_birth}{is function that returns the birth rate as a function of time}
+\item{birthF}{dispatches \code{F_birth}}
 
-\item{birthrate}{is a parameter describing the current birthrate for each stratum}
+\item{birthrate}{is the population birthrate}
 
-\item{deathrate}{is a parameter describing the current deathrate for each stratum}
+\item{Hmatrix}{does a set of state transitions}
 
-\item{birthsXstrata}{is a parameter describing which strata get births}
+\item{birthsXstrata}{distributes births to the youngest strata}
 }
 \value{
 none

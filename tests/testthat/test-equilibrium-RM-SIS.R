@@ -88,7 +88,11 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, trace", {
 
   params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
   params = make_inits_MYZ_GeRM(pars = params, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=OmegaEIP)
-  params = make_parameters_demography_static(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
+  params = make_parameters_demography_static(pars = params, H=H, membershipH=membershipH,
+                                           searchWtsH=searchWtsH, TimeSpent=Psi,
+                                           birthF = "constant", birthrate = 0,
+                                           Hmatrix = diag(1, length(H)),
+                                           birthsXstrata = rep(1,length(H)))
   params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
   params = make_inits_X_SIS(pars = params, X)
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
@@ -195,7 +199,11 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
 
   params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch)
   params = make_inits_MYZ_GeRM(pars = params, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=OmegaEIP)
-  params = make_parameters_demography_static(pars = params, H = H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
+  params = make_parameters_demography_static(pars = params, H=H, membershipH=membershipH,
+                                           searchWtsH=searchWtsH, TimeSpent=Psi,
+                                           birthF = "constant", birthrate = 0,
+                                           Hmatrix = diag(1, length(H)),
+                                           birthsXstrata = rep(1,length(H)))
   params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
   params = make_inits_X_SIS(pars = params, X)
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))

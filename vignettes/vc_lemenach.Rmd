@@ -155,13 +155,12 @@ pars = make_parameters_L_basic(pars = pars, psi = psi,
 pars = make_inits_L_basic(pars = pars, L0 = L)
 pars = make_parameters_X_SIS(pars = pars, b = b, c = c, r = r)
 pars = make_inits_X_SIS(pars = pars, X0=X)
-pars = make_parameters_demography_static(pars = pars, H = H,
-                                       membershipH = membershipH,
-                                       searchWtsH = searchWtsH, 
-                                       TimeSpent = Psi)
-W = as.vector(pars$Hpar$TimeSpent %*% (pars$Hpar$searchWtsH * H))
-pars$beta = diag(pars$Hpar$searchWtsH, pars$nStrata) %*% t(pars$Hpar$TimeSpent) %*% diag(1/W, pars$nPatches)
-pars$beta_lag = pars$beta
+pars = make_parameters_demography_static(pars = pars, H=H, membershipH=membershipH, 
+                                           searchWtsH=searchWtsH, TimeSpent=Psi, 
+                                           birthF = "constant", birthrate = 0, 
+                                           Hmatrix = diag(1, length(H)), 
+                                           birthsXstrata = rep(1,length(H)))
+
 pars = make_indices(pars = pars)
 ```
 
