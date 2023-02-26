@@ -24,7 +24,7 @@ F_H_lag.static <- function(t, y, pars, lag) {
 #' @return a [numeric] vector of length 0
 #' @export
 Births.static <- function(t, y, pars){
-  if(is(y, 'param')==TRUE) numeric(0) else 0*y
+  if(class(y)=="static") numeric(0) else 0*y
 }
 
 #' @title Derivatives of demographic changes in human populations
@@ -33,7 +33,7 @@ Births.static <- function(t, y, pars){
 #' @return a [numeric] vector of 0s or of length 0
 #' @export
 dHdt.static <- function(t, y, pars){
-  if(is(y, 'param')==TRUE) numeric(0) else 0*y
+  if(class(y)=="static") numeric(0) else 0*y
 }
 
 #' @title Add indices for human population denominators to parameter list
@@ -74,7 +74,7 @@ make_parameters_demography_static <- function(pars, H, membershipH, searchWtsH, 
   Hpar <- list()
   class(Hpar) <- c('static')
   Hpar$H <- H
-  class(Hpar$H) <- 'param'
+  class(Hpar$H) <- "static"
   Hpar$membershipH <- membershipH
   Hpar$searchWtsH <- searchWtsH
   Hpar$TimeSpent <- TimeSpent
