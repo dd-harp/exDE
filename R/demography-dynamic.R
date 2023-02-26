@@ -64,27 +64,29 @@ get_inits_H.dynamic <- function(pars){
 #' @param membershipH is a vector describing patch residency
 #' @param searchWtsH is a vector describing blood feeding search weights
 #' @param TimeSpent is a matrix describing time spent among patches
-#' @param F_birth is function that returns the birth rate as a function of time
-#' @param birthrate is a parameter describing the current birthrate for each stratum
-#' @param deathrate is a parameter describing the current deathrate for each stratum
-#' @param birthsXstrata is a parameter describing which strata get births
+#' @param birthF dispatches `F_birth`
+#' @param birthrate is the population birthrate
+#' @param Hmatrix does a set of state transitions
+#' @param birthsXstrata distributes births to the youngest strata
 #' @return none
 #' @export
 make_parameters_demography_dynamic <- function(pars, H, membershipH, searchWtsH, TimeSpent,
-                                             F_birth, birthrate, deathrate, birthsXstrata) {
+                                             birthF, birthrate, Hmatrix, birthsXstrata) {
   stopifnot(length(H) == pars$nStrata)
-  stopifnot(length(deathrate) == pars$nStrata)
+  stopifnot(length(birthrate) == pars$nStrata)
   Hpar <- list()
   class(Hpar) <- c('dynamic')
   Hpar$H <- H
   Hpar$membershipH <- membershipH
   Hpar$searchWtsH <- searchWtsH
   Hpar$TimeSpent <- TimeSpent
-  Hpar$F_birth <- F_birth
+  Hpar$birthF <- birthF
+  class(Hpar$birthF) <- birthF
   Hpar$birthrate <- birthrate
   Hpar$birthXstrata <- birthsXstrata
-  Hpar$deaths <- diag(-deathrate)
+  Hpar$Hmatrix <- Hmatrix
   pars$Hpar <- Hpar
+  pars$nStrata <- length(H)
   return(pars)
 }
 
