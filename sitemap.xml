@@ -58,6 +58,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/Births.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Births.null.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/Births.static.html</loc>
   </url>
   <url>
@@ -227,6 +230,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/dHdt.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/dHdt.null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/dHdt.static.html</loc>
@@ -437,6 +443,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_demography_dynamic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_demography_null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_demography_static.html</loc>
