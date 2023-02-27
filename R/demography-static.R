@@ -24,7 +24,7 @@ F_H_lag.static <- function(t, y, pars, lag) {
 #' @return a [numeric] vector of length 0
 #' @export
 Births.static <- function(t, y, pars){
-  if(class(y)=="static") numeric(0) else 0*y
+  if(class(y)=="static") numeric(0) else  F_births(t, y, pars)*pars$Hpar$birthsXstrata
 }
 
 #' @title Derivatives of demographic changes in human populations
@@ -33,7 +33,7 @@ Births.static <- function(t, y, pars){
 #' @return a [numeric] vector of 0s or of length 0
 #' @export
 dHdt.static <- function(t, y, pars){
-  if(class(y)=="static") numeric(0) else 0*y
+  if(class(y)=="static") numeric(0) else pars$Hpar$Hmatrix %*% y
 }
 
 #' @title Add indices for human population denominators to parameter list
@@ -62,14 +62,13 @@ get_inits_H.static<- function(pars){
 #' @param membershipH is a vector describing patch residency
 #' @param searchWtsH is a vector describing blood feeding search weights
 #' @param TimeSpent is a matrix describing time spent among patches
-#' @param birthF dispatches `F_birth`
-#' @param birthrate is the population birthrate
+#' @param birthFpars setup to dispatch and compute `F_birth`
 #' @param Hmatrix does a set of state transitions
 #' @param birthsXstrata distributes births to the youngest strata
 #' @return none
 #' @export
 make_parameters_demography_static <- function(pars, H, membershipH, searchWtsH, TimeSpent,
-                                              birthF, birthrate, Hmatrix, birthsXstrata) {
+                                              birthFpars, Hmatrix, birthsXstrata) {
   stopifnot(length(H) == pars$nStrata)
   Hpar <- list()
   class(Hpar) <- c('static')
@@ -78,9 +77,7 @@ make_parameters_demography_static <- function(pars, H, membershipH, searchWtsH, 
   Hpar$membershipH <- membershipH
   Hpar$searchWtsH <- searchWtsH
   Hpar$TimeSpent <- TimeSpent
-  Hpar$birthF <- birthF
-  class(Hpar$birthF) <- birthF
-  Hpar$birthrate <- birthrate
+  Hpar$birthFpars <- birthFpars
   Hpar$birthXstrata <- birthsXstrata
   Hpar$Hmatrix <- Hmatrix
   pars$Hpar <- Hpar

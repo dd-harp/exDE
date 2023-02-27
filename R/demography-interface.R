@@ -24,25 +24,25 @@ F_H_lag <- function(t, y, pars, lag) {
 }
 
 #' @title Derivatives of demographic changes in human populations
-#' @description This method dispatches on the type of `pars$Hpar`.
+#' @description This method dispatches on the type of `pars$Hpar$Hmatrix`.
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars an [environment]
 #' @return see help pages for specific methods
 #' @export
 dHdt <- function(t, y, pars){
-  UseMethod("dHdt", pars$Hpar)
+  UseMethod("dHdt", pars$Hpar$Hmatrix)
 }
 
 #' @title A function that computes the birth rate for human populations
-#' @description This method dispatches on the type of `pars$Hpar`.
+#' @description This method dispatches on the type of `pars$Hpar$birthF`.
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars an [environment]
 #' @return see help pages for specific methods
 #' @export
 Births <- function(t, y, pars){
-  UseMethod("Births", pars$Hpar)
+  UseMethod("Births", pars$Hpar$birthF)
 }
 
 #' @title Add indices for human population denominators to parameter list
