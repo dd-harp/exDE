@@ -155,11 +155,8 @@ pars = make_parameters_L_basic(pars = pars, psi = psi,
 pars = make_inits_L_basic(pars = pars, L0 = L)
 pars = make_parameters_X_SIS(pars = pars, b = b, c = c, r = r)
 pars = make_inits_X_SIS(pars = pars, X0=X)
-pars = make_parameters_demography_static(pars = pars, H=H, membershipH=membershipH, 
-                                           searchWtsH=searchWtsH, TimeSpent=Psi, 
-                                           birthF = "constant", birthrate = 0, 
-                                           Hmatrix = diag(1, length(H)), 
-                                           birthsXstrata = rep(1,length(H)))
+pars = make_parameters_demography_null(pars = pars, H=H, membershipH=membershipH, 
+                                           searchWtsH=searchWtsH, TimeSpent=Psi)
 
 pars = make_indices(pars = pars)
 ```

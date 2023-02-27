@@ -49,12 +49,12 @@ make_indices_H.dynamic <- function(pars) {
 }
 
 #' @title Return initial values as a vector
-#' @description This method dispatches on the type of `pars$Xpar`.
+#' @description This method dispatches on the type of `pars$Hpar`.
 #' @param pars an [environment]
 #' @return none
 #' @export
 get_inits_H.dynamic <- function(pars){
-  return(par$Hpar$H)
+  return(pars$Hpar$H)
 }
 
 #' @title Make parameters for forced (dynamic) human demography model
@@ -64,25 +64,21 @@ get_inits_H.dynamic <- function(pars){
 #' @param membershipH is a vector describing patch residency
 #' @param searchWtsH is a vector describing blood feeding search weights
 #' @param TimeSpent is a matrix describing time spent among patches
-#' @param birthF dispatches `F_birth`
-#' @param birthrate is the population birthrate
+#' @param birthFpars setup to dispatch and compute `F_birth`
 #' @param Hmatrix does a set of state transitions
 #' @param birthsXstrata distributes births to the youngest strata
 #' @return none
 #' @export
 make_parameters_demography_dynamic <- function(pars, H, membershipH, searchWtsH, TimeSpent,
-                                             birthF, birthrate, Hmatrix, birthsXstrata) {
+                                             birthFpars, Hmatrix, birthsXstrata) {
   stopifnot(length(H) == pars$nStrata)
-  stopifnot(length(birthrate) == pars$nStrata)
   Hpar <- list()
   class(Hpar) <- c('dynamic')
   Hpar$H <- H
   Hpar$membershipH <- membershipH
   Hpar$searchWtsH <- searchWtsH
   Hpar$TimeSpent <- TimeSpent
-  Hpar$birthF <- birthF
-  class(Hpar$birthF) <- birthF
-  Hpar$birthrate <- birthrate
+  Hpar$birthFpars <- birthFpars
   Hpar$birthXstrata <- birthsXstrata
   Hpar$Hmatrix <- Hmatrix
   pars$Hpar <- Hpar

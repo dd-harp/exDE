@@ -10,8 +10,7 @@ make_parameters_demography_dynamic(
   membershipH,
   searchWtsH,
   TimeSpent,
-  birthF,
-  birthrate,
+  birthFpars,
   Hmatrix,
   birthsXstrata
 )
@@ -28,9 +27,7 @@ make_parameters_demography_dynamic(
 
 \item{TimeSpent}{is a matrix describing time spent among patches}
 
-\item{birthF}{dispatches \code{F_birth}}
-
-\item{birthrate}{is the population birthrate}
+\item{birthFpars}{setup to dispatch and compute \code{F_birth}}
 
 \item{Hmatrix}{does a set of state transitions}
 

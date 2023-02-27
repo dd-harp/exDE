@@ -16,7 +16,7 @@ F_births <- function(t, y, pars){
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_births.constant <- function(t, y, pars){
-  pars$Hpar$birthrate
+  pars$Hpar$birthF$birthrate
 }
 
 #' @title Growing human population birth rate (forced)
@@ -24,7 +24,7 @@ F_births.constant <- function(t, y, pars){
 #' @inheritParams F_births
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_births.forced <- function(t, y, pars){with(pars$Hpar,{
+F_births.forced <- function(t, y, pars){with(pars$Hpar$birthF,{
   birthrate*exp(growth*t)
 })}
 
@@ -34,5 +34,5 @@ F_births.forced <- function(t, y, pars){with(pars$Hpar,{
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_births.exp <- function(t, y, pars){
-  pars$Hpar$birthrate * F_H(t,y,pars)
+  pars$Hpar$birthF$birthrate * F_H(t,y,pars)
 }

@@ -149,23 +149,23 @@ reference:
   - make_parameters_L_basic
   - make_inits_L_basic
   - get_inits_L.basic
-- title: Transmission and Mixing
+- title: Transmission 
   desc: |
-    Generic methods for transmission and mixing.
+    Generic methods for transmission.
   contents:
   - F_beta
   - F_EIR
   - F_kappa
 - subtitle: Transmission for ODEs
   desc: |
-    Specialized methods for transmission / mixing for ODEs
+    Specialized methods for transmission for ODEs
   contents:
   - F_kappa.ode
   - F_EIR.ode
   - F_beta.ode
 - subtitle: Transmission for DDEs
   desc: |
-    Specialized methods for transmission / mixing for ODEs
+    Specialized methods for transmission for ODEs
   contents:
   - F_kappa.dde
   - F_EIR.dde
@@ -242,6 +242,13 @@ reference:
   - make_indices_H
   - get_inits_H
   - F_births
+- subtitle: Null demography model
+  desc: |
+    Specialized methods for the null demographic model
+  contents:
+  - Births.null
+  - dHdt.null
+  - make_parameters_demography_null
 - subtitle: Static demography model
   desc: |
     Specialized methods for the static (constant) demographic model
@@ -264,9 +271,9 @@ reference:
   - make_indices_H.dynamic
   - get_inits_H.dynamic
   - make_parameters_demography_dynamic
-- subtitle: Compute Birth Rates 
+- subtitle: Births 
   desc: |
-    Specialized methods to compute birth rates 
+    Specialized methods to compute population birth rates 
   contents:
   - F_births.constant
   - F_births.forced
