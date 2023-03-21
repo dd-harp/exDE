@@ -4,7 +4,7 @@
 \alias{make_parameters_L_trace}
 \title{Make parameters for trace aquatic mosquito model}
 \usage{
-make_parameters_L_trace(pars, Lambda, Lt = NULL)
+make_parameters_L_trace(pars, Lambda, Lt = "one")
 }
 \arguments{
 \item{pars}{an \link{environment}}

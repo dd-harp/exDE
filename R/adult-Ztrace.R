@@ -43,11 +43,11 @@ make_indices_MYZ.Ztrace <- function(pars) {
 #' @param Zf a [function] of the form Zf(t, pars) that computes temporal fluctuations
 #' @return none
 #' @export
-make_parameters_MYZ_Ztrace <- function(pars, Zm=1, Zf=NULL) {
+make_parameters_MYZ_Ztrace <- function(pars, Zm=1, Zf="one") {
   stopifnot(is.numeric(Zm))
   MYZpar <- list()
   class(MYZpar) <- 'Ztrace'
-  if(is.null(Zf)) {
+  if(Zf == "one") {
     MYZpar$Zf = function(t, pars){1}
   }
   pars$MYZpar <- MYZpar

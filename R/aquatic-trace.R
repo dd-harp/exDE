@@ -34,12 +34,12 @@ make_indices_L.trace <- function(pars) {
 #' @param Lt is a [function] of the form Lt(t,pars) that computes temporal fluctuations
 #' @return none
 #' @export
-make_parameters_L_trace <- function(pars, Lambda, Lt=NULL) {
+make_parameters_L_trace <- function(pars, Lambda, Lt="one") {
   stopifnot(is.numeric(Lambda))
   Lpar <- list()
   class(Lpar) <- 'trace'
   Lpar$Lambda <- Lambda
-  if(is.null(Lt)){
+  if(Lt == "one"){
     Lpar$Lt = function(t, pars){1}
   }
   pars$Lpar <- Lpar
