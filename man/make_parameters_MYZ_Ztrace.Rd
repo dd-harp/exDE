@@ -4,14 +4,14 @@
 \alias{make_parameters_MYZ_Ztrace}
 \title{Make parameters for Ztrace aquatic mosquito model}
 \usage{
-make_parameters_MYZ_Ztrace(pars, Zo = 1, Zf = NULL)
+make_parameters_MYZ_Ztrace(pars, Zm = 1, Zf = NULL)
 }
 \arguments{
 \item{pars}{an \link{environment}}
 
-\item{Zo}{a vector of mosquito densities}
+\item{Zm}{a vector of mean mosquito densities}
 
-\item{Zf}{a \link{function} that computes Z(t, pars)}
+\item{Zf}{a \link{function} of the form Zf(t, pars) that computes temporal fluctuations}
 }
 \value{
 none

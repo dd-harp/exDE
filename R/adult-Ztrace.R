@@ -6,7 +6,7 @@
 #' @return a [numeric] vector of length `nHabitats`
 #' @export
 F_Z.Ztrace <- function(t, y, pars) {
-  pars$MYZpar$Zf(t)
+  with(pars$MYZpar, Zm*Zf(t, pars))
 }
 
 #' @title Number of infective adults in each patch
@@ -39,17 +39,16 @@ make_indices_MYZ.Ztrace <- function(pars) {
 
 #' @title Make parameters for Ztrace aquatic mosquito model
 #' @param pars an [environment]
-#' @param Zo a vector of mosquito densities
-#' @param Zf a [function] that computes Z(t, pars)
+#' @param Zm a vector of mean mosquito densities
+#' @param Zf a [function] of the form Zf(t, pars) that computes temporal fluctuations
 #' @return none
 #' @export
-make_parameters_MYZ_Ztrace <- function(pars, Zo=1, Zf=NULL) {
-  stopifnot(is.numeric(Zo))
+make_parameters_MYZ_Ztrace <- function(pars, Zm=1, Zf=NULL) {
+  stopifnot(is.numeric(Zm))
   MYZpar <- list()
   class(MYZpar) <- 'Ztrace'
   if(is.null(Zf)) {
-    MYZpar$Zo = 1
-    MYZpar$Zf = function(t, pars){pars$MYZpar$Z}
+    MYZpar$Zf = function(t, pars){1}
   }
   pars$MYZpar <- MYZpar
   return(pars)
