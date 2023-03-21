@@ -114,8 +114,10 @@ reference:
   desc: |
     Specialized methods for the Z-trace of adult mosquito dynamics.
   contents:
+  - MosquitoBehavior.Ztrace
   - F_Z.Ztrace
   - F_Z_lag.Ztrace
+  - F_eggs.Ztrace
   - dMYZdt.Ztrace
   - make_indices_MYZ.Ztrace
   - make_parameters_MYZ_Ztrace
@@ -149,7 +151,7 @@ reference:
   - make_parameters_L_basic
   - make_inits_L_basic
   - get_inits_L.basic
-- title: Transmission 
+- title: Transmission
   desc: |
     Generic methods for transmission.
   contents:
@@ -170,6 +172,13 @@ reference:
   - F_kappa.dde
   - F_EIR.dde
   - F_beta.dde
+- subtitle: Transmission for trace models
+  desc: |
+    Specialized methods for transmission for trace models
+  contents:
+  - F_kappa.trace
+  - F_EIR.trace
+  - F_beta.trace
 - title: Mixing matrix
   desc: |
     Generic methods to compute the mixing matrix mixing.
@@ -271,9 +280,9 @@ reference:
   - make_indices_H.dynamic
   - get_inits_H.dynamic
   - make_parameters_demography_dynamic
-- subtitle: Births 
+- subtitle: Births
   desc: |
-    Specialized methods to compute population birth rates 
+    Specialized methods to compute population birth rates
   contents:
   - F_births.constant
   - F_births.forced
