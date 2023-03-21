@@ -15,12 +15,12 @@ F_kappa.ode <- function(t, y, pars) {
 #' @inheritParams F_EIR
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_EIR.ode <- function(t, y, pars, MosyBehavior) {
-  Z <- F_Z(t, y, pars)
-  f <- MosyBehavior$f[1]
-  q <- MosyBehavior$q[1]
-  as.vector(pars$beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
-}
+  F_EIR.ode <- function(t, y, pars, MosyBehavior) {
+    Z <- F_Z(t, y, pars)
+    f <- MosyBehavior$f[1]
+    q <- MosyBehavior$q[1]
+    as.vector(pars$beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
+  }
 
 #' @title Net infectiousness of human population to mosquitoes
 #' @description Implements [F_beta] for an ODE model.
