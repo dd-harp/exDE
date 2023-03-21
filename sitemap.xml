@@ -79,6 +79,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/F_EIR.ode.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_EIR.trace.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_H.dynamic.html</loc>
   </url>
   <url>
@@ -139,6 +142,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/F_beta.ode.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_beta.trace.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_births.constant.html</loc>
   </url>
   <url>
@@ -157,6 +163,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/F_eggs.RM.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_eggs.Ztrace.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_eggs.html</loc>
   </url>
   <url>
@@ -167,6 +176,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_kappa.ode.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_kappa.trace.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_tau.GeRM.html</loc>
@@ -206,6 +218,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.Ztrace.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.html</loc>
