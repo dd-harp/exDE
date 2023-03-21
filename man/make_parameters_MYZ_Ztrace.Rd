@@ -4,7 +4,7 @@
 \alias{make_parameters_MYZ_Ztrace}
 \title{Make parameters for Ztrace aquatic mosquito model}
 \usage{
-make_parameters_MYZ_Ztrace(pars, Zm = 1, Zf = NULL)
+make_parameters_MYZ_Ztrace(pars, Zm = 1, Zf = "one")
 }
 \arguments{
 \item{pars}{an \link{environment}}
