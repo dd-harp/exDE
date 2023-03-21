@@ -4,12 +4,14 @@
 \alias{make_parameters_L_trace}
 \title{Make parameters for trace aquatic mosquito model}
 \usage{
-make_parameters_L_trace(pars, Lambda)
+make_parameters_L_trace(pars, Lambda, Lt = NULL)
 }
 \arguments{
 \item{pars}{an \link{environment}}
 
-\item{Lambda}{vector of emergence rates from each aquatic habitat}
+\item{Lambda}{vector of mean emergence rates from each aquatic habitat}
+
+\item{Lt}{is a \link{function} of the form Lt(t,pars) that computes temporal fluctuations}
 }
 \value{
 none

@@ -6,7 +6,7 @@
 #' @return a [numeric] vector of length `nHabitats`
 #' @export
 F_alpha.trace <- function(t, y, pars) {
-  pars$Lpar$Lambda
+  with(pars$Lpar, Lambda*Lt(t, pars))
 }
 
 #' @title Derivatives for aquatic stage mosquitoes
@@ -30,14 +30,18 @@ make_indices_L.trace <- function(pars) {
 
 #' @title Make parameters for trace aquatic mosquito model
 #' @param pars an [environment]
-#' @param Lambda vector of emergence rates from each aquatic habitat
+#' @param Lambda vector of mean emergence rates from each aquatic habitat
+#' @param Lt is a [function] of the form Lt(t,pars) that computes temporal fluctuations
 #' @return none
 #' @export
-make_parameters_L_trace <- function(pars, Lambda) {
+make_parameters_L_trace <- function(pars, Lambda, Lt=NULL) {
   stopifnot(is.numeric(Lambda))
   Lpar <- list()
   class(Lpar) <- 'trace'
   Lpar$Lambda <- Lambda
+  if(is.null(Lt)){
+    Lpar$Lt = function(t, pars){1}
+  }
   pars$Lpar <- Lpar
   return(pars)
 }
