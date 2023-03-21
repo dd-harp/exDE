@@ -78,7 +78,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_parameters_L_trace</span><span class="op">(</span><span class="va">pars</span>, <span class="va">Lambda</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_parameters_L_trace</span><span class="op">(</span><span class="va">pars</span>, <span class="va">Lambda</span>, Lt <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -88,7 +88,11 @@
 
 
 <dt>Lambda</dt>
-<dd><p>vector of emergence rates from each aquatic habitat</p></dd>
+<dd><p>vector of mean emergence rates from each aquatic habitat</p></dd>
+
+
+<dt>Lt</dt>
+<dd><p>is a <a href="https://rdrr.io/r/base/function.html" class="external-link">function</a> of the form Lt(t,pars) that computes temporal fluctuations</p></dd>
 
 </dl></div>
     <div class="section level2">
