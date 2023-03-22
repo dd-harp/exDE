@@ -17,5 +17,5 @@ dHdt(t, y, pars)
 see help pages for specific methods
 }
 \description{
-This method dispatches on the type of \code{pars$Hpar$Hmatrix}.
+This method dispatches on the type of \code{y}.
 }

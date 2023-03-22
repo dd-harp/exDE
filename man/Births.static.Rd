@@ -17,5 +17,5 @@
 a \link{numeric} vector of length 0
 }
 \description{
-Implements \link{dHdt} for the static model.
+Implements \link{Births} when \code{y} is static
 }

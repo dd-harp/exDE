@@ -19,21 +19,21 @@ F_H_lag.static <- function(t, y, pars, lag) {
 }
 
 #' @title Derivatives of demographic changes in human populations
-#' @description Implements [dHdt] for the static model.
-#' @inheritParams dHdt
+#' @description Implements [Births] when `y` is static
+#' @inheritParams Births
 #' @return a [numeric] vector of length 0
 #' @export
 Births.static <- function(t, y, pars){
-  if(class(y)=="static") numeric(0) else  F_births(t, y, pars)*pars$Hpar$birthsXstrata
+  numeric(0)
 }
 
 #' @title Derivatives of demographic changes in human populations
-#' @description Implements [dHdt] for the static model.
+#' @description Implements [dHdt] when `y` is static
 #' @inheritParams dHdt
-#' @return a [numeric] vector of 0s or of length 0
+#' @return a [numeric] vector of length 0
 #' @export
 dHdt.static <- function(t, y, pars){
-  if(class(y)=="static") numeric(0) else pars$Hpar$Hmatrix %*% y
+  numeric(0)
 }
 
 #' @title Add indices for human population denominators to parameter list

@@ -10,6 +10,15 @@ F_births <- function(t, y, pars){
   UseMethod("F_births", pars$Hpar$birthF)
 }
 
+#' @title Null human population births
+#' @description Implements [F_births] for a null model
+#' @inheritParams F_births
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_births.null <- function(t, y, pars){
+  numeric(0)
+}
+
 #' @title Constant human population birth rate (forced)
 #' @description Implements [F_births] with a constant population birth rate
 #' @inheritParams F_births

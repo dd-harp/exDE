@@ -18,25 +18,6 @@ F_H_lag.dynamic <- function(t, y, pars, lag) {
   pars$Hpar$H
 }
 
-#' @title Derivatives of demographic changes in human populations
-#' @description Implements [dHdt] for the dynamic demography model
-#' @inheritParams dHdt
-#' @return a [numeric] vector of length `nStrata` or of length 0
-#' @export
-dHdt.dynamic <- function(t, y, pars){
-  pars$Hpar$Hmatrix %*% y
-}
-
-#' @title Derivatives of demographic changes in human populations
-#' @description Implements [dHdt] for the dynamic demography model
-#' @inheritParams Births
-#' @return a [numeric] vector of length `nStrata` or of length 0
-#' @export
-Births.dynamic <- function(t, y, pars){
-  F_births(t, y, pars)*pars$Hpar$birthsXstrata
-}
-
-
 #' @title Add indices for human population denominators to parameter list
 #' @description Implements [make_indices_H] for the dynamic demography model.
 #' @inheritParams make_indices_H
@@ -55,6 +36,24 @@ make_indices_H.dynamic <- function(pars) {
 #' @export
 get_inits_H.dynamic <- function(pars){
   return(pars$Hpar$H)
+}
+
+#' @title Derivatives of demographic changes in human populations
+#' @description Implements [Births] when `y` is numeric
+#' @inheritParams Births
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+Births.numeric <- function(t, y, pars){
+  F_births(t, y, pars)*pars$Hpar$birthsXstrata
+}
+
+#' @title Derivatives of demographic changes in human populations
+#' @description Implements [dHdt] when `y` is numeric
+#' @inheritParams dHdt
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+dHdt.numeric <- function(t, y, pars){
+  pars$Hpar$Hmatrix %*% y
 }
 
 #' @title Make parameters for forced (dynamic) human demography model
