@@ -14,7 +14,7 @@
 \item{pars}{an \link{environment}}
 }
 \value{
-a \link{numeric} vector of length \code{nStrata} or of length 0
+a \link{numeric} vector of length \code{nStrata}
 }
 \description{
 Implements \link{Births} when \code{y} is numeric
