@@ -34,7 +34,7 @@ make_indices <- function(pars) {
 
 #' @title Get the initial values as a vector
 #' @param pars an [environment]
-#' @return none
+#' @return y a [numeric] vector assigned the class "dynamic"
 #' @export
 get_inits <- function(pars){
   if ('Lpar' %in% names(pars)) {
@@ -49,7 +49,9 @@ get_inits <- function(pars){
   if ('Hpar' %in% names(pars)) {
     Hi = get_inits_H(pars)
   } else {Hi = numeric(0)}
-  return(c(Li, MYZi, Xi, Hi))
+  y = c(Li, MYZi, Xi, Hi)
+  #class(y) <- "dynamic"
+  return(y)
 }
 
 #' @title Invert a diagonal matrix

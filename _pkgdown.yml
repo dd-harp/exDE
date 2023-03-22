@@ -246,17 +246,11 @@ reference:
   contents:
   - F_H
   - F_H_lag
-  - dHdt
   - Births
+  - dHdt
   - make_indices_H
   - get_inits_H
   - F_births
-- subtitle: Null demography model
-  desc: |
-    Specialized methods for the null demographic model
-  contents:
-  - Births.null
-  - dHdt.null
   - make_parameters_demography_null
 - subtitle: Static demography model
   desc: |
@@ -275,8 +269,8 @@ reference:
   contents:
   - F_H.dynamic
   - F_H_lag.dynamic
-  - Births.dynamic
-  - dHdt.dynamic
+  - Births.numeric
+  - dHdt.numeric
   - make_indices_H.dynamic
   - get_inits_H.dynamic
   - make_parameters_demography_dynamic
@@ -284,6 +278,7 @@ reference:
   desc: |
     Specialized methods to compute population birth rates
   contents:
+  - F_births.null
   - F_births.constant
   - F_births.forced
   - F_births.exp

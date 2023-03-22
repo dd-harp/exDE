@@ -10,7 +10,7 @@ get_inits(pars)
 \item{pars}{an \link{environment}}
 }
 \value{
-none
+y a \link{numeric} vector assigned the class "dynamic"
 }
 \description{
 Get the initial values as a vector
