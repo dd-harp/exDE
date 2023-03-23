@@ -5,7 +5,7 @@
 #' @inheritParams ExogenousForcing
 #' @return none
 #' @export
-ExogenousForcing.null <- function(t, y, pars) {}
+ExogenousForcing.null <- function(t, pars) {pars}
 
 #' @title Make parameters for the null model of exogenous forcing (do nothing)
 #' @param pars an [environment]

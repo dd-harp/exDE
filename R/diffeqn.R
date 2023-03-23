@@ -19,7 +19,7 @@
 xDE_diffeqn <- function(t, y, pars, EIR_delta = NULL, kappa_delta = NULL) {
 
   # weather, climate, etc
-  ExogenousForcing(t, y, pars)
+  pars <- ExogenousForcing(t, pars)
 
   # baseline mosquito feeding and mortality
   MosyBehavior0 <- MosquitoBehavior(t, y, pars)
@@ -72,7 +72,7 @@ xDE_diffeqn <- function(t, y, pars, EIR_delta = NULL, kappa_delta = NULL) {
 xDE_diffeqn_mosy <- function(t, y, pars, kappa, MosyBehavior) {
 
   # weather, climate, etc
-  ExogenousForcing(t, y, pars)
+  pars <- ExogenousForcing(t, pars)
 
   # baseline mosquito feeding and mortality
   MosyBehavior0 <- MosquitoBehavior(t, y, pars)
