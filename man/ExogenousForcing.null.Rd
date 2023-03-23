@@ -4,12 +4,10 @@
 \alias{ExogenousForcing.null}
 \title{Modify parameters due to exogenous forcing}
 \usage{
-\method{ExogenousForcing}{null}(t, y, pars)
+\method{ExogenousForcing}{null}(t, pars)
 }
 \arguments{
 \item{t}{current simulation time}
-
-\item{y}{state vector}
 
 \item{pars}{an \link{environment}}
 }
