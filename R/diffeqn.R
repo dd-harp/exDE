@@ -3,20 +3,13 @@
 
 #' @title Generalized spatial differential equation model
 #' @description Compute derivatives for [deSolve::ode] or [deSolve::dede] using
-#' generic methods for each model component. The arguments `EIR_delta` and `kappa_delta` are
-#' for adding external forcing to the system from unmodeled sources. This can arise
-#' if humans can acquire infection by traveling outside the spatial domain, and
-#' arises for mosquitoes if traveling outside the spatial domain or are being infected
-#' by unmodeled (non-human) sources. By default these are set to `NULL` and are
-#' turned off.
+#' generic methods for each model component.
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars an [environment]
-#' @param EIR_delta a vector of values to be added to the internal `EIR`
-#' @param kappa_delta a vector of values to be added to the internal `kappa`
 #' @return a [list] containing the vector of all state derivatives
 #' @export
-xDE_diffeqn <- function(t, y, pars, EIR_delta = NULL, kappa_delta = NULL) {
+xDE_diffeqn <- function(t, y, pars) {
 
   # weather, climate, etc
   pars <- ExogenousForcing(t, pars)
@@ -40,15 +33,9 @@ xDE_diffeqn <- function(t, y, pars, EIR_delta = NULL, kappa_delta = NULL) {
 
   # EIR: entomological inoculation rate
   EIR <- F_EIR(t, y, pars, MosyBehavior)
-  if (!is.null(EIR_delta)) {
-    EIR <- EIR + EIR_delta
-  }
 
   # kappa: net infectiousness of humans
   kappa <- F_kappa(t, y, pars)
-  if (!is.null(kappa_delta)) {
-    kappa <- kappa + kappa_delta
-  }
 
   # state derivatives
   dL <- dLdt(t, y, pars, eta)
