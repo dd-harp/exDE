@@ -214,7 +214,19 @@
     <loc>https://dd-harp.github.io/exDE/reference/F_x_lag.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.GeRM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/MalariaImportation.basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/MalariaImportation.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/MalariaImportation.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.GeRM_base.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.GeRM_exo.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.RM.html</loc>
@@ -340,6 +352,24 @@
     <loc>https://dd-harp.github.io/exDE/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/kappa_with_visitors.basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/kappa_with_visitors.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/kappa_with_visitors.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/loc_fqZ.basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/loc_fqZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/loc_fqZ.null.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_Omega.html</loc>
   </url>
   <url>
@@ -439,6 +469,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_MYZ_GeRM.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_MYZ_GeRM_exo.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_MYZ_RM.html</loc>
   </url>
   <url>
@@ -464,6 +497,12 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_exogenous_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_mi_basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_mi_null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_vc_lemenach.html</loc>

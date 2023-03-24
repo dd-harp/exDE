@@ -103,11 +103,11 @@
     
 <p>In this vignette we demonstrate how to set up a model incorporating
 the Le Menach model of ITN based vector control (see <a href="https://malariajournal.biomedcentral.com/articles/10.1186/1475-2875-6-10" class="external-link">this
-paper</a>). We use the generalized Ross-Macdonald model of adult
-mosquito dynamics, the SIS model of human population dynamics, and the
-basic competition model of aquatic mosquito dynamics to fill the
-dynamical components <span class="math inline">\(\mathcal{M},
-\mathcal{X}, \mathcal{L}\)</span>.</p>
+paper</a>). We use the Ross-Macdonald model of adult mosquito dynamics,
+the SIS model of human population dynamics, and the basic competition
+model of aquatic mosquito dynamics to fill the dynamical components
+<span class="math inline">\(\mathcal{M}, \mathcal{X},
+\mathcal{L}\)</span>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/exDE/">exDE</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/" class="external-link">MASS</a></span><span class="op">)</span></span>
@@ -246,12 +246,12 @@ value.</p>
 <span><span class="co"># set parameters</span></span>
 <span><span class="va">pars</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_exogenous_null.html">make_parameters_exogenous_null</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span>
 <span><span class="va">pars</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_vc_lemenach.html">make_parameters_vc_lemenach</a></span><span class="op">(</span><span class="va">pars</span>, phi <span class="op">=</span> <span class="va">ITN_cov</span><span class="op">)</span></span>
-<span><span class="va">pars</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_MYZ_GeRM.html">make_parameters_MYZ_GeRM</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">pars</span>, g <span class="op">=</span> <span class="va">g</span>, </span>
+<span><span class="va">pars</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_MYZ_RM.html">make_parameters_MYZ_RM</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">pars</span>, g <span class="op">=</span> <span class="va">g</span>, </span>
 <span>                                sigma <span class="op">=</span> <span class="va">sigma</span>, calK <span class="op">=</span> <span class="va">calK</span>, </span>
 <span>                                f <span class="op">=</span> <span class="va">f</span>, q <span class="op">=</span> <span class="va">q</span>, nu <span class="op">=</span> <span class="va">nu</span>, </span>
 <span>                                eggsPerBatch <span class="op">=</span> <span class="va">eggsPerBatch</span>, </span>
 <span>                                tau <span class="op">=</span> <span class="va">tau</span><span class="op">)</span></span>
-<span><span class="va">pars</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_inits_MYZ_GeRM.html">make_inits_MYZ_GeRM</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">pars</span>, M0 <span class="op">=</span> <span class="va">M</span>, G0 <span class="op">=</span> <span class="va">G</span>, </span>
+<span><span class="va">pars</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_inits_MYZ_RM.html">make_inits_MYZ_RM</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">pars</span>, M0 <span class="op">=</span> <span class="va">M</span>, </span>
 <span>                           Y0 <span class="op">=</span> <span class="va">Y</span>, Z0 <span class="op">=</span> <span class="va">Z</span>,Upsilon0<span class="op">=</span><span class="va">Upsilon</span><span class="op">)</span></span>
 <span><span class="va">pars</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_L_basic.html">make_parameters_L_basic</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">pars</span>, psi <span class="op">=</span> <span class="va">psi</span>, </span>
 <span>                               phi <span class="op">=</span> <span class="va">phi</span>, theta <span class="op">=</span> <span class="va">theta</span><span class="op">)</span></span>
@@ -261,6 +261,7 @@ value.</p>
 <span><span class="va">pars</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_demography_null.html">make_parameters_demography_null</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">pars</span>, H<span class="op">=</span><span class="va">H</span>, membershipH<span class="op">=</span><span class="va">membershipH</span>, </span>
 <span>                                           searchWtsH<span class="op">=</span><span class="va">searchWtsH</span>, TimeSpent<span class="op">=</span><span class="va">Psi</span><span class="op">)</span></span>
 <span></span>
+<span><span class="va">pars</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_mi_null.html">make_parameters_mi_null</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span>
 <span><span class="va">pars</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">

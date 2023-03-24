@@ -277,30 +277,31 @@ values. These equations have been implemented to compute <span class="math inlin
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">params</span><span class="op">$</span><span class="va">max_ix</span> <span class="op">=</span> <span class="fl">0</span> </span>
 <span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
-<p>Please note that we need to use <code><a href="../reference/MosquitoBehavior.html">exDE::MosquitoBehavior</a></code>
-to set up the bionomic parameters at equilibrium which are passed to
-<code><a href="../reference/dMYZdt.html">exDE::dMYZdt</a></code>; this is necessary when running the adult
-mosquito component alone without the full model.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">MosyBehavior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MosquitoBehavior.html">MosquitoBehavior</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">y</span>, <span class="va">params</span><span class="op">)</span></span></code></pre></div>
 <p>Then we can set up the initial conditions vector and use
 <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">deSolve::ode</a></code> to solve the model. Normally these values
 would be computed within <code><a href="../reference/xDE_diffeqn.html">exDE::xDE_diffeqn</a></code>. Here, we set up
 a local version:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y0</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_inits_MYZ.html">get_inits_MYZ</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="va">dMYZdt_local</span> <span class="op">=</span> <span class="va">func</span><span class="op">=</span><span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">Lambda</span>, <span class="va">kappa</span>, <span class="va">MosyBehavior</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/dMYZdt.html">dMYZdt</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">Lambda</span>, <span class="va">kappa</span>, <span class="va">MosyBehavior</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">dMYZdt_local</span> <span class="op">=</span> <span class="va">func</span><span class="op">=</span><span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">Lambda</span>, <span class="va">kappa</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/dMYZdt.html">dMYZdt</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">Lambda</span>, <span class="va">kappa</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">deSolve</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">ode</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y0</span>, times <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span>, <span class="va">dMYZdt_local</span>, parms<span class="op">=</span><span class="va">params</span>, </span>
-<span>                    method <span class="op">=</span> <span class="st">'lsoda'</span>, Lambda <span class="op">=</span> <span class="va">Lambda</span>, kappa <span class="op">=</span> <span class="va">kappa</span>, </span>
-<span>                    MosyBehavior <span class="op">=</span> <span class="va">MosyBehavior</span><span class="op">)</span></span></code></pre></div>
+<span>                    method <span class="op">=</span> <span class="st">'lsoda'</span>, Lambda <span class="op">=</span> <span class="va">Lambda</span>, kappa <span class="op">=</span> <span class="va">kappa</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; DLSODA-  At T (=R1), too much accuracy requested  </span></span>
+<span><span class="co">#&gt;       for precision of machine..  See TOLSF (=R2) </span></span>
+<span><span class="co">#&gt; In above message, R1 = 1, R2 = nan</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Warning in lsoda(y, times, func, parms, ...): Excessive precision requested.</span></span>
+<span><span class="co">#&gt; scale up `rtol' and `atol' e.g by the factor 10</span></span>
+<span><span class="co">#&gt; Warning in lsoda(y, times, func, parms, ...): Returning early. Results are</span></span>
+<span><span class="co">#&gt; accurate, as far as they go</span></span></code></pre></div>
 <p>The output is plotted below. The flat lines shown here is a
 verification that the steady state solutions that we computed above
 match the steady states computed by solving the equations:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">[</span><span class="va">params</span><span class="op">$</span><span class="va">M_ix</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'M_'</span>, <span class="fl">1</span><span class="op">:</span><span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">[</span><span class="va">params</span><span class="op">$</span><span class="va">G_ix</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'G_'</span>, <span class="fl">1</span><span class="op">:</span><span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">[</span><span class="va">params</span><span class="op">$</span><span class="va">Y_ix</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'Y_'</span>, <span class="fl">1</span><span class="op">:</span><span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span></span>
@@ -315,8 +316,11 @@ match the steady states computed by solving the equations:</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">time</span>, y <span class="op">=</span> <span class="va">value</span>, color <span class="op">=</span> <span class="va">Patch</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">Component</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adult_GeRM_files/figure-html/unnamed-chunk-10-1.png" width="100%"></p>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Removed 6 rows containing missing values (`geom_line()`).</span></span>
+<span><span class="co">#&gt; `geom_line()`: Each group consists of only one observation.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Do you need to adjust the <span style="color: #00BB00;">group</span> aesthetic?</span></span></code></pre></div>
+<p><img src="adult_GeRM_files/figure-html/unnamed-chunk-9-1.png" width="100%"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

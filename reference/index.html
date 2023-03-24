@@ -97,6 +97,94 @@
         </dt>
         <dd>Make parameters for the null model of exogenous forcing (do nothing)</dd>
       </dl></div><div class="section level2">
+      <h2 id="malaria-importation">Malaria Importation<a class="anchor" aria-label="anchor" href="#malaria-importation"></a></h2>
+      
+      <p class="section-desc"></p><p>Methods to implement malaria importation.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="MalariaImportation.html">MalariaImportation()</a></code> 
+        </dt>
+        <dd>Malaria importation through infected visitors, etc.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="kappa_with_visitors.html">kappa_with_visitors()</a></code> 
+        </dt>
+        <dd>Compute kappa with visitors</dd>
+      </dl><dl><dt>
+          
+          <code><a href="loc_fqZ.html">loc_fqZ()</a></code> 
+        </dt>
+        <dd>Compute the local fraction, with visitors</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="malaria-importation-null-model">Malaria importation null model<a class="anchor" aria-label="anchor" href="#malaria-importation-null-model"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for a null model of malaria importation.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="MalariaImportation.null.html">MalariaImportation(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Malaria importation, the null model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="kappa_with_visitors.null.html">kappa_with_visitors(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>kappa with visitors, the null model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="loc_fqZ.null.html">loc_fqZ(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>fqZ with visitors, the null model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_mi_null.html">make_parameters_mi_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model for malaria importation</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="malaria-importation-basic-model">malaria importation basic model<a class="anchor" aria-label="anchor" href="#malaria-importation-basic-model"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for a basic model of malaria importation.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="MalariaImportation.basic.html">MalariaImportation(<i>&lt;basic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Malaria importation, the basic model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="kappa_with_visitors.basic.html">kappa_with_visitors(<i>&lt;basic&gt;</i>)</a></code> 
+        </dt>
+        <dd>kappa with visitors, the basic model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="loc_fqZ.basic.html">loc_fqZ(<i>&lt;basic&gt;</i>)</a></code> 
+        </dt>
+        <dd>fqZ with visitors, the basic model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_mi_basic.html">make_parameters_mi_basic()</a></code> 
+        </dt>
+        <dd>Make parameters for the basic model for malaria importation</dd>
+      </dl></div><div class="section level2">
       <h2 id="vector-control">Vector Control<a class="anchor" aria-label="anchor" href="#vector-control"></a></h2>
       
       <p class="section-desc"></p><p>Methods to implement vector control.</p>
@@ -267,7 +355,12 @@
 
       <dl><dt>
           
-          <code><a href="MosquitoBehavior.GeRM.html">MosquitoBehavior(<i>&lt;GeRM&gt;</i>)</a></code> 
+          <code><a href="MosquitoBehavior.GeRM_base.html">MosquitoBehavior(<i>&lt;GeRM_base&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute bloodfeeding and mortality rates</dd>
+      </dl><dl><dt>
+          
+          <code><a href="MosquitoBehavior.GeRM_exo.html">MosquitoBehavior(<i>&lt;GeRM_exo&gt;</i>)</a></code> 
         </dt>
         <dd>Compute bloodfeeding and mortality rates</dd>
       </dl><dl><dt>
@@ -308,6 +401,11 @@
       </dl><dl><dt>
           
           <code><a href="make_parameters_MYZ_GeRM.html">make_parameters_MYZ_GeRM()</a></code> 
+        </dt>
+        <dd>Make parameters for generalized GeRM ODE adult mosquito model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_MYZ_GeRM_exo.html">make_parameters_MYZ_GeRM_exo()</a></code> 
         </dt>
         <dd>Make parameters for generalized GeRM ODE adult mosquito model</dd>
       </dl><dl><dt>
