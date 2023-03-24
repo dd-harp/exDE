@@ -102,6 +102,7 @@ test_that("test equilibrium with RM adults (ODE), hMoI humans, trace", {
   params = make_inits_X_hMoI(pars = params, m10 = rep(m10,2), m20 = rep(m20,2))
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
   params = make_parameters_exogenous_null(pars = params)
+  params = make_parameters_mi_null(pars=params)
   params = make_parameters_vc_null(pars = params)
 
   params = make_indices(params)
@@ -219,6 +220,7 @@ test_that("test equilibrium with RM adults (DDE), hMoI humans, trace", {
   params = make_inits_X_hMoI(pars = params, m10 = rep(m10,2), m20 = rep(m20,2))
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
   params = make_parameters_exogenous_null(pars = params)
+  params = make_parameters_mi_null(pars=params)
   params = make_parameters_vc_null(pars = params)
 
   params = make_indices(params)

@@ -17,7 +17,7 @@ xDE_diffeqn <- function(t, y, pars) {
   # baseline mosquito feeding and mortality
   pars <- MosquitoBehavior(t, y, pars)
 
-  # mosquito feeding and mortality under control
+  # vector control modifies mosquito bionomics
   pars <- VectorControl(t, y, pars)
 
   # eta: egg laying
@@ -63,7 +63,7 @@ xDE_diffeqn_mosy <- function(t, y, pars, kappa) {
   # baseline mosquito feeding and mortality
   pars <- MosquitoBehavior(t, y, pars)
 
-  # mosquito feeding and mortality under control
+  # vector control modifies mosquito bionomics
   pars <- VectorControl(t, y, pars)
 
   # eta: egg laying

@@ -158,6 +158,7 @@ pars = make_inits_X_SIS(pars = pars, X0=X)
 pars = make_parameters_demography_null(pars = pars, H=H, membershipH=membershipH, 
                                            searchWtsH=searchWtsH, TimeSpent=Psi)
 
+pars = make_parameters_mi_null(pars)
 pars = make_indices(pars = pars)
 ```
 

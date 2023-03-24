@@ -82,6 +82,7 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   pars = make_inits_L_trace(pars = pars)
   pars = make_parameters_vc_lemenach(pars = pars)
   pars = make_parameters_exogenous_null(pars = pars)
+  pars = make_parameters_mi_null(pars)
   pars = make_parameters_X_SIS(pars = pars, b = b, c = c, r = r)
   pars = make_inits_X_SIS(pars = pars, X)
 
