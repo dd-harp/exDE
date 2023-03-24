@@ -97,6 +97,7 @@ test_that("test equilibrium with RM adults (ODE), SIP humans, trace", {
   params = make_inits_X_SIP(pars = params, X, P)
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
   params = make_parameters_exogenous_null(pars = params)
+  params = make_parameters_mi_null(params)
   params = make_parameters_vc_null(pars = params)
 
   params = make_indices(params)
@@ -208,6 +209,7 @@ test_that("test equilibrium with RM adults (DDE), SIP humans, trace", {
   params = make_inits_X_SIP(pars = params, X, P)
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
   params = make_parameters_exogenous_null(pars = params)
+  params = make_parameters_mi_null(params)
   params = make_parameters_vc_null(pars = params)
 
   params = make_indices(params)

@@ -10,8 +10,8 @@ F_kappa.dde <- function(t, y, pars) {
   x_lag <- F_x_lag(t, y, pars, pars$MYZpar$tau)
 
   kappa <- matrix(data = 0, nrow = 2, ncol = pars$nPatches)
-  kappa[1, ] <- as.vector(t(pars$beta) %*% x)
-  kappa[2, ] <- as.vector(t(pars$beta_lag) %*% x_lag)
+  kappa[1, ] <- kappa_with_visitors(t(pars$beta) %*% x, pars)
+  kappa[2, ] <- kappa_with_visitors(t(pars$beta_lag) %*% x_lag, pars)
   return(kappa)
 }
 
@@ -27,9 +27,9 @@ F_EIR.dde <- function(t, y, pars){
   q <- pars$MYZpar$q[1]
 
   EIR <- matrix(data = 0, nrow = 2, ncol = pars$nPatches)
-  EIR[1, ] <-  as.vector(pars$beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
-  EIR[2, ] <-  as.vector(pars$beta_lag %*% diag(f*q, nrow = pars$nPatches) %*% Z_lag)
-
+  EIR[1, ] <-  as.vector(pars$beta %*% diag(f*q*loc_fqZ(pars), nrow = pars$nPatches) %*% Z)
+  EIR[2, ] <-  as.vector(pars$beta_lag %*% diag(f*q*loc_fqZ(pars), nrow = pars$nPatches) %*% Z_lag)
+  as.vector(pars$beta %*% diag(f*q*loc_fqZ(pars), nrow = pars$nPatches) %*% Z)
   return(EIR)
 }
 

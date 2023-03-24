@@ -214,6 +214,7 @@ We need to specify models for exogenous forcing and vector control. We simply us
 ```{r}
 params = make_parameters_exogenous_null(params)
 params = make_parameters_vc_null(params)
+params = make_parameters_mi_null(params)
 ```
 
 ## Initial Conditions

@@ -7,7 +7,8 @@
 #' @export
 F_kappa.ode <- function(t, y, pars) {
   x <- F_x(t, y, pars)
-  as.vector(t(pars$beta) %*% x)
+  kappa =  kappa_with_visitors(t(pars$beta) %*% x, pars)
+  as.vector(kappa)
 }
 
 #' @title Entomological inoculation rate on human strata
@@ -19,7 +20,7 @@ F_kappa.ode <- function(t, y, pars) {
     Z <- F_Z(t, y, pars)
     f <- pars$MYZpar$f[1]
     q <- pars$MYZpar$q[1]
-    as.vector(pars$beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)
+    as.vector(pars$beta %*% diag(f*q*loc_fqZ(pars), nrow = pars$nPatches) %*% Z)
   }
 
 #' @title Net infectiousness of human population to mosquitoes

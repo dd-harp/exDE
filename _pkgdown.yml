@@ -58,6 +58,29 @@ reference:
   - ExogenousForcing
   - ExogenousForcing.null
   - make_parameters_exogenous_null
+- title: Malaria Importation 
+  desc: |
+    Methods to implement malaria importation.
+  contents:
+  - MalariaImportation 
+  - kappa_with_visitors
+  - loc_fqZ 
+- subtitle: Malaria importation null model 
+  desc: |
+    Specialized methods for a null  model of malaria importation.
+  contents:
+  - MalariaImportation.null
+  - kappa_with_visitors.null
+  - loc_fqZ.null
+  - make_parameters_mi_null
+- subtitle: malaria importation basic model  
+  desc: |
+    Specialized methods for a basic model of malaria importation.
+  contents:
+  - MalariaImportation.basic
+  - kappa_with_visitors.basic
+  - loc_fqZ.basic
+  - make_parameters_mi_basic
 - title: Vector Control
   desc: |
     Methods to implement vector control.
@@ -109,7 +132,7 @@ reference:
   - dMYZdt.GeRM_dde
   - make_indices_MYZ.GeRM
   - make_parameters_MYZ_GeRM
-  - make_parameters_MYZ_GeRM_FX
+  - make_parameters_MYZ_GeRM_exo
   - make_inits_MYZ_GeRM
   - get_inits_MYZ.GeRM
 - subtitle: specialized methods for the adult mosquito Ztrace model

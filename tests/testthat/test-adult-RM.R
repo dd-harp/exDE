@@ -85,6 +85,7 @@ test_that("RM models reach equilibrium", {
   # DDE
   params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch)
   params = make_inits_MYZ_GeRM(pars = params, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 =rep(0, nPatches), Upsilon0=OmegaEIP)
+  params = make_parameters_mi_null(params)
   params = make_indices(params)
 
   params <- MosquitoBehavior.GeRM_base(0, y0, params)
