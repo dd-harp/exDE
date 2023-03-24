@@ -7,23 +7,22 @@
 #' @return a named [list]
 #' @importFrom stats pexp
 #' @export
-VectorControl.lemenach <- function(t, y, pars, MosyBehavior) {
+VectorControl.lemenach <- function(t, y, pars) {
 
   # evaluate at one or multiple times?
-  n <- length(MosyBehavior$f)
-  MosyBehaviorControl <- MosyBehavior
+  n <- length(pars$MYZpar$f)
   for (i in seq_len(n)) {
 
-    t <- attr(MosyBehavior$f, 'time')[i]
+    t <- attr(pars$MYZpar$f, 'time')[i]
 
     phi <- pars$VCpar$phi(t)
     tau0 <- F_tau(t, y, pars) # asks the mosy model if it can calculate tau1 and tau2
     if (is.null(tau0)) {
-      tau0 <- (1/MosyBehavior$f[i]) * pars$VCpar$tau0_frac
+      tau0 <- (1/pars$MYZpar$f[i]) * pars$VCpar$tau0_frac
     }
 
-    p0 <- pexp(q = MosyBehavior$g[i] * tau0, lower.tail = FALSE)
-    Q0 <- MosyBehavior$q[i]
+    p0 <- pexp(q = pars$MYZpar$g[i] * tau0, lower.tail = FALSE)
+    Q0 <- pars$MYZpar$q[i]
     W <- (1-Q0) + Q0*(1-phi) + Q0*phi*pars$VCpar$s
     Z <- Q0*phi*pars$VCpar$r
 
@@ -38,12 +37,12 @@ VectorControl.lemenach <- function(t, y, pars, MosyBehavior) {
     g_phi <- -f_phi*log(prod(p_phi)) # mortality under control
     q_phi <- (Q0*(1-phi) + Q0*phi*pars$VCpar$s) / W # human feeding fraction under control
 
-    MosyBehaviorControl$f[i] <- f_phi
-    MosyBehaviorControl$q[i] <- q_phi
-    MosyBehaviorControl$g[i] <- g_phi
+    pars$MYZpar$f[i] <- f_phi
+    pars$MYZpar$q[i] <- q_phi
+    pars$MYZpar$g[i] <- g_phi
   }
 
-  return(MosyBehaviorControl)
+  return(pars)
 }
 
 #' @title Make parameters for Le Menach ITN model of vector control

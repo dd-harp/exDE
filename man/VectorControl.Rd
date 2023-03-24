@@ -4,7 +4,7 @@
 \alias{VectorControl}
 \title{Modify baseline values due to vector control}
 \usage{
-VectorControl(t, y, pars, MosyBehavior)
+VectorControl(t, y, pars)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,14 +12,10 @@ VectorControl(t, y, pars, MosyBehavior)
 \item{y}{state vector}
 
 \item{pars}{an \link{environment}}
-
-\item{MosyBehavior}{values returned by \link{MosquitoBehavior}}
 }
 \value{
 a \link{list}
 }
 \description{
-This method dispatches on the type of \code{pars$VCpar}. It takes the
-baseline \code{MosyBehavior} values and modifies them, potentially at multiple time
-points for models with delay.
+This method dispatches on the type of \code{pars$VCpar}.
 }

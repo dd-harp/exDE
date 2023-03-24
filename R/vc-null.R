@@ -5,8 +5,8 @@
 #' @inheritParams VectorControl
 #' @return a named [list]
 #' @export
-VectorControl.null <- function(t, y, pars, MosyBehavior) {
-  return(MosyBehavior)
+VectorControl.null <- function(t, y, pars) {
+  return(pars)
 }
 
 #' @title Make parameters for the null model of vector control (do nothing)

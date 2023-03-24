@@ -188,24 +188,17 @@ params$max_ix = 0
 params = make_indices(params)
 ```
 
-Please note that we need to use `exDE::MosquitoBehavior` to set up the bionomic parameters at equilibrium which are passed to `exDE::dMYZdt`; this is necessary when running the adult mosquito component alone without the full model.
-
-```{r}
-MosyBehavior <- MosquitoBehavior(0, y, params)
-```
-
 Then we can set up the initial conditions vector and use `deSolve::ode` to solve the model.  Normally these values would be computed within `exDE::xDE_diffeqn`. Here, we set up a local version: 
 
 ```{r, out.width = "100%"}
 y0 = get_inits_MYZ(params) 
 
-dMYZdt_local = func=function(t, y, pars, Lambda, kappa, MosyBehavior) {
-  list(dMYZdt(t, y, pars, Lambda, kappa, MosyBehavior))
+dMYZdt_local = func=function(t, y, pars, Lambda, kappa) {
+  list(dMYZdt(t, y, pars, Lambda, kappa))
 }
 
 out <- deSolve::ode(y = y0, times = 0:50, dMYZdt_local, parms=params, 
-                    method = 'lsoda', Lambda = Lambda, kappa = kappa, 
-                    MosyBehavior = MosyBehavior)
+                    method = 'lsoda', Lambda = Lambda, kappa = kappa) 
 ```
 
 The output is plotted below. The flat lines shown here is a verification that the steady state solutions that we computed above match the steady states computed by solving the equations: 

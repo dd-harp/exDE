@@ -37,20 +37,14 @@ test_that("RM models reach equilibrium", {
 
   params = make_indices(params)
 
-  # mimic MosyBehavior
-  MosyBehavior <- list()
-  MosyBehavior$f <- rep(params$MYZpar$f, 2)
-  attr(MosyBehavior$f, 'time') <- c(0, 0 - params$MYZpar$tau)
-  MosyBehavior$q <- rep(params$MYZpar$q, 2)
-  MosyBehavior$g <- rep(params$MYZpar$g, 2)
-
   # make indices and set up initial conditions
   y0 <- get_inits(params)
 
+  params <- MosquitoBehavior.GeRM_base(0, y0, params)
   # solve ODEs
-  out <- deSolve::ode(y = y0, times = c(0, 730), func = function(t, y, pars, Lambda, kappa, MosyBehavior) {
-    list(dMYZdt(t, y, pars, Lambda, kappa, MosyBehavior))
-  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa, MosyBehavior = MosyBehavior)
+  out <- deSolve::ode(y = y0, times = c(0, 730), func = function(t, y, pars, Lambda, kappa) {
+    list(dMYZdt(t, y, pars, Lambda, kappa))
+  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa)
 
   # equilibrium solutions (forward)
   Omega_inv <- solve(Omega)
@@ -93,10 +87,13 @@ test_that("RM models reach equilibrium", {
   params = make_inits_MYZ_GeRM(pars = params, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 =rep(0, nPatches), Upsilon0=OmegaEIP)
   params = make_indices(params)
 
+  params <- MosquitoBehavior.GeRM_base(0, y0, params)
+
   # solve DDEs
-  out <- deSolve::dede(y = y0, times = c(0, 365), func = function(t, y, pars, Lambda, kappa, MosyBehavior) {
-    list(dMYZdt(t, y, pars, Lambda, kappa, MosyBehavior))
-  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = rbind(kappa, kappa), MosyBehavior = MosyBehavior)
+  out <- deSolve::dede(y = y0, times = c(0, 365), func = function(t, y, pars, Lambda, kappa) {
+    list(dMYZdt(t, y, pars, Lambda, kappa))
+  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = rbind(kappa, kappa)
+  )
 
   # equilibrium solutions (forward)
   M_eq <- as.vector(Omega_inv %*% Lambda)

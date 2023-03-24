@@ -14,7 +14,7 @@ F_kappa.trace <- function(t, y, pars) {
 #' @inheritParams F_EIR
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_EIR.trace <- function(t, y, pars, MosyBehavior){
+F_EIR.trace <- function(t, y, pars){
   numeric(0)
 }
 

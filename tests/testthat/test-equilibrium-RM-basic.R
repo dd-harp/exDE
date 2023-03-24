@@ -106,15 +106,10 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   # set initial conditions
   y0 <- get_inits(params)
 
-  # mimic MosyBehavior
-  MosyBehavior <- list()
-  MosyBehavior$f <- rep(params$MYZpar$f, 2)
-  attr(MosyBehavior$f, 'time') <- c(0, 0 - params$MYZpar$tau)
-  MosyBehavior$q <- rep(params$MYZpar$q, 2)
-  MosyBehavior$g <- rep(params$MYZpar$g, 2)
+  params <- MosquitoBehavior.GeRM_base(0, y0, params)
 
   # run simulation
-  out <- deSolve::ode(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = as.vector(kappa), MosyBehavior = MosyBehavior)
+  out <- deSolve::ode(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = as.vector(kappa))
 
   expect_equal(as.vector(out[2, params$L_ix+1]), as.vector(L), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M), tolerance = numeric_tol)
@@ -226,15 +221,11 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   # set initial conditions
   y0 <- get_inits(params)
 
-  # mimic MosyBehavior
-  MosyBehavior <- list()
-  MosyBehavior$f <- rep(params$MYZpar$f, 2)
-  attr(MosyBehavior$f, 'time') <- c(0, 0 - params$MYZpar$tau)
-  MosyBehavior$q <- rep(params$MYZpar$q, 2)
-  MosyBehavior$g <- rep(params$MYZpar$g, 2)
+
+  params <- MosquitoBehavior.GeRM_base(0, y0, params)
 
   # run simulation
-  out <- deSolve::dede(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = t(cbind(kappa,kappa)), MosyBehavior = MosyBehavior)
+  out <- deSolve::dede(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = t(cbind(kappa,kappa)))
 
   expect_equal(as.vector(out[2, params$L_ix+1]), as.vector(L), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M), tolerance = numeric_tol)

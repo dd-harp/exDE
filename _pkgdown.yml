@@ -99,7 +99,8 @@ reference:
   desc: |
     Specialized methods for the generalized Ross-Macdonald model of adult mosquito dynamics.
   contents:
-  - MosquitoBehavior.GeRM
+  - MosquitoBehavior.GeRM_base
+  - MosquitoBehavior.GeRM_exo
   - F_tau.GeRM
   - F_Z.GeRM
   - F_Z_lag.GeRM
@@ -108,6 +109,7 @@ reference:
   - dMYZdt.GeRM_dde
   - make_indices_MYZ.GeRM
   - make_parameters_MYZ_GeRM
+  - make_parameters_MYZ_GeRM_FX
   - make_inits_MYZ_GeRM
   - get_inits_MYZ.GeRM
 - subtitle: specialized methods for the adult mosquito Ztrace model
