@@ -16,10 +16,9 @@ F_beta <- function(t, y, pars){
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars an [environment]
-#' @param MosyBehavior a [list] returned from `MosquitoBehavior`
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_EIR <- function(t, y, pars, MosyBehavior) {
+F_EIR <- function(t, y, pars) {
   UseMethod("F_EIR", pars$Xpar$xde)
 }
 

@@ -7,13 +7,14 @@
 #' @export
 MosquitoBehavior.RM <- function(t, y, pars) {
 
-  MosyBehavior <- list()
-  MosyBehavior$f <- rep(pars$MYZpar$f, 2)
-  attr(MosyBehavior$f, 'time') <- c(t, t - pars$MYZpar$tau)
-  MosyBehavior$q <- rep(pars$MYZpar$q, 2)
-  MosyBehavior$g <- rep(pars$MYZpar$g, 2)
+  pars$MYZpar$f <- rep(pars$MYZpar$f0, 2)
+  attr(pars$MYZpar$f, 'time') <- c(t, t - pars$MYZpar$tau)
+  pars$MYZpar$q <- rep(pars$MYZpar$q0, 2)
+  pars$MYZpar$g <- rep(pars$MYZpar$g0, 2)
+  pars$MYZpar$sigma <- rep(pars$MYZpar$sigma0, 2)
+  pars$MYZpar$nu <- pars$MYZpar$nu0
 
-  return(MosyBehavior)
+  return(pars)
 }
 
 #' @title Time spent host seeking/feeding and resting/ovipositing
@@ -65,7 +66,7 @@ F_eggs.RM <- function(t, y, pars) {
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
-dMYZdt.RM_ode <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
+dMYZdt.RM_ode <- function(t, y, pars, Lambda, kappa) {
 
   nPatches <- pars$nPatches
 
@@ -74,9 +75,9 @@ dMYZdt.RM_ode <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
   Z <- y[pars$Z_ix]
   Upsilon <- matrix(data = y[pars$Upsilon_ix], nrow = nPatches, ncol = nPatches)
 
-  f <- MosyBehavior$f
-  q <- MosyBehavior$q
-  g <- MosyBehavior$g
+  f <- pars$MYZpar$f
+  q <- pars$MYZpar$q
+  g <- pars$MYZpar$g
 
   Omega <- make_Omega(g = g[1], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
   Omega_eip <- make_Omega(g = g[2], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
@@ -94,7 +95,7 @@ dMYZdt.RM_ode <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
 #' @return a [numeric] vector
 #' @importFrom deSolve lagvalue
 #' @export
-dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
+dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa) {
   kappa_t <- kappa[1, ]
   kappa_eip <- kappa[2, ]
 
@@ -115,9 +116,9 @@ dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
     Y_tau <- lagvalue(t = t - tau, nr = pars$Y_ix)
   }
 
-  f <- MosyBehavior$f
-  q <- MosyBehavior$q
-  g <- MosyBehavior$g
+  f <- pars$MYZpar$f
+  q <- pars$MYZpar$q
+  g <- pars$MYZpar$g
 
   Omega <- make_Omega(g = g[1], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
   Omega_eip <- make_Omega(g = g[2], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
@@ -176,11 +177,11 @@ make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, tau, 
     pars$xde <- xde
   }
   else if(solve_as == 'ode') class(MYZpar) <- c('RM', 'RM_ode')
-  MYZpar$g <- g
-  MYZpar$sigma <- sigma
-  MYZpar$f <- f
-  MYZpar$q <- q
-  MYZpar$nu <- nu
+  MYZpar$g0 <- g
+  MYZpar$sigma0 <- sigma
+  MYZpar$f0 <- f
+  MYZpar$q0 <- q
+  MYZpar$nu0 <- nu
   MYZpar$eggsPerBatch <- eggsPerBatch
   MYZpar$tau <- tau
   MYZpar$calK <- calK

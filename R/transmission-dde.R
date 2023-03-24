@@ -20,11 +20,11 @@ F_kappa.dde <- function(t, y, pars) {
 #' @inheritParams F_EIR
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_EIR.dde <- function(t, y, pars, MosyBehavior){
+F_EIR.dde <- function(t, y, pars){
   Z <- F_Z(t, y, pars)
   Z_lag <- F_Z_lag(t, y, pars)
-  f <- MosyBehavior$f[1]
-  q <- MosyBehavior$q[1]
+  f <- pars$MYZpar$f[1]
+  q <- pars$MYZpar$q[1]
 
   EIR <- matrix(data = 0, nrow = 2, ncol = pars$nPatches)
   EIR[1, ] <-  as.vector(pars$beta %*% diag(f*q, nrow = pars$nPatches) %*% Z)

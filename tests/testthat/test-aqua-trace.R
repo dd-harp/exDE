@@ -68,14 +68,10 @@ test_that("forced emergence works with equilibrium", {
 
   y0 <- get_inits(params)
 
-  # mimic MosyBehavior
-  MosyBehavior <- list()
-  MosyBehavior$f <- rep(params$MYZpar$f, 2)
-  attr(MosyBehavior$f, 'time') <- c(0, 0 - params$MYZpar$tau)
-  MosyBehavior$q <- rep(params$MYZpar$q, 2)
-  MosyBehavior$g <- rep(params$MYZpar$g, 2)
 
-  out <- deSolve::ode(y = y0, times = c(0, 365), func = xDE_diffeqn_mosy, parms = params, method = 'lsoda', kappa = kappa, MosyBehavior = MosyBehavior)
+  params <- MosquitoBehavior.GeRM_base(0, y0, params)
+
+  out <- deSolve::ode(y = y0, times = c(0, 365), func = xDE_diffeqn_mosy, parms = params, method = 'lsoda', kappa = kappa)
 
   M_sim <- as.vector(out[2, params$M_ix+1])
   G_sim <- as.vector(out[2, params$G_ix+1])

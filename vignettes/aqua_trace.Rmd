@@ -98,8 +98,8 @@ params <- list(
 )
 
 # ODE
-params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode") 
-params = make_inits_MYZ_GeRM(params, M_eq, G_eq, Y_eq, Z_eq, Upsilon)
+params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode") 
+params = make_inits_MYZ_RM(params, M_eq, Y_eq, Z_eq, Upsilon)
 params = make_parameters_L_trace(pars = params, Lambda = alpha)
 params = make_parameters_exogenous_null(pars = params)
 params = make_parameters_vc_null(pars = params)
@@ -107,17 +107,13 @@ params = make_indices(params)
 
 y0 <- rep(0, params$max_ix)
 y0[params$M_ix] <- M_eq
-y0[params$G_ix] <- G_eq
 y0[params$Y_ix] <- Y_eq
 y0[params$Z_ix] <- Z_eq
 y0[params$Upsilon_ix] <- as.vector(Upsilon)
 
-MosyBehavior <- MosquitoBehavior(0, y, params)
-
-out <- deSolve::ode(y = y0, times = 0:50, func = xDE_diffeqn_mosy, parms = params, method = 'lsoda', kappa = kappa, MosyBehavior = MosyBehavior)
+out <- deSolve::ode(y = y0, times = 0:50, func = xDE_diffeqn_mosy, parms = params, method = 'lsoda', kappa = kappa)
 
 colnames(out)[params$M_ix+1] <- paste0('M_', 1:params$nPatches)
-colnames(out)[params$G_ix+1] <- paste0('G_', 1:params$nPatches)
 colnames(out)[params$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
 colnames(out)[params$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
 out <- out[, -c(params$Upsilon_ix+1)]

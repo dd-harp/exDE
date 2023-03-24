@@ -131,8 +131,8 @@ Z0 <- rep(0, params$nPatches)
 Omega <- make_Omega(g, sigma, calK, params$nPatches)
 Upsilon <- expm::expm(-Omega*tau)
 
-params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode") 
-params = make_inits_MYZ_GeRM(params, M0 = M0, G0 = G0, Y0 = Y0, Z0 = Z0, Upsilon0=Upsilon)
+params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode") 
+params = make_inits_MYZ_RM(params, M0 = M0, Y0 = Y0, Z0 = Z0, Upsilon0=Upsilon)
 ```
 
 ## Human Parameters

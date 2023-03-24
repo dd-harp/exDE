@@ -4,7 +4,7 @@
 \alias{VectorControl.null}
 \title{Modify baseline values due to vector control}
 \usage{
-\method{VectorControl}{null}(t, y, pars, MosyBehavior)
+\method{VectorControl}{null}(t, y, pars)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,8 +12,6 @@
 \item{y}{state vector}
 
 \item{pars}{an \link{environment}}
-
-\item{MosyBehavior}{values returned by \link{MosquitoBehavior}}
 }
 \value{
 a named \link{list}

@@ -4,7 +4,7 @@
 \alias{F_EIR.dde}
 \title{Entomological inoculation rate on human strata}
 \usage{
-\method{F_EIR}{dde}(t, y, pars, MosyBehavior)
+\method{F_EIR}{dde}(t, y, pars)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,8 +12,6 @@
 \item{y}{state vector}
 
 \item{pars}{an \link{environment}}
-
-\item{MosyBehavior}{a \link{list} returned from \code{MosquitoBehavior}}
 }
 \value{
 a \link{numeric} vector of length \code{nStrata}

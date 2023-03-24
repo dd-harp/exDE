@@ -6,10 +6,9 @@
 #' @return a named [list]
 #' @export
 MosquitoBehavior.Ztrace <- function(t, y, pars) {
-  MosyBehavior <- list()
-  MosyBehavior$f <- rep(pars$MYZpar$f, 2)
-  MosyBehavior$q <- rep(pars$MYZpar$q, 2)
-  return(MosyBehavior)
+  pars$MYZpar$f <- rep(pars$MYZpar$f0, 2)
+  pars$MYZpar$q <- rep(pars$MYZpar$q0, 2)
+  return(pars)
 }
 
 #' @title Number of infective adults in each patch
@@ -44,7 +43,7 @@ F_eggs.Ztrace <- function(t, y, pars) {
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
-dMYZdt.Ztrace <- function(t, y, pars, Lambda, kappa, MosyBehavior){
+dMYZdt.Ztrace <- function(t, y, pars, Lambda, kappa){
   numeric(0)
 }
 
@@ -75,7 +74,9 @@ make_parameters_MYZ_Ztrace <- function(pars, Zm, f, q, Zf) {
   MYZpar$xde <- xde
   MYZpar$Zm <- Zm
   MYZpar$f <- f
+  MYZpar$f0 <- f
   MYZpar$q <- q
+  MYZpar$q0 <- q
   MYZpar$Zf = Zf
   pars$MYZpar <- MYZpar
   return(pars)

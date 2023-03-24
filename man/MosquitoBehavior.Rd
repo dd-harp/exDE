@@ -18,8 +18,8 @@ a \link{list}
 }
 \description{
 This method dispatches on the type of \code{pars$MYZpar}. It should,
-at a minimum return the values \code{f}, \code{q}, \code{g} (blood feeding rate, human feeding
-proportion, and mortality rate) at the current time, although it may return
+at a minimum set the values \code{f}, \code{q}, \code{g} (blood feeding rate, human feeding
+proportion, and mortality rate) at the current time to their baseline values \code{f0}, \code{q0}, and \code{g0}, although it may return
 vectors of these values at multiple times for models with delay. These baseline
 values will be modified by the vector control component. The return type is a
 named list with those 3 values, and \code{f}  should have an \link{attr} labeled \code{time}

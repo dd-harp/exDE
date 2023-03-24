@@ -15,10 +15,10 @@ xDE_diffeqn <- function(t, y, pars) {
   pars <- ExogenousForcing(t, pars)
 
   # baseline mosquito feeding and mortality
-  MosyBehavior0 <- MosquitoBehavior(t, y, pars)
+  pars <- MosquitoBehavior(t, y, pars)
 
   # mosquito feeding and mortality under control
-  MosyBehavior <- VectorControl(t, y, pars, MosyBehavior0)
+  pars <- VectorControl(t, y, pars)
 
   # eta: egg laying
   eggs <- F_eggs(t, y, pars)
@@ -32,14 +32,14 @@ xDE_diffeqn <- function(t, y, pars) {
   pars <- F_beta(t, y, pars)
 
   # EIR: entomological inoculation rate
-  EIR <- F_EIR(t, y, pars, MosyBehavior)
+  EIR <- F_EIR(t, y, pars)
 
   # kappa: net infectiousness of humans
   kappa <- F_kappa(t, y, pars)
 
   # state derivatives
   dL <- dLdt(t, y, pars, eta)
-  dMYZ <- dMYZdt(t, y, pars, Lambda, kappa, MosyBehavior)
+  dMYZ <- dMYZdt(t, y, pars, Lambda, kappa)
   dX <- dXdt(t, y, pars, EIR)
 
   return(list(c(dL, dMYZ, dX)))
@@ -52,20 +52,19 @@ xDE_diffeqn <- function(t, y, pars) {
 #' @param y state vector
 #' @param pars an [environment]
 #' @param kappa a vector
-#' @param MosyBehavior a [list] emulating the output of [exDE::MosquitoBehavior] for
 #' the appropriate adult mosquito model
 #' @return a [list] containing the vector of all state derivatives
 #' @export
-xDE_diffeqn_mosy <- function(t, y, pars, kappa, MosyBehavior) {
+xDE_diffeqn_mosy <- function(t, y, pars, kappa) {
 
   # weather, climate, etc
   pars <- ExogenousForcing(t, pars)
 
   # baseline mosquito feeding and mortality
-  MosyBehavior0 <- MosquitoBehavior(t, y, pars)
+  pars <- MosquitoBehavior(t, y, pars)
 
   # mosquito feeding and mortality under control
-  MosyBehavior <- VectorControl(t, y, pars, MosyBehavior0)
+  pars <- VectorControl(t, y, pars)
 
   # eta: egg laying
   eggs <- F_eggs(t, y, pars)
@@ -77,7 +76,7 @@ xDE_diffeqn_mosy <- function(t, y, pars, kappa, MosyBehavior) {
 
   # state derivatives
   dL <- dLdt(t, y, pars, eta)
-  dMYZ <- dMYZdt(t, y, pars, Lambda, kappa, MosyBehavior)
+  dMYZ <- dMYZdt(t, y, pars, Lambda, kappa)
 
   return(list(c(dL, dMYZ)))
 }

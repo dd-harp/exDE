@@ -4,7 +4,7 @@
 \alias{dMYZdt.GeRM_ode}
 \title{Derivatives for adult mosquitoes}
 \usage{
-\method{dMYZdt}{GeRM_ode}(t, y, pars, Lambda, kappa, MosyBehavior)
+\method{dMYZdt}{GeRM_ode}(t, y, pars, Lambda, kappa)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -16,8 +16,6 @@
 \item{Lambda}{emergence rate of adult mosquitoes}
 
 \item{kappa}{net infectiousness of human population}
-
-\item{MosyBehavior}{values returned by \link{MosquitoBehavior}, potentially modified by control \link{VectorControl}}
 }
 \value{
 a \link{numeric} vector

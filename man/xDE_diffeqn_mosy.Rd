@@ -4,7 +4,7 @@
 \alias{xDE_diffeqn_mosy}
 \title{Generalized spatial differential equation model (mosquito only)}
 \usage{
-xDE_diffeqn_mosy(t, y, pars, kappa, MosyBehavior)
+xDE_diffeqn_mosy(t, y, pars, kappa)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -13,9 +13,7 @@ xDE_diffeqn_mosy(t, y, pars, kappa, MosyBehavior)
 
 \item{pars}{an \link{environment}}
 
-\item{kappa}{a vector}
-
-\item{MosyBehavior}{a \link{list} emulating the output of \link{MosquitoBehavior} for
+\item{kappa}{a vector
 the appropriate adult mosquito model}
 }
 \value{

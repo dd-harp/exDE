@@ -2,8 +2,8 @@
 
 #' @title Compute bloodfeeding and mortality rates
 #' @description This method dispatches on the type of `pars$MYZpar`. It should,
-#' at a minimum return the values `f`, `q`, `g` (blood feeding rate, human feeding
-#' proportion, and mortality rate) at the current time, although it may return
+#' at a minimum set the values `f`, `q`, `g` (blood feeding rate, human feeding
+#' proportion, and mortality rate) at the current time to their baseline values `f0`, `q0`, and `g0`, although it may return
 #' vectors of these values at multiple times for models with delay. These baseline
 #' values will be modified by the vector control component. The return type is a
 #' named list with those 3 values, and `f`  should have an [attr] labeled `time`
@@ -70,10 +70,9 @@ F_eggs <- function(t, y, pars) {
 #' @param pars an [environment]
 #' @param Lambda emergence rate of adult mosquitoes
 #' @param kappa net infectiousness of human population
-#' @param MosyBehavior values returned by [exDE::MosquitoBehavior], potentially modified by control [exDE::VectorControl]
 #' @return a [numeric] vector
 #' @export
-dMYZdt <- function(t, y, pars, Lambda, kappa, MosyBehavior) {
+dMYZdt <- function(t, y, pars, Lambda, kappa) {
   UseMethod("dMYZdt", pars$MYZpar)
 }
 
