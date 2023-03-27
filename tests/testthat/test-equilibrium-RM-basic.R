@@ -99,6 +99,7 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
   params = make_inits_L_basic(pars = params,  L0 = L)
   params = make_parameters_vc_null(pars = params)
+  params = make_parameters_mi_null(pars = params)
   params = make_parameters_exogenous_null(pars = params)
 
   params = make_indices(params)
@@ -214,6 +215,7 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
   params = make_inits_L_basic(pars = params,  L0 = L)
   params = make_parameters_vc_null(pars = params)
+  params = make_parameters_mi_null(pars = params)
   params = make_parameters_exogenous_null(pars = params)
 
   params = make_indices(params)

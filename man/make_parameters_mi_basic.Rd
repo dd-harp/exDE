@@ -4,14 +4,14 @@
 \alias{make_parameters_mi_basic}
 \title{Make parameters for the basic model for malaria importation}
 \usage{
-make_parameters_mi_basic(pars, local_fraction, X_delta)
+make_parameters_mi_basic(pars, local_fraction, x_delta)
 }
 \arguments{
 \item{pars}{a \link{list}}
 
 \item{local_fraction}{a numeric \link{vector} describing the fraction local}
 
-\item{X_delta}{a numeric \link{vector} describing the density of infectious visitors}
+\item{x_delta}{a numeric \link{vector} describing the density of infectious visitors}
 }
 \value{
 none

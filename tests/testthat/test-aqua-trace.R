@@ -62,6 +62,7 @@ test_that("forced emergence works with equilibrium", {
   params = make_inits_MYZ_GeRM(pars = params, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 = rep(0, nPatches), Upsilon0 = OmegaEIP)
   params = make_parameters_L_trace(pars = params, Lambda = alpha)
   params = make_parameters_vc_null(pars = params)
+  params = make_parameters_mi_null(pars = params)
   params = make_parameters_exogenous_null(pars = params)
 
   params = make_indices(params)

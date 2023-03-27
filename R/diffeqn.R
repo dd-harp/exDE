@@ -11,6 +11,9 @@
 #' @export
 xDE_diffeqn <- function(t, y, pars) {
 
+  # malaria importation
+  pars <- MalariaImportation(t, pars)
+
   # weather, climate, etc
   pars <- ExogenousForcing(t, pars)
 
@@ -56,6 +59,9 @@ xDE_diffeqn <- function(t, y, pars) {
 #' @return a [list] containing the vector of all state derivatives
 #' @export
 xDE_diffeqn_mosy <- function(t, y, pars, kappa) {
+
+  # malaria importation
+  pars <- MalariaImportation(t, pars)
 
   # weather, climate, etc
   pars <- ExogenousForcing(t, pars)
