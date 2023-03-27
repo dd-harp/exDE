@@ -103,6 +103,7 @@ params = make_inits_MYZ_RM(params, M_eq, Y_eq, Z_eq, Upsilon)
 params = make_parameters_L_trace(pars = params, Lambda = alpha)
 params = make_parameters_exogenous_null(pars = params)
 params = make_parameters_vc_null(pars = params)
+params = make_parameters_mi_null(pars = params)
 params = make_indices(params)
 
 y0 <- rep(0, params$max_ix)

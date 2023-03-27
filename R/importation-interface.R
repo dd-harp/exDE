@@ -3,8 +3,8 @@
 #' @title Malaria importation through infected visitors, etc.
 #' @description This method dispatches on the type of `pars$MIpar`.
 #' @param t current simulation time
-#' @param pars an [environment]
-#' @return none
+#' @param pars a [list]
+#' @return pars a [list]
 #' @export
 MalariaImportation <- function(t, pars) {
   UseMethod("MalariaImportation", pars$MIpar)

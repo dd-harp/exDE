@@ -16,7 +16,7 @@ MalariaImportation.basic <- function(t, pars) {
 #' @export
 kappa_with_visitors.basic <- function(kappa, pars) {
   with(pars$MIpars,{
-     return(local_fraction*kappa + (1-local_fraction)*X_delta)
+     return(local_fraction*kappa + (1-local_fraction)*x_delta)
 })}
 
 #' @title fqZ with visitors, the basic model
@@ -31,14 +31,14 @@ loc_fqZ.basic <- function(pars) {
 #' @title Make parameters for the basic model for malaria importation
 #' @param pars a [list]
 #' @param local_fraction a numeric [vector] describing the fraction local
-#' @param X_delta a numeric [vector] describing the density of infectious visitors
+#' @param x_delta a numeric [vector] describing the density of infectious visitors
 #' @return none
 #' @export
-make_parameters_mi_basic <- function(pars, local_fraction, X_delta) {
+make_parameters_mi_basic <- function(pars, local_fraction, x_delta) {
   MIpar <- list()
   class(MIpar) <- 'basic'
   MIpar$local_fraction = local_fraction
-  MIpar$X_delta = X_delta
+  MIpar$x_delta = x_delta
   pars$MIpar <- MIpar
   return(pars)
 }
