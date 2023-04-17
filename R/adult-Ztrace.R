@@ -6,8 +6,8 @@
 #' @return a named [list]
 #' @export
 MosquitoBehavior.Ztrace <- function(t, y, pars) {
-  pars$MYZpar$f <- rep(pars$MYZpar$f0, 2)
-  pars$MYZpar$q <- rep(pars$MYZpar$q0, 2)
+  pars$MYZpar$f <- pars$MYZpar$f0
+  pars$MYZpar$q <- pars$MYZpar$q0
   return(pars)
 }
 
@@ -18,15 +18,6 @@ MosquitoBehavior.Ztrace <- function(t, y, pars) {
 #' @export
 F_Z.Ztrace <- function(t, y, pars) {
   with(pars$MYZpar, return(Zm*Zf(t, pars)))
-}
-
-#' @title Number of infective adults in each patch
-#' @description Implements [F_Z] for the Ztrace  model.
-#' @inheritParams F_Z_lag
-#' @return a [numeric] vector of length `nHabitats`
-#' @export
-F_Z_lag.Ztrace <- function(t, y, pars, lag) {
-  pars$MYZpar$Zf(t-lag)
 }
 
 #' @title Number of eggs laid by adult mosquitoes
@@ -53,7 +44,7 @@ dMYZdt.Ztrace <- function(t, y, pars, Lambda, kappa){
 #' @return none
 #' @export
 make_indices_MYZ.Ztrace <- function(pars) {
-  pars$MYZ_ix <- integer(0)
+  pars$MYZpar$MYZ_ix <- integer(0)
   return(pars)
 }
 
@@ -73,12 +64,11 @@ make_parameters_MYZ_Ztrace <- function(pars, Zm, f, q, Zf) {
   class(xde) <- "trace"
   MYZpar$xde <- xde
   MYZpar$Zm <- Zm
-  MYZpar$f <- f
   MYZpar$f0 <- f
-  MYZpar$q <- q
   MYZpar$q0 <- q
   MYZpar$Zf = Zf
   pars$MYZpar <- MYZpar
+  pars = MosquitoBehavior(pars)
   return(pars)
 }
 

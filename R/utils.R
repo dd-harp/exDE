@@ -5,9 +5,15 @@
 #' @export
 make_parameters_xde = function(solve_as='ode'){
   pars = list()
+
   xde <- 'ode'
   class(xde) <- xde
   pars$xde = xde
+
+  pars <- make_parameters_exogenous_null(pars)
+  pars <- make_parameters_vc_null(pars)
+  pars <- make_parameters_import_null(pars)
+
   return(pars)
 }
 

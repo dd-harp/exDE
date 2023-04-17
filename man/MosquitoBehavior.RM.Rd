@@ -2,7 +2,7 @@
 % Please edit documentation in R/adult-RM.R
 \name{MosquitoBehavior.RM}
 \alias{MosquitoBehavior.RM}
-\title{Compute bloodfeeding and mortality rates}
+\title{Reset bloodfeeding and mortality rates to baseline}
 \usage{
 \method{MosquitoBehavior}{RM}(t, y, pars)
 }
@@ -17,5 +17,5 @@
 a named \link{list}
 }
 \description{
-Implements \link{MosquitoBehavior} for the generalized RM model.
+Implements \link{MosquitoBehavior} for the RM model
 }

@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
+#devtools::load_all(".")
 library(MASS)
 library(expm)
 library(deSolve)
@@ -44,7 +45,7 @@ f <- 0.3
 q <- 0.9
 g <- 1/20
 sigma <- 1/10
-tau <- 11
+eip <- 11
 nu <- 1/2
 eggsPerBatch <- 30
 
@@ -66,7 +67,7 @@ calK[3, 1:2] <- c(0.7, 0.3)
 calK <- t(calK)
 
 Omega <- make_Omega(g, sigma, calK, nPatches)
-Upsilon <- expm::expm(-Omega * tau)
+Upsilon <- expm::expm(-Omega * eip)
 
 kappa <- c(0.1, 0.075, 0.025)
 Lambda <- c(5, 10, 8)
@@ -75,9 +76,7 @@ Lambda <- c(5, 10, 8)
 Omega_inv <- solve(Omega)
 
 M_eq <- as.vector(Omega_inv %*% Lambda)
-G_eq <- as.vector(solve(diag(nu+f, nPatches) + Omega) %*% diag(f, nPatches) %*% M_eq)
-Y_eq <- as.vector(solve(diag(f*q*kappa) + Omega) %*% diag(f*q*kappa) %*% M_eq)
-Z_eq <- as.vector(Omega_inv %*% Upsilon %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
+P_eq <- as.vector(solve(diag(f, nPatches) + Omega) %*% diag(f, nPatches) %*% M_eq)
 
 # the "Lambda" for the dLdt model
 alpha <- as.vector(ginv(calN) %*% Lambda)
@@ -89,35 +88,32 @@ on the adult model. We use `alpha` as the `Lambda` parameter of our forced emerg
 we must use `exDE::MosquitoBehavior` to pass the equilibrium values of those bionomic parameters 
 to `exDE::xDE_diffeqn_mosy`.
 
-```{r, out.width = "100%"}
-params <- list(
-  nPatches = nPatches,
-  nHabitats = nHabitats,
-  calU = calU,
-  calN = calN
-)
+```{r}
+params = make_parameters_xde()
+params$nPatches = nPatches
+params$nHabitats = nHabitats
+params$calU = calU
+params$calN = calN
+
 
 # ODE
-params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode") 
-params = make_inits_MYZ_RM(params, M_eq, Y_eq, Z_eq, Upsilon)
 params = make_parameters_L_trace(pars = params, Lambda = alpha)
-params = make_parameters_exogenous_null(pars = params)
-params = make_parameters_vc_null(pars = params)
-params = make_parameters_mi_null(pars = params)
+params = make_parameters_MYZ_basicM(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch)
+params = make_inits_MYZ_basicM(params, M_eq, P_eq)
 params = make_indices(params)
+```
 
+```{r}
 y0 <- rep(0, params$max_ix)
-y0[params$M_ix] <- M_eq
-y0[params$Y_ix] <- Y_eq
-y0[params$Z_ix] <- Z_eq
-y0[params$Upsilon_ix] <- as.vector(Upsilon)
+y0[params$MYZpar$M_ix] <- M_eq
+y0[params$MYZpar$P_ix] <- P_eq
 
-out <- deSolve::ode(y = y0, times = 0:50, func = xDE_diffeqn_mosy, parms = params, method = 'lsoda', kappa = kappa)
+out <- deSolve::ode(y = y0, times = 0:50, func = xDE_diffeqn_mosy, parms = params, method = 'lsoda')
+```
 
-colnames(out)[params$M_ix+1] <- paste0('M_', 1:params$nPatches)
-colnames(out)[params$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
-colnames(out)[params$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
-out <- out[, -c(params$Upsilon_ix+1)]
+```{r, out.width = "100%"}
+colnames(out)[params$MYZpar$M_ix+1] <- paste0('M_', 1:params$nPatches)
+colnames(out)[params$MYZpar$P_ix+1] <- paste0('P_', 1:params$nPatches)
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

@@ -4,12 +4,10 @@
 \alias{F_tau}
 \title{Time spent host seeking/feeding and resting/ovipositing}
 \usage{
-F_tau(t, y, pars)
+F_tau(t, pars)
 }
 \arguments{
 \item{t}{current simulation time}
-
-\item{y}{state vector}
 
 \item{pars}{an \link{environment}}
 }

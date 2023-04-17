@@ -6,22 +6,7 @@
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_x.SIP <- function(t, y, pars) {
-  y[pars$X_ix] * pars$Xpar$c
-}
-
-#' @title Size of lagged effective infectious human population
-#' @description Implements [F_x_lag] for the SIP model.
-#' @inheritParams F_x_lag
-#' @return a [numeric] vector of length `nStrata`
-#' @importFrom deSolve lagvalue
-#' @export
-F_x_lag.SIP <- function(t, y, pars, lag) {
-  if (t < lag) {
-    X_tau <- pars$Xinits$X0
-  } else {
-    X_tau <- lagvalue(t = t - lag, nr = pars$X_ix)
-  }
-  X_tau * pars$Xpar$c
+  with(pars$Xpar, y[X_ix] * c)
 }
 
 #' @title Derivatives for human population
@@ -30,17 +15,17 @@ F_x_lag.SIP <- function(t, y, pars, lag) {
 #' @return a [numeric] vector
 #' @export
 dXdt.SIP <- function(t, y, pars, EIR) {
-  X <- y[pars$X_ix]
-  P <- y[pars$P_ix]
-  H <- F_H(t, y, pars)
 
   with(pars$Xpar, {
-    # disease dynamics
+
+    X <- y[X_ix]
+    P <- y[P_ix]
+    H <- F_H(t, y, pars)
+
     dX <- diag((1-rho)*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - r*X + dHdt(t, X, pars)
     dP <- diag(rho*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - eta*P + dHdt(t, P, pars)
     dH <- Births(t, H, pars) + dHdt(t, H, pars)
 
-    # return derivatives
     return(c(dX, dP, dH))
   })
 }
@@ -52,11 +37,11 @@ dXdt.SIP <- function(t, y, pars, EIR) {
 #' @importFrom utils tail
 #' @export
 make_indices_X.SIP <- function(pars) {
-  pars$X_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-  pars$max_ix <- tail(pars$X_ix, 1)
+  pars$Xpar$X_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
+  pars$max_ix <- tail(pars$Xpar$X_ix, 1)
 
-  pars$P_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-  pars$max_ix <- tail(pars$P_ix, 1)
+  pars$Xpar$P_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
+  pars$max_ix <- tail(pars$Xpar$P_ix, 1)
   return(pars)
 }
 
@@ -73,9 +58,6 @@ make_parameters_X_SIP <- function(pars, b, c, r, rho, eta){
   stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(rho), is.numeric(eta))
   Xpar <- list()
   class(Xpar) <- c('SIP')
-  xde <-  'ode'
-  class(xde) <- 'ode'
-  Xpar$xde <- xde
   Xpar$b <- b
   Xpar$c <- c
   Xpar$r <- r

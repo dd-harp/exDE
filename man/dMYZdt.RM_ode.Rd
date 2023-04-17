@@ -21,5 +21,5 @@
 a \link{numeric} vector
 }
 \description{
-Implements \link{dMYZdt} for the generalized RM ODE model.
+Implements \link{dMYZdt} for the RM ODE model.
 }

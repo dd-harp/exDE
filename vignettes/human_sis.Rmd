@@ -60,7 +60,7 @@ set up parameters. Please note that this only runs the human population componen
 
 We use the null (constant) model of human demography ($H$ constant for all time).
 
-```{r, out.width = "100%"}
+```{r}
 nStrata <- 3
 H <- c(100, 500, 250)
 membershipH <- rep(1,3) 
@@ -72,10 +72,18 @@ r <- 1/200
 Psi <- matrix(data = 1,nrow = 1, ncol = nStrata)
 
 EIR <- diag(1/b, nStrata) %*% ((r*X)/(H-X))
+```
 
+
+```{r} 
 params <- make_parameters_xde()
 params$nStrata = nStrata
 params$nPatches = 1 
+
+params$eir = rep(EIR, 3)
+F_eir = function(t, pars){
+  pars$eir
+}
 
 params = make_parameters_demography_null(pars = params, H=H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi)
 
@@ -83,16 +91,16 @@ params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
 
 params = make_inits_X_SIS(pars = params, X)
 params = make_indices(params)
+```
 
+```{r}
 y0 <- get_inits_X(params)
 
-dXdt_local = function(t, y, pars, EIR) {
-  list(dXdt(t, y, pars, EIR))
-}
+out <- deSolve::ode(y = y0, times = c(0, 365), xDE_diffeqn_cohort, parms = params, method = 'lsoda', F_eir = F_eir) 
+```
 
-out <- deSolve::ode(y = y0, times = c(0, 365), dXdt_local, parms = params, method = 'lsoda', EIR = as.vector(EIR))
-
-colnames(out)[params$X_ix+1] <- paste0('X_', 1:params$nStrata)
+```{r, out.width = "100%"}
+colnames(out)[params$Xpar$X_ix+1] <- paste0('X_', 1:params$nStrata)
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

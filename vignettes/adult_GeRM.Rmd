@@ -1,8 +1,8 @@
 ---
-title: "A Generalized Ross-Macdonald Adult Mosquito Model"
+title: "The Generalized Ross-Macdonald Adult Mosquito Model"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{A Generalized Ross-Macdonald Adult Mosquito Model}
+  %\VignetteIndexEntry{The Generalized Ross-Macdonald Adult Mosquito Model}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,19 +14,19 @@ knitr::opts_chunk$set(
 )
 ```
 
-The generalized Ross-Macdonald adult mosquito model fulfills the generic interface of the adult mosquito component. It was first published in this form in [Spatial Dynamics of Malaria Transmission](https://www.medrxiv.org/content/10.1101/2022.11.07.22282044v1). It includes state variables for total mosquito density $M$, gravid mosquito density $G$, infected mosquito density $Y$, and infectious mosquito density $Z$.
+The Ross-Macdonald adult mosquito model fulfills the generic interface of the adult mosquito component. A generalized version of the Ross-Macdonald model was first published in [Spatial Dynamics of Malaria Transmission](https://www.medrxiv.org/content/10.1101/2022.11.07.22282044v1). Here, we use a similar variant of the Ross-Macdonald model.   It includes state variables for total mosquito density $M$, parous mosquito density $P$, infected mosquito density $Y$, and infectious mosquito density $Z$.
 
 # Differential Equations
 
 ## Delay Differential Equations
 
-These equations are naturally implemented by `exDE::dMYZdt.GeRM_dde,` but they can also be implemented in a closely related set of odes using `exDE::dMYZdt.GeRM_ode` (see below). 
+These equations are naturally implemented by `exDE::dMYZdt.RM_dde,` but they can also be implemented in a closely related set of odes using `exDE::dMYZdt.RM_ode` (see below). 
 
 $$
 \dot{M} = \Lambda - \Omega\cdot M 
 $$
 $$
-\dot{G} = \mbox{diag}(f) \cdot (M-G) - \nu G - \Omega \cdot G
+\dot{P} = \mbox{diag}(f) \cdot (M-P) -  \Omega \cdot P
 $$
 
 $$
@@ -45,7 +45,7 @@ $$
 
 ## Ordinary Differential Equations
 
-In the following, the equation are solved by `exDE::dMYZdt.GeRM_ode`.
+In the following, the equation are solved by `exDE::dMYZdt.RM_ode`.
 
 The system of ODEs is the same as above except for the equation giving the rate of change in infectious mosquito density, which becomes:
 
@@ -68,7 +68,7 @@ human population. We show both below.
 
 ## Starting with $\Lambda$
 
-Given $\Lambda$ we can solve:
+Piven $\Lambda$ we can solve:
 
 $$
 M = \Omega^{-1} \cdot \Lambda
@@ -84,15 +84,15 @@ $$
 Z = \Omega^{-1} \cdot e^{-\Omega \tau} \cdot \mbox{diag}(fq\kappa) \cdot (M-Y)
 $$
 
-Because the dynamics of $G$ are independent of the infection dynamics, we can solve it given $M$ as:
+Because the dynamics of $P$ are independent of the infection dynamics, we can solve it given $M$ as:
 
 $$
-G = (\mbox{diag}(\nu) + \Omega + \mbox{diag}(f))^{-1} \cdot \mbox{diag}(f) \cdot M
+P = (\Omega + \mbox{diag}(f))^{-1} \cdot \mbox{diag}(f) \cdot M
 $$
 
 ## Starting with $Z$
 
-It is more common that we start from an estimate of $Z$, perhaps derived from an estimated EIR (entomological inoculation rate). Given $Z$, we can calculate the other state variables and $\Lambda$. For numerical implementation, note that $(e^{-\Omega\tau})^{-1} = e^{\Omega\tau}$.
+It is more common that we start from an estimate of $Z$, perhaps derived from an estimated EIR (entomological inoculation rate). Piven $Z$, we can calculate the other state variables and $\Lambda$. For numerical implementation, note that $(e^{-\Omega\tau})^{-1} = e^{\Omega\tau}$.
 
 $$
 M-Y = \mbox{diag}(1/fq\kappa) \cdot (e^{-\Omega\tau})^{-1} \cdot \Omega \cdot Z
@@ -109,7 +109,7 @@ $$
 $$
 \Lambda = \Omega \cdot M
 $$
-We can use the same equation for $G$ as above.
+We can use the same equation for $P$ as above.
 
 # Example
 
@@ -133,7 +133,7 @@ f <- 0.3
 q <- 0.9
 g <- 1/20
 sigma <- 1/10
-tau <- 11
+eip <- 11
 nu <- 1/2
 eggsPerBatch <- 30
 
@@ -144,19 +144,20 @@ calK[3, 1:2] <- c(0.7, 0.3)
 calK <- t(calK)
 
 Omega <- make_Omega(g, sigma, calK, nPatches)
-Upsilon <- expm::expm(-Omega * tau)
+Upsilon <- expm::expm(-Omega * eip)
 ``` 
 
 
-Now we set up the parameter environment with the correct class using `exDE::make_parameters_MYZ_GeRM,` noting that we will be solving as an `ode.`  
+Now we set up the parameter environment with the correct class using `exDE::make_parameters_MYZ_RM,` noting that we will be solving as an `ode.`  
 
 ```{r}
 params <- list(nPatches = nPatches)
 
-params = make_parameters_MYZ_GeRM(params, g = g, sigma = sigma, calK = calK, 
-                                  f = f, q = q, 
-                                  nu = nu, eggsPerBatch = eggsPerBatch, 
-                                  tau = tau, solve_as = 'ode')  
+params = make_parameters_MYZ_RM(params, 
+                                g = g, sigma = sigma, calK = calK, 
+                                f = f, q = q, 
+                                nu = nu, eggsPerBatch = eggsPerBatch, 
+                                eip = eip, solve_as = 'ode')  
 ```
 
 Now we set the values of $\kappa$ and $\Lambda$ and solve for the equilibrium values.
@@ -168,17 +169,16 @@ Lambda <- c(5, 10, 8)
 Omega_inv <- solve(Omega)
 
 M_eq <- as.vector(Omega_inv %*% Lambda)
-G_eq <- as.vector(solve(diag(nu+f, nPatches) + Omega) %*% diag(f, nPatches) %*% M_eq)
+P_eq <- as.vector(solve(diag(f, nPatches) + Omega) %*% diag(f, nPatches) %*% M_eq)
 Y_eq <- as.vector(solve(diag(f*q*kappa) + Omega) %*% diag(f*q*kappa) %*% M_eq)
 Z_eq <- as.vector(Omega_inv %*% Upsilon %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
 ```
 
-We use `exDE::make_inits_MYZ_GeRM` to store the initial values. These equations have been implemented to compute $\Upsilon$ dynamically, so we attach `Upsilon` as initial values:
+We use `exDE::make_inits_MYZ_RM` to store the initial values. These equations have been implemented to compute $\Upsilon$ dynamically, so we attach `Upsilon` as initial values:
 
 ```{r}
-params = make_inits_MYZ_GeRM(pars = params, 
-                             M0 = M_eq, G0 = G_eq, Y0 = Y_eq, Z0 = Z_eq, 
-                             Upsilon0 = Upsilon)
+params = make_inits_MYZ_RM_ode(pars = params, 
+                             M0 = M_eq, P0 = P_eq, Y0 = Y_eq, Z0 = Z_eq)
 ```
 
 We and set the indices with `exDE::make_indices`. 
@@ -193,6 +193,7 @@ Then we can set up the initial conditions vector and use `deSolve::ode` to solve
 ```{r, out.width = "100%"}
 y0 = get_inits_MYZ(params) 
 
+
 dMYZdt_local = func=function(t, y, pars, Lambda, kappa) {
   list(dMYZdt(t, y, pars, Lambda, kappa))
 }
@@ -205,10 +206,9 @@ The output is plotted below. The flat lines shown here is a verification that th
 
 ```{r, out.width = "100%"}
 colnames(out)[params$M_ix+1] <- paste0('M_', 1:params$nPatches)
-colnames(out)[params$G_ix+1] <- paste0('G_', 1:params$nPatches)
+colnames(out)[params$P_ix+1] <- paste0('P_', 1:params$nPatches)
 colnames(out)[params$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
 colnames(out)[params$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
-out <- out[, -c(params$Upsilon_ix+1)]
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

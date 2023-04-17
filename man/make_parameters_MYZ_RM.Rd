@@ -2,7 +2,7 @@
 % Please edit documentation in R/adult-RM.R
 \name{make_parameters_MYZ_RM}
 \alias{make_parameters_MYZ_RM}
-\title{Make parameters for generalized RM ODE adult mosquito model}
+\title{Make parameters for RM ODE adult mosquito model}
 \usage{
 make_parameters_MYZ_RM(
   pars,
@@ -12,7 +12,7 @@ make_parameters_MYZ_RM(
   q,
   nu,
   eggsPerBatch,
-  tau,
+  eip,
   calK,
   solve_as = "dde"
 )
@@ -28,11 +28,11 @@ make_parameters_MYZ_RM(
 
 \item{q}{human blood fraction}
 
-\item{nu}{oviposition rate of gravid mosquitoes}
+\item{nu}{oviposition rate, per mosquito}
 
 \item{eggsPerBatch}{eggs laid per oviposition}
 
-\item{tau}{length of extrinsic incubation period}
+\item{eip}{length of extrinsic incubation period}
 
 \item{calK}{mosquito dispersal matrix of dimensions \code{nPatches} by \code{nPatches}}
 
@@ -42,5 +42,5 @@ make_parameters_MYZ_RM(
 none
 }
 \description{
-Make parameters for generalized RM ODE adult mosquito model
+Make parameters for RM ODE adult mosquito model
 }

@@ -50,6 +50,7 @@ $$
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
+#devtools::load_all(".")
 library(deSolve)
 library(data.table)
 library(ggplot2)
@@ -58,33 +59,39 @@ library(ggplot2)
 Here we run a simple example with 3 aquatic habitats at equilibrium. We use `exDE::make_parameters_L_basic` to
 set up parameters. Please note that this only runs the aquatic mosquito component and that most users should read [our fully worked example](ex_534.html) to run a full simulation.
 
-```{r, out.width = "100%"}
+```{r}
 nHabitats <- 3
 alpha <- c(10, 50, 20)
 eta <- c(250, 500, 170)
 psi <- 1/10
 phi <- 1/12
-
 L <- alpha/psi
 theta <- (eta - psi*L - phi*L)/(L^2)
+``` 
 
-params <- list(
-  nHabitats = nHabitats
-)
+```{r}
+params <- make_parameters_xde() 
+params$nHabitats = nHabitats
+
+params$eta = eta 
+F_eta = function(t, pars){
+  pars$eta
+}
 
 params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
 params = make_inits_L_basic(params, L)
-params = make_indices(params)
+params <- make_parameters_lsm_null(params) 
 
+params = make_indices(params)
+```
+
+```{r}
 y0 <- get_inits_L(params) 
 
-dLdt_local = function(t, y, pars, eta) {
-  list(dLdt(t, y, pars, eta))
-}
-  
+out <- deSolve::ode(y = y0, times = 0:50, xDE_diffeqn_aquatic, parms = params, method = 'lsoda', F_eta = F_eta) 
+``` 
 
-out <- deSolve::ode(y = y0, times = 0:50, dLdt_local, parms = params, method = 'lsoda', eta = eta)
-
+```{r, out.width = "100%"}
 colnames(out)[params$L_ix+1] <- paste0('L_', 1:params$nHabitats)
 
 out <- as.data.table(out)

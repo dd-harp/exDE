@@ -1,87 +1,49 @@
 # specialized methods for the adult mosquito GeRM model
 
-#' @title Compute bloodfeeding and mortality rates
-#' @description Implements [MosquitoBehavior] for the generalized GeRM model.
-#' @inheritParams MosquitoBehavior
+#' @title Set the availability of resources
+#' @description Implements [ResourceAvailability] for the GeRM model
+#' @inheritParams ResourceAvailability
 #' @return a named [list]
 #' @export
-MosquitoBehavior.GeRM_base <- function(t, y, pars) {
-
-  pars$MYZpar$f <- rep(pars$MYZpar$f0, 2)
-  attr(pars$MYZpar$f, 'time') <- c(t, t - pars$MYZpar$tau)
-  pars$MYZpar$q <- rep(pars$MYZpar$q0, 2)
-  pars$MYZpar$g <- rep(pars$MYZpar$g0, 2)
-  pars$MYZpar$sigma <- rep(pars$MYZpar$sigma0, 2)
-  pars$MYZpar$nu <- pars$MYZpar$nu0
-
-  return(pars)
-}
-
-#' @title Compute bloodfeeding and mortality rates
-#' @description Implements [MosquitoBehavior] for the generalized GeRM model with exogenous forcing.
-#' @inheritParams MosquitoBehavior
-#' @return a named [list]
-#' @export
-MosquitoBehavior.GeRM_exo <- function(t, y, pars) {
-
-  tt = c(t, t - pars$MYZpar$tau)
-  pars$MYZpar$f <- pars$MYZpar$F_f(tt, pars)
-  attr(pars$MYZpar$f, 'time') <- tt
-  pars$MYZpar$q <- pars$MYZpar$F_q(tt, pars)
-  pars$MYZpar$g <- pars$MYZpar$F_g(tt, pars)
-  pars$MYZpar$sigma <- pars$MYZpar$F_sigma(tt, pars)
-  pars$MYZpar$nu <- pars$MYZpar$F_nu(t, pars)
+ResourceAvailability.GeRM <- function(t, pars) {
 
   return(pars)
 }
 
 
-#' @title Time spent host seeking/feeding and resting/ovipositing
-#' @description Implements [F_tau] for the generalized GeRM model.
-#' @inheritParams F_tau
-#' @return [NULL]
+#' @title Reset bloodfeeding and mortality rates to baseline
+#' @description Implements [MosquitoBehavior] for the GeRM model
+#' @inheritParams MosquitoBehavior
+#' @return a named [list]
 #' @export
-F_tau.GeRM <- function(t, y, pars) {
-  NULL
+MosquitoBehavior.GeRM <- function(t, y, pars) {
+
+  return(pars)
 }
 
 #' @title Density of infectious mosquitoes
-#' @description Implements [F_Z] for the generalized GeRM model.
+#' @description Implements [F_Z] for the GeRM model.
 #' @inheritParams F_Z
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_Z.GeRM <- function(t, y, pars) {
-  y[pars$Z_ix]
-}
-
-#' @title Density of lagged infectious mosquitoes
-#' @description Implements [F_Z_lag] for the generalized GeRM model.
-#' @inheritParams F_Z_lag
-#' @return a [numeric] vector of length `nPatches`
-#' @importFrom deSolve lagvalue
-#' @export
-F_Z_lag.GeRM <- function(t, y, pars, lag) {
-  if (t < lag) {
-    return(pars$MYZinits$Z0)
-  } else {
-    return(lagvalue(t = t - lag, nr = pars$Z_ix))
-  }
+  y[pars$MYZpar$Z_ix]
 }
 
 #' @title Number of eggs laid by adult mosquitoes
-#' @description Implements [F_eggs] for the generalized GeRM model.
+#' @description Implements [F_eggs] for the GeRM model.
 #' @inheritParams F_eggs
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_eggs.GeRM <- function(t, y, pars) {
-  G <- y[pars$G_ix]
   with(pars$MYZpar, {
+    G <- y[G_ix]
     return(G*nu*eggsPerBatch)
   })
 }
 
 #' @title Derivatives for adult mosquitoes
-#' @description Implements [dMYZdt] for the generalized GeRM ODE model.
+#' @description Implements [dMYZdt] for the GeRM ODE model.
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
@@ -89,182 +51,188 @@ dMYZdt.GeRM_ode <- function(t, y, pars, Lambda, kappa) {
 
   nPatches <- pars$nPatches
 
-  M <- y[pars$M_ix]
-  G <- y[pars$G_ix]
-  Y <- y[pars$Y_ix]
-  Z <- y[pars$Z_ix]
-  Upsilon <- matrix(data = y[pars$Upsilon_ix], nrow = nPatches, ncol = nPatches)
+  with(pars$MYZpar,{
 
-  f <- pars$MYZpar$f
-  q <- pars$MYZpar$q
-  g <- pars$MYZpar$g
+    M <- y[M_ix]
+    G <- y[G_ix]
+    Y <- y[Y_ix]
+    Z <- y[Z_ix]
 
-  Omega <- make_Omega(g = g[1], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
-  Omega_eip <- make_Omega(g = g[2], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
+    Omega <- make_Omega(g, sigma, calK, nPatches)
+    Upsilon <- expm(-Omega*eip)
 
-  dMdt <- Lambda - (Omega %*% M)
-  dGdt <- diag(f[1], nPatches) %*% (M - G) - (pars$MYZpar$nu * G) - (Omega %*% G)
-  dYdt <- diag(f[1]*q[1]*kappa, nPatches) %*% (M - Y) - (Omega %*% Y)
-  dZdt <- Upsilon %*% diag(f[2]*q[2]*kappa, nPatches) %*% (M - Y) - (Omega %*% Z)
-  dUdt <- as.vector((Omega_eip - Omega) %*% Upsilon)
+    dMdt <- Lambda - (Omega %*% M)
+    dGdt <- f*(M - G) - nu*G - (Omega %*% G)
+    dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
+    dZdt <- Upsilon %*% diag(f*q*kappa, nPatches) %*% (M - Y) - (Omega %*% Z)
 
-  return(c(dMdt, dGdt, dYdt, dZdt, dUdt))
+    return(c(dMdt, dGdt, dYdt, dZdt))
+  })
 }
 
 #' @title Derivatives for adult mosquitoes
-#' @description Implements [dMYZdt] for the generalized GeRM DDE model.
+#' @description Implements [dMYZdt] for the GeRM DDE model.
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @importFrom deSolve lagvalue
+#' @importFrom deSolve lagderiv
 #' @export
 dMYZdt.GeRM_dde <- function(t, y, pars, Lambda, kappa) {
-  kappa_t <- kappa[1, ]
-  kappa_eip <- kappa[2, ]
 
   nPatches <- pars$nPatches
+  eip <- pars$MYZpar$eip
 
-  M <- y[pars$M_ix]
-  G <- y[pars$G_ix]
-  Y <- y[pars$Y_ix]
-  Z <- y[pars$Z_ix]
-  Upsilon <- matrix(data = y[pars$Upsilon_ix], nrow = nPatches, ncol = nPatches)
+  with(pars$MYZpar,{
+    if (t < eip) {
+      M_eip <- pars$MYZinits$M0
+      Y_eip <- pars$MYZinits$Y0
+      kappa_eip <- kappa
+      f_eip <- f
+      q_eip <- q
+      g_eip <- g
+      sigma_eip <- sigma
+    } else {
+      M_eip <- lagvalue(t = t - eip, nr = M_ix)
+      Y_eip <- lagvalue(t = t - eip, nr = Y_ix)
+      kappa_eip <- lagderiv(t = t-eip, nr = kappa_ix)
+      f_eip <- lagderiv(t = t-eip, nr = f_ix)
+      q_eip <- lagderiv(t = t-eip, nr = q_ix)
+      g_eip <- lagderiv(t = t-eip, nr = g_ix)
+      sigma_eip <- lagderiv(t = t-eip, nr = sigma_ix)
+    }
 
-  tau <- pars$MYZpar$tau
+    M <- y[M_ix]
+    G <- y[G_ix]
+    Y <- y[Y_ix]
+    Z <- y[Z_ix]
+    Upsilon <- matrix(data = y[Upsilon_ix], nrow = nPatches, ncol = nPatches)
 
-  if (t < tau) {
-    M_tau <- pars$MYZinits$M0
-    Y_tau <- pars$MYZinits$Y0
-  } else {
-    M_tau <- lagvalue(t = t - tau, nr = pars$M_ix)
-    Y_tau <- lagvalue(t = t - tau, nr = pars$Y_ix)
-  }
+    Omega <- make_Omega(g, sigma, calK, nPatches)
+    Omega_eip <- make_Omega(g_eip, sigma_eip, calK, nPatches)
 
-  f <- pars$MYZpar$f
-  q <- pars$MYZpar$q
-  g <- pars$MYZpar$g
+    dMdt <- Lambda - (Omega %*% M)
+    dGdt <- f*(M - G) - nu*G - (Omega %*% G)
+    dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
+    dZdt <- Upsilon %*% diag(f_eip*q_eip*kappa_eip, nPatches) %*% (M_eip - Y_eip) - (Omega %*% Z)
+    dUdt <- as.vector((Omega_eip - Omega) %*% Upsilon)
 
-  Omega <- make_Omega(g = g[1], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
-  Omega_eip <- make_Omega(g = g[2], sigma = pars$MYZpar$sigma, K = pars$MYZpar$calK, nPatches = nPatches)
-
-  dMdt <- Lambda - (Omega %*% M)
-  dGdt <- diag(f[1], nPatches) %*% (M - G) - (pars$MYZpar$nu * G) - (Omega %*% G)
-  dYdt <- diag(f[1]*q[1]*kappa_t, nPatches) %*% (M - Y) - (Omega %*% Y)
-  dZdt <- Upsilon %*% diag(f[2]*q[2]*kappa_eip, nPatches) %*% (M_tau - Y_tau) - (Omega %*% Z)
-  dUdt <- as.vector((Omega_eip - Omega) %*% Upsilon)
-
-  return(c(dMdt, dGdt, dYdt, dZdt, dUdt))
+    return(c(dMdt, dGdt, dYdt, dZdt, dUdt, kappa, f, q, g, sigma))
+  })
 }
 
 #' @title Add indices for adult mosquitoes to parameter list
-#' @description Implements [make_indices_MYZ] for the generalized GeRM model.
+#' @description Implements [make_indices_MYZ] for the GeRM model.
 #' @inheritParams make_indices_MYZ
 #' @return none
 #' @importFrom utils tail
 #' @export
-make_indices_MYZ.GeRM <- function(pars) {
-  pars$M_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$M_ix, 1)
+make_indices_MYZ.GeRM_ode <- function(pars) {
 
-  pars$G_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$G_ix, 1)
+  pars$MYZpar$M_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$M_ix, 1)
 
-  pars$Y_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$Y_ix, 1)
+  pars$MYZpar$G_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$G_ix, 1)
 
-  pars$Z_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$Z_ix, 1)
+  pars$MYZpar$Y_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$Y_ix, 1)
 
-  pars$Upsilon_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches^2)
-  pars$max_ix <- tail(pars$Upsilon_ix, 1)
+  pars$MYZpar$Z_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$Z_ix, 1)
+
   return(pars)
 }
 
+#' @title Add indices for adult mosquitoes to parameter list
+#' @description Implements [make_indices_MYZ] for the GeRM model.
+#' @inheritParams make_indices_MYZ
+#' @return none
+#' @importFrom utils tail
+#' @export
+make_indices_MYZ.GeRM_dde <- function(pars) {
 
-#' @title Make parameters for generalized GeRM ODE adult mosquito model
+  pars$MYZpar$M_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$M_ix, 1)
+
+  pars$MYZpar$G_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$G_ix, 1)
+
+  pars$MYZpar$Y_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$Y_ix, 1)
+
+  pars$MYZpar$Z_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$Z_ix, 1)
+
+  pars$MYZpar$Upsilon_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches^2)
+  pars$max_ix <- tail(pars$MYZpar$Upsilon_ix, 1)
+
+  pars$MYZpar$kappa_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$kappa_ix, 1)
+
+  pars$MYZpar$f_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$f_ix, 1)
+
+  pars$MYZpar$q_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$q_ix, 1)
+
+  pars$MYZpar$g_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$g_ix, 1)
+
+  pars$MYZpar$sigma_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$sigma_ix, 1)
+
+  return(pars)
+}
+
+#' @title Make parameters for GeRM ODE adult mosquito model
 #' @param pars an [environment]
-#' @param g mosquito mortality rate
-#' @param sigma emigration rate
 #' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
-#' @param f feeding rate
-#' @param q human blood fraction
-#' @param nu oviposition rate of gravid mosquitoes
-#' @param eggsPerBatch eggs laid per oviposition
-#' @param tau length of extrinsic incubation period
-#' @param solve_as is a switch: either 'ode' or 'dde'
+#' @param solve_as is either `ode` to solve as an ode or `dde` to solve as a dde
 #' @return none
 #' @export
-make_parameters_MYZ_GeRM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, tau, calK, solve_as = 'dde') {
-  stopifnot(is.numeric(g), is.numeric(sigma), is.numeric(f), is.numeric(q), is.numeric(nu), is.numeric(eggsPerBatch))
-
+make_parameters_MYZ_GeRM <- function(pars, calK, solve_as = 'dde') {
   MYZpar <- list()
+
   xde <- solve_as
   class(xde) <- solve_as
   MYZpar$xde <- xde
   if(solve_as == 'dde'){
-    pars$xde = xde
-    class(MYZpar) <- c('GeRM', 'GeRM_dde', 'GeRM_base')
+    class(MYZpar) <- c('GeRM', 'GeRM_dde')
+    pars$xde <- xde
   }
-  else if(solve_as == 'ode') class(MYZpar) <- c('GeRM', 'GeRM_ode', 'GeRM_base')
-  MYZpar$g0 <- g
-  MYZpar$sigma0 <- sigma
-  MYZpar$f0 <- f
-  MYZpar$q0 <- q
-  MYZpar$nu0 <- nu
-  MYZpar$eggsPerBatch <- eggsPerBatch
-  MYZpar$tau <- tau
+  else if(solve_as == 'ode') class(MYZpar) <- c('GeRM', 'GeRM_ode')
+
   MYZpar$calK <- calK
   pars$MYZpar <- MYZpar
+
+  pars = MosquitoBehavior.GeRM(0, 0, pars)
   return(pars)
 }
 
-#' @title Make parameters for generalized GeRM ODE adult mosquito model
-#' @param pars an [environment]
-#' @param F_g function to compute the mosquito mortality rate
-#' @param F_sigma function to compute the emigration rate
-#' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
-#' @param F_f function to compute the feeding rate
-#' @param F_q function to compute the human blood fraction
-#' @param F_nu function to compute oviposition rate of gravid mosquitoes
-#' @param eggsPerBatch eggs laid per oviposition
-#' @param tau length of extrinsic incubation period
-#' @param solve_as is a switch: either 'ode' or 'dde'
-#' @return none
-#' @export
-make_parameters_MYZ_GeRM_exo <- function(pars, F_g, F_sigma, F_f, F_q, F_nu, eggsPerBatch, tau, calK, solve_as = 'dde') {
-  stopifnot(is.numeric(tau), is.numeric(eggsPerBatch))
-
-  MYZpar <- list()
-  xde <- solve_as
-  class(xde) <- solve_as
-  MYZpar$xde <- xde
-  if(solve_as == 'dde'){
-    pars$xde = xde
-    class(MYZpar) <- c('GeRM', 'GeRM_dde', 'GeRM_exo')
-  }
-  else if(solve_as == 'ode') class(MYZpar) <- c('GeRM', 'GeRM_ode', 'GeRM_exo')
-  MYZpar$F_g <- F_g
-  MYZpar$F_sigma <- F_sigma
-  MYZpar$F_f <- F_f
-  MYZpar$F_q <- F_q
-  MYZpar$F_nu <- F_nu
-  MYZpar$eggsPerBatch <- eggsPerBatch
-  MYZpar$tau <- tau
-  MYZpar$calK <- calK
-  pars$MYZpar <- MYZpar
-  return(pars)
-}
-
-#' @title Make inits for generalized GeRM ODE adult mosquito model
+#' @title Make inits for GeRM adult mosquito model
 #' @param pars an [environment]
 #' @param M0 total mosquito density at each patch
-#' @param G0 gravid mosquito density at each patch
+#' @param G0 total parous mosquito density at each patch
+#' @param Y0 infected mosquito density at each patch
+#' @param Z0 infectious mosquito density at each patch
+#' @return none
+#' @export
+make_inits_MYZ_GeRM_ode <- function(pars, M0, G0, Y0, Z0) {
+  pars$MYZinits = list(M0=M0, G0=G0, Y0=Y0, Z0=Z0)
+  return(pars)
+}
+
+#' @title Make inits for GeRM adult mosquito model
+#' @param pars an [environment]
+#' @param M0 total mosquito density at each patch
+#' @param G0 total parous mosquito density at each patch
 #' @param Y0 infected mosquito density at each patch
 #' @param Z0 infectious mosquito density at each patch
 #' @param Upsilon0 the initial values of Upsilon
 #' @return none
 #' @export
-make_inits_MYZ_GeRM <- function(pars, M0, G0, Y0, Z0, Upsilon0) {
-  pars$MYZinits = list(M0=M0, G0=G0, Y0=Y0, Z0=Z0, Upsilon0=Upsilon0)
+make_inits_MYZ_GeRM_dde <- function(pars, M0, G0, Y0, Z0, Upsilon0) {
+  pars$MYZinits = list(M0=M0, G0=G0, Y0=Y0, Z0=Z0, Upsilon0=Upsilon0, rep(0, 5*pars$nPatches))
   return(pars)
 }
 
@@ -273,6 +241,16 @@ make_inits_MYZ_GeRM <- function(pars, M0, G0, Y0, Z0, Upsilon0) {
 #' @inheritParams get_inits_MYZ
 #' @return none
 #' @export
-get_inits_MYZ.GeRM <- function(pars) {with(pars$MYZinits,{
-  c(M0, G0, Y0, Z0, as.vector(Upsilon0))
+get_inits_MYZ.GeRM_ode <- function(pars) {with(pars$MYZinits,{
+  c(M0, G0, Y0, Z0)
 })}
+
+#' @title Return initial values as a vector
+#' @description Implements [get_inits_MYZ] for the GeRM model.
+#' @inheritParams get_inits_MYZ
+#' @return none
+#' @export
+get_inits_MYZ.GeRM_dde <- function(pars) {with(pars$MYZinits,{
+  c(M0, G0, Y0, Z0, as.vector(Upsilon0), rep(0, 5*pars$nPatches))
+})}
+

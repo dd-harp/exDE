@@ -17,5 +17,5 @@
 a \link{numeric} vector of length \code{nPatches}
 }
 \description{
-Implements \link{F_eggs} for the generalized RM model.
+Implements \link{F_eggs} for the RM model.
 }

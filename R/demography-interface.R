@@ -11,18 +11,6 @@ F_H <- function(t, y, pars) {
   UseMethod("F_H", pars$Hpar)
 }
 
-#' @title Size of lagged human population denominators
-#' @description This method dispatches on the type of `pars$Hpar`.
-#' @param t current simulation time
-#' @param y state vector
-#' @param pars an [environment]
-#' @param lag duration of lag `t-lag`
-#' @return a [numeric] vector of length `nStrata`
-#' @export
-F_H_lag <- function(t, y, pars, lag) {
-  UseMethod("F_H_lag", pars$Hpar)
-}
-
 #' @title Derivatives of demographic changes in human populations
 #' @description This method dispatches on the type of `y`.
 #' @param t current simulation time
@@ -79,7 +67,9 @@ make_parameters_demography_null <- function(pars, H, membershipH, searchWtsH, Ti
   class(Hpar$H) <- "static"
   Hpar$membershipH <- membershipH
   Hpar$searchWtsH <- searchWtsH
+  Hpar$wf <- searchWtsH
   Hpar$TimeSpent <- TimeSpent
+  Hpar$Psi <- TimeSpent
   birthF <- "null"
   class(birthF) <- "null"
   Hpar$birthF <- birthF
