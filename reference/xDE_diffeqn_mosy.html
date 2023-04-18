@@ -36,6 +36,7 @@ mosquito components."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-adult-mosquito-component">Adult Mosquito Component</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-adult-mosquito-component">
     <a class="dropdown-item" href="../articles/adult_RM.html">Ross-Macdonald model</a>
+    <a class="dropdown-item" href="../articles/adult_GeRM.html">Generalized Ross-Macdonald model</a>
   </div>
 </li>
 <li class="nav-item dropdown">
@@ -81,7 +82,7 @@ mosquito components.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">xDE_diffeqn_mosy</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">kappa</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">xDE_diffeqn_mosy</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, kappa <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -99,7 +100,7 @@ mosquito components.</p>
 
 
 <dt>kappa</dt>
-<dd><p>a vector
+<dd><p>a vector or NULL object
 the appropriate adult mosquito model</p></dd>
 
 </dl></div>
