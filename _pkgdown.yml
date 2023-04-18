@@ -53,6 +53,203 @@ home:
         title: Changelog
         text: <a href="news/index.html">News</a>
 reference:
+- title: Generalized derivatives functions 
+  contents:
+  - xDE_diffeqn
+  - xDE_diffeqn_mosy
+  - xDE_diffeqn_cohort
+  - xDE_diffeqn_aquatic
+- title: Transmission
+  desc: |
+    Generic methods for transmission.
+  contents:
+  - F_beta
+  - F_EIR
+  - F_kappa
+  - compute_beta
+- title: Adult mosquito component
+  desc: |
+    Generic methods for the adult mosquito component.
+  contents:
+  - MosquitoBehavior
+  - F_tau
+  - F_Z
+  - F_eggs
+  - dMYZdt
+  - make_indices_MYZ
+  - get_inits_MYZ
+  - make_Omega
+- subtitle: basicM - mosquito population dynamics (no infection) 
+  desc: |
+    Specialized methods for a basic model of adult mosquito dynamics.
+  contents:
+  - MosquitoBehavior.basicM
+  - F_eggs.basicM
+  - dMYZdt.basicM
+  - make_indices_MYZ.basicM
+  - make_parameters_MYZ_basicM
+  - make_inits_MYZ_basicM
+  - get_inits_MYZ.basicM
+- subtitle: RM - A Ross-Macdonald-style mosquito model   
+  desc: |
+    Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics based on Aron & May (1982).
+  contents:
+  - MosquitoBehavior.RM
+  - F_Z.RM
+  - F_eggs.RM
+  - dMYZdt.RM_ode
+  - dMYZdt.RM_dde
+  - make_indices_MYZ.RM_ode
+  - make_indices_MYZ.RM_dde
+  - make_parameters_MYZ_RM
+  - make_inits_MYZ_RM_ode
+  - make_inits_MYZ_RM_dde
+  - get_inits_MYZ.RM_ode
+  - get_inits_MYZ.RM_dde
+- subtitle: GeRM - a generalized Ross-Macdonald mosquito model
+  desc: |
+    Specialized methods for the generalized Ross-Macdonald model of adult mosquito dynamics from Wu SL, et al. (2023).
+  contents:
+  - MosquitoBehavior.GeRM
+  - ResourceAvailability.GeRM
+  - F_Z.GeRM
+  - F_eggs.GeRM
+  - dMYZdt.GeRM_ode
+  - dMYZdt.GeRM_dde
+  - make_indices_MYZ.GeRM_ode
+  - make_indices_MYZ.GeRM_dde
+  - make_parameters_MYZ_GeRM
+  - make_inits_MYZ_GeRM_ode
+  - make_inits_MYZ_GeRM_dde
+  - get_inits_MYZ.GeRM_ode
+  - get_inits_MYZ.GeRM_dde
+- subtitle: Ztrace - specialized methods to call the adult mosquito model as a trace
+  desc: |
+    Specialized methods to pass values of Z to force human infection dynamics.
+  contents:
+  - MosquitoBehavior.Ztrace
+  - F_Z.Ztrace
+  - F_eggs.Ztrace
+  - dMYZdt.Ztrace
+  - make_indices_MYZ.Ztrace
+  - make_parameters_MYZ_Ztrace
+  - make_inits_MYZ_Ztrace
+  - get_inits_MYZ.Ztrace
+- title: Aquatic mosquito component
+  desc: |
+    Generic methods for the aquatic (immature) mosquito component.
+  contents:
+  - F_alpha
+  - dLdt
+  - make_indices_L
+  - get_inits_L
+- subtitle: Trace (forced) aquatic mosquito model
+  desc: |
+    Specialized methods for the exogeneously forced trace model of aquatic mosquito dynamics.
+  contents:
+  - F_alpha.trace
+  - dLdt.trace
+  - make_indices_L.trace
+  - make_parameters_L_trace
+  - make_inits_L_trace
+  - get_inits_L.trace
+- subtitle: basic - Basic competition aquatic mosquito model
+  desc: |
+    Specialized methods for the basic competition model of aquatic mosquito dynamics.
+  contents:
+  - F_alpha.basic
+  - dLdt.basic
+  - make_indices_L.basic
+  - make_parameters_L_basic
+  - make_inits_L_basic
+  - get_inits_L.basic
+- title: Human disease component
+  desc: |
+    Generic methods for the human disease component.
+  contents:
+  - F_x
+  - dXdt
+  - make_indices_X
+  - get_inits_X
+- subtitle: hybrid MoI model
+  desc: |
+    Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.
+  contents:
+  - F_x.hMoI
+  - dXdt.hMoI
+  - make_indices_X.hMoI
+  - make_parameters_X_hMoI
+  - make_inits_X_hMoI
+  - get_inits_X.hMoI
+- subtitle: SIS human model
+  desc: |
+    Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
+  contents:
+  - F_x.SIS
+  - dXdt.SIS
+  - make_indices_X.SIS
+  - make_parameters_X_SIS
+  - make_inits_X_SIS
+  - get_inits_X.SIS
+- subtitle: SIP human model
+  desc: |
+    Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
+  contents:
+  - F_x.SIP
+  - dXdt.SIP
+  - make_indices_X.SIP
+  - make_parameters_X_SIP
+  - make_inits_X_SIP
+  - get_inits_X.SIP
+- subtitle: human trace model
+  desc: |
+    Specialized methods for a human trace model
+  contents:
+  - F_x.trace
+  - dXdt.trace
+  - make_indices_X.trace
+  - make_parameters_X_trace
+  - make_inits_X_trace
+  - get_inits_X.trace
+- title: Human demography component
+  desc: |
+    Generic methods for the human demography component.
+  contents:
+  - F_H
+  - dHdt
+  - Births
+  - make_indices_H
+  - get_inits_H
+  - make_parameters_demography_null
+- subtitle: Static demography model
+  desc: |
+    Specialized methods for the static (constant) demographic model
+  contents:
+  - F_H.static
+  - Births.static
+  - dHdt.static
+  - make_indices_H.static
+  - get_inits_H.static
+  - make_parameters_demography_static
+- subtitle: Dynamic demography model
+  desc: |
+    Specialized methods for the demographic model with dynamic denominators
+  contents:
+  - F_H.dynamic
+  - Births.numeric
+  - dHdt.numeric
+  - make_indices_H.dynamic
+  - get_inits_H.dynamic
+  - make_parameters_demography_dynamic
+- subtitle: Births
+  desc: |
+    Specialized methods to compute population birth rates
+  contents:
+  - F_births
+  - F_births.null
+  - F_births.constant
+  - F_births.forced
+  - F_births.exp
 - title: Exogeneous Forcing
   desc: |
     Methods to implement exogeneous forcing.
@@ -149,203 +346,6 @@ reference:
   - LSM.null
   - make_parameters_lsm_null
   - LSM.null
-- title: Adult mosquito component
-  desc: |
-    Generic methods for the adult mosquito component.
-  contents:
-  - MosquitoBehavior
-  - F_tau
-  - F_Z
-  - F_eggs
-  - dMYZdt
-  - make_indices_MYZ
-  - get_inits_MYZ
-  - make_Omega
-- subtitle: A basic mosquito ecology
-  desc: |
-    Specialized methods for a basic model of adult mosquito dynamics.
-  contents:
-  - MosquitoBehavior.basicM
-  - F_eggs.basicM
-  - dMYZdt.basicM
-  - make_indices_MYZ.basicM
-  - make_parameters_MYZ_basicM
-  - make_inits_MYZ_basicM
-  - get_inits_MYZ.basicM
-- subtitle: A Ross-Macdonald-style mosquito model
-  desc: |
-    Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics.
-  contents:
-  - MosquitoBehavior.RM
-  - F_Z.RM
-  - F_eggs.RM
-  - dMYZdt.RM_ode
-  - dMYZdt.RM_dde
-  - make_indices_MYZ.RM_ode
-  - make_indices_MYZ.RM_dde
-  - make_parameters_MYZ_RM
-  - make_inits_MYZ_RM_ode
-  - make_inits_MYZ_RM_dde
-  - get_inits_MYZ.RM_ode
-  - get_inits_MYZ.RM_dde
-- subtitle: Generalized Ross-Macdonald mosquito model
-  desc: |
-    Specialized methods for the generalized Ross-Macdonald model of adult mosquito dynamics.
-  contents:
-  - MosquitoBehavior.GeRM
-  - ResourceAvailability.GeRM
-  - F_Z.GeRM
-  - F_eggs.GeRM
-  - dMYZdt.GeRM_ode
-  - dMYZdt.GeRM_dde
-  - make_indices_MYZ.GeRM_ode
-  - make_indices_MYZ.GeRM_dde
-  - make_parameters_MYZ_GeRM
-  - make_inits_MYZ_GeRM_ode
-  - make_inits_MYZ_GeRM_dde
-  - get_inits_MYZ.GeRM_ode
-  - get_inits_MYZ.GeRM_dde
-- subtitle: specialized methods for the adult mosquito Ztrace model
-  desc: |
-    Specialized methods for the Z-trace of adult mosquito dynamics.
-  contents:
-  - MosquitoBehavior.Ztrace
-  - F_Z.Ztrace
-  - F_eggs.Ztrace
-  - dMYZdt.Ztrace
-  - make_indices_MYZ.Ztrace
-  - make_parameters_MYZ_Ztrace
-  - make_inits_MYZ_Ztrace
-  - get_inits_MYZ.Ztrace
-- title: Aquatic mosquito component
-  desc: |
-    Generic methods for the aquatic (immature) mosquito component.
-  contents:
-  - F_alpha
-  - dLdt
-  - make_indices_L
-  - get_inits_L
-- subtitle: Trace (forced) aquatic mosquito model
-  desc: |
-    Specialized methods for the exogeneously forced trace model of aquatic mosquito dynamics.
-  contents:
-  - F_alpha.trace
-  - dLdt.trace
-  - make_indices_L.trace
-  - make_parameters_L_trace
-  - make_inits_L_trace
-  - get_inits_L.trace
-- subtitle: Basic competition aquatic mosquito model
-  desc: |
-    Specialized methods for the basic competition model of aquatic mosquito dynamics.
-  contents:
-  - F_alpha.basic
-  - dLdt.basic
-  - make_indices_L.basic
-  - make_parameters_L_basic
-  - make_inits_L_basic
-  - get_inits_L.basic
-- title: Transmission
-  desc: |
-    Generic methods for transmission.
-  contents:
-  - F_beta
-  - F_EIR
-  - F_kappa
-  - compute_beta
-- title: Human disease component
-  desc: |
-    Generic methods for the human disease component.
-  contents:
-  - F_x
-  - dXdt
-  - make_indices_X
-  - get_inits_X
-- subtitle: hybrid MoI model
-  desc: |
-    Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.
-  contents:
-  - F_x.hMoI
-  - dXdt.hMoI
-  - make_indices_X.hMoI
-  - make_parameters_X_hMoI
-  - make_inits_X_hMoI
-  - get_inits_X.hMoI
-- subtitle: SIS human model
-  desc: |
-    Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
-  contents:
-  - F_x.SIS
-  - dXdt.SIS
-  - make_indices_X.SIS
-  - make_parameters_X_SIS
-  - make_inits_X_SIS
-  - get_inits_X.SIS
-- subtitle: SIP human model
-  desc: |
-    Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
-  contents:
-  - F_x.SIP
-  - dXdt.SIP
-  - make_indices_X.SIP
-  - make_parameters_X_SIP
-  - make_inits_X_SIP
-  - get_inits_X.SIP
-- subtitle: human trace model
-  desc: |
-    Specialized methods for a human trace model
-  contents:
-  - F_x.trace
-  - dXdt.trace
-  - make_indices_X.trace
-  - make_parameters_X_trace
-  - make_inits_X_trace
-  - get_inits_X.trace
-- title: Human demography component
-  desc: |
-    Generic methods for the human demography component.
-  contents:
-  - F_H
-  - dHdt
-  - Births
-  - make_indices_H
-  - get_inits_H
-  - make_parameters_demography_null
-- subtitle: Static demography model
-  desc: |
-    Specialized methods for the static (constant) demographic model
-  contents:
-  - F_H.static
-  - Births.static
-  - dHdt.static
-  - make_indices_H.static
-  - get_inits_H.static
-  - make_parameters_demography_static
-- subtitle: Dynamic demography model
-  desc: |
-    Specialized methods for the demographic model with dynamic denominators
-  contents:
-  - F_H.dynamic
-  - Births.numeric
-  - dHdt.numeric
-  - make_indices_H.dynamic
-  - get_inits_H.dynamic
-  - make_parameters_demography_dynamic
-- subtitle: Births
-  desc: |
-    Specialized methods to compute population birth rates
-  contents:
-  - F_births
-  - F_births.null
-  - F_births.constant
-  - F_births.forced
-  - F_births.exp
-- title: Generalized spatial differential equations
-  contents:
-  - xDE_diffeqn
-  - xDE_diffeqn_mosy
-  - xDE_diffeqn_cohort
-  - xDE_diffeqn_aquatic
 - title: Spatial metrics
   contents:
   - metric_calV

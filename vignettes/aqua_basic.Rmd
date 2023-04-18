@@ -50,7 +50,6 @@ $$
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
-#devtools::load_all(".")
 library(deSolve)
 library(data.table)
 library(ggplot2)

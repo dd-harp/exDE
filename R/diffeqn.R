@@ -104,7 +104,7 @@ xDE_diffeqn_cohort <- function(a, y, pars, F_eir) {
   return(list(c(dX)))
 }
 
-#' @title Differential equation models for aquatic
+#' @title Differential equation models for aquatic mosquito populations
 #' @description Compute derivatives for [deSolve::ode] or [deSolve::dede] using
 #' generic methods for each model component.
 #' @param t current simulation time
