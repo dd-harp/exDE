@@ -2,7 +2,7 @@
 % Please edit documentation in R/diffeqn.R
 \name{xDE_diffeqn_aquatic}
 \alias{xDE_diffeqn_aquatic}
-\title{Differential equation models for aquatic}
+\title{Differential equation models for aquatic mosquito populations}
 \usage{
 xDE_diffeqn_aquatic(t, y, pars, F_eta)
 }

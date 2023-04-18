@@ -7,8 +7,8 @@
 #' @param pars an [environment]
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_x <- function(t, y, pars) {
-  UseMethod("F_x", pars$Xpar)
+F_X <- function(t, y, pars) {
+  UseMethod("F_X", pars$Xpar)
 }
 
 #' @title Derivatives for human population
