@@ -16,14 +16,14 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   r <- 1/200
   wf <- rep(1, pars$nStrata)
 
-  f <- 0.3
-  q <- 0.9
-  g <- 1/10
-  sigma <- 1/100
-  nu <- 1/2
+  f <- rep(0.3, pars$nPatches)
+  q <- rep(0.9, pars$nPatches)
+  g <- rep(1/10, pars$nPatches)
+  sigma <- rep(1/100, pars$nPatches)
+  nu <- rep(1/2, pars$nPatches)
   eggsPerBatch <- 30
 
-  tau <- 11
+  eip <- 11
 
   # mosquito movement calK
   calK <- matrix(0, pars$nPatches, pars$nPatches)
@@ -34,8 +34,8 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
 
   Omega <- make_Omega(g = g, sigma = sigma, K = calK, nPatches = pars$nPatches)
   Omega_inv <- solve(Omega)
-  Upsilon <- expm::expm(-Omega * tau)
-  Upsilon_inv <- expm::expm(Omega * tau)
+  Upsilon <- expm::expm(-Omega * eip)
+  Upsilon_inv <- expm::expm(Omega * eip)
 
   # human PfPR and H
   pfpr <- runif(n = pars$nStrata, min = 0.25, max = 0.35)
@@ -70,19 +70,17 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   MY <- diag(1/as.vector(f*q*kappa), pars$nPatches) %*% Upsilon_inv %*% Omega %*% Z
   Y <- Omega_inv %*% (diag(as.vector(f*q*kappa), pars$nPatches) %*% MY)
   M <- MY + Y
-  G <- solve(diag(nu+f, pars$nPatches) + Omega) %*% diag(f, pars$nPatches) %*% M
+  P <- solve(diag(f, pars$nPatches) + Omega) %*% diag(f, pars$nPatches) %*% M
   Lambda <- Omega %*% M
 
   # set parameters
   pars = make_parameters_demography_null(pars = pars, H=H, membershipH=membershipH,
                                            searchWtsH=searchWtsH, TimeSpent=Psi)
-  pars = make_parameters_MYZ_GeRM(pars = pars, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
-  pars = make_inits_MYZ_GeRM(pars = pars, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=Upsilon)
+  pars = make_parameters_MYZ_RM(pars = pars, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
+  pars = make_inits_MYZ_RM_dde(pars = pars, M0 = as.vector(M), P0 = as.vector(P), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=Upsilon)
   pars = make_parameters_L_trace(pars = pars,  Lambda = as.vector(Lambda))
   pars = make_inits_L_trace(pars = pars)
-  pars = make_parameters_vc_lemenach(pars = pars)
-  pars = make_parameters_exogenous_null(pars = pars)
-  pars = make_parameters_mi_null(pars)
+  pars = make_parameters_itn_lemenach(pars = pars, phi=function(t){0})
   pars = make_parameters_X_SIS(pars = pars, b = b, c = c, r = r)
   pars = make_inits_X_SIS(pars = pars, X)
 

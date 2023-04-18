@@ -9,15 +9,6 @@ F_H.static <- function(t, y, pars) {
   pars$Hpar$H
 }
 
-#' @title Size of lagged human population denominators
-#' @description Implements [F_H_lag] for the static model.
-#' @inheritParams F_H_lag
-#' @return a [numeric] vector of length `nStrata`
-#' @export
-F_H_lag.static <- function(t, y, pars, lag) {
-  pars$Hpar$H
-}
-
 #' @title Derivatives of demographic changes in human populations
 #' @description Implements [Births] when `y` is static
 #' @inheritParams Births
@@ -71,12 +62,14 @@ make_parameters_demography_static <- function(pars, H, membershipH, searchWtsH, 
                                               birthFpars, Hmatrix, birthsXstrata) {
   stopifnot(length(H) == pars$nStrata)
   Hpar <- list()
-  class(Hpar) <- c('static')
+  class(Hpar) <- c("static")
   Hpar$H <- H
   class(Hpar$H) <- "static"
   Hpar$membershipH <- membershipH
   Hpar$searchWtsH <- searchWtsH
+  Hpar$wf <- searchWtsH
   Hpar$TimeSpent <- TimeSpent
+  Hpar$Psi <- TimeSpent
   Hpar$birthFpars <- birthFpars
   Hpar$birthXstrata <- birthsXstrata
   Hpar$Hmatrix <- Hmatrix

@@ -9,15 +9,6 @@ F_H.dynamic <- function(t, y, pars) {
   y[pars$H_ix]
 }
 
-#' @title Size of lagged human population denominators
-#' @description Implements [F_H_lag] for the dynamic demography model
-#' @inheritParams F_H_lag
-#' @return a [numeric] vector of length `nStrata`
-#' @export
-F_H_lag.dynamic <- function(t, y, pars, lag) {
-  pars$Hpar$H
-}
-
 #' @title Add indices for human population denominators to parameter list
 #' @description Implements [make_indices_H] for the dynamic demography model.
 #' @inheritParams make_indices_H

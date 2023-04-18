@@ -68,7 +68,7 @@ set up parameters. Please note that this only runs the human population componen
 
 We use the null (constant) model of human demography ($H$ constant for all time). While $H$ does not appear in the equations above, it must be specified as the model of bloodfeeding ($\beta$) relies on $H$ to compute consistent values.
 
-```{r, out.width = "100%"}
+```{r}
 nStrata <- 3
 H <- c(100, 500, 250)
 membershipH = rep(1,3) 
@@ -85,28 +85,37 @@ h <- r2*m20
 m10 <- h/r1
 
 EIR <- h/b
+```
 
+```{r}
 params <- make_parameters_xde()
 params$nStrata = nStrata
 params$nPatches = 1 
+
+params$eir = rep(EIR, 3)
+F_eir = function(t, pars){
+  pars$eir
+}
 
 params = make_parameters_demography_null(pars = params, H=H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi) 
 
 params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
 params = make_inits_X_hMoI(pars = params, rep(m10, nStrata), rep(m20, nStrata)) 
 params = make_indices(params)
+```
 
+```{r}
 y0 <- get_inits(params)
 
-dXdt_local = function(t, y, pars, EIR) {
-  list(dXdt(t, y, pars, EIR))
-}
+out <- deSolve::ode(y = y0, times = c(0, 365), func = xDE_diffeqn_cohort, 
+                    parms = params, method = 'lsoda', F_eir = F_eir) 
+```
 
-out <- deSolve::ode(y = y0, times = c(0, 365), func = dXdt_local, 
-                    parms = params, method = 'lsoda', EIR = as.vector(EIR))
 
-colnames(out)[params$m1_ix+1] <- paste0('m1_', 1:params$nStrata)
-colnames(out)[params$m2_ix+1] <- paste0('m2_', 1:params$nStrata)
+```{r, out.width = "100%"}
+
+colnames(out)[params$Xpar$m1_ix+1] <- paste0('m1_', 1:params$nStrata)
+colnames(out)[params$Xpar$m2_ix+1] <- paste0('m2_', 1:params$nStrata)
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

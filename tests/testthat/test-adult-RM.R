@@ -8,11 +8,11 @@ test_that("RM models reach equilibrium", {
   numeric_tol <- 1e-4
 
   nPatches <- 3
-  f <- 0.3
-  q <- 0.9
-  g <- 1/20
-  sigma <- 1/10
-  tau <- 11
+  f <- rep(0.3, nPatches)
+  q <- rep(0.9, nPatches)
+  g <- rep(1/20, nPatches)
+  sigma <- rep(1/10, nPatches)
+  eip <- 11
   nu <- 1/2
   eggsPerBatch <- 30
 
@@ -23,7 +23,7 @@ test_that("RM models reach equilibrium", {
   calK <- t(calK)
 
   Omega <- make_Omega(g, sigma, calK, nPatches)
-  OmegaEIP <- expm::expm(-Omega * tau)
+  OmegaEIP <- expm::expm(-Omega * eip)
 
   kappa <- c(0.1, 0.075, 0.025)
   Lambda <- c(5, 10, 8)
@@ -32,15 +32,14 @@ test_that("RM models reach equilibrium", {
   params$nPatches = nPatches
 
   # ODE
-  params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode")
-  params = make_inits_MYZ_GeRM(pars = params, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 =rep(0, nPatches), Upsilon0=OmegaEIP)
+  params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode")
+  params = make_inits_MYZ_RM_ode(pars = params, M0 = rep(0, nPatches), P0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 =rep(0, nPatches))
 
   params = make_indices(params)
 
   # make indices and set up initial conditions
   y0 <- get_inits(params)
 
-  params <- MosquitoBehavior.GeRM_base(0, y0, params)
   # solve ODEs
   out <- deSolve::ode(y = y0, times = c(0, 730), func = function(t, y, pars, Lambda, kappa) {
     list(dMYZdt(t, y, pars, Lambda, kappa))
@@ -48,22 +47,22 @@ test_that("RM models reach equilibrium", {
 
   # equilibrium solutions (forward)
   Omega_inv <- solve(Omega)
-  OmegaEIP_inv <- expm::expm(Omega * tau)
+  OmegaEIP_inv <- expm::expm(Omega * eip)
 
   M_eq <- as.vector(Omega_inv %*% Lambda)
-  M_sim <- as.vector(out[2, params$M_ix+1])
+  M_sim <- as.vector(out[2, params$MYZpar$M_ix+1])
 
-  G_eq <- as.vector(solve(diag(nu+f, nPatches) + Omega) %*% diag(f, nPatches) %*% M_eq)
-  G_sim <- as.vector(out[2, params$G_ix+1])
+  P_eq <- as.vector(solve(diag(f, nPatches) + Omega) %*% diag(f, nPatches) %*% M_eq)
+  P_sim <- as.vector(out[2, params$MYZpar$P_ix+1])
 
   Y_eq <- as.vector(solve(diag(f*q*kappa) + Omega) %*% diag(f*q*kappa) %*% M_eq)
-  Y_sim <- as.vector(out[2, params$Y_ix+1])
+  Y_sim <- as.vector(out[2, params$MYZpar$Y_ix+1])
 
   Z_eq <- as.vector(Omega_inv %*% OmegaEIP %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
-  Z_sim <- as.vector(out[2, params$Z_ix+1])
+  Z_sim <- as.vector(out[2, params$MYZpar$Z_ix+1])
 
   expect_equal(M_eq, M_sim, tolerance = numeric_tol)
-  expect_equal(G_eq, G_sim, tolerance = numeric_tol)
+  expect_equal(P_eq, P_sim, tolerance = numeric_tol)
   expect_equal(Y_eq, Y_sim, tolerance = numeric_tol)
   expect_equal(Z_eq, Z_sim, tolerance = numeric_tol)
 
@@ -79,38 +78,39 @@ test_that("RM models reach equilibrium", {
 
   expect_equal(MY_eq, MY_sim, tolerance = numeric_tol)
   expect_equal(Y_eq, Y_sim, tolerance = numeric_tol)
+  expect_equal(P_eq, P_sim, tolerance = numeric_tol)
   expect_equal(M_eq, M_sim, tolerance = numeric_tol)
   expect_equal(Lambda_eq, Lambda, tolerance = numeric_tol)
 
   # DDE
-  params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch)
-  params = make_inits_MYZ_GeRM(pars = params, M0 = rep(0, nPatches), G0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 =rep(0, nPatches), Upsilon0=OmegaEIP)
-  params = make_parameters_mi_null(params)
+  params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "dde")
+  params = make_inits_MYZ_RM_dde(pars = params, M0 = rep(0, nPatches), P0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 =rep(0, nPatches), Upsilon0=as.vector(OmegaEIP))
+
   params = make_indices(params)
 
-  params <- MosquitoBehavior.GeRM_base(0, y0, params)
+  y0 <- get_inits(params)
 
   # solve DDEs
   out <- deSolve::dede(y = y0, times = c(0, 365), func = function(t, y, pars, Lambda, kappa) {
     list(dMYZdt(t, y, pars, Lambda, kappa))
-  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = rbind(kappa, kappa)
+  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa
   )
 
   # equilibrium solutions (forward)
   M_eq <- as.vector(Omega_inv %*% Lambda)
-  M_sim <- as.vector(out[2, params$M_ix+1])
+  M_sim <- as.vector(out[2, params$MYZpar$M_ix+1])
 
-  G_eq <- as.vector(solve(diag(nu+f, nPatches) + Omega) %*% diag(f, nPatches) %*% M_eq)
-  G_sim <- as.vector(out[2, params$G_ix+1])
+  P_eq <- as.vector(solve(diag(f, nPatches) + Omega) %*% diag(f, nPatches) %*% M_eq)
+  P_sim <- as.vector(out[2, params$MYZpar$P_ix+1])
 
   Y_eq <- as.vector(solve(diag(f*q*kappa) + Omega) %*% diag(f*q*kappa) %*% M_eq)
-  Y_sim <- as.vector(out[2, params$Y_ix+1])
+  Y_sim <- as.vector(out[2, params$MYZpar$Y_ix+1])
 
   Z_eq <- as.vector(Omega_inv %*% OmegaEIP %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
-  Z_sim <- as.vector(out[2, params$Z_ix+1])
+  Z_sim <- as.vector(out[2, params$MYZpar$Z_ix+1])
 
   expect_equal(M_eq, M_sim, tolerance = numeric_tol)
-  expect_equal(G_eq, G_sim, tolerance = numeric_tol)
+  expect_equal(P_eq, P_sim, tolerance = numeric_tol)
   expect_equal(Y_eq, Y_sim, tolerance = numeric_tol)
   expect_equal(Z_eq, Z_sim, tolerance = numeric_tol)
 

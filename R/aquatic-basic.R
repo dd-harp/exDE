@@ -6,8 +6,10 @@
 #' @return a [numeric] vector of length `nHabitats`
 #' @export
 F_alpha.basic <- function(t, y, pars) {
-  L <- y[pars$L_ix]
-  pars$Lpar$psi*L
+  with(pars$Lpar,{
+    L <- y[L_ix]
+    psi*L
+  })
 }
 
 #' @title Derivatives for aquatic stage mosquitoes
@@ -16,8 +18,8 @@ F_alpha.basic <- function(t, y, pars) {
 #' @return a [numeric] vector
 #' @export
 dLdt.basic <- function(t, y, pars, eta) {
-  L <- y[pars$L_ix]
   with(pars$Lpar, {
+    L <- y[L_ix]
     dL = eta - (psi + phi + (theta*L))*L
     return(dL)
   })
@@ -30,8 +32,8 @@ dLdt.basic <- function(t, y, pars, eta) {
 #' @importFrom utils tail
 #' @export
 make_indices_L.basic <- function(pars) {
-  pars$L_ix <- seq(from = pars$max_ix+1, length.out = pars$nHabitats)
-  pars$max_ix <- tail(pars$L_ix, 1)
+  pars$Lpar$L_ix <- seq(from = pars$max_ix+1, length.out = pars$nHabitats)
+  pars$max_ix <- tail(pars$Lpar$L_ix, 1)
   return(pars)
 }
 

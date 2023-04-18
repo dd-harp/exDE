@@ -11,18 +11,6 @@ F_x <- function(t, y, pars) {
   UseMethod("F_x", pars$Xpar)
 }
 
-#' @title Size of lagged effective infectious human population
-#' @description This method dispatches on the type of `pars$Xpar`.
-#' @param t current simulation time
-#' @param y state vector
-#' @param pars an [environment]
-#' @param lag duration of lag `t-lag`
-#' @return a [numeric] vector of length `nStrata`
-#' @export
-F_x_lag <- function(t, y, pars, lag) {
-  UseMethod("F_x_lag", pars$Xpar)
-}
-
 #' @title Derivatives for human population
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param t current simulation time

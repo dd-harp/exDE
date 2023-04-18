@@ -122,17 +122,17 @@ f <- rep(1/3, params$nPatches)
 q <- rep(0.9, params$nPatches) 
 nu <- c(1/3,1/3,0)   
 eggsPerBatch <- 30 
-tau <- 12 
+eip <- 12 
 M0 <- rep(100, params$nPatches)
-G0 <- rep(10, params$nPatches)
+P0 <- rep(10, params$nPatches)
 Y0 <- rep(1, params$nPatches)
 Z0 <- rep(0, params$nPatches)
 
 Omega <- make_Omega(g, sigma, calK, params$nPatches)
-Upsilon <- expm::expm(-Omega*tau)
+Upsilon <- expm::expm(-Omega*eip)
 
-params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode") 
-params = make_inits_MYZ_RM(params, M0 = M0, Y0 = Y0, Z0 = Z0, Upsilon0=Upsilon)
+params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode") 
+params = make_inits_MYZ_RM_ode(params, M0 = M0, Y0 = Y0, P0=P0, Z0 = Z0)
 ```
 
 ## Human Parameters
@@ -207,16 +207,6 @@ params = make_inits_X_SIS(params, X0)
 
 # Simulation
 
-## Exogenous forcing and vector control
-
-We need to specify models for exogenous forcing and vector control. We simply use the null models for both (no presence of vector control and no exogenous forcing).
-
-```{r}
-params = make_parameters_exogenous_null(params)
-params = make_parameters_vc_null(params)
-params = make_parameters_mi_null(params)
-```
-
 ## Initial Conditions
 
 After the parameters for `5-3-4` have been specified, we can generate the indices for the model and attach them to the parameter list.
@@ -246,11 +236,10 @@ With a small amount of data wrangling made easier by the `data.table` package, w
 ```{r, out.width = "100%"}
 colnames(out)[params$L_ix+1] <- paste0('L_', 1:params$nHabitats)
 colnames(out)[params$M_ix+1] <- paste0('M_', 1:params$nPatches)
-colnames(out)[params$G_ix+1] <- paste0('G_', 1:params$nPatches)
+colnames(out)[params$P_ix+1] <- paste0('P_', 1:params$nPatches)
 colnames(out)[params$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
 colnames(out)[params$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
 colnames(out)[params$X_ix+1] <- paste0('X_', 1:params$nStrata)
-out <- out[, -c(params$Upsilon_ix+1)]
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

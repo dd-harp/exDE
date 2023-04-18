@@ -25,7 +25,7 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   nu <- 1/2
   eggsPerBatch <- 30
 
-  tau <- 11
+  eip <- 11
 
   # mosquito movement calK
   calK <- matrix(0, nPatches, nPatches)
@@ -37,8 +37,8 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   # omega matrix
   Omega <- make_Omega(g, sigma, calK, nPatches)
   Omega_inv <- solve(Omega)
-  OmegaEIP <- expm::expm(-Omega * tau)
-  OmegaEIP_inv <- expm::expm(Omega * tau)
+  OmegaEIP <- expm::expm(-Omega * eip)
+  OmegaEIP_inv <- expm::expm(Omega * eip)
 
   # human PfPR and H
   pfpr <- rep(0.3, times = nStrata)
@@ -67,7 +67,7 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   MY <- diag(1/as.vector(f*q*kappa), nPatches, nPatches) %*% OmegaEIP_inv %*% Omega %*% Z
   Y <- Omega_inv %*% (diag(as.vector(f*q*kappa), nPatches, nPatches) %*% MY)
   M <- MY + Y
-  G <- solve(diag(nu+f, nPatches) + Omega) %*% diag(f, nPatches) %*% M
+  P <- solve(diag(f, nPatches) + Omega) %*% diag(f, nPatches) %*% M
   Lambda <- Omega %*% M
 
   # equilibrium solutions for aquatic
@@ -81,7 +81,7 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
 
   psi <- 1/10
   phi <- 1/12
-  eta <- as.vector(calU %*% G * nu * eggsPerBatch)
+  eta <- as.vector(calU %*% M * nu * eggsPerBatch)
 
   L <- alpha/psi
   theta <- (eta - psi*L - phi*L)/(L^2)
@@ -94,29 +94,25 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   params$calU <- calU
   params$calN <- calN
 
-  params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode")
-  params = make_inits_MYZ_GeRM(pars = params, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=OmegaEIP)
+  params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode")
+  params = make_inits_MYZ_RM_ode(pars = params, M0 = as.vector(M), P0 = as.vector(P), Y0 = as.vector(Y), Z0 = as.vector(Z))
   params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
   params = make_inits_L_basic(pars = params,  L0 = L)
-  params = make_parameters_vc_null(pars = params)
-  params = make_parameters_mi_null(pars = params)
-  params = make_parameters_exogenous_null(pars = params)
 
   params = make_indices(params)
 
   # set initial conditions
   y0 <- get_inits(params)
 
-  params <- MosquitoBehavior.GeRM_base(0, y0, params)
 
   # run simulation
   out <- deSolve::ode(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = as.vector(kappa))
 
-  expect_equal(as.vector(out[2, params$L_ix+1]), as.vector(L), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$G_ix+1]), as.vector(G), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$Lpar$L_ix+1]), as.vector(L), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$MYZpar$M_ix+1]), as.vector(M), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$MYZpar$P_ix+1]), as.vector(P), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$MYZpar$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$MYZpar$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
 })
 
 test_that("test equilibrium with RM adults (DDE), basic competition", {
@@ -134,14 +130,14 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   r <- 1/200
   wf <- rep(1, nStrata)
 
-  f <- 0.3
-  q <- 0.9
-  g <- 1/10
-  sigma <- 1/100
-  nu <- 1/2
+  f <- rep(0.3, nPatches)
+  q <- rep(0.9, nPatches)
+  g <- rep(1/10, nPatches)
+  sigma <- rep(1/100, nPatches)
+  nu <- rep(1/2, nPatches)
   eggsPerBatch <- 30
 
-  tau <- 11
+  eip <- 11
 
   # mosquito movement calK
   calK <- matrix(0, nPatches, nPatches)
@@ -153,8 +149,8 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   # omega matrix
   Omega <- make_Omega(g, sigma, calK, nPatches)
   Omega_inv <- solve(Omega)
-  OmegaEIP <- expm::expm(-Omega * tau)
-  OmegaEIP_inv <- expm::expm(Omega * tau)
+  OmegaEIP <- expm::expm(-Omega * eip)
+  OmegaEIP_inv <- expm::expm(Omega * eip)
 
   # human PfPR and H
   pfpr <- rep(0.3, times = nStrata)
@@ -183,7 +179,7 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   MY <- diag(1/as.vector(f*q*kappa), nPatches, nPatches) %*% OmegaEIP_inv %*% Omega %*% Z
   Y <- Omega_inv %*% (diag(as.vector(f*q*kappa), nPatches, nPatches) %*% MY)
   M <- MY + Y
-  G <- solve(diag(nu+f, nPatches) + Omega) %*% diag(f, nPatches) %*% M
+  P <- solve(diag(f, nPatches) + Omega) %*% diag(f, nPatches) %*% M
   Lambda <- Omega %*% M
 
   # equilibrium solutions for aquatic
@@ -197,12 +193,12 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
 
   psi <- 1/10
   phi <- 1/12
-  eta <- as.vector(calU %*% G * nu * eggsPerBatch)
+  eta <- as.vector(calU %*% M * nu * eggsPerBatch)
 
   L <- alpha/psi
   theta <- (eta - psi*L - phi*L)/(L^2)
 
-  params <- list()
+  params <- make_parameters_xde()
   params$nStrata <- nStrata
   params$nPatches <- nPatches
   params$nHabitats <- nHabitats
@@ -210,13 +206,10 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   params$calN <- calN
 
   # parameters for exDE
-  params = make_parameters_MYZ_GeRM(pars = params, g = g, sigma = sigma, calK = calK, tau = tau, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch)
-  params = make_inits_MYZ_GeRM(pars = params, M0 = as.vector(M), G0 = as.vector(G), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=OmegaEIP)
+  params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch)
+  params = make_inits_MYZ_RM_dde(pars = params, M0 = as.vector(M), P0 = as.vector(P), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=as.vector(OmegaEIP))
   params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
   params = make_inits_L_basic(pars = params,  L0 = L)
-  params = make_parameters_vc_null(pars = params)
-  params = make_parameters_mi_null(pars = params)
-  params = make_parameters_exogenous_null(pars = params)
 
   params = make_indices(params)
 
@@ -224,14 +217,13 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   y0 <- get_inits(params)
 
 
-  params <- MosquitoBehavior.GeRM_base(0, y0, params)
 
   # run simulation
-  out <- deSolve::dede(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = t(cbind(kappa,kappa)))
+  out <- deSolve::dede(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = as.vector(kappa))
 
-  expect_equal(as.vector(out[2, params$L_ix+1]), as.vector(L), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$M_ix+1]), as.vector(M), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$G_ix+1]), as.vector(G), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$Lpar$L_ix+1]), as.vector(L), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$MYZpar$M_ix+1]), as.vector(M), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$MYZpar$P_ix+1]), as.vector(P), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$MYZpar$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$MYZpar$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
 })

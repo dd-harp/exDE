@@ -19,6 +19,7 @@ In this vignette we demonstrate how to set up a model incorporating the Le Menac
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
+#devtools::load_all(".")
 library(MASS)
 library(expm)
 library(deSolve)
@@ -31,7 +32,7 @@ library(ggplot2)
 This case study will use a simple model with 3 patches, 3 population strata, and 3 aquatic habitats. As usual, we set up parameter values and compute the values of state variables at equilibrium. As part of the equilibrium calculation we must compute $\Upsilon(0) = \exp\left(-\int_{-\tau}^{0} \Omega(s) ds \right)$; the value of the integrated mosquito demography matrix at the initial time point. To simplify things, we simply assume that conditions were constant prior to $t=0$ so that $\Upsilon(0) = e^{-\Omega\tau}$.
 
 ```{r}
-pars = make_parameters_xde() 
+pars = make_parameters_xde(solve_as = "xde") 
 pars$nPatches <- 3
 pars$nStrata <- 3
 pars$nHabitats <- 3
@@ -59,13 +60,13 @@ Psi <- matrix(
 Psi <- t(Psi)
 
 # adult mosquito parameters
-f <- 0.3
-q <- 0.9
-g <- 1/10
-sigma <- 1/100
-nu <- 1/2
+f <- rep(0.3, pars$nPatches)
+q <- rep(0.9, pars$nPatches)
+g <- rep(1/10, pars$nPatches)
+sigma <- rep(1/100, pars$nPatches) 
+nu <- rep(1/2, pars$nPatches) 
 eggsPerBatch <- 30
-tau <- 11
+tau <- eip <- 11
 
 # mosquito movement calK
 calK <- matrix(0, pars$nPatches, pars$nPatches)
@@ -102,7 +103,7 @@ Z <- diag(1/(f*q), pars$nPatches) %*% ginv(beta) %*% EIR
 MY <- diag(1/as.vector(f*q*kappa), pars$nPatches) %*% Upsilon_inv %*% Omega %*% Z
 Y <- Omega_inv %*% (diag(as.vector(f*q*kappa), pars$nPatches) %*% MY)
 M <- MY + Y
-G <- solve(diag(nu+f, pars$nPatches) + Omega) %*% diag(f, pars$nPatches) %*% M
+P <- solve(diag(f, pars$nPatches) + Omega) %*% diag(f, pars$nPatches) %*% M
 Lambda <- Omega %*% M
 ```
 
@@ -121,7 +122,7 @@ alpha <- as.vector(solve(calN) %*% Lambda)
 
 psi <- 1/10
 phi <- 1/12
-eta <- as.vector(calU %*% (G * nu * eggsPerBatch))
+eta <- as.vector(calU %*% (M * nu * eggsPerBatch))
 
 L <- alpha/psi
 theta <- (eta - psi*L - phi*L)/(L^2)
@@ -141,15 +142,16 @@ pars$calN <- calN
 ITN_cov <- function(t) {ifelse(t < 0, 0, (sin(2*pi*(t-365/4) / 365) + 1) / 2)}
 
 # set parameters
-pars = make_parameters_exogenous_null(pars)
-pars = make_parameters_vc_lemenach(pars, phi = ITN_cov)
+
+pars = make_parameters_vc_control(pars)
+pars = make_parameters_itn_lemenach(pars, phi = ITN_cov)
 pars = make_parameters_MYZ_RM(pars = pars, g = g, 
                                 sigma = sigma, calK = calK, 
                                 f = f, q = q, nu = nu, 
                                 eggsPerBatch = eggsPerBatch, 
-                                tau = tau)
-pars = make_inits_MYZ_RM(pars = pars, M0 = M, 
-                           Y0 = Y, Z0 = Z,Upsilon0=Upsilon)
+                                eip = eip)
+pars = make_inits_MYZ_RM_dde(pars = pars, M0 = M, 
+                           Y0 = Y, P0=P, Z0 = Z,Upsilon0=Upsilon)
 pars = make_parameters_L_basic(pars = pars, psi = psi, 
                                phi = phi, theta = theta)
 pars = make_inits_L_basic(pars = pars, L0 = L)
@@ -158,7 +160,6 @@ pars = make_inits_X_SIS(pars = pars, X0=X)
 pars = make_parameters_demography_null(pars = pars, H=H, membershipH=membershipH, 
                                            searchWtsH=searchWtsH, TimeSpent=Psi)
 
-pars = make_parameters_mi_null(pars)
 pars = make_indices(pars = pars)
 ```
 
@@ -169,7 +170,6 @@ After setting parameters we must set the initial conditions of the model. Then w
 ```{r}
 # ICs
 y0 <- get_inits(pars)
-
 ```
 
 ```{r}
@@ -180,21 +180,30 @@ out <- dede(y = y0, times = 0:(365*5), func = xDE_diffeqn, parms = pars)
 We can plot the output to study the effects of the seasonal ITN coverage on the state variables. We see that total and parous mosquito densities $M$ and $G$ now vary in a sinusoidal manner as coverage changes, as does $L$, larval density, as the number of ovipositing mosquitoes changes. Because in addition to increasing mosquito mortality, ITNs also decrease the feeding rate and proportion of bloodmeals taken on humans due to the repellency effect, we see the densities of infected and infectious mosquitoes ($Y$ and $Z$) steadily decrease over time as there are no longer sufficient bloodmeals being taken to sustain prevalence. A similar pattern appears in human prevalence $X$, with slower dynamics due to the slow recovery rate of untreated infection.
 
 ```{r, out.width = "100%"}
-colnames(out)[pars$L_ix+1] <- paste0('L_', 1:pars$nHabitats)
-colnames(out)[pars$M_ix+1] <- paste0('M_', 1:pars$nPatches)
-colnames(out)[pars$G_ix+1] <- paste0('G_', 1:pars$nPatches)
-colnames(out)[pars$Y_ix+1] <- paste0('Y_', 1:pars$nPatches)
-colnames(out)[pars$Z_ix+1] <- paste0('Z_', 1:pars$nPatches)
-colnames(out)[pars$X_ix+1] <- paste0('X_', 1:pars$nStrata)
-out <- out[, -c(pars$Upsilon_ix+1)]
 
-out <- as.data.table(out)
-out <- melt(out, id.vars = 'time')
-out[, c("Component", "Stratification") := tstrsplit(variable, '_', fixed = TRUE)]
-out[, variable := NULL]
+with(pars$MYZpar,{
+  colnames(out)[pars$Lpar$L_ix+1] <- paste0('L_', 1:pars$nHabitats)
+  colnames(out)[M_ix+1] <- paste0('M_', 1:pars$nPatches)
+  colnames(out)[P_ix+1] <- paste0('P_', 1:pars$nPatches)
+  colnames(out)[Y_ix+1] <- paste0('Y_', 1:pars$nPatches)
+  colnames(out)[Z_ix+1] <- paste0('Z_', 1:pars$nPatches)
+  colnames(out)[pars$Xpar$X_ix+1] <- paste0('X_', 1:pars$nStrata)
+  
+  out <- out[, -c(sigma_ix+1)]
+  out <- out[, -c(g_ix+1)]
+  out <- out[, -c(q_ix+1)]
+  out <- out[, -c(f_ix+1)]
+  out <- out[, -c(kappa_ix+1)]
+  out <- out[, -c(Upsilon_ix+1)]
+  
+  out <- as.data.table(out)
+  out <- melt(out, id.vars = 'time')
+  out[, c("Component", "Stratification") := tstrsplit(variable, '_', fixed = TRUE)]
+  out[, variable := NULL]
 
 ggplot(data = out, mapping = aes(x = time, y = value, color = Stratification)) +
   geom_line() +
   facet_wrap(. ~ Component, scales = 'free') +
   theme_bw()
+})
 ```

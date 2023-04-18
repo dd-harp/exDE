@@ -19,6 +19,8 @@ navbar:
     menu:
     - text: Ross-Macdonald model
       href: articles/adult_RM.html
+    - text: Generalized Ross-Macdonald model
+      href: articles/adult_GeRM.html
   - text: Aquatic Mosquito Component
     menu:
     - text: Trace (forced) model
@@ -56,31 +58,54 @@ reference:
     Methods to implement exogeneous forcing.
   contents:
   - ExogenousForcing
+  - Weather
+  - Hydrology
+- subtitle: exogenous forcing null models
+  desc: |
+    Specialized methods for a null models for exogenous forcing
+  contents:
   - ExogenousForcing.null
   - make_parameters_exogenous_null
-- title: Malaria Importation 
+  - Weather.null
+  - make_parameters_weather_null
+  - Hydrology.null
+  - make_parameters_hydrology_null
+- subtitle: exogenous forcing, forced
+  desc: |
+    Specialized methods for a null models for exogenous forcing
+  contents:
+  - ExogenousForcing.forced
+  - make_parameters_exogenous_forced
+- title: Resource Availability
+  desc: |
+    Methods to implement resource availability
+  contents:
+  - ResourceAvailability
+  - ResourceAvailability.null
+  - make_parameters_resources_null
+- title: Malaria Importation
   desc: |
     Methods to implement malaria importation.
   contents:
-  - MalariaImportation 
-  - kappa_with_visitors
-  - loc_fqZ 
-- subtitle: Malaria importation null model 
+  - Import
+  - kappa_local
+  - fqZ_local
+- subtitle: Malaria importation null model
   desc: |
     Specialized methods for a null  model of malaria importation.
   contents:
-  - MalariaImportation.null
-  - kappa_with_visitors.null
-  - loc_fqZ.null
-  - make_parameters_mi_null
-- subtitle: malaria importation basic model  
+  - Import.null
+  - kappa_local.null
+  - fqZ_local.null
+  - make_parameters_import_null
+- subtitle: malaria importation basic model
   desc: |
     Specialized methods for a basic model of malaria importation.
   contents:
-  - MalariaImportation.basic
-  - kappa_with_visitors.basic
-  - loc_fqZ.basic
-  - make_parameters_mi_basic
+  - Import.basic
+  - kappa_local.basic
+  - fqZ_local.basic
+  - make_parameters_import_basic
 - title: Vector Control
   desc: |
     Methods to implement vector control.
@@ -88,8 +113,42 @@ reference:
   - VectorControl
   - VectorControl.null
   - make_parameters_vc_null
-  - VectorControl.lemenach
-  - make_parameters_vc_lemenach
+  - VectorControl.control
+  - make_parameters_vc_control
+- title: Bed Nets
+  desc: |
+    Methods to implement bed nets
+  contents:
+  - BedNets
+  - BedNets.null
+  - make_parameters_itn_null
+  - BedNets.null
+  - make_parameters_itn_lemenach
+  - BedNets.lemenach
+- title: Indoor Residual Spraying
+  desc: |
+    Methods to implement IRS
+  contents:
+  - IRS
+  - IRS.null
+  - make_parameters_irs_null
+  - IRS.null
+- title: Attractive Toxic Sugar Baits
+  desc: |
+    Methods to implement ATSB
+  contents:
+  - ATSB
+  - ATSB.null
+  - make_parameters_atsb_null
+  - ATSB.null
+- title: Larval Source Management
+  desc: |
+    Methods to implement LSM
+  contents:
+  - LSM
+  - LSM.null
+  - make_parameters_lsm_null
+  - LSM.null
 - title: Adult mosquito component
   desc: |
     Generic methods for the adult mosquito component.
@@ -97,51 +156,61 @@ reference:
   - MosquitoBehavior
   - F_tau
   - F_Z
-  - F_Z_lag
   - F_eggs
   - dMYZdt
   - make_indices_MYZ
   - get_inits_MYZ
   - make_Omega
-- subtitle: A Ross-Macdonald mosquito model
+- subtitle: A basic mosquito ecology
   desc: |
-    Specialized methods for a Ross-Macdonald model of adult mosquito dynamics.
+    Specialized methods for a basic model of adult mosquito dynamics.
+  contents:
+  - MosquitoBehavior.basicM
+  - F_eggs.basicM
+  - dMYZdt.basicM
+  - make_indices_MYZ.basicM
+  - make_parameters_MYZ_basicM
+  - make_inits_MYZ_basicM
+  - get_inits_MYZ.basicM
+- subtitle: A Ross-Macdonald-style mosquito model
+  desc: |
+    Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics.
   contents:
   - MosquitoBehavior.RM
-  - F_tau.RM
   - F_Z.RM
-  - F_Z_lag.RM
   - F_eggs.RM
   - dMYZdt.RM_ode
   - dMYZdt.RM_dde
-  - make_indices_MYZ.RM
+  - make_indices_MYZ.RM_ode
+  - make_indices_MYZ.RM_dde
   - make_parameters_MYZ_RM
-  - make_inits_MYZ_RM
-  - get_inits_MYZ.RM
+  - make_inits_MYZ_RM_ode
+  - make_inits_MYZ_RM_dde
+  - get_inits_MYZ.RM_ode
+  - get_inits_MYZ.RM_dde
 - subtitle: Generalized Ross-Macdonald mosquito model
   desc: |
     Specialized methods for the generalized Ross-Macdonald model of adult mosquito dynamics.
   contents:
-  - MosquitoBehavior.GeRM_base
-  - MosquitoBehavior.GeRM_exo
-  - F_tau.GeRM
+  - MosquitoBehavior.GeRM
+  - ResourceAvailability.GeRM
   - F_Z.GeRM
-  - F_Z_lag.GeRM
   - F_eggs.GeRM
   - dMYZdt.GeRM_ode
   - dMYZdt.GeRM_dde
-  - make_indices_MYZ.GeRM
+  - make_indices_MYZ.GeRM_ode
+  - make_indices_MYZ.GeRM_dde
   - make_parameters_MYZ_GeRM
-  - make_parameters_MYZ_GeRM_exo
-  - make_inits_MYZ_GeRM
-  - get_inits_MYZ.GeRM
+  - make_inits_MYZ_GeRM_ode
+  - make_inits_MYZ_GeRM_dde
+  - get_inits_MYZ.GeRM_ode
+  - get_inits_MYZ.GeRM_dde
 - subtitle: specialized methods for the adult mosquito Ztrace model
   desc: |
     Specialized methods for the Z-trace of adult mosquito dynamics.
   contents:
   - MosquitoBehavior.Ztrace
   - F_Z.Ztrace
-  - F_Z_lag.Ztrace
   - F_eggs.Ztrace
   - dMYZdt.Ztrace
   - make_indices_MYZ.Ztrace
@@ -183,52 +252,12 @@ reference:
   - F_beta
   - F_EIR
   - F_kappa
-- subtitle: Transmission for ODEs
-  desc: |
-    Specialized methods for transmission for ODEs
-  contents:
-  - F_kappa.ode
-  - F_EIR.ode
-  - F_beta.ode
-- subtitle: Transmission for DDEs
-  desc: |
-    Specialized methods for transmission for ODEs
-  contents:
-  - F_kappa.dde
-  - F_EIR.dde
-  - F_beta.dde
-- subtitle: Transmission for trace models
-  desc: |
-    Specialized methods for transmission for trace models
-  contents:
-  - F_kappa.trace
-  - F_EIR.trace
-  - F_beta.trace
-- title: Mixing matrix
-  desc: |
-    Generic methods to compute the mixing matrix mixing.
-  contents:
-  - make_beta
-  - make_beta_lag
   - compute_beta
-- subtitle: static
-  desc: |
-    Specialized methods for static denominators
-  contents:
-  - make_beta.static
-  - make_beta_lag.static
-- subtitle: dynamic
-  desc: |
-    Specialized methods for dynamic denominators
-  contents:
-  - make_beta.dynamic
-  - make_beta_lag.dynamic
 - title: Human disease component
   desc: |
     Generic methods for the human disease component.
   contents:
   - F_x
-  - F_x_lag
   - dXdt
   - make_indices_X
   - get_inits_X
@@ -237,7 +266,6 @@ reference:
     Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.
   contents:
   - F_x.hMoI
-  - F_x_lag.hMoI
   - dXdt.hMoI
   - make_indices_X.hMoI
   - make_parameters_X_hMoI
@@ -248,7 +276,6 @@ reference:
     Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
   contents:
   - F_x.SIS
-  - F_x_lag.SIS
   - dXdt.SIS
   - make_indices_X.SIS
   - make_parameters_X_SIS
@@ -259,30 +286,36 @@ reference:
     Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
   contents:
   - F_x.SIP
-  - F_x_lag.SIP
   - dXdt.SIP
   - make_indices_X.SIP
   - make_parameters_X_SIP
   - make_inits_X_SIP
   - get_inits_X.SIP
+- subtitle: human trace model
+  desc: |
+    Specialized methods for a human trace model
+  contents:
+  - F_x.trace
+  - dXdt.trace
+  - make_indices_X.trace
+  - make_parameters_X_trace
+  - make_inits_X_trace
+  - get_inits_X.trace
 - title: Human demography component
   desc: |
     Generic methods for the human demography component.
   contents:
   - F_H
-  - F_H_lag
-  - Births
   - dHdt
+  - Births
   - make_indices_H
   - get_inits_H
-  - F_births
   - make_parameters_demography_null
 - subtitle: Static demography model
   desc: |
     Specialized methods for the static (constant) demographic model
   contents:
   - F_H.static
-  - F_H_lag.static
   - Births.static
   - dHdt.static
   - make_indices_H.static
@@ -293,7 +326,6 @@ reference:
     Specialized methods for the demographic model with dynamic denominators
   contents:
   - F_H.dynamic
-  - F_H_lag.dynamic
   - Births.numeric
   - dHdt.numeric
   - make_indices_H.dynamic
@@ -303,6 +335,7 @@ reference:
   desc: |
     Specialized methods to compute population birth rates
   contents:
+  - F_births
   - F_births.null
   - F_births.constant
   - F_births.forced
@@ -311,6 +344,8 @@ reference:
   contents:
   - xDE_diffeqn
   - xDE_diffeqn_mosy
+  - xDE_diffeqn_cohort
+  - xDE_diffeqn_aquatic
 - title: Spatial metrics
   contents:
   - metric_calV

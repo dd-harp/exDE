@@ -15,5 +15,5 @@ ExogenousForcing(t, pars)
 none
 }
 \description{
-This method dispatches on the type of \code{pars$EXpar}.
+This method dispatches on the type of \code{pars$EXOpar}.
 }

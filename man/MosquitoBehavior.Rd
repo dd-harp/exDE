@@ -2,7 +2,7 @@
 % Please edit documentation in R/adult-interface.R
 \name{MosquitoBehavior}
 \alias{MosquitoBehavior}
-\title{Compute bloodfeeding and mortality rates}
+\title{Set bloodfeeding and mortality rates to baseline}
 \usage{
 MosquitoBehavior(t, y, pars)
 }
@@ -17,11 +17,6 @@ MosquitoBehavior(t, y, pars)
 a \link{list}
 }
 \description{
-This method dispatches on the type of \code{pars$MYZpar}. It should,
-at a minimum set the values \code{f}, \code{q}, \code{g} (blood feeding rate, human feeding
-proportion, and mortality rate) at the current time to their baseline values \code{f0}, \code{q0}, and \code{g0}, although it may return
-vectors of these values at multiple times for models with delay. These baseline
-values will be modified by the vector control component. The return type is a
-named list with those 3 values, and \code{f}  should have an \link{attr} labeled \code{time}
-giving the time(s) in the simulation that these bionomic values correspond to.
+This method dispatches on the type of \code{pars$MYZpar}. It should
+set the values of the bionomic parameters to baseline values.
 }
