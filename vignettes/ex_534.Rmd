@@ -234,12 +234,12 @@ out <- deSolve::ode(y = y0, times = 0:365, func = xDE_diffeqn, parms = params, m
 With a small amount of data wrangling made easier by the `data.table` package, we can plot the output.
 
 ```{r, out.width = "100%"}
-colnames(out)[params$L_ix+1] <- paste0('L_', 1:params$nHabitats)
-colnames(out)[params$M_ix+1] <- paste0('M_', 1:params$nPatches)
-colnames(out)[params$P_ix+1] <- paste0('P_', 1:params$nPatches)
-colnames(out)[params$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
-colnames(out)[params$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
-colnames(out)[params$X_ix+1] <- paste0('X_', 1:params$nStrata)
+colnames(out)[params$Lpar$L_ix+1] <- paste0('L_', 1:params$nHabitats)
+colnames(out)[params$MYZpar$M_ix+1] <- paste0('M_', 1:params$nPatches)
+colnames(out)[params$MYZpar$P_ix+1] <- paste0('P_', 1:params$nPatches)
+colnames(out)[params$MYZpar$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
+colnames(out)[params$MYZpar$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
+colnames(out)[params$Xpar$X_ix+1] <- paste0('X_', 1:params$nStrata)
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')
