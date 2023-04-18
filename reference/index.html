@@ -72,9 +72,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="exogeneous-forcing">Exogeneous Forcing<a class="anchor" aria-label="anchor" href="#exogeneous-forcing"></a></h2>
+      <h2 id="generalized-derivatives-functions">Generalized derivatives functions<a class="anchor" aria-label="anchor" href="#generalized-derivatives-functions"></a></h2>
       
-      <p class="section-desc"></p><p>Methods to implement exogeneous forcing.</p>
+      
 
       
     </div><div id="" class="section level2">
@@ -84,23 +84,28 @@
 
       <dl><dt>
           
-          <code><a href="ExogenousForcing.html">ExogenousForcing()</a></code> 
+          <code><a href="xDE_diffeqn.html">xDE_diffeqn()</a></code> 
         </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
+        <dd>Generalized spatial differential equation model</dd>
       </dl><dl><dt>
           
-          <code><a href="Weather.html">Weather()</a></code> 
+          <code><a href="xDE_diffeqn_mosy.html">xDE_diffeqn_mosy()</a></code> 
         </dt>
-        <dd>Set the values of exogenous variables describing weather</dd>
+        <dd>Generalized spatial differential equation model (mosquito only)</dd>
       </dl><dl><dt>
           
-          <code><a href="Hydrology.html">Hydrology()</a></code> 
+          <code><a href="xDE_diffeqn_cohort.html">xDE_diffeqn_cohort()</a></code> 
         </dt>
-        <dd>Set the values of exogenous variables describing hydrology</dd>
+        <dd>Differential equation models for human cohorts</dd>
+      </dl><dl><dt>
+          
+          <code><a href="xDE_diffeqn_aquatic.html">xDE_diffeqn_aquatic()</a></code> 
+        </dt>
+        <dd>Differential equation models for aquatic</dd>
       </dl></div><div class="section level2">
+      <h2 id="transmission">Transmission<a class="anchor" aria-label="anchor" href="#transmission"></a></h2>
       
-      <h3 id="exogenous-forcing-null-models">exogenous forcing null models<a class="anchor" aria-label="anchor" href="#exogenous-forcing-null-models"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a null models for exogenous forcing</p>
+      <p class="section-desc"></p><p>Generic methods for transmission.</p>
 
       
     </div><div id="" class="section level2">
@@ -110,319 +115,24 @@
 
       <dl><dt>
           
-          <code><a href="ExogenousForcing.null.html">ExogenousForcing(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="F_beta.html">F_beta()</a></code> 
         </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
+        <dd>Compute the biting distribution matrix, beta</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_exogenous_null.html">make_parameters_exogenous_null()</a></code> 
+          <code><a href="F_EIR.html">F_EIR()</a></code> 
         </dt>
-        <dd>Make parameters for the null model of exogenous forcing (do nothing)</dd>
+        <dd>Entomological inoculation rate on human strata</dd>
       </dl><dl><dt>
           
-          <code><a href="Weather.null.html">Weather(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="F_kappa.html">F_kappa()</a></code> 
         </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
+        <dd>Net infectiousness of human population to mosquitoes</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_weather_null.html">make_parameters_weather_null()</a></code> 
+          <code><a href="compute_beta.html">compute_beta()</a></code> 
         </dt>
-        <dd>Make parameters for the null model for weather (do nothing)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Hydrology.null.html">Hydrology(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_hydrology_null.html">make_parameters_hydrology_null()</a></code> 
-        </dt>
-        <dd>Make parameters for the null model for hydrology (do nothing)</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="exogenous-forcing-forced">exogenous forcing, forced<a class="anchor" aria-label="anchor" href="#exogenous-forcing-forced"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a null models for exogenous forcing</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="ExogenousForcing.forced.html">ExogenousForcing(<i>&lt;forced&gt;</i>)</a></code> 
-        </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_exogenous_forced.html">make_parameters_exogenous_forced()</a></code> 
-        </dt>
-        <dd>Make parameters for the null model of exogenous forcing (do nothing)</dd>
-      </dl></div><div class="section level2">
-      <h2 id="resource-availability">Resource Availability<a class="anchor" aria-label="anchor" href="#resource-availability"></a></h2>
-      
-      <p class="section-desc"></p><p>Methods to implement resource availability</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="ResourceAvailability.html">ResourceAvailability()</a></code> 
-        </dt>
-        <dd>Set the values of exogenous variables describing available non-host resources</dd>
-      </dl><dl><dt>
-          
-          <code><a href="ResourceAvailability.null.html">ResourceAvailability(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_resources_null.html">make_parameters_resources_null()</a></code> 
-        </dt>
-        <dd>Make parameters for the null model for resource availability (do nothing)</dd>
-      </dl></div><div class="section level2">
-      <h2 id="malaria-importation">Malaria Importation<a class="anchor" aria-label="anchor" href="#malaria-importation"></a></h2>
-      
-      <p class="section-desc"></p><p>Methods to implement malaria importation.</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="Import.html">Import()</a></code> 
-        </dt>
-        <dd>Importation through visitors</dd>
-      </dl><dl><dt>
-          
-          <code><a href="kappa_local.html">kappa_local()</a></code> 
-        </dt>
-        <dd>Correct kappa for models with visitors</dd>
-      </dl><dl><dt>
-          
-          <code><a href="fqZ_local.html">fqZ_local()</a></code> 
-        </dt>
-        <dd>Correct fqZ for models with visitors</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="malaria-importation-null-model">Malaria importation null model<a class="anchor" aria-label="anchor" href="#malaria-importation-null-model"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a null model of malaria importation.</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="Import.null.html">Import(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Importation, the null model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="kappa_local.null.html">kappa_local(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Parasite / pathogen importation, the null model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="fqZ_local.null.html">fqZ_local(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Parasite / pathogen importation, the null model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_import_null.html">make_parameters_import_null()</a></code> 
-        </dt>
-        <dd>Make parameters for the null model for parasite / pathogen importation</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="malaria-importation-basic-model">malaria importation basic model<a class="anchor" aria-label="anchor" href="#malaria-importation-basic-model"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a basic model of malaria importation.</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="Import.basic.html">Import(<i>&lt;basic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Importation, the basic model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="kappa_local.basic.html">kappa_local(<i>&lt;basic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Parasite / pathogen importation, the basic model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="fqZ_local.basic.html">fqZ_local(<i>&lt;basic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Parasite / pathogen importation, the basic model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_import_basic.html">make_parameters_import_basic()</a></code> 
-        </dt>
-        <dd>Make parameters for the basic model for parasite / pathogen importation</dd>
-      </dl></div><div class="section level2">
-      <h2 id="vector-control">Vector Control<a class="anchor" aria-label="anchor" href="#vector-control"></a></h2>
-      
-      <p class="section-desc"></p><p>Methods to implement vector control.</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="VectorControl.html">VectorControl()</a></code> 
-        </dt>
-        <dd>Modify baseline values due to vector control</dd>
-      </dl><dl><dt>
-          
-          <code><a href="VectorControl.null.html">VectorControl(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Modify baseline values due to vector control</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_vc_null.html">make_parameters_vc_null()</a></code> 
-        </dt>
-        <dd>Make parameters for the null model of vector control (do nothing)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="VectorControl.control.html">VectorControl(<i>&lt;control&gt;</i>)</a></code> 
-        </dt>
-        <dd>Modify baseline values due to vector control</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_vc_control.html">make_parameters_vc_control()</a></code> 
-        </dt>
-        <dd>Make parameters for the control model of vector control (do nothing)</dd>
-      </dl></div><div class="section level2">
-      <h2 id="bed-nets">Bed Nets<a class="anchor" aria-label="anchor" href="#bed-nets"></a></h2>
-      
-      <p class="section-desc"></p><p>Methods to implement bed nets</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="BedNets.html">BedNets()</a></code> 
-        </dt>
-        <dd>Modify baseline bionomic values due to bed nets</dd>
-      </dl><dl><dt>
-          
-          <code><a href="BedNets.null.html">BedNets(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Modify baseline values due to bed nets</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_itn_null.html">make_parameters_itn_null()</a></code> 
-        </dt>
-        <dd>Make parameters for the null model of bed nets (do nothing)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_itn_lemenach.html">make_parameters_itn_lemenach()</a></code> 
-        </dt>
-        <dd>Make parameters for Le Menach ITN model of vector control</dd>
-      </dl><dl><dt>
-          
-          <code><a href="BedNets.lemenach.html">BedNets(<i>&lt;lemenach&gt;</i>)</a></code> 
-        </dt>
-        <dd>Modify baseline values due to vector control</dd>
-      </dl></div><div class="section level2">
-      <h2 id="indoor-residual-spraying">Indoor Residual Spraying<a class="anchor" aria-label="anchor" href="#indoor-residual-spraying"></a></h2>
-      
-      <p class="section-desc"></p><p>Methods to implement IRS</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="IRS.html">IRS()</a></code> 
-        </dt>
-        <dd>Modify baseline bionomic values due to IRS</dd>
-      </dl><dl><dt>
-          
-          <code><a href="IRS.null.html">IRS(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Modify baseline values due to IRS</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_irs_null.html">make_parameters_irs_null()</a></code> 
-        </dt>
-        <dd>Make parameters for the null model of IRS (do nothing)</dd>
-      </dl></div><div class="section level2">
-      <h2 id="attractive-toxic-sugar-baits">Attractive Toxic Sugar Baits<a class="anchor" aria-label="anchor" href="#attractive-toxic-sugar-baits"></a></h2>
-      
-      <p class="section-desc"></p><p>Methods to implement ATSB</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="ATSB.html">ATSB()</a></code> 
-        </dt>
-        <dd>Modify baseline bionomic values due to ATSB</dd>
-      </dl><dl><dt>
-          
-          <code><a href="ATSB.null.html">ATSB(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Modify baseline values due to ATSB</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_atsb_null.html">make_parameters_atsb_null()</a></code> 
-        </dt>
-        <dd>Make parameters for the null model of ATSB (do nothing)</dd>
-      </dl></div><div class="section level2">
-      <h2 id="larval-source-management">Larval Source Management<a class="anchor" aria-label="anchor" href="#larval-source-management"></a></h2>
-      
-      <p class="section-desc"></p><p>Methods to implement LSM</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="LSM.html">LSM()</a></code> 
-        </dt>
-        <dd>Modify values due to LSM</dd>
-      </dl><dl><dt>
-          
-          <code><a href="LSM.null.html">LSM(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Modify baseline values due to LSM</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_lsm_null.html">make_parameters_lsm_null()</a></code> 
-        </dt>
-        <dd>Make parameters for the null model of LSM (do nothing)</dd>
+        <dd>Compute beta, the biting distribution matrix</dd>
       </dl></div><div class="section level2">
       <h2 id="adult-mosquito-component">Adult mosquito component<a class="anchor" aria-label="anchor" href="#adult-mosquito-component"></a></h2>
       
@@ -476,7 +186,7 @@
         <dd>Make the mosquito demography matrix</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="a-basic-mosquito-ecology">A basic mosquito ecology<a class="anchor" aria-label="anchor" href="#a-basic-mosquito-ecology"></a></h3>
+      <h3 id="basicm-mosquito-population-dynamics-no-infection-">basicM - mosquito population dynamics (no infection)<a class="anchor" aria-label="anchor" href="#basicm-mosquito-population-dynamics-no-infection-"></a></h3>
       <p class="section-desc"></p><p>Specialized methods for a basic model of adult mosquito dynamics.</p>
 
       
@@ -522,8 +232,8 @@
         <dd>Return initial values as a vector</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="a-ross-macdonald-style-mosquito-model">A Ross-Macdonald-style mosquito model<a class="anchor" aria-label="anchor" href="#a-ross-macdonald-style-mosquito-model"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics.</p>
+      <h3 id="rm-a-ross-macdonald-style-mosquito-model">RM - A Ross-Macdonald-style mosquito model<a class="anchor" aria-label="anchor" href="#rm-a-ross-macdonald-style-mosquito-model"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics based on Aron &amp; May (1982).</p>
 
       
     </div><div id="" class="section level2">
@@ -593,8 +303,8 @@
         <dd>Return initial values as a vector</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="generalized-ross-macdonald-mosquito-model">Generalized Ross-Macdonald mosquito model<a class="anchor" aria-label="anchor" href="#generalized-ross-macdonald-mosquito-model"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for the generalized Ross-Macdonald model of adult mosquito dynamics.</p>
+      <h3 id="germ-a-generalized-ross-macdonald-mosquito-model">GeRM - a generalized Ross-Macdonald mosquito model<a class="anchor" aria-label="anchor" href="#germ-a-generalized-ross-macdonald-mosquito-model"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for the generalized Ross-Macdonald model of adult mosquito dynamics from Wu SL, et al. (2023).</p>
 
       
     </div><div id="" class="section level2">
@@ -669,8 +379,8 @@
         <dd>Return initial values as a vector</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="specialized-methods-for-the-adult-mosquito-ztrace-model">specialized methods for the adult mosquito Ztrace model<a class="anchor" aria-label="anchor" href="#specialized-methods-for-the-adult-mosquito-ztrace-model"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for the Z-trace of adult mosquito dynamics.</p>
+      <h3 id="ztrace-specialized-methods-to-call-the-adult-mosquito-model-as-a-trace">Ztrace - specialized methods to call the adult mosquito model as a trace<a class="anchor" aria-label="anchor" href="#ztrace-specialized-methods-to-call-the-adult-mosquito-model-as-a-trace"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods to pass values of Z to force human infection dynamics.</p>
 
       
     </div><div id="" class="section level2">
@@ -792,7 +502,7 @@
         <dd>Return initial values as a vector</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="basic-competition-aquatic-mosquito-model">Basic competition aquatic mosquito model<a class="anchor" aria-label="anchor" href="#basic-competition-aquatic-mosquito-model"></a></h3>
+      <h3 id="basic-basic-competition-aquatic-mosquito-model">basic - Basic competition aquatic mosquito model<a class="anchor" aria-label="anchor" href="#basic-basic-competition-aquatic-mosquito-model"></a></h3>
       <p class="section-desc"></p><p>Specialized methods for the basic competition model of aquatic mosquito dynamics.</p>
 
       
@@ -831,37 +541,6 @@
           <code><a href="get_inits_L.basic.html">get_inits_L(<i>&lt;basic&gt;</i>)</a></code> 
         </dt>
         <dd>Return initial values as a vector</dd>
-      </dl></div><div class="section level2">
-      <h2 id="transmission">Transmission<a class="anchor" aria-label="anchor" href="#transmission"></a></h2>
-      
-      <p class="section-desc"></p><p>Generic methods for transmission.</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="F_beta.html">F_beta()</a></code> 
-        </dt>
-        <dd>Compute the biting distribution matrix, beta</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_EIR.html">F_EIR()</a></code> 
-        </dt>
-        <dd>Entomological inoculation rate on human strata</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_kappa.html">F_kappa()</a></code> 
-        </dt>
-        <dd>Net infectiousness of human population to mosquitoes</dd>
-      </dl><dl><dt>
-          
-          <code><a href="compute_beta.html">compute_beta()</a></code> 
-        </dt>
-        <dd>Compute beta, the biting distribution matrix</dd>
       </dl></div><div class="section level2">
       <h2 id="human-disease-component">Human disease component<a class="anchor" aria-label="anchor" href="#human-disease-component"></a></h2>
       
@@ -1217,9 +896,9 @@
         </dt>
         <dd>Constant per-capita human population birth rate (endogenous)</dd>
       </dl></div><div class="section level2">
-      <h2 id="generalized-spatial-differential-equations">Generalized spatial differential equations<a class="anchor" aria-label="anchor" href="#generalized-spatial-differential-equations"></a></h2>
+      <h2 id="exogeneous-forcing">Exogeneous Forcing<a class="anchor" aria-label="anchor" href="#exogeneous-forcing"></a></h2>
       
-      
+      <p class="section-desc"></p><p>Methods to implement exogeneous forcing.</p>
 
       
     </div><div id="" class="section level2">
@@ -1229,24 +908,345 @@
 
       <dl><dt>
           
-          <code><a href="xDE_diffeqn.html">xDE_diffeqn()</a></code> 
+          <code><a href="ExogenousForcing.html">ExogenousForcing()</a></code> 
         </dt>
-        <dd>Generalized spatial differential equation model</dd>
+        <dd>Modify parameters due to exogenous forcing</dd>
       </dl><dl><dt>
           
-          <code><a href="xDE_diffeqn_mosy.html">xDE_diffeqn_mosy()</a></code> 
+          <code><a href="Weather.html">Weather()</a></code> 
         </dt>
-        <dd>Generalized spatial differential equation model (mosquito only)</dd>
+        <dd>Set the values of exogenous variables describing weather</dd>
       </dl><dl><dt>
           
-          <code><a href="xDE_diffeqn_cohort.html">xDE_diffeqn_cohort()</a></code> 
+          <code><a href="Hydrology.html">Hydrology()</a></code> 
         </dt>
-        <dd>Differential equation models for human cohorts</dd>
+        <dd>Set the values of exogenous variables describing hydrology</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="exogenous-forcing-null-models">exogenous forcing null models<a class="anchor" aria-label="anchor" href="#exogenous-forcing-null-models"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for a null models for exogenous forcing</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="ExogenousForcing.null.html">ExogenousForcing(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing</dd>
       </dl><dl><dt>
           
-          <code><a href="xDE_diffeqn_aquatic.html">xDE_diffeqn_aquatic()</a></code> 
+          <code><a href="make_parameters_exogenous_null.html">make_parameters_exogenous_null()</a></code> 
         </dt>
-        <dd>Differential equation models for aquatic</dd>
+        <dd>Make parameters for the null model of exogenous forcing (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Weather.null.html">Weather(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_weather_null.html">make_parameters_weather_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model for weather (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Hydrology.null.html">Hydrology(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_hydrology_null.html">make_parameters_hydrology_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model for hydrology (do nothing)</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="exogenous-forcing-forced">exogenous forcing, forced<a class="anchor" aria-label="anchor" href="#exogenous-forcing-forced"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for a null models for exogenous forcing</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="ExogenousForcing.forced.html">ExogenousForcing(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_exogenous_forced.html">make_parameters_exogenous_forced()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model of exogenous forcing (do nothing)</dd>
+      </dl></div><div class="section level2">
+      <h2 id="resource-availability">Resource Availability<a class="anchor" aria-label="anchor" href="#resource-availability"></a></h2>
+      
+      <p class="section-desc"></p><p>Methods to implement resource availability</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="ResourceAvailability.html">ResourceAvailability()</a></code> 
+        </dt>
+        <dd>Set the values of exogenous variables describing available non-host resources</dd>
+      </dl><dl><dt>
+          
+          <code><a href="ResourceAvailability.null.html">ResourceAvailability(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_resources_null.html">make_parameters_resources_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model for resource availability (do nothing)</dd>
+      </dl></div><div class="section level2">
+      <h2 id="malaria-importation">Malaria Importation<a class="anchor" aria-label="anchor" href="#malaria-importation"></a></h2>
+      
+      <p class="section-desc"></p><p>Methods to implement malaria importation.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="Import.html">Import()</a></code> 
+        </dt>
+        <dd>Importation through visitors</dd>
+      </dl><dl><dt>
+          
+          <code><a href="kappa_local.html">kappa_local()</a></code> 
+        </dt>
+        <dd>Correct kappa for models with visitors</dd>
+      </dl><dl><dt>
+          
+          <code><a href="fqZ_local.html">fqZ_local()</a></code> 
+        </dt>
+        <dd>Correct fqZ for models with visitors</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="malaria-importation-null-model">Malaria importation null model<a class="anchor" aria-label="anchor" href="#malaria-importation-null-model"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for a null model of malaria importation.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="Import.null.html">Import(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Importation, the null model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="kappa_local.null.html">kappa_local(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Parasite / pathogen importation, the null model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="fqZ_local.null.html">fqZ_local(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Parasite / pathogen importation, the null model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_import_null.html">make_parameters_import_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model for parasite / pathogen importation</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="malaria-importation-basic-model">malaria importation basic model<a class="anchor" aria-label="anchor" href="#malaria-importation-basic-model"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for a basic model of malaria importation.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="Import.basic.html">Import(<i>&lt;basic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Importation, the basic model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="kappa_local.basic.html">kappa_local(<i>&lt;basic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Parasite / pathogen importation, the basic model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="fqZ_local.basic.html">fqZ_local(<i>&lt;basic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Parasite / pathogen importation, the basic model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_import_basic.html">make_parameters_import_basic()</a></code> 
+        </dt>
+        <dd>Make parameters for the basic model for parasite / pathogen importation</dd>
+      </dl></div><div class="section level2">
+      <h2 id="vector-control">Vector Control<a class="anchor" aria-label="anchor" href="#vector-control"></a></h2>
+      
+      <p class="section-desc"></p><p>Methods to implement vector control.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="VectorControl.html">VectorControl()</a></code> 
+        </dt>
+        <dd>Modify baseline values due to vector control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="VectorControl.null.html">VectorControl(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify baseline values due to vector control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_vc_null.html">make_parameters_vc_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model of vector control (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="VectorControl.control.html">VectorControl(<i>&lt;control&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify baseline values due to vector control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_vc_control.html">make_parameters_vc_control()</a></code> 
+        </dt>
+        <dd>Make parameters for the control model of vector control (do nothing)</dd>
+      </dl></div><div class="section level2">
+      <h2 id="bed-nets">Bed Nets<a class="anchor" aria-label="anchor" href="#bed-nets"></a></h2>
+      
+      <p class="section-desc"></p><p>Methods to implement bed nets</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="BedNets.html">BedNets()</a></code> 
+        </dt>
+        <dd>Modify baseline bionomic values due to bed nets</dd>
+      </dl><dl><dt>
+          
+          <code><a href="BedNets.null.html">BedNets(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify baseline values due to bed nets</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_itn_null.html">make_parameters_itn_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model of bed nets (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_itn_lemenach.html">make_parameters_itn_lemenach()</a></code> 
+        </dt>
+        <dd>Make parameters for Le Menach ITN model of vector control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="BedNets.lemenach.html">BedNets(<i>&lt;lemenach&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify baseline values due to vector control</dd>
+      </dl></div><div class="section level2">
+      <h2 id="indoor-residual-spraying">Indoor Residual Spraying<a class="anchor" aria-label="anchor" href="#indoor-residual-spraying"></a></h2>
+      
+      <p class="section-desc"></p><p>Methods to implement IRS</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="IRS.html">IRS()</a></code> 
+        </dt>
+        <dd>Modify baseline bionomic values due to IRS</dd>
+      </dl><dl><dt>
+          
+          <code><a href="IRS.null.html">IRS(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify baseline values due to IRS</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_irs_null.html">make_parameters_irs_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model of IRS (do nothing)</dd>
+      </dl></div><div class="section level2">
+      <h2 id="attractive-toxic-sugar-baits">Attractive Toxic Sugar Baits<a class="anchor" aria-label="anchor" href="#attractive-toxic-sugar-baits"></a></h2>
+      
+      <p class="section-desc"></p><p>Methods to implement ATSB</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="ATSB.html">ATSB()</a></code> 
+        </dt>
+        <dd>Modify baseline bionomic values due to ATSB</dd>
+      </dl><dl><dt>
+          
+          <code><a href="ATSB.null.html">ATSB(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify baseline values due to ATSB</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_atsb_null.html">make_parameters_atsb_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model of ATSB (do nothing)</dd>
+      </dl></div><div class="section level2">
+      <h2 id="larval-source-management">Larval Source Management<a class="anchor" aria-label="anchor" href="#larval-source-management"></a></h2>
+      
+      <p class="section-desc"></p><p>Methods to implement LSM</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="LSM.html">LSM()</a></code> 
+        </dt>
+        <dd>Modify values due to LSM</dd>
+      </dl><dl><dt>
+          
+          <code><a href="LSM.null.html">LSM(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify baseline values due to LSM</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_lsm_null.html">make_parameters_lsm_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model of LSM (do nothing)</dd>
       </dl></div><div class="section level2">
       <h2 id="spatial-metrics">Spatial metrics<a class="anchor" aria-label="anchor" href="#spatial-metrics"></a></h2>
       
