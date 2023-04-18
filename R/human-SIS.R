@@ -1,11 +1,11 @@
 # specialized methods for the human SIS model
 
 #' @title Size of effective infectious human population
-#' @description Implements [F_x] for the SIS model.
-#' @inheritParams F_x
+#' @description Implements [F_X] for the SIS model.
+#' @inheritParams F_X
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_x.SIS <- function(t, y, pars) {
+F_X.SIS <- function(t, y, pars) {
   with(pars$Xpar, y[X_ix]*c)
 }
 

@@ -1,11 +1,11 @@
 # specialized methods for the human SIP model
 
 #' @title Size of effective infectious human population
-#' @description Implements [F_x] for the SIP model.
-#' @inheritParams F_x
+#' @description Implements [F_X] for the SIP model.
+#' @inheritParams F_X
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_x.SIP <- function(t, y, pars) {
+F_X.SIP <- function(t, y, pars) {
   with(pars$Xpar, y[X_ix] * c)
 }
 

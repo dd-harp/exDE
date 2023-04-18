@@ -36,8 +36,8 @@ F_EIR <- function(t, y, pars, beta) {
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_kappa <- function(t, y, pars, beta) {
-  x <- F_x(t, y, pars)
-  kappa = t(beta) %*% x
+  X <- F_X(t, y, pars)
+  kappa = t(beta) %*% X
   kappa = kappa_local(kappa, pars)
   as.vector(kappa)
 }

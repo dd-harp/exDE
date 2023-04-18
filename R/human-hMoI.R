@@ -1,12 +1,12 @@
 # a hybrid model tracking mean MoI for all and apparent infections
 
 #' @title Size of effective infectious human population
-#' @description Implements [F_x] for the hybrid MoI model.
-#' @inheritParams F_x
+#' @description Implements [F_X] for the hybrid MoI model.
+#' @inheritParams F_X
 #' @return a [numeric] vector of length `nStrata`
 #' @importFrom stats pexp
 #' @export
-F_x.hMoI <- function(t, y, pars) {
+F_X.hMoI <- function(t, y, pars) {
   with(pars$Xpar,{
     H <- F_H(t, y, pars)
     x1 <- pexp(q = y[m1_ix])
