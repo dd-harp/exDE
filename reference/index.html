@@ -31,22 +31,22 @@
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-adult-mosquito-component">Adult Mosquito Component</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-adult-mosquito-component">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-adult-mosquito-dynamics">Adult Mosquito Dynamics</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-adult-mosquito-dynamics">
     <a class="dropdown-item" href="../articles/adult_RM.html">Ross-Macdonald model</a>
     <a class="dropdown-item" href="../articles/adult_GeRM.html">Generalized Ross-Macdonald model</a>
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-aquatic-mosquito-component">Aquatic Mosquito Component</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-aquatic-mosquito-component">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-aquatic-mosquito-dynamics">Aquatic Mosquito Dynamics</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-aquatic-mosquito-dynamics">
     <a class="dropdown-item" href="../articles/aqua_trace.html">Trace (forced) model</a>
     <a class="dropdown-item" href="../articles/aqua_basic.html">Basic competition model</a>
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-human-component">Human Component</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-human-component">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-human-infection-dynamics">Human Infection Dynamics</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-human-infection-dynamics">
     <a class="dropdown-item" href="../articles/human_sis.html">SIS model</a>
     <a class="dropdown-item" href="../articles/human_sip.html">SIP model</a>
     <a class="dropdown-item" href="../articles/human_hmoi.html">MoI hybrid model</a>
@@ -134,9 +134,9 @@
         </dt>
         <dd>Compute beta, the biting distribution matrix</dd>
       </dl></div><div class="section level2">
-      <h2 id="adult-mosquito-component">Adult mosquito component<a class="anchor" aria-label="anchor" href="#adult-mosquito-component"></a></h2>
+      <h2 id="adult-mosquito-dynamics">Adult Mosquito Dynamics<a class="anchor" aria-label="anchor" href="#adult-mosquito-dynamics"></a></h2>
       
-      <p class="section-desc"></p><p>Generic methods for the adult mosquito component.</p>
+      <p class="section-desc"></p><p>Generic methods for the adult mosquito dynamics component.</p>
 
       
     </div><div id="" class="section level2">
@@ -186,8 +186,8 @@
         <dd>Make the mosquito demography matrix</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="basicm-mosquito-population-dynamics-no-infection-">basicM - mosquito population dynamics (no infection)<a class="anchor" aria-label="anchor" href="#basicm-mosquito-population-dynamics-no-infection-"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a basic model of adult mosquito dynamics.</p>
+      <h3 id="basicm">basicM<a class="anchor" aria-label="anchor" href="#basicm"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for basicM, a model of adult mosquito dynamics with no parasite infection dynamics.</p>
 
       
     </div><div id="" class="section level2">
@@ -217,11 +217,6 @@
         <dd>Add indices for adult mosquitoes to parameter list</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_MYZ_basicM.html">make_parameters_MYZ_basicM()</a></code> 
-        </dt>
-        <dd>Make parameters for a basic adult mosquito model</dd>
-      </dl><dl><dt>
-          
           <code><a href="make_inits_MYZ_basicM.html">make_inits_MYZ_basicM()</a></code> 
         </dt>
         <dd>Make inits for RM adult mosquito model</dd>
@@ -230,10 +225,15 @@
           <code><a href="get_inits_MYZ.basicM.html">get_inits_MYZ(<i>&lt;basicM&gt;</i>)</a></code> 
         </dt>
         <dd>Return initial values as a vector</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_MYZ_basicM.html">make_parameters_MYZ_basicM()</a></code> 
+        </dt>
+        <dd>Make parameters for a basic adult mosquito model</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="rm-a-ross-macdonald-style-mosquito-model">RM - A Ross-Macdonald-style mosquito model<a class="anchor" aria-label="anchor" href="#rm-a-ross-macdonald-style-mosquito-model"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics based on Aron &amp; May (1982).</p>
+      <h3 id="rm">RM<a class="anchor" aria-label="anchor" href="#rm"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics, modified slightly from a model published by Joan Aron &amp; Robert May (1982).</p>
 
       
     </div><div id="" class="section level2">
@@ -278,11 +278,6 @@
         <dd>Add indices for adult mosquitoes to parameter list</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_MYZ_RM.html">make_parameters_MYZ_RM()</a></code> 
-        </dt>
-        <dd>Make parameters for RM ODE adult mosquito model</dd>
-      </dl><dl><dt>
-          
           <code><a href="make_inits_MYZ_RM_ode.html">make_inits_MYZ_RM_ode()</a></code> 
         </dt>
         <dd>Make inits for RM adult mosquito model</dd>
@@ -301,10 +296,15 @@
           <code><a href="get_inits_MYZ.RM_dde.html">get_inits_MYZ(<i>&lt;RM_dde&gt;</i>)</a></code> 
         </dt>
         <dd>Return initial values as a vector</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_MYZ_RM.html">make_parameters_MYZ_RM()</a></code> 
+        </dt>
+        <dd>Make parameters for RM ODE adult mosquito model</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="germ-a-generalized-ross-macdonald-mosquito-model">GeRM - a generalized Ross-Macdonald mosquito model<a class="anchor" aria-label="anchor" href="#germ-a-generalized-ross-macdonald-mosquito-model"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for the generalized Ross-Macdonald model of adult mosquito dynamics from Wu SL, et al. (2023).</p>
+      <h3 id="germ">GeRM<a class="anchor" aria-label="anchor" href="#germ"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for a generalized Ross-Macdonald model for adult mosquito ecology and parasite infection dynamics, first published by Sean L Wu, et al.(2023).</p>
 
       
     </div><div id="" class="section level2">
@@ -354,11 +354,6 @@
         <dd>Add indices for adult mosquitoes to parameter list</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_MYZ_GeRM.html">make_parameters_MYZ_GeRM()</a></code> 
-        </dt>
-        <dd>Make parameters for GeRM ODE adult mosquito model</dd>
-      </dl><dl><dt>
-          
           <code><a href="make_inits_MYZ_GeRM_ode.html">make_inits_MYZ_GeRM_ode()</a></code> 
         </dt>
         <dd>Make inits for GeRM adult mosquito model</dd>
@@ -377,10 +372,15 @@
           <code><a href="get_inits_MYZ.GeRM_dde.html">get_inits_MYZ(<i>&lt;GeRM_dde&gt;</i>)</a></code> 
         </dt>
         <dd>Return initial values as a vector</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_MYZ_GeRM.html">make_parameters_MYZ_GeRM()</a></code> 
+        </dt>
+        <dd>Make parameters for GeRM ODE adult mosquito model</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="ztrace-specialized-methods-to-call-the-adult-mosquito-model-as-a-trace">Ztrace - specialized methods to call the adult mosquito model as a trace<a class="anchor" aria-label="anchor" href="#ztrace-specialized-methods-to-call-the-adult-mosquito-model-as-a-trace"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods to pass values of Z to force human infection dynamics.</p>
+      <h3 id="ztrace">Ztrace<a class="anchor" aria-label="anchor" href="#ztrace"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for NULL dynamics: a funtion generates values of Z to force human infection dynamics</p>
 
       
     </div><div id="" class="section level2">
@@ -415,11 +415,6 @@
         <dd>Add indices for aquatic stage mosquitoes to parameter list</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_MYZ_Ztrace.html">make_parameters_MYZ_Ztrace()</a></code> 
-        </dt>
-        <dd>Make parameters for Ztrace aquatic mosquito model</dd>
-      </dl><dl><dt>
-          
           <code><a href="make_inits_MYZ_Ztrace.html">make_inits_MYZ_Ztrace()</a></code> 
         </dt>
         <dd>Make parameters for Ztrace aquatic mosquito model</dd>
@@ -428,8 +423,13 @@
           <code><a href="get_inits_MYZ.Ztrace.html">get_inits_MYZ(<i>&lt;Ztrace&gt;</i>)</a></code> 
         </dt>
         <dd>Return initial values as a vector</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_MYZ_Ztrace.html">make_parameters_MYZ_Ztrace()</a></code> 
+        </dt>
+        <dd>Make parameters for Ztrace aquatic mosquito model</dd>
       </dl></div><div class="section level2">
-      <h2 id="aquatic-mosquito-component">Aquatic mosquito component<a class="anchor" aria-label="anchor" href="#aquatic-mosquito-component"></a></h2>
+      <h2 id="aquatic-mosquito-dynamics">Aquatic Mosquito Dynamics<a class="anchor" aria-label="anchor" href="#aquatic-mosquito-dynamics"></a></h2>
       
       <p class="section-desc"></p><p>Generic methods for the aquatic (immature) mosquito component.</p>
 
@@ -461,7 +461,7 @@
         <dd>Return initial values as a vector</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="trace-forced-aquatic-mosquito-model">Trace (forced) aquatic mosquito model<a class="anchor" aria-label="anchor" href="#trace-forced-aquatic-mosquito-model"></a></h3>
+      <h3 id="trace">trace<a class="anchor" aria-label="anchor" href="#trace"></a></h3>
       <p class="section-desc"></p><p>Specialized methods for the exogeneously forced trace model of aquatic mosquito dynamics.</p>
 
       
@@ -487,11 +487,6 @@
         <dd>Add indices for aquatic stage mosquitoes to parameter list</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_L_trace.html">make_parameters_L_trace()</a></code> 
-        </dt>
-        <dd>Make parameters for trace aquatic mosquito model</dd>
-      </dl><dl><dt>
-          
           <code><a href="make_inits_L_trace.html">make_inits_L_trace()</a></code> 
         </dt>
         <dd>Make parameters for trace aquatic mosquito model</dd>
@@ -500,10 +495,15 @@
           <code><a href="get_inits_L.trace.html">get_inits_L(<i>&lt;trace&gt;</i>)</a></code> 
         </dt>
         <dd>Return initial values as a vector</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_L_trace.html">make_parameters_L_trace()</a></code> 
+        </dt>
+        <dd>Make parameters for trace aquatic mosquito model</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="basic-basic-competition-aquatic-mosquito-model">basic - Basic competition aquatic mosquito model<a class="anchor" aria-label="anchor" href="#basic-basic-competition-aquatic-mosquito-model"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for the basic competition model of aquatic mosquito dynamics.</p>
+      <h3 id="basic">basic<a class="anchor" aria-label="anchor" href="#basic"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for a basic competition model of aquatic mosquito dynamics.</p>
 
       
     </div><div id="" class="section level2">
@@ -528,11 +528,6 @@
         <dd>Add indices for aquatic stage mosquitoes to parameter list</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_L_basic.html">make_parameters_L_basic()</a></code> 
-        </dt>
-        <dd>Make parameters for basic competition aquatic mosquito model</dd>
-      </dl><dl><dt>
-          
           <code><a href="make_inits_L_basic.html">make_inits_L_basic()</a></code> 
         </dt>
         <dd>Make inits for basic competition aquatic mosquito model</dd>
@@ -541,10 +536,15 @@
           <code><a href="get_inits_L.basic.html">get_inits_L(<i>&lt;basic&gt;</i>)</a></code> 
         </dt>
         <dd>Return initial values as a vector</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_L_basic.html">make_parameters_L_basic()</a></code> 
+        </dt>
+        <dd>Make parameters for basic competition aquatic mosquito model</dd>
       </dl></div><div class="section level2">
-      <h2 id="human-disease-component">Human disease component<a class="anchor" aria-label="anchor" href="#human-disease-component"></a></h2>
+      <h2 id="human-infection-dynamics">Human infection dynamics<a class="anchor" aria-label="anchor" href="#human-infection-dynamics"></a></h2>
       
-      <p class="section-desc"></p><p>Generic methods for the human disease component.</p>
+      <p class="section-desc"></p><p>Generic methods for the dynamical component that handles human infection dynamics, immunity, disease and transmission</p>
 
       
     </div><div id="" class="section level2">
@@ -574,7 +574,7 @@
         <dd>Return initial values as a vector</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="hybrid-moi-model">hybrid MoI model<a class="anchor" aria-label="anchor" href="#hybrid-moi-model"></a></h3>
+      <h3 id="hmoi">hMoI<a class="anchor" aria-label="anchor" href="#hmoi"></a></h3>
       <p class="section-desc"></p><p>Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.</p>
 
       
@@ -600,11 +600,6 @@
         <dd>Add indices for human population to parameter list</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_X_hMoI.html">make_parameters_X_hMoI()</a></code> 
-        </dt>
-        <dd>Make parameters for hybrid MoI human model</dd>
-      </dl><dl><dt>
-          
           <code><a href="make_inits_X_hMoI.html">make_inits_X_hMoI()</a></code> 
         </dt>
         <dd>Make inits for hybrid MoI human model</dd>
@@ -613,9 +608,14 @@
           <code><a href="get_inits_X.hMoI.html">get_inits_X(<i>&lt;hMoI&gt;</i>)</a></code> 
         </dt>
         <dd>Return initial values as a vector</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_X_hMoI.html">make_parameters_X_hMoI()</a></code> 
+        </dt>
+        <dd>Make parameters for hybrid MoI human model</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="sis-human-model">SIS human model<a class="anchor" aria-label="anchor" href="#sis-human-model"></a></h3>
+      <h3 id="sis">SIS<a class="anchor" aria-label="anchor" href="#sis"></a></h3>
       <p class="section-desc"></p><p>Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.</p>
 
       
@@ -641,11 +641,6 @@
         <dd>Add indices for human population to parameter list</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_X_SIS.html">make_parameters_X_SIS()</a></code> 
-        </dt>
-        <dd>Make parameters for SIS human model</dd>
-      </dl><dl><dt>
-          
           <code><a href="make_inits_X_SIS.html">make_inits_X_SIS()</a></code> 
         </dt>
         <dd>Make inits for SIS human model</dd>
@@ -654,9 +649,14 @@
           <code><a href="get_inits_X.SIS.html">get_inits_X(<i>&lt;SIS&gt;</i>)</a></code> 
         </dt>
         <dd>Return initial values as a vector</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_X_SIS.html">make_parameters_X_SIS()</a></code> 
+        </dt>
+        <dd>Make parameters for SIS human model</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="sip-human-model">SIP human model<a class="anchor" aria-label="anchor" href="#sip-human-model"></a></h3>
+      <h3 id="sip">SIP<a class="anchor" aria-label="anchor" href="#sip"></a></h3>
       <p class="section-desc"></p><p>Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.</p>
 
       
@@ -682,11 +682,6 @@
         <dd>Add indices for human population to parameter list</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_X_SIP.html">make_parameters_X_SIP()</a></code> 
-        </dt>
-        <dd>Make parameters for SIP human model</dd>
-      </dl><dl><dt>
-          
           <code><a href="make_inits_X_SIP.html">make_inits_X_SIP()</a></code> 
         </dt>
         <dd>Make inits for SIP human model</dd>
@@ -695,10 +690,15 @@
           <code><a href="get_inits_X.SIP.html">get_inits_X(<i>&lt;SIP&gt;</i>)</a></code> 
         </dt>
         <dd>Return initial values as a vector</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_X_SIP.html">make_parameters_X_SIP()</a></code> 
+        </dt>
+        <dd>Make parameters for SIP human model</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="human-trace-model">human trace model<a class="anchor" aria-label="anchor" href="#human-trace-model"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a human trace model</p>
+      <h3 id="trace-1">trace<a class="anchor" aria-label="anchor" href="#trace-1"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for a human trace model to pass kappa as a parameter</p>
 
       
     </div><div id="" class="section level2">
@@ -723,11 +723,6 @@
         <dd>Add indices for human population to parameter list</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_X_trace.html">make_parameters_X_trace()</a></code> 
-        </dt>
-        <dd>Make parameters for trace human model</dd>
-      </dl><dl><dt>
-          
           <code><a href="make_inits_X_trace.html">make_inits_X_trace()</a></code> 
         </dt>
         <dd>Make inits for trace human model</dd>
@@ -736,10 +731,15 @@
           <code><a href="get_inits_X.trace.html">get_inits_X(<i>&lt;trace&gt;</i>)</a></code> 
         </dt>
         <dd>Return initial values as a vector</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_X_trace.html">make_parameters_X_trace()</a></code> 
+        </dt>
+        <dd>Make parameters for trace human model</dd>
       </dl></div><div class="section level2">
-      <h2 id="human-demography-component">Human demography component<a class="anchor" aria-label="anchor" href="#human-demography-component"></a></h2>
+      <h2 id="human-population-dynamics">Human Population Dynamics<a class="anchor" aria-label="anchor" href="#human-population-dynamics"></a></h2>
       
-      <p class="section-desc"></p><p>Generic methods for the human demography component.</p>
+      <p class="section-desc"></p><p>Generic methods for the human demography and aging</p>
 
       
     </div><div id="" class="section level2">
@@ -779,7 +779,7 @@
         <dd>Make parameters for null human demography model</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="static-demography-model">Static demography model<a class="anchor" aria-label="anchor" href="#static-demography-model"></a></h3>
+      <h3 id="static">static<a class="anchor" aria-label="anchor" href="#static"></a></h3>
       <p class="section-desc"></p><p>Specialized methods for the static (constant) demographic model</p>
 
       
@@ -820,7 +820,7 @@
         <dd>Make parameters for static human demography model</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="dynamic-demography-model">Dynamic demography model<a class="anchor" aria-label="anchor" href="#dynamic-demography-model"></a></h3>
+      <h3 id="dynamic">dynamic<a class="anchor" aria-label="anchor" href="#dynamic"></a></h3>
       <p class="section-desc"></p><p>Specialized methods for the demographic model with dynamic denominators</p>
 
       
@@ -861,7 +861,7 @@
         <dd>Make parameters for forced (dynamic) human demography model</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="births">Births<a class="anchor" aria-label="anchor" href="#births"></a></h3>
+      <h3 id="f-births">F_Births<a class="anchor" aria-label="anchor" href="#f-births"></a></h3>
       <p class="section-desc"></p><p>Specialized methods to compute population birth rates</p>
 
       
@@ -911,20 +911,10 @@
           <code><a href="ExogenousForcing.html">ExogenousForcing()</a></code> 
         </dt>
         <dd>Modify parameters due to exogenous forcing</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Weather.html">Weather()</a></code> 
-        </dt>
-        <dd>Set the values of exogenous variables describing weather</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Hydrology.html">Hydrology()</a></code> 
-        </dt>
-        <dd>Set the values of exogenous variables describing hydrology</dd>
-      </dl></div><div class="section level2">
+      </dl></div><div id="" class="section level2">
       
-      <h3 id="exogenous-forcing-null-models">exogenous forcing null models<a class="anchor" aria-label="anchor" href="#exogenous-forcing-null-models"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a null models for exogenous forcing</p>
+      
+      <p class="section-desc"></p><p>Specialized methods the null model (no exogenous forcing)</p>
 
       
     </div><div id="" class="section level2">
@@ -942,30 +932,10 @@
           <code><a href="make_parameters_exogenous_null.html">make_parameters_exogenous_null()</a></code> 
         </dt>
         <dd>Make parameters for the null model of exogenous forcing (do nothing)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Weather.null.html">Weather(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_weather_null.html">make_parameters_weather_null()</a></code> 
-        </dt>
-        <dd>Make parameters for the null model for weather (do nothing)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Hydrology.null.html">Hydrology(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_hydrology_null.html">make_parameters_hydrology_null()</a></code> 
-        </dt>
-        <dd>Make parameters for the null model for hydrology (do nothing)</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="exogenous-forcing-forced">exogenous forcing, forced<a class="anchor" aria-label="anchor" href="#exogenous-forcing-forced"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a null models for exogenous forcing</p>
+      <h3 id="forced">forced<a class="anchor" aria-label="anchor" href="#forced"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods to call forcing</p>
 
       
     </div><div id="" class="section level2">
@@ -983,6 +953,58 @@
           <code><a href="make_parameters_exogenous_forced.html">make_parameters_exogenous_forced()</a></code> 
         </dt>
         <dd>Make parameters for the null model of exogenous forcing (do nothing)</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="weather">Weather<a class="anchor" aria-label="anchor" href="#weather"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for weather</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="Weather.html">Weather()</a></code> 
+        </dt>
+        <dd>Set the values of exogenous variables describing weather</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Weather.null.html">Weather(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_weather_null.html">make_parameters_weather_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model for weather (do nothing)</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="hydrology">Hydrology<a class="anchor" aria-label="anchor" href="#hydrology"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for hydrology</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="Hydrology.html">Hydrology()</a></code> 
+        </dt>
+        <dd>Set the values of exogenous variables describing hydrology</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Hydrology.null.html">Hydrology(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_hydrology_null.html">make_parameters_hydrology_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model for hydrology (do nothing)</dd>
       </dl></div><div class="section level2">
       <h2 id="resource-availability">Resource Availability<a class="anchor" aria-label="anchor" href="#resource-availability"></a></h2>
       
@@ -1012,7 +1034,7 @@
       </dl></div><div class="section level2">
       <h2 id="malaria-importation">Malaria Importation<a class="anchor" aria-label="anchor" href="#malaria-importation"></a></h2>
       
-      <p class="section-desc"></p><p>Methods to implement malaria importation.</p>
+      <p class="section-desc"></p><p>Methods to implement malaria importation</p>
 
       
     </div><div id="" class="section level2">
@@ -1035,10 +1057,10 @@
           <code><a href="fqZ_local.html">fqZ_local()</a></code> 
         </dt>
         <dd>Correct fqZ for models with visitors</dd>
-      </dl></div><div class="section level2">
+      </dl></div><div id="" class="section level2">
       
-      <h3 id="malaria-importation-null-model">Malaria importation null model<a class="anchor" aria-label="anchor" href="#malaria-importation-null-model"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a null model of malaria importation.</p>
+      
+      <p class="section-desc"></p><p>Specialized methods for a null model of malaria importation (do nothing)</p>
 
       
     </div><div id="" class="section level2">
@@ -1068,8 +1090,8 @@
         <dd>Make parameters for the null model for parasite / pathogen importation</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="malaria-importation-basic-model">malaria importation basic model<a class="anchor" aria-label="anchor" href="#malaria-importation-basic-model"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a basic model of malaria importation.</p>
+      <h3 id="basic-1">basic<a class="anchor" aria-label="anchor" href="#basic-1"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for a basic model of malaria importation</p>
 
       
     </div><div id="" class="section level2">
@@ -1113,7 +1135,18 @@
           <code><a href="VectorControl.html">VectorControl()</a></code> 
         </dt>
         <dd>Modify baseline values due to vector control</dd>
-      </dl><dl><dt>
+      </dl></div><div id="" class="section level2">
+      
+      
+      <p class="section-desc"></p><p>Specialized methods for the null model (no vector control)</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="VectorControl.null.html">VectorControl(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
@@ -1123,7 +1156,18 @@
           <code><a href="make_parameters_vc_null.html">make_parameters_vc_null()</a></code> 
         </dt>
         <dd>Make parameters for the null model of vector control (do nothing)</dd>
-      </dl><dl><dt>
+      </dl></div><div class="section level2">
+      
+      <h3 id="control">control<a class="anchor" aria-label="anchor" href="#control"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods to implement vector control</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="VectorControl.control.html">VectorControl(<i>&lt;control&gt;</i>)</a></code> 
         </dt>
@@ -1134,8 +1178,8 @@
         </dt>
         <dd>Make parameters for the control model of vector control (do nothing)</dd>
       </dl></div><div class="section level2">
-      <h2 id="bed-nets">Bed Nets<a class="anchor" aria-label="anchor" href="#bed-nets"></a></h2>
       
+      <h3 id="bed-nets">Bed Nets<a class="anchor" aria-label="anchor" href="#bed-nets"></a></h3>
       <p class="section-desc"></p><p>Methods to implement bed nets</p>
 
       
@@ -1161,17 +1205,17 @@
         <dd>Make parameters for the null model of bed nets (do nothing)</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_itn_lemenach.html">make_parameters_itn_lemenach()</a></code> 
-        </dt>
-        <dd>Make parameters for Le Menach ITN model of vector control</dd>
-      </dl><dl><dt>
-          
           <code><a href="BedNets.lemenach.html">BedNets(<i>&lt;lemenach&gt;</i>)</a></code> 
         </dt>
         <dd>Modify baseline values due to vector control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_itn_lemenach.html">make_parameters_itn_lemenach()</a></code> 
+        </dt>
+        <dd>Make parameters for Le Menach ITN model of vector control</dd>
       </dl></div><div class="section level2">
-      <h2 id="indoor-residual-spraying">Indoor Residual Spraying<a class="anchor" aria-label="anchor" href="#indoor-residual-spraying"></a></h2>
       
+      <h3 id="indoor-residual-spraying">Indoor Residual Spraying<a class="anchor" aria-label="anchor" href="#indoor-residual-spraying"></a></h3>
       <p class="section-desc"></p><p>Methods to implement IRS</p>
 
       
@@ -1196,8 +1240,8 @@
         </dt>
         <dd>Make parameters for the null model of IRS (do nothing)</dd>
       </dl></div><div class="section level2">
-      <h2 id="attractive-toxic-sugar-baits">Attractive Toxic Sugar Baits<a class="anchor" aria-label="anchor" href="#attractive-toxic-sugar-baits"></a></h2>
       
+      <h3 id="attractive-toxic-sugar-baits">Attractive Toxic Sugar Baits<a class="anchor" aria-label="anchor" href="#attractive-toxic-sugar-baits"></a></h3>
       <p class="section-desc"></p><p>Methods to implement ATSB</p>
 
       
@@ -1222,8 +1266,8 @@
         </dt>
         <dd>Make parameters for the null model of ATSB (do nothing)</dd>
       </dl></div><div class="section level2">
-      <h2 id="larval-source-management">Larval Source Management<a class="anchor" aria-label="anchor" href="#larval-source-management"></a></h2>
       
+      <h3 id="larval-source-management">Larval Source Management<a class="anchor" aria-label="anchor" href="#larval-source-management"></a></h3>
       <p class="section-desc"></p><p>Methods to implement LSM</p>
 
       

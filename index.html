@@ -58,22 +58,22 @@
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-adult-mosquito-component">Adult Mosquito Component</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-adult-mosquito-component">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-adult-mosquito-dynamics">Adult Mosquito Dynamics</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-adult-mosquito-dynamics">
     <a class="dropdown-item" href="articles/adult_RM.html">Ross-Macdonald model</a>
     <a class="dropdown-item" href="articles/adult_GeRM.html">Generalized Ross-Macdonald model</a>
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-aquatic-mosquito-component">Aquatic Mosquito Component</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-aquatic-mosquito-component">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-aquatic-mosquito-dynamics">Aquatic Mosquito Dynamics</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-aquatic-mosquito-dynamics">
     <a class="dropdown-item" href="articles/aqua_trace.html">Trace (forced) model</a>
     <a class="dropdown-item" href="articles/aqua_basic.html">Basic competition model</a>
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-human-component">Human Component</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-human-component">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-human-infection-dynamics">Human Infection Dynamics</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-human-infection-dynamics">
     <a class="dropdown-item" href="articles/human_sis.html">SIS model</a>
     <a class="dropdown-item" href="articles/human_sip.html">SIP model</a>
     <a class="dropdown-item" href="articles/human_hmoi.html">MoI hybrid model</a>
@@ -106,7 +106,8 @@
 <div class="section level2">
 <h2 id="what-is-exde">What is exDE?<a class="anchor" aria-label="anchor" href="#what-is-exde"></a>
 </h2>
-<p>exDE is software that implements a mathematical framework for setting up and solving models of mosquito-borne pathogen dynamics and control as systems of ordinary and delay differential equations: the framework supports spatial dynamics; exogenous forcing (<em>e.g.</em> by weather and vector control); and human (or other host) aging and demographic change. The main focus of software development has been malaria, but the framework can also be used to model other mosquito-transmitted pathogens. The software was designed to support modular computation. Modularity has been achieved through a combination of methods: the functions that compute derivatives use a method that dispatches on parameter lists for each component which is used to compute the full set of differential equations; the interfaces for blood feeding and egg laying are biologically realistic but rigidly defined to guarantee mathematical consistency; and a large set of additional features have been implemented with careful attention to detail to guarantee consistency and avoid conflicts. The function <code><a href="reference/xDE_diffeqn.html">exDE::xDE_diffeqn</a></code> computes the gradient of all state variables from those modular components and can be used with the excellent solvers in <a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a>, or other differential equation solvers in R. exDE can be regarded as the continuous-time companion to the discrete stochastic <a href="https://github.com/dd-harp/MicroMoB" class="external-link">Micro-MoB</a> framework.</p>
+<p>exDE is software that implements a mathematical framework for setting up, analyzing, and solving models of mosquito-borne pathogen dynamics and control as systems of ordinary or delay differential equations. The framework is designed to model spatial transmission dynamics of a pathogen within a defined spatial domain; spatial ecology and population dynamics of mosquitoes within the domain; exogenous forcing by weather and vector control; and malaria and mosquito importation. The software also supports population dynamic models of stratified human populations, including aging and demographic changes. The main focus of software development has been malaria, but the framework has all the capabilities to model other mosquito-transmitted pathogens.</p>
+<p>The software aims to be fully modular: it implements plug-and-play computation for a broad class of simulation models describing the dynamics and control of mosquito-transmitted pathogens. Modularity has been achieved through a combination of methods: the functions that compute derivatives use a method that dispatches on parameter lists for each component which is used to compute the full set of differential equations; the interfaces for blood feeding and egg laying are biologically realistic but rigidly defined to guarantee mathematical consistency; and a large set of additional features have been implemented with careful attention to detail to guarantee consistency and avoid conflicts. The function <code><a href="reference/xDE_diffeqn.html">exDE::xDE_diffeqn</a></code> computes the gradient of all state variables from those modular components and can be used with the excellent solvers in <a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a>, or other differential equation solvers in R. exDE can be regarded as the continuous-time companion to the discrete stochastic <a href="https://github.com/dd-harp/MicroMoB" class="external-link">Micro-MoB</a> framework.</p>
 <p>To get started, please consider reading some of the articles in the drop down panels above, at our <a href="https://dd-harp.github.io/exDE/">website</a>. The 3 sections ending in “Component” describe particular models implementing the interface for each of those components (adult mosquitoes, aquatic mosquitoes, and humans), and show a simulation at their equilibrium values.</p>
 <p>The section “Articles” has more in-depth examples, including an extended walk through of how to set up and run a model in <code><a href="articles/ex_534.html">vignette("ex_534")</a></code>, a guide on how to contribute, and an example of running a model in exDE with external forcing under a model of ITN (insecticide treated nets) based vector control in <code><a href="articles/vc_lemenach.html">vignette("vc_lemenach")</a></code>.</p>
 <p>The section “Functions” documents each function exported by the package.</p>
