@@ -53,7 +53,7 @@ home:
         title: Changelog
         text: <a href="news/index.html">News</a>
 reference:
-- title: Generalized derivatives functions 
+- title: Generalized derivatives functions
   contents:
   - xDE_diffeqn
   - xDE_diffeqn_mosy
@@ -79,7 +79,7 @@ reference:
   - make_indices_MYZ
   - get_inits_MYZ
   - make_Omega
-- subtitle: basicM - mosquito population dynamics (no infection) 
+- subtitle: basicM - mosquito population dynamics (no infection)
   desc: |
     Specialized methods for a basic model of adult mosquito dynamics.
   contents:
@@ -90,7 +90,7 @@ reference:
   - make_parameters_MYZ_basicM
   - make_inits_MYZ_basicM
   - get_inits_MYZ.basicM
-- subtitle: RM - A Ross-Macdonald-style mosquito model   
+- subtitle: RM - A Ross-Macdonald-style mosquito model
   desc: |
     Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics based on Aron & May (1982).
   contents:
@@ -167,7 +167,7 @@ reference:
   desc: |
     Generic methods for the human disease component.
   contents:
-  - F_x
+  - F_X
   - dXdt
   - make_indices_X
   - get_inits_X
@@ -175,7 +175,7 @@ reference:
   desc: |
     Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.
   contents:
-  - F_x.hMoI
+  - F_X.hMoI
   - dXdt.hMoI
   - make_indices_X.hMoI
   - make_parameters_X_hMoI
@@ -185,7 +185,7 @@ reference:
   desc: |
     Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
   contents:
-  - F_x.SIS
+  - F_X.SIS
   - dXdt.SIS
   - make_indices_X.SIS
   - make_parameters_X_SIS
@@ -195,7 +195,7 @@ reference:
   desc: |
     Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
   contents:
-  - F_x.SIP
+  - F_X.SIP
   - dXdt.SIP
   - make_indices_X.SIP
   - make_parameters_X_SIP
@@ -205,7 +205,7 @@ reference:
   desc: |
     Specialized methods for a human trace model
   contents:
-  - F_x.trace
+  - F_X.trace
   - dXdt.trace
   - make_indices_X.trace
   - make_parameters_X_trace
