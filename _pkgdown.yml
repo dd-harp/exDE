@@ -15,19 +15,19 @@ navbar:
       href: articles/vc_lemenach.html
     - text: Contributing
       href: articles/Contributing.html
-  - text: Adult Mosquito Component
+  - text: Adult Mosquito Dynamics
     menu:
     - text: Ross-Macdonald model
       href: articles/adult_RM.html
     - text: Generalized Ross-Macdonald model
       href: articles/adult_GeRM.html
-  - text: Aquatic Mosquito Component
+  - text: Aquatic Mosquito Dynamics
     menu:
     - text: Trace (forced) model
       href: articles/aqua_trace.html
     - text: Basic competition model
       href: articles/aqua_basic.html
-  - text: Human Component
+  - text: Human Infection Dynamics
     menu:
     - text: SIS model
       href: articles/human_sis.html
@@ -67,9 +67,9 @@ reference:
   - F_EIR
   - F_kappa
   - compute_beta
-- title: Adult mosquito component
+- title: Adult Mosquito Dynamics
   desc: |
-    Generic methods for the adult mosquito component.
+    Generic methods for the adult mosquito dynamics component.
   contents:
   - MosquitoBehavior
   - F_tau
@@ -79,20 +79,20 @@ reference:
   - make_indices_MYZ
   - get_inits_MYZ
   - make_Omega
-- subtitle: basicM - mosquito population dynamics (no infection)
+- subtitle: basicM
   desc: |
-    Specialized methods for a basic model of adult mosquito dynamics.
+    Specialized methods for basicM, a model of adult mosquito dynamics with no parasite infection dynamics.
   contents:
   - MosquitoBehavior.basicM
   - F_eggs.basicM
   - dMYZdt.basicM
   - make_indices_MYZ.basicM
-  - make_parameters_MYZ_basicM
   - make_inits_MYZ_basicM
   - get_inits_MYZ.basicM
-- subtitle: RM - A Ross-Macdonald-style mosquito model
+  - make_parameters_MYZ_basicM
+- subtitle: RM
   desc: |
-    Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics based on Aron & May (1982).
+    Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics, modified slightly from a model published by Joan Aron & Robert May (1982).
   contents:
   - MosquitoBehavior.RM
   - F_Z.RM
@@ -101,14 +101,14 @@ reference:
   - dMYZdt.RM_dde
   - make_indices_MYZ.RM_ode
   - make_indices_MYZ.RM_dde
-  - make_parameters_MYZ_RM
   - make_inits_MYZ_RM_ode
   - make_inits_MYZ_RM_dde
   - get_inits_MYZ.RM_ode
   - get_inits_MYZ.RM_dde
-- subtitle: GeRM - a generalized Ross-Macdonald mosquito model
+  - make_parameters_MYZ_RM
+- subtitle: GeRM
   desc: |
-    Specialized methods for the generalized Ross-Macdonald model of adult mosquito dynamics from Wu SL, et al. (2023).
+    Specialized methods for a generalized Ross-Macdonald model for adult mosquito ecology and parasite infection dynamics, first published by Sean L Wu, et al.(2023).
   contents:
   - MosquitoBehavior.GeRM
   - ResourceAvailability.GeRM
@@ -118,24 +118,24 @@ reference:
   - dMYZdt.GeRM_dde
   - make_indices_MYZ.GeRM_ode
   - make_indices_MYZ.GeRM_dde
-  - make_parameters_MYZ_GeRM
   - make_inits_MYZ_GeRM_ode
   - make_inits_MYZ_GeRM_dde
   - get_inits_MYZ.GeRM_ode
   - get_inits_MYZ.GeRM_dde
-- subtitle: Ztrace - specialized methods to call the adult mosquito model as a trace
+  - make_parameters_MYZ_GeRM
+- subtitle: Ztrace
   desc: |
-    Specialized methods to pass values of Z to force human infection dynamics.
+    Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
   contents:
   - MosquitoBehavior.Ztrace
   - F_Z.Ztrace
   - F_eggs.Ztrace
   - dMYZdt.Ztrace
   - make_indices_MYZ.Ztrace
-  - make_parameters_MYZ_Ztrace
   - make_inits_MYZ_Ztrace
   - get_inits_MYZ.Ztrace
-- title: Aquatic mosquito component
+  - make_parameters_MYZ_Ztrace
+- title: Aquatic Mosquito Dynamics
   desc: |
     Generic methods for the aquatic (immature) mosquito component.
   contents:
@@ -143,77 +143,77 @@ reference:
   - dLdt
   - make_indices_L
   - get_inits_L
-- subtitle: Trace (forced) aquatic mosquito model
+- subtitle: trace
   desc: |
     Specialized methods for the exogeneously forced trace model of aquatic mosquito dynamics.
   contents:
   - F_alpha.trace
   - dLdt.trace
   - make_indices_L.trace
-  - make_parameters_L_trace
   - make_inits_L_trace
   - get_inits_L.trace
-- subtitle: basic - Basic competition aquatic mosquito model
+  - make_parameters_L_trace
+- subtitle: basic
   desc: |
-    Specialized methods for the basic competition model of aquatic mosquito dynamics.
+    Specialized methods for a basic competition model of aquatic mosquito dynamics.
   contents:
   - F_alpha.basic
   - dLdt.basic
   - make_indices_L.basic
-  - make_parameters_L_basic
   - make_inits_L_basic
   - get_inits_L.basic
-- title: Human disease component
+  - make_parameters_L_basic
+- title: Human infection dynamics
   desc: |
-    Generic methods for the human disease component.
+    Generic methods for the dynamical component that handles human infection dynamics, immunity, disease and transmission
   contents:
   - F_X
   - dXdt
   - make_indices_X
   - get_inits_X
-- subtitle: hybrid MoI model
+- subtitle: hMoI
   desc: |
     Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.
   contents:
   - F_X.hMoI
   - dXdt.hMoI
   - make_indices_X.hMoI
-  - make_parameters_X_hMoI
   - make_inits_X_hMoI
   - get_inits_X.hMoI
-- subtitle: SIS human model
+  - make_parameters_X_hMoI
+- subtitle: SIS
   desc: |
     Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
   contents:
   - F_X.SIS
   - dXdt.SIS
   - make_indices_X.SIS
-  - make_parameters_X_SIS
   - make_inits_X_SIS
   - get_inits_X.SIS
-- subtitle: SIP human model
+  - make_parameters_X_SIS
+- subtitle: SIP
   desc: |
     Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
   contents:
   - F_X.SIP
   - dXdt.SIP
   - make_indices_X.SIP
-  - make_parameters_X_SIP
   - make_inits_X_SIP
   - get_inits_X.SIP
-- subtitle: human trace model
+  - make_parameters_X_SIP
+- subtitle: trace
   desc: |
-    Specialized methods for a human trace model
+    Specialized methods for a human trace model to pass kappa as a parameter
   contents:
   - F_X.trace
   - dXdt.trace
   - make_indices_X.trace
-  - make_parameters_X_trace
   - make_inits_X_trace
   - get_inits_X.trace
-- title: Human demography component
+  - make_parameters_X_trace
+- title: Human Population Dynamics
   desc: |
-    Generic methods for the human demography component.
+    Generic methods for the human demography and aging
   contents:
   - F_H
   - dHdt
@@ -221,7 +221,7 @@ reference:
   - make_indices_H
   - get_inits_H
   - make_parameters_demography_null
-- subtitle: Static demography model
+- subtitle: static
   desc: |
     Specialized methods for the static (constant) demographic model
   contents:
@@ -231,7 +231,7 @@ reference:
   - make_indices_H.static
   - get_inits_H.static
   - make_parameters_demography_static
-- subtitle: Dynamic demography model
+- subtitle: dynamic
   desc: |
     Specialized methods for the demographic model with dynamic denominators
   contents:
@@ -241,7 +241,7 @@ reference:
   - make_indices_H.dynamic
   - get_inits_H.dynamic
   - make_parameters_demography_dynamic
-- subtitle: Births
+- subtitle: F_Births
   desc: |
     Specialized methods to compute population birth rates
   contents:
@@ -255,24 +255,32 @@ reference:
     Methods to implement exogeneous forcing.
   contents:
   - ExogenousForcing
-  - Weather
-  - Hydrology
-- subtitle: exogenous forcing null models
+- subtitle: null
   desc: |
-    Specialized methods for a null models for exogenous forcing
+    Specialized methods the null model (no exogenous forcing)
   contents:
   - ExogenousForcing.null
   - make_parameters_exogenous_null
-  - Weather.null
-  - make_parameters_weather_null
-  - Hydrology.null
-  - make_parameters_hydrology_null
-- subtitle: exogenous forcing, forced
+- subtitle: forced
   desc: |
-    Specialized methods for a null models for exogenous forcing
+    Specialized methods to call forcing
   contents:
   - ExogenousForcing.forced
   - make_parameters_exogenous_forced
+- subtitle: Weather
+  desc: |
+    Specialized methods for weather
+  contents:
+  - Weather
+  - Weather.null
+  - make_parameters_weather_null
+- subtitle: Hydrology
+  desc: |
+    Specialized methods for hydrology
+  contents:
+  - Hydrology
+  - Hydrology.null
+  - make_parameters_hydrology_null
 - title: Resource Availability
   desc: |
     Methods to implement resource availability
@@ -282,22 +290,22 @@ reference:
   - make_parameters_resources_null
 - title: Malaria Importation
   desc: |
-    Methods to implement malaria importation.
+    Methods to implement malaria importation
   contents:
   - Import
   - kappa_local
   - fqZ_local
-- subtitle: Malaria importation null model
+- subtitle: null
   desc: |
-    Specialized methods for a null  model of malaria importation.
+    Specialized methods for a null model of malaria importation (do nothing)
   contents:
   - Import.null
   - kappa_local.null
   - fqZ_local.null
   - make_parameters_import_null
-- subtitle: malaria importation basic model
+- subtitle: basic
   desc: |
-    Specialized methods for a basic model of malaria importation.
+    Specialized methods for a basic model of malaria importation
   contents:
   - Import.basic
   - kappa_local.basic
@@ -308,44 +316,48 @@ reference:
     Methods to implement vector control.
   contents:
   - VectorControl
+- subtitle: null
+  desc: |
+    Specialized methods for the null model (no vector control)
+  contents:
   - VectorControl.null
   - make_parameters_vc_null
+- subtitle: control
+  desc: |
+    Specialized methods to implement vector control
+  contents:
   - VectorControl.control
   - make_parameters_vc_control
-- title: Bed Nets
+- subtitle: Bed Nets
   desc: |
     Methods to implement bed nets
   contents:
   - BedNets
   - BedNets.null
   - make_parameters_itn_null
-  - BedNets.null
-  - make_parameters_itn_lemenach
   - BedNets.lemenach
-- title: Indoor Residual Spraying
+  - make_parameters_itn_lemenach
+- subtitle: Indoor Residual Spraying
   desc: |
     Methods to implement IRS
   contents:
   - IRS
   - IRS.null
   - make_parameters_irs_null
-  - IRS.null
-- title: Attractive Toxic Sugar Baits
+- subtitle: Attractive Toxic Sugar Baits
   desc: |
     Methods to implement ATSB
   contents:
   - ATSB
   - ATSB.null
   - make_parameters_atsb_null
-  - ATSB.null
-- title: Larval Source Management
+- subtitle: Larval Source Management
   desc: |
     Methods to implement LSM
   contents:
   - LSM
   - LSM.null
   - make_parameters_lsm_null
-  - LSM.null
 - title: Spatial metrics
   contents:
   - metric_calV

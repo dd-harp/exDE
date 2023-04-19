@@ -97,7 +97,6 @@ dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa) {
       sigma_eip <- lagderiv(t = t-eip, nr = sigma_ix)
     }
 
-
     M <- y[M_ix]
     P <- y[P_ix]
     Y <- y[Y_ix]
