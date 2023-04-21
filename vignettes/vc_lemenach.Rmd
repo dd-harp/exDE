@@ -189,9 +189,7 @@ colnames(out)[pars$Xpar$X_ix+1] <- paste0('X_', 1:pars$nStrata)
 
 out <- out[, -c(pars$MYZpar$sigma_ix+1)]
 out <- out[, -c(pars$MYZpar$g_ix+1)]
-out <- out[, -c(pars$MYZpar$q_ix+1)]
-out <- out[, -c(pars$MYZpar$f_ix+1)]
-out <- out[, -c(pars$MYZpar$kappa_ix+1)]
+out <- out[, -c(pars$MYZpar$fqkappa_ix+1)]
 out <- out[, -c(pars$MYZpar$Upsilon_ix+1)]
 
 out <- as.data.table(out)
