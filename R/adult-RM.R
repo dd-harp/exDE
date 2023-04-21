@@ -82,17 +82,13 @@ dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa) {
     if (t < eip) {
       M_eip <- pars$MYZinits$M0
       Y_eip <- pars$MYZinits$Y0
-      kappa_eip <- kappa
-      f_eip <- f
-      q_eip <- q
+      fqkappa_eip <- kappa*with(pars$MYZpar,f*q)
       g_eip <- g
       sigma_eip <- sigma
     } else {
       M_eip <- lagvalue(t = t - eip, nr = M_ix)
       Y_eip <- lagvalue(t = t - eip, nr = Y_ix)
-      kappa_eip <- lagderiv(t = t-eip, nr = kappa_ix)
-      f_eip <- lagderiv(t = t-eip, nr = f_ix)
-      q_eip <- lagderiv(t = t-eip, nr = q_ix)
+      fqkappa_eip <- lagderiv(t = t-eip, nr = fqkappa_ix)
       g_eip <- lagderiv(t = t-eip, nr = g_ix)
       sigma_eip <- lagderiv(t = t-eip, nr = sigma_ix)
     }
@@ -109,10 +105,10 @@ dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa) {
     dMdt <- Lambda - (Omega %*% M)
     dPdt <- f*(M - P) - (Omega %*% P)
     dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
-    dZdt <- Upsilon %*% diag(f_eip*q_eip*kappa_eip, nPatches) %*% (M_eip - Y_eip) - (Omega %*% Z)
+    dZdt <- Upsilon %*% diag(fqkappa_eip, nPatches) %*% (M_eip - Y_eip) - (Omega %*% Z)
     dUdt <- as.vector((Omega_eip - Omega) %*% Upsilon)
 
-    return(c(dMdt, dPdt, dYdt, dZdt, dUdt, kappa, f, q, g, sigma))
+    return(c(dMdt, dPdt, dYdt, dZdt, dUdt, f*q*kappa, g, sigma))
   })
 }
 
@@ -162,14 +158,8 @@ make_indices_MYZ.RM_dde <- function(pars) {
   pars$MYZpar$Upsilon_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches^2)
   pars$max_ix <- tail(pars$MYZpar$Upsilon_ix, 1)
 
-  pars$MYZpar$kappa_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$kappa_ix, 1)
-
-  pars$MYZpar$f_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$f_ix, 1)
-
-  pars$MYZpar$q_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$q_ix, 1)
+  pars$MYZpar$fqkappa_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$MYZpar$fqkappa_ix, 1)
 
   pars$MYZpar$g_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
   pars$max_ix <- tail(pars$MYZpar$g_ix, 1)
@@ -244,7 +234,7 @@ make_inits_MYZ_RM_ode <- function(pars, M0, P0, Y0, Z0) {
 #' @return none
 #' @export
 make_inits_MYZ_RM_dde <- function(pars, M0, P0, Y0, Z0, Upsilon0) {
-  pars$MYZinits = list(M0=M0, P0=P0, Y0=Y0, Z0=Z0, Upsilon0=Upsilon0, rep(0, 5*pars$nPatches))
+  pars$MYZinits = list(M0=M0, P0=P0, Y0=Y0, Z0=Z0, Upsilon0=Upsilon0, rep(0, 3*pars$nPatches))
   return(pars)
 }
 
@@ -263,5 +253,5 @@ get_inits_MYZ.RM_ode <- function(pars) {with(pars$MYZinits,{
 #' @return none
 #' @export
 get_inits_MYZ.RM_dde <- function(pars) {with(pars$MYZinits,{
-  c(M0, P0, Y0, Z0, as.vector(Upsilon0), rep(0, 5*pars$nPatches))
+  c(M0, P0, Y0, Z0, as.vector(Upsilon0), rep(0, 3*pars$nPatches))
 })}
