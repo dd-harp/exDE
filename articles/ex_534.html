@@ -261,9 +261,9 @@ the returned list to the main parameter list with name
 <h3 id="mixing">Mixing<a class="anchor" aria-label="anchor" href="#mixing"></a>
 </h3>
 <p>In this model, we define four population strata. We can describe
-their residency with a vector describing membership:</p>
+their residency with a vector describing residence:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">membershipH</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">residence</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">searchWtsH</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>Although not directly used in this example, we create the residency
 membership matrix <span class="math inline">\(\mathcal{J}\)</span>, a
@@ -283,11 +283,11 @@ patch each human population strata resides in.</p>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="fl">4</span>, <span class="fl">3</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>We then create the time at risk matrix <span class="math inline">\(\Psi\)</span>, a <span class="math inline">\(p
+<p>We then create the time at risk matrix <span class="math inline">\(\TaR\)</span>, a <span class="math inline">\(p
 \times n\)</span> matrix describing how each human strata spends their
 time across patches.</p>
 <p><span class="math display">\[\begin{equation}
-\Psi = \left[
+\TaR = \left[
   \begin{array}{cccc}
   0.01 &amp; .01 &amp; .001 &amp; .001 \\  
   0.95 &amp; .92 &amp; .04  &amp; .02  \\  
@@ -296,7 +296,7 @@ time across patches.</p>
   \right]
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Psi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">TaR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.01</span>,<span class="fl">0.001</span>,<span class="fl">0.001</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.95</span>,<span class="fl">.92</span>,<span class="fl">.04</span>,<span class="fl">.02</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.04</span>,<span class="fl">.02</span>,<span class="fl">.959</span>,<span class="fl">.929</span><span class="op">)</span><span class="op">)</span>, <span class="fl">4</span>, <span class="fl">3</span></span>
@@ -311,7 +311,7 @@ type, which is attached to the parameter list with name
 population size (constant <span class="math inline">\(H\)</span>).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">90</span>, <span class="fl">100</span>, <span class="fl">900</span><span class="op">)</span>, <span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_demography_null.html">make_parameters_demography_null</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, H<span class="op">=</span><span class="va">H</span>, membershipH<span class="op">=</span><span class="va">membershipH</span>, searchWtsH<span class="op">=</span><span class="va">searchWtsH</span>, TimeSpent<span class="op">=</span><span class="va">Psi</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_demography_null.html">make_parameters_demography_null</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, H<span class="op">=</span><span class="va">H</span>, residence<span class="op">=</span><span class="va">residence</span>, searchWts<span class="op">=</span><span class="va">searchWtsH</span>, TaR<span class="op">=</span><span class="va">TaR</span><span class="op">)</span> </span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">X0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">*</span><span class="va">H</span><span class="op">)</span></span>
 <span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">200</span>, <span class="va">params</span><span class="op">$</span><span class="va">nStrata</span><span class="op">)</span></span>
