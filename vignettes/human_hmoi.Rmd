@@ -71,14 +71,14 @@ We use the null (constant) model of human demography ($H$ constant for all time)
 ```{r}
 nStrata <- 3
 H <- c(100, 500, 250)
-membershipH = rep(1,3) 
+residence = rep(1,3) 
 searchWtsH = rep(1,3) 
 b <- 0.55
 c1 <- 0.05
 c2 <- 0.25
 r1 <- 1/250
 r2 <- 1/50
-Psi <- matrix(data = 1, nrow = 1, ncol = nStrata)
+TaR <- matrix(data = 1, nrow = 1, ncol = nStrata)
 
 m20 <- 1.5
 h <- r2*m20
@@ -97,7 +97,7 @@ F_eir = function(t, pars){
   pars$eir
 }
 
-params = make_parameters_demography_null(pars = params, H=H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi) 
+params = make_parameters_demography_null(pars = params, H=H, residence=residence, searchWts=searchWtsH, TaR=TaR) 
 
 params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
 params = make_inits_X_hMoI(pars = params, rep(m10, nStrata), rep(m20, nStrata)) 

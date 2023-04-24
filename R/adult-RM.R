@@ -105,7 +105,7 @@ dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa) {
     dMdt <- Lambda - (Omega %*% M)
     dPdt <- f*(M - P) - (Omega %*% P)
     dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
-    dZdt <- Upsilon %*% diag(fqkappa_eip, nPatches) %*% (M_eip - Y_eip) - (Omega %*% Z)
+    dZdt <- Upsilon %*% (fqkappa_eip * (M_eip - Y_eip)) - (Omega %*% Z)
     dUdt <- as.vector((Omega_eip - Omega) %*% Upsilon)
 
     return(c(dMdt, dPdt, dYdt, dZdt, dUdt, f*q*kappa, g, sigma))
@@ -187,15 +187,11 @@ make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, eip, 
   stopifnot(is.numeric(g), is.numeric(sigma), is.numeric(f), is.numeric(q), is.numeric(nu), is.numeric(eggsPerBatch))
 
   MYZpar <- list()
+  MYZpar$xde = solve_as
+  class(MYZpar$xde) <- solve_as
 
-  xde <- solve_as
-  class(xde) <- solve_as
-  MYZpar$xde <- xde
-  if(solve_as == 'dde'){
-    class(MYZpar) <- c('RM', 'RM_dde')
-    pars$xde <- xde
-  }
-  else if(solve_as == 'ode') class(MYZpar) <- c('RM', 'RM_ode')
+  if(solve_as == 'dde') class(MYZpar) <- c('RM', 'RM_dde')
+  if(solve_as == 'ode') class(MYZpar) <- c('RM', 'RM_ode')
 
   MYZpar$g0 <- g
   MYZpar$sigma0 <- sigma

@@ -5,14 +5,14 @@ numeric_tol <- 1e-5
 test_that("human hybrid MoI model remains at equilibrium", {
   nStrata <- 3
   H <- c(100, 500, 250)
-  membershipH = 1:nStrata
+  residence = 1:nStrata
   searchWtsH = rep(1, nStrata)
   b <- 0.55
   c1 <- 0.05
   c2 <- 0.25
   r1 <- 1/250
   r2 <- 1/50
-  Psi <- matrix(data = 1,nrow = 1, ncol = nStrata)
+  TaR <- matrix(data = 1,nrow = 1, ncol = nStrata)
 
   m20 <- 1.5
   h <- r2*m20
@@ -23,8 +23,8 @@ test_that("human hybrid MoI model remains at equilibrium", {
   params <- make_parameters_xde()
   params$nStrata = nStrata
   params$nPatches = 1
-  params = make_parameters_demography_null(pars = params, H=H, membershipH=membershipH,
-                                           searchWtsH=searchWtsH, TimeSpent=Psi)
+  params = make_parameters_demography_null(pars = params, H=H, residence=residence,
+                                           searchWts=searchWtsH, TaR=TaR)
   params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
   params = make_inits_X_hMoI(pars = params, m10 = rep(m10,nStrata), m20 = rep(m20,nStrata))
 

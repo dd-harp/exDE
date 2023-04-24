@@ -4,14 +4,14 @@
 \alias{compute_beta}
 \title{Compute beta, the biting distribution matrix}
 \usage{
-compute_beta(H, wf, Psi)
+compute_beta(H, wts_f, TaR)
 }
 \arguments{
 \item{H}{the human population size}
 
-\item{wf}{the blood feeding search weights}
+\item{wts_f}{the blood feeding search weights}
 
-\item{Psi}{(time at risk), a \link{matrix}  dimensions \code{nPatches} by \code{nStrata}}
+\item{TaR}{(time at risk), a \link{matrix}  dimensions \code{nPatches} by \code{nStrata}}
 }
 \value{
 a \link{matrix} of dimensions \code{nStrata} by \code{nPatches}
