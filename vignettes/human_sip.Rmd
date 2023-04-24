@@ -79,7 +79,7 @@ params <- make_parameters_xde()
 params$nStrata = nStrata
 params$nPatches = 1 
 
-params$eir = rep(EIR, 3)
+params$eir = EIR 
 F_eir = function(t, pars){
   pars$eir
 }
