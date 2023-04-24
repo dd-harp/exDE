@@ -139,10 +139,10 @@ params = make_inits_MYZ_RM_ode(params, M0 = M0, Y0 = Y0, P0=P0, Z0 = Z0)
 
 ## Mixing
 
-In this model, we define four population strata. We can describe their residency with a vector describing membership: 
+In this model, we define four population strata. We can describe their residency with a vector describing residence: 
 
 ```{r}
-membershipH = c(2,2,3,3)
+residence = c(2,2,3,3)
 searchWtsH = c(1,1,1,1)
 ``` 
 
@@ -165,10 +165,10 @@ calJ <- t(matrix(
 ))
 ```
 
-We then create the time at risk matrix $\Psi$, a $p \times n$ matrix describing how each human strata spends their time across patches.
+We then create the time at risk matrix $\TaR$, a $p \times n$ matrix describing how each human strata spends their time across patches.
 
 \begin{equation}
-\Psi = \left[
+\TaR = \left[
   \begin{array}{cccc}
   0.01 & .01 & .001 & .001 \\  
   0.95 & .92 & .04  & .02  \\  
@@ -178,7 +178,7 @@ We then create the time at risk matrix $\Psi$, a $p \times n$ matrix describing 
 \end{equation}
 
 ```{r}
-Psi <- t(matrix(
+TaR <- t(matrix(
   c(c(0.01,0.01,0.001,0.001),
     c(.95,.92,.04,.02),
     c(.04,.02,.959,.929)), 4, 3
@@ -191,7 +191,7 @@ We use the null demographic model, which assumes a constant population size (con
 
 ```{r}
 H <- matrix(c(10,90, 100, 900), 4, 1)
-params = make_parameters_demography_null(pars = params, H=H, membershipH=membershipH, searchWtsH=searchWtsH, TimeSpent=Psi) 
+params = make_parameters_demography_null(pars = params, H=H, residence=residence, searchWts=searchWtsH, TaR=TaR) 
 ```
 
 ```{r}

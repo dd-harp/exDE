@@ -41,26 +41,26 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   pfpr <- runif(n = pars$nStrata, min = 0.25, max = 0.35)
   H <- rpois(n = pars$nStrata, lambda = 1000)
   X <- rbinom(n = pars$nStrata, size = H, prob = pfpr)
-  membershipH = 1:pars$nStrata
+  residence = 1:pars$nStrata
   searchWtsH = rep(1, pars$nStrata)
 
-  Psi <- matrix(
+  TaR <- matrix(
     data = c(
       0.9, 0.05, 0.05,
       0.05, 0.9, 0.05,
       0.05, 0.05, 0.9
     ), nrow = pars$nStrata, ncol = pars$nPatches, byrow = T
   )
-  Psi <- t(Psi)
+  TaR <- t(TaR)
 
   # derived EIR to sustain equilibrium pfpr
   EIR <- diag(1/b, pars$nStrata) %*% ((r*X) / (H - X))
 
   # ambient pop
-  W <- Psi %*% H
+  W <- TaR %*% H
 
   # biting distribution matrix
-  beta <- diag(wf) %*% t(Psi) %*% diag(1/as.vector(W), pars$nPatches)
+  beta <- diag(wf) %*% t(TaR) %*% diag(1/as.vector(W), pars$nPatches)
 
   # kappa
   kappa <- t(beta) %*% (X*c)
@@ -74,8 +74,8 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   Lambda <- Omega %*% M
 
   # set parameters
-  pars = make_parameters_demography_null(pars = pars, H=H, membershipH=membershipH,
-                                           searchWtsH=searchWtsH, TimeSpent=Psi)
+  pars = make_parameters_demography_null(pars = pars, H=H, residence=residence,
+                                           searchWts=searchWtsH, TaR=TaR)
   pars = make_parameters_MYZ_RM(pars = pars, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
   pars = make_inits_MYZ_RM_dde(pars = pars, M0 = as.vector(M), P0 = as.vector(P), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=Upsilon)
   pars = make_parameters_L_trace(pars = pars,  Lambda = as.vector(Lambda))

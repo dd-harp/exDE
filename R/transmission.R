@@ -9,7 +9,7 @@
 #' @export
 F_beta <- function(t, y, pars){
   H <- F_H(t, y, pars)
-  beta = compute_beta(H, pars$Hpar$wf, pars$Hpar$Psi)
+  beta = compute_beta(H, pars$Hpar$wts_f, pars$Hpar$TaR)
   return(beta)
 }
 
@@ -44,12 +44,12 @@ F_kappa <- function(t, y, pars, beta) {
 
 #' @title Compute beta, the biting distribution matrix
 #' @param H the human population size
-#' @param wf the blood feeding search weights
-#' @param Psi (time at risk), a [matrix]  dimensions `nPatches` by `nStrata`
+#' @param wts_f the blood feeding search weights
+#' @param TaR (time at risk), a [matrix]  dimensions `nPatches` by `nStrata`
 #' @return a [matrix] of dimensions `nStrata` by `nPatches`
 #' @export
-compute_beta = function(H, wf, Psi){
-  W <- as.vector(Psi %*% (wf*H))
-  beta <- diag(wf, length(H)) %*% t(Psi) %*% diag(1/W, dim(Psi)[1])
+compute_beta = function(H, wts_f, TaR){
+  W <- as.vector(TaR %*% (wts_f*H))
+  beta <- diag(wts_f, length(H)) %*% t(TaR) %*% diag(1/W, dim(TaR)[1])
   return(beta)
 }

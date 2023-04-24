@@ -7,9 +7,9 @@
 make_parameters_demography_static(
   pars,
   H,
-  membershipH,
-  searchWtsH,
-  TimeSpent,
+  residence,
+  searchWts,
+  TaR,
   birthFpars,
   Hmatrix,
   birthsXstrata
@@ -20,11 +20,11 @@ make_parameters_demography_static(
 
 \item{H}{size of human population in each strata}
 
-\item{membershipH}{is a vector describing patch residency}
+\item{residence}{is a vector describing patch residency}
 
-\item{searchWtsH}{is a vector describing blood feeding search weights}
+\item{searchWts}{is a vector describing blood feeding search weights}
 
-\item{TimeSpent}{is a matrix describing time spent among patches}
+\item{TaR}{is a matrix describing time spent among patches}
 
 \item{birthFpars}{setup to dispatch and compute \code{F_birth}}
 

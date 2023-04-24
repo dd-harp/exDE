@@ -51,23 +51,23 @@ dHdt.numeric <- function(t, y, pars){
 #' @param pars an [environment]
 #' @param H a function taking a single argument `t` and returning a vector of length
 #' `nStrata`.
-#' @param membershipH is a vector describing patch residency
-#' @param searchWtsH is a vector describing blood feeding search weights
-#' @param TimeSpent is a matrix describing time spent among patches
+#' @param residence is a vector describing patch residency
+#' @param searchWts is a vector describing blood feeding search weights
+#' @param TaR is a matrix describing time spent among patches
 #' @param birthFpars setup to dispatch and compute `F_birth`
 #' @param Hmatrix does a set of state transitions
 #' @param birthsXstrata distributes births to the youngest strata
 #' @return none
 #' @export
-make_parameters_demography_dynamic <- function(pars, H, membershipH, searchWtsH, TimeSpent,
+make_parameters_demography_dynamic <- function(pars, H, residence, searchWts, TaR,
                                              birthFpars, Hmatrix, birthsXstrata) {
   stopifnot(length(H) == pars$nStrata)
   Hpar <- list()
   class(Hpar) <- c('dynamic')
   Hpar$H <- H
-  Hpar$membershipH <- membershipH
-  Hpar$searchWtsH <- searchWtsH
-  Hpar$TimeSpent <- TimeSpent
+  Hpar$residence <- residence
+  Hpar$wts_f <- searchWts
+  Hpar$TaR <- TaR
   Hpar$birthFpars <- birthFpars
   Hpar$birthXstrata <- birthsXstrata
   Hpar$Hmatrix <- Hmatrix

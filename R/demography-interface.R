@@ -54,29 +54,30 @@ get_inits_H <- function(pars) {
 #' @title Make parameters for null human demography model
 #' @param pars an [environment]
 #' @param H size of human population in each strata
-#' @param membershipH is a vector describing patch residency
-#' @param searchWtsH is a vector describing blood feeding search weights
-#' @param TimeSpent is a matrix describing time spent among patches
+#' @param residence is a vector describing patch residency
+#' @param searchWts is a vector describing blood feeding search weights
+#' @param TaR is a matrix describing time spent among patches
 #' @return none
 #' @export
-make_parameters_demography_null <- function(pars, H, membershipH, searchWtsH, TimeSpent) {
+make_parameters_demography_null <- function(pars, H, residence, searchWts, TaR) {
   stopifnot(length(H) == pars$nStrata)
   Hpar <- list()
   class(Hpar) <- c("static")
   Hpar$H <- H
+
   class(Hpar$H) <- "static"
-  Hpar$membershipH <- membershipH
-  Hpar$searchWtsH <- searchWtsH
-  Hpar$wf <- searchWtsH
-  Hpar$TimeSpent <- TimeSpent
-  Hpar$Psi <- TimeSpent
+  Hpar$residence <- residence
+  Hpar$wts_f <- searchWts
+  Hpar$TaR <- TaR
+
   birthF <- "null"
   class(birthF) <- "null"
   Hpar$birthF <- birthF
   Hpar$Hmatrix <- diag(0, length(H))
+
   pars$Hpar <- Hpar
   pars$nStrata <- length(H)
-  pars$beta <- compute_beta(H, searchWtsH, TimeSpent)
+  pars$beta <- compute_beta(H, searchWts, TaR)
   pars$beta_lag <- pars$beta
   return(pars)
 }

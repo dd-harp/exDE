@@ -44,25 +44,25 @@ test_that("test equilibrium with RM adults (ODE), hMoI humans, trace", {
 
   # MoI at equilibrium
   H <- c(100, 120)
-  membershipH = c(1,2)
+  residence = c(1,2)
   searchWtsH = c(1,1)
   m20 <- 1.5
   h <- r2*m20
   m10 <- h/r1
 
   # TaR
-  Psi <- matrix(rexp(n = nStrata*nPatches), nStrata, nPatches)
-  Psi <- Psi/rowSums(Psi)
-  Psi <- t(Psi)
+  TaR <- matrix(rexp(n = nStrata*nPatches), nStrata, nPatches)
+  TaR <- TaR/rowSums(TaR)
+  TaR <- t(TaR)
 
   # derived EIR to sustain equilibrium pfpr
   EIR <- rep(h/b, nStrata)
 
   # ambient pop
-  W <- Psi %*% H
+  W <- TaR %*% H
 
   # biting distribution matrix
-  beta <- diag(wf) %*% t(Psi) %*% diag(1/as.vector(W), nPatches , nPatches)
+  beta <- diag(wf) %*% t(TaR) %*% diag(1/as.vector(W), nPatches , nPatches)
 
   # kappa
   # kappa <- t(beta) %*% (X*c)
@@ -96,8 +96,8 @@ test_that("test equilibrium with RM adults (ODE), hMoI humans, trace", {
 
   params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
   params = make_inits_MYZ_RM_ode(pars = params, M0 = as.vector(M), P0 = as.vector(P), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  params = make_parameters_demography_null(pars = params, H=H, membershipH=membershipH,
-                                           searchWtsH=searchWtsH, TimeSpent=Psi)
+  params = make_parameters_demography_null(pars = params, H=H, residence=residence,
+                                           searchWts=searchWtsH, TaR=TaR)
   params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
   params = make_inits_X_hMoI(pars = params, m10 = rep(m10,2), m20 = rep(m20,2))
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
@@ -159,25 +159,25 @@ test_that("test equilibrium with RM adults (DDE), hMoI humans, trace", {
 
   # MoI at equilibrium
   H <- c(100, 120)
-  membershipH = c(1,2)
+  residence = c(1,2)
   searchWtsH = c(1,1)
   m20 <- 1.5
   h <- r2*m20
   m10 <- h/r1
 
   # TaR
-  Psi <- matrix(rexp(n = nStrata*nPatches), nStrata, nPatches)
-  Psi <- Psi/rowSums(Psi)
-  Psi <- t(Psi)
+  TaR <- matrix(rexp(n = nStrata*nPatches), nStrata, nPatches)
+  TaR <- TaR/rowSums(TaR)
+  TaR <- t(TaR)
 
   # derived EIR to sustain equilibrium pfpr
   EIR <- rep(h/b, nStrata)
 
   # ambient pop
-  W <- Psi %*% H
+  W <- TaR %*% H
 
   # biting distribution matrix
-  beta <- diag(wf) %*% t(Psi) %*% diag(1/as.vector(W), nPatches , nPatches)
+  beta <- diag(wf) %*% t(TaR) %*% diag(1/as.vector(W), nPatches , nPatches)
 
   # kappa
   # kappa <- t(beta) %*% (X*c)
@@ -211,8 +211,8 @@ test_that("test equilibrium with RM adults (DDE), hMoI humans, trace", {
 
   params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
   params = make_inits_MYZ_RM_dde(pars = params, M0 = as.vector(M), P0 = as.vector(P), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=OmegaEIP)
-  params = make_parameters_demography_null(pars = params, H=H, membershipH=membershipH,
-                                           searchWtsH=searchWtsH, TimeSpent=Psi)
+  params = make_parameters_demography_null(pars = params, H=H, residence=residence,
+                                           searchWts=searchWtsH, TaR=TaR)
   params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
   params = make_inits_X_hMoI(pars = params, m10 = rep(m10,2), m20 = rep(m20,2))
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))

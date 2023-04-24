@@ -7,9 +7,9 @@
 make_parameters_demography_dynamic(
   pars,
   H,
-  membershipH,
-  searchWtsH,
-  TimeSpent,
+  residence,
+  searchWts,
+  TaR,
   birthFpars,
   Hmatrix,
   birthsXstrata
@@ -21,11 +21,11 @@ make_parameters_demography_dynamic(
 \item{H}{a function taking a single argument \code{t} and returning a vector of length
 \code{nStrata}.}
 
-\item{membershipH}{is a vector describing patch residency}
+\item{residence}{is a vector describing patch residency}
 
-\item{searchWtsH}{is a vector describing blood feeding search weights}
+\item{searchWts}{is a vector describing blood feeding search weights}
 
-\item{TimeSpent}{is a matrix describing time spent among patches}
+\item{TaR}{is a matrix describing time spent among patches}
 
 \item{birthFpars}{setup to dispatch and compute \code{F_birth}}
 
