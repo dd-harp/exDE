@@ -154,6 +154,15 @@
     <loc>https://dd-harp.github.io/exDE/reference/F_eggs.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_foi.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_foi.nb.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_foi.pois.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_kappa.html</loc>
   </url>
   <url>
@@ -286,10 +295,16 @@
     <loc>https://dd-harp.github.io/exDE/reference/dMYZdt.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SIP.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SIPdX.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SIS.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SIPdXdH.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SISdX.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SISdXdH.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/dXdt.hMoI.html</loc>
@@ -524,6 +539,12 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_exogenous_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_exposure_nb.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_exposure_pois.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_hydrology_null.html</loc>

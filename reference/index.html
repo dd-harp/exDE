@@ -631,7 +631,12 @@
         <dd>Size of effective infectious human population</dd>
       </dl><dl><dt>
           
-          <code><a href="dXdt.SIS.html">dXdt(<i>&lt;SIS&gt;</i>)</a></code> 
+          <code><a href="dXdt.SISdX.html">dXdt(<i>&lt;SISdX&gt;</i>)</a></code> 
+        </dt>
+        <dd>Derivatives for human population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="dXdt.SISdXdH.html">dXdt(<i>&lt;SISdXdH&gt;</i>)</a></code> 
         </dt>
         <dd>Derivatives for human population</dd>
       </dl><dl><dt>
@@ -672,7 +677,12 @@
         <dd>Size of effective infectious human population</dd>
       </dl><dl><dt>
           
-          <code><a href="dXdt.SIP.html">dXdt(<i>&lt;SIP&gt;</i>)</a></code> 
+          <code><a href="dXdt.SIPdX.html">dXdt(<i>&lt;SIPdX&gt;</i>)</a></code> 
+        </dt>
+        <dd>Derivatives for human population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="dXdt.SIPdXdH.html">dXdt(<i>&lt;SIPdXdH&gt;</i>)</a></code> 
         </dt>
         <dd>Derivatives for human population</dd>
       </dl><dl><dt>
@@ -895,6 +905,64 @@
           <code><a href="F_births.exp.html">F_births(<i>&lt;exp&gt;</i>)</a></code> 
         </dt>
         <dd>Constant per-capita human population birth rate (endogenous)</dd>
+      </dl></div><div class="section level2">
+      <h2 id="exposure">Exposure<a class="anchor" aria-label="anchor" href="#exposure"></a></h2>
+      
+      <p class="section-desc"></p><p>Methods to implement exposure models (i.e., EIR to FoI)</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="F_foi.html">F_foi()</a></code> 
+        </dt>
+        <dd>A model for exposure</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="poisson">Poisson<a class="anchor" aria-label="anchor" href="#poisson"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods the default model (Poisson)</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="F_foi.pois.html">F_foi(<i>&lt;pois&gt;</i>)</a></code> 
+        </dt>
+        <dd>Null human population births</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_exposure_pois.html">make_parameters_exposure_pois()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model of exposure</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="nb">nb<a class="anchor" aria-label="anchor" href="#nb"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods the negative binomial model</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="F_foi.nb.html">F_foi(<i>&lt;nb&gt;</i>)</a></code> 
+        </dt>
+        <dd>Null human population births</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_parameters_exposure_nb.html">make_parameters_exposure_nb()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model of exposure</dd>
       </dl></div><div class="section level2">
       <h2 id="exogeneous-forcing">Exogeneous Forcing<a class="anchor" aria-label="anchor" href="#exogeneous-forcing"></a></h2>
       
