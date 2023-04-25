@@ -14,16 +14,39 @@ F_X.SIP <- function(t, y, pars) {
 #' @inheritParams dXdt
 #' @return a [numeric] vector
 #' @export
-dXdt.SIP <- function(t, y, pars, EIR) {
+dXdt.SIPdX <- function(t, y, pars, EIR) {
 
   with(pars$Xpar, {
 
+    foi = F_foi(b*EIR, pars)
     X <- y[X_ix]
     P <- y[P_ix]
     H <- F_H(t, y, pars)
 
-    dX <- diag((1-rho)*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - r*X + dHdt(t, X, pars)
-    dP <- diag(rho*b*EIR, nrow = pars$nStrata) %*% (H - X - P) - eta*P + dHdt(t, P, pars)
+    dX <- (1-rho)*foi*(H - X - P) - r*X
+    dP <- rho*foi*(H - X - P) - eta*P
+
+    return(c(dX, dP))
+  })
+}
+
+
+#' @title Derivatives for human population
+#' @description Implements [dXdt] for the SIP model.
+#' @inheritParams dXdt
+#' @return a [numeric] vector
+#' @export
+dXdt.SIPdXdH <- function(t, y, pars, EIR) {
+
+  with(pars$Xpar, {
+
+    foi = F_foi(b*EIR, pars)
+    X <- y[X_ix]
+    P <- y[P_ix]
+    H <- F_H(t, y, pars)
+
+    dX <- (1-rho)*foi*(H - X - P) - r*X + dHdt(t, X, pars)
+    dP <- rho*foi*(H - X - P) - eta*P + dHdt(t, P, pars)
     dH <- Births(t, H, pars) + dHdt(t, H, pars)
 
     return(c(dX, dP, dH))
@@ -57,7 +80,7 @@ make_indices_X.SIP <- function(pars) {
 make_parameters_X_SIP <- function(pars, b, c, r, rho, eta){
   stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(rho), is.numeric(eta))
   Xpar <- list()
-  class(Xpar) <- c('SIP')
+  class(Xpar) <- c('SIP', 'SIPdX')
   Xpar$b <- b
   Xpar$c <- c
   Xpar$r <- r

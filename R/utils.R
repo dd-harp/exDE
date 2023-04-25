@@ -13,6 +13,7 @@ make_parameters_xde = function(solve_as='ode'){
   pars <- make_parameters_exogenous_null(pars)
   pars <- make_parameters_vc_null(pars)
   pars <- make_parameters_import_null(pars)
+  pars <- make_parameters_exposure_pois(pars)
 
   return(pars)
 }

@@ -186,7 +186,8 @@ reference:
     Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
   contents:
   - F_X.SIS
-  - dXdt.SIS
+  - dXdt.SISdX
+  - dXdt.SISdXdH
   - make_indices_X.SIS
   - make_inits_X_SIS
   - get_inits_X.SIS
@@ -196,7 +197,8 @@ reference:
     Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
   contents:
   - F_X.SIP
-  - dXdt.SIP
+  - dXdt.SIPdX
+  - dXdt.SIPdXdH
   - make_indices_X.SIP
   - make_inits_X_SIP
   - get_inits_X.SIP
@@ -250,6 +252,23 @@ reference:
   - F_births.constant
   - F_births.forced
   - F_births.exp
+- title: Exposure
+  desc: |
+    Methods to implement exposure models (i.e., EIR to FoI)
+  contents:
+  - F_foi
+- subtitle: Poisson
+  desc: |
+    Specialized methods the default model (Poisson)
+  contents:
+  - F_foi.pois
+  - make_parameters_exposure_pois
+- subtitle: nb
+  desc: |
+    Specialized methods the negative binomial model
+  contents:
+  - F_foi.nb
+  - make_parameters_exposure_nb
 - title: Exogeneous Forcing
   desc: |
     Methods to implement exogeneous forcing.

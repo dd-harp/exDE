@@ -10,15 +10,33 @@ F_X.SIS <- function(t, y, pars) {
 }
 
 #' @title Derivatives for human population
-#' @description Implements [dXdt] for the SIS model.
+#' @description Implements [dXdt] for the SIS model, no demography.
 #' @inheritParams dXdt
 #' @return a [numeric] vector
 #' @export
-dXdt.SIS <- function(t, y, pars, EIR) {
+dXdt.SISdX <- function(t, y, pars, EIR) {
   with(pars$Xpar, {
     X <- y[X_ix]
     H <- F_H(t, y, pars)
-    dX <- diag(b*EIR, nrow = pars$nStrata) %*% (H - X) - r*X + dHdt(t, X, pars)
+    foi = F_foi(b*EIR, pars)
+    dX <- foi*(H - X) - r*X
+    return(c(dX))
+  })
+}
+
+
+#' @title Derivatives for human population
+#' @description Implements [dXdt] for the SIS model with demography.
+#' @inheritParams dXdt
+#' @return a [numeric] vector
+#' @export
+dXdt.SISdXdH <- function(t, y, pars, EIR) {
+
+  with(pars$Xpar, {
+    H <- F_H(t, y, pars)
+    X <- y[X_ix]
+    foi = F_foi(b*EIR, pars)
+    dX <- foi*(H - X) - r*X + dHdt(t, X, pars)
     dH <- Births(t, H, pars) + dHdt(t, H, pars)
 
     return(c(dX, dH))
@@ -47,7 +65,7 @@ make_indices_X.SIS <- function(pars) {
 make_parameters_X_SIS <- function(pars, b, c, r) {
   stopifnot(is.numeric(b), is.numeric(c), is.numeric(r))
   Xpar <- list()
-  class(Xpar) <- c('SIS')
+  class(Xpar) <- c('SIS', 'SISdX')
   Xpar$b <- b
   Xpar$c <- c
   Xpar$r <- r
