@@ -154,6 +154,21 @@
     <loc>https://dd-harp.github.io/exDE/reference/F_eggs.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_eip.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_eip.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_f.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_f.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_f.type2.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_foi.html</loc>
   </url>
   <url>
@@ -163,7 +178,52 @@
     <loc>https://dd-harp.github.io/exDE/reference/F_foi.pois.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_g.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_g.static.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_kappa.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_nu.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_nu.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_nu.type2.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_other.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_other.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_q.dynamic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_q.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_q.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_sigma.BQS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_sigma.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_sigma.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_sugar.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_sugar.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_tau.html</loc>
@@ -251,6 +311,33 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/approx_equal.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/computeB.dynamic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/computeB.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/computeB.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/computeQ.dynamic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/computeQ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/computeQ.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/computeW.dynamic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/computeW.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/computeW.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_beta.html</loc>
@@ -499,7 +586,7 @@
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_L_trace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_MYZ_GeRM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_MYZ_GeRM_static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_MYZ_RM.html</loc>
@@ -593,6 +680,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/metric_calZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_forcing_MYZ_GeRM_basic.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn.html</loc>
