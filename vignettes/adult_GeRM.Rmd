@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The Ross-Macdonald adult mosquito model fulfills the generic interface of the adult mosquito component. A generalized version of the Ross-Macdonald model was first published in [Spatial Dynamics of Malaria Transmission](https://www.medrxiv.org/content/10.1101/2022.11.07.22282044v1). Here, we use a similar variant of the Ross-Macdonald model.   It includes state variables for total mosquito density $M$, parous mosquito density $P$, infected mosquito density $Y$, and infectious mosquito density $Z$.
+The Generalized Ross-Macdonald adult mosquito model (GeRM) fulfills the generic interface of the adult mosquito component. A generalized version of the Ross-Macdonald model was first published in [Spatial Dynamics of Malaria Transmission](https://www.medrxiv.org/content/10.1101/2022.11.07.22282044v1). Here, we present GeRM  with exogenous forcing by resource availability. The state variables are: total mosquito density $M$, gravid mosquito density $G$, infected mosquito density $Y$, and infectious mosquito density $Z$.
 
 # Differential Equations
 
@@ -26,7 +26,7 @@ $$
 \dot{M} = \Lambda - \Omega\cdot M 
 $$
 $$
-\dot{P} = \mbox{diag}(f) \cdot (M-P) -  \Omega \cdot P
+\dot{G} = \mbox{diag}(f) \cdot (M-G) - \nu G -  \Omega \cdot G
 $$
 
 $$
@@ -125,10 +125,29 @@ Here we show an example of starting and solving a model at equilibrium. Please n
 runs this adult mosquito model and that most users should read [our fully worked example](ex_534.html)
 to run a full simulation.
 
+```{r}
+nPatches <- 3
+params <- make_parameters_xde()
+params$nPatches <- nPatches
+```
+
+## Static Resource Availability 
+
+In GeRM, baseline parameters are determined by resource availability: the availability of blood hosts ($B$), the availability of aquatic habitats ($Q$), and the availability of sugar sources ($S$). To build models of blood feeding and transmission, we subdivide blood hosts into the availability of the pathogen's hosts ($W$), and other blood hosts ($O$). 
+
+```{r}
+other <- c(10, 10, 1)  
+sugar <- 10 
+hosts <- c(10, 100, 1000)
+habitat <- c(100, 10, 10)
+
+params = setup_forcing_MYZ_GeRM_basic(params, other=other, sugar=sugar, W=hosts, zeta=1, Q=habitat)
+```
+
+
 Here we set up some parameters for a simulation with 3 patches.
 
 ```{r}
-nPatches <- 3
 f <- 0.3
 q <- 0.9
 g <- 1/20
@@ -145,20 +164,10 @@ calK <- t(calK)
 
 Omega <- make_Omega(g, sigma, calK, nPatches)
 Upsilon <- expm::expm(-Omega * eip)
-``` 
 
-
-Now we set up the parameter environment with the correct class using `exDE::make_parameters_MYZ_RM,` noting that we will be solving as an `ode.`  
-
-```{r}
-params <- list(nPatches = nPatches)
-
-params = make_parameters_MYZ_RM(params, 
-                                g = g, sigma = sigma, calK = calK, 
-                                f = f, q = q, 
-                                nu = nu, eggsPerBatch = eggsPerBatch, 
-                                eip = eip, solve_as = 'ode')  
+params = make_parameters_MYZ_GeRM_static(params, g, sigma, f, q, nu, eggsPerBatch, eip, calK, "ode")
 ```
+
 
 Now we set the values of $\kappa$ and $\Lambda$ and solve for the equilibrium values.
 
@@ -169,7 +178,7 @@ Lambda <- c(5, 10, 8)
 Omega_inv <- solve(Omega)
 
 M_eq <- as.vector(Omega_inv %*% Lambda)
-P_eq <- as.vector(solve(diag(f, nPatches) + Omega) %*% diag(f, nPatches) %*% M_eq)
+G_eq <- as.vector(solve(diag(f+nu, nPatches) + Omega) %*% diag(f, nPatches) %*% M_eq)
 Y_eq <- as.vector(solve(diag(f*q*kappa) + Omega) %*% diag(f*q*kappa) %*% M_eq)
 Z_eq <- as.vector(Omega_inv %*% Upsilon %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
 ```
@@ -177,8 +186,8 @@ Z_eq <- as.vector(Omega_inv %*% Upsilon %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
 We use `exDE::make_inits_MYZ_RM` to store the initial values. These equations have been implemented to compute $\Upsilon$ dynamically, so we attach `Upsilon` as initial values:
 
 ```{r}
-params = make_inits_MYZ_RM_ode(pars = params, 
-                             M0 = M_eq, P0 = P_eq, Y0 = Y_eq, Z0 = Z_eq)
+params = make_inits_MYZ_GeRM_ode(pars = params, 
+                             M0 = M_eq, G0 = G_eq, Y0 = Y_eq, Z0 = Z_eq)
 ```
 
 We and set the indices with `exDE::make_indices`. 
@@ -205,10 +214,10 @@ out <- deSolve::ode(y = y0, times = 0:50, dMYZdt_local, parms=params,
 The output is plotted below. The flat lines shown here is a verification that the steady state solutions that we computed above match the steady states computed by solving the equations: 
 
 ```{r, out.width = "100%"}
-colnames(out)[params$M_ix+1] <- paste0('M_', 1:params$nPatches)
-colnames(out)[params$P_ix+1] <- paste0('P_', 1:params$nPatches)
-colnames(out)[params$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
-colnames(out)[params$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
+colnames(out)[params$MYZpar$M_ix+1] <- paste0('M_', 1:params$nPatches)
+colnames(out)[params$MYZpar$G_ix+1] <- paste0('G_', 1:params$nPatches)
+colnames(out)[params$MYZpar$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
+colnames(out)[params$MYZpar$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

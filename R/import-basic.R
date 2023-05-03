@@ -15,7 +15,7 @@ Import.basic <- function(t, y, pars) {
 #' @return kappa, a numeric [vector]
 #' @export
 kappa_local.basic<- function(kappa, pars) {
-  with(pars$Ipar, local_frac*kappa + (1-local_frac)*x_visitors)
+  with(pars, local_frac*kappa + (1-local_frac)*x_visitors)
   return(kappa)
 }
 
@@ -25,20 +25,22 @@ kappa_local.basic<- function(kappa, pars) {
 #' @return fqZ, a numeric [vector]
 #' @export
 fqZ_local.basic<- function(fqZ, pars) {
-  return(pars$Ipar$local_frac*fqZ)
+  return(pars$local_frac*fqZ)
 }
 
 #' @title Make parameters for the basic model for parasite / pathogen importation
 #' @param pars a [list]
 #' @param local_frac the fraction of bites taken on residents
 #' @param x_visitors the probability a bite on a visitor infects a mosquito
+#' @param Visitors is the availability of visitors for blood feeding
 #' @return none
 #' @export
-make_parameters_import_basic <- function(pars, local_frac=1, x_visitors=0) {
+make_parameters_import_basic <- function(pars, local_frac=1, x_visitors=0, Visitors=0) {
   Ipar <- list()
   class(Ipar) <- 'basic'
-  Ipar$local_frac = local_frac
-  Ipar$x_visitors = x_visitors
   pars$Ipar <- Ipar
+  pars$x_visitors = x_visitors
+  pars$local_frac = local_frac
+  pars$Visitors = 0
   return(pars)
 }

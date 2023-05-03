@@ -7,7 +7,7 @@
 make_inits_MYZ_RM_ode(pars, M0, P0, Y0, Z0)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{M0}{total mosquito density at each patch}
 

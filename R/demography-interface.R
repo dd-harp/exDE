@@ -77,8 +77,7 @@ make_parameters_demography_null <- function(pars, H, residence, searchWts, TaR) 
 
   pars$Hpar <- Hpar
   pars$nStrata <- length(H)
-  pars$beta <- compute_beta(H, searchWts, TaR)
-  pars$beta_lag <- pars$beta
+
   return(pars)
 }
 

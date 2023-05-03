@@ -3,7 +3,7 @@
 #' @inheritParams ResourceAvailability
 #' @return none
 #' @export
-ResourceAvailability.null <- function(t, pars) {
+ResourceAvailability.null <- function(t, y, pars) {
   return(pars)
 }
 

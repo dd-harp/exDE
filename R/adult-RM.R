@@ -171,7 +171,7 @@ make_indices_MYZ.RM_dde <- function(pars) {
 }
 
 #' @title Make parameters for RM ODE adult mosquito model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param g mosquito mortality rate
 #' @param sigma emigration rate
 #' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
@@ -208,7 +208,7 @@ make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, eip, 
 }
 
 #' @title Make inits for RM adult mosquito model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param M0 total mosquito density at each patch
 #' @param P0 total parous mosquito density at each patch
 #' @param Y0 infected mosquito density at each patch
@@ -221,7 +221,7 @@ make_inits_MYZ_RM_ode <- function(pars, M0, P0, Y0, Z0) {
 }
 
 #' @title Make inits for RM adult mosquito model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param M0 total mosquito density at each patch
 #' @param P0 total parous mosquito density at each patch
 #' @param Y0 infected mosquito density at each patch

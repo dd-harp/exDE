@@ -122,7 +122,37 @@ reference:
   - make_inits_MYZ_GeRM_dde
   - get_inits_MYZ.GeRM_ode
   - get_inits_MYZ.GeRM_dde
-  - make_parameters_MYZ_GeRM
+  - make_parameters_MYZ_GeRM_static
+  - setup_forcing_MYZ_GeRM_basic
+  - F_eip
+  - F_eip.static
+  - F_sigma
+  - F_sigma.static
+  - F_sigma.BQS
+  - F_nu
+  - F_nu.static
+  - F_nu.type2
+  - F_f
+  - F_f.static
+  - F_f.type2
+  - F_q
+  - F_q.static
+  - F_q.dynamic
+  - F_g
+  - F_g.static
+  - F_other
+  - F_other.static
+  - F_sugar
+  - F_sugar.static
+  - computeW
+  - computeW.static
+  - computeW.dynamic
+  - computeB
+  - computeB.static
+  - computeB.dynamic
+  - computeQ
+  - computeQ.static
+  - computeQ.dynamic
 - subtitle: Ztrace
   desc: |
     Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
