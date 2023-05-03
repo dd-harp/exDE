@@ -35,5 +35,6 @@ make_parameters_import_null <- function(pars) {
   Ipar <- list()
   class(Ipar) <- 'null'
   pars$Ipar <- Ipar
+  pars$Visitors=0
   return(pars)
 }

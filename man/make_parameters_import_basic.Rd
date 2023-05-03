@@ -4,7 +4,12 @@
 \alias{make_parameters_import_basic}
 \title{Make parameters for the basic model for parasite / pathogen importation}
 \usage{
-make_parameters_import_basic(pars, local_frac = 1, x_visitors = 0)
+make_parameters_import_basic(
+  pars,
+  local_frac = 1,
+  x_visitors = 0,
+  Visitors = 0
+)
 }
 \arguments{
 \item{pars}{a \link{list}}
@@ -12,6 +17,8 @@ make_parameters_import_basic(pars, local_frac = 1, x_visitors = 0)
 \item{local_frac}{the fraction of bites taken on residents}
 
 \item{x_visitors}{the probability a bite on a visitor infects a mosquito}
+
+\item{Visitors}{is the availability of visitors for blood feeding}
 }
 \value{
 none

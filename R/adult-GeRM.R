@@ -10,6 +10,7 @@ ResourceAvailability.GeRM <- function(t, y, pars) {
   pars$S = F_sugar(t, pars)
   pars$W = computeW(t, y, pars)
   pars$B = computeB(t, pars)
+  pars$local_frac = pars$W/(pars$W + pars$Visitors)
   pars$Q = computeQ(t, pars)
   return(pars)
 }
@@ -35,6 +36,16 @@ computeW.static <- function(t, y, pars){
   pars$W
 }
 
+#' @title Static model for hosts
+#' @description Implements [computeW] for a static model
+#' @inheritParams computeW
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+computeW.dynamic<- function(t, y, pars){
+  H = F_H(t, y, pars)
+  pars$W = with(pars$Hpar, TaR %*% (wts_f*H))
+}
+
 #' @title Set the availability of hosts
 #' @description This method dispatches on the type of `pars$Bpar`. It should
 #' compute the availability of all blood hosts at time `t`
@@ -55,6 +66,14 @@ computeB.static <- function(t, pars){
   pars$B
 }
 
+#' @title Static model for hosts
+#' @description Implements [computeB] for a dynamic model
+#' @inheritParams computeB
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+computeB.dynamic <- function(t, pars){
+  with(pars, return(W + Visitors + other^pars$Bpar$zeta))
+}
 
 #' @title Set the availability of aquatic habitats
 #' @description This method dispatches on the type of `pars$Qpar`. It should
@@ -74,6 +93,15 @@ computeQ <- function(t, pars) {
 #' @export
 computeQ.static <- function(t, pars){
   pars$Q
+}
+
+#' @title Static model for hosts
+#' @description Implements [computeQ] for a static model
+#' @inheritParams computeQ
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+computeQ.dynamic <- function(t, pars){
+  pars$Q = pars$calN %*% pars$Lpar$searchQ
 }
 
 #' @title Set the availability of other blood hosts
@@ -136,6 +164,18 @@ F_f.static <- function(t, pars){
   pars$MYZpar$f0
 }
 
+#' @title Type 2 functional response for the blood feeding rate
+#' @description Implements [F_f] for a static model
+#' @inheritParams F_f
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_f.type2 <- function(t, pars){
+  B = pars$bB;
+  with(pars$MYZpar$f_par,{
+    return(fx*sf*B/(1+sf*B))
+  })
+}
+
 #' @title Compute the human blood fraction
 #' @description This method dispatches on the type of `pars$MYZpar$q_par`. It should
 #' set the values of the bionomic parameters to baseline values.
@@ -154,6 +194,17 @@ F_q <- function(t, pars) {
 #' @export
 F_q.static <- function(t, pars){
   pars$MYZpar$q0
+}
+
+#' @title Static model for human blood fraction
+#' @description Implements [F_q] for a static model
+#' @inheritParams F_q
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_q.dynamic <- function(t, pars){
+  with(pars,{
+    return((W+Visitors)/B)
+  })
 }
 
 #' @title Compute mosguito survival
@@ -196,6 +247,18 @@ F_sigma.static <- function(t, pars){
   pars$MYZpar$sigma0
 }
 
+#' @title Model for mosquito emigration based on resource availability
+#' @description Implements [F_sigma] for a static model
+#' @inheritParams F_sigma
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_sigma.BQS <- function(t, pars){
+  with(pars, with(MYZpar$sigma_par,{
+      return(sigma_x*(sigma_B/(1+sB*B) + sigma_Q/(1+sQ*Q) + sigma_S/(1+sS*S)))
+  }))
+}
+
+
 #' @title Compute the egg laying rate
 #' @description This method dispatches on the type of `pars$MYZpar$nu_par`. It should
 #' set the values of nu to (possibly changing) baseline value(s).
@@ -216,6 +279,17 @@ F_nu.static <- function(t, pars){
   pars$MYZpar$nu0
 }
 
+#' @title Type 2 functional response for the blood feeding rate
+#' @description Implements [F_nu] for a static model
+#' @inheritParams F_nu
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_nu.type2 <- function(t, pars){
+  Q = pars$Q;
+  with(pars$MYZpar$nu_par,{
+    return(nux*snu*Q/(1+snu*Q))
+  })
+}
 
 #' @title Compute the eip
 #' @description This method dispatches on the type of `pars$MYZpar$eip_par`. It should
@@ -506,7 +580,6 @@ setup_forcing_MYZ_GeRM_basic <- function(pars, other, sugar, W, zeta, Q) {
   class(Qpar) <- "static"
   pars$Qpar = Qpar
   pars$Q = Q
-  #pars$Q = pars$calN %*% pars$Lpar$searchQ
 
   pars = ResourceAvailability(0, 0, pars)
   return(pars)
