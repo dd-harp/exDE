@@ -4,10 +4,12 @@
 \alias{ResourceAvailability.GeRM}
 \title{Set the availability of resources}
 \usage{
-\method{ResourceAvailability}{GeRM}(t, pars)
+\method{ResourceAvailability}{GeRM}(t, y, pars)
 }
 \arguments{
 \item{t}{current simulation time}
+
+\item{y}{state vector}
 
 \item{pars}{a \link{list}}
 }

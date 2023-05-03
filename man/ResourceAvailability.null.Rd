@@ -4,10 +4,12 @@
 \alias{ResourceAvailability.null}
 \title{Modify parameters due to exogenous forcing}
 \usage{
-\method{ResourceAvailability}{null}(t, pars)
+\method{ResourceAvailability}{null}(t, y, pars)
 }
 \arguments{
 \item{t}{current simulation time}
+
+\item{y}{state vector}
 
 \item{pars}{a \link{list}}
 }

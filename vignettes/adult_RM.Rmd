@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The Ross-Macdonald adult mosquito model fulfills the generic interface of the adult mosquito component. A generalized version of the Ross-Macdonald model was first published in [Spatial Dynamics of Malaria Transmission](https://www.medrxiv.org/content/10.1101/2022.11.07.22282044v1). Here, we use a similar variant of the Ross-Macdonald model.   It includes state variables for total mosquito density $M$, parous mosquito density $P$, infected mosquito density $Y$, and infectious mosquito density $Z$.
+The Ross-Macdonald adult mosquito model fulfills the generic interface of the adult mosquito component. Here, we use a Ross-Macdonald model based on a model first published in 1982 by Joan Aron and Robert May (Aron JL, and May RM (1982). The population dynamics of malaria. In *The Population Dynamics of Infectious Diseases: Theory and Applications,* R. M. Anderson, ed. (Springer US), pp. 139–179). It includes state variables for total mosquito density $M$, infected mosquito density $Y$, and infectious mosquito density $Z$. Because of the interest in parity, the model has been extended to include a variable that tracks parous mosquitoes, $P$.
 
 # Differential Equations
 

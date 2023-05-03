@@ -85,4 +85,3 @@ diag_inverse <- function(x) {
 approx_equal <- function(a, b, tol = sqrt(.Machine$double.eps)) {
   abs(a - b) < tol
 }
-

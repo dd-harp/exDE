@@ -4,10 +4,12 @@
 \alias{ResourceAvailability}
 \title{Set the values of exogenous variables describing available non-host resources}
 \usage{
-ResourceAvailability(t, pars)
+ResourceAvailability(t, y, pars)
 }
 \arguments{
 \item{t}{current simulation time}
+
+\item{y}{state vector}
 
 \item{pars}{a \link{list}}
 }
@@ -15,5 +17,5 @@ ResourceAvailability(t, pars)
 none
 }
 \description{
-This method dispatches on the type of \code{pars$RESpar}.
+This method dispatches on the type of \code{pars$RApar}.
 }
