@@ -23,7 +23,7 @@ F_foi.pois <- function(eir, pars){
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_foi.nb <- function(eir, pars){
-  log(1 + eir/pars$FOIpar$sz)/pars$FOIpar$sz
+  log(1 + eir/pars$FOIpar$sz)*pars$FOIpar$sz
 }
 
 #' @title Make parameters for the null model of exposure
@@ -39,12 +39,13 @@ make_parameters_exposure_pois <- function(pars) {
 
 #' @title Make parameters for the null model of exposure
 #' @param pars a [list]
+#' @param sz the size parameter, as in dnbinom(mu=mu, size=size)
 #' @return none
 #' @export
-make_parameters_exposure_nb <- function(pars) {
+make_parameters_exposure_nb <- function(pars, sz) {
   FOIpar <- list()
   class(FOIpar) <- 'nb'
-  FOIpar$sz = 5
+  FOIpar$sz = sz
   pars$FOIpar <- FOIpar
   return(pars)
 }

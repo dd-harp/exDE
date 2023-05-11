@@ -31,6 +31,17 @@ dXdt.hMoI <- function(t, y, pars, EIR) {
   })
 }
 
+#' @title Compute the HTC for the hMoI model
+#' @description Implements [HTC] for the hMoI model with demography.
+#' @inheritParams HTC
+#' @return a [numeric] vector
+#' @export
+HTC.hMoI <- function(pars) {
+  with(pars$Xpar,
+       return(c2/r2 + c1*(1/r1 - 1/r2))
+  )
+}
+
 #' @title Add indices for human population to parameter list
 #' @description Implements [make_indices_X] for the hybrid MoI model.
 #' @inheritParams make_indices_X

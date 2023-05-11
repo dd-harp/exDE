@@ -24,7 +24,6 @@ dXdt.SISdX <- function(t, y, pars, EIR) {
   })
 }
 
-
 #' @title Derivatives for human population
 #' @description Implements [dXdt] for the SIS model with demography.
 #' @inheritParams dXdt
@@ -41,6 +40,17 @@ dXdt.SISdXdH <- function(t, y, pars, EIR) {
 
     return(c(dX, dH))
   })
+}
+
+#' @title Compute the HTC for the SIS model
+#' @description Implements [HTC] for the SIS model with demography.
+#' @inheritParams HTC
+#' @return a [numeric] vector
+#' @export
+HTC.SIS <- function(pars) {
+  with(pars$Xpar,
+    return(c/r)
+  )
 }
 
 #' @title Add indices for human population to parameter list

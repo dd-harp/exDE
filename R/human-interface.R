@@ -40,3 +40,13 @@ make_indices_X <- function(pars) {
 get_inits_X <- function(pars) {
   UseMethod("get_inits_X", pars$Xpar)
 }
+
+#' @title Compute the human transmitting capacity
+#' @description This method dispatches on the type of `pars$Xpar`.
+#' @param pars an [environment]
+#' @return none
+#' @export
+HTC <- function(pars) {
+  UseMethod("get_inits_X", pars$Xpar)
+}
+
