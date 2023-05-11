@@ -158,6 +158,18 @@ reference:
   - make_inits_MYZ_Ztrace
   - get_inits_MYZ.Ztrace
   - make_parameters_MYZ_Ztrace
+- subtitle: Gtrace
+  desc: |
+    Specialized methods for NULL dynamics: a funtion generates values for eggs laid to aquatic ecology
+  contents:
+  - MosquitoBehavior.Gtrace
+  - F_Z.Gtrace
+  - F_eggs.Gtrace
+  - dMYZdt.Gtrace
+  - make_indices_MYZ.Gtrace
+  - make_inits_MYZ_Gtrace
+  - get_inits_MYZ.Gtrace
+  - make_parameters_MYZ_Gtrace
 - title: Aquatic Mosquito Dynamics
   desc: |
     Generic methods for the aquatic (immature) mosquito component.
