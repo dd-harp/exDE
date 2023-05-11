@@ -13,6 +13,7 @@ test_that("human SIP model remains at equilibrium", {
   r <- 1/200
   eta <- c(1/30, 1/40, 1/35)
   rho <- c(0.05, 0.1, 0.15)
+  xi <- rep(0, 3)
   TaR <- matrix(data = 1,nrow = 1, ncol = nStrata)
 
   P <- diag(1/eta) %*% diag(rho/(1-rho)) %*% (r*X)
@@ -24,7 +25,7 @@ test_that("human SIP model remains at equilibrium", {
 
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
                                            searchWts=searchWtsH, TaR=TaR)
-  params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, eta=eta, rho=rho)
+  params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, eta=eta, rho=rho, xi=xi)
   params = make_inits_X_SIP(pars = params, X, P)
 
   params = make_indices(params)

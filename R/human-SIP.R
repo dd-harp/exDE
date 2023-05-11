@@ -23,13 +23,24 @@ dXdt.SIPdX <- function(t, y, pars, EIR) {
     P <- y[P_ix]
     H <- F_H(t, y, pars)
 
-    dX <- (1-rho)*foi*(H - X - P) - r*X
-    dP <- rho*foi*(H - X - P) - eta*P
+    dX <- (1-rho)*foi*(H - X - P) - (r+xi)*X
+    dP <- rho*foi*(H - X - P) + xi*(H-P) - eta*P
 
     return(c(dX, dP))
   })
 }
 
+
+#' @title Compute the HTC for the SIP model
+#' @description Implements [HTC] for the SIP model with demography.
+#' @inheritParams HTC
+#' @return a [numeric] vector
+#' @export
+HTC.SIP <- function(pars) {
+  with(pars$Xpar,
+       return((1-rho)*b/(r+xi)*xi/(eta+xi))
+  )
+}
 
 #' @title Derivatives for human population
 #' @description Implements [dXdt] for the SIP model.
@@ -45,8 +56,8 @@ dXdt.SIPdXdH <- function(t, y, pars, EIR) {
     P <- y[P_ix]
     H <- F_H(t, y, pars)
 
-    dX <- (1-rho)*foi*(H - X - P) - r*X + dHdt(t, X, pars)
-    dP <- rho*foi*(H - X - P) - eta*P + dHdt(t, P, pars)
+    dX <- (1-rho)*foi*(H - X - P) - (r+xi)*X + dHdt(t, X, pars)
+    dP <- rho*foi*(H - X - P) + xi*(H-P) - eta*P + dHdt(t, P, pars)
     dH <- Births(t, H, pars) + dHdt(t, H, pars)
 
     return(c(dX, dP, dH))
@@ -75,10 +86,11 @@ make_indices_X.SIP <- function(pars) {
 #' @param r recovery rate
 #' @param rho probability of successful treatment upon infection
 #' @param eta prophylaxis waning rate
+#' @param xi background treatment rate
 #' @return none
 #' @export
-make_parameters_X_SIP <- function(pars, b, c, r, rho, eta){
-  stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(rho), is.numeric(eta))
+make_parameters_X_SIP <- function(pars, b, c, r, rho, eta, xi){
+  stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(rho), is.numeric(eta), is.numeric(xi))
   Xpar <- list()
   class(Xpar) <- c('SIP', 'SIPdX')
   Xpar$b <- b
@@ -86,6 +98,7 @@ make_parameters_X_SIP <- function(pars, b, c, r, rho, eta){
   Xpar$r <- r
   Xpar$rho <- rho
   Xpar$eta <- eta
+  Xpar$xi <- xi
   pars$Xpar <- Xpar
   return(pars)
 }

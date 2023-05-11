@@ -16,6 +16,7 @@ test_that("test equilibrium with RM adults (ODE), SIP humans, trace", {
   c <- 0.15
   r <- 1/200
   eta <- c(1/30, 1/40)
+  xi <- c(0, 0)
   rho <- c(0.05, 0.1)
   wf <- rep(1, nStrata)
 
@@ -93,7 +94,7 @@ test_that("test equilibrium with RM adults (ODE), SIP humans, trace", {
   params = make_inits_MYZ_RM_ode(pars = params, M0 = as.vector(M), P0 = as.vector(P), Y0 = as.vector(Y), Z0 = as.vector(Z))
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
                                            searchWts=searchWtsH, TaR=TaR)
-  params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, eta=eta, rho=rho)
+  params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, eta=eta, rho=rho, xi=xi)
   params = make_inits_X_SIP(pars = params, X, Px)
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
 
@@ -125,6 +126,7 @@ test_that("test equilibrium with RM adults (DDE), SIP humans, trace", {
   c <- 0.15
   r <- 1/200
   eta <- c(1/30, 1/40)
+  xi <- c(0, 0)
   rho <- c(0.05, 0.1)
   wf <- rep(1, nStrata)
 
@@ -202,7 +204,7 @@ test_that("test equilibrium with RM adults (DDE), SIP humans, trace", {
   params = make_inits_MYZ_RM_dde(pars = params, M0 = as.vector(M), P0 = as.vector(P), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=OmegaEIP)
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
                                            searchWts=searchWtsH, TaR=TaR)
-  params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, eta=eta, rho=rho)
+  params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, eta=eta, rho=rho, xi=xi)
   params = make_inits_X_SIP(pars = params, X, Px)
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
 

@@ -4,7 +4,7 @@
 \alias{make_parameters_X_SIP}
 \title{Make parameters for SIP human model}
 \usage{
-make_parameters_X_SIP(pars, b, c, r, rho, eta)
+make_parameters_X_SIP(pars, b, c, r, rho, eta, xi)
 }
 \arguments{
 \item{pars}{an \link{environment}}
@@ -18,6 +18,8 @@ make_parameters_X_SIP(pars, b, c, r, rho, eta)
 \item{rho}{probability of successful treatment upon infection}
 
 \item{eta}{prophylaxis waning rate}
+
+\item{xi}{background treatment rate}
 }
 \value{
 none

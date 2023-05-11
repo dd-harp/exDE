@@ -59,6 +59,8 @@ reference:
   - xDE_diffeqn_mosy
   - xDE_diffeqn_cohort
   - xDE_diffeqn_aquatic
+  - xDE_diffeqn_Z
+  - xDE_diffeqn_adult
 - title: Transmission
   desc: |
     Generic methods for transmission.
@@ -192,6 +194,7 @@ reference:
   - dXdt
   - make_indices_X
   - get_inits_X
+  - HTC
 - subtitle: hMoI
   desc: |
     Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.
@@ -202,6 +205,7 @@ reference:
   - make_inits_X_hMoI
   - get_inits_X.hMoI
   - make_parameters_X_hMoI
+  - HTC.hMoI
 - subtitle: SIS
   desc: |
     Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
@@ -213,6 +217,7 @@ reference:
   - make_inits_X_SIS
   - get_inits_X.SIS
   - make_parameters_X_SIS
+  - HTC.SIS
 - subtitle: SIP
   desc: |
     Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
@@ -224,6 +229,7 @@ reference:
   - make_inits_X_SIP
   - get_inits_X.SIP
   - make_parameters_X_SIP
+  - HTC.SIP
 - subtitle: trace
   desc: |
     Specialized methods for a human trace model to pass kappa as a parameter

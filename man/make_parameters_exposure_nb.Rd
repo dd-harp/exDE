@@ -4,10 +4,12 @@
 \alias{make_parameters_exposure_nb}
 \title{Make parameters for the null model of exposure}
 \usage{
-make_parameters_exposure_nb(pars)
+make_parameters_exposure_nb(pars, sz)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{sz}{the size parameter, as in dnbinom(mu=mu, size=size)}
 }
 \value{
 none
