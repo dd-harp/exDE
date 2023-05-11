@@ -163,5 +163,5 @@ F_eip <- function(t, pars) {
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_eip.static <- function(t, pars){
-  pars$MYZpar$eip0
+  pars$MYZpar$eip
 }

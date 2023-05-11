@@ -22,12 +22,12 @@ ResourceAvailability.GeRM <- function(t, y, pars) {
 #' @export
 MosquitoBehavior.GeRM <- function(t, y, pars) {
   with(pars,{
-    pars$Mpar$f = F_f(t, pars)
-    pars$Mpar$q = F_q(t, pars)
-    pars$Mpar$g = F_g(t, pars)
-    pars$Mpar$sigma = F_sigma(t, pars)
-    pars$Mpar$nu = F_nu(t, pars)
-    pars$Mpar$eip = F_eip(t, pars)
+    pars$MYZpar$f = F_f(t, pars)
+    pars$MYZpar$q = F_q(t, pars)
+    pars$MYZpar$g = F_g(t, pars)
+    pars$MYZpar$sigma = F_sigma(t, pars)
+    pars$MYZpar$nu = F_nu(t, pars)
+    pars$MYZpar$eip = F_eip(t, pars)
     return(pars)
 })}
 
@@ -217,25 +217,27 @@ make_parameters_MYZ_GeRM_static <- function(pars, g, sigma, f, q, nu, eggsPerBat
   if(solve_as == 'dde') class(MYZpar) <- c('GeRM', 'GeRM_dde')
   if(solve_as == 'ode') class(MYZpar) <- c('GeRM', 'GeRM_ode')
 
-  MYZpar$g_par = "static"
+  MYZpar$f_par <- list()
+  class(MYZpar$f_par) <- "static"
+  MYZpar$q_par <- list()
+  class(MYZpar$q_par) <- "static"
+  MYZpar$g_par <- list()
+  class(MYZpar$g_par) <- "static"
+  MYZpar$sigma_par <- list()
+  class(MYZpar$sigma_par) <- "static"
+  MYZpar$nu_par <- list()
+  class(MYZpar$nu_par) <- "static"
+  MYZpar$eip_par <- list()
+  class(MYZpar$eip_par) <- "static"
+
+
   MYZpar$g0 <- g
-
-  MYZpar$f_par = "static"
   MYZpar$f0 <- f
-
-  MYZpar$q_par = "static"
   MYZpar$q0 <- q
-
-  MYZpar$sigma_par = "static"
   MYZpar$sigma0 <- sigma
-
-  MYZpar$nu_par = "static"
   MYZpar$nu0 <- nu
   MYZpar$eggsPerBatch <- eggsPerBatch
-
-  MYZpar$eip_par = "static"
   MYZpar$eip <- eip
-
   MYZpar$calK <- calK
 
   pars$MYZpar <- MYZpar
