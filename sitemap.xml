@@ -244,6 +244,18 @@
     <loc>https://dd-harp.github.io/exDE/reference/F_x.trace.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/HTC.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/HTC.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/HTC.hMoI.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/HTC.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/Hydrology.html</loc>
   </url>
   <url>
@@ -686,6 +698,12 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn_Z.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn_adult.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn_aquatic.html</loc>
