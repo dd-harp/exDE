@@ -103,6 +103,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/F_Z.GeRM.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_Z.Gtrace.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_Z.RM.html</loc>
   </url>
   <url>
@@ -140,6 +143,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_eggs.GeRM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_eggs.Gtrace.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_eggs.RM.html</loc>
@@ -286,6 +292,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.GeRM.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.Gtrace.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.RM.html</loc>
   </url>
   <url>
@@ -379,6 +388,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/dMYZdt.GeRM_ode.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/dMYZdt.Gtrace.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/dMYZdt.RM_dde.html</loc>
   </url>
   <url>
@@ -454,6 +466,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/get_inits_MYZ.GeRM_ode.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/get_inits_MYZ.Gtrace.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/get_inits_MYZ.RM_dde.html</loc>
   </url>
   <url>
@@ -526,6 +541,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/make_indices_MYZ.GeRM_ode.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_indices_MYZ.Gtrace.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_indices_MYZ.RM_dde.html</loc>
   </url>
   <url>
@@ -568,6 +586,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/make_inits_MYZ_GeRM_ode.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_inits_MYZ_Gtrace.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_inits_MYZ_RM_dde.html</loc>
   </url>
   <url>
@@ -599,6 +620,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_MYZ_GeRM_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_MYZ_Gtrace.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_MYZ_RM.html</loc>
