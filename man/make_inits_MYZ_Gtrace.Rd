@@ -7,7 +7,7 @@
 make_inits_MYZ_Gtrace(pars, MYZ0 = NULL)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{MYZ0}{is set to NULL for the Gtrace model}
 }

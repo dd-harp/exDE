@@ -7,7 +7,7 @@
 \method{get_inits_X}{SIS}(pars)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 }
 \value{
 none

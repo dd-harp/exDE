@@ -7,7 +7,7 @@
 \method{make_indices_MYZ}{Ztrace}(pars)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 }
 \value{
 none

@@ -11,7 +11,7 @@ Births(t, y, pars)
 
 \item{y}{state vector}
 
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 }
 \value{
 see help pages for specific methods

@@ -7,7 +7,7 @@
 make_parameters_X_trace(pars, kappa)
 }
 \arguments{
-\item{pars}{an \link{list}}
+\item{pars}{a \link{list}}
 
 \item{kappa}{net infectiousness}
 }

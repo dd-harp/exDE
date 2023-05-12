@@ -64,6 +64,66 @@ dXdt.SIPdXdH <- function(t, y, pars, EIR) {
   })
 }
 
+#' @title Setup Xpar.SIP
+#' @description Implements [setup_Xpar] for the SIP model
+#' @inheritParams setup_Xpar
+#' @return a [list] vector
+#' @export
+setup_Xpar.SIP = function(pars, Xname, Xopts=list()){
+
+  pars$Xname = "SIP"
+  pars = make_Xpar_SIP(pars, Xopts)
+  pars = make_Xinits_SIP(pars, Xopts)
+
+  return(pars)
+}
+
+#' @title Make parameters for SIP human model, with defaults
+#' @param pars a [list]
+#' @param Xopts a [list] that could overwrite defaults
+#' @param b transmission probability (efficiency) from mosquito to human
+#' @param c transmission probability (efficiency) from human to mosquito
+#' @param r recovery rate
+#' @param rho probability of successful treatment upon infection
+#' @param eta prophylaxis waning rate
+#' @param xi background treatment rate
+#' @return a [list]
+#' @export
+make_Xpar_SIP = function(pars, Xopts=list(),
+                         b=0.55, r=1/180, c=0.15,
+                         rho=.1, eta=1/25, xi=1/365){
+  with(Xopts,{
+    Xpar = list()
+    class(Xpar) <- c("SIP", "SIPdX")
+
+    Xpar$b = checkIt(b, pars$nStrata)
+    Xpar$c = checkIt(c, pars$nStrata)
+    Xpar$r = checkIt(r, pars$nStrata)
+    Xpar$rho = checkIt(rho, pars$nStrata)
+    Xpar$eta = checkIt(eta, pars$nStrata)
+    Xpar$xi = checkIt(xi, pars$nStrata)
+
+    pars$Xpar = Xpar
+    return(pars)
+})}
+
+
+#' @title Make initial values for the SIP human model, with defaults
+#' @param pars a [list]
+#' @param Xopts a [list] that could overwrite defaults
+#' @param X0 the initial values of the parameter X
+#' @param P0 the initial values of the parameter P
+#' @return a [list]
+#' @export
+make_Xinits_SIP = function(pars, Xopts = list(),
+                           X0=1, P0=0){with(Xopts,{
+  inits = list()
+  inits$X0 = checkIt(X0, pars$nStrata)
+  inits$P0 = checkIt(P0, pars$nStrata)
+  pars$Xinits = inits
+  return(pars)
+})}
+
 #' @title Add indices for human population to parameter list
 #' @description Implements [make_indices_X] for the SIP model.
 #' @inheritParams make_indices_X

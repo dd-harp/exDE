@@ -7,7 +7,7 @@
 make_inits_X_hMoI(pars, m10, m20)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{m10}{mean MoI among inapparent human infections}
 

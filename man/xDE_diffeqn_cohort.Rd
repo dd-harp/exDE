@@ -11,7 +11,7 @@ xDE_diffeqn_cohort(a, y, pars, F_eir)
 
 \item{y}{state vector}
 
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{F_eir}{a trace function that returns the eir}
 }

@@ -11,7 +11,7 @@ xDE_diffeqn_mosy(t, y, pars, kappa = NULL)
 
 \item{y}{state vector}
 
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{kappa}{a vector or NULL object
 the appropriate adult mosquito model}

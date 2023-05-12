@@ -11,7 +11,7 @@ xDE_diffeqn_aquatic(t, y, pars, F_eta)
 
 \item{y}{state vector}
 
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{F_eta}{trace function that returns eggs laid}
 }

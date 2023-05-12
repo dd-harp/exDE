@@ -7,7 +7,7 @@
 make_parameters_L_basic(pars, psi, phi, theta)
 }
 \arguments{
-\item{pars}{an \link{list}}
+\item{pars}{a \link{list}}
 
 \item{psi}{maturation rates for each aquatic habitat}
 

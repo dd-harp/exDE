@@ -11,7 +11,7 @@ F_kappa(t, y, pars, beta)
 
 \item{y}{state vector}
 
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{beta, }{a \link{matrix}}
 }

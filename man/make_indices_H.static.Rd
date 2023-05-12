@@ -7,7 +7,7 @@
 \method{make_indices_H}{static}(pars)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 }
 \value{
 none

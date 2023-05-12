@@ -7,7 +7,7 @@
 make_inits_L_basic(pars, L0)
 }
 \arguments{
-\item{pars}{an \link{list}}
+\item{pars}{a \link{list}}
 
 \item{L0}{initial conditions}
 }

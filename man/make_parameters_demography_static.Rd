@@ -16,7 +16,7 @@ make_parameters_demography_static(
 )
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{H}{size of human population in each strata}
 

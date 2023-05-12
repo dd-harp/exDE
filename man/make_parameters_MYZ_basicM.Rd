@@ -7,7 +7,7 @@
 make_parameters_MYZ_basicM(pars, g, sigma, f, q, nu, eggsPerBatch, calK)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{g}{mosquito mortality rate}
 

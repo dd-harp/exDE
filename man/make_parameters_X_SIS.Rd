@@ -7,7 +7,7 @@
 make_parameters_X_SIS(pars, b, c, r)
 }
 \arguments{
-\item{pars}{an \link{list}}
+\item{pars}{a \link{list}}
 
 \item{b}{transmission probability (efficiency) from mosquito to human}
 

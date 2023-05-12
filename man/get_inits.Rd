@@ -7,7 +7,7 @@
 get_inits(pars)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 }
 \value{
 y a \link{numeric} vector assigned the class "dynamic"

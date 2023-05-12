@@ -7,7 +7,7 @@
 make_parameters_X_SIP(pars, b, c, r, rho, eta, xi)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{b}{transmission probability (efficiency) from mosquito to human}
 

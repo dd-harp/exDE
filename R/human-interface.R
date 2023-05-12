@@ -23,6 +23,18 @@ dXdt <- function(t, y, pars, EIR) {
   UseMethod("dXdt", pars$Xpar)
 }
 
+#' @title A function to set up Xpar
+#' @description This method dispatches on `Xname`.
+#' @param pars a [list]
+#' @param Xname a [character] string
+#' @param Xopts a [list]
+#' @return none
+#' @export
+setup_Xpar = function(pars, Xname, Xopts=list()){
+  class(Xname) <- Xname
+  UseMethod("setup_Xpar", Xname)
+}
+
 #' @title Add indices for human population to parameter list
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param pars a [list]
