@@ -29,7 +29,7 @@ make_indices_L.trace <- function(pars) {
 }
 
 #' @title Make parameters for trace aquatic mosquito model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param Lambda vector of mean emergence rates from each aquatic habitat
 #' @param Lt is a [function] of the form Lt(t,pars) that computes temporal fluctuations
 #' @return none
@@ -45,7 +45,7 @@ make_parameters_L_trace <- function(pars, Lambda, Lt=function(t,pars){1}) {
 }
 
 #' @title Make parameters for trace aquatic mosquito model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param L0 is set to NULL for the trace model
 #' @return none
 #' @export

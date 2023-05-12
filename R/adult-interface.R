@@ -5,7 +5,7 @@
 #' set the values of the bionomic parameters to baseline values.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return a [list]
 #' @export
 MosquitoBehavior <- function(t, y, pars) {
@@ -15,7 +15,7 @@ MosquitoBehavior <- function(t, y, pars) {
 #' @title Time spent host seeking/feeding and resting/ovipositing
 #' @description This method dispatches on the type of `pars$MYZpar`.
 #' @param t current simulation time
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return either a [numeric] vector if the model supports this feature, or [NULL]
 #' @export
 F_tau <- function(t, pars) {
@@ -26,7 +26,7 @@ F_tau <- function(t, pars) {
 #' @description This method dispatches on the type of `pars$MYZpar`.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_Z <- function(t, y, pars) {
@@ -37,7 +37,7 @@ F_Z <- function(t, y, pars) {
 #' @description This method dispatches on the type of `pars$MYZpar`.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_eggs <- function(t, y, pars) {
@@ -49,7 +49,7 @@ F_eggs <- function(t, y, pars) {
 #' @description This method dispatches on the type of `pars$MYZpar`.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param Lambda emergence rate of adult mosquitoes
 #' @param kappa net infectiousness of human population
 #' @return a [numeric] vector
@@ -60,7 +60,7 @@ dMYZdt <- function(t, y, pars, Lambda, kappa) {
 
 #' @title Add indices for adult mosquitoes to parameter list
 #' @description This method dispatches on the type of `pars$MYZpar`.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 make_indices_MYZ <- function(pars) {
@@ -69,7 +69,7 @@ make_indices_MYZ <- function(pars) {
 
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$MYZpar`.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 get_inits_MYZ <- function(pars) {

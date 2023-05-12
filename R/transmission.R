@@ -17,7 +17,7 @@ F_beta <- function(t, y, pars){
 #' @description This method dispatches on the type of `pars$Xpar$xde`.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param beta, a [matrix]
 #' @return a [numeric] vector of length `nStrata`
 #' @export
@@ -31,7 +31,7 @@ F_EIR <- function(t, y, pars, beta) {
 #' @description This method dispatches on the type of `pars$MYZpar$xde`.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param beta, a [matrix]
 #' @return a [numeric] vector of length `nPatches`
 #' @export

@@ -39,7 +39,7 @@ make_indices_L.basic <- function(pars) {
 
 
 #' @title Make parameters for basic competition aquatic mosquito model
-#' @param pars an [list]
+#' @param pars a [list]
 #' @param psi maturation rates for each aquatic habitat
 #' @param phi density-independent mortality rates for each aquatic habitat
 #' @param theta density-dependent mortality terms for each aquatic habitat
@@ -57,7 +57,7 @@ make_parameters_L_basic <- function(pars, psi, phi, theta) {
 }
 
 #' @title Make inits for basic competition aquatic mosquito model
-#' @param pars an [list]
+#' @param pars a [list]
 #' @param L0 initial conditions
 #' @return a [list] with Linits added
 #' @export

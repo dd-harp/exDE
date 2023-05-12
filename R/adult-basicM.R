@@ -70,7 +70,7 @@ make_indices_MYZ.basicM <- function(pars) {
 }
 
 #' @title Make parameters for a basic adult mosquito model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param g mosquito mortality rate
 #' @param sigma emigration rate
 #' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
@@ -100,7 +100,7 @@ make_parameters_MYZ_basicM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, c
 }
 
 #' @title Make inits for RM adult mosquito model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param M0 total mosquito density at each patch
 #' @param P0 total parous mosquito density at each patch
 #' @return none

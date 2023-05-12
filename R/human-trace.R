@@ -30,7 +30,7 @@ make_indices_X.trace <- function(pars) {
 }
 
 #' @title Make parameters for trace human model
-#' @param pars an [list]
+#' @param pars a [list]
 #' @param kappa net infectiousness
 #' @return a [list]
 #' @export
@@ -43,7 +43,7 @@ make_parameters_X_trace <- function(pars, kappa) {
 }
 
 #' @title Make inits for trace human model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 make_inits_X_trace <- function(pars) {
@@ -53,7 +53,7 @@ make_inits_X_trace <- function(pars) {
 
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 get_inits_X.trace <- function(pars){

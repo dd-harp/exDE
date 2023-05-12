@@ -3,7 +3,7 @@
 #' @title Modify values due to LSM
 #' @description This method dispatches on the type of `pars$LSMpar`.
 #' @param t current simulation time
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return a [list]
 #' @export
 LSM <- function(t, pars) {

@@ -6,8 +6,6 @@
 #' @return a named [list]
 #' @export
 MosquitoBehavior.Gtrace <- function(t, y, pars) {
-  pars$MYZpar$f <- pars$MYZpar$f0
-  pars$MYZpar$q <- pars$MYZpar$q0
   return(pars)
 }
 
@@ -49,7 +47,7 @@ make_indices_MYZ.Gtrace <- function(pars) {
 }
 
 #' @title Make parameters for Gtrace aquatic mosquito model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param Gm a vector of mean mosquito densities
 #' @param Gf a [function] of the form Gf(t, pars) that computes temporal fluctuations
 #' @return none
@@ -69,7 +67,7 @@ make_parameters_MYZ_Gtrace <- function(pars, Gm, Gf) {
 }
 
 #' @title Make parameters for Gtrace aquatic mosquito model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param MYZ0 is set to NULL for the Gtrace model
 #' @return none
 #' @export

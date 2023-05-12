@@ -14,7 +14,7 @@ ExogenousForcing.forced <- function(t, pars) {
 }
 
 #' @title Make parameters for the null model of exogenous forcing (do nothing)
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 make_parameters_exogenous_forced <- function(pars) {

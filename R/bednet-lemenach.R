@@ -43,7 +43,7 @@ BedNets.lemenach <- function(t, pars) {
 
 #' @title Make parameters for Le Menach ITN model of vector control
 #' @description This model of ITN based vector control was originally described in \url{https://malariajournal.biomedcentral.com/articles/10.1186/1475-2875-6-10}.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param tau0_frac a [numeric] vector giving the proportion of time spent
 #' in host seeking/bloodfeeding and resting/oviposition
 #' @param r probability of mosquito being repelled upon contact with ITN

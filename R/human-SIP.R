@@ -80,7 +80,7 @@ make_indices_X.SIP <- function(pars) {
 }
 
 #' @title Make parameters for SIP human model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param b transmission probability (efficiency) from mosquito to human
 #' @param c transmission probability (efficiency) from human to mosquito
 #' @param r recovery rate
@@ -104,7 +104,7 @@ make_parameters_X_SIP <- function(pars, b, c, r, rho, eta, xi){
 }
 
 #' @title Make inits for SIP human model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param X0 size of infected population in each strata
 #' @param P0 size of population protected by prophylaxis in each strata
 #' @return none
@@ -117,7 +117,7 @@ make_inits_X_SIP <- function(pars, X0, P0) {
 
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 get_inits_X.SIP <- function(pars){with(pars$Xinits,{

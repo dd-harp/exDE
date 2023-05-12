@@ -4,7 +4,7 @@
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_X <- function(t, y, pars) {
@@ -15,7 +15,7 @@ F_X <- function(t, y, pars) {
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param EIR vector giving the per-capita entomological inoculation rate for each strata
 #' @return a [numeric] vector
 #' @export
@@ -25,7 +25,7 @@ dXdt <- function(t, y, pars, EIR) {
 
 #' @title Add indices for human population to parameter list
 #' @description This method dispatches on the type of `pars$Xpar`.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 make_indices_X <- function(pars) {
@@ -34,7 +34,7 @@ make_indices_X <- function(pars) {
 
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 get_inits_X <- function(pars) {
@@ -43,7 +43,7 @@ get_inits_X <- function(pars) {
 
 #' @title Compute the human transmitting capacity
 #' @description This method dispatches on the type of `pars$Xpar`.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 HTC <- function(pars) {

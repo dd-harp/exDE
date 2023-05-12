@@ -3,7 +3,7 @@
 #' @title Modify parameters due to exogenous forcing
 #' @description This method dispatches on the type of `pars$EXOpar`.
 #' @param t current simulation time
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 ExogenousForcing <- function(t, pars) {
