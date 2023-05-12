@@ -49,7 +49,7 @@ make_indices_MYZ.Ztrace <- function(pars) {
 }
 
 #' @title Make parameters for Ztrace aquatic mosquito model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param Zm a vector of mean mosquito densities
 #' @param f the blood feeding rate
 #' @param q the human fraction
@@ -73,7 +73,7 @@ make_parameters_MYZ_Ztrace <- function(pars, Zm, f, q, Zf) {
 }
 
 #' @title Make parameters for Ztrace aquatic mosquito model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param MYZ0 is set to NULL for the Ztrace model
 #' @return none
 #' @export

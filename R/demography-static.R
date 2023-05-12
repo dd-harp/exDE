@@ -40,7 +40,7 @@ make_indices_H.static <- function(pars) {
 
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 get_inits_H.static<- function(pars){
@@ -48,7 +48,7 @@ get_inits_H.static<- function(pars){
 }
 
 #' @title Make parameters for static human demography model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param H size of human population in each strata
 #' @param residence is a vector describing patch residency
 #' @param searchWts is a vector describing blood feeding search weights

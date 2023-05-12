@@ -19,7 +19,7 @@ make_parameters_xde = function(solve_as='ode'){
 }
 
 #' @title Set indices for generalized spatial model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 make_indices <- function(pars) {
@@ -40,7 +40,7 @@ make_indices <- function(pars) {
 }
 
 #' @title Get the initial values as a vector
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return y a [numeric] vector assigned the class "dynamic"
 #' @export
 get_inits <- function(pars){

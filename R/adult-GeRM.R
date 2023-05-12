@@ -306,7 +306,7 @@ make_inits_MYZ_GeRM_ode <- function(pars, M0, G0, Y0, Z0) {
 }
 
 #' @title Make inits for GeRM adult mosquito model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param M0 total mosquito density at each patch
 #' @param G0 total parous mosquito density at each patch
 #' @param Y0 infected mosquito density at each patch

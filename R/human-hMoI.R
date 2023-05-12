@@ -59,7 +59,7 @@ make_indices_X.hMoI <- function(pars) {
 
 #' @title Make parameters for hybrid MoI human model
 #' @description MoI stands for Multiplicity of Infection, and refers to malarial superinfection.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param b transmission probability (efficiency) from mosquito to human
 #' @param c1 transmission probability (efficiency) from inapparent human infections to mosquito
 #' @param c2 transmission probability (efficiency) from patent human infections to mosquito
@@ -82,7 +82,7 @@ make_parameters_X_hMoI <- function(pars, b, c1, c2, r1, r2) {
 
 #' @title Make inits for hybrid MoI human model
 #' @description MoI stands for Multiplicity of Infection, and refers to malarial superinfection.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param m10 mean MoI among inapparent human infections
 #' @param m20 mean MoI among patent human infections
 #' @return none
@@ -95,7 +95,7 @@ make_inits_X_hMoI <- function(pars, m10, m20) {
 
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 get_inits_X.hMoI <- function(pars){with(pars$Xinits,{

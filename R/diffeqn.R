@@ -6,7 +6,7 @@
 #' generic methods for each model component.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return a [list] containing the vector of all state derivatives
 #' @export
 xDE_diffeqn <- function(t, y, pars) {
@@ -131,7 +131,7 @@ xDE_diffeqn_Z <- function(t, y, pars) {
 #' mosquito components.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param kappa a vector or NULL object
 #' the appropriate adult mosquito model
 #' @return a [list] containing the vector of all state derivatives
@@ -166,7 +166,7 @@ xDE_diffeqn_mosy <- function(t, y, pars, kappa=NULL) {
 #' generic methods for each model component.
 #' @param a age of a cohort
 #' @param y state vector
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param F_eir a trace function that returns the eir
 #' @return a [list] containing the vector of all state derivatives
 #' @export
@@ -186,7 +186,7 @@ xDE_diffeqn_cohort <- function(a, y, pars, F_eir) {
 #' generic methods for each model component.
 #' @param t current simulation time
 #' @param y state vector
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param F_eta trace function that returns eggs laid
 #' @return a [list] containing the vector of all state derivatives
 #' @export

@@ -14,7 +14,7 @@ VectorControl.control <- function(t, y, pars) {
 }
 
 #' @title Make parameters for the control model of vector control (do nothing)
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 make_parameters_vc_control <- function(pars) {

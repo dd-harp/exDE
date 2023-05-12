@@ -22,7 +22,7 @@ make_indices_H.dynamic <- function(pars) {
 
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Hpar`.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 get_inits_H.dynamic <- function(pars){
@@ -48,7 +48,7 @@ dHdt.numeric <- function(t, y, pars){
 }
 
 #' @title Make parameters for forced (dynamic) human demography model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param H a function taking a single argument `t` and returning a vector of length
 #' `nStrata`.
 #' @param residence is a vector describing patch residency

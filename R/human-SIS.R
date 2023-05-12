@@ -66,7 +66,7 @@ make_indices_X.SIS <- function(pars) {
 }
 
 #' @title Make parameters for SIS human model
-#' @param pars an [list]
+#' @param pars a [list]
 #' @param b transmission probability (efficiency) from mosquito to human
 #' @param c transmission probability (efficiency) from human to mosquito
 #' @param r recovery rate
@@ -84,7 +84,7 @@ make_parameters_X_SIS <- function(pars, b, c, r) {
 }
 
 #' @title Make inits for SIS human model
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @param X0 size of infected population in each strata
 #' @return none
 #' @export
@@ -96,7 +96,7 @@ make_inits_X_SIS <- function(pars, X0) {
 
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.
-#' @param pars an [environment]
+#' @param pars a [list]
 #' @return none
 #' @export
 get_inits_X.SIS <- function(pars){
