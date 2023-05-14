@@ -334,6 +334,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/approx_equal.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/checkIt.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/computeB.dynamic.html</loc>
   </url>
   <url>
@@ -512,6 +515,27 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_Omega.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_Xinits_SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_Xinits_SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_Xinits_hMoI.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_Xpar_SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_Xpar_SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_Xpar_hMoI.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_Xpar_trace.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_indices.html</loc>
@@ -716,6 +740,21 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/metric_calZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_Xpar.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_Xpar.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_Xpar.hMoI.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_Xpar.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_Xpar.trace.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_forcing_MYZ_GeRM_basic.html</loc>
