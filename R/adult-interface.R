@@ -58,6 +58,20 @@ dMYZdt <- function(t, y, pars, Lambda, kappa) {
   UseMethod("dMYZdt", pars$MYZpar)
 }
 
+#' @title A function to set up adult mosquito models
+#' @description This method dispatches on `MYZname`.
+#' @param pars a [list]
+#' @param MYZname a [character] string
+#' @param nPatches a [numeric] value (an integer), the number of patches
+#' @param MYZopts a [list]
+#' @param calK is a [matrix]
+#' @return none
+#' @export
+setup_MYZ = function(pars, MYZname, nPatches=1, MYZopts=list(), calK=diag(1)){
+  class(MYZopts) <- MYZname
+  UseMethod("setup_MYZ", MYZopts)
+}
+
 #' @title Add indices for adult mosquitoes to parameter list
 #' @description This method dispatches on the type of `pars$MYZpar`.
 #' @param pars a [list]
@@ -86,3 +100,4 @@ get_inits_MYZ <- function(pars) {
 make_Omega <- function(g, sigma, K, nPatches) {
   diag(g, nPatches) + ((diag(nPatches) - K) %*% diag(sigma, nPatches))
 }
+

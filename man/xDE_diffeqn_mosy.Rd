@@ -4,16 +4,14 @@
 \alias{xDE_diffeqn_mosy}
 \title{Generalized spatial differential equation model (mosquito only)}
 \usage{
-xDE_diffeqn_mosy(t, y, pars, kappa = NULL)
+xDE_diffeqn_mosy(t, y, pars)
 }
 \arguments{
 \item{t}{current simulation time}
 
 \item{y}{state vector}
 
-\item{pars}{a \link{list}}
-
-\item{kappa}{a vector or NULL object
+\item{pars}{a \link{list}
 the appropriate adult mosquito model}
 }
 \value{

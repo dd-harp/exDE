@@ -32,11 +32,11 @@ dXdt.hMoI <- function(t, y, pars, EIR) {
 }
 
 #' @title Setup Xpar.hMoI
-#' @description Implements [setup_Xpar] for the hMoI model
-#' @inheritParams setup_Xpar
+#' @description Implements [setup_X] for the hMoI model
+#' @inheritParams setup_X
 #' @return a [list] vector
 #' @export
-setup_Xpar.hMoI = function(pars, Xname, Xopts=list()){
+setup_X.hMoI = function(pars, Xname, Xopts=list()){
 
   pars$Xname = "hMoI"
   pars = make_Xpar_hMoI(pars, Xopts)

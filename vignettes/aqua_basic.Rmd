@@ -55,6 +55,8 @@ library(data.table)
 library(ggplot2)
 ```
 
+## The long way 
+
 Here we run a simple example with 3 aquatic habitats at equilibrium. We use `exDE::make_parameters_L_basic` to
 set up parameters. Please note that this only runs the aquatic mosquito component and that most users should read [our fully worked example](ex_534.html) to run a full simulation.
 
@@ -79,15 +81,23 @@ F_eta = function(t, pars){
 
 params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
 params = make_inits_L_basic(params, L)
-params <- make_parameters_lsm_null(params) 
 
 params = make_indices(params)
 ```
 
 ```{r}
+xDE_aquatic = function(t, y, pars, F_eta) {
+  eta <- F_eta(t, pars)
+  dL <- dLdt(t, y, pars, eta)
+  return(list(c(dL)))
+}
+```
+
+```{r}
 y0 <- get_inits_L(params) 
 
-out <- deSolve::ode(y = y0, times = 0:50, xDE_diffeqn_aquatic, parms = params, method = 'lsoda', F_eta = F_eta) 
+out <- deSolve::ode(y = y0, times = 0:50, xDE_aquatic, parms = params, method = 'lsoda', F_eta = F_eta) 
+out1 <- out
 ``` 
 
 ```{r, out.width = "100%"}
@@ -102,3 +112,34 @@ ggplot(data = out, mapping = aes(x = time, y = value, color = Patch)) +
   geom_line() +
   theme_bw()
 ```
+
+## Using Setup
+
+The function `xde_setup_aquatic` sets up a model that includes only aquatic dynamics, and it is solved using `xde_solve.aqua.`  The setup functions are simpler than `xde_setup` and come with constrained choices. The user can configure any aquatic model (`trace` wouldn't make much sense), and it uses `Gtrace` to force egg laying.  
+
+We configure the aquatic model: `Lo` is a list with the parameter values attached.  
+
+```{r}
+Lo = list(
+  psi = 1/10, 
+  phi = 1/12
+)
+alpha = c(10, 50, 20)
+Lo$L0 = with(Lo, alpha/psi) 
+Lo$theta = with(Lo, (eta - psi*L0 - phi*L0)/(L0^2))
+```
+
+We use the MYZ model `Gtrace` to configure egg laying.
+
+```{r}
+Mo = list(Gm = c(250, 500, 170))
+```
+
+
+```{r}
+aqbasic = xde_setup_aquatic("aqbasic", nHabitats = 3, Lname = "basic", Lopts = Lo, MYZopts = Mo)
+xde_solve(aqbasic, Tmax=50, dt=1) -> out2
+sum(abs(out1-out2)) == 0
+``` 
+
+

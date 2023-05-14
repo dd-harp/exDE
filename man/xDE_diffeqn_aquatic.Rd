@@ -4,7 +4,7 @@
 \alias{xDE_diffeqn_aquatic}
 \title{Differential equation models for aquatic mosquito populations}
 \usage{
-xDE_diffeqn_aquatic(t, y, pars, F_eta)
+xDE_diffeqn_aquatic(t, y, pars)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,8 +12,6 @@ xDE_diffeqn_aquatic(t, y, pars, F_eta)
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
-
-\item{F_eta}{trace function that returns eggs laid}
 }
 \value{
 a \link{list} containing the vector of all state derivatives

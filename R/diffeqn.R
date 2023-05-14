@@ -132,11 +132,10 @@ xDE_diffeqn_Z <- function(t, y, pars) {
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
-#' @param kappa a vector or NULL object
 #' the appropriate adult mosquito model
 #' @return a [list] containing the vector of all state derivatives
 #' @export
-xDE_diffeqn_mosy <- function(t, y, pars, kappa=NULL) {
+xDE_diffeqn_mosy <- function(t, y, pars) {
 
   # set the values of exogenous forcing variables
   pars <- ExogenousForcing(t, pars)
@@ -155,9 +154,11 @@ xDE_diffeqn_mosy <- function(t, y, pars, kappa=NULL) {
   alpha <- F_alpha(t, y, pars)
   Lambda <- pars$calN %*% alpha
 
+  kappa = pars$kappa
   # state derivatives
   dL <- dLdt(t, y, pars, eta)
   dM <- dMYZdt(t, y, pars, Lambda, kappa)
+
   return(list(c(dL, dM)))
 }
 
@@ -187,10 +188,9 @@ xDE_diffeqn_cohort <- function(a, y, pars, F_eir) {
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
-#' @param F_eta trace function that returns eggs laid
 #' @return a [list] containing the vector of all state derivatives
 #' @export
-xDE_diffeqn_aquatic <- function(t, y, pars, F_eta) {
+xDE_diffeqn_aquatic <- function(t, y, pars) {
 
   # set the values of exogenous forcing variables
   pars <- ExogenousForcing(t, pars)
@@ -198,7 +198,8 @@ xDE_diffeqn_aquatic <- function(t, y, pars, F_eta) {
   # modify baseline mosquito bionomic parameters
   pars <- LSM(t, pars)
 
-  eta <- F_eta(t, pars)
+  # egg laying
+  eta <- F_eggs(t, y, pars)
 
   # state derivatives
   dL <- dLdt(t, y, pars, eta)

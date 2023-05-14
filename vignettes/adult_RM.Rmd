@@ -14,9 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-The Ross-Macdonald adult mosquito model fulfills the generic interface of the adult mosquito component. Here, we use a Ross-Macdonald model based on a model first published in 1982 by Joan Aron and Robert May (Aron JL, and May RM (1982). The population dynamics of malaria. In *The Population Dynamics of Infectious Diseases: Theory and Applications,* R. M. Anderson, ed. (Springer US), pp. 139–179). It includes state variables for total mosquito density $M$, infected mosquito density $Y$, and infectious mosquito density $Z$. Because of the interest in parity, the model has been extended to include a variable that tracks parous mosquitoes, $P$.
+The Ross-Macdonald adult mosquito model fulfills the generic interface of the adult mosquito component. 
 
-# Differential Equations
+Here, we use a Ross-Macdonald model based on a model first published in 1982 by Joan Aron and Robert May (Aron JL, and May RM (1982). The population dynamics of malaria. In *The Population Dynamics of Infectious Diseases: Theory and Applications,* R. M. Anderson, ed. (Springer US), pp. 139–179). It includes state variables for total mosquito density $M$, infected mosquito density $Y$, and infectious mosquito density $Z$. Because of the interest in parity, the model has been extended to include a variable that tracks parous mosquitoes, $P$.
+
+# Differential Equations 
 
 ## Delay Differential Equations
 
@@ -59,7 +61,7 @@ transient dynamics of the ODE model will not equal the DDE model, they have the 
 equilibrium values, and so for numerical work requiring finding equilibrium points, the faster
 ODE model can be safely substituted.
 
-# Equilibrium solutions
+# Equilibrium solutions 
 
 There are two logical ways to begin solving the non-trivial equilibrium. The first
 assumes $\Lambda$ is known, which implies good knowledge of mosquito ecology. The
@@ -125,6 +127,8 @@ Here we show an example of starting and solving a model at equilibrium. Please n
 runs this adult mosquito model and that most users should read [our fully worked example](ex_534.html)
 to run a full simulation.
 
+## The long way 
+
 Here we set up some parameters for a simulation with 3 patches.
 
 ```{r}
@@ -146,7 +150,6 @@ calK <- t(calK)
 Omega <- make_Omega(g, sigma, calK, nPatches)
 Upsilon <- expm::expm(-Omega * eip)
 ``` 
-
 
 Now we set up the parameter environment with the correct class using `exDE::make_parameters_MYZ_RM,` noting that we will be solving as an `ode.`  
 
@@ -200,6 +203,7 @@ dMYZdt_local = func=function(t, y, pars, Lambda, kappa) {
 
 out <- deSolve::ode(y = y0, times = 0:50, dMYZdt_local, parms=params, 
                     method = 'lsoda', Lambda = Lambda, kappa = kappa) 
+out1 <- out
 ```
 
 The output is plotted below. The flat lines shown here is a verification that the steady state solutions that we computed above match the steady states computed by solving the equations: 
@@ -220,3 +224,58 @@ ggplot(data = out, mapping = aes(x = time, y = value, color = Patch)) +
   facet_wrap(. ~ Component, scales = 'free') +
   theme_bw()
 ```
+
+## Setup Utilities
+
+In the vignette above, we set up a function to solve the differential equation. We hope this helps the end user to understand how `exDE` works under the hood, but the point of `exDE` is to lower the costs of building, analyzing, and using models. The functionality in `exDE` can handle this case -- we can set up and solve the same model using built-in setup utilities. Learning to use these utilities makes it very easy to set up other models without having to learn some internals. 
+
+To set up a model with the parameters above, we make three list with the named parameters and their values. We also attach to the list the initial values we want to use, if applicable. For the Ross-Macdonald adult mosquito model, we attach the parameter values:  
+
+```{r}
+MYZo = list(
+  f = 0.3, q = 0.9, g = 1/20, sigma = 1/10,
+  eip = 11, nu = 1/2, eggsPerBatch = 30,
+  solve_as = "ode", 
+  M0 = M_eq, P0 = P_eq, Y0 = Y_eq, Z0 = Z_eq
+)
+```
+
+Each one of the dynamical components has a configurable *trace* algorithm that computes no derivatives, but passes its output as a parameter (see `human-trace.R`. To configure `Xpar,` we attach the values of `kappa` to a list: 
+
+```{r}
+Xo = list(kappa =  c(0.1, 0.075, 0.025))
+```
+
+Similarly, we configure the *trace* algorithm for aquatic mosquitoes (see `aquatic-trace.R`).
+
+```{r}
+Lo = list(Lambda = c(5, 10, 8))
+```
+
+To set up the model, we call `xde_setup` with
+
++ `nPatches` is set to 3 
+
++ `MYZname` is set to "RM" to run the Ross-Macdonald model for adult mosquitoes; to pass our options, we write `MYZopts = MYZo`; and finally, the dispersal matrix `calK` is passed as `calK=calK` 
+
++ `Xname` is set to "trace" to run the trace module for human infection dynamics 
+
++ `Lname` is set to "trace" to run the trace module aquatic mosquitoes
+
+Otherwise, setup takes care of all the internals: 
+
+```{r}
+MYZeg <- xde_setup("RMexample",
+                   MYZname = "RM", Xname = "trace", Lname = "trace",  
+                   nPatches=3, calK=calK, membership = c(1:3),
+                   MYZopts = MYZo, Xopts = Xo, Lopts = Lo) 
+```
+  
+Now, we can solve the equations using `xde_solve` and compare the output to what we got above. If they are identical, the two objects should be identical, so can simply add the absolute value of their differences:  
+
+```{r}
+out2 <- xde_solve(MYZeg, Tmax=50, dt=1)
+sum(abs(out1-out2))==0 
+```
+
+

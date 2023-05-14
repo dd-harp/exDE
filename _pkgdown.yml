@@ -61,6 +61,16 @@ reference:
   - xDE_diffeqn_aquatic
   - xDE_diffeqn_Z
   - xDE_diffeqn_adult
+- title:
+  contents:
+  - xde_setup
+  - xde_solve
+  - xde_solve.dde
+  - xde_solve.ode
+  - xde_setup_aquatic
+  - xde_solve.aqua
+  - xde_setup_mosy
+  - xde_solve.mosy
 - title: Transmission
   desc: |
     Generic methods for transmission.
@@ -78,9 +88,19 @@ reference:
   - F_Z
   - F_eggs
   - dMYZdt
+  - setup_MYZ
   - make_indices_MYZ
   - get_inits_MYZ
   - make_Omega
+- subtitle: Mosquito Dispersal
+  desc: |
+    Specialized methods to set up mosquito dispersal matrices
+  contents:
+  - make_calK
+  - make_calK.herethere
+  - make_calK.as_matrix
+  - make_calK.xy
+  - make_calK_xy
 - subtitle: basicM
   desc: |
     Specialized methods for basicM, a model of adult mosquito dynamics with no parasite infection dynamics.
@@ -88,6 +108,9 @@ reference:
   - MosquitoBehavior.basicM
   - F_eggs.basicM
   - dMYZdt.basicM
+  - setup_MYZ.basicM
+  - make_MYZpar_basicM
+  - make_MYZinits_basicM
   - make_indices_MYZ.basicM
   - make_inits_MYZ_basicM
   - get_inits_MYZ.basicM
@@ -101,6 +124,9 @@ reference:
   - F_eggs.RM
   - dMYZdt.RM_ode
   - dMYZdt.RM_dde
+  - setup_MYZ.RM
+  - make_MYZpar_RM
+  - make_MYZinits_RM
   - make_indices_MYZ.RM_ode
   - make_indices_MYZ.RM_dde
   - make_inits_MYZ_RM_ode
@@ -118,6 +144,9 @@ reference:
   - F_eggs.GeRM
   - dMYZdt.GeRM_ode
   - dMYZdt.GeRM_dde
+  - setup_MYZ.GeRM
+  - make_MYZpar_GeRM
+  - make_MYZinits_GeRM
   - make_indices_MYZ.GeRM_ode
   - make_indices_MYZ.GeRM_dde
   - make_inits_MYZ_GeRM_ode
@@ -154,6 +183,8 @@ reference:
   - F_Z.Ztrace
   - F_eggs.Ztrace
   - dMYZdt.Ztrace
+  - setup_MYZ.Ztrace
+  - make_MYZpar_Ztrace
   - make_indices_MYZ.Ztrace
   - make_inits_MYZ_Ztrace
   - get_inits_MYZ.Ztrace
@@ -166,6 +197,8 @@ reference:
   - F_Z.Gtrace
   - F_eggs.Gtrace
   - dMYZdt.Gtrace
+  - setup_MYZ.Gtrace
+  - make_MYZpar_Gtrace
   - make_indices_MYZ.Gtrace
   - make_inits_MYZ_Gtrace
   - get_inits_MYZ.Gtrace
@@ -176,14 +209,19 @@ reference:
   contents:
   - F_alpha
   - dLdt
+  - setup_L
   - make_indices_L
   - get_inits_L
+  - make_calN
+  - make_calU
 - subtitle: trace
   desc: |
     Specialized methods for the exogeneously forced trace model of aquatic mosquito dynamics.
   contents:
   - F_alpha.trace
   - dLdt.trace
+  - setup_L.trace
+  - make_Lpar_trace
   - make_indices_L.trace
   - make_inits_L_trace
   - get_inits_L.trace
@@ -194,6 +232,9 @@ reference:
   contents:
   - F_alpha.basic
   - dLdt.basic
+  - setup_L.basic
+  - make_Lpar_basic
+  - make_Linits_basic
   - make_indices_L.basic
   - make_inits_L_basic
   - get_inits_L.basic
@@ -204,7 +245,7 @@ reference:
   contents:
   - F_X
   - dXdt
-  - setup_Xpar
+  - setup_X
   - make_indices_X
   - get_inits_X
   - HTC
@@ -214,7 +255,7 @@ reference:
   contents:
   - F_X.hMoI
   - dXdt.hMoI
-  - setup_Xpar.hMoI
+  - setup_X.hMoI
   - make_Xpar_hMoI
   - make_Xinits_hMoI
   - make_indices_X.hMoI
@@ -229,7 +270,7 @@ reference:
   - F_X.SIS
   - dXdt.SISdX
   - dXdt.SISdXdH
-  - setup_Xpar.SIS
+  - setup_X.SIS
   - make_Xpar_SIS
   - make_Xinits_SIS
   - make_indices_X.SIS
@@ -244,7 +285,7 @@ reference:
   - F_X.SIP
   - dXdt.SIPdX
   - dXdt.SIPdXdH
-  - setup_Xpar.SIP
+  - setup_X.SIP
   - make_Xpar_SIP
   - make_Xinits_SIP
   - make_indices_X.SIP
@@ -258,7 +299,7 @@ reference:
   contents:
   - F_X.trace
   - dXdt.trace
-  - setup_Xpar.trace
+  - setup_X.trace
   - make_Xpar_trace
   - make_indices_X.trace
   - make_inits_X_trace
@@ -270,10 +311,21 @@ reference:
   contents:
   - F_H
   - dHdt
+  - setup_Hpar
   - Births
   - make_indices_H
   - get_inits_H
   - make_parameters_demography_null
+- subtitle: Time at Risk
+  desc: |
+    Specialized methods to set up time at risk (TaR) matrices
+  contents:
+  - make_TaR
+  - make_TaR.athome
+  - make_TaR_athome
+  - make_TaR.as_matrix
+  - make_TaR.xy
+  - make_TaR_xy
 - subtitle: static
   desc: |
     Specialized methods for the static (constant) demographic model

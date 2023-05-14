@@ -65,11 +65,11 @@ dXdt.SIPdXdH <- function(t, y, pars, EIR) {
 }
 
 #' @title Setup Xpar.SIP
-#' @description Implements [setup_Xpar] for the SIP model
-#' @inheritParams setup_Xpar
+#' @description Implements [setup_X] for the SIP model
+#' @inheritParams setup_X
 #' @return a [list] vector
 #' @export
-setup_Xpar.SIP = function(pars, Xname, Xopts=list()){
+setup_X.SIP = function(pars, Xname, Xopts=list()){
 
   pars$Xname = "SIP"
   pars = make_Xpar_SIP(pars, Xopts)

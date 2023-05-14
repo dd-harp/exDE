@@ -112,6 +112,100 @@ dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa) {
   })
 }
 
+
+#' @title Setup the RM model
+#' @description Implements [setup_MYZ] for the RM model
+#' @inheritParams setup_MYZ
+#' @return a [list] vector
+#' @export
+setup_MYZ.RM = function(pars, MYZname, nPatches=1, MYZopts=list(), calK=diag(1)){
+
+  pars$MYZname = "RM"
+  pars$nPatches = nPatches
+
+  pars = make_MYZpar_RM(pars, MYZopts, calK)
+  pars = make_MYZinits_RM(pars, MYZopts)
+
+  # extra setup for dde solving
+  if(pars$MYZpar$xde == "dde"){
+    pars$xde = "dde"
+    class(pars$xde) = "dde"
+    Omega <- with(pars$MYZpar, make_Omega(g, sigma, calK, nPatches))
+    Upsilon <- expm::expm(-Omega*pars$MYZpar$eip)
+    pars$MYZinits$Upsilon0 = as.vector(Upsilon)
+  }
+  return(pars)
+}
+
+
+#' @title Make parameters for RM ODE adult mosquito model
+#' @param pars a [list]
+#' @param MYZopts a [list] of values that overwrites the defaults
+#' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
+#' @param solve_as is either `ode` to solve as an ode or `dde` to solve as a dde
+#' @param g mosquito mortality rate
+#' @param sigma emigration rate
+#' @param f feeding rate
+#' @param q human blood fraction
+#' @param nu oviposition rate, per mosquito
+#' @param eggsPerBatch eggs laid per oviposition
+#' @param eip length of extrinsic incubation period
+#' @return a [list]
+#' @export
+make_MYZpar_RM = function(pars, MYZopts=list(), calK,
+                          solve_as = "dde",
+                          g=1/12, sigma=1/8,
+                          f=0.3, q=0.95, eip=11,
+                          nu=1, eggsPerBatch=60){
+
+  stopifnot(is.matrix(calK))
+  stopifnot(dim(calK) == c(pars$nPatches, pars$nPatches))
+
+  with(MYZopts,{
+    MYZpar <- list()
+
+    MYZpar$xde <- solve_as
+    class(MYZpar$xde) <- solve_as
+    if(solve_as == 'dde') class(MYZpar) <- c('RM', 'RM_dde')
+    if(solve_as == 'ode') class(MYZpar) <- c('RM', 'RM_ode')
+
+    MYZpar$g0      <- checkIt(g, pars$nPatches)
+    MYZpar$sigma0  <- checkIt(sigma, pars$nPatches)
+    MYZpar$f0      <- checkIt(f, pars$nPatches)
+    MYZpar$q0      <- checkIt(q, pars$nPatches)
+    MYZpar$nu0     <- checkIt(nu, pars$nPatches)
+    MYZpar$eggsPerBatch <- eggsPerBatch
+    MYZpar$eip <- eip
+    MYZpar$calK <- calK
+
+    pars$MYZpar = MYZpar
+    pars = MosquitoBehavior(0, 0, pars)
+
+    return(pars)
+})}
+
+#' @title Make inits for RM adult mosquito model
+#' @param pars a [list]
+#' @param MYZopts a [list] of values that overwrites the defaults
+#' @param M0 total mosquito density at each patch
+#' @param P0 total parous mosquito density at each patch
+#' @param Y0 infected mosquito density at each patch
+#' @param Z0 infectious mosquito density at each patch
+#' @return a [list]
+#' @export
+make_MYZinits_RM = function(pars, MYZopts = list(),
+                            M0=5, P0=1, Y0=1, Z0=1){
+  with(MYZopts,{
+    inits = list()
+    inits$M0 = checkIt(M0, pars$nPatches)
+    inits$P0 = checkIt(P0, pars$nPatches)
+    inits$Y0 = checkIt(Y0, pars$nPatches)
+    inits$Z0 = checkIt(Z0, pars$nPatches)
+
+    pars$MYZinits = inits
+    return(pars)
+})}
+
 #' @title Add indices for adult mosquitoes to parameter list
 #' @description Implements [make_indices_MYZ] for the RM model.
 #' @inheritParams make_indices_MYZ

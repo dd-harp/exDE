@@ -36,6 +36,47 @@ dMYZdt.Gtrace <- function(t, y, pars, Lambda, kappa){
   numeric(0)
 }
 
+
+#' @title Setup the Gtrace
+#' @description Implements [setup_MYZ] for the Gtrace model
+#' @inheritParams setup_MYZ
+#' @return a [list] vector
+#' @export
+setup_MYZ.Gtrace = function(pars, MYZname,
+                               nPatches=1, MYZopts=NULL,
+                               calK=diag(1)){
+
+  pars$MYZname = "Gtrace"
+  pars$nPatches = checkIt(nPatches, 1, "integer")
+
+  pars = make_MYZpar_Gtrace(pars, MYZopts)
+  pars$MYZinits = numeric(0)
+
+  return(pars)
+}
+
+
+#' @title Make parameters for Gtrace aquatic mosquito model
+#' @param pars a [list]
+#' @param MYZopts a [list] to overwrite the defaults
+#' @param Gm a vector of mean mosquito densities
+#' @param Gf a [function] of the form Gf(t, pars) that computes temporal fluctuations
+#' @return none
+#' @export
+make_MYZpar_Gtrace = function(pars, MYZopts,
+                              Gm = 1, Gf=NULL){
+  with(MYZopts,{
+    MYZpar <- list()
+    class(MYZpar) <- "Gtrace"
+
+    MYZpar$Gm <- checkIt(Gm, pars$nPatches)
+    if(is.null(Gf)) Gf = function(t, y, pars){return(1)}
+    MYZpar$Gf = Gf
+
+    pars$MYZpar = MYZpar
+    return(pars)
+})}
+
 #' @title Add indices for aquatic stage mosquitoes to parameter list
 #' @description Implements [make_indices_MYZ] for Gtrace (forced emergence) model.
 #' @inheritParams make_indices_MYZ
