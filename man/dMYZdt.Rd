@@ -11,7 +11,7 @@ dMYZdt(t, y, pars, Lambda, kappa)
 
 \item{y}{state vector}
 
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{Lambda}{emergence rate of adult mosquitoes}
 

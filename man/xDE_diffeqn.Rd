@@ -11,7 +11,7 @@ xDE_diffeqn(t, y, pars)
 
 \item{y}{state vector}
 
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 }
 \value{
 a \link{list} containing the vector of all state derivatives

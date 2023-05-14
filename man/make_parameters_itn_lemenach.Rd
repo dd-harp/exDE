@@ -15,7 +15,7 @@ make_parameters_itn_lemenach(
 )
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{tau0_frac}{a \link{numeric} vector giving the proportion of time spent
 in host seeking/bloodfeeding and resting/oviposition}

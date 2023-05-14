@@ -9,7 +9,7 @@ F_tau(t, pars)
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 }
 \value{
 either a \link{numeric} vector if the model supports this feature, or \link{NULL}

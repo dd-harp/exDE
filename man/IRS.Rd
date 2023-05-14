@@ -9,7 +9,7 @@ IRS(t, pars)
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 }
 \value{
 a \link{list}

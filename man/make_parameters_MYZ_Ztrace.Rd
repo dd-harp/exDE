@@ -7,7 +7,7 @@
 make_parameters_MYZ_Ztrace(pars, Zm, f, q, Zf)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{Zm}{a vector of mean mosquito densities}
 

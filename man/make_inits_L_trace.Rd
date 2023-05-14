@@ -7,7 +7,7 @@
 make_inits_L_trace(pars, L0 = NULL)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{L0}{is set to NULL for the trace model}
 }

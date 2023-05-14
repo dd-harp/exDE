@@ -11,7 +11,7 @@ F_Z(t, y, pars)
 
 \item{y}{state vector}
 
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}

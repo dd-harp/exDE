@@ -7,7 +7,7 @@
 \method{HTC}{SIS}(pars)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 }
 \value{
 a \link{numeric} vector

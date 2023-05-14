@@ -7,7 +7,7 @@
 make_inits_X_SIS(pars, X0)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{X0}{size of infected population in each strata}
 }

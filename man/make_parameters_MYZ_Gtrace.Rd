@@ -7,7 +7,7 @@
 make_parameters_MYZ_Gtrace(pars, Gm, Gf)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{Gm}{a vector of mean mosquito densities}
 

@@ -18,6 +18,43 @@ dXdt.trace <- function(t, y, pars, EIR) {
   numeric(0)
 }
 
+
+#' @title Setup Xpar.trace
+#' @description Implements [setup_Xpar] for the SIS model
+#' @inheritParams setup_Xpar
+#' @return a [list] vector
+#' @export
+setup_Xpar.trace = function(pars, Xname, Xopts=list()){
+
+  pars$Xname = "trace"
+  pars = make_Xpar_trace(pars, Xopts)
+  pars$Xinits = numeric(0)
+
+  return(pars)
+}
+
+#' @title Make parameters for human null model
+#' @param pars a [list]
+#' @param Xopts a [list] that could overwrite defaults
+#' @param kappa value
+#' @param Kf a function
+#' @return a [list]
+#' @export
+make_Xpar_trace = function(pars, Xopts=list(),
+                         kappa = 0.1,
+                         Kf = NULL){
+  with(Xopts,{
+    Xpar = list()
+    class(Xpar) <- "trace"
+
+    Xpar$kappa = checkIt(kappa, pars$nStrata)
+    if(is.null(Kf)) Kf = function(t, y, pars){return(1)}
+    Xpar$Kf = Kf
+
+    pars$Xpar = Xpar
+    return(pars)
+  })}
+
 #' @title Add indices for human population to parameter list
 #' @description Implements [make_indices_X] for the trace model.
 #' @inheritParams make_indices_X

@@ -31,6 +31,65 @@ dXdt.hMoI <- function(t, y, pars, EIR) {
   })
 }
 
+#' @title Setup Xpar.hMoI
+#' @description Implements [setup_Xpar] for the hMoI model
+#' @inheritParams setup_Xpar
+#' @return a [list] vector
+#' @export
+setup_Xpar.hMoI = function(pars, Xname, Xopts=list()){
+
+  pars$Xname = "hMoI"
+  pars = make_Xpar_hMoI(pars, Xopts)
+  pars = make_Xinits_hMoI(pars, Xopts)
+
+  return(pars)
+}
+
+#' @title Make parameters for hybrid MoI human model
+#' @description MoI stands for Multiplicity of Infection, and refers to malarial superinfection.
+#' @param pars a [list]
+#' @param Xopts a [list] that overwrites default values
+#' @param b transmission probability (efficiency) from mosquito to human
+#' @param c1 transmission probability (efficiency) from inapparent human infections to mosquito
+#' @param c2 transmission probability (efficiency) from patent human infections to mosquito
+#' @param r1 recovery rate from inapparent infections
+#' @param r2 recovery rate from patent infections
+#' @return none
+#' @export
+make_Xpar_hMoI = function(pars, Xopts=list(),
+                          b=0.55, r1=1/180, r2 = 1/70,
+                          c1=0.015, c2=0.15){
+  with(Xopts,{
+    Xpar = list()
+    class(Xpar) <- "hMoI"
+
+    Xpar$b = checkIt(b, pars$nStrata)
+    Xpar$c1 = checkIt(c1, pars$nStrata)
+    Xpar$c2 = checkIt(c2, pars$nStrata)
+    Xpar$r1 = checkIt(r1, pars$nStrata)
+    Xpar$r2 = checkIt(r2, pars$nStrata)
+
+    pars$Xpar = Xpar
+    return(pars)
+})}
+
+#' @title Make inits for hybrid MoI human model
+#' @description MoI stands for Multiplicity of Infection, and refers to malarial superinfection.
+#' @param pars a [list]
+#' @param Xopts a [list] that overwrites default values
+#' @param m10 mean MoI among inapparent human infections
+#' @param m20 mean MoI among patent human infections
+#' @return none
+#' @export
+make_Xinits_hMoI = function(pars, Xopts = list(), m10=2, m20=1){with(Xopts,{
+  inits = list()
+  inits$m10 = checkIt(m10, pars$nStrata)
+  inits$m20 = checkIt(m20, pars$nStrata)
+  pars$Xinits = inits
+  return(pars)
+})}
+
+
 #' @title Compute the HTC for the hMoI model
 #' @description Implements [HTC] for the hMoI model with demography.
 #' @inheritParams HTC

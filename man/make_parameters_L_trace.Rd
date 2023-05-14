@@ -13,7 +13,7 @@ make_parameters_L_trace(
 )
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{Lambda}{vector of mean emergence rates from each aquatic habitat}
 

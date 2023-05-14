@@ -16,7 +16,7 @@ make_parameters_demography_dynamic(
 )
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{H}{a function taking a single argument \code{t} and returning a vector of length
 \code{nStrata}.}

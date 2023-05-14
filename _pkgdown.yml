@@ -204,6 +204,7 @@ reference:
   contents:
   - F_X
   - dXdt
+  - setup_Xpar
   - make_indices_X
   - get_inits_X
   - HTC
@@ -213,6 +214,9 @@ reference:
   contents:
   - F_X.hMoI
   - dXdt.hMoI
+  - setup_Xpar.hMoI
+  - make_Xpar_hMoI
+  - make_Xinits_hMoI
   - make_indices_X.hMoI
   - make_inits_X_hMoI
   - get_inits_X.hMoI
@@ -225,6 +229,9 @@ reference:
   - F_X.SIS
   - dXdt.SISdX
   - dXdt.SISdXdH
+  - setup_Xpar.SIS
+  - make_Xpar_SIS
+  - make_Xinits_SIS
   - make_indices_X.SIS
   - make_inits_X_SIS
   - get_inits_X.SIS
@@ -237,6 +244,9 @@ reference:
   - F_X.SIP
   - dXdt.SIPdX
   - dXdt.SIPdXdH
+  - setup_Xpar.SIP
+  - make_Xpar_SIP
+  - make_Xinits_SIP
   - make_indices_X.SIP
   - make_inits_X_SIP
   - get_inits_X.SIP
@@ -248,6 +258,8 @@ reference:
   contents:
   - F_X.trace
   - dXdt.trace
+  - setup_Xpar.trace
+  - make_Xpar_trace
   - make_indices_X.trace
   - make_inits_X_trace
   - get_inits_X.trace
@@ -442,3 +454,4 @@ reference:
   - get_inits
   - diag_inverse
   - approx_equal
+  - checkIt

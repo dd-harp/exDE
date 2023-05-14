@@ -7,7 +7,7 @@
 make_inits_X_trace(pars)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 }
 \value{
 none

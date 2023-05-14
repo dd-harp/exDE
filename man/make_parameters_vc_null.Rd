@@ -7,7 +7,7 @@
 make_parameters_vc_null(pars)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 }
 \value{
 none

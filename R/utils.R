@@ -85,3 +85,18 @@ diag_inverse <- function(x) {
 approx_equal <- function(a, b, tol = sqrt(.Machine$double.eps)) {
   abs(a - b) < tol
 }
+
+#' @title Check the length of an input value
+#' @param x a [numeric] object
+#' @param lng a [numeric] object
+#' @param type a [character] string specifying required typeof
+#' @param fixit a [logical] value, if TRUE force length to lng
+#' @return a [logical] value
+#' @export
+checkIt = function(x, lng, type = "numeric", fixit=TRUE){
+  stopifnot(is.numeric(x))
+  if(type == "integer") x = as.integer(x)
+  if(length(x)==1 & fixit) x=rep(x, lng)
+  stopifnot(length(x)==lng)
+  x
+}

@@ -7,7 +7,7 @@
 make_parameters_X_hMoI(pars, b, c1, c2, r1, r2)
 }
 \arguments{
-\item{pars}{an \link{environment}}
+\item{pars}{a \link{list}}
 
 \item{b}{transmission probability (efficiency) from mosquito to human}
 

@@ -42,6 +42,55 @@ dXdt.SISdXdH <- function(t, y, pars, EIR) {
   })
 }
 
+#' @title Setup Xpar.SIS
+#' @description Implements [setup_Xpar] for the SIS model
+#' @inheritParams setup_Xpar
+#' @return a [list] vector
+#' @export
+setup_Xpar.SIS = function(pars, Xname, Xopts=list()){
+
+  pars$Xname = "SIS"
+  pars = make_Xpar_SIS(pars, Xopts)
+  pars = make_Xinits_SIS(pars, Xopts)
+
+  return(pars)
+}
+
+#' @title Make parameters for SIS human model, with defaults
+#' @param pars a [list]
+#' @param Xopts a [list] that could overwrite defaults
+#' @param b transmission probability (efficiency) from mosquito to human
+#' @param c transmission probability (efficiency) from human to mosquito
+#' @param r recovery rate
+#' @return a [list]
+#' @export
+make_Xpar_SIS = function(pars, Xopts=list(),
+                         b=0.55, r=1/180, c=0.15){
+  with(Xopts,{
+    Xpar = list()
+    class(Xpar) <- c("SIS", "SISdX")
+
+    Xpar$b = checkIt(b, pars$nStrata)
+    Xpar$c = checkIt(c, pars$nStrata)
+    Xpar$r = checkIt(r, pars$nStrata)
+
+    pars$Xpar = Xpar
+    return(pars)
+  })}
+
+#' @title Make initial values for the SIS human model, with defaults
+#' @param pars a [list]
+#' @param Xopts a [list] that could overwrite defaults
+#' @param X0 the initial values of the parameter X
+#' @return a [list]
+#' @export
+make_Xinits_SIS = function(pars, Xopts = list(), X0=1){with(Xopts,{
+  inits = list()
+  inits$X0 = checkIt(X0, pars$nStrata)
+  pars$Xinits = inits
+  return(pars)
+})}
+
 #' @title Compute the HTC for the SIS model
 #' @description Implements [HTC] for the SIS model with demography.
 #' @inheritParams HTC
