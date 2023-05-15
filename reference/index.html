@@ -89,31 +89,26 @@
         <dd>Generalized spatial differential equation model</dd>
       </dl><dl><dt>
           
-          <code><a href="xDE_diffeqn_mosy.html">xDE_diffeqn_mosy()</a></code> 
-        </dt>
-        <dd>Generalized spatial differential equation model (mosquito only)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="xDE_diffeqn_cohort.html">xDE_diffeqn_cohort()</a></code> 
-        </dt>
-        <dd>Differential equation models for human cohorts</dd>
-      </dl><dl><dt>
-          
           <code><a href="xDE_diffeqn_aquatic.html">xDE_diffeqn_aquatic()</a></code> 
         </dt>
         <dd>Differential equation models for aquatic mosquito populations</dd>
       </dl><dl><dt>
           
-          <code><a href="xDE_diffeqn_Z.html">xDE_diffeqn_Z()</a></code> 
+          <code><a href="xDE_diffeqn_mosy.html">xDE_diffeqn_mosy()</a></code> 
         </dt>
-        <dd>Generalized spatial differential equation model, for Ztrace</dd>
+        <dd>Generalized spatial differential equation model (mosquito only)</dd>
       </dl><dl><dt>
           
-          <code><a href="xDE_diffeqn_adult.html">xDE_diffeqn_adult()</a></code> 
+          <code><a href="xDE_diffeqn_human.html">xDE_diffeqn_human()</a></code> 
         </dt>
-        <dd>Generalized spatial differential equation model, adults and transmission only</dd>
-      </dl></div><div id="" class="section level2">
-      
+        <dd>Differential equations isolating the humans, forced with Ztrace</dd>
+      </dl><dl><dt>
+          
+          <code><a href="xDE_diffeqn_cohort.html">xDE_diffeqn_cohort()</a></code> 
+        </dt>
+        <dd>Differential equation models for human cohorts</dd>
+      </dl></div><div class="section level2">
+      <h2 id="setup-and-solving">Setup and solving<a class="anchor" aria-label="anchor" href="#setup-and-solving"></a></h2>
       
       
 
@@ -130,29 +125,9 @@
         <dd>Set up a model for xde_diffeqn</dd>
       </dl><dl><dt>
           
-          <code><a href="xde_solve.html">xde_solve()</a></code> 
-        </dt>
-        <dd>Solve a system of equations</dd>
-      </dl><dl><dt>
-          
-          <code><a href="xde_solve.dde.html">xde_solve(<i>&lt;dde&gt;</i>)</a></code> 
-        </dt>
-        <dd>Solve a system of equations as an ode</dd>
-      </dl><dl><dt>
-          
-          <code><a href="xde_solve.ode.html">xde_solve(<i>&lt;ode&gt;</i>)</a></code> 
-        </dt>
-        <dd>Solve a system of equations as an ode</dd>
-      </dl><dl><dt>
-          
           <code><a href="xde_setup_aquatic.html">xde_setup_aquatic()</a></code> 
         </dt>
         <dd>Set up a model for xde_diffeqn_aqua</dd>
-      </dl><dl><dt>
-          
-          <code><a href="xde_solve.aqua.html">xde_solve(<i>&lt;aqua&gt;</i>)</a></code> 
-        </dt>
-        <dd>Solve a system of equations with xDE_diffeqn_aquatic</dd>
       </dl><dl><dt>
           
           <code><a href="xde_setup_mosy.html">xde_setup_mosy()</a></code> 
@@ -160,9 +135,50 @@
         <dd>Set up a model for xde_diffeqn_mosy</dd>
       </dl><dl><dt>
           
+          <code><a href="xde_setup_human.html">xde_setup_human()</a></code> 
+        </dt>
+        <dd>Set up a model for xde_diffeqn_human</dd>
+      </dl></div><div class="section level2">
+      <h2 id="solving">Solving<a class="anchor" aria-label="anchor" href="#solving"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="xde_solve.html">xde_solve()</a></code> 
+        </dt>
+        <dd>Solve a system of equations</dd>
+      </dl><dl><dt>
+          
+          <code><a href="xde_solve.dde.html">xde_solve(<i>&lt;dde&gt;</i>)</a></code> 
+        </dt>
+        <dd>Solve a system of equations as a dde</dd>
+      </dl><dl><dt>
+          
+          <code><a href="xde_solve.ode.html">xde_solve(<i>&lt;ode&gt;</i>)</a></code> 
+        </dt>
+        <dd>Solve a system of equations as an ode</dd>
+      </dl><dl><dt>
+          
+          <code><a href="xde_solve.aqua.html">xde_solve(<i>&lt;aqua&gt;</i>)</a></code> 
+        </dt>
+        <dd>Solve a system of equations for aquatic dynamics, forced by egg deposition, using xDE_diffeqn_aquatic</dd>
+      </dl><dl><dt>
+          
           <code><a href="xde_solve.mosy.html">xde_solve(<i>&lt;mosy&gt;</i>)</a></code> 
         </dt>
-        <dd>Solve a system of equations with xDE_diffeqn_mosy</dd>
+        <dd>Solve a system of equations for mosquito ecology using xDE_diffeqn_mosy</dd>
+      </dl><dl><dt>
+          
+          <code><a href="xde_solve.human.html">xde_solve(<i>&lt;human&gt;</i>)</a></code> 
+        </dt>
+        <dd>Solve a system of equations with xDE_diffeqn_human</dd>
       </dl></div><div class="section level2">
       <h2 id="transmission">Transmission<a class="anchor" aria-label="anchor" href="#transmission"></a></h2>
       

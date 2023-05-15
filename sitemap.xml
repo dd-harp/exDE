@@ -865,16 +865,13 @@
     <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn_Z.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn_adult.html</loc>
-  </url>
-  <url>
     <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn_aquatic.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn_cohort.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn_human.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn_mosy.html</loc>
@@ -884,6 +881,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xde_setup_aquatic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_setup_human.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xde_setup_mosy.html</loc>
@@ -896,6 +896,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xde_solve.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_solve.human.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xde_solve.mosy.html</loc>
