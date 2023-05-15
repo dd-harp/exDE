@@ -20,7 +20,7 @@ xde_solve.ode = function(pars, Tmax=365, dt=1){
   deSolve::ode(y = y0, times = tt, func = xDE_diffeqn, parms = pars, method = "lsoda")
 }
 
-#' @title Solve a system of equations as an ode
+#' @title Solve a system of equations as a dde
 #' @description Implements [xde_solve] for delay differential equations
 #' @inheritParams xde_solve
 #' @return a [matrix]
@@ -31,7 +31,7 @@ xde_solve.dde = function(pars, Tmax=365, dt=1){
   deSolve::dede(y = y0, times = tt, func = xDE_diffeqn, parms = pars, method = "lsoda")
 }
 
-#' @title Solve a system of equations with xDE_diffeqn_aquatic
+#' @title Solve a system of equations for aquatic dynamics, forced by egg deposition, using xDE_diffeqn_aquatic
 #' @description Implements [xde_solve] for aquatic dynaamic
 #' @inheritParams xde_solve
 #' @return a [matrix]
@@ -42,7 +42,7 @@ xde_solve.aqua = function(pars, Tmax=365, dt=1){
   deSolve::ode(y = y0, times = tt, func = xDE_diffeqn_aquatic, parms = pars, method = "lsoda")
 }
 
-#' @title Solve a system of equations with xDE_diffeqn_mosy
+#' @title Solve a system of equations for mosquito ecology using xDE_diffeqn_mosy
 #' @description Implements [xde_solve] for mosquito dynamics (no transmission)
 #' @inheritParams xde_solve
 #' @return a [matrix]
@@ -53,7 +53,7 @@ xde_solve.mosy = function(pars, Tmax=365, dt=1){
   deSolve::ode(y = y0, times = tt, func = xDE_diffeqn_mosy, parms = pars, method = "lsoda")
 }
 
-#' @title Solve a system of equations with xDE_diffeqn_mosy
+#' @title Solve a system of equations with xDE_diffeqn_human
 #' @description Implements [xde_solve] for mosquito dynamics (no transmission)
 #' @inheritParams xde_solve
 #' @return a [matrix]

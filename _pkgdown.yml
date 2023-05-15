@@ -58,18 +58,22 @@ reference:
   - xDE_diffeqn
   - xDE_diffeqn_aquatic
   - xDE_diffeqn_mosy
-  - xDE_diffeqn_Z
+  - xDE_diffeqn_human
   - xDE_diffeqn_cohort
-- title:
+- title: Setup and solving
   contents:
   - xde_setup
+  - xde_setup_aquatic
+  - xde_setup_mosy
+  - xde_setup_human
+- title: Solving
+  contents:
   - xde_solve
   - xde_solve.dde
   - xde_solve.ode
-  - xde_setup_aquatic
   - xde_solve.aqua
-  - xde_setup_mosy
   - xde_solve.mosy
+  - xde_solve.human
 - title: Transmission
   desc: |
     Generic methods for transmission.

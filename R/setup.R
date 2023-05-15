@@ -186,7 +186,6 @@ xde_setup_human = function(modelName,
                      Xname = "SIS",
 
                      # Model Structure
-                     nPatches = 1,
                      HPop=1000,
 
                      # Adult Mosquito Options
@@ -207,11 +206,12 @@ xde_setup_human = function(modelName,
   pars$modelName = modelName
 
   # Structure
-  pars$nStrata = length(HPop)
-  pars$nHabitats = length(membership)
+  nStrata = length(HPop)
+  pars$nPatches = nStrata
+  pars$nStrata = nStrata
 
   pars = setup_Hpar(pars, HPop, residence, searchB, Hopts)
-  pars$Hpar$TaR = make_TaR(nPatches, pars$Hpar$residence, TaR, TaRopts)
+  pars$Hpar$TaR = make_TaR(pars$nPatches, pars$Hpar$residence, TaR, TaRopts)
 
   # Dynamics
   pars = setup_MYZ(pars, "Ztrace", pars$nHabitats, MYZopts, calK=NULL)
