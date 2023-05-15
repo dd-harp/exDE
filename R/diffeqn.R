@@ -49,7 +49,7 @@ xDE_diffeqn <- function(t, y, pars) {
   return(list(c(dL, dMYZ, dX)))
 }
 
-#' @title Generalized spatial differential equation model, for Ztrace
+#' @title Differential equations isolating the humans, forced with Ztrace
 #' @description Compute derivatives for [deSolve::ode] or [deSolve::dede] using
 #' generic methods for each model component.
 #' @param t current simulation time
@@ -57,7 +57,7 @@ xDE_diffeqn <- function(t, y, pars) {
 #' @param pars a [list]
 #' @return a [list] containing the vector of all state derivatives
 #' @export
-xDE_diffeqn_Z <- function(t, y, pars) {
+xDE_diffeqn_human <- function(t, y, pars) {
 
   # set the values of exogenous forcing variables
   pars <- ExogenousForcing(t, pars)

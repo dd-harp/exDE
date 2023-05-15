@@ -53,3 +53,14 @@ xde_solve.mosy = function(pars, Tmax=365, dt=1){
   deSolve::ode(y = y0, times = tt, func = xDE_diffeqn_mosy, parms = pars, method = "lsoda")
 }
 
+#' @title Solve a system of equations with xDE_diffeqn_mosy
+#' @description Implements [xde_solve] for mosquito dynamics (no transmission)
+#' @inheritParams xde_solve
+#' @return a [matrix]
+#' @export
+xde_solve.human = function(pars, Tmax=365, dt=1){
+  tt = seq(0, Tmax, by=dt)
+  y0 = get_inits(pars)
+  deSolve::ode(y = y0, times = tt, func = xDE_diffeqn_human, parms = pars, method = "lsoda")
+}
+
