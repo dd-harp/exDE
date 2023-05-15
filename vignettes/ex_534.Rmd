@@ -2,15 +2,15 @@
 title: "5-3-4 Example"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{5-3-4 Example}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+ %\VignetteIndexEntry{5-3-4 Example}
+ %\VignetteEngine{knitr::rmarkdown}
+ %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+ collapse = TRUE,
+ comment = "#>"
 )
 ```
 
@@ -55,20 +55,20 @@ The aquatic habitat membership matrix $\mathcal{N}$ is a $p \times l$ matrix map
 
 \begin{equation}
 {\cal N} = \left[
-  \begin{array}{ccccc} 
-  1 & 1 & 1 & 0 & 0  \\ 
-  0 & 0 & 0 & 1 & 1\\ 
-  0 & 0 & 0 & 0 & 0\\ 
-  \end{array} \right]
+ \begin{array}{ccccc} 
+ 1 & 1 & 1 & 0 & 0 \\ 
+ 0 & 0 & 0 & 1 & 1\\ 
+ 0 & 0 & 0 & 0 & 0\\ 
+ \end{array} \right]
 \end{equation}
 
 
 ```{r}
 calN <- matrix(
-  data = c(1,1,1,0,0,
-           0,0,0,1,1,
-           0,0,0,0,0), 
-  nrow = params$nPatches, ncol = params$nHabitats, byrow = TRUE
+ data = c(1,1,1,0,0,
+      0,0,0,1,1,
+      0,0,0,0,0), 
+ nrow = params$nPatches, ncol = params$nHabitats, byrow = TRUE
 )
 params$calN <- calN
 ```
@@ -79,13 +79,13 @@ The egg dispersal matrix $\mathcal{U}$ is a $l \times p$ matrix describing how e
 
 \begin{equation}
 {\cal U} = \left[
-  \begin{array}{ccccc} 
-  .7 & 0 & 0\\ 
-  .2 & 0 & 0\\ 
-  .1 & 0 & 0\\ 
-  0 & .8 & 0\\ 
-  0 & .2 & 0\\ 
-  \end{array} \right]
+ \begin{array}{ccccc} 
+ .7 & 0 & 0\\ 
+ .2 & 0 & 0\\ 
+ .1 & 0 & 0\\ 
+ 0 & .8 & 0\\ 
+ 0 & .2 & 0\\ 
+ \end{array} \right]
 \end{equation}
 
 ```{r}
@@ -103,8 +103,8 @@ psi <- rep(1/8, params$nHabitats)
 phi <- rep(1/8, params$nHabitats)
 theta <- c(1/10, 1/20, 1/40, 1/100, 1/10) 
 
-params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
-params = make_inits_L_basic(pars = params, L0)
+params = make_Lpar_basic(params, psi = psi, phi = phi, theta = theta)
+params = make_Linits_basic(params, L0=L0)
 ```
 
 ## Adult Mosquito Parameters
@@ -112,17 +112,19 @@ params = make_inits_L_basic(pars = params, L0)
 We use the ODE version of the generalized Ross-Macdonald model (see more [here](adult_RM.html)). Part of the specification of parameters includes the construction of the mosquito dispersal matrix $\mathcal{K}$, and the mosquito demography matrix $\Omega$. Like for the aquatic parameters, we use `exDE::make_parameters_MYZ_RM_ode` to check parameter types and return a list with the correct class for method dispatch. We attach the returned list to the main parameter list with name `MYZpar`.
 
 ```{r}
-g <- rep(1/12, params$nPatches) 
-sigma <- rep(1/12/2, params$nPatches) 
-calK <- t(matrix(
-  c(c(0, .6, .3), 
-    c(.4, 0, .7), 
-    c(.6, .4, 0)), 3, 3))
-f <- rep(1/3, params$nPatches) 
-q <- rep(0.9, params$nPatches) 
-nu <- c(1/3,1/3,0)   
+g <- 1/12
+sigma <- 1/12/2
+f <- 1/3
+q <- 0.9
+nu <- c(1/3,1/3,0)  
 eggsPerBatch <- 30 
 eip <- 12 
+
+calK <- t(matrix(
+ c(c(0, .6, .3), 
+  c(.4, 0, .7), 
+  c(.6, .4, 0)), 3, 3))
+
 M0 <- rep(100, params$nPatches)
 P0 <- rep(10, params$nPatches)
 Y0 <- rep(1, params$nPatches)
@@ -131,8 +133,14 @@ Z0 <- rep(0, params$nPatches)
 Omega <- make_Omega(g, sigma, calK, params$nPatches)
 Upsilon <- expm::expm(-Omega*eip)
 
-params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode") 
-params = make_inits_MYZ_RM_ode(params, M0 = M0, Y0 = Y0, P0=P0, Z0 = Z0)
+params = make_MYZpar_RM(pars = params, g = g, 
+                sigma = sigma, calK=calK, 
+                eip=eip, f=f, q=q, nu=nu, 
+                eggsPerBatch=eggsPerBatch, 
+                solve_as = "ode") 
+
+params = make_MYZinits_RM(params, M0=M0, P0=P0, 
+             Y0=Y0, Z0=Z0)
 ```
 
 ## Human Parameters
@@ -150,18 +158,18 @@ Although not directly used in this example, we create the residency membership m
 
 \begin{equation}
 {\cal J} = \left[
-  \begin{array}{cccc} 
-  0 & 0 & 0 & 0 \\ 
-  1 & 1 & 0 & 0 \\ 
-  0 & 0 & 1 & 1 \\ 
-  \end{array} \right]
+ \begin{array}{cccc} 
+ 0 & 0 & 0 & 0 \\ 
+ 1 & 1 & 0 & 0 \\ 
+ 0 & 0 & 1 & 1 \\ 
+ \end{array} \right]
 \end{equation}
 
 ```{r}
 calJ <- t(matrix(
-  c(c(0,0,0,0),
-    c(1,1,0,0),
-    c(0,0,1,1)), 4, 3
+ c(c(0,0,0,0),
+  c(1,1,0,0),
+  c(0,0,1,1)), 4, 3
 ))
 ```
 
@@ -169,19 +177,19 @@ We then create the time at risk matrix $\Psi$, a $p \times n$ matrix describing 
 
 \begin{equation}
 \Psi= \left[
-  \begin{array}{cccc}
-  0.01 & .01 & .001 & .001 \\  
-  0.95 & .92 & .04  & .02  \\  
-  0.04 & .02 & .959 & .929 \\
-  \end{array}
-  \right] 
+ \begin{array}{cccc}
+ 0.01 & .01 & .001 & .001 \\ 
+ 0.95 & .92 & .04 & .02 \\ 
+ 0.04 & .02 & .959 & .929 \\
+ \end{array}
+ \right] 
 \end{equation}
 
 ```{r}
 TaR <- t(matrix(
-  c(c(0.01,0.01,0.001,0.001),
-    c(.95,.92,.04,.02),
-    c(.04,.02,.959,.929)), 4, 3
+ c(c(0.01,0.01,0.001,0.001),
+  c(.95,.92,.04,.02),
+  c(.04,.02,.959,.929)), 4, 3
 ))
 ```
 
@@ -191,17 +199,18 @@ We use the null demographic model, which assumes a constant population size (con
 
 ```{r}
 H <- matrix(c(10,90, 100, 900), 4, 1)
-params = make_parameters_demography_null(pars = params, H=H, residence=residence, searchWts=searchWtsH, TaR=TaR) 
+params = setup_Hpar(params, HPop=H, residence=residence, searchWts=searchWtsH) 
+params$Hpar$TaR <- TaR
 ```
 
 ```{r}
 X0 <- as.vector(0.2*H)
-r <- rep(1/200, params$nStrata)
-b <- rep(0.55, params$nStrata)
+r <- 1/200
+b <- 0.55
 c <- c(0.1, .02, .1, .02)
 
-params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
-params = make_inits_X_SIS(params, X0)
+params = make_Xpar_SIS(pars = params, b = b, c = c, r = r)
+params = make_Xinits_SIS(params, X0=X0)
 ```
 
 
@@ -226,7 +235,8 @@ y0 = get_inits(params)
 Now we can pass the vector of initial conditions, `y`, our parameter list `params`, and the function `exDE::xDE_diffeqn` to the differential equation solvers in `deSolve::ode` to generate a numerical trajectory. The classes of `Xpar`, `MYZpar`, and `Lpar` in `params` will ensure that the right methods are invoked (dispatched) to solve your model.
 
 ```{r}
-out <- deSolve::ode(y = y0, times = 0:365, func = xDE_diffeqn, parms = params, method = "lsoda")
+out <- deSolve::ode(y = y0, times = 0:365, 
+                    func = xDE_diffeqn, parms = params, method = "lsoda")
 out1 <- out
 ```
 
@@ -248,54 +258,52 @@ out[, c("Component", "Stratification") := tstrsplit(variable, '_', fixed = TRUE)
 out[, variable := NULL]
 
 ggplot(data = out, mapping = aes(x = time, y = value, color = Stratification)) +
-  geom_line() +
-  facet_wrap(. ~ Component, scales = 'free') +
-  theme_bw()
+ geom_line() +
+ facet_wrap(. ~ Component, scales = 'free') +
+ theme_bw()
 ```
 
-# Using Setup  
+# Using Setup 
 
 We create lists with all our parameters values: 
 
 ```{r}
 MYZo = list(
-  solve_as = "ode", 
-  g = 1/12, 
-  sigma = 1/12/2,
-  f = 1/3, 
-  q=0.9, 
-  nu=c(1/3,1/3,0),
-  eggsPerBatch = 30, 
-  eip = 12, 
-  M0 = 100,  
-  P0 = 10,  
-  Y0 = 1, 
-  Z0 = 0 
+ solve_as = "ode", 
+ g = 1/12, sigma = 1/12/2,
+ f = 1/3, q=0.9, nu=c(1/3,1/3,0),
+ eggsPerBatch = 30, 
+ eip = 12, 
+ M0 = 100,  P0 = 10,  Y0 = 1, Z0 = 0 
 )
 ```
 
 ```{r}
 Lo = list(
-  L0 = 1,
-  psi = 1/8, 
-  phi = 1/8, 
-  theta = c(1/10, 1/20, 1/40, 1/100, 1/10) 
+ L0 = 1,
+ psi = 1/8, phi = 1/8, 
+ theta = c(1/10, 1/20, 1/40, 1/100, 1/10) 
 ) 
 ```
 
 ```{r}
 Xo = list(
-  X0 = as.vector(0.2*H),
-  r = 1/200,
-  b = 0.55,
-  c = c(0.1, .02, .1, .02)
+ X0 = as.vector(0.2*H),
+ r = 1/200,
+ b = 0.55,
+ c = c(0.1, .02, .1, .02)
 )
 ```
 
 
 
 ```{r}
-mod534 = xde_setup("mod534", "RM", "SIS", "basic", nPatches = 3, HPop=c(10, 90, 100, 900), membership=c(1,1,1,2,2), MYZopts = MYZo, calK=calK, Xopts = Xo, residence = c(2,2,3,3), searchB = searchWtsH, TaR=TaR, searchQ = c(7,2,1,8,2), Lopts = Lo)
+mod534 = xde_setup("mod534", "RM", "SIS", "basic", 
+                  nPatches = 3, HPop=c(10, 90, 100, 900), 
+                  membership=c(1,1,1,2,2), 
+                  MYZopts=MYZo, calK=calK, Xopts=Xo, 
+                  residence=c(2,2,3,3), searchB=searchWtsH, 
+                  TaR=TaR, searchQ = c(7,2,1,8,2), Lopts = Lo)
 ```
 
 We solve and take the differences to check: 
@@ -305,7 +313,13 @@ xde_solve(mod534,Tmax=365,dt=1)-> out2
 sum(abs(out2-out1))
 ```
 
-Interestingly, there are small differences. After some sleuthing, it appears that these arise from a very small difference in $\cal U$. Note that `mod534$calU` appears to match `params$calU`:
+Interestingly, the differences are small: 
+
+```{r}
+approx_equal(tail(out2, 1), tail(out1,1), tol = 1e-6)
+```
+
+After some sleuthing, it appears that these arise from a very small difference in $\cal U$. Note that `mod534$calU` appears to match `params$calU`:
 
 ```{r}
 mod534$calU

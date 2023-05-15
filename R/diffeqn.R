@@ -40,7 +40,6 @@ xDE_diffeqn <- function(t, y, pars) {
   # kappa: net infectiousness of humans
   kappa <- F_kappa(t, y, pars, beta)
 
-
   # state derivatives
   dL <- dLdt(t, y, pars, eta)
   dMYZ <- dMYZdt(t, y, pars, Lambda, kappa)

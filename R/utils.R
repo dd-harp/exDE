@@ -6,7 +6,7 @@
 make_parameters_xde = function(solve_as='ode'){
   pars = list()
 
-  xde <- 'ode'
+  xde <- solve_as
   class(xde) <- xde
   pars$xde = xde
 
