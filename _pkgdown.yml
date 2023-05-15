@@ -56,11 +56,10 @@ reference:
 - title: Generalized derivatives functions
   contents:
   - xDE_diffeqn
-  - xDE_diffeqn_mosy
-  - xDE_diffeqn_cohort
   - xDE_diffeqn_aquatic
+  - xDE_diffeqn_mosy
   - xDE_diffeqn_Z
-  - xDE_diffeqn_adult
+  - xDE_diffeqn_cohort
 - title:
   contents:
   - xde_setup
