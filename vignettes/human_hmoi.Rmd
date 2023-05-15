@@ -68,6 +68,10 @@ set up parameters. Please note that this only runs the human population componen
 
 We use the null (constant) model of human demography ($H$ constant for all time). While $H$ does not appear in the equations above, it must be specified as the model of bloodfeeding ($\beta$) relies on $H$ to compute consistent values.
 
+# The Long Way
+
+Here, we build a model step-by-step. 
+
 ```{r}
 nStrata <- 3
 H <- c(100, 500, 250)
@@ -109,6 +113,7 @@ y0 <- get_inits(params)
 
 out <- deSolve::ode(y = y0, times = c(0, 365), func = xDE_diffeqn_cohort, 
                     parms = params, method = 'lsoda', F_eir = F_eir) 
+out1 <- out
 ```
 
 
@@ -127,4 +132,32 @@ ggplot(data = out, mapping = aes(x = time, y = value, color = Strata)) +
   facet_wrap(Strata ~ Component, scales = 'free') +
   theme_bw()
 ```
+
+# Using Setup
+
+```{r}
+Xo = list(b=0.55, c1=0.05, c2=0.25, r1=1/250, r2=1/50, m20=1.5)
+h = with(Xo, r2*m20) 
+Xo$m10 = with(Xo, h/r1)  
+Hpop = c(100, 500, 250)
+```
+
+To use `xde_setup_human` we must set the values of $Z$ that give us the correct EIR values, and we set these as $Zm$. The function call is to `Ztrace` 
+
+```{r}
+MYZo = list(f=0.3, q=0.95)
+MYZo$Zm = with(c(MYZo,Xo), h/b/f/q*Hpop) 
+```
+
+
+```{r}
+xde_setup_human("test_hMoI", "hMoI", HPop=Hpop, Xopts = Xo, MYZopts = MYZo) -> test_hMoI
+```
+
+```{r}
+xde_solve(test_hMoI, 365, 365)-> out2
+approx_equal(out2, out1)
+```
+
+
 

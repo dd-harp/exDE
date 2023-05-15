@@ -4,7 +4,7 @@
 \alias{make_TaR_athome}
 \title{Make a mosquito dispersal matrix, called TaR}
 \usage{
-make_TaR_athome(nPatches, residence, opts, atHome = 0.95, travel = 0.01)
+make_TaR_athome(nPatches, residence, opts = list(), atHome = 1, travel = 0)
 }
 \arguments{
 \item{nPatches}{is the number of patches}

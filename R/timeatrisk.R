@@ -29,7 +29,7 @@ make_TaR.athome = function(nPatches, residence, TaR = "athome", opts = list()){
 #' @param travel is the fraction of time spent traveling
 #' @return a [matrix]
 #' @export
-make_TaR_athome = function(nPatches, residence, opts, atHome=0.95, travel=0.01) {with(opts,{
+make_TaR_athome = function(nPatches, residence, opts=list(), atHome=1, travel=0) {with(opts,{
   nStrata = length(residence)
   away = ifelse(nPatches == 1, 0, (1-atHome-travel)/(nPatches-1))
   atHome = ifelse(nPatches == 1, 1-travel, atHome)

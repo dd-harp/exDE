@@ -81,6 +81,7 @@ make_MYZpar_Ztrace = function(pars, MYZopts,
 
     pars$MYZpar = MYZpar
     pars = MosquitoBehavior(0, 0, pars)
+
     return(pars)
 })}
 
@@ -114,7 +115,7 @@ make_parameters_MYZ_Ztrace <- function(pars, Zm, f, q, Zf) {
   MYZpar$q0 <- q
   MYZpar$Zf = Zf
   pars$MYZpar <- MYZpar
-  pars = MosquitoBehavior(pars)
+  pars = MosquitoBehavior(0, 0, pars)
   return(pars)
 }
 

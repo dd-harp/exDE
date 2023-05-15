@@ -207,14 +207,14 @@ xde_setup_human = function(modelName,
 
   # Structure
   nStrata = length(HPop)
-  pars$nPatches = nStrata
+  pars$nPatches = as.integer(nStrata)
   pars$nStrata = nStrata
 
-  pars = setup_Hpar(pars, HPop, residence, searchB, Hopts)
+  pars = setup_Hpar(pars, HPop, 1:nStrata, rep(1, nStrata), Hopts)
   pars$Hpar$TaR = make_TaR(pars$nPatches, pars$Hpar$residence, TaR, TaRopts)
 
   # Dynamics
-  pars = setup_MYZ(pars, "Ztrace", pars$nHabitats, MYZopts, calK=NULL)
+  pars = setup_MYZ(pars, "Ztrace", pars$nPatches, MYZopts, calK=NULL)
   pars = setup_X(pars, Xname, Xopts)
 
   pars = make_indices(pars)
