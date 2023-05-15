@@ -60,6 +60,8 @@ set up parameters. Please note that this only runs the human population componen
 
 We use the null (constant) model of human demography ($H$ constant for all time).
 
+## The Long Way
+
 ```{r}
 nStrata <- 3
 H <- c(100, 500, 250)
@@ -97,6 +99,7 @@ params = make_indices(params)
 y0 <- get_inits_X(params)
 
 out <- deSolve::ode(y = y0, times = c(0, 365), xDE_diffeqn_cohort, parms = params, method = 'lsoda', F_eir = F_eir) 
+out1 <- out
 ```
 
 ```{r, out.width = "100%"}
@@ -110,4 +113,31 @@ out[, variable := NULL]
 ggplot(data = out, mapping = aes(x = time, y = value, color = Strata)) +
   geom_line() +
   theme_bw()
+```
+
+## Using Setup
+
+
+
+```{r}
+Xo = list(b=0.55, c=0.15, r=1/200, X0 = X)
+Hpop = c(100, 500, 250)
+```
+
+To use `xde_setup_human` we must set the values of $Z$ that give us the correct EIR values, and we set these as $Zm$. The function call is to `Ztrace` 
+
+```{r}
+EIR <- with(Xo, diag(1/b, nStrata) %*% ((r*X0)/(Hpop-X0)))
+MYZo = list(f=0.3, q=0.95)
+MYZo$Zm = with(c(MYZo,Xo), EIR/f/q*Hpop) 
+```
+
+
+```{r}
+xde_setup_human("test_SIS", "SIS", HPop=Hpop, Xopts = Xo, MYZopts = MYZo) -> test_SIS
+```
+
+```{r}
+xde_solve(test_SIS, 365, 365) -> out2
+approx_equal(out2,out1)
 ```

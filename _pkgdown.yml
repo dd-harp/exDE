@@ -53,14 +53,14 @@ home:
         title: Changelog
         text: <a href="news/index.html">News</a>
 reference:
-- title: Generalized derivatives functions
+- title: Generalized and specialized derivatives functions
   contents:
   - xDE_diffeqn
   - xDE_diffeqn_aquatic
   - xDE_diffeqn_mosy
   - xDE_diffeqn_human
   - xDE_diffeqn_cohort
-- title: Setup and solving
+- title: Setup
   contents:
   - xde_setup
   - xde_setup_aquatic
