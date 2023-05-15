@@ -133,6 +133,7 @@ setup_MYZ.RM = function(pars, MYZname, nPatches=1, MYZopts=list(), calK=diag(1))
     Omega <- with(pars$MYZpar, make_Omega(g, sigma, calK, nPatches))
     Upsilon <- expm::expm(-Omega*pars$MYZpar$eip)
     pars$MYZinits$Upsilon0 = as.vector(Upsilon)
+    pars$MYZinits$dummy = rep(0, 3*pars$nPatches)
   }
   return(pars)
 }
@@ -324,7 +325,7 @@ make_inits_MYZ_RM_ode <- function(pars, M0, P0, Y0, Z0) {
 #' @return none
 #' @export
 make_inits_MYZ_RM_dde <- function(pars, M0, P0, Y0, Z0, Upsilon0) {
-  pars$MYZinits = list(M0=M0, P0=P0, Y0=Y0, Z0=Z0, Upsilon0=Upsilon0, rep(0, 3*pars$nPatches))
+  pars$MYZinits = list(M0=M0, P0=P0, Y0=Y0, Z0=Z0, Upsilon0=Upsilon0, dummy=rep(0, 3*pars$nPatches))
   return(pars)
 }
 
