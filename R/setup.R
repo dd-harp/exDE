@@ -166,3 +166,59 @@ xde_setup_aquatic = function(modelName,
   return(pars)
 }
 
+
+#' @title Set up a model for xde_diffeqn_human
+#' @param modelName is a name for the model (arbitrary)
+#' @param Xname is a character string defining a X model
+#' @param HPop is the number of humans in each patch
+#' @param MYZopts a list to configure the MYZ model
+#' @param Xopts a list to configure the X model
+#' @param Hopts a list to configure the H model
+#' @param residence is a vector that describes the patch where each human stratum lives
+#' @param searchB is a vector of search weights for blood feeding
+#' @param TaR is either a TaR matrix or a string to call a function that sets it up
+#' @param TaRopts are the options to setup TaR
+#' @return a [list]
+#' @export
+xde_setup_human = function(modelName,
+
+                     # Dynamical Components
+                     Xname = "SIS",
+
+                     # Model Structure
+                     HPop=1000,
+
+                     # Adult Mosquito Options
+                     MYZopts = list(),
+
+                     # Human Strata / Options
+                     Xopts = list(),
+                     Hopts = list(),
+                     residence=1,
+                     searchB = 1,
+                     TaR = "athome",
+                     TaRopts=list()
+
+){
+
+  pars = make_parameters_xde()
+  class(pars$xde) <- "human"
+  pars$modelName = modelName
+
+  # Structure
+  nStrata = length(HPop)
+  pars$nPatches = nStrata
+  pars$nStrata = nStrata
+
+  pars = setup_Hpar(pars, HPop, residence, searchB, Hopts)
+  pars$Hpar$TaR = make_TaR(pars$nPatches, pars$Hpar$residence, TaR, TaRopts)
+
+  # Dynamics
+  pars = setup_MYZ(pars, "Ztrace", pars$nHabitats, MYZopts, calK=NULL)
+  pars = setup_X(pars, Xname, Xopts)
+
+  pars = make_indices(pars)
+
+  return(pars)
+}
+

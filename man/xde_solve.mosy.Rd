@@ -2,7 +2,7 @@
 % Please edit documentation in R/solving.R
 \name{xde_solve.mosy}
 \alias{xde_solve.mosy}
-\title{Solve a system of equations with xDE_diffeqn_mosy}
+\title{Solve a system of equations for mosquito ecology using xDE_diffeqn_mosy}
 \usage{
 \method{xde_solve}{mosy}(pars, Tmax = 365, dt = 1)
 }

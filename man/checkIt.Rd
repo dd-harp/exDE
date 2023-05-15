@@ -16,7 +16,7 @@ checkIt(x, lng, type = "numeric", fixit = TRUE)
 \item{fixit}{a \link{logical} value, if TRUE force length to lng}
 }
 \value{
-a \link{logical} value
+a \link{numeric} object
 }
 \description{
 Check the length of an input value

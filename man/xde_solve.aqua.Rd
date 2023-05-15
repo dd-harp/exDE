@@ -2,7 +2,7 @@
 % Please edit documentation in R/solving.R
 \name{xde_solve.aqua}
 \alias{xde_solve.aqua}
-\title{Solve a system of equations with xDE_diffeqn_aquatic}
+\title{Solve a system of equations for aquatic dynamics, forced by egg deposition, using xDE_diffeqn_aquatic}
 \usage{
 \method{xde_solve}{aqua}(pars, Tmax = 365, dt = 1)
 }
