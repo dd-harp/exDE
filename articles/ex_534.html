@@ -160,18 +160,18 @@ habitats to the patches which contain them. It should be attached
 directly to the parameters list.</p>
 <p><span class="math display">\[\begin{equation}
 {\cal N} = \left[
-  \begin{array}{ccccc}
-  1 &amp; 1 &amp; 1 &amp; 0 &amp; 0  \\
-  0 &amp; 0 &amp; 0 &amp; 1 &amp; 1\\
-  0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
-  \end{array} \right]
+\begin{array}{ccccc}
+1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 1\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+\end{array} \right]
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">calN</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
-<span>           <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,</span>
-<span>           <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, </span>
-<span>  nrow <span class="op">=</span> <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span>, ncol <span class="op">=</span> <span class="va">params</span><span class="op">$</span><span class="va">nHabitats</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span> data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,</span>
+<span>      <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,</span>
+<span>      <span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, </span>
+<span> nrow <span class="op">=</span> <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span>, ncol <span class="op">=</span> <span class="va">params</span><span class="op">$</span><span class="va">nHabitats</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">params</span><span class="op">$</span><span class="va">calN</span> <span class="op">&lt;-</span> <span class="va">calN</span></span></code></pre></div>
 </div>
@@ -184,13 +184,13 @@ habitats in that patch. It is also attached directly to the parameters
 list.</p>
 <p><span class="math display">\[\begin{equation}
 {\cal U} = \left[
-  \begin{array}{ccccc}
-  .7 &amp; 0 &amp; 0\\
-  .2 &amp; 0 &amp; 0\\
-  .1 &amp; 0 &amp; 0\\
-  0 &amp; .8 &amp; 0\\
-  0 &amp; .2 &amp; 0\\
-  \end{array} \right]
+\begin{array}{ccccc}
+.7 &amp; 0 &amp; 0\\
+.2 &amp; 0 &amp; 0\\
+.1 &amp; 0 &amp; 0\\
+0 &amp; .8 &amp; 0\\
+0 &amp; .2 &amp; 0\\
+\end{array} \right]
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">xi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.7</span>, <span class="fl">.2</span>, <span class="fl">.1</span>, <span class="fl">.8</span>, <span class="fl">.2</span><span class="op">)</span>, <span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span> </span>
@@ -214,8 +214,8 @@ list with name <code>Lpar</code>.</p>
 <span><span class="va">phi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">8</span>, <span class="va">params</span><span class="op">$</span><span class="va">nHabitats</span><span class="op">)</span></span>
 <span><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">20</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">40</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_L_basic.html">make_parameters_L_basic</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, psi <span class="op">=</span> <span class="va">psi</span>, phi <span class="op">=</span> <span class="va">phi</span>, theta <span class="op">=</span> <span class="va">theta</span><span class="op">)</span></span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_inits_L_basic.html">make_inits_L_basic</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, <span class="va">L0</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_Lpar_basic.html">make_Lpar_basic</a></span><span class="op">(</span><span class="va">params</span>, psi <span class="op">=</span> <span class="va">psi</span>, phi <span class="op">=</span> <span class="va">phi</span>, theta <span class="op">=</span> <span class="va">theta</span><span class="op">)</span></span>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_Linits_basic.html">make_Linits_basic</a></span><span class="op">(</span><span class="va">params</span>, L0<span class="op">=</span><span class="va">L0</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="adult-mosquito-parameters">Adult Mosquito Parameters<a class="anchor" aria-label="anchor" href="#adult-mosquito-parameters"></a>
@@ -231,17 +231,19 @@ and return a list with the correct class for method dispatch. We attach
 the returned list to the main parameter list with name
 <code>MYZpar</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">12</span>, <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span> </span>
-<span><span class="va">sigma</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">12</span><span class="op">/</span><span class="fl">2</span>, <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span> </span>
-<span><span class="va">calK</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.6</span>, <span class="fl">.3</span><span class="op">)</span>, </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.4</span>, <span class="fl">0</span>, <span class="fl">.7</span><span class="op">)</span>, </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.6</span>, <span class="fl">.4</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span>, <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span> </span>
-<span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span> </span>
-<span><span class="va">nu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">0</span><span class="op">)</span>   </span>
+<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">12</span></span>
+<span><span class="va">sigma</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">12</span><span class="op">/</span><span class="fl">2</span></span>
+<span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span></span>
+<span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fl">0.9</span></span>
+<span><span class="va">nu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">0</span><span class="op">)</span>  </span>
 <span><span class="va">eggsPerBatch</span> <span class="op">&lt;-</span> <span class="fl">30</span> </span>
 <span><span class="va">eip</span> <span class="op">&lt;-</span> <span class="fl">12</span> </span>
+<span></span>
+<span><span class="va">calK</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
+<span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.6</span>, <span class="fl">.3</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.4</span>, <span class="fl">0</span>, <span class="fl">.7</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.6</span>, <span class="fl">.4</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">M0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">100</span>, <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span></span>
 <span><span class="va">P0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">10</span>, <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span></span>
 <span><span class="va">Y0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span></span>
@@ -250,8 +252,14 @@ the returned list to the main parameter list with name
 <span><span class="va">Omega</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_Omega.html">make_Omega</a></span><span class="op">(</span><span class="va">g</span>, <span class="va">sigma</span>, <span class="va">calK</span>, <span class="va">params</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span></span>
 <span><span class="va">Upsilon</span> <span class="op">&lt;-</span> <span class="fu">expm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/expm/man/expm.html" class="external-link">expm</a></span><span class="op">(</span><span class="op">-</span><span class="va">Omega</span><span class="op">*</span><span class="va">eip</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_MYZ_RM.html">make_parameters_MYZ_RM</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, g <span class="op">=</span> <span class="va">g</span>, sigma <span class="op">=</span> <span class="va">sigma</span>, calK <span class="op">=</span> <span class="va">calK</span>, eip <span class="op">=</span> <span class="va">eip</span>, f <span class="op">=</span> <span class="va">f</span>, q <span class="op">=</span> <span class="va">q</span>, nu <span class="op">=</span> <span class="va">nu</span>, eggsPerBatch <span class="op">=</span> <span class="va">eggsPerBatch</span>, solve_as <span class="op">=</span> <span class="st">"ode"</span><span class="op">)</span> </span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_inits_MYZ_RM_ode.html">make_inits_MYZ_RM_ode</a></span><span class="op">(</span><span class="va">params</span>, M0 <span class="op">=</span> <span class="va">M0</span>, Y0 <span class="op">=</span> <span class="va">Y0</span>, P0<span class="op">=</span><span class="va">P0</span>, Z0 <span class="op">=</span> <span class="va">Z0</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_MYZpar_RM.html">make_MYZpar_RM</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, g <span class="op">=</span> <span class="va">g</span>, </span>
+<span>                sigma <span class="op">=</span> <span class="va">sigma</span>, calK<span class="op">=</span><span class="va">calK</span>, </span>
+<span>                eip<span class="op">=</span><span class="va">eip</span>, f<span class="op">=</span><span class="va">f</span>, q<span class="op">=</span><span class="va">q</span>, nu<span class="op">=</span><span class="va">nu</span>, </span>
+<span>                eggsPerBatch<span class="op">=</span><span class="va">eggsPerBatch</span>, </span>
+<span>                solve_as <span class="op">=</span> <span class="st">"ode"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_MYZinits_RM.html">make_MYZinits_RM</a></span><span class="op">(</span><span class="va">params</span>, M0<span class="op">=</span><span class="va">M0</span>, P0<span class="op">=</span><span class="va">P0</span>, </span>
+<span>             Y0<span class="op">=</span><span class="va">Y0</span>, Z0<span class="op">=</span><span class="va">Z0</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="human-parameters">Human Parameters<a class="anchor" aria-label="anchor" href="#human-parameters"></a>
@@ -271,35 +279,35 @@ membership matrix <span class="math inline">\(\mathcal{J}\)</span>, a
 patch each human population strata resides in.</p>
 <p><span class="math display">\[\begin{equation}
 {\cal J} = \left[
-  \begin{array}{cccc}
-  0 &amp; 0 &amp; 0 &amp; 0 \\
-  1 &amp; 1 &amp; 0 &amp; 0 \\
-  0 &amp; 0 &amp; 1 &amp; 1 \\
-  \end{array} \right]
+\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; 0 \\
+1 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 1 \\
+\end{array} \right]
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">calJ</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="fl">4</span>, <span class="fl">3</span></span>
+<span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="fl">4</span>, <span class="fl">3</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We then create the time at risk matrix <span class="math inline">\(\Psi\)</span>, a <span class="math inline">\(p
 \times n\)</span> matrix describing how each human strata spends their
 time across patches.</p>
 <p><span class="math display">\[\begin{equation}
 \Psi= \left[
-  \begin{array}{cccc}
-  0.01 &amp; .01 &amp; .001 &amp; .001 \\  
-  0.95 &amp; .92 &amp; .04  &amp; .02  \\  
-  0.04 &amp; .02 &amp; .959 &amp; .929 \\
-  \end{array}
-  \right]
+\begin{array}{cccc}
+0.01 &amp; .01 &amp; .001 &amp; .001 \\
+0.95 &amp; .92 &amp; .04 &amp; .02 \\
+0.04 &amp; .02 &amp; .959 &amp; .929 \\
+\end{array}
+\right]
 \end{equation}\]</span></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">TaR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.01</span>,<span class="fl">0.001</span>,<span class="fl">0.001</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.95</span>,<span class="fl">.92</span>,<span class="fl">.04</span>,<span class="fl">.02</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.04</span>,<span class="fl">.02</span>,<span class="fl">.959</span>,<span class="fl">.929</span><span class="op">)</span><span class="op">)</span>, <span class="fl">4</span>, <span class="fl">3</span></span>
+<span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>,<span class="fl">0.01</span>,<span class="fl">0.001</span>,<span class="fl">0.001</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.95</span>,<span class="fl">.92</span>,<span class="fl">.04</span>,<span class="fl">.02</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.04</span>,<span class="fl">.02</span>,<span class="fl">.959</span>,<span class="fl">.929</span><span class="op">)</span><span class="op">)</span>, <span class="fl">4</span>, <span class="fl">3</span></span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We use the basic SIS (Susceptible-Infected-Susceptible) model for the
 human component (see more <a href="human_sis.html">here</a>). We set it
@@ -311,15 +319,16 @@ type, which is attached to the parameter list with name
 population size (constant <span class="math inline">\(H\)</span>).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">90</span>, <span class="fl">100</span>, <span class="fl">900</span><span class="op">)</span>, <span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_demography_null.html">make_parameters_demography_null</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, H<span class="op">=</span><span class="va">H</span>, residence<span class="op">=</span><span class="va">residence</span>, searchWts<span class="op">=</span><span class="va">searchWtsH</span>, TaR<span class="op">=</span><span class="va">TaR</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/setup_Hpar.html">setup_Hpar</a></span><span class="op">(</span><span class="va">params</span>, HPop<span class="op">=</span><span class="va">H</span>, residence<span class="op">=</span><span class="va">residence</span>, searchWts<span class="op">=</span><span class="va">searchWtsH</span><span class="op">)</span> </span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">Hpar</span><span class="op">$</span><span class="va">TaR</span> <span class="op">&lt;-</span> <span class="va">TaR</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">X0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">*</span><span class="va">H</span><span class="op">)</span></span>
-<span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">200</span>, <span class="va">params</span><span class="op">$</span><span class="va">nStrata</span><span class="op">)</span></span>
-<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0.55</span>, <span class="va">params</span><span class="op">$</span><span class="va">nStrata</span><span class="op">)</span></span>
+<span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">200</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">0.55</span></span>
 <span><span class="va">c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">.02</span>, <span class="fl">.1</span>, <span class="fl">.02</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_X_SIS.html">make_parameters_X_SIS</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, b <span class="op">=</span> <span class="va">b</span>, c <span class="op">=</span> <span class="va">c</span>, r <span class="op">=</span> <span class="va">r</span><span class="op">)</span></span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_inits_X_SIS.html">make_inits_X_SIS</a></span><span class="op">(</span><span class="va">params</span>, <span class="va">X0</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_Xpar_SIS.html">make_Xpar_SIS</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, b <span class="op">=</span> <span class="va">b</span>, c <span class="op">=</span> <span class="va">c</span>, r <span class="op">=</span> <span class="va">r</span><span class="op">)</span></span>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_Xinits_SIS.html">make_Xinits_SIS</a></span><span class="op">(</span><span class="va">params</span>, X0<span class="op">=</span><span class="va">X0</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -348,7 +357,8 @@ classes of <code>Xpar</code>, <code>MYZpar</code>, and <code>Lpar</code>
 in <code>params</code> will ensure that the right methods are invoked
 (dispatched) to solve your model.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">deSolve</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">ode</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y0</span>, times <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">365</span>, func <span class="op">=</span> <span class="va">xDE_diffeqn</span>, parms <span class="op">=</span> <span class="va">params</span>, method <span class="op">=</span> <span class="st">"lsoda"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">deSolve</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">ode</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y0</span>, times <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">365</span>, </span>
+<span>                    func <span class="op">=</span> <span class="va">xDE_diffeqn</span>, parms <span class="op">=</span> <span class="va">params</span>, method <span class="op">=</span> <span class="st">"lsoda"</span><span class="op">)</span></span>
 <span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="va">out</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -370,9 +380,9 @@ in <code>params</code> will ensure that the right methods are invoked
 <span><span class="va">out</span><span class="op">[</span>, <span class="va">variable</span> <span class="op">:=</span> <span class="cn">NULL</span><span class="op">]</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">time</span>, y <span class="op">=</span> <span class="va">value</span>, color <span class="op">=</span> <span class="va">Stratification</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">Component</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">Component</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span> <span class="op">+</span></span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ex_534_files/figure-html/unnamed-chunk-16-1.png" width="100%"></p>
 </div>
 </div>
@@ -382,44 +392,49 @@ in <code>params</code> will ensure that the right methods are invoked
 <p>We create lists with all our parameters values:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">MYZo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  solve_as <span class="op">=</span> <span class="st">"ode"</span>, </span>
-<span>  g <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">12</span>, </span>
-<span>  sigma <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">12</span><span class="op">/</span><span class="fl">2</span>,</span>
-<span>  f <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>, </span>
-<span>  q<span class="op">=</span><span class="fl">0.9</span>, </span>
-<span>  nu<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">0</span><span class="op">)</span>,</span>
-<span>  eggsPerBatch <span class="op">=</span> <span class="fl">30</span>, </span>
-<span>  eip <span class="op">=</span> <span class="fl">12</span>, </span>
-<span>  M0 <span class="op">=</span> <span class="fl">100</span>,  </span>
-<span>  P0 <span class="op">=</span> <span class="fl">10</span>,  </span>
-<span>  Y0 <span class="op">=</span> <span class="fl">1</span>, </span>
-<span>  Z0 <span class="op">=</span> <span class="fl">0</span> </span>
+<span> solve_as <span class="op">=</span> <span class="st">"ode"</span>, </span>
+<span> g <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">12</span>, sigma <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">12</span><span class="op">/</span><span class="fl">2</span>,</span>
+<span> f <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>, q<span class="op">=</span><span class="fl">0.9</span>, nu<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">/</span><span class="fl">3</span>,<span class="fl">0</span><span class="op">)</span>,</span>
+<span> eggsPerBatch <span class="op">=</span> <span class="fl">30</span>, </span>
+<span> eip <span class="op">=</span> <span class="fl">12</span>, </span>
+<span> M0 <span class="op">=</span> <span class="fl">100</span>,  P0 <span class="op">=</span> <span class="fl">10</span>,  Y0 <span class="op">=</span> <span class="fl">1</span>, Z0 <span class="op">=</span> <span class="fl">0</span> </span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Lo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  L0 <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  psi <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">8</span>, </span>
-<span>  phi <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">8</span>, </span>
-<span>  theta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">20</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">40</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span> </span>
+<span> L0 <span class="op">=</span> <span class="fl">1</span>,</span>
+<span> psi <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">8</span>, phi <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">8</span>, </span>
+<span> theta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">20</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">40</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span> </span>
 <span><span class="op">)</span> </span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Xo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  X0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">*</span><span class="va">H</span><span class="op">)</span>,</span>
-<span>  r <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">200</span>,</span>
-<span>  b <span class="op">=</span> <span class="fl">0.55</span>,</span>
-<span>  c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">.02</span>, <span class="fl">.1</span>, <span class="fl">.02</span><span class="op">)</span></span>
+<span> X0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">*</span><span class="va">H</span><span class="op">)</span>,</span>
+<span> r <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">200</span>,</span>
+<span> b <span class="op">=</span> <span class="fl">0.55</span>,</span>
+<span> c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">.02</span>, <span class="fl">.1</span>, <span class="fl">.02</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mod534</span> <span class="op">=</span> <span class="fu"><a href="../reference/xde_setup.html">xde_setup</a></span><span class="op">(</span><span class="st">"mod534"</span>, <span class="st">"RM"</span>, <span class="st">"SIS"</span>, <span class="st">"basic"</span>, nPatches <span class="op">=</span> <span class="fl">3</span>, HPop<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">90</span>, <span class="fl">100</span>, <span class="fl">900</span><span class="op">)</span>, membership<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, MYZopts <span class="op">=</span> <span class="va">MYZo</span>, calK<span class="op">=</span><span class="va">calK</span>, Xopts <span class="op">=</span> <span class="va">Xo</span>, residence <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span>, searchB <span class="op">=</span> <span class="va">searchWtsH</span>, TaR<span class="op">=</span><span class="va">TaR</span>, searchQ <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">8</span>,<span class="fl">2</span><span class="op">)</span>, Lopts <span class="op">=</span> <span class="va">Lo</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mod534</span> <span class="op">=</span> <span class="fu"><a href="../reference/xde_setup.html">xde_setup</a></span><span class="op">(</span><span class="st">"mod534"</span>, <span class="st">"RM"</span>, <span class="st">"SIS"</span>, <span class="st">"basic"</span>, </span>
+<span>                  nPatches <span class="op">=</span> <span class="fl">3</span>, HPop<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">90</span>, <span class="fl">100</span>, <span class="fl">900</span><span class="op">)</span>, </span>
+<span>                  membership<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, </span>
+<span>                  MYZopts<span class="op">=</span><span class="va">MYZo</span>, calK<span class="op">=</span><span class="va">calK</span>, Xopts<span class="op">=</span><span class="va">Xo</span>, </span>
+<span>                  residence<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span>, searchB<span class="op">=</span><span class="va">searchWtsH</span>, </span>
+<span>                  TaR<span class="op">=</span><span class="va">TaR</span>, searchQ <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">8</span>,<span class="fl">2</span><span class="op">)</span>, Lopts <span class="op">=</span> <span class="va">Lo</span><span class="op">)</span></span></code></pre></div>
 <p>We solve and take the differences to check:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/xde_solve.html">xde_solve</a></span><span class="op">(</span><span class="va">mod534</span>,Tmax<span class="op">=</span><span class="fl">365</span>,dt<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">-&gt;</span> <span class="va">out2</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">out2</span><span class="op">-</span><span class="va">out1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.001192551</span></span></code></pre></div>
-<p>Interestingly, there are small differences. After some sleuthing, it
-appears that these arise from a very small difference in <span class="math inline">\(\cal U\)</span>. Note that
-<code>mod534$calU</code> appears to match <code>params$calU</code>:</p>
+<p>Interestingly, the differences are small:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/approx_equal.html">approx_equal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">out2</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">out1</span>,<span class="fl">1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-6</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        time    1    2    3    4    5    6    7    8    9   10   11   12   13</span></span>
+<span><span class="co">#&gt; [366,] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span></span>
+<span><span class="co">#&gt;          14   15   16   17   18   19   20   21</span></span>
+<span><span class="co">#&gt; [366,] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span></span></code></pre></div>
+<p>After some sleuthing, it appears that these arise from a very small
+difference in <span class="math inline">\(\cal U\)</span>. Note that
+<code>mod534$calU</code> appears to match <code>params$calU</code>:</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod534</span><span class="op">$</span><span class="va">calU</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
 <span><span class="co">#&gt; [1,]  0.7  0.0    0</span></span>
@@ -429,7 +444,7 @@ appears that these arise from a very small difference in <span class="math inlin
 <span><span class="co">#&gt; [5,]  0.0  0.2    0</span></span></code></pre></div>
 <p>but there is a very small difference that only shows up by taking the
 difference:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod534</span><span class="op">$</span><span class="va">calU</span> <span class="op">-</span> <span class="va">params</span><span class="op">$</span><span class="va">calU</span></span>
 <span><span class="co">#&gt;              [,1] [,2] [,3]</span></span>
 <span><span class="co">#&gt; [1,] 1.110223e-16    0    0</span></span>
@@ -438,7 +453,7 @@ difference:</p>
 <span><span class="co">#&gt; [4,] 0.000000e+00    0    0</span></span>
 <span><span class="co">#&gt; [5,] 0.000000e+00    0    0</span></span></code></pre></div>
 <p>We can test the idea:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod534</span><span class="op">$</span><span class="va">calU</span> <span class="op">=</span> <span class="va">params</span><span class="op">$</span><span class="va">calU</span></span>
 <span><span class="fu"><a href="../reference/xde_solve.html">xde_solve</a></span><span class="op">(</span><span class="va">mod534</span>,Tmax<span class="op">=</span><span class="fl">365</span>,dt<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">-&gt;</span> <span class="va">out2</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">out2</span><span class="op">-</span><span class="va">out1</span><span class="op">)</span><span class="op">)</span></span>
