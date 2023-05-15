@@ -91,7 +91,7 @@ approx_equal <- function(a, b, tol = sqrt(.Machine$double.eps)) {
 #' @param lng a [numeric] object
 #' @param type a [character] string specifying required typeof
 #' @param fixit a [logical] value, if TRUE force length to lng
-#' @return a [logical] value
+#' @return a [numeric] object
 #' @export
 checkIt = function(x, lng, type = "numeric", fixit=TRUE){
   stopifnot(is.numeric(x))
@@ -100,3 +100,5 @@ checkIt = function(x, lng, type = "numeric", fixit=TRUE){
   stopifnot(length(x)==lng)
   x
 }
+
+

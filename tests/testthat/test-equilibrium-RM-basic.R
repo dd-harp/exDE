@@ -100,13 +100,14 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   params = make_inits_L_basic(pars = params,  L0 = L)
 
   params = make_indices(params)
+  params$kappa = as.vector(kappa)
 
   # set initial conditions
   y0 <- get_inits(params)
 
 
   # run simulation
-  out <- deSolve::ode(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = as.vector(kappa))
+  out <- deSolve::ode(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda")
 
   expect_equal(as.vector(out[2, params$Lpar$L_ix+1]), as.vector(L), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$MYZpar$M_ix+1]), as.vector(M), tolerance = numeric_tol)
@@ -215,11 +216,11 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
 
   # set initial conditions
   y0 <- get_inits(params)
-
+  params$kappa = as.vector(kappa)
 
 
   # run simulation
-  out <- deSolve::dede(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda", kappa = as.vector(kappa))
+  out <- deSolve::dede(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda")
 
   expect_equal(as.vector(out[2, params$Lpar$L_ix+1]), as.vector(L), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$MYZpar$M_ix+1]), as.vector(M), tolerance = numeric_tol)

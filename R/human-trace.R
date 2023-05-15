@@ -20,11 +20,11 @@ dXdt.trace <- function(t, y, pars, EIR) {
 
 
 #' @title Setup Xpar.trace
-#' @description Implements [setup_Xpar] for the SIS model
-#' @inheritParams setup_Xpar
+#' @description Implements [setup_X] for the SIS model
+#' @inheritParams setup_X
 #' @return a [list] vector
 #' @export
-setup_Xpar.trace = function(pars, Xname, Xopts=list()){
+setup_X.trace = function(pars, Xname, Xopts=list()){
 
   pars$Xname = "trace"
   pars = make_Xpar_trace(pars, Xopts)
@@ -47,11 +47,15 @@ make_Xpar_trace = function(pars, Xopts=list(),
     Xpar = list()
     class(Xpar) <- "trace"
 
-    Xpar$kappa = checkIt(kappa, pars$nStrata)
+    Xpar$kappa = checkIt(kappa, pars$nPatches)
     if(is.null(Kf)) Kf = function(t, y, pars){return(1)}
     Xpar$Kf = Kf
 
     pars$Xpar = Xpar
+    pars$Hpar$wts_f = rep(1, pars$nPatches)
+    pars$Hpar$H = rep(1, pars$nPatches)
+    pars$Hpar$residence = c(1:pars$nPatches)
+    pars$Hpar$TaR = diag(1, pars$nPatches)
     return(pars)
   })}
 

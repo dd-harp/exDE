@@ -18,6 +18,47 @@ dLdt.trace <- function(t, y, pars, eta) {
   numeric(0)
 }
 
+#' @title Setup Lpar.trace
+#' @description Implements [setup_L] for the trace model
+#' @inheritParams setup_L
+#' @return a [list] vector
+#' @export
+setup_L.trace = function(pars, Lname,
+                            membership=1, searchQ=1,
+                            Lopts=list()){
+
+
+  nHabitats = length(membership)
+  pars$nHabits = nHabitats
+  pars$calN = make_calN(pars$nPatches, membership)
+  pars$calU = t(pars$calN)
+
+  with(Lopts,{
+    pars$Lname = "trace"
+    pars = make_Lpar_trace(pars, Lopts)
+    pars$Linits = numeric(0)
+    return(pars)
+})}
+
+#' @title Make parameters for trace aquatic mosquito model
+#' @param pars a [list]
+#' @param Lopts a [list] that overwrites default values
+#' @param Lambda vector of mean emergence rates from each aquatic habitat
+#' @param Lt is a [function] of the form Lt(t,pars) that computes temporal fluctuations
+#' @return none
+#' @export
+make_Lpar_trace = function(pars, Lopts=list(),
+                           Lambda=1, Lt = NULL){
+  with(Lopts,{
+    Lpar = list()
+    class(Lpar) <- "trace"
+    Lpar$Lambda = checkIt(Lambda, pars$nHabitats)
+    if(is.null(Lt)) Lt = function(t, pars){1}
+    Lpar$Lt = Lt
+    pars$Lpar <- Lpar
+    return(pars)
+})}
+
 #' @title Add indices for aquatic stage mosquitoes to parameter list
 #' @description Implements [make_indices_L] for trace (forced emergence) model.
 #' @inheritParams make_indices_L

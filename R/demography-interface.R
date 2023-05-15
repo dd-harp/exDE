@@ -1,5 +1,33 @@
 # generic methods for demography (nested within human; \cal{H} in \cal{X})
 
+#' @title A utility to set up Hpar
+#' @param pars a [list]
+#' @param HPop a [numeric] vector of population densities
+#' @param residence is the patch where each stratum resides
+#' @param searchWts is the blood feeding search weight for each stratum
+#' @param Hopts a [list] to overwrite default values
+#' @return a [list]
+#' @export
+setup_Hpar = function(pars, HPop=1000, residence=1, searchWts=1, Hopts=NULL){
+  with(Hopts,{
+    with(pars, if(!exists("nStrata")) pars$nStrata = length(HPop))
+
+    Hpar = list()
+    class(Hpar) <- "static"
+    Hpar$H = HPop
+    class(Hpar$H) <- "static"
+    Hpar$residence = residence
+    Hpar$wts_f = searchWts
+
+    birthF <- "null"
+    class(birthF) <- "null"
+    Hpar$birthF <- birthF
+    Hpar$Hmatrix <- diag(0, length(HPop))
+
+    pars$Hpar <- Hpar
+    return(pars)
+})}
+
 #' @title Size of human population denominators
 #' @description This method dispatches on the type of `pars$Hpar`.
 #' @param t current simulation time

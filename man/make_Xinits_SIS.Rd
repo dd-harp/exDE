@@ -9,7 +9,7 @@ make_Xinits_SIS(pars, Xopts = list(), X0 = 1)
 \arguments{
 \item{pars}{a \link{list}}
 
-\item{Xopts}{a \link{list} that could overwrite defaults}
+\item{Xopts}{a \link{list} to overwrite defaults}
 
 \item{X0}{the initial values of the parameter X}
 }

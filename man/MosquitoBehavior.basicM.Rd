@@ -17,5 +17,5 @@
 a named \link{list}
 }
 \description{
-Implements \link{MosquitoBehavior} for the RM model
+Implements \link{MosquitoBehavior} for the basicM model
 }

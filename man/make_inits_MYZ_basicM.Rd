@@ -2,7 +2,7 @@
 % Please edit documentation in R/adult-basicM.R
 \name{make_inits_MYZ_basicM}
 \alias{make_inits_MYZ_basicM}
-\title{Make inits for RM adult mosquito model}
+\title{Make inits for basicM adult mosquito model}
 \usage{
 make_inits_MYZ_basicM(pars, M0, P0)
 }
@@ -17,5 +17,5 @@ make_inits_MYZ_basicM(pars, M0, P0)
 none
 }
 \description{
-Make inits for RM adult mosquito model
+Make inits for basicM adult mosquito model
 }

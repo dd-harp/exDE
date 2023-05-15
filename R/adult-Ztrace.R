@@ -38,6 +38,52 @@ dMYZdt.Ztrace <- function(t, y, pars, Lambda, kappa){
   numeric(0)
 }
 
+#' @title Setup the Ztrace model
+#' @description Implements [setup_MYZ] for the Ztrace model
+#' @inheritParams setup_MYZ
+#' @return a [list] vector
+#' @export
+setup_MYZ.Ztrace = function(pars, MYZname,
+                               nPatches=1, MYZopts=NULL,
+                               calK=diag(1)){
+
+  pars$MYZname = "Ztrace"
+  pars$nPatches = checkIt(nPatches, 1, "integer")
+
+  pars = make_MYZpar_Ztrace(pars, MYZopts)
+  pars$MYZinits = numeric(0)
+
+  return(pars)
+}
+
+#' @title Make parameters for Ztrace aquatic mosquito model
+#' @param pars a [list]
+#' @param MYZopts a [list] of values that overwrites the defaults
+#' @param Zm a vector of mean mosquito densities
+#' @param f the blood feeding rate
+#' @param q the human fraction
+#' @param Zf a [function] of the form Zf(t, pars) that computes temporal fluctuations
+#' @return none
+#' @export
+make_MYZpar_Ztrace = function(pars, MYZopts,
+                              f = 0.3, q = 0.95,
+                              Zm = 1, Zf = NULL){
+
+  with(MYZopts,{
+    MYZpar <- list()
+    class(MYZpar) <- "Ztrace"
+
+    MYZpar$f0 <- checkIt(f, pars$nPatches)
+    MYZpar$q0 <- checkIt(q, pars$nPatches)
+    MYZpar$Zm <- checkIt(Zm, pars$nPatches)
+    if(is.null(Zf)) Zf = function(t, y, pars){return(1)}
+    MYZpar$Zf <- Zf
+
+    pars$MYZpar = MYZpar
+    pars = MosquitoBehavior(0, 0, pars)
+    return(pars)
+})}
+
 #' @title Add indices for aquatic stage mosquitoes to parameter list
 #' @description Implements [make_indices_MYZ] for Ztrace (forced emergence) model.
 #' @inheritParams make_indices_MYZ

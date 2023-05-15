@@ -43,11 +43,11 @@ dXdt.SISdXdH <- function(t, y, pars, EIR) {
 }
 
 #' @title Setup Xpar.SIS
-#' @description Implements [setup_Xpar] for the SIS model
-#' @inheritParams setup_Xpar
+#' @description Implements [setup_X] for the SIS model
+#' @inheritParams setup_X
 #' @return a [list] vector
 #' @export
-setup_Xpar.SIS = function(pars, Xname, Xopts=list()){
+setup_X.SIS = function(pars, Xname, Xopts=list()){
 
   pars$Xname = "SIS"
   pars = make_Xpar_SIS(pars, Xopts)
@@ -80,7 +80,7 @@ make_Xpar_SIS = function(pars, Xopts=list(),
 
 #' @title Make initial values for the SIS human model, with defaults
 #' @param pars a [list]
-#' @param Xopts a [list] that could overwrite defaults
+#' @param Xopts a [list] to overwrite defaults
 #' @param X0 the initial values of the parameter X
 #' @return a [list]
 #' @export

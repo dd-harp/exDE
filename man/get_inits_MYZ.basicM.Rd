@@ -13,5 +13,5 @@
 none
 }
 \description{
-Implements \link{get_inits_MYZ} for the RM model.
+Implements \link{get_inits_MYZ} for the basicM model.
 }

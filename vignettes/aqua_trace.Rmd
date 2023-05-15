@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+# A forced model 
+
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
 library(MASS)
@@ -31,11 +33,9 @@ Below we show an example, taken from the package tests, of using the trace-based
 aquatic model to keep an adult mosquito model at equilibrium when using unequal numbers
 of aquatic habitats per patch.
 
-We first calculate equilibrium values following the [Ross-Macdonald vignette](adult_RM.html).
-We use $\mathcal{N}$ and $\mathcal{U}$ to describe how aquatic habitats are dispersed amongst
-patches, and how mosquitoes in each patch disperse eggs to each habitat, respectively.
-Please note because we have unequal numbers of aquatic habitats and patches, we use `MASS::ginv`
-to compute the generalized inverse of $\mathcal{N}$ to get $\alpha$ required at equilibrium.
+## The Long Way 
+
+First, we set the parameter values. 
 
 ```{r}
 nPatches <- 3
@@ -70,7 +70,16 @@ Upsilon <- expm::expm(-Omega * eip)
 
 kappa <- c(0.1, 0.075, 0.025)
 Lambda <- c(5, 10, 8)
+``` 
 
+Next, we calculate equilibrium values following the [Ross-Macdonald vignette](adult_RM.html).
+We use $\mathcal{N}$ and $\mathcal{U}$ to describe how aquatic habitats are dispersed amongst
+patches, and how mosquitoes in each patch disperse eggs to each habitat, respectively.
+Please note because we have unequal numbers of aquatic habitats and patches, we use `MASS::ginv`
+to compute the generalized inverse of $\mathcal{N}$ to get $\alpha$ required at equilibrium.
+
+
+```{r}
 # equilibrium solutions
 Omega_inv <- solve(Omega)
 
@@ -96,6 +105,7 @@ params$calN = calN
 
 
 # ODE
+params$beta = beta
 params = make_parameters_L_trace(pars = params, Lambda = alpha)
 params = make_parameters_MYZ_basicM(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch)
 params = make_inits_MYZ_basicM(params, M_eq, P_eq)
@@ -108,6 +118,7 @@ y0[params$MYZpar$M_ix] <- M_eq
 y0[params$MYZpar$P_ix] <- P_eq
 
 out <- deSolve::ode(y = y0, times = 0:50, func = xDE_diffeqn_mosy, parms = params, method = 'lsoda')
+out1 <- out
 ```
 
 ```{r, out.width = "100%"}
@@ -124,3 +135,34 @@ ggplot(data = out, mapping = aes(x = time, y = value, color = Patch)) +
   facet_wrap(. ~ Component, scales = 'free') +
   theme_bw()
 ```
+
+## Using Setup
+
+```{r}
+Lo = list(
+  Lambda = alpha 
+)
+```
+
+```{r}
+MYZo = list(
+  f = 0.3,
+  q = 0.9,
+  g = 1/20,
+  sigma = 1/10,
+  eip = 11,
+  nu = 1/2,
+  eggsPerBatch = 30
+)
+```
+
+```{r}
+mosy1 = xde_setup_mosy("mosy1", MYZname = "basicM", Lname = "trace", nPatches = 3, membership = c(1,2,3,3), MYZopts = MYZo, calK = calK, Lopts = Lo, kappa = c(0.1, 0.075, 0.025))
+```
+
+```{r}
+xde_solve(mosy1,50,1) -> out2
+sum(out2-out1)
+```
+
+

@@ -63,11 +63,12 @@ test_that("forced emergence works with equilibrium", {
   params = make_parameters_L_trace(pars = params, Lambda = alpha)
 
   params = make_indices(params)
+  params$kappa = kappa
 
   y0 <- get_inits(params)
 
 
-  out <- deSolve::ode(y = y0, times = c(0, 365), func = xDE_diffeqn_mosy, parms = params, method = 'lsoda', kappa = kappa)
+  out <- deSolve::ode(y = y0, times = c(0, 365), func = xDE_diffeqn_mosy, parms = params, method = 'lsoda')
 
   M_sim <- as.vector(out[2, params$MYZpar$M_ix+1])
   P_sim <- as.vector(out[2, params$MYZpar$P_ix+1])

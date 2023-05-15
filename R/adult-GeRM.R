@@ -130,6 +130,140 @@ dMYZdt.GeRM_dde <- function(t, y, pars, Lambda, kappa) {
   })
 }
 
+#' @title Setup the GeRM model for adult mosquitoes
+#' @description Implements [setup_MYZ] for the GeRM model
+#' @inheritParams setup_MYZ
+#' @return a [list] vector
+#' @export
+setup_MYZ.GeRM = function(pars, MYZname,
+                             nPatches=1, MYZopts=list(),
+                             calK=diag(1)){
+
+  pars$MYZname = "GeRM"
+  pars$nPatches = checkIt(nPatches, 1, "integer")
+
+  pars = make_MYZpar_GeRM(pars, MYZopts, calK)
+  pars = make_MYZinits_GeRM(pars, MYZopts)
+
+  if(pars$MYZpar$xde == "dde"){
+    pars$xde = "dde"
+    class(pars$xde) = "dde"
+    Omega <- with(pars$MYZpar, make_Omega(g, sigma, calK, nPatches))
+    Upsilon <- expm::expm(-Omega*pars$MYZpar$eip)
+    pars$MYZinits$Upsilon0 = as.vector(Upsilon)
+  }
+  return(pars)
+}
+
+#' @title Make parameters for a GeRM ODE adult mosquito model
+#' @param pars a [list]
+#' @param MYZopts a [list] to overwrite defaults
+#' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
+#' @param g mosquito mortality rate
+#' @param setup_Fg a [list] to set up F_g
+#' @param sigma emigration rate
+#' @param setup_Fsigma a [list] to set up F_sigma
+#' @param f feeding rate
+#' @param setup_Ff a [list] to set up F_f
+#' @param q human blood fraction
+#' @param setup_Fq a [list] to set up F_q
+#' @param nu oviposition rate, per mosquito
+#' @param setup_Fnu a [list] to set up F_nu
+#' @param eip length of extrinsic incubation period
+#' @param setup_Feip a [list] to set up F_eip
+#' @param eggsPerBatch eggs laid per oviposition
+#' @param solve_as is either `ode` to solve as an ode or `dde` to solve as a dde
+#' @return none
+#' @export
+make_MYZpar_GeRM = function(pars, MYZopts=list(), calK,
+                            solve_as = "dde",
+                            g=1/12, setup_Fg = list(),
+                            sigma=1/8, setup_Fsigma = list(),
+                            f=0.3, setup_Ff = list(),
+                            q=0.95, setup_Fq = list(),
+                            nu=1, setup_Fnu = list(),
+                            eip=11, setup_Feip = list(),
+                            eggsPerBatch=60){
+
+  stopifnot(is.matrix(calK))
+  stopifnot(dim(calK) == c(pars$nPatches, pars$nPatches))
+
+  with(MYZopts,{
+    MYZpar <- list()
+
+    MYZpar$xde <- solve_as
+    class(MYZpar$xde) <- solve_as
+    if(solve_as == 'dde') class(MYZpar) <- c('GeRM', 'GeRM_dde')
+    if(solve_as == 'ode') class(MYZpar) <- c('GeRM', 'GeRM_ode')
+
+    if(length(setup_Fg) == 0){
+      MYZpar$g_par <- list()
+      class(MYZpar$g_par) <- "static"
+      MYZpar$g0 <- checkIt(g, pars$nPatches)
+    } else MYZpar$g_par <- setup_Fx(setup_Fg)
+
+    if(length(setup_Fsigma) == 0){
+      MYZpar$sigma_par <- list()
+      class(MYZpar$sigma_par) <- "static"
+      MYZpar$sigma0 <- checkIt(sigma, pars$nPatches)
+    } else MYZpar$sigma_par <- setup_Fx(setup_Fsigma)
+
+    if(length(setup_Ff) == 0){
+      MYZpar$f_par <- list()
+      class(MYZpar$f_par) <- "static"
+      MYZpar$f0 <- checkIt(f, pars$nPatches)
+    } else MYZpar$f_par = setup_Fx(setup_Ff)
+
+    if(length(setup_Fq) == 0){
+      MYZpar$q_par <- list()
+      class(MYZpar$q_par) <- "static"
+      MYZpar$q0 <- checkIt(q, pars$nPatches)
+    } else MYZpar$q_par <- setup_Fx(setup_Fq)
+
+    if(length(setup_Fnu) == 0){
+      MYZpar$nu_par <- list()
+      class(MYZpar$nu_par) <- "static"
+      MYZpar$nu0 <- checkIt(nu, pars$nPatches)
+    } else MYZpar$nu_par= setup_Fx(setup_Fnu)
+
+    if(length(setup_Feip) == 0){
+      MYZpar$eip_par <- list()
+      class(MYZpar$eip_par) <- "static"
+      MYZpar$eip <- eip
+    } else MYZpar$eip_par = setup_Fx(setup_Feip)
+
+    MYZpar$eggsPerBatch <- eggsPerBatch
+
+    MYZpar$calK <- calK
+
+    pars$MYZpar = MYZpar
+    pars = MosquitoBehavior(0, 0, pars)
+
+    return(pars)
+})}
+
+#' @title Make inits for GeRM adult mosquito model
+#' @param pars a [list]
+#' @param MYZopts a [list] that overwrites the defaults
+#' @param M0 total mosquito density at each patch
+#' @param G0 total parous mosquito density at each patch
+#' @param Y0 infected mosquito density at each patch
+#' @param Z0 infectious mosquito density at each patch
+#' @return none
+#' @export
+make_MYZinits_GeRM = function(pars, MYZopts = list(),
+                              M0=5, G0=1, Y0=1, Z0=1){
+  with(MYZopts,{
+    inits = list()
+    inits$M0 = checkIt(M0, pars$nPatches)
+    inits$G0 = checkIt(G0, pars$nPatches)
+    inits$Y0 = checkIt(Y0, pars$nPatches)
+    inits$Z0 = checkIt(Z0, pars$nPatches)
+
+    pars$MYZinits = inits
+    return(pars)
+  })}
+
 #' @title Add indices for adult mosquitoes to parameter list
 #' @description Implements [make_indices_MYZ] for the GeRM model.
 #' @inheritParams make_indices_MYZ
@@ -229,7 +363,6 @@ make_parameters_MYZ_GeRM_static <- function(pars, g, sigma, f, q, nu, eggsPerBat
   class(MYZpar$nu_par) <- "static"
   MYZpar$eip_par <- list()
   class(MYZpar$eip_par) <- "static"
-
 
   MYZpar$g0 <- g
   MYZpar$f0 <- f

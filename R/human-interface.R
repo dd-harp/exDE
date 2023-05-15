@@ -30,9 +30,9 @@ dXdt <- function(t, y, pars, EIR) {
 #' @param Xopts a [list]
 #' @return none
 #' @export
-setup_Xpar = function(pars, Xname, Xopts=list()){
+setup_X = function(pars, Xname, Xopts=list()){
   class(Xname) <- Xname
-  UseMethod("setup_Xpar", Xname)
+  UseMethod("setup_X", Xname)
 }
 
 #' @title Add indices for human population to parameter list

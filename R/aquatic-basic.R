@@ -25,6 +25,62 @@ dLdt.basic <- function(t, y, pars, eta) {
   })
 }
 
+#' @title Setup Lpar.basic
+#' @description Implements [setup_L] for the basic model
+#' @inheritParams setup_L
+#' @return a [list] vector
+#' @export
+setup_L.basic = function(pars, Lname,
+                            membership=1, searchQ=1,
+                            Lopts=list()){
+
+  pars$nHabitats=length(membership)
+  pars$Lname = "basic"
+  pars$membership = membership
+  pars$searchQ = checkIt(searchQ, length(membership), F)
+  pars$calN = make_calN(pars$nPatches, membership)
+  pars$calU = make_calU(pars$calN, pars$searchQ)
+
+  with(Lopts,{
+
+    pars = make_Lpar_basic(pars, Lopts)
+    pars = make_Linits_basic(pars, Lopts)
+
+    return(pars)
+ })}
+
+#' @title Make parameters for basic competition aquatic mosquito model
+#' @param pars a [list]
+#' @param Lopts a [list] that overwrites default values
+#' @param psi maturation rates for each aquatic habitat
+#' @param phi density-independent mortality rates for each aquatic habitat
+#' @param theta density-dependent mortality terms for each aquatic habitat
+#' @return a [list] with Lpar added
+#' @export
+make_Lpar_basic = function(pars, Lopts=list(), psi=1/8, phi=1/8, theta=1/100){with(Lopts,{
+  Lpar = list()
+  class(Lpar) <- "basic"
+  Lpar$psi = checkIt(psi, pars$nHabitats)
+  Lpar$phi = checkIt(phi, pars$nHabitats)
+  Lpar$theta = checkIt(theta, pars$nHabitats)
+
+  pars$Lpar = Lpar
+  return(pars)
+})}
+
+#' @title Make inits for basic competition aquatic mosquito model
+#' @param pars a [list]
+#' @param Lopts a [list] that overwrites default values
+#' @param L0 initial conditions
+#' @return a [list] with Linits added
+#' @export
+make_Linits_basic = function(pars, Lopts=list(), L0 = 1){with(Lopts,{
+  inits = list()
+  inits$L0 = checkIt(L0, pars$nHabitats)
+  pars$Linits = inits
+  return(pars)
+})}
+
 #' @title Add indices for aquatic stage mosquitoes to parameter list
 #' @description Implements [make_indices_L] for basic competition model.
 #' @inheritParams make_indices_L
