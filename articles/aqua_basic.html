@@ -150,6 +150,9 @@ dependence to be unknown and solve such that:</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="the-long-way">The long way<a class="anchor" aria-label="anchor" href="#the-long-way"></a>
+</h3>
 <p>Here we run a simple example with 3 aquatic habitats at equilibrium.
 We use <code><a href="../reference/make_parameters_L_basic.html">exDE::make_parameters_L_basic</a></code> to set up parameters.
 Please note that this only runs the aquatic mosquito component and that
@@ -174,14 +177,20 @@ example</a> to run a full simulation.</p>
 <span></span>
 <span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_L_basic.html">make_parameters_L_basic</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, psi <span class="op">=</span> <span class="va">psi</span>, phi <span class="op">=</span> <span class="va">phi</span>, theta <span class="op">=</span> <span class="va">theta</span><span class="op">)</span></span>
 <span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_inits_L_basic.html">make_inits_L_basic</a></span><span class="op">(</span><span class="va">params</span>, <span class="va">L</span><span class="op">)</span></span>
-<span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_parameters_lsm_null.html">make_parameters_lsm_null</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">xDE_aquatic</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">F_eta</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">eta</span> <span class="op">&lt;-</span> <span class="fu">F_eta</span><span class="op">(</span><span class="va">t</span>, <span class="va">pars</span><span class="op">)</span></span>
+<span>  <span class="va">dL</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dLdt.html">dLdt</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">eta</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dL</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_inits_L.html">get_inits_L</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">deSolve</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">ode</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y0</span>, times <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span>, <span class="va">xDE_diffeqn_aquatic</span>, parms <span class="op">=</span> <span class="va">params</span>, method <span class="op">=</span> <span class="st">'lsoda'</span>, F_eta <span class="op">=</span> <span class="va">F_eta</span><span class="op">)</span> </span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">deSolve</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">ode</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y0</span>, times <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span>, <span class="va">xDE_aquatic</span>, parms <span class="op">=</span> <span class="va">params</span>, method <span class="op">=</span> <span class="st">'lsoda'</span>, F_eta <span class="op">=</span> <span class="va">F_eta</span><span class="op">)</span> </span>
+<span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="va">out</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">[</span><span class="va">params</span><span class="op">$</span><span class="va">L_ix</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'L_'</span>, <span class="fl">1</span><span class="op">:</span><span class="va">params</span><span class="op">$</span><span class="va">nHabitats</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
@@ -192,7 +201,36 @@ example</a> to run a full simulation.</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">out</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">time</span>, y <span class="op">=</span> <span class="va">value</span>, color <span class="op">=</span> <span class="va">Patch</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="aqua_basic_files/figure-html/unnamed-chunk-6-1.png" width="100%"></p>
+<p><img src="aqua_basic_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
+</div>
+<div class="section level3">
+<h3 id="using-setup">Using Setup<a class="anchor" aria-label="anchor" href="#using-setup"></a>
+</h3>
+<p>The function <code>xde_setup_aquatic</code> sets up a model that
+includes only aquatic dynamics, and it is solved using
+<code>xde_solve.aqua.</code> The setup functions are simpler than
+<code>xde_setup</code> and come with constrained choices. The user can
+configure any aquatic model (<code>trace</code> wouldn’t make much
+sense), and it uses <code>Gtrace</code> to force egg laying.</p>
+<p>We configure the aquatic model: <code>Lo</code> is a list with the
+parameter values attached.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Lo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  psi <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">10</span>, </span>
+<span>  phi <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">12</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">alpha</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">50</span>, <span class="fl">20</span><span class="op">)</span></span>
+<span><span class="va">Lo</span><span class="op">$</span><span class="va">L0</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">Lo</span>, <span class="va">alpha</span><span class="op">/</span><span class="va">psi</span><span class="op">)</span> </span>
+<span><span class="va">Lo</span><span class="op">$</span><span class="va">theta</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">Lo</span>, <span class="op">(</span><span class="va">eta</span> <span class="op">-</span> <span class="va">psi</span><span class="op">*</span><span class="va">L0</span> <span class="op">-</span> <span class="va">phi</span><span class="op">*</span><span class="va">L0</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">L0</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>We use the MYZ model <code>Gtrace</code> to configure egg laying.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Mo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Gm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">250</span>, <span class="fl">500</span>, <span class="fl">170</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">aqbasic</span> <span class="op">=</span> <span class="fu"><a href="../reference/xde_setup_aquatic.html">xde_setup_aquatic</a></span><span class="op">(</span><span class="st">"aqbasic"</span>, nHabitats <span class="op">=</span> <span class="fl">3</span>, Lname <span class="op">=</span> <span class="st">"basic"</span>, Lopts <span class="op">=</span> <span class="va">Lo</span>, MYZopts <span class="op">=</span> <span class="va">Mo</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/xde_solve.html">xde_solve</a></span><span class="op">(</span><span class="va">aqbasic</span>, Tmax<span class="op">=</span><span class="fl">50</span>, dt<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">out2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">out1</span><span class="op">-</span><span class="va">out2</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

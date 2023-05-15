@@ -514,7 +514,58 @@
     <loc>https://dd-harp.github.io/exDE/reference/kappa_local.null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_Linits_basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_Lpar_basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_Lpar_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_MYZinits_GeRM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_MYZinits_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_MYZinits_basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_MYZpar_GeRM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_MYZpar_Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_MYZpar_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_MYZpar_Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_MYZpar_basicM.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_Omega.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_TaR.as_matrix.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_TaR.athome.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_TaR.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_TaR.xy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_TaR_athome.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_TaR_xy.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_Xinits_SIP.html</loc>
@@ -536,6 +587,27 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_Xpar_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_calK.as_matrix.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_calK.herethere.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_calK.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_calK.xy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_calK_xy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_calN.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_calU.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_indices.html</loc>
@@ -742,19 +814,49 @@
     <loc>https://dd-harp.github.io/exDE/reference/metric_calZ.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/setup_Xpar.SIP.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_Hpar.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/setup_Xpar.SIS.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_L.basic.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/setup_Xpar.hMoI.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_L.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/setup_Xpar.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_L.trace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/setup_Xpar.trace.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_MYZ.GeRM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_MYZ.Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_MYZ.RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_MYZ.Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_MYZ.basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_MYZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_X.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_X.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_X.hMoI.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_X.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_X.trace.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_forcing_MYZ_GeRM_basic.html</loc>
@@ -776,5 +878,29 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn_mosy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_setup.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_setup_aquatic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_setup_mosy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_solve.aqua.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_solve.dde.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_solve.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_solve.mosy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_solve.ode.html</loc>
   </url>
 </urlset>

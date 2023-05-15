@@ -103,14 +103,17 @@
     
     
 <p>The Ross-Macdonald adult mosquito model fulfills the generic
-interface of the adult mosquito component. Here, we use a Ross-Macdonald
-model based on a model first published in 1982 by Joan Aron and Robert
-May (Aron JL, and May RM (1982). The population dynamics of malaria. In
-<em>The Population Dynamics of Infectious Diseases: Theory and
-Applications,</em> R. M. Anderson, ed. (Springer US), pp. 139–179). It
-includes state variables for total mosquito density <span class="math inline">\(M\)</span>, infected mosquito density <span class="math inline">\(Y\)</span>, and infectious mosquito density <span class="math inline">\(Z\)</span>. Because of the interest in parity, the
-model has been extended to include a variable that tracks parous
-mosquitoes, <span class="math inline">\(P\)</span>.</p>
+interface of the adult mosquito component.</p>
+<p>Here, we use a Ross-Macdonald model based on a model first published
+in 1982 by Joan Aron and Robert May (Aron JL, and May RM (1982). The
+population dynamics of malaria. In <em>The Population Dynamics of
+Infectious Diseases: Theory and Applications,</em> R. M. Anderson,
+ed. (Springer US), pp. 139–179). It includes state variables for total
+mosquito density <span class="math inline">\(M\)</span>, infected
+mosquito density <span class="math inline">\(Y\)</span>, and infectious
+mosquito density <span class="math inline">\(Z\)</span>. Because of the
+interest in parity, the model has been extended to include a variable
+that tracks parous mosquitoes, <span class="math inline">\(P\)</span>.</p>
 <div class="section level2">
 <h2 id="differential-equations">Differential Equations<a class="anchor" aria-label="anchor" href="#differential-equations"></a>
 </h2>
@@ -225,6 +228,9 @@ M = (M - Y) + Y
 equilibrium. Please note that this only runs this adult mosquito model
 and that most users should read <a href="ex_534.html">our fully worked
 example</a> to run a full simulation.</p>
+<div class="section level3">
+<h3 id="the-long-way">The long way<a class="anchor" aria-label="anchor" href="#the-long-way"></a>
+</h3>
 <p>Here we set up some parameters for a simulation with 3 patches.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nPatches</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
@@ -291,7 +297,8 @@ a local version:</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">deSolve</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">ode</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y0</span>, times <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span>, <span class="va">dMYZdt_local</span>, parms<span class="op">=</span><span class="va">params</span>, </span>
-<span>                    method <span class="op">=</span> <span class="st">'lsoda'</span>, Lambda <span class="op">=</span> <span class="va">Lambda</span>, kappa <span class="op">=</span> <span class="va">kappa</span><span class="op">)</span> </span></code></pre></div>
+<span>                    method <span class="op">=</span> <span class="st">'lsoda'</span>, Lambda <span class="op">=</span> <span class="va">Lambda</span>, kappa <span class="op">=</span> <span class="va">kappa</span><span class="op">)</span> </span>
+<span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="va">out</span></span></code></pre></div>
 <p>The output is plotted below. The flat lines shown here is a
 verification that the steady state solutions that we computed above
 match the steady states computed by solving the equations:</p>
@@ -311,6 +318,67 @@ match the steady states computed by solving the equations:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">Component</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="adult_RM_files/figure-html/unnamed-chunk-9-1.png" width="100%"></p>
+</div>
+<div class="section level3">
+<h3 id="setup-utilities">Setup Utilities<a class="anchor" aria-label="anchor" href="#setup-utilities"></a>
+</h3>
+<p>In the vignette above, we set up a function to solve the differential
+equation. We hope this helps the end user to understand how
+<code>exDE</code> works under the hood, but the point of
+<code>exDE</code> is to lower the costs of building, analyzing, and
+using models. The functionality in <code>exDE</code> can handle this
+case – we can set up and solve the same model using built-in setup
+utilities. Learning to use these utilities makes it very easy to set up
+other models without having to learn some internals.</p>
+<p>To set up a model with the parameters above, we make three list with
+the named parameters and their values. We also attach to the list the
+initial values we want to use, if applicable. For the Ross-Macdonald
+adult mosquito model, we attach the parameter values:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">MYZo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  f <span class="op">=</span> <span class="fl">0.3</span>, q <span class="op">=</span> <span class="fl">0.9</span>, g <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">20</span>, sigma <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">10</span>,</span>
+<span>  eip <span class="op">=</span> <span class="fl">11</span>, nu <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">2</span>, eggsPerBatch <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>  solve_as <span class="op">=</span> <span class="st">"ode"</span>, </span>
+<span>  M0 <span class="op">=</span> <span class="va">M_eq</span>, P0 <span class="op">=</span> <span class="va">P_eq</span>, Y0 <span class="op">=</span> <span class="va">Y_eq</span>, Z0 <span class="op">=</span> <span class="va">Z_eq</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Each one of the dynamical components has a configurable
+<em>trace</em> algorithm that computes no derivatives, but passes its
+output as a parameter (see <code>human-trace.R</code>. To configure
+<code>Xpar,</code> we attach the values of <code>kappa</code> to a
+list:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Xo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>kappa <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.075</span>, <span class="fl">0.025</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Similarly, we configure the <em>trace</em> algorithm for aquatic
+mosquitoes (see <code>aquatic-trace.R</code>).</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Lo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Lambda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>To set up the model, we call <code>xde_setup</code> with</p>
+<ul>
+<li><p><code>nPatches</code> is set to 3</p></li>
+<li><p><code>MYZname</code> is set to “RM” to run the Ross-Macdonald
+model for adult mosquitoes; to pass our options, we write
+<code>MYZopts = MYZo</code>; and finally, the dispersal matrix
+<code>calK</code> is passed as <code>calK=calK</code></p></li>
+<li><p><code>Xname</code> is set to “trace” to run the trace module for
+human infection dynamics</p></li>
+<li><p><code>Lname</code> is set to “trace” to run the trace module
+aquatic mosquitoes</p></li>
+</ul>
+<p>Otherwise, setup takes care of all the internals:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">MYZeg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xde_setup.html">xde_setup</a></span><span class="op">(</span><span class="st">"RMexample"</span>,</span>
+<span>                   MYZname <span class="op">=</span> <span class="st">"RM"</span>, Xname <span class="op">=</span> <span class="st">"trace"</span>, Lname <span class="op">=</span> <span class="st">"trace"</span>,  </span>
+<span>                   nPatches<span class="op">=</span><span class="fl">3</span>, calK<span class="op">=</span><span class="va">calK</span>, membership <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>,</span>
+<span>                   MYZopts <span class="op">=</span> <span class="va">MYZo</span>, Xopts <span class="op">=</span> <span class="va">Xo</span>, Lopts <span class="op">=</span> <span class="va">Lo</span><span class="op">)</span> </span></code></pre></div>
+<p>Now, we can solve the equations using <code>xde_solve</code> and
+compare the output to what we got above. If they are identical, the two
+objects should be identical, so can simply add the absolute value of
+their differences:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xde_solve.html">xde_solve</a></span><span class="op">(</span><span class="va">MYZeg</span>, Tmax<span class="op">=</span><span class="fl">50</span>, dt<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">out1</span><span class="op">-</span><span class="va">out2</span><span class="op">)</span><span class="op">)</span><span class="op">==</span><span class="fl">0</span> </span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
