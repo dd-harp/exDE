@@ -9,11 +9,11 @@ VectorControl.null <- function(t, y, pars) {
   return(pars)
 }
 
-#' @title Make parameters for the null model of vector control (do nothing)
+#' @title Set up the vector control null model (do nothing)
 #' @param pars a [list]
 #' @return none
 #' @export
-make_parameters_vc_null <- function(pars) {
+setup_vc_null <- function(pars) {
   VCpar <- list()
   class(VCpar) <- 'null'
   pars$VCpar <- VCpar

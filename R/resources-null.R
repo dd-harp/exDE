@@ -1,17 +1,17 @@
-#' @title Modify parameters due to exogenous forcing
-#' @description Implements [ResourceAvailability] for the null model of hydrology (do nothing)
-#' @inheritParams ResourceAvailability
+#' @title Modify resources and resource availability
+#' @description Implements [Resources] for the null model of resources (do nothing)
+#' @inheritParams Resources
 #' @return none
 #' @export
-ResourceAvailability.null <- function(t, y, pars) {
+Resources.null <- function(t, y, pars) {
   return(pars)
 }
 
-#' @title Make parameters for the null model for resource availability (do nothing)
+#' @title Set up parameters for the null model for resource availability (do nothing)
 #' @param pars a [list]
 #' @return none
 #' @export
-make_parameters_resources_null<- function(pars) {
+setup_resources_null<- function(pars) {
   RApar <- list()
   class(RApar) <- 'null'
   pars$RApar <- RApar

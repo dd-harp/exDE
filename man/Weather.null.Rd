@@ -2,7 +2,7 @@
 % Please edit documentation in R/exogenous-null.R
 \name{Weather.null}
 \alias{Weather.null}
-\title{Modify parameters due to exogenous forcing}
+\title{Modify exogenous variables describing weather}
 \usage{
 \method{Weather}{null}(t, pars)
 }
@@ -15,5 +15,5 @@
 none
 }
 \description{
-Implements \link{Weather} for the null model of weather (do nothing)
+Implements \link{Weather} for the null model (no variables)
 }

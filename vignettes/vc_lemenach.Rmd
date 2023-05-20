@@ -161,8 +161,8 @@ ITN_cov <- function(t) {ifelse(t < 0, 0, (sin(2*pi*(t-365/4) / 365) + 1) / 2)}
 We use the null model of human demographic dynamics, which assumes $H$ is constant for all time.
 
 ```{r}
-itn_mod = make_parameters_vc_control(itn_mod)
-itn_mod = make_parameters_itn_lemenach(itn_mod, phi = ITN_cov)
+itn_mod = setup_vc_control(itn_mod)
+itn_mod = setup_itn_lemenach(itn_mod, phi = ITN_cov)
 ```
 
 ```{r}

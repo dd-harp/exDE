@@ -15,5 +15,5 @@ Weather(t, pars)
 none
 }
 \description{
-This method dispatches on the type of \code{pars$Wpar}.
+This method dispatches on the type of \code{pars$WETpar}.
 }

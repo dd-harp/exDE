@@ -13,15 +13,15 @@ xDE_diffeqn <- function(t, y, pars) {
 
   # set the values of exogenous forcing variables
   pars <- ExogenousForcing(t, pars)
+  pars <- Visitors(t, pars)
+  pars <- HumanBehavior(t, y, pars)
+  pars <- Resources(t, y, pars)
 
   # set baseline mosquito bionomic parameters
   pars <- MosquitoBehavior(t, y, pars)
 
   # modify baseline mosquito bionomic parameters
   pars <- VectorControl(t, y, pars)
-
-  # importation from outside the spatial domain
-  pars <- Import(t, y, pars)
 
   # eta: egg laying
   eggs <- F_eggs(t, y, pars)
@@ -60,15 +60,15 @@ xDE_diffeqn_human <- function(t, y, pars) {
 
   # set the values of exogenous forcing variables
   pars <- ExogenousForcing(t, pars)
+  pars <- Visitors(t, pars)
+  pars <- HumanBehavior(t, y, pars)
+  pars <- Resources(t, y, pars)
 
   # set baseline mosquito bionomic parameters
   pars <- MosquitoBehavior(t, y, pars)
 
   # modify baseline mosquito bionomic parameters
   pars <- VectorControl(t, y, pars)
-
-  # importation from outside the spatial domain
-  pars <- Import(t, y, pars)
 
   # blood feeding & mixing
   beta <- F_beta(t, y, pars)
@@ -96,12 +96,16 @@ xDE_diffeqn_mosy <- function(t, y, pars) {
 
   # set the values of exogenous forcing variables
   pars <- ExogenousForcing(t, pars)
+  pars <- Visitors(t, pars)
+  pars <- HumanBehavior(t, y, pars)
+  pars <- Resources(t, y, pars)
 
   # set baseline mosquito bionomic parameters
   pars <- MosquitoBehavior(t, y, pars)
 
   # modify baseline mosquito bionomic parameters
   pars <- VectorControl(t, y, pars)
+
 
   # eta: egg laying
   eggs <- F_eggs(t, y, pars)
@@ -151,6 +155,7 @@ xDE_diffeqn_aquatic <- function(t, y, pars) {
 
   # set the values of exogenous forcing variables
   pars <- ExogenousForcing(t, pars)
+  pars <- Resources(t, y, pars)
 
   # modify baseline mosquito bionomic parameters
   pars <- LSM(t, pars)

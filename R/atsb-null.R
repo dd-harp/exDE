@@ -13,7 +13,7 @@ ATSB.null <- function(t, pars) {
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-make_parameters_atsb_null <- function(pars) {
+setup_atsb_null <- function(pars) {
   ATSBpar <- list()
   class(ATSBpar) <- 'null'
   pars$ATSBpar <- ATSBpar

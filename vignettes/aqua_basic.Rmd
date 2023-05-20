@@ -79,8 +79,8 @@ F_eta = function(t, pars){
   pars$eta
 }
 
-params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
-params = make_inits_L_basic(params, L)
+params = make_Lpar_basic(pars = params, psi = psi, phi = phi, theta = theta)
+params = make_Linits_basic(params, L0=L)
 
 params = make_indices(params)
 ```

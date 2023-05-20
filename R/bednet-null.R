@@ -13,7 +13,7 @@ BedNets.null <- function(t, pars) {
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-make_parameters_itn_null <- function(pars) {
+setup_itn_null <- function(pars) {
   ITNpar <- list()
   class(ITNpar) <- 'null'
   pars$ITNpar <- ITNpar

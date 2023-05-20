@@ -13,7 +13,7 @@ LSM.null <- function(t, pars) {
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-make_parameters_lsm_null <- function(pars) {
+setup_lsm_null <- function(pars) {
   LSMpar <- list()
   class(LSMpar) <- 'null'
   pars$LSMpar <- LSMpar

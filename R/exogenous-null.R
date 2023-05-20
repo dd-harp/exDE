@@ -7,19 +7,19 @@
 #' @export
 ExogenousForcing.null <- function(t, pars) {pars}
 
-#' @title Make parameters for the null model of exogenous forcing (do nothing)
+#' @title Set up the null model for exogenous forcing (do nothing)
 #' @param pars a [list]
 #' @return none
 #' @export
-make_parameters_exogenous_null <- function(pars) {
+setup_exogenous_null <- function(pars) {
   EXOpar <- list()
   class(EXOpar) <- 'null'
   pars$EXOpar <- EXOpar
   return(pars)
 }
 
-#' @title Modify parameters due to exogenous forcing
-#' @description Implements [Weather] for the null model of weather (do nothing)
+#' @title Modify exogenous variables describing weather
+#' @description Implements [Weather] for the null model (no variables)
 #' @inheritParams Weather
 #' @return none
 #' @export
@@ -27,14 +27,14 @@ Weather.null <- function(t, pars) {
   return(pars)
 }
 
-#' @title Make parameters for the null model for weather (do nothing)
+#' @title Set up the null model for weather (do nothing)
 #' @param pars a [list]
 #' @return none
 #' @export
-make_parameters_weather_null <- function(pars) {
-  Wpar <- list()
-  class(Wpar) <- 'null'
-  pars$Wpar <- Wpar
+setup_weather_null <- function(pars) {
+  WETpar <- list()
+  class(WETpar) <- 'null'
+  pars$WETpar <- WETpar
   return(pars)
 }
 
@@ -51,7 +51,7 @@ Hydrology.null <- function(t, pars) {
 #' @param pars a [list]
 #' @return none
 #' @export
-make_parameters_hydrology_null <- function(pars) {
+setup_hydrology_null <- function(pars) {
   HYpar <- list()
   class(HYpar) <- 'null'
   pars$HYpar <- HYpar
