@@ -256,7 +256,7 @@ solving as an <code>ode.</code></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>nPatches <span class="op">=</span> <span class="va">nPatches</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_MYZ_RM.html">make_parameters_MYZ_RM</a></span><span class="op">(</span><span class="va">params</span>, </span>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_MYZpar_RM.html">make_MYZpar_RM</a></span><span class="op">(</span><span class="va">params</span>, </span>
 <span>                                g <span class="op">=</span> <span class="va">g</span>, sigma <span class="op">=</span> <span class="va">sigma</span>, calK <span class="op">=</span> <span class="va">calK</span>, </span>
 <span>                                f <span class="op">=</span> <span class="va">f</span>, q <span class="op">=</span> <span class="va">q</span>, </span>
 <span>                                nu <span class="op">=</span> <span class="va">nu</span>, eggsPerBatch <span class="op">=</span> <span class="va">eggsPerBatch</span>, </span>
@@ -278,7 +278,7 @@ equilibrium values.</p>
 values. These equations have been implemented to compute <span class="math inline">\(\Upsilon\)</span> dynamically, so we attach
 <code>Upsilon</code> as initial values:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_inits_MYZ_RM_ode.html">make_inits_MYZ_RM_ode</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, </span>
+<code class="sourceCode R"><span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_MYZinits_RM.html">make_MYZinits_RM</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, </span>
 <span>                             M0 <span class="op">=</span> <span class="va">M_eq</span>, P0 <span class="op">=</span> <span class="va">P_eq</span>, Y0 <span class="op">=</span> <span class="va">Y_eq</span>, Z0 <span class="op">=</span> <span class="va">Z_eq</span><span class="op">)</span></span></code></pre></div>
 <p>We and set the indices with <code><a href="../reference/make_indices.html">exDE::make_indices</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">

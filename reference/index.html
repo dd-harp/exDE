@@ -171,9 +171,19 @@
         <dd>Solve a system of equations for aquatic dynamics, forced by egg deposition, using xDE_diffeqn_aquatic</dd>
       </dl><dl><dt>
           
+          <code><a href="xde_solve.aqua_dde.html">xde_solve(<i>&lt;aqua_dde&gt;</i>)</a></code> 
+        </dt>
+        <dd>Solve a system of delay equations for aquatic dynamics, forced by egg deposition, using xDE_diffeqn_aquatic</dd>
+      </dl><dl><dt>
+          
           <code><a href="xde_solve.mosy.html">xde_solve(<i>&lt;mosy&gt;</i>)</a></code> 
         </dt>
         <dd>Solve a system of equations for mosquito ecology using xDE_diffeqn_mosy</dd>
+      </dl><dl><dt>
+          
+          <code><a href="xde_solve.mosy_dde.html">xde_solve(<i>&lt;mosy_dde&gt;</i>)</a></code> 
+        </dt>
+        <dd>Solve a system of delay differential equations for mosquito ecology using xDE_diffeqn_mosy</dd>
       </dl><dl><dt>
           
           <code><a href="xde_solve.human.html">xde_solve(<i>&lt;human&gt;</i>)</a></code> 
@@ -467,7 +477,7 @@
         <dd>Reset bloodfeeding and mortality rates to baseline</dd>
       </dl><dl><dt>
           
-          <code><a href="ResourceAvailability.GeRM.html">ResourceAvailability(<i>&lt;GeRM&gt;</i>)</a></code> 
+          <code><a href="Resources.GeRM.html">Resources(<i>&lt;GeRM&gt;</i>)</a></code> 
         </dt>
         <dd>Set the availability of resources</dd>
       </dl><dl><dt>
@@ -1435,7 +1445,7 @@
         <dd>Null human population births</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_exposure_pois.html">make_parameters_exposure_pois()</a></code> 
+          <code><a href="setup_exposure_pois.html">setup_exposure_pois()</a></code> 
         </dt>
         <dd>Make parameters for the null model of exposure</dd>
       </dl></div><div class="section level2">
@@ -1456,7 +1466,7 @@
         <dd>Null human population births</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_exposure_nb.html">make_parameters_exposure_nb()</a></code> 
+          <code><a href="setup_exposure_nb.html">setup_exposure_nb()</a></code> 
         </dt>
         <dd>Make parameters for the null model of exposure</dd>
       </dl></div><div class="section level2">
@@ -1493,9 +1503,9 @@
         <dd>Modify parameters due to exogenous forcing</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_exogenous_null.html">make_parameters_exogenous_null()</a></code> 
+          <code><a href="setup_exogenous_null.html">setup_exogenous_null()</a></code> 
         </dt>
-        <dd>Make parameters for the null model of exogenous forcing (do nothing)</dd>
+        <dd>Set up the null model for exogenous forcing (do nothing)</dd>
       </dl></div><div class="section level2">
       
       <h3 id="forced">forced<a class="anchor" aria-label="anchor" href="#forced"></a></h3>
@@ -1514,7 +1524,7 @@
         <dd>Modify parameters due to exogenous forcing</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_exogenous_forced.html">make_parameters_exogenous_forced()</a></code> 
+          <code><a href="setup_exogenous_forced.html">setup_exogenous_forced()</a></code> 
         </dt>
         <dd>Make parameters for the null model of exogenous forcing (do nothing)</dd>
       </dl></div><div class="section level2">
@@ -1537,12 +1547,12 @@
           
           <code><a href="Weather.null.html">Weather(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
+        <dd>Modify exogenous variables describing weather</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_weather_null.html">make_parameters_weather_null()</a></code> 
+          <code><a href="setup_weather_null.html">setup_weather_null()</a></code> 
         </dt>
-        <dd>Make parameters for the null model for weather (do nothing)</dd>
+        <dd>Set up the null model for weather (do nothing)</dd>
       </dl></div><div class="section level2">
       
       <h3 id="hydrology">Hydrology<a class="anchor" aria-label="anchor" href="#hydrology"></a></h3>
@@ -1566,7 +1576,7 @@
         <dd>Modify parameters due to exogenous forcing</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_hydrology_null.html">make_parameters_hydrology_null()</a></code> 
+          <code><a href="setup_hydrology_null.html">setup_hydrology_null()</a></code> 
         </dt>
         <dd>Make parameters for the null model for hydrology (do nothing)</dd>
       </dl></div><div class="section level2">
@@ -1582,19 +1592,19 @@
 
       <dl><dt>
           
-          <code><a href="ResourceAvailability.html">ResourceAvailability()</a></code> 
+          <code><a href="Resources.html">Resources()</a></code> 
         </dt>
         <dd>Set the values of exogenous variables describing available non-host resources</dd>
       </dl><dl><dt>
           
-          <code><a href="ResourceAvailability.null.html">ResourceAvailability(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="Resources.null.html">Resources(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
+        <dd>Modify resources and resource availability</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_resources_null.html">make_parameters_resources_null()</a></code> 
+          <code><a href="setup_resources_null.html">setup_resources_null()</a></code> 
         </dt>
-        <dd>Make parameters for the null model for resource availability (do nothing)</dd>
+        <dd>Set up parameters for the null model for resource availability (do nothing)</dd>
       </dl><dl><dt>
           
           <code><a href="F_other.html">F_other()</a></code> 
@@ -1661,9 +1671,9 @@
         </dt>
         <dd>Static model for hosts</dd>
       </dl></div><div class="section level2">
-      <h2 id="malaria-importation">Malaria Importation<a class="anchor" aria-label="anchor" href="#malaria-importation"></a></h2>
+      <h2 id="human-behavior">Human Behavior<a class="anchor" aria-label="anchor" href="#human-behavior"></a></h2>
       
-      <p class="section-desc"></p><p>Methods to implement malaria importation</p>
+      <p class="section-desc"></p><p>Methods to implement human behaviors</p>
 
       
     </div><div id="" class="section level2">
@@ -1673,9 +1683,35 @@
 
       <dl><dt>
           
-          <code><a href="Import.html">Import()</a></code> 
+          <code><a href="HumanBehavior.html">HumanBehavior()</a></code> 
         </dt>
-        <dd>Importation through visitors</dd>
+        <dd>Simulate Human Behavior</dd>
+      </dl><dl><dt>
+          
+          <code><a href="HumanBehavior.null.html">HumanBehavior(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Simulate no human behaviors</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_humanbehavior_null.html">setup_humanbehavior_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model for resource availability (do nothing)</dd>
+      </dl></div><div class="section level2">
+      <h2 id="visitors">Visitors<a class="anchor" aria-label="anchor" href="#visitors"></a></h2>
+      
+      <p class="section-desc"></p><p>Methods to implement malaria importation through visitors</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="Visitors.html">Visitors()</a></code> 
+        </dt>
+        <dd>Visitors</dd>
       </dl><dl><dt>
           
           <code><a href="kappa_local.html">kappa_local()</a></code> 
@@ -1689,7 +1725,7 @@
       </dl></div><div id="" class="section level2">
       
       
-      <p class="section-desc"></p><p>Specialized methods for a null model of malaria importation (do nothing)</p>
+      <p class="section-desc"></p><p>Specialized methods for a null model of malaria visitorsation (do nothing)</p>
 
       
     </div><div id="" class="section level2">
@@ -1699,9 +1735,9 @@
 
       <dl><dt>
           
-          <code><a href="Import.null.html">Import(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="Visitors.null.html">Visitors(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>Importation, the null model</dd>
+        <dd>Visitors, a null model</dd>
       </dl><dl><dt>
           
           <code><a href="kappa_local.null.html">kappa_local(<i>&lt;null&gt;</i>)</a></code> 
@@ -1714,13 +1750,13 @@
         <dd>Parasite / pathogen importation, the null model</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_import_null.html">make_parameters_import_null()</a></code> 
+          <code><a href="setup_visitors_null.html">setup_visitors_null()</a></code> 
         </dt>
-        <dd>Make parameters for the null model for parasite / pathogen importation</dd>
+        <dd>Make parameters for the null model visitors (no visitors)</dd>
       </dl></div><div class="section level2">
       
       <h3 id="basic-1">basic<a class="anchor" aria-label="anchor" href="#basic-1"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a basic model of malaria importation</p>
+      <p class="section-desc"></p><p>Specialized methods for a basic model of malaria visitorsation</p>
 
       
     </div><div id="" class="section level2">
@@ -1730,9 +1766,9 @@
 
       <dl><dt>
           
-          <code><a href="Import.basic.html">Import(<i>&lt;basic&gt;</i>)</a></code> 
+          <code><a href="Visitors.basic.html">Visitors(<i>&lt;basic&gt;</i>)</a></code> 
         </dt>
-        <dd>Importation, the basic model</dd>
+        <dd>Visitors, a basic model</dd>
       </dl><dl><dt>
           
           <code><a href="kappa_local.basic.html">kappa_local(<i>&lt;basic&gt;</i>)</a></code> 
@@ -1745,9 +1781,9 @@
         <dd>Parasite / pathogen importation, the basic model</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_import_basic.html">make_parameters_import_basic()</a></code> 
+          <code><a href="setup_visitors_basic.html">setup_visitors_basic()</a></code> 
         </dt>
-        <dd>Make parameters for the basic model for parasite / pathogen importation</dd>
+        <dd>Make parameters for the basic model for visitors</dd>
       </dl></div><div class="section level2">
       <h2 id="vector-control">Vector Control<a class="anchor" aria-label="anchor" href="#vector-control"></a></h2>
       
@@ -1782,9 +1818,9 @@
         <dd>Modify baseline values due to vector control</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_vc_null.html">make_parameters_vc_null()</a></code> 
+          <code><a href="setup_vc_null.html">setup_vc_null()</a></code> 
         </dt>
-        <dd>Make parameters for the null model of vector control (do nothing)</dd>
+        <dd>Set up the vector control null model (do nothing)</dd>
       </dl></div><div class="section level2">
       
       <h3 id="control">control<a class="anchor" aria-label="anchor" href="#control"></a></h3>
@@ -1803,7 +1839,7 @@
         <dd>Modify baseline values due to vector control</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_vc_control.html">make_parameters_vc_control()</a></code> 
+          <code><a href="setup_vc_control.html">setup_vc_control()</a></code> 
         </dt>
         <dd>Make parameters for the control model of vector control (do nothing)</dd>
       </dl></div><div class="section level2">
@@ -1829,7 +1865,7 @@
         <dd>Modify baseline values due to bed nets</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_itn_null.html">make_parameters_itn_null()</a></code> 
+          <code><a href="setup_itn_null.html">setup_itn_null()</a></code> 
         </dt>
         <dd>Make parameters for the null model of bed nets (do nothing)</dd>
       </dl><dl><dt>
@@ -1839,7 +1875,7 @@
         <dd>Modify baseline values due to vector control</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_itn_lemenach.html">make_parameters_itn_lemenach()</a></code> 
+          <code><a href="setup_itn_lemenach.html">setup_itn_lemenach()</a></code> 
         </dt>
         <dd>Make parameters for Le Menach ITN model of vector control</dd>
       </dl></div><div class="section level2">
@@ -1865,7 +1901,7 @@
         <dd>Modify baseline values due to IRS</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_irs_null.html">make_parameters_irs_null()</a></code> 
+          <code><a href="setup_irs_null.html">setup_irs_null()</a></code> 
         </dt>
         <dd>Make parameters for the null model of IRS (do nothing)</dd>
       </dl></div><div class="section level2">
@@ -1891,7 +1927,7 @@
         <dd>Modify baseline values due to ATSB</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_atsb_null.html">make_parameters_atsb_null()</a></code> 
+          <code><a href="setup_atsb_null.html">setup_atsb_null()</a></code> 
         </dt>
         <dd>Make parameters for the null model of ATSB (do nothing)</dd>
       </dl></div><div class="section level2">
@@ -1917,7 +1953,7 @@
         <dd>Modify baseline values due to LSM</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_lsm_null.html">make_parameters_lsm_null()</a></code> 
+          <code><a href="setup_lsm_null.html">setup_lsm_null()</a></code> 
         </dt>
         <dd>Make parameters for the null model of LSM (do nothing)</dd>
       </dl></div><div class="section level2">

@@ -262,6 +262,12 @@
     <loc>https://dd-harp.github.io/exDE/reference/HTC.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/HumanBehavior.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/HumanBehavior.null.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/Hydrology.html</loc>
   </url>
   <url>
@@ -272,15 +278,6 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/IRS.null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/Import.basic.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/Import.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/Import.null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/LSM.html</loc>
@@ -307,13 +304,13 @@
     <loc>https://dd-harp.github.io/exDE/reference/MosquitoBehavior.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/ResourceAvailability.GeRM.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/Resources.GeRM.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/ResourceAvailability.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/Resources.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/ResourceAvailability.null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/Resources.null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/VectorControl.control.html</loc>
@@ -323,6 +320,15 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/VectorControl.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Visitors.basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Visitors.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Visitors.null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/Weather.html</loc>
@@ -742,9 +748,6 @@
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_X_trace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_atsb_null.html</loc>
-  </url>
-  <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_demography_dynamic.html</loc>
   </url>
   <url>
@@ -752,51 +755,6 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_demography_static.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_exogenous_forced.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_exogenous_null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_exposure_nb.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_exposure_pois.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_hydrology_null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_import_basic.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_import_null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_irs_null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_itn_lemenach.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_itn_null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_lsm_null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_resources_null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_vc_control.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_vc_null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_weather_null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_xde.html</loc>
@@ -859,7 +817,58 @@
     <loc>https://dd-harp.github.io/exDE/reference/setup_X.trace.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_atsb_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_exogenous_forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_exogenous_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_exposure_nb.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_exposure_pois.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_forcing_MYZ_GeRM_basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_humanbehavior_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_hydrology_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_irs_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_itn_lemenach.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_itn_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_lsm_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_resources_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_vc_control.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_vc_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_visitors_basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_visitors_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_weather_null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn.html</loc>
@@ -892,6 +901,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/xde_solve.aqua.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_solve.aqua_dde.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/xde_solve.dde.html</loc>
   </url>
   <url>
@@ -902,6 +914,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xde_solve.mosy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_solve.mosy_dde.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xde_solve.ode.html</loc>
