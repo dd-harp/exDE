@@ -70,6 +70,15 @@ make_indices_X.trace <- function(pars) {
   return(pars)
 }
 
+#' @title Parse the output of deSolve and return variables for the trace model
+#' @description Implements [parse_deout_X] for the trace model
+#' @inheritParams parse_deout_X
+#' @return none
+#' @export
+parse_deout_X.trace <- function(varslist, deout, pars) {
+  return(varslist)
+}
+
 #' @title Make parameters for trace human model
 #' @param pars a [list]
 #' @param kappa net infectiousness

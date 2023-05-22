@@ -124,6 +124,17 @@ make_Xinits_SIP = function(pars, Xopts = list(),
   return(pars)
 })}
 
+#' @title Parse the output of deSolve and return variables for the SIP model
+#' @description Implements [parse_deout_X] for the SIP model
+#' @inheritParams parse_deout_X
+#' @return none
+#' @export
+parse_deout_X.SIP <- function(varslist, deout, pars) {
+  varslist$X = deout[,pars$Xpar$X_ix+1]
+  varslist$P = deout[,pars$Xpar$P_ix+1]
+  return(varslist)
+}
+
 #' @title Add indices for human population to parameter list
 #' @description Implements [make_indices_X] for the SIP model.
 #' @inheritParams make_indices_X
@@ -131,11 +142,13 @@ make_Xinits_SIP = function(pars, Xopts = list(),
 #' @importFrom utils tail
 #' @export
 make_indices_X.SIP <- function(pars) {
+
   pars$Xpar$X_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
   pars$max_ix <- tail(pars$Xpar$X_ix, 1)
 
   pars$Xpar$P_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
   pars$max_ix <- tail(pars$Xpar$P_ix, 1)
+
   return(pars)
 }
 

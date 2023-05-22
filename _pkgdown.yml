@@ -95,6 +95,7 @@ reference:
   - dMYZdt
   - setup_MYZ
   - make_indices_MYZ
+  - parse_deout_MYZ
   - get_inits_MYZ
   - make_Omega
 - subtitle: Mosquito Dispersal
@@ -117,6 +118,7 @@ reference:
   - make_MYZpar_basicM
   - make_MYZinits_basicM
   - make_indices_MYZ.basicM
+  - parse_deout_MYZ.basicM
   - make_inits_MYZ_basicM
   - get_inits_MYZ.basicM
   - make_parameters_MYZ_basicM
@@ -134,6 +136,7 @@ reference:
   - make_MYZinits_RM
   - make_indices_MYZ.RM_ode
   - make_indices_MYZ.RM_dde
+  - parse_deout_MYZ.RM
   - make_inits_MYZ_RM_ode
   - make_inits_MYZ_RM_dde
   - get_inits_MYZ.RM_ode
@@ -154,6 +157,7 @@ reference:
   - make_MYZinits_GeRM
   - make_indices_MYZ.GeRM_ode
   - make_indices_MYZ.GeRM_dde
+  - parse_deout_MYZ.GeRM
   - make_inits_MYZ_GeRM_ode
   - make_inits_MYZ_GeRM_dde
   - get_inits_MYZ.GeRM_ode
@@ -191,6 +195,7 @@ reference:
   - setup_MYZ.Ztrace
   - make_MYZpar_Ztrace
   - make_indices_MYZ.Ztrace
+  - parse_deout_MYZ.Ztrace
   - make_inits_MYZ_Ztrace
   - get_inits_MYZ.Ztrace
   - make_parameters_MYZ_Ztrace
@@ -205,6 +210,7 @@ reference:
   - setup_MYZ.Gtrace
   - make_MYZpar_Gtrace
   - make_indices_MYZ.Gtrace
+  - parse_deout_MYZ.Gtrace
   - make_inits_MYZ_Gtrace
   - get_inits_MYZ.Gtrace
   - make_parameters_MYZ_Gtrace
@@ -216,6 +222,7 @@ reference:
   - dLdt
   - setup_L
   - make_indices_L
+  - parse_deout_L
   - get_inits_L
   - make_calN
   - make_calU
@@ -228,6 +235,7 @@ reference:
   - setup_L.trace
   - make_Lpar_trace
   - make_indices_L.trace
+  - parse_deout_L.trace
   - make_inits_L_trace
   - get_inits_L.trace
   - make_parameters_L_trace
@@ -241,6 +249,7 @@ reference:
   - make_Lpar_basic
   - make_Linits_basic
   - make_indices_L.basic
+  - parse_deout_L.basic
   - make_inits_L_basic
   - get_inits_L.basic
   - make_parameters_L_basic
@@ -252,6 +261,7 @@ reference:
   - dXdt
   - setup_X
   - make_indices_X
+  - parse_deout_X
   - get_inits_X
   - HTC
 - subtitle: hMoI
@@ -264,6 +274,7 @@ reference:
   - make_Xpar_hMoI
   - make_Xinits_hMoI
   - make_indices_X.hMoI
+  - parse_deout_X.hMoI
   - make_inits_X_hMoI
   - get_inits_X.hMoI
   - make_parameters_X_hMoI
@@ -279,6 +290,7 @@ reference:
   - make_Xpar_SIS
   - make_Xinits_SIS
   - make_indices_X.SIS
+  - parse_deout_X.SIS
   - make_inits_X_SIS
   - get_inits_X.SIS
   - make_parameters_X_SIS
@@ -294,6 +306,7 @@ reference:
   - make_Xpar_SIP
   - make_Xinits_SIP
   - make_indices_X.SIP
+  - parse_deout_X.SIP
   - make_inits_X_SIP
   - get_inits_X.SIP
   - make_parameters_X_SIP
@@ -307,6 +320,7 @@ reference:
   - setup_X.trace
   - make_Xpar_trace
   - make_indices_X.trace
+  - parse_deout_X.trace
   - make_inits_X_trace
   - get_inits_X.trace
   - make_parameters_X_trace
@@ -319,6 +333,7 @@ reference:
   - setup_Hpar
   - Births
   - make_indices_H
+  - parse_deout_H
   - get_inits_H
   - make_parameters_demography_null
 - subtitle: Time at Risk
@@ -339,6 +354,7 @@ reference:
   - Births.static
   - dHdt.static
   - make_indices_H.static
+  - parse_deout_H.static
   - get_inits_H.static
   - make_parameters_demography_static
 - subtitle: dynamic
@@ -349,6 +365,7 @@ reference:
   - Births.numeric
   - dHdt.numeric
   - make_indices_H.dynamic
+  - parse_deout_H.dynamic
   - get_inits_H.dynamic
   - make_parameters_demography_dynamic
 - subtitle: F_Births
@@ -444,7 +461,7 @@ reference:
   - fqZ_local
 - subtitle: null
   desc: |
-    Specialized methods for a null model of malaria visitorsation (do nothing)
+    Specialized methods for a null model for visitors (do nothing)
   contents:
   - Visitors.null
   - kappa_local.null
@@ -515,6 +532,7 @@ reference:
   contents:
   - make_parameters_xde
   - make_indices
+  - parse_deout
   - get_inits
   - diag_inverse
   - approx_equal

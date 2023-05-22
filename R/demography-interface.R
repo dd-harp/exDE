@@ -109,3 +109,14 @@ make_parameters_demography_null <- function(pars, H, residence, searchWts, TaR) 
   return(pars)
 }
 
+#' @title Parse the output of deSolve and return the demography variables by name in a list
+#' @description This method dispatches on the type of `pars$Hpar`. Adds the variables
+#' from the demography module to varslist and returns it
+#' @param varslist a [list] the object to be returned
+#' @param deout a [matrix] of outputs from deSolve
+#' @param pars a [list] that defines a model
+#' @export
+parse_deout_H <- function(varslist, deout, pars) {
+  UseMethod("parse_deout_H", pars$Hpar)
+}
+

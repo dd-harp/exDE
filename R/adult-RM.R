@@ -302,6 +302,19 @@ make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, eip, 
   return(pars)
 }
 
+#' @title Parse the output of deSolve and return variables for the RM model
+#' @description Implements [parse_deout_MYZ] for the RM model
+#' @inheritParams parse_deout_MYZ
+#' @return none
+#' @export
+parse_deout_MYZ.RM <- function(varslist, deout, pars) {
+  varslist$M = deout[,pars$MYZpar$M_ix+1]
+  varslist$P = deout[,pars$MYZpar$P_ix+1]
+  varslist$Y = deout[,pars$MYZpar$Y_ix+1]
+  varslist$Z = deout[,pars$MYZpar$Z_ix+1]
+  return(varslist)
+}
+
 #' @title Make inits for RM adult mosquito model
 #' @param pars a [list]
 #' @param M0 total mosquito density at each patch

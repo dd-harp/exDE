@@ -20,6 +20,16 @@ make_indices_H.dynamic <- function(pars) {
   return(pars)
 }
 
+#' @title Parse the output of deSolve and return H for models with dynamic demography
+#' @description Implements [parse_deout_H] for models with dynamic demography
+#' @inheritParams parse_deout_H
+#' @return none
+#' @export
+parse_deout_H.dynamic <- function(varslist, deout, pars) {
+  varslist$H = deout[,pars$Hpar$H_ix+1]
+  return(varslist)
+}
+
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Hpar`.
 #' @param pars a [list]

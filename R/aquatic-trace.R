@@ -95,6 +95,15 @@ make_inits_L_trace<- function(pars, L0=NULL) {
   return(pars)
 }
 
+#' @title Parse the variable names for the trace model
+#' @description Implements [parse_deout_L] for the trace model.
+#' @inheritParams parse_deout_L
+#' @return varslist a [list]
+#' @export
+parse_deout_L.trace <- function(varslist, deout, pars) {
+  return(varslist)
+}
+
 #' @title Return initial values as a vector
 #' @description Implements [get_inits_L] for the GeRM model.
 #' @inheritParams get_inits_L

@@ -63,6 +63,29 @@ get_inits <- function(pars){
   return(y)
 }
 
+#' @title Parse the output of an object returned by deSolve
+#' @param pars a [list]
+#' @param deout a [matrix] of orbits returned by deSolve
+#' @return varslist a [list]
+#' @export
+parse_deout <- function(deout, pars){
+  varslist = list()
+  varslist$time = deout[,1]
+  if ('Lpar' %in% names(pars)) {
+    varslist = parse_deout_L(varslist, deout, pars)
+  }
+  if ('MYZpar' %in% names(pars)) {
+    varslist = parse_deout_MYZ(varslist, deout, pars)
+  }
+  if ('Xpar' %in% names(pars)) {
+    varslist = parse_deout_X(varslist, deout, pars)
+  }
+  if ('Hpar' %in% names(pars)) {
+    varslist = parse_deout_H(varslist, deout, pars)
+  }
+  return(varslist)
+}
+
 #' @title Invert a diagonal matrix
 #' @description Invert a diagonal matrix which is passed as a vector. If any
 #' elements are zero, set them to one.

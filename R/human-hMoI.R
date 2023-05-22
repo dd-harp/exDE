@@ -152,6 +152,17 @@ make_inits_X_hMoI <- function(pars, m10, m20) {
   return(pars)
 }
 
+#' @title Parse the output of deSolve and return variables for the hMoI model
+#' @description Implements [parse_deout_X] for the hMoI model
+#' @inheritParams parse_deout_X
+#' @return none
+#' @export
+parse_deout_X.hMoI <- function(varslist, deout, pars) {
+  varslist$m1 = deout[,pars$Xpar$m1_ix+1]
+  varslist$m2 = deout[,pars$Xpar$m2_ix+1]
+  return(varslist)
+}
+
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param pars a [list]
