@@ -159,7 +159,7 @@ xde_setup_aquatic = function(modelName,
   membership = 1:nHabitats
   searchQ = rep(1, nHabitats)
   pars = setup_L(pars, Lname, membership, searchQ, Lopts)
-  pars <- make_parameters_lsm_null(pars)
+  pars <- setup_lsm_null(pars)
 
   pars = make_indices(pars)
 

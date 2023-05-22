@@ -1,11 +1,13 @@
 # specialized methods for the basic model of parasite / pathogen importation
 
-#' @title Importation, the basic model
-#' @description Implements [Import] for the basic model of importation (do nothing)
-#' @inheritParams Import
+#' @title Visitors, a basic model
+#' @description Implements [Visitors] for the basic model of importation (do nothing)
+#' @inheritParams Visitors
 #' @return a named [list]
 #' @export
-Import.basic <- function(t, y, pars) {
+Visitors.basic <- function(t, pars) {
+  pars$x_visitors =  with(pars$Ipar, xv*xt(t, pars))
+  pars$Visitors =  with(pars$Ipar, Vm*Vt(t, pars))
   return(pars)
 }
 
@@ -28,19 +30,24 @@ fqZ_local.basic<- function(fqZ, pars) {
   return(pars$local_frac*fqZ)
 }
 
-#' @title Make parameters for the basic model for parasite / pathogen importation
+#' @title Make parameters for the basic model for visitors
 #' @param pars a [list]
 #' @param local_frac the fraction of bites taken on residents
-#' @param x_visitors the probability a bite on a visitor infects a mosquito
-#' @param Visitors is the availability of visitors for blood feeding
+#' @param xv the mean probability a bite on a visitor infects a mosquito
+#' @param xt a function to force x_visitors over time
+#' @param Vm is the mean availability of visitors for blood feeding
+#' @param Vt a function to force availability of Visitors over time
 #' @return none
 #' @export
-make_parameters_import_basic <- function(pars, local_frac=1, x_visitors=0, Visitors=0) {
+setup_visitors_basic <- function(pars, local_frac=1, xv=0, xt=NULL, Vm=0, Vt = NULL) {
   Ipar <- list()
   class(Ipar) <- 'basic'
   pars$Ipar <- Ipar
-  pars$x_visitors = x_visitors
-  pars$local_frac = local_frac
-  pars$Visitors = 0
+  pars$Ipar$xv = xv
+  if(is.null(xt)) xt = function(t, pars){1}
+  pars$local_frac = 0
+  pars$Ipar$Vm = Vm
+  if(is.null(Vt)) Vt = function(t, pars){1}
   return(pars)
 }
+

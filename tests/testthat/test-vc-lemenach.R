@@ -80,7 +80,7 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   pars = make_inits_MYZ_RM_dde(pars = pars, M0 = as.vector(M), P0 = as.vector(P), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=Upsilon)
   pars = make_parameters_L_trace(pars = pars,  Lambda = as.vector(Lambda))
   pars = make_inits_L_trace(pars = pars)
-  pars = make_parameters_itn_lemenach(pars = pars, phi=function(t){0})
+  pars = setup_itn_lemenach(pars = pars, phi=function(t){0})
   pars = make_parameters_X_SIS(pars = pars, b = b, c = c, r = r)
   pars = make_inits_X_SIS(pars = pars, X)
 

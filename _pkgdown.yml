@@ -72,7 +72,9 @@ reference:
   - xde_solve.dde
   - xde_solve.ode
   - xde_solve.aqua
+  - xde_solve.aqua_dde
   - xde_solve.mosy
+  - xde_solve.mosy_dde
   - xde_solve.human
 - title: Transmission
   desc: |
@@ -142,7 +144,7 @@ reference:
     Specialized methods for a generalized Ross-Macdonald model for adult mosquito ecology and parasite infection dynamics, first published by Sean L Wu, et al.(2023).
   contents:
   - MosquitoBehavior.GeRM
-  - ResourceAvailability.GeRM
+  - Resources.GeRM
   - F_Z.GeRM
   - F_eggs.GeRM
   - dMYZdt.GeRM_ode
@@ -368,13 +370,13 @@ reference:
     Specialized methods the default model (Poisson)
   contents:
   - F_foi.pois
-  - make_parameters_exposure_pois
+  - setup_exposure_pois
 - subtitle: nb
   desc: |
     Specialized methods the negative binomial model
   contents:
   - F_foi.nb
-  - make_parameters_exposure_nb
+  - setup_exposure_nb
 - title: Exogeneous Forcing
   desc: |
     Methods to implement exogeneous forcing.
@@ -385,34 +387,34 @@ reference:
     Specialized methods the null model (no exogenous forcing)
   contents:
   - ExogenousForcing.null
-  - make_parameters_exogenous_null
+  - setup_exogenous_null
 - subtitle: forced
   desc: |
     Specialized methods to call forcing
   contents:
   - ExogenousForcing.forced
-  - make_parameters_exogenous_forced
+  - setup_exogenous_forced
 - subtitle: Weather
   desc: |
     Specialized methods for weather
   contents:
   - Weather
   - Weather.null
-  - make_parameters_weather_null
+  - setup_weather_null
 - subtitle: Hydrology
   desc: |
     Specialized methods for hydrology
   contents:
   - Hydrology
   - Hydrology.null
-  - make_parameters_hydrology_null
+  - setup_hydrology_null
 - title: Resource Availability
   desc: |
     Methods to implement resource availability
   contents:
-  - ResourceAvailability
-  - ResourceAvailability.null
-  - make_parameters_resources_null
+  - Resources
+  - Resources.null
+  - setup_resources_null
   - F_other
   - F_other.static
   - F_sugar
@@ -426,29 +428,36 @@ reference:
   - computeQ
   - computeQ.static
   - computeQ.dynamic
-- title: Malaria Importation
+- title: Human Behavior
   desc: |
-    Methods to implement malaria importation
+    Methods to implement human behaviors
   contents:
-  - Import
+  - HumanBehavior
+  - HumanBehavior.null
+  - setup_humanbehavior_null
+- title: Visitors
+  desc: |
+    Methods to implement malaria importation through visitors
+  contents:
+  - Visitors
   - kappa_local
   - fqZ_local
 - subtitle: null
   desc: |
-    Specialized methods for a null model of malaria importation (do nothing)
+    Specialized methods for a null model of malaria visitorsation (do nothing)
   contents:
-  - Import.null
+  - Visitors.null
   - kappa_local.null
   - fqZ_local.null
-  - make_parameters_import_null
+  - setup_visitors_null
 - subtitle: basic
   desc: |
-    Specialized methods for a basic model of malaria importation
+    Specialized methods for a basic model of malaria visitorsation
   contents:
-  - Import.basic
+  - Visitors.basic
   - kappa_local.basic
   - fqZ_local.basic
-  - make_parameters_import_basic
+  - setup_visitors_basic
 - title: Vector Control
   desc: |
     Methods to implement vector control.
@@ -459,43 +468,43 @@ reference:
     Specialized methods for the null model (no vector control)
   contents:
   - VectorControl.null
-  - make_parameters_vc_null
+  - setup_vc_null
 - subtitle: control
   desc: |
     Specialized methods to implement vector control
   contents:
   - VectorControl.control
-  - make_parameters_vc_control
+  - setup_vc_control
 - subtitle: Bed Nets
   desc: |
     Methods to implement bed nets
   contents:
   - BedNets
   - BedNets.null
-  - make_parameters_itn_null
+  - setup_itn_null
   - BedNets.lemenach
-  - make_parameters_itn_lemenach
+  - setup_itn_lemenach
 - subtitle: Indoor Residual Spraying
   desc: |
     Methods to implement IRS
   contents:
   - IRS
   - IRS.null
-  - make_parameters_irs_null
+  - setup_irs_null
 - subtitle: Attractive Toxic Sugar Baits
   desc: |
     Methods to implement ATSB
   contents:
   - ATSB
   - ATSB.null
-  - make_parameters_atsb_null
+  - setup_atsb_null
 - subtitle: Larval Source Management
   desc: |
     Methods to implement LSM
   contents:
   - LSM
   - LSM.null
-  - make_parameters_lsm_null
+  - setup_lsm_null
 - title: Spatial metrics
   contents:
   - metric_calV

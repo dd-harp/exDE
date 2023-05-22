@@ -11,13 +11,13 @@ ExogenousForcing <- function(t, pars) {
 }
 
 #' @title Set the values of exogenous variables describing weather
-#' @description This method dispatches on the type of `pars$Wpar`.
+#' @description This method dispatches on the type of `pars$WETpar`.
 #' @param t current simulation time
 #' @param pars a [list]
 #' @return none
 #' @export
 Weather <- function(t, pars) {
-  UseMethod("Weather", pars$Wpar)
+  UseMethod("Weather", pars$WETpar)
 }
 
 #' @title Set the values of exogenous variables describing hydrology
@@ -27,7 +27,7 @@ Weather <- function(t, pars) {
 #' @return none
 #' @export
 Hydrology <- function(t, pars) {
-  UseMethod("Intervene", pars$HYpar)
+  UseMethod("Hydrology", pars$HYpar)
 }
 
 

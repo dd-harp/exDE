@@ -1,11 +1,11 @@
 # specialized methods for the null model of parasite / pathogen importation
 
-#' @title Importation, the null model
-#' @description Implements [Import] for the null model of importation (do nothing)
-#' @inheritParams Import
+#' @title Visitors, a null model
+#' @description Implements [Visitors] for the null model (do nothing)
+#' @inheritParams Visitors
 #' @return a named [list]
 #' @export
-Import.null <- function(t, y, pars) {
+Visitors.null <- function(t, pars) {
   return(pars)
 }
 
@@ -27,11 +27,11 @@ fqZ_local.null<- function(fqZ, pars) {
   return(fqZ)
 }
 
-#' @title Make parameters for the null model for parasite / pathogen importation
+#' @title Make parameters for the null model visitors (no visitors)
 #' @param pars a [list]
 #' @return none
 #' @export
-make_parameters_import_null <- function(pars) {
+setup_visitors_null <- function(pars) {
   Ipar <- list()
   class(Ipar) <- 'null'
   pars$Ipar <- Ipar

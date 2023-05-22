@@ -51,7 +51,7 @@ BedNets.lemenach <- function(t, pars) {
 #' @param phi a [function] that takes a single argument `t` and returns the level of ITN coverage at that time
 #' @return none
 #' @export
-make_parameters_itn_lemenach <- function(pars, tau0_frac = c(0.68/3, 2.32/3), r = 0.56, s = 0.03, phi = function(t) {.8} ) {
+setup_itn_lemenach <- function(pars, tau0_frac = c(0.68/3, 2.32/3), r = 0.56, s = 0.03, phi = function(t) {.8} ) {
   stopifnot(sum(tau0_frac) == 1)
   stopifnot(phi(0) >= 0)
   stopifnot(phi(0) <= 1)

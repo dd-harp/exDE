@@ -1,14 +1,13 @@
 # generic methods for parasite / pathogen importation
 
-#' @title Importation through visitors
+#' @title Visitors
 #' @description This method dispatches on the type of `pars$Ipar`.
 #' @param t current simulation time
-#' @param y state vector
 #' @param pars a [list]
 #' @return pars a [list]
 #' @export
-Import <- function(t, y, pars) {
-  UseMethod("Import", pars$Ipar)
+Visitors <- function(t, pars) {
+  UseMethod("Visitors", pars$Ipar)
 }
 
 #' @title Correct kappa for models with visitors

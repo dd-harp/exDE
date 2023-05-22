@@ -13,7 +13,7 @@ IRS.null <- function(t, pars) {
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-make_parameters_irs_null <- function(pars) {
+setup_irs_null <- function(pars) {
   IRSpar <- list()
   class(IRSpar) <- 'null'
   pars$IRSpar <- IRSpar

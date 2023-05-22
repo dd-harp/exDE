@@ -106,9 +106,9 @@ params$calN = calN
 
 # ODE
 params$beta = beta
-params = make_parameters_L_trace(pars = params, Lambda = alpha)
-params = make_parameters_MYZ_basicM(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch)
-params = make_inits_MYZ_basicM(params, M_eq, P_eq)
+params = make_Lpar_trace(pars = params, Lambda = alpha)
+params = make_MYZpar_basicM(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch)
+params = make_MYZinits_basicM(params, M0=M_eq, P0=P_eq)
 params = make_indices(params)
 ```
 

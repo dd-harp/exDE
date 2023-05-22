@@ -1,19 +1,20 @@
 # specialized methods for the adult mosquito GeRM model
 
 #' @title Set the availability of resources
-#' @description Implements [ResourceAvailability] for the GeRM model
-#' @inheritParams ResourceAvailability
+#' @description Implements [Resources] for the GeRM model
+#' @inheritParams Resources
 #' @return a named [list]
 #' @export
-ResourceAvailability.GeRM <- function(t, y, pars) {
+Resources.GeRM <- function(t, y, pars) {
   pars$O = F_other(t, pars)
   pars$S = F_sugar(t, pars)
+  pars$Q = computeQ(t, pars)
   pars$W = computeW(t, y, pars)
   pars$B = computeB(t, pars)
   pars$local_frac = with(pars, W/(W + Visitors))
-  pars$Q = computeQ(t, pars)
   return(pars)
 }
+
 
 #' @title Reset bloodfeeding and mortality rates to baseline
 #' @description Implements [MosquitoBehavior] for the GeRM model
@@ -388,7 +389,7 @@ make_parameters_MYZ_GeRM_static <- function(pars, g, sigma, f, q, nu, eggsPerBat
 #' @return none
 #' @export
 setup_forcing_MYZ_GeRM_basic <- function(pars, other, sugar, W, zeta, Q) {
-  pars = make_parameters_exogenous_forced(pars)
+
   RApar = list()
   class(RApar) = "GeRM"
   pars$RApar = RApar
@@ -420,7 +421,7 @@ setup_forcing_MYZ_GeRM_basic <- function(pars, other, sugar, W, zeta, Q) {
   pars$Qpar = Qpar
   pars$Q = Q
 
-  pars = ResourceAvailability(0, 0, pars)
+  pars = Resources(0, 0, pars)
   return(pars)
 }
 

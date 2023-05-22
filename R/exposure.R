@@ -30,7 +30,7 @@ F_foi.nb <- function(eir, pars){
 #' @param pars a [list]
 #' @return none
 #' @export
-make_parameters_exposure_pois <- function(pars) {
+setup_exposure_pois <- function(pars) {
   FOIpar <- list()
   class(FOIpar) <- 'pois'
   pars$FOIpar <- FOIpar
@@ -42,7 +42,7 @@ make_parameters_exposure_pois <- function(pars) {
 #' @param sz the size parameter, as in dnbinom(mu=mu, size=size)
 #' @return none
 #' @export
-make_parameters_exposure_nb <- function(pars, sz) {
+setup_exposure_nb <- function(pars, sz) {
   FOIpar <- list()
   class(FOIpar) <- 'nb'
   FOIpar$sz = sz

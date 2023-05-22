@@ -156,7 +156,7 @@ Now we set up the parameter environment with the correct class using `exDE::make
 ```{r}
 params <- list(nPatches = nPatches)
 
-params = make_parameters_MYZ_RM(params, 
+params = make_MYZpar_RM(params, 
                                 g = g, sigma = sigma, calK = calK, 
                                 f = f, q = q, 
                                 nu = nu, eggsPerBatch = eggsPerBatch, 
@@ -180,7 +180,7 @@ Z_eq <- as.vector(Omega_inv %*% Upsilon %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
 We use `exDE::make_inits_MYZ_RM` to store the initial values. These equations have been implemented to compute $\Upsilon$ dynamically, so we attach `Upsilon` as initial values:
 
 ```{r}
-params = make_inits_MYZ_RM_ode(pars = params, 
+params = make_MYZinits_RM(pars = params, 
                              M0 = M_eq, P0 = P_eq, Y0 = Y_eq, Z0 = Z_eq)
 ```
 
