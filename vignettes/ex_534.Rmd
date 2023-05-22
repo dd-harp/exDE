@@ -338,5 +338,9 @@ xde_solve(mod534,Tmax=365,dt=1)-> out2
 sum(abs(out2-out1))
 ```
 
+```{r}
+out2l = parse_deout(out2, mod534)
+names(out2l)
+```
 
 

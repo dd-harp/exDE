@@ -47,6 +47,17 @@ get_inits_H.static<- function(pars){
   return(numeric(0))
 }
 
+#' @title Parse the output of deSolve and return variables for models where H is a parameter
+#' @description Implements [parse_deout_H] for models with constant denominators
+#' @inheritParams parse_deout_H
+#' @return none
+#' @export
+parse_deout_H.static <- function(varslist, deout, pars) {
+  H = pars$Hpar$H
+  varslist$H = matrix(H, nrow = length(deout[,1]), ncol = length(H), byrow=T)
+  return(varslist)
+}
+
 #' @title Make parameters for static human demography model
 #' @param pars a [list]
 #' @param H size of human population in each strata

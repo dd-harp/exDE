@@ -93,6 +93,16 @@ make_indices_L.basic <- function(pars) {
   return(pars)
 }
 
+#' @title Parse the variable names for the basic model
+#' @description Implements [parse_deout_L] for basic competition model.
+#' @inheritParams parse_deout_L
+#' @return varslist a [list]
+#' @export
+parse_deout_L.basic <- function(varslist, deout, pars) {
+  varslist$L = deout[,pars$Lpar$Lix+1]
+  return(varslist)
+}
+
 
 #' @title Make parameters for basic competition aquatic mosquito model
 #' @param pars a [list]

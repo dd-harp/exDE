@@ -87,6 +87,16 @@ make_indices_MYZ.Gtrace <- function(pars) {
   return(pars)
 }
 
+#' @title Parse the output of deSolve and return variables for the Gtrace model
+#' @description Implements [parse_deout_MYZ] for Gtrace
+#' @inheritParams parse_deout_MYZ
+#' @return none
+#' @export
+parse_deout_MYZ.Gtrace <- function(varslist, deout, pars) {
+  return(varslist)
+}
+
+
 #' @title Make parameters for Gtrace aquatic mosquito model
 #' @param pars a [list]
 #' @param Gm a vector of mean mosquito densities

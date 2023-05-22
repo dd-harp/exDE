@@ -91,6 +91,16 @@ make_Xinits_SIS = function(pars, Xopts = list(), X0=1){with(Xopts,{
   return(pars)
 })}
 
+#' @title Parse the output of deSolve and return variables for the SIS model
+#' @description Implements [parse_deout_X] for the SIS model
+#' @inheritParams parse_deout_X
+#' @return none
+#' @export
+parse_deout_X.SIS <- function(varslist, deout, pars) {
+  varslist$X = deout[,pars$Xpar$X_ix+1]
+  return(varslist)
+}
+
 #' @title Compute the HTC for the SIS model
 #' @description Implements [HTC] for the SIS model with demography.
 #' @inheritParams HTC

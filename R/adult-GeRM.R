@@ -156,6 +156,7 @@ setup_MYZ.GeRM = function(pars, MYZname,
   return(pars)
 }
 
+
 #' @title Make parameters for a GeRM ODE adult mosquito model
 #' @param pars a [list]
 #' @param MYZopts a [list] to overwrite defaults
@@ -327,6 +328,19 @@ make_indices_MYZ.GeRM_dde <- function(pars) {
   pars$max_ix <- tail(pars$MYZpar$sigma_ix, 1)
 
   return(pars)
+}
+
+#' @title Parse the output of deSolve and return variables for the GeRM model
+#' @description Implements [parse_deout_MYZ] for the GeRM model.
+#' @inheritParams parse_deout_MYZ
+#' @return none
+#' @export
+parse_deout_MYZ.GeRM <- function(varslist, deout, pars) {
+  varslist$M = deout[,pars$MYZpar$M_ix+1]
+  varslist$G = deout[,pars$MYZpar$G_ix+1]
+  varslist$Y = deout[,pars$MYZpar$Y_ix+1]
+  varslist$Z = deout[,pars$MYZpar$Z_ix+1]
+  return(varslist)
 }
 
 #' @title Make parameters for a GeRM ODE adult mosquito model
