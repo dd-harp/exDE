@@ -458,6 +458,10 @@ difference:</p>
 <span><span class="fu"><a href="../reference/xde_solve.html">xde_solve</a></span><span class="op">(</span><span class="va">mod534</span>,Tmax<span class="op">=</span><span class="fl">365</span>,dt<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">-&gt;</span> <span class="va">out2</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">out2</span><span class="op">-</span><span class="va">out1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">out2l</span> <span class="op">=</span> <span class="fu"><a href="../reference/parse_deout.html">parse_deout</a></span><span class="op">(</span><span class="va">out2</span>, <span class="va">mod534</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">out2l</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "time" "L"    "M"    "P"    "Y"    "Z"    "X"    "H"</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
