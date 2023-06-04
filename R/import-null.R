@@ -9,6 +9,15 @@ Visitors.null <- function(t, pars) {
   return(pars)
 }
 
+#' @title travel_foi, a null model
+#' @description Implements [travel_foi] for the null model (do nothing)
+#' @inheritParams travel_foi
+#' @return a [numeric]
+#' @export
+travel_foi.null <- function(t, pars) {
+  return(0)
+}
+
 #' @title Parasite / pathogen importation, the null model
 #' @description Implements [kappa_local] for the null model (do nothing)
 #' @inheritParams kappa_local
@@ -25,6 +34,19 @@ kappa_local.null<- function(kappa, pars) {
 #' @export
 fqZ_local.null<- function(fqZ, pars) {
   return(fqZ)
+}
+
+#' @title A function to set up malaria importation
+#' @description Implements [setup_MalariaImportation] for the null model
+#' @inheritParams setup_MalariaImportation
+#' @return a [list]
+#' @export
+setup_MalariaImportation.null = function(pars, IMname, IMopts =list()){
+  Ipar <- list()
+  class(Ipar) <- 'null'
+  pars$Ipar <- Ipar
+  pars$Visitors=0
+  return(pars)
 }
 
 #' @title Make parameters for the null model visitors (no visitors)

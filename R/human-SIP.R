@@ -18,7 +18,8 @@ dXdt.SIPdX <- function(t, y, pars, EIR) {
 
   with(pars$Xpar, {
 
-    foi = F_foi(b*EIR, pars)
+    foi = F_foi(b*EIR, pars) + travel_foi(t, pars)
+
     X <- y[X_ix]
     P <- y[P_ix]
     H <- F_H(t, y, pars)
@@ -51,7 +52,8 @@ dXdt.SIPdXdH <- function(t, y, pars, EIR) {
 
   with(pars$Xpar, {
 
-    foi = F_foi(b*EIR, pars)
+    foi = F_foi(b*EIR, pars) + travel_foi(t, pars)
+
     X <- y[X_ix]
     P <- y[P_ix]
     H <- F_H(t, y, pars)
