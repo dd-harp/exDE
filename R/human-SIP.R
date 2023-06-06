@@ -18,7 +18,7 @@ dXdt.SIPdX <- function(t, y, pars, EIR) {
 
   with(pars$Xpar, {
 
-    foi = F_foi(b*EIR, pars) + travel_foi(t, pars)
+    foi = F_foi(EIR, b, pars) + travel_malaria(t, pars)
 
     X <- y[X_ix]
     P <- y[P_ix]
@@ -52,7 +52,7 @@ dXdt.SIPdXdH <- function(t, y, pars, EIR) {
 
   with(pars$Xpar, {
 
-    foi = F_foi(b*EIR, pars) + travel_foi(t, pars)
+    foi = F_foi(EIR, b, pars) + travel_malaria(t, pars)
 
     X <- y[X_ix]
     P <- y[P_ix]

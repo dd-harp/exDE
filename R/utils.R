@@ -15,6 +15,7 @@ make_parameters_xde = function(solve_as='ode'){
   pars <- setup_resources_null(pars)
   pars <- setup_vc_null(pars)
   pars <- setup_visitors_null(pars)
+  pars <- setup_travel_null(pars)
   pars <- setup_exposure_pois(pars)
 
   return(pars)

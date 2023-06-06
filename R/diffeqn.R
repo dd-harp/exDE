@@ -17,10 +17,8 @@ xDE_diffeqn <- function(t, y, pars) {
   pars <- HumanBehavior(t, y, pars)
   pars <- Resources(t, y, pars)
 
-  # set baseline mosquito bionomic parameters
+  # set and modify the baseline mosquito bionomic parameters
   pars <- MosquitoBehavior(t, y, pars)
-
-  # modify baseline mosquito bionomic parameters
   pars <- VectorControl(t, y, pars)
 
   # eta: egg laying
@@ -64,10 +62,8 @@ xDE_diffeqn_human <- function(t, y, pars) {
   pars <- HumanBehavior(t, y, pars)
   pars <- Resources(t, y, pars)
 
-  # set baseline mosquito bionomic parameters
+  # set and modify the baseline mosquito bionomic parameters
   pars <- MosquitoBehavior(t, y, pars)
-
-  # modify baseline mosquito bionomic parameters
   pars <- VectorControl(t, y, pars)
 
   # blood feeding & mixing

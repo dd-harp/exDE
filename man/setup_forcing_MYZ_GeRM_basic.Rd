@@ -4,7 +4,7 @@
 \alias{setup_forcing_MYZ_GeRM_basic}
 \title{Set up a static exogenous forcing for the GeRM ODE adult mosquito model}
 \usage{
-setup_forcing_MYZ_GeRM_basic(pars, other, sugar, W, zeta, Q)
+setup_forcing_MYZ_GeRM_basic(pars, other, sugar, zeta)
 }
 \arguments{
 \item{pars}{a \link{list}}
@@ -13,11 +13,7 @@ setup_forcing_MYZ_GeRM_basic(pars, other, sugar, W, zeta, Q)
 
 \item{sugar}{is sugar availability}
 
-\item{W}{is the availbility of the pathogen's hosts}
-
 \item{zeta}{is a shape parameter}
-
-\item{Q}{is the availability of aquatic habitats}
 }
 \value{
 none

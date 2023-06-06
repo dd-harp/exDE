@@ -14,7 +14,7 @@ F_beta <- function(t, y, pars){
 }
 
 #' @title Entomological inoculation rate on human strata
-#' @description This method dispatches on the type of `pars$Xpar$xde`.
+#' @description Compute the daily EIR for all the strata at time `t`
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
@@ -22,13 +22,12 @@ F_beta <- function(t, y, pars){
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_EIR <- function(t, y, pars, beta) {
-  fqZ <- with(pars$MYZpar,f*q)*F_Z(t, y, pars)
-  fqZ <- fqZ_local(fqZ, pars)
+  fqZ <- F_fqZ(t, y, pars) * pars$local_frac
   as.vector(beta %*% fqZ)
 }
 
 #' @title Net infectiousness of human population to mosquitoes
-#' @description This method dispatches on the type of `pars$MYZpar$xde`.
+#' @description Compute the net infectiousness of humans in each patch at time `t`
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
@@ -36,10 +35,8 @@ F_EIR <- function(t, y, pars, beta) {
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_kappa <- function(t, y, pars, beta) {
-  X <- F_X(t, y, pars)
-  kappa = t(beta) %*% X
-  kappa = kappa_local(kappa, pars)
-  as.vector(kappa)
+  kappa = as.vector(t(beta) %*% F_X(t, y, pars))
+  with(pars, return(local_frac*kappa + (1-local_frac)*x_visitors))
 }
 
 #' @title Compute beta, the biting distribution matrix

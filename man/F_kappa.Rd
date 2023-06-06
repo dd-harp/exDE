@@ -19,5 +19,5 @@ F_kappa(t, y, pars, beta)
 a \link{numeric} vector of length \code{nPatches}
 }
 \description{
-This method dispatches on the type of \code{pars$MYZpar$xde}.
+Compute the net infectiousness of humans in each patch at time \code{t}
 }

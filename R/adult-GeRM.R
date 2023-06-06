@@ -6,11 +6,11 @@
 #' @return a named [list]
 #' @export
 Resources.GeRM <- function(t, y, pars) {
-  pars$O = F_other(t, pars)
+  pars$O = F_otherblood(t, pars)
   pars$S = F_sugar(t, pars)
-  pars$Q = computeQ(t, pars)
-  pars$W = computeW(t, y, pars)
-  pars$B = computeB(t, pars)
+  pars$Q = compute_Q(pars)
+  pars$W = compute_W(t, y, pars)
+  pars$B = compute_B( pars)
   pars$local_frac = with(pars, W/(W + Visitors))
   return(pars)
 }
@@ -32,13 +32,13 @@ MosquitoBehavior.GeRM <- function(t, y, pars) {
     return(pars)
 })}
 
-#' @title Density of infectious mosquitoes
-#' @description Implements [F_Z] for the GeRM model.
-#' @inheritParams F_Z
+#' @title Blood feeding rate of the infective mosquito population
+#' @description Implements [F_fqZ] for the GeRM model.
+#' @inheritParams F_fqZ
 #' @return a [numeric] vector of length `nPatches`
 #' @export
-F_Z.GeRM <- function(t, y, pars) {
-  y[pars$MYZpar$Z_ix]
+F_fqZ.GeRM <- function(t, y, pars) {
+  with(pars$MYZpar, f*q)*y[pars$MYZpar$Z_ix]
 }
 
 #' @title Number of eggs laid by adult mosquitoes
@@ -389,20 +389,18 @@ make_parameters_MYZ_GeRM_static <- function(pars, g, sigma, f, q, nu, eggsPerBat
   MYZpar$calK <- calK
 
   pars$MYZpar <- MYZpar
-  pars = MosquitoBehavior.RM(0, 0, pars)
+  pars = MosquitoBehavior(0, 0, pars)
   return(pars)
 }
 
 #' @title Set up a static exogenous forcing for the GeRM ODE adult mosquito model
 #' @param pars a [list]
 #' @param other is the availability of other blood hosts
-#' @param W is the availbility of the pathogen's hosts
 #' @param zeta is a shape parameter
-#' @param Q is the availability of aquatic habitats
 #' @param sugar is sugar availability
 #' @return none
 #' @export
-setup_forcing_MYZ_GeRM_basic <- function(pars, other, sugar, W, zeta, Q) {
+setup_forcing_MYZ_GeRM_basic <- function(pars, other, sugar, zeta) {
 
   RApar = list()
   class(RApar) = "GeRM"
@@ -411,19 +409,14 @@ setup_forcing_MYZ_GeRM_basic <- function(pars, other, sugar, W, zeta, Q) {
   Wpar = list()
   class(Wpar) <- "static"
   pars$Wpar = Wpar
-  pars$W = W
-  #pars$W = pars$TaR %*% (pars$Hpar$wts_f * F_H(t, y, pars))
+  pars$W = compute_W(0, 0, pars)
 
-  OBpar = list()
-  class(OBpar) <- "static"
-  pars$OBpar = OBpar
-  pars$other = other
-
-  Bpar = list()
-  class(Bpar) <- "static"
-  Bpar$zeta = zeta
-  pars$Bpar = Bpar
-  pars$B =  pars$W + pars$other^zeta
+  OBHpar = list()
+  class(OBHpar) <- "static"
+  OBHpar$other = other
+  OBHpar$zeta = zeta
+  pars$OBHpar = OBHpar
+  pars$OtherBloodHosts = other^zeta
 
   SGRpar = list()
   class(SGRpar) <- "static"
@@ -433,7 +426,7 @@ setup_forcing_MYZ_GeRM_basic <- function(pars, other, sugar, W, zeta, Q) {
   Qpar = list()
   class(Qpar) <- "static"
   pars$Qpar = Qpar
-  pars$Q = Q
+  pars$Q = compute_Q(pars)
 
   pars = Resources(0, 0, pars)
   return(pars)
