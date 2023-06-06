@@ -375,7 +375,7 @@ compare the output to what we got above. If they are identical, the two
 objects should be identical, so can simply add the absolute value of
 their differences:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xde_solve.html">xde_solve</a></span><span class="op">(</span><span class="va">MYZeg</span>, Tmax<span class="op">=</span><span class="fl">50</span>, dt<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xde_solve.html">xde_solve</a></span><span class="op">(</span><span class="va">MYZeg</span>, Tmax<span class="op">=</span><span class="fl">50</span>, dt<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">$</span><span class="va">deout</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">out1</span><span class="op">-</span><span class="va">out2</span><span class="op">)</span><span class="op">)</span><span class="op">==</span><span class="fl">0</span> </span>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 </div>
