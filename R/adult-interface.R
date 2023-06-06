@@ -22,15 +22,15 @@ F_tau <- function(t, pars) {
   UseMethod("F_tau", pars$MYZpar)
 }
 
-#' @title Density of infectious mosquitoes
+#' @title Blood feeding rate of the infective mosquito population
 #' @description This method dispatches on the type of `pars$MYZpar`.
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
 #' @return a [numeric] vector of length `nPatches`
 #' @export
-F_Z <- function(t, y, pars) {
-  UseMethod("F_Z", pars$MYZpar)
+F_fqZ <- function(t, y, pars) {
+  UseMethod("F_fqZ", pars$MYZpar)
 }
 
 #' @title Number of eggs laid by adult mosquitoes

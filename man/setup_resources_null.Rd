@@ -2,7 +2,7 @@
 % Please edit documentation in R/resources-null.R
 \name{setup_resources_null}
 \alias{setup_resources_null}
-\title{Set up parameters for the null model for resource availability (do nothing)}
+\title{Set up parameters for the null model for resource availability}
 \usage{
 setup_resources_null(pars)
 }
@@ -13,5 +13,5 @@ setup_resources_null(pars)
 none
 }
 \description{
-Set up parameters for the null model for resource availability (do nothing)
+Set up parameters for the null model for resource availability
 }

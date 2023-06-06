@@ -4,10 +4,12 @@
 \alias{F_foi}
 \title{A model for exposure}
 \usage{
-F_foi(eir, pars)
+F_foi(eir, b, pars)
 }
 \arguments{
 \item{eir}{the daily eir}
+
+\item{b}{the probability of infection, per bite}
 
 \item{pars}{a \link{list}}
 }

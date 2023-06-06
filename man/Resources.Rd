@@ -2,7 +2,7 @@
 % Please edit documentation in R/resources-interface.R
 \name{Resources}
 \alias{Resources}
-\title{Set the values of exogenous variables describing available non-host resources}
+\title{Set the values of exogenous variables describing available mosquito resources}
 \usage{
 Resources(t, y, pars)
 }

@@ -53,29 +53,13 @@ home:
         title: Changelog
         text: <a href="news/index.html">News</a>
 reference:
-- title: Generalized and specialized derivatives functions
+- title: Derivatives functions
   contents:
   - xDE_diffeqn
   - xDE_diffeqn_aquatic
   - xDE_diffeqn_mosy
   - xDE_diffeqn_human
   - xDE_diffeqn_cohort
-- title: Setup
-  contents:
-  - xde_setup
-  - xde_setup_aquatic
-  - xde_setup_mosy
-  - xde_setup_human
-- title: Solving
-  contents:
-  - xde_solve
-  - xde_solve.dde
-  - xde_solve.ode
-  - xde_solve.aqua
-  - xde_solve.aqua_dde
-  - xde_solve.mosy
-  - xde_solve.mosy_dde
-  - xde_solve.human
 - title: Transmission
   desc: |
     Generic methods for transmission.
@@ -90,7 +74,7 @@ reference:
   contents:
   - MosquitoBehavior
   - F_tau
-  - F_Z
+  - F_fqZ
   - F_eggs
   - dMYZdt
   - setup_MYZ
@@ -98,15 +82,36 @@ reference:
   - parse_deout_MYZ
   - get_inits_MYZ
   - make_Omega
-- subtitle: Mosquito Dispersal
+- subtitle: Ztrace
   desc: |
-    Specialized methods to set up mosquito dispersal matrices
+    Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
   contents:
-  - make_calK
-  - make_calK.herethere
-  - make_calK.as_matrix
-  - make_calK.xy
-  - make_calK_xy
+  - MosquitoBehavior.Ztrace
+  - F_fqZ.Ztrace
+  - F_eggs.Ztrace
+  - dMYZdt.Ztrace
+  - setup_MYZ.Ztrace
+  - make_MYZpar_Ztrace
+  - make_indices_MYZ.Ztrace
+  - parse_deout_MYZ.Ztrace
+  - make_inits_MYZ_Ztrace
+  - get_inits_MYZ.Ztrace
+  - make_parameters_MYZ_Ztrace
+- subtitle: Gtrace
+  desc: |
+    Specialized methods for NULL dynamics: a funtion generates values for eggs laid to aquatic ecology
+  contents:
+  - MosquitoBehavior.Gtrace
+  - F_fqZ.Gtrace
+  - F_eggs.Gtrace
+  - dMYZdt.Gtrace
+  - setup_MYZ.Gtrace
+  - make_MYZpar_Gtrace
+  - make_indices_MYZ.Gtrace
+  - parse_deout_MYZ.Gtrace
+  - make_inits_MYZ_Gtrace
+  - get_inits_MYZ.Gtrace
+  - make_parameters_MYZ_Gtrace
 - subtitle: basicM
   desc: |
     Specialized methods for basicM, a model of adult mosquito dynamics with no parasite infection dynamics.
@@ -127,7 +132,7 @@ reference:
     Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics, modified slightly from a model published by Joan Aron & Robert May (1982).
   contents:
   - MosquitoBehavior.RM
-  - F_Z.RM
+  - F_fqZ.RM
   - F_eggs.RM
   - dMYZdt.RM_ode
   - dMYZdt.RM_dde
@@ -148,7 +153,7 @@ reference:
   contents:
   - MosquitoBehavior.GeRM
   - Resources.GeRM
-  - F_Z.GeRM
+  - F_fqZ.GeRM
   - F_eggs.GeRM
   - dMYZdt.GeRM_ode
   - dMYZdt.GeRM_dde
@@ -164,7 +169,7 @@ reference:
   - get_inits_MYZ.GeRM_dde
   - make_parameters_MYZ_GeRM_static
   - setup_forcing_MYZ_GeRM_basic
-- subtitle: Functional Responses
+- title: Mosquito Bionomic Functional Responses
   desc: |
     Compute bionomic parameters as functional responses to resource availability
   contents:
@@ -184,36 +189,15 @@ reference:
   - F_q.dynamic
   - F_g
   - F_g.static
-- subtitle: Ztrace
+- title: Mosquito Dispersal
   desc: |
-    Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
+    Specialized methods to set up mosquito dispersal matrices
   contents:
-  - MosquitoBehavior.Ztrace
-  - F_Z.Ztrace
-  - F_eggs.Ztrace
-  - dMYZdt.Ztrace
-  - setup_MYZ.Ztrace
-  - make_MYZpar_Ztrace
-  - make_indices_MYZ.Ztrace
-  - parse_deout_MYZ.Ztrace
-  - make_inits_MYZ_Ztrace
-  - get_inits_MYZ.Ztrace
-  - make_parameters_MYZ_Ztrace
-- subtitle: Gtrace
-  desc: |
-    Specialized methods for NULL dynamics: a funtion generates values for eggs laid to aquatic ecology
-  contents:
-  - MosquitoBehavior.Gtrace
-  - F_Z.Gtrace
-  - F_eggs.Gtrace
-  - dMYZdt.Gtrace
-  - setup_MYZ.Gtrace
-  - make_MYZpar_Gtrace
-  - make_indices_MYZ.Gtrace
-  - parse_deout_MYZ.Gtrace
-  - make_inits_MYZ_Gtrace
-  - get_inits_MYZ.Gtrace
-  - make_parameters_MYZ_Gtrace
+  - make_calK
+  - make_calK.herethere
+  - make_calK.as_matrix
+  - make_calK.xy
+  - make_calK_xy
 - title: Aquatic Mosquito Dynamics
   desc: |
     Generic methods for the aquatic (immature) mosquito component.
@@ -253,7 +237,7 @@ reference:
   - make_inits_L_basic
   - get_inits_L.basic
   - make_parameters_L_basic
-- title: Human infection dynamics
+- title: Human Infection Dynamics
   desc: |
     Generic methods for the dynamical component that handles human infection dynamics, immunity, disease and transmission
   contents:
@@ -264,6 +248,19 @@ reference:
   - parse_deout_X
   - get_inits_X
   - HTC
+- subtitle: trace
+  desc: |
+    Specialized methods for a human trace model to pass kappa as a parameter
+  contents:
+  - F_X.trace
+  - dXdt.trace
+  - setup_X.trace
+  - make_Xpar_trace
+  - make_indices_X.trace
+  - parse_deout_X.trace
+  - make_inits_X_trace
+  - get_inits_X.trace
+  - make_parameters_X_trace
 - subtitle: hMoI
   desc: |
     Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.
@@ -311,19 +308,6 @@ reference:
   - get_inits_X.SIP
   - make_parameters_X_SIP
   - HTC.SIP
-- subtitle: trace
-  desc: |
-    Specialized methods for a human trace model to pass kappa as a parameter
-  contents:
-  - F_X.trace
-  - dXdt.trace
-  - setup_X.trace
-  - make_Xpar_trace
-  - make_indices_X.trace
-  - parse_deout_X.trace
-  - make_inits_X_trace
-  - get_inits_X.trace
-  - make_parameters_X_trace
 - title: Human Population Dynamics
   desc: |
     Generic methods for the human demography and aging
@@ -336,16 +320,6 @@ reference:
   - parse_deout_H
   - get_inits_H
   - make_parameters_demography_null
-- subtitle: Time at Risk
-  desc: |
-    Specialized methods to set up time at risk (TaR) matrices
-  contents:
-  - make_TaR
-  - make_TaR.athome
-  - make_TaR_athome
-  - make_TaR.as_matrix
-  - make_TaR.xy
-  - make_TaR_xy
 - subtitle: static
   desc: |
     Specialized methods for the static (constant) demographic model
@@ -377,6 +351,23 @@ reference:
   - F_births.constant
   - F_births.forced
   - F_births.exp
+- title: Time at Risk
+  desc: |
+    Method to set up time at risk (TaR) matrices
+  contents:
+  - make_TaR
+  - make_TaR.athome
+  - make_TaR_athome
+  - make_TaR.as_matrix
+  - make_TaR.xy
+  - make_TaR_xy
+- title: Human Behavior
+  desc: |
+    Methods to implement human behaviors
+  contents:
+  - HumanBehavior
+  - HumanBehavior.null
+  - setup_humanbehavior_null
 - title: Exposure
   desc: |
     Methods to implement exposure models (i.e., EIR to FoI)
@@ -394,12 +385,52 @@ reference:
   contents:
   - F_foi.nb
   - setup_exposure_nb
+- title: Travel Malaria
+  desc: |
+    Methods to implement exposure to malaria while traveling
+  contents:
+  - travel_malaria
+- subtitle: null model
+  desc: |
+    Specialized methods the null travel malaria model
+  contents:
+  - travel_malaria.null
+  - setup_travel_null
+- subtitle: FoI
+  desc: |
+    Specialized methods the foi-based travel malaria model
+  contents:
+  - travel_malaria.foi
+  - setup_travel_foi
+- subtitle: EIR
+  desc: |
+    Specialized methods the eir-based travel malaria model
+  contents:
+  - travel_malaria.eir
+  - setup_travel_eir
+- title: Visitors
+  desc: |
+    Methods to implement malaria importation through visitors
+  contents:
+  - Visitors
+- subtitle: null model
+  desc: |
+    Specialized methods for a null model for visitors (do nothing)
+  contents:
+  - Visitors.null
+  - setup_visitors_null
+- subtitle: basic
+  desc: |
+    Specialized methods for a basic model of malaria visitorsation
+  contents:
+  - Visitors.basic
+  - setup_visitors_basic
 - title: Exogeneous Forcing
   desc: |
     Methods to implement exogeneous forcing.
   contents:
   - ExogenousForcing
-- subtitle: null
+- subtitle: null model
   desc: |
     Specialized methods the null model (no exogenous forcing)
   contents:
@@ -431,62 +462,78 @@ reference:
   contents:
   - Resources
   - Resources.null
+  - Resources.static
+  - setup_resources_static
+  - Resources.dynamic
   - setup_resources_null
-  - F_other
-  - F_other.static
+- subtitle: Blood Feeding
+  desc: |
+    Methods to simulate blood feeding rates and habits based on available resources
+  contents:
+  - update_BloodFeeding
+  - update_BloodFeeding.static
+  - update_BloodFeeding.dynamic
+  - compute_W
+  - compute_B
+  - update_W
+  - update_W.static
+  - update_W.dynamic
+  - compute_local_frac
+- subtitle: Other Blood Hosts
+  desc: |
+    Methods to simulate availability of other blood hosts
+  contents:
+  - F_otherblood
+  - F_otherblood.null
+  - F_otherblood.static
+  - F_otherblood.forced
+  - setup_otherblood_forced
+  - update_O
+  - update_O.static
+  - update_O.dynamic
+- subtitle: Egg Laying
+  desc: |
+    Methods for the egg laying interface
+  contents:
+  - update_EggLaying
+  - update_EggLaying.static
+  - update_EggLaying.dynamic
+- subtitle: Habitat Dynamics
+  desc: |
+    Methods to implement habitat dynamics
+  contents:
+  - F_habitats
+  - F_habitats.null
+  - setup_habitats_null
+  - F_habitats.static
+  - setup_habitats_static
+  - F_habitats.forced
+  - setup_habitats_forced
+  - compute_Q
+- subtitle: Sugar
+  desc: |
+    Methods to simulate availability of sugar
+  contents:
+  - update_S
+  - update_S.static
+  - update_S.dynamic
   - F_sugar
+  - F_sugar.null
   - F_sugar.static
-  - computeW
-  - computeW.static
-  - computeW.dynamic
-  - computeB
-  - computeB.static
-  - computeB.dynamic
-  - computeQ
-  - computeQ.static
-  - computeQ.dynamic
-- title: Human Behavior
-  desc: |
-    Methods to implement human behaviors
-  contents:
-  - HumanBehavior
-  - HumanBehavior.null
-  - setup_humanbehavior_null
-- title: Visitors
-  desc: |
-    Methods to implement malaria importation through visitors
-  contents:
-  - Visitors
-  - kappa_local
-  - fqZ_local
-- subtitle: null
-  desc: |
-    Specialized methods for a null model for visitors (do nothing)
-  contents:
-  - Visitors.null
-  - kappa_local.null
-  - fqZ_local.null
-  - setup_visitors_null
-- subtitle: basic
-  desc: |
-    Specialized methods for a basic model of malaria visitorsation
-  contents:
-  - Visitors.basic
-  - kappa_local.basic
-  - fqZ_local.basic
-  - setup_visitors_basic
+  - F_sugar.forced
+  - setup_sugar_forced
 - title: Vector Control
   desc: |
     Methods to implement vector control.
   contents:
   - VectorControl
-- subtitle: null
+- subtitle: null model
   desc: |
     Specialized methods for the null model (no vector control)
   contents:
   - VectorControl.null
   - setup_vc_null
-- subtitle: control
+- subtitle: Implement Control
   desc: |
     Specialized methods to implement vector control
   contents:
@@ -528,6 +575,22 @@ reference:
   - metric_calD
   - metric_calR
   - metric_calZ
+- title: Setup
+  contents:
+  - xde_setup
+  - xde_setup_aquatic
+  - xde_setup_mosy
+  - xde_setup_human
+- title: Solving
+  contents:
+  - xde_solve
+  - xde_solve.dde
+  - xde_solve.ode
+  - xde_solve.aqua
+  - xde_solve.aqua_dde
+  - xde_solve.mosy
+  - xde_solve.mosy_dde
+  - xde_solve.human
 - title: Utilities
   contents:
   - make_parameters_xde

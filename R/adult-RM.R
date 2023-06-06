@@ -16,13 +16,13 @@ MosquitoBehavior.RM <- function(t, y, pars) {
   return(pars)
 }
 
-#' @title Density of infectious mosquitoes
-#' @description Implements [F_Z] for the RM model.
-#' @inheritParams F_Z
+#' @title Blood feeding rate of the infective mosquito population
+#' @description Implements [F_fqZ] for the RM model.
+#' @inheritParams F_fqZ
 #' @return a [numeric] vector of length `nPatches`
 #' @export
-F_Z.RM <- function(t, y, pars) {
-  y[pars$MYZpar$Z_ix]
+F_fqZ.RM <- function(t, y, pars) {
+  with(pars$MYZpar, f*q)*y[pars$MYZpar$Z_ix]
 }
 
 #' @title Number of eggs laid by adult mosquitoes

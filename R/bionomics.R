@@ -25,7 +25,7 @@ F_f.static <- function(t, pars){
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_f.type2 <- function(t, pars){
-  B = pars$bB;
+  B = pars$B
   with(pars$MYZpar$f_par,{
     return(fx*sf*B/(1+sf*B))
   })
@@ -140,7 +140,7 @@ F_nu.static <- function(t, pars){
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_nu.type2 <- function(t, pars){
-  Q = pars$Q;
+  Q = pars$Q
   with(pars$MYZpar$nu_par,{
     return(nux*snu*Q/(1+snu*Q))
   })

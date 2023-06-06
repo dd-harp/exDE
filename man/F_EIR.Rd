@@ -19,5 +19,5 @@ F_EIR(t, y, pars, beta)
 a \link{numeric} vector of length \code{nStrata}
 }
 \description{
-This method dispatches on the type of \code{pars$Xpar$xde}.
+Compute the daily EIR for all the strata at time \code{t}
 }

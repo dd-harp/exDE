@@ -4,10 +4,12 @@
 \alias{F_foi.pois}
 \title{Null human population births}
 \usage{
-\method{F_foi}{pois}(eir, pars)
+\method{F_foi}{pois}(eir, b, pars)
 }
 \arguments{
 \item{eir}{the daily eir}
+
+\item{b}{the probability of infection, per bite}
 
 \item{pars}{a \link{list}}
 }

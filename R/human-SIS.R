@@ -16,10 +16,14 @@ F_X.SIS <- function(t, y, pars) {
 #' @export
 dXdt.SISdX <- function(t, y, pars, EIR) {
   with(pars$Xpar, {
+
+    foi = F_foi(EIR, b, pars) + travel_malaria(t, pars)
+
     X <- y[X_ix]
     H <- F_H(t, y, pars)
-    foi = F_foi(b*EIR, pars)
+
     dX <- foi*(H - X) - r*X
+
     return(c(dX))
   })
 }
@@ -30,11 +34,13 @@ dXdt.SISdX <- function(t, y, pars, EIR) {
 #' @return a [numeric] vector
 #' @export
 dXdt.SISdXdH <- function(t, y, pars, EIR) {
-
   with(pars$Xpar, {
+
+    foi = F_foi(EIR, b, pars) + travel_malaria(t, pars)
+
     H <- F_H(t, y, pars)
     X <- y[X_ix]
-    foi = F_foi(b*EIR, pars)
+
     dX <- foi*(H - X) - r*X + dHdt(t, X, pars)
     dH <- Births(t, H, pars) + dHdt(t, H, pars)
 

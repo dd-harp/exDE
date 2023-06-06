@@ -14,7 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-The Generalized Ross-Macdonald adult mosquito model (GeRM) fulfills the generic interface of the adult mosquito component. A generalized version of the Ross-Macdonald model was first published in [Spatial Dynamics of Malaria Transmission](https://www.medrxiv.org/content/10.1101/2022.11.07.22282044v1). Here, we present GeRM  with exogenous forcing by resource availability. The state variables are: total mosquito density $M$, gravid mosquito density $G$, infected mosquito density $Y$, and infectious mosquito density $Z$.
+The Generalized Ross-Macdonald adult mosquito model (GeRM) is a family of models that fulfills the generic interface of the adult mosquito component. A generalized version of the Ross-Macdonald model was first published in [Spatial Dynamics of Malaria Transmission](https://www.medrxiv.org/content/10.1101/2022.11.07.22282044v1). Here, we present GeRM  with exogenous forcing by resource availability. The state variables are: total mosquito density $M$, gravid mosquito density $G$, infected mosquito density $Y$, and infectious mosquito density $Z$. 
+
+In many ways, GeRM is similar to RM. A key difference is that in GeRM, it is possible to model bionomic models as a functional response to availability of resources. The parameterization is flexible, so that it is possible to simply pass the parameters as static values. Here, we illustrate with the standard parameterization. 
 
 # Differential Equations
 
@@ -87,7 +89,7 @@ $$
 Because the dynamics of $P$ are independent of the infection dynamics, we can solve it given $M$ as:
 
 $$
-P = (\Omega + \mbox{diag}(f))^{-1} \cdot \mbox{diag}(f) \cdot M
+G = (\Omega + \mbox{diag}(f+\nu))^{-1} \cdot \mbox{diag}(f) \cdot M
 $$
 
 ## Starting with $Z$
@@ -109,7 +111,7 @@ $$
 $$
 \Lambda = \Omega \cdot M
 $$
-We can use the same equation for $P$ as above.
+We can use the same equation for $G$ as above.
 
 # Example
 
@@ -131,21 +133,9 @@ params <- make_parameters_xde()
 params$nPatches <- nPatches
 ```
 
-## Static Resource Availability 
+## The Ross-Macdonald Parameterization 
 
-In GeRM, baseline parameters are determined by resource availability: the availability of blood hosts ($B$), the availability of aquatic habitats ($Q$), and the availability of sugar sources ($S$). To build models of blood feeding and transmission, we subdivide blood hosts into the availability of the pathogen's hosts ($W$), and other blood hosts ($O$). 
-
-```{r}
-other <- c(10, 10, 1)  
-sugar <- 10 
-hosts <- c(10, 100, 1000)
-habitat <- c(100, 10, 10)
-
-params = setup_forcing_MYZ_GeRM_basic(params, other=other, sugar=sugar, W=hosts, zeta=1, Q=habitat)
-```
-
-
-Here we set up some parameters for a simulation with 3 patches.
+As with the RM model, we can set up the parameters for a simulation with 3 patches.
 
 ```{r}
 f <- 0.3
