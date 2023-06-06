@@ -138,7 +138,7 @@ xde_setup_human("test_SIP", "SIP", HPop=Hpop, Xopts = Xo, MYZopts = MYZo) -> tes
 ```
 
 ```{r}
-xde_solve(test_SIP, 365, 365) -> out2
+xde_solve(test_SIP, 365, 365)$deout -> out2
 approx_equal(out2,out1)
 ```
 

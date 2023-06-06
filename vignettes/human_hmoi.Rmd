@@ -155,7 +155,7 @@ xde_setup_human("test_hMoI", "hMoI", HPop=Hpop, Xopts = Xo, MYZopts = MYZo) -> t
 ```
 
 ```{r}
-xde_solve(test_hMoI, 365, 365)-> out2
+xde_solve(test_hMoI, 365, 365)$deout -> out2
 approx_equal(out2, out1)
 ```
 

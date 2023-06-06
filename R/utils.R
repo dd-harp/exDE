@@ -71,6 +71,7 @@ get_inits <- function(pars){
 #' @export
 parse_deout <- function(deout, pars){
   varslist = list()
+  varslist$deout = deout
   varslist$time = deout[,1]
   if ('Lpar' %in% names(pars)) {
     varslist = parse_deout_L(varslist, deout, pars)

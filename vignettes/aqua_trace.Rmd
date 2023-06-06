@@ -161,7 +161,7 @@ mosy1 = xde_setup_mosy("mosy1", MYZname = "basicM", Lname = "trace", nPatches = 
 ```
 
 ```{r}
-xde_solve(mosy1,50,1) -> out2
+xde_solve(mosy1,50,1)$deout -> out2
 sum(out2-out1)
 ```
 

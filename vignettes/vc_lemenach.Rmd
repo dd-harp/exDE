@@ -166,7 +166,7 @@ itn_mod = setup_itn_lemenach(itn_mod, phi = ITN_cov)
 ```
 
 ```{r}
-xde_solve(itn_mod, 5*365) -> out
+xde_solve(itn_mod, 5*365)$deout -> out
 ```
 
 ## Plot 

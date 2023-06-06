@@ -309,7 +309,7 @@ mod534 = xde_setup("mod534", "RM", "SIS", "basic",
 We solve and take the differences to check: 
 
 ```{r}
-xde_solve(mod534,Tmax=365,dt=1)-> out2
+xde_solve(mod534,Tmax=365,dt=1)$deout -> out2
 sum(abs(out2-out1))
 ```
 
@@ -334,7 +334,7 @@ We can test the idea:
 
 ```{r}
 mod534$calU = params$calU
-xde_solve(mod534,Tmax=365,dt=1)-> out2
+xde_solve(mod534,Tmax=365,dt=1)$deout-> out2
 sum(abs(out2-out1))
 ```
 
