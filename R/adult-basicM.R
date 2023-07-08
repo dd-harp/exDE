@@ -1,6 +1,6 @@
 # specialized methods for a basic adult mosquito model
 
-#' @title Reset bloodfeeding and mortality rates to baseline
+#' @title Set bionomic parameters to baseline
 #' @description Implements [MosquitoBehavior] for the basicM model
 #' @inheritParams MosquitoBehavior
 #' @return a named [list]
