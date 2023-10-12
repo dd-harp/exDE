@@ -11,15 +11,25 @@ F_X <- function(t, y, pars) {
   UseMethod("F_X", pars$Xpar)
 }
 
+#' @title Infection blocking pre-erythrocytic immunity
+#' @description This method dispatches on the type of `pars$Xpar`.
+#' @param y state vector
+#' @param pars a [list]
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_b <- function(y, pars) {
+  UseMethod("F_b", pars$Xpar)
+}
+
 #' @title Derivatives for human population
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
-#' @param EIR vector giving the per-capita entomological inoculation rate for each strata
+#' @param FoI vector giving the per-capita force of infection for each strata
 #' @return a [numeric] vector
 #' @export
-dXdt <- function(t, y, pars, EIR) {
+dXdt <- function(t, y, pars, FoI) {
   UseMethod("dXdt", pars$Xpar)
 }
 

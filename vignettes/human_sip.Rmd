@@ -124,17 +124,19 @@ Xo = list(b=0.55, c=0.15, r=1/200, eta = c(1/30, 1/40, 1/35), rho = c(0.05, .1, 
 Hpop = c(100, 500, 250)
 ```
 
-To use `xde_setup_human` we must set the values of $Z$ that give us the correct EIR values, and we set these as $Zm$. The function call is to `Ztrace` 
+To use `xde_setup_cohort` we must set up a function `F_eir` returns the value of EIR we computed above:  
 
 ```{r}
-EIR <- with(Xo, diag(1/b, nStrata) %*% diag(1/(1-rho)) %*% ((r*X0)/(Hpop-X0-P0)))
-MYZo = list(f=0.3, q=0.95)
-MYZo$Zm = with(c(MYZo,Xo), EIR/f/q*Hpop) 
+EIR 
+```
+```{r}
+F_eir1 = function(t, pars){
+  0.05454545 
+}
 ```
 
-
 ```{r}
-xde_setup_human("test_SIP", "SIP", HPop=Hpop, Xopts = Xo, MYZopts = MYZo) -> test_SIP
+xde_setup_cohort("test_SIP", F_eir1, "SIP", HPop=Hpop, Xopts = Xo) -> test_SIP
 ```
 
 ```{r}

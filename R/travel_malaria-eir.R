@@ -6,7 +6,7 @@
 #' @return a [numeric]
 #' @export
 travel_malaria.eir <- function(t, pars) {
-  with(pars$TRVpar,{
+  with(pars$TRAVEL,{
     eir = travel_eir_scale*travel_eir_t(t, pars)*frac_time_spent_traveling
     return(F_foi(pars$MYZpar$b*eir, pars))
 })}
@@ -21,14 +21,14 @@ travel_malaria.eir <- function(t, pars) {
 #' @export
 setup_travel_eir <- function(pars, travel_Opts = list(), frac_time_spent_traveling = 0.01, travel_eir_scale=0, travel_eir_t=NULL) {with(travel_Opts,{
 
-  TRVpar <- list()
-  class(TRVpar) <- 'eir'
-  pars$TRVpar <- TRVpar
+  TRAVEL <- list()
+  class(TRAVEL) <- 'eir'
+  pars$TRAVEL <- TRAVEL
 
-  pars$TRVpar$travel_eir_scale = travel_eir_scale
+  pars$TRAVEL$travel_eir_scale = travel_eir_scale
   if(is.null(travel_eir_t)) travel_eir_t = function(t, pars){1}
-  pars$TRVpar$travel_eir_t = travel_eir_t
-  pars$TRVpar$frac_time_spent_traveling = frac_time_spent_traveling
+  pars$TRAVEL$travel_eir_t = travel_eir_t
+  pars$TRAVEL$frac_time_spent_traveling = frac_time_spent_traveling
 
   return(pars)
 })}

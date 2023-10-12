@@ -1,5 +1,18 @@
 # specialized methods for the aquatic mosquito basic competition model
 
+#' @title Reset aquatic parameters to baseline
+#' @description Implements [LBionomics] for the RM model
+#' @inheritParams LBionomics
+#' @return a named [list]
+#' @export
+LBionomics.basic <- function(t, y, pars) {
+  pars$Lpar$psi <- pars$Lpar$psi0
+  pars$Lpar$phi <- pars$Lpar$phi0
+  pars$Lpar$theta <- pars$Lpar$theta0
+  return(pars)
+}
+
+
 #' @title Number of newly emerging adults from each larval habitat
 #' @description Implements [F_alpha] for the basic competition model.
 #' @inheritParams F_alpha
@@ -43,8 +56,9 @@ setup_L.basic = function(pars, Lname,
 
   with(Lopts,{
 
-    pars = make_Lpar_basic(pars, Lopts)
-    pars = make_Linits_basic(pars, Lopts)
+    pars <- make_Lpar_basic(pars, Lopts)
+    pars <- LBionomics.basic(0, 0, pars)
+    pars <- make_Linits_basic(pars, Lopts)
 
     return(pars)
  })}
@@ -60,9 +74,9 @@ setup_L.basic = function(pars, Lname,
 make_Lpar_basic = function(pars, Lopts=list(), psi=1/8, phi=1/8, theta=1/100){with(Lopts,{
   Lpar = list()
   class(Lpar) <- "basic"
-  Lpar$psi = checkIt(psi, pars$nHabitats)
-  Lpar$phi = checkIt(phi, pars$nHabitats)
-  Lpar$theta = checkIt(theta, pars$nHabitats)
+  Lpar$psi0 = checkIt(psi, pars$nHabitats)
+  Lpar$phi0 = checkIt(phi, pars$nHabitats)
+  Lpar$theta0 = checkIt(theta, pars$nHabitats)
 
   pars$Lpar = Lpar
   return(pars)
@@ -115,10 +129,11 @@ make_parameters_L_basic <- function(pars, psi, phi, theta) {
   stopifnot(is.numeric(psi), is.numeric(phi), is.numeric(theta))
   Lpar <- list()
   class(Lpar) <- 'basic'
-  Lpar$psi <- psi
-  Lpar$phi <- phi
-  Lpar$theta <- theta
+  Lpar$psi0 <- psi
+  Lpar$phi0 <- phi
+  Lpar$theta0 <- theta
   pars$Lpar <- Lpar
+  pars <- LBionomics.basic(0, 0, pars)
   return(pars)
 }
 

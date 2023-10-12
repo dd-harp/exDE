@@ -9,12 +9,21 @@ F_X.trace <- function(t, y, pars) {
   with(pars$Xpar, kappa)
 }
 
+#' @title Infection blocking pre-erythrocytic immunity
+#' @description Implements [F_b] for the trace model.
+#' @inheritParams F_b
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_b.trace <- function(y, pars) {
+  numeric(0)
+}
+
 #' @title Derivatives for human population
 #' @description Implements [dXdt] for the trace model.
 #' @inheritParams dXdt
 #' @return a [numeric] vector
 #' @export
-dXdt.trace <- function(t, y, pars, EIR) {
+dXdt.trace <- function(t, y, pars, FoI) {
   numeric(0)
 }
 

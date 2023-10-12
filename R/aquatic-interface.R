@@ -1,5 +1,19 @@
 # generic methods for aquatic component
 
+
+#' @title Set aquatic bionomic parameter rates relative to baseline
+#' @description This method dispatches on the type of `pars$Lpar`. It should
+#' compute the values of parameters as a function of exogenous variables
+#' or reset the values of the bionomic parameters to baseline values.
+#' @param t current simulation time
+#' @param y state vector
+#' @param pars a [list]
+#' @return a [list]
+#' @export
+LBionomics <- function(t, y, pars) {
+  UseMethod("LBionomics", pars$Lpar)
+}
+
 #' @title Number of newly emerging adults from each larval habitat
 #' @description This method dispatches on the type of `pars$Lpar`.
 #' @param t current simulation time

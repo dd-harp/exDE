@@ -68,13 +68,14 @@ reference:
   - F_EIR
   - F_kappa
   - compute_beta
+  - Exposure
 - title: Adult Mosquito Dynamics
   desc: |
     Generic methods for the adult mosquito dynamics component.
   contents:
-  - MosquitoBehavior
-  - F_tau
+  - MBionomics
   - F_fqZ
+  - F_tau
   - F_eggs
   - dMYZdt
   - setup_MYZ
@@ -82,11 +83,18 @@ reference:
   - parse_deout_MYZ
   - get_inits_MYZ
   - make_Omega
+- subtitle: EIP
+  desc: |
+    Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
+  contents:
+  - EIP
+  - EIP.static
+  - setup_eip_static
 - subtitle: Ztrace
   desc: |
     Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
   contents:
-  - MosquitoBehavior.Ztrace
+  - MBionomics.Ztrace
   - F_fqZ.Ztrace
   - F_eggs.Ztrace
   - dMYZdt.Ztrace
@@ -101,7 +109,7 @@ reference:
   desc: |
     Specialized methods for NULL dynamics: a funtion generates values for eggs laid to aquatic ecology
   contents:
-  - MosquitoBehavior.Gtrace
+  - MBionomics.Gtrace
   - F_fqZ.Gtrace
   - F_eggs.Gtrace
   - dMYZdt.Gtrace
@@ -116,7 +124,7 @@ reference:
   desc: |
     Specialized methods for basicM, a model of adult mosquito dynamics with no parasite infection dynamics.
   contents:
-  - MosquitoBehavior.basicM
+  - MBionomics.basicM
   - F_eggs.basicM
   - dMYZdt.basicM
   - setup_MYZ.basicM
@@ -131,7 +139,7 @@ reference:
   desc: |
     Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics, modified slightly from a model published by Joan Aron & Robert May (1982).
   contents:
-  - MosquitoBehavior.RM
+  - MBionomics.RM
   - F_fqZ.RM
   - F_eggs.RM
   - dMYZdt.RM_ode
@@ -151,8 +159,7 @@ reference:
   desc: |
     Specialized methods for a generalized Ross-Macdonald model for adult mosquito ecology and parasite infection dynamics, first published by Sean L Wu, et al.(2023).
   contents:
-  - MosquitoBehavior.GeRM
-  - Resources.GeRM
+  - MBionomics.GeRM
   - F_fqZ.GeRM
   - F_eggs.GeRM
   - dMYZdt.GeRM_ode
@@ -168,13 +175,10 @@ reference:
   - get_inits_MYZ.GeRM_ode
   - get_inits_MYZ.GeRM_dde
   - make_parameters_MYZ_GeRM_static
-  - setup_forcing_MYZ_GeRM_basic
 - title: Mosquito Bionomic Functional Responses
   desc: |
     Compute bionomic parameters as functional responses to resource availability
   contents:
-  - F_eip
-  - F_eip.static
   - F_sigma
   - F_sigma.static
   - F_sigma.BQS
@@ -202,6 +206,7 @@ reference:
   desc: |
     Generic methods for the aquatic (immature) mosquito component.
   contents:
+  - LBionomics
   - F_alpha
   - dLdt
   - setup_L
@@ -214,6 +219,7 @@ reference:
   desc: |
     Specialized methods for the exogeneously forced trace model of aquatic mosquito dynamics.
   contents:
+  - LBionomics.trace
   - F_alpha.trace
   - dLdt.trace
   - setup_L.trace
@@ -227,6 +233,7 @@ reference:
   desc: |
     Specialized methods for a basic competition model of aquatic mosquito dynamics.
   contents:
+  - LBionomics.basic
   - F_alpha.basic
   - dLdt.basic
   - setup_L.basic
@@ -242,6 +249,7 @@ reference:
     Generic methods for the dynamical component that handles human infection dynamics, immunity, disease and transmission
   contents:
   - F_X
+  - F_b
   - dXdt
   - setup_X
   - make_indices_X
@@ -253,6 +261,7 @@ reference:
     Specialized methods for a human trace model to pass kappa as a parameter
   contents:
   - F_X.trace
+  - F_b.trace
   - dXdt.trace
   - setup_X.trace
   - make_Xpar_trace
@@ -266,6 +275,7 @@ reference:
     Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.
   contents:
   - F_X.hMoI
+  - F_b.hMoI
   - dXdt.hMoI
   - setup_X.hMoI
   - make_Xpar_hMoI
@@ -281,6 +291,7 @@ reference:
     Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
   contents:
   - F_X.SIS
+  - F_b.SIS
   - dXdt.SISdX
   - dXdt.SISdXdH
   - setup_X.SIS
@@ -297,6 +308,7 @@ reference:
     Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
   contents:
   - F_X.SIP
+  - F_b.SIP
   - dXdt.SIPdX
   - dXdt.SIPdXdH
   - setup_X.SIP
@@ -361,13 +373,25 @@ reference:
   - make_TaR.as_matrix
   - make_TaR.xy
   - make_TaR_xy
-- title: Human Behavior
+- title: Human and Mosqutio Behaviors
   desc: |
-    Methods to implement human behaviors
+    Methods to implement human and Mosquito Behaviorsbehaviors
   contents:
-  - HumanBehavior
-  - HumanBehavior.null
-  - setup_humanbehavior_null
+  - Behavior
+  - Behavior.null
+  - Behavior.forced
+  - setup_behavior_null
+  - setup_behavior_forced
+  - setup_behavior
+  - setup_behavior.null
+  - setup_behavior.forced
+- subtitle: Care Seeking
+  desc: |
+    Methods to implement care seeking
+  contents:
+  - CareSeeking
+  - CareSeeking.null
+  - setup_care_seeking_null
 - title: Exposure
   desc: |
     Methods to implement exposure models (i.e., EIR to FoI)
@@ -429,26 +453,66 @@ reference:
   desc: |
     Methods to implement exogeneous forcing.
   contents:
-  - ExogenousForcing
+  - Abiotic
+  - Civil
+  - Shock
+  - Control
+  - Clinic
+  - Development
+  - MassMedical
 - subtitle: null model
   desc: |
     Specialized methods the null model (no exogenous forcing)
   contents:
-  - ExogenousForcing.null
-  - setup_exogenous_null
+  - Abiotic.null
+  - setup_abiotic_null
+  - Civil.null
+  - setup_civil_null
+  - Shock.null
+  - setup_shock_null
+  - Control.null
+  - Control.static
+  - setup_control_null
+  - setup_control
+  - setup_control.null
+  - setup_control.forced
+  - Clinic.null
+  - setup_clinic_null
+  - setup_clinic_forced
+  - Development.null
+  - setup_development_null
+  - MassMedical.null
+  - setup_mass_medical_null
 - subtitle: forced
   desc: |
     Specialized methods to call forcing
   contents:
-  - ExogenousForcing.forced
-  - setup_exogenous_forced
+  - Abiotic.forced
+  - setup_abiotic_forced
+  - check_abiotic
+  - check_abiotic.null
+  - check_abiotic.forced
+  - Civil.forced
+  - setup_civil_forced
+  - check_civil
+  - check_civil.null
+  - check_civil.forced
+  - Control.forced
+  - setup_control_forced
+  - MassMedical.forced
+  - setup_mass_medical_forced
 - subtitle: Weather
   desc: |
     Specialized methods for weather
   contents:
   - Weather
   - Weather.null
+  - Weather.forced
   - setup_weather_null
+  - setup_weather_forced
+  - setup_rainfall_null
+  - setup_temperature_null
+  - setup_relative_humidity_null
 - subtitle: Hydrology
   desc: |
     Specialized methods for hydrology
@@ -456,119 +520,137 @@ reference:
   - Hydrology
   - Hydrology.null
   - setup_hydrology_null
-- title: Resource Availability
+- title: Resources and Availability
   desc: |
     Methods to implement resource availability
   contents:
   - Resources
+  - HumanAvailability
+  - HabitatAvailability
+  - SugarAvailability
   - Resources.null
-  - Resources.static
-  - setup_resources_static
-  - Resources.dynamic
+  - HumanAvailability.null
+  - HabitatAvailability.null
+  - SugarAvailability.null
+  - Resources.forced
+  - HumanAvailability.forced
+  - HabitatAvailability.forced
+  - SugarAvailability.forced
   - setup_resources_null
-- subtitle: Blood Feeding
-  desc: |
-    Methods to simulate blood feeding rates and habits based on available resources
-  contents:
-  - update_BloodFeeding
-  - update_BloodFeeding.static
-  - update_BloodFeeding.dynamic
-  - compute_W
-  - compute_B
-  - update_W
-  - update_W.static
-  - update_W.dynamic
+  - setup_resources_forced
   - compute_local_frac
 - subtitle: Other Blood Hosts
   desc: |
     Methods to simulate availability of other blood hosts
   contents:
-  - F_otherblood
-  - F_otherblood.null
-  - F_otherblood.static
-  - F_otherblood.forced
-  - setup_otherblood_forced
-  - update_O
-  - update_O.static
-  - update_O.dynamic
-- subtitle: Egg Laying
-  desc: |
-    Methods for the egg laying interface
-  contents:
-  - update_EggLaying
-  - update_EggLaying.static
-  - update_EggLaying.dynamic
+  - OtherBloodHosts
+  - OtherBloodHosts.null
+  - setup_other_blood_hosts_null
 - subtitle: Habitat Dynamics
   desc: |
     Methods to implement habitat dynamics
   contents:
-  - F_habitats
-  - F_habitats.null
-  - setup_habitats_null
-  - F_habitats.static
-  - setup_habitats_static
-  - F_habitats.forced
-  - setup_habitats_forced
-  - compute_Q
+  - HabitatDynamics
+  - HabitatDynamics.null
+  - setup_habitat_dynamics_null
 - subtitle: Sugar
   desc: |
     Methods to simulate availability of sugar
   contents:
-  - update_S
-  - update_S.static
-  - update_S.dynamic
-  - F_sugar
-  - F_sugar.null
-  - F_sugar.static
-  - F_sugar.forced
-  - setup_sugar_forced
+  - Sugar
+  - Sugar.null
+  - setup_sugar_null
 - title: Vector Control
   desc: |
     Methods to implement vector control.
   contents:
   - VectorControl
+  - VectorControlEffects
+  - VectorControlEffectSizes
 - subtitle: null model
   desc: |
     Specialized methods for the null model (no vector control)
   contents:
   - VectorControl.null
+  - VectorControlEffects.null
+  - VectorControlEffectSizes.null
   - setup_vc_null
 - subtitle: Implement Control
   desc: |
     Specialized methods to implement vector control
   contents:
   - VectorControl.control
+  - VectorControlEffects.control
+  - VectorControlEffectSizes.control
   - setup_vc_control
 - subtitle: Bed Nets
   desc: |
     Methods to implement bed nets
   contents:
-  - BedNets
-  - BedNets.null
+  - DistributeBedNets
+  - OwnBedNet
+  - UseBedNet
+  - BedNetEffects
+  - BedNetEffectSizes
+  - DistributeBedNets.null
+  - OwnBedNet.null
+  - UseBedNet.null
+  - BedNetEffects.null
+  - BedNetEffectSizes.null
   - setup_itn_null
-  - BedNets.lemenach
+  - BedNetEffectSizes.lemenach
   - setup_itn_lemenach
 - subtitle: Indoor Residual Spraying
   desc: |
     Methods to implement IRS
   contents:
-  - IRS
-  - IRS.null
+  - SprayHouses
+  - IRSeffects
+  - IRSeffectSizes
+  - SprayHouses.null
+  - IRSeffects.null
+  - IRSeffectSizes.null
   - setup_irs_null
-- subtitle: Attractive Toxic Sugar Baits
+- subtitle: Area Spraying
   desc: |
-    Methods to implement ATSB
+    Methods to implement area spraying
   contents:
-  - ATSB
-  - ATSB.null
-  - setup_atsb_null
+  - AreaSpray
+  - AreaSprayEffects
+  - AreaSprayEffectSizes
+  - AreaSpray.null
+  - AreaSprayEffects.null
+  - AreaSprayEffectSizes.null
+  - setup_area_spray_null
+- subtitle: Sugar Baits
+  desc: |
+    Methods to implement sugar baits
+  contents:
+  - SugarBaits
+  - SugarBaitEffects
+  - SugarBaitEffectSizes
+  - SugarBaits.null
+  - SugarBaitEffects.null
+  - SugarBaitEffectSizes.null
+  - setup_sugar_baits_null
 - subtitle: Larval Source Management
   desc: |
     Methods to implement LSM
   contents:
-  - LSM
-  - LSM.null
+  - TreatHabitats
+  - LSMeffects
+  - LSMeffectSizes
+  - TreatHabitats.null
+  - LSMeffects.null
+  - LSMeffectSizes.null
   - setup_lsm_null
+- subtitle: Ovitraps
+  desc: |
+    Specialized methods for ovitraps
+  contents:
+  - OviTraps
+  - OviTraps.null
+  - setup_ovitraps_null
 - title: Spatial metrics
   contents:
   - metric_calV
@@ -581,6 +663,7 @@ reference:
   - xde_setup_aquatic
   - xde_setup_mosy
   - xde_setup_human
+  - xde_setup_cohort
 - title: Solving
   contents:
   - xde_solve
@@ -591,6 +674,7 @@ reference:
   - xde_solve.mosy
   - xde_solve.mosy_dde
   - xde_solve.human
+  - xde_solve.cohort
 - title: Utilities
   contents:
   - make_parameters_xde

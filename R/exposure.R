@@ -1,3 +1,15 @@
+#' @title A model for exposure. The function `F_b` must be define
+#' @param t the time
+#' @param y the variables
+#' @param pars a [list]
+#' @param EIR is the daily eir
+#' @export
+Exposure <- function(t, y, pars, EIR){
+  b = F_b(y, pars)
+  foi = F_foi(EIR, b, pars) + travel_malaria(t, pars)
+  return(foi)
+}
+
 #' @title A model for exposure
 #' @description This method dispatches on the type of `pars$FOIpar`.
 #' @param eir the daily eir

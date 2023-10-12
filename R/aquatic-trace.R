@@ -1,5 +1,14 @@
 # specialized methods for the aquatic mosquito trace model
 
+#' @title Reset aquatic parameters to baseline
+#' @description Implements [LBionomics] for the RM model
+#' @inheritParams LBionomics
+#' @return a named [list]
+#' @export
+LBionomics.trace <- function(t, y, pars) {
+  return(pars)
+}
+
 #' @title Number of newly emerging adults from each larval habitat
 #' @description Implements [F_alpha] for the trace (forced emergence) model.
 #' @inheritParams F_alpha

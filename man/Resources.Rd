@@ -9,7 +9,7 @@ Resources(t, y, pars)
 \arguments{
 \item{t}{current simulation time}
 
-\item{y}{state variables}
+\item{y}{vector of state variables}
 
 \item{pars}{a \link{list}}
 }
@@ -17,5 +17,5 @@ Resources(t, y, pars)
 none
 }
 \description{
-This method dispatches on the type of \code{pars$RApar}.
+This method dispatches on the type of \code{pars$RESOURCES}.
 }

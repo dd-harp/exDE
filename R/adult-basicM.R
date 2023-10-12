@@ -1,11 +1,11 @@
 # specialized methods for a basic adult mosquito model
 
-#' @title Reset bloodfeeding and mortality rates to baseline
-#' @description Implements [MosquitoBehavior] for the basicM model
-#' @inheritParams MosquitoBehavior
+#' @title Set bionomic parameters to baseline
+#' @description Implements [MBionomics] for the basicM model
+#' @inheritParams MBionomics
 #' @return a named [list]
 #' @export
-MosquitoBehavior.basicM <- function(t, y, pars) {
+MBionomics.basicM <- function(t, y, pars) {
 
   pars$MYZpar$f <- pars$MYZpar$f0
   pars$MYZpar$q <- pars$MYZpar$q0
@@ -109,7 +109,7 @@ make_MYZpar_basicM = function(pars, MYZopts=list(), calK,
     MYZpar$calK <- calK
 
     pars$MYZpar = MYZpar
-    pars = MosquitoBehavior(0, 0, pars)
+    pars = MBionomics(0, 0, pars)
 
     return(pars)
   })}
@@ -186,7 +186,7 @@ make_parameters_MYZ_basicM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, c
   MYZpar$calK <- calK
 
   pars$MYZpar <- MYZpar
-  pars = MosquitoBehavior(0, 0, pars)
+  pars = MBionomics(0, 0, pars)
   return(pars)
 }
 

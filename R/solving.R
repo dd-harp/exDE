@@ -93,3 +93,15 @@ xde_solve.human = function(pars, Tmax=365, dt=1){
   parse_deout(out, pars)
 }
 
+
+#' @title Solve a system of equations with xDE_diffeqn_cohort
+#' @description Implements [xde_solve] for mosquito dynamics (no transmission)
+#' @inheritParams xde_solve
+#' @return a [matrix]
+#' @export
+xde_solve.cohort = function(pars, Tmax=365, dt=1){
+  tt = seq(0, Tmax, by=dt)
+  y0 = get_inits(pars)
+  deSolve::ode(y = y0, times = tt, func = xDE_diffeqn_cohort, parms = pars, F_eir = pars$F_eir, method = "lsoda") -> out
+  parse_deout(out, pars)
+}

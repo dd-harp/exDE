@@ -1,11 +1,11 @@
 # specialized methods for the adult mosquito Gtrace model
 
 #' @title Compute bloodfeeding and mortality rates
-#' @description Implements [MosquitoBehavior] for the Gtrace model.
-#' @inheritParams MosquitoBehavior
+#' @description Implements [MBionomics] for the Gtrace model.
+#' @inheritParams MBionomics
 #' @return a named [list]
 #' @export
-MosquitoBehavior.Gtrace <- function(t, y, pars) {
+MBionomics.Gtrace <- function(t, y, pars) {
   return(pars)
 }
 
@@ -113,7 +113,7 @@ make_parameters_MYZ_Gtrace <- function(pars, Gm, Gf) {
   MYZpar$Gm <- Gm
   MYZpar$Gf = Gf
   pars$MYZpar <- MYZpar
-  pars = MosquitoBehavior(pars)
+  pars = MBionomics(pars)
   return(pars)
 }
 

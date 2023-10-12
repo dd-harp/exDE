@@ -58,6 +58,7 @@ We can use this to calculate the net infectious probability, and then $\kappa = 
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
+#devtools::load_all()
 library(deSolve)
 library(data.table)
 library(ggplot2)
@@ -142,16 +143,18 @@ Xo$m10 = with(Xo, h/r1)
 Hpop = c(100, 500, 250)
 ```
 
-To use `xde_setup_human` we must set the values of $Z$ that give us the correct EIR values, and we set these as $Zm$. The function call is to `Ztrace` 
-
 ```{r}
-MYZo = list(f=0.3, q=0.95)
-MYZo$Zm = with(c(MYZo,Xo), h/b/f/q*Hpop) 
+h/b
 ```
 
+```{r}
+F_eir1 = function(t, pars){
+  0.05454545 
+}
+```
 
 ```{r}
-xde_setup_human("test_hMoI", "hMoI", HPop=Hpop, Xopts = Xo, MYZopts = MYZo) -> test_hMoI
+xde_setup_cohort("test_hMoI", F_eir1, "hMoI", HPop=Hpop, Xopts = Xo) -> test_hMoI
 ```
 
 ```{r}

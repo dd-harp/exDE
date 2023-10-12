@@ -16,17 +16,28 @@ F_X.hMoI <- function(t, y, pars) {
   })
 }
 
+
+#' @title Infection blocking pre-erythrocytic immunity
+#' @description Implements [F_b] for the hMoI model.
+#' @inheritParams F_b
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_b.hMoI <- function(y, pars) {
+  with(pars$Xpar, b)
+}
+
+
 #' @title Derivatives for human population
 #' @description Implements [dXdt] for the hybrid MoI model.
 #' @inheritParams dXdt
 #' @return a [numeric] vector
 #' @export
-dXdt.hMoI <- function(t, y, pars, EIR) {
+dXdt.hMoI <- function(t, y, pars, FoI) {
   with(pars$Xpar, {
     m1 <- y[m1_ix]
     m2 <- y[m2_ix]
-    dm1dt <- b*EIR - r1*m1
-    dm2dt <- b*EIR - r2*m2
+    dm1dt <- FoI - r1*m1
+    dm2dt <- FoI - r2*m2
     return(c(dm1dt, dm2dt))
   })
 }

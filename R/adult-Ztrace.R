@@ -1,11 +1,11 @@
 # specialized methods for the adult mosquito Ztrace model
 
 #' @title Compute bloodfeeding and mortality rates
-#' @description Implements [MosquitoBehavior] for the Ztrace model.
-#' @inheritParams MosquitoBehavior
+#' @description Implements [MBionomics] for the Ztrace model.
+#' @inheritParams MBionomics
 #' @return a named [list]
 #' @export
-MosquitoBehavior.Ztrace <- function(t, y, pars) {
+MBionomics.Ztrace <- function(t, y, pars) {
   pars$MYZpar$f <- pars$MYZpar$f0
   pars$MYZpar$q <- pars$MYZpar$q0
   return(pars)
@@ -89,7 +89,7 @@ make_MYZpar_Ztrace = function(pars, MYZopts,
     MYZpar$Zf <- Zf
 
     pars$MYZpar = MYZpar
-    pars = MosquitoBehavior(0, 0, pars)
+    pars = MBionomics(0, 0, pars)
 
     return(pars)
 })}
@@ -124,7 +124,7 @@ make_parameters_MYZ_Ztrace <- function(pars, Zm, f, q, Zf) {
   MYZpar$q0 <- q
   MYZpar$Zf = Zf
   pars$MYZpar <- MYZpar
-  pars = MosquitoBehavior(0, 0, pars)
+  pars = MBionomics(0, 0, pars)
   return(pars)
 }
 

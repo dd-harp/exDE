@@ -1,12 +1,48 @@
 # specialized methods for the null model of bed nets
 
-#' @title Modify baseline values due to bed nets
-#' @description Implements [BedNets] for the null model of bed nets (do nothing)
-#' @inheritParams BedNets
+#' @title Distribute bed nets
+#' @description Implements [DistributeBedNets] for the null model of bed nets (do nothing)
+#' @inheritParams DistributeBedNets
 #' @return a [list]
 #' @export
-BedNets.null <- function(t, pars) {
-  return(pars)
+DistributeBedNets.null <- function(t, pars) {
+  pars
+}
+
+#' @title Bed net ownership
+#' @description Implements [OwnBedNet] for the null model of bed nets (do nothing)
+#' @inheritParams OwnBedNet
+#' @return a [list]
+#' @export
+OwnBedNet.null <- function(t, y, pars) {
+  pars
+}
+
+#' @title Bed net ownership
+#' @description Implements [UseBedNet] for the null model of bed nets (do nothing)
+#' @inheritParams UseBedNet
+#' @return a [list]
+#' @export
+UseBedNet.null <- function(t, y, pars) {
+  pars
+}
+
+#' @title Bed net ownership
+#' @description Implements [BedNetEffects] for the null model of bed nets (do nothing)
+#' @inheritParams BedNetEffects
+#' @return a [list]
+#' @export
+BedNetEffects.null <- function(t, pars) {
+  pars
+}
+
+#' @title Bed net ownership
+#' @description Implements [BedNetEffectSizes] for the null model of bed nets (do nothing)
+#' @inheritParams BedNetEffectSizes
+#' @return a [list]
+#' @export
+BedNetEffectSizes.null <- function(t, pars) {
+  pars
 }
 
 #' @title Make parameters for the null model of bed nets (do nothing)
@@ -14,8 +50,12 @@ BedNets.null <- function(t, pars) {
 #' @return a [list]
 #' @export
 setup_itn_null <- function(pars) {
-  ITNpar <- list()
-  class(ITNpar) <- 'null'
-  pars$ITNpar <- ITNpar
+  ITN<- list()
+  class(ITN) <- 'null'
+  pars$ITNdist<- ITN
+  pars$ITNown<- ITN
+  pars$ITNuse<- ITN
+  pars$ITNeff<- ITN
+  pars$ITNefsz<- ITN
   return(pars)
 }

@@ -14,6 +14,7 @@ test_that("human SIS model remains at equilibrium", {
   TaR <- matrix(data = 1,nrow = 1, ncol = nStrata)
 
   EIR <- diag(1/b, nStrata) %*% ((r*X)/(H-X))
+  foi <- b*EIR
 
   params <- make_parameters_xde()
   params$nStrata <- nStrata
@@ -33,9 +34,9 @@ test_that("human SIS model remains at equilibrium", {
   y0 <- rep(0, 3)
   y0[params$Xpar$X_ix] <- X
 
-  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, EIR) {
-    list(dXdt(t, y, pars, EIR))
-  }, parms = params, method = 'lsoda', EIR = as.vector(EIR))
+  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, foi) {
+    list(dXdt(t, y, pars, foi))
+  }, parms = params, method = 'lsoda', foi= as.vector(foi))
 
   expect_equal(as.vector(out[2L, params$Xpar$X_ix+1]), X, tolerance = numeric_tol)
 })

@@ -12,8 +12,8 @@ Visitors(t, pars)
 \item{pars}{a \link{list}}
 }
 \value{
-pars a \link{list}
+a \link{list}
 }
 \description{
-This method dispatches on the type of \code{pars$Ipar}.
+This method dispatches on the type of \code{pars$VISITORS}.
 }
