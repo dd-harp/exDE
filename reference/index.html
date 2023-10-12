@@ -138,6 +138,11 @@
           <code><a href="compute_beta.html">compute_beta()</a></code> 
         </dt>
         <dd>Compute beta, the biting distribution matrix</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Exposure.html">Exposure()</a></code> 
+        </dt>
+        <dd>A model for exposure. The function <code>F_b</code> must be define</dd>
       </dl></div><div class="section level2">
       <h2 id="adult-mosquito-dynamics">Adult Mosquito Dynamics<a class="anchor" aria-label="anchor" href="#adult-mosquito-dynamics"></a></h2>
       
@@ -151,19 +156,19 @@
 
       <dl><dt>
           
-          <code><a href="MosquitoBehavior.html">MosquitoBehavior()</a></code> 
+          <code><a href="MBionomics.html">MBionomics()</a></code> 
         </dt>
         <dd>Set bloodfeeding and mortality rates to baseline</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_tau.html">F_tau()</a></code> 
-        </dt>
-        <dd>Time spent host seeking/feeding and resting/ovipositing</dd>
       </dl><dl><dt>
           
           <code><a href="F_fqZ.html">F_fqZ()</a></code> 
         </dt>
         <dd>Blood feeding rate of the infective mosquito population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_tau.html">F_tau()</a></code> 
+        </dt>
+        <dd>Time spent host seeking/feeding and resting/ovipositing</dd>
       </dl><dl><dt>
           
           <code><a href="F_eggs.html">F_eggs()</a></code> 
@@ -201,6 +206,32 @@
         <dd>Make the mosquito demography matrix</dd>
       </dl></div><div class="section level2">
       
+      <h3 id="eip">EIP<a class="anchor" aria-label="anchor" href="#eip"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for NULL dynamics: a funtion generates values of Z to force human infection dynamics</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="EIP.html">EIP()</a></code> 
+        </dt>
+        <dd>Compute the EIP</dd>
+      </dl><dl><dt>
+          
+          <code><a href="EIP.static.html">EIP(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing by all kinds of control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_eip_static.html">setup_eip_static()</a></code> 
+        </dt>
+        <dd>Set up the static model for control forcing (do nothing)</dd>
+      </dl></div><div class="section level2">
+      
       <h3 id="ztrace">Ztrace<a class="anchor" aria-label="anchor" href="#ztrace"></a></h3>
       <p class="section-desc"></p><p>Specialized methods for NULL dynamics: a funtion generates values of Z to force human infection dynamics</p>
 
@@ -212,7 +243,7 @@
 
       <dl><dt>
           
-          <code><a href="MosquitoBehavior.Ztrace.html">MosquitoBehavior(<i>&lt;Ztrace&gt;</i>)</a></code> 
+          <code><a href="MBionomics.Ztrace.html">MBionomics(<i>&lt;Ztrace&gt;</i>)</a></code> 
         </dt>
         <dd>Compute bloodfeeding and mortality rates</dd>
       </dl><dl><dt>
@@ -278,7 +309,7 @@
 
       <dl><dt>
           
-          <code><a href="MosquitoBehavior.Gtrace.html">MosquitoBehavior(<i>&lt;Gtrace&gt;</i>)</a></code> 
+          <code><a href="MBionomics.Gtrace.html">MBionomics(<i>&lt;Gtrace&gt;</i>)</a></code> 
         </dt>
         <dd>Compute bloodfeeding and mortality rates</dd>
       </dl><dl><dt>
@@ -344,9 +375,9 @@
 
       <dl><dt>
           
-          <code><a href="MosquitoBehavior.basicM.html">MosquitoBehavior(<i>&lt;basicM&gt;</i>)</a></code> 
+          <code><a href="MBionomics.basicM.html">MBionomics(<i>&lt;basicM&gt;</i>)</a></code> 
         </dt>
-        <dd>Reset bloodfeeding and mortality rates to baseline</dd>
+        <dd>Set bionomic parameters to baseline</dd>
       </dl><dl><dt>
           
           <code><a href="F_eggs.basicM.html">F_eggs(<i>&lt;basicM&gt;</i>)</a></code> 
@@ -410,7 +441,7 @@
 
       <dl><dt>
           
-          <code><a href="MosquitoBehavior.RM.html">MosquitoBehavior(<i>&lt;RM&gt;</i>)</a></code> 
+          <code><a href="MBionomics.RM.html">MBionomics(<i>&lt;RM&gt;</i>)</a></code> 
         </dt>
         <dd>Reset bloodfeeding and mortality rates to baseline</dd>
       </dl><dl><dt>
@@ -501,14 +532,9 @@
 
       <dl><dt>
           
-          <code><a href="MosquitoBehavior.GeRM.html">MosquitoBehavior(<i>&lt;GeRM&gt;</i>)</a></code> 
+          <code><a href="MBionomics.GeRM.html">MBionomics(<i>&lt;GeRM&gt;</i>)</a></code> 
         </dt>
         <dd>Reset bloodfeeding and mortality rates to baseline</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Resources.GeRM.html">Resources(<i>&lt;GeRM&gt;</i>)</a></code> 
-        </dt>
-        <dd>Set the availability of resources</dd>
       </dl><dl><dt>
           
           <code><a href="F_fqZ.GeRM.html">F_fqZ(<i>&lt;GeRM&gt;</i>)</a></code> 
@@ -584,11 +610,6 @@
           <code><a href="make_parameters_MYZ_GeRM_static.html">make_parameters_MYZ_GeRM_static()</a></code> 
         </dt>
         <dd>Make parameters for a GeRM ODE adult mosquito model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="setup_forcing_MYZ_GeRM_basic.html">setup_forcing_MYZ_GeRM_basic()</a></code> 
-        </dt>
-        <dd>Set up a static exogenous forcing for the GeRM ODE adult mosquito model</dd>
       </dl></div><div class="section level2">
       <h2 id="mosquito-bionomic-functional-responses">Mosquito Bionomic Functional Responses<a class="anchor" aria-label="anchor" href="#mosquito-bionomic-functional-responses"></a></h2>
       
@@ -601,16 +622,6 @@
       
 
       <dl><dt>
-          
-          <code><a href="F_eip.html">F_eip()</a></code> 
-        </dt>
-        <dd>Compute the eip</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_eip.static.html">F_eip(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Static model for human blood fraction</dd>
-      </dl><dl><dt>
           
           <code><a href="F_sigma.html">F_sigma()</a></code> 
         </dt>
@@ -729,6 +740,11 @@
 
       <dl><dt>
           
+          <code><a href="LBionomics.html">LBionomics()</a></code> 
+        </dt>
+        <dd>Set aquatic bionomic parameter rates relative to baseline</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_alpha.html">F_alpha()</a></code> 
         </dt>
         <dd>Number of newly emerging adults from each larval habitat</dd>
@@ -779,6 +795,11 @@
       
 
       <dl><dt>
+          
+          <code><a href="LBionomics.trace.html">LBionomics(<i>&lt;trace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Reset aquatic parameters to baseline</dd>
+      </dl><dl><dt>
           
           <code><a href="F_alpha.trace.html">F_alpha(<i>&lt;trace&gt;</i>)</a></code> 
         </dt>
@@ -835,6 +856,11 @@
       
 
       <dl><dt>
+          
+          <code><a href="LBionomics.basic.html">LBionomics(<i>&lt;basic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Reset aquatic parameters to baseline</dd>
+      </dl><dl><dt>
           
           <code><a href="F_alpha.basic.html">F_alpha(<i>&lt;basic&gt;</i>)</a></code> 
         </dt>
@@ -902,6 +928,11 @@
         <dd>Size of effective infectious human population</dd>
       </dl><dl><dt>
           
+          <code><a href="F_b.html">F_b()</a></code> 
+        </dt>
+        <dd>Infection blocking pre-erythrocytic immunity</dd>
+      </dl><dl><dt>
+          
           <code><a href="dXdt.html">dXdt()</a></code> 
         </dt>
         <dd>Derivatives for human population</dd>
@@ -946,6 +977,11 @@
           <code><a href="F_x.trace.html">F_X(<i>&lt;trace&gt;</i>)</a></code> 
         </dt>
         <dd>Size of effective infectious human population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_b.trace.html">F_b(<i>&lt;trace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Infection blocking pre-erythrocytic immunity</dd>
       </dl><dl><dt>
           
           <code><a href="dXdt.trace.html">dXdt(<i>&lt;trace&gt;</i>)</a></code> 
@@ -1002,6 +1038,11 @@
           <code><a href="F_x.hMoI.html">F_X(<i>&lt;hMoI&gt;</i>)</a></code> 
         </dt>
         <dd>Size of effective infectious human population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_b.hMoI.html">F_b(<i>&lt;hMoI&gt;</i>)</a></code> 
+        </dt>
+        <dd>Infection blocking pre-erythrocytic immunity</dd>
       </dl><dl><dt>
           
           <code><a href="dXdt.hMoI.html">dXdt(<i>&lt;hMoI&gt;</i>)</a></code> 
@@ -1068,6 +1109,11 @@
           <code><a href="F_x.SIS.html">F_X(<i>&lt;SIS&gt;</i>)</a></code> 
         </dt>
         <dd>Size of effective infectious human population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_b.SIS.html">F_b(<i>&lt;SIS&gt;</i>)</a></code> 
+        </dt>
+        <dd>Infection blocking pre-erythrocytic immunity</dd>
       </dl><dl><dt>
           
           <code><a href="dXdt.SISdX.html">dXdt(<i>&lt;SISdX&gt;</i>)</a></code> 
@@ -1139,6 +1185,11 @@
           <code><a href="F_x.SIP.html">F_X(<i>&lt;SIP&gt;</i>)</a></code> 
         </dt>
         <dd>Size of effective infectious human population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_b.SIP.html">F_b(<i>&lt;SIP&gt;</i>)</a></code> 
+        </dt>
+        <dd>Infection blocking pre-erythrocytic immunity</dd>
       </dl><dl><dt>
           
           <code><a href="dXdt.SIPdX.html">dXdt(<i>&lt;SIPdX&gt;</i>)</a></code> 
@@ -1415,9 +1466,9 @@
         </dt>
         <dd>Make a mosquito dispersal matrix, called TaR</dd>
       </dl></div><div class="section level2">
-      <h2 id="human-behavior">Human Behavior<a class="anchor" aria-label="anchor" href="#human-behavior"></a></h2>
+      <h2 id="human-and-mosqutio-behaviors">Human and Mosqutio Behaviors<a class="anchor" aria-label="anchor" href="#human-and-mosqutio-behaviors"></a></h2>
       
-      <p class="section-desc"></p><p>Methods to implement human behaviors</p>
+      <p class="section-desc"></p><p>Methods to implement human and Mosquito Behaviorsbehaviors</p>
 
       
     </div><div id="" class="section level2">
@@ -1427,19 +1478,70 @@
 
       <dl><dt>
           
-          <code><a href="HumanBehavior.html">HumanBehavior()</a></code> 
+          <code><a href="Behavior.html">Behavior()</a></code> 
         </dt>
-        <dd>Simulate Human Behavior</dd>
+        <dd>Methods for dynamic human and mosquito behaviors</dd>
       </dl><dl><dt>
           
-          <code><a href="HumanBehavior.null.html">HumanBehavior(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="Behavior.null.html">Behavior(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>Simulate no human behaviors</dd>
+        <dd>Methods for dynamic human and mosquito behaviors</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_humanbehavior_null.html">setup_humanbehavior_null()</a></code> 
+          <code><a href="Behavior.forced.html">Behavior(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Methods for dynamic human and mosquito behaviors</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_behavior_null.html">setup_behavior_null()</a></code> 
         </dt>
         <dd>Make parameters for the null model for resource availability (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_behavior_forced.html">setup_behavior_forced()</a></code> 
+        </dt>
+        <dd>Make parameters for the forced model for resource availability (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_behavior.html">setup_behavior()</a></code> 
+        </dt>
+        <dd>Setup behavior</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_behavior.null.html">setup_behavior(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup behavior</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_behavior.forced.html">setup_behavior(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup behavior</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="care-seeking">Care Seeking<a class="anchor" aria-label="anchor" href="#care-seeking"></a></h3>
+      <p class="section-desc"></p><p>Methods to implement care seeking</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="CareSeeking.html">CareSeeking()</a></code> 
+        </dt>
+        <dd>Set the values of exogenous variables describing care seeking</dd>
+      </dl><dl><dt>
+          
+          <code><a href="CareSeeking.null.html">CareSeeking(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set the values of exogenous variables describing care seeking</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_care_seeking_null.html">setup_care_seeking_null()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model for care seeking (do nothing)</dd>
       </dl></div><div class="section level2">
       <h2 id="exposure">Exposure<a class="anchor" aria-label="anchor" href="#exposure"></a></h2>
       
@@ -1648,9 +1750,39 @@
 
       <dl><dt>
           
-          <code><a href="ExogenousForcing.html">ExogenousForcing()</a></code> 
+          <code><a href="Abiotic.html">Abiotic()</a></code> 
         </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
+        <dd>Set up exogenous variables for abiotic forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Civil.html">Civil()</a></code> 
+        </dt>
+        <dd>Set up exogenous variables for civil forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Shock.html">Shock()</a></code> 
+        </dt>
+        <dd>Set up shocks</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Control.html">Control()</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing by all kinds of control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Clinic.html">Clinic()</a></code> 
+        </dt>
+        <dd>Methods for distributing interventions during clinical visits</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Development.html">Development()</a></code> 
+        </dt>
+        <dd>Set up developments</dd>
+      </dl><dl><dt>
+          
+          <code><a href="MassMedical.html">MassMedical()</a></code> 
+        </dt>
+        <dd>Methods for mass medical interventions</dd>
       </dl></div><div class="section level2">
       
       <h3 id="null-model-2">null model<a class="anchor" aria-label="anchor" href="#null-model-2"></a></h3>
@@ -1664,14 +1796,99 @@
 
       <dl><dt>
           
-          <code><a href="ExogenousForcing.null.html">ExogenousForcing(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="Abiotic.null.html">Abiotic(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
+        <dd>Set up exogenous variables for abiotic forcing</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_exogenous_null.html">setup_exogenous_null()</a></code> 
+          <code><a href="setup_abiotic_null.html">setup_abiotic_null()</a></code> 
         </dt>
         <dd>Set up the null model for exogenous forcing (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Civil.null.html">Civil(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set up exogenous variables for civil forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_civil_null.html">setup_civil_null()</a></code> 
+        </dt>
+        <dd>Set up the null model for exogenous forcing (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Shock.null.html">Shock(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set up shocks</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_shock_null.html">setup_shock_null()</a></code> 
+        </dt>
+        <dd>Set up the null model for shocks (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Control.null.html">Control(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing by all kinds of control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Control.static.html">Control(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing by all kinds of control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_control_null.html">setup_control_null()</a></code> 
+        </dt>
+        <dd>Set up the null model for control forcing (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_control.html">setup_control()</a></code> 
+        </dt>
+        <dd>Setup CONTROL with forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_control.null.html">setup_control(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_control.forced.html">setup_control(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Clinic.null.html">Clinic(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Methods for distributing interventions during clinical visits</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_clinic_null.html">setup_clinic_null()</a></code> 
+        </dt>
+        <dd>Set up the null model for clinical distribution (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_clinic_forced.html">setup_clinic_forced()</a></code> 
+        </dt>
+        <dd>Set up a model for clinic</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Development.null.html">Development(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set up developments</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_development_null.html">setup_development_null()</a></code> 
+        </dt>
+        <dd>Set up the null model for developments (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="MassMedical.null.html">MassMedical(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Methods for mass medical</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_mass_medical_null.html">setup_mass_medical_null()</a></code> 
+        </dt>
+        <dd>Set up the null model for mass medical (do nothing)</dd>
       </dl></div><div class="section level2">
       
       <h3 id="forced">forced<a class="anchor" aria-label="anchor" href="#forced"></a></h3>
@@ -1685,14 +1902,74 @@
 
       <dl><dt>
           
-          <code><a href="ExogenousForcing.forced.html">ExogenousForcing(<i>&lt;forced&gt;</i>)</a></code> 
+          <code><a href="Abiotic.forced.html">Abiotic(<i>&lt;forced&gt;</i>)</a></code> 
         </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
+        <dd>Set up exogenous variables for abiotic forcing</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_exogenous_forced.html">setup_exogenous_forced()</a></code> 
+          <code><a href="setup_abiotic_forced.html">setup_abiotic_forced()</a></code> 
         </dt>
-        <dd>Make parameters for the null model of exogenous forcing (do nothing)</dd>
+        <dd>Make parameters for the null model of abiotic forcing (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="check_abiotic.html">check_abiotic()</a></code> 
+        </dt>
+        <dd>Check abiotic</dd>
+      </dl><dl><dt>
+          
+          <code><a href="check_abiotic.null.html">check_abiotic(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Check abiotic</dd>
+      </dl><dl><dt>
+          
+          <code><a href="check_abiotic.forced.html">check_abiotic(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Check abiotic</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Civil.forced.html">Civil(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set up exogenous variables for civil forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_civil_forced.html">setup_civil_forced()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model of civil forcing (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="check_civil.html">check_civil()</a></code> 
+        </dt>
+        <dd>Check civil</dd>
+      </dl><dl><dt>
+          
+          <code><a href="check_civil.null.html">check_civil(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Check civil</dd>
+      </dl><dl><dt>
+          
+          <code><a href="check_civil.forced.html">check_civil(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Check civil</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Control.forced.html">Control(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify parameters due to exogenous forcing by all kinds of control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_control_forced.html">setup_control_forced()</a></code> 
+        </dt>
+        <dd>Set up a model with some control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="MassMedical.forced.html">MassMedical(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Methods for mass medical</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_mass_medical_forced.html">setup_mass_medical_forced()</a></code> 
+        </dt>
+        <dd>Set up a model for mass medical</dd>
       </dl></div><div class="section level2">
       
       <h3 id="weather">Weather<a class="anchor" aria-label="anchor" href="#weather"></a></h3>
@@ -1708,17 +1985,42 @@
           
           <code><a href="Weather.html">Weather()</a></code> 
         </dt>
-        <dd>Set the values of exogenous variables describing weather</dd>
+        <dd>Methods for exogenous variables describing weather</dd>
       </dl><dl><dt>
           
           <code><a href="Weather.null.html">Weather(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>Modify exogenous variables describing weather</dd>
+        <dd>Methods for exogenous variables describing weather</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Weather.forced.html">Weather(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Methods for exogenous variables describing weather</dd>
       </dl><dl><dt>
           
           <code><a href="setup_weather_null.html">setup_weather_null()</a></code> 
         </dt>
-        <dd>Set up the null model for weather (do nothing)</dd>
+        <dd>Set up the null model for weather</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_weather_forced.html">setup_weather_forced()</a></code> 
+        </dt>
+        <dd>Set up the forced model for weather</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_rainfall_null.html">setup_rainfall_null()</a></code> 
+        </dt>
+        <dd>Set up the null model for RAINFALL</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_temperature_null.html">setup_temperature_null()</a></code> 
+        </dt>
+        <dd>Set up the null model for temperature</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_relative_humidity_null.html">setup_relative_humidity_null()</a></code> 
+        </dt>
+        <dd>Set up the null model for HUMIDITY</dd>
       </dl></div><div class="section level2">
       
       <h3 id="hydrology">Hydrology<a class="anchor" aria-label="anchor" href="#hydrology"></a></h3>
@@ -1739,14 +2041,14 @@
           
           <code><a href="Hydrology.null.html">Hydrology(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>Modify parameters due to exogenous forcing</dd>
+        <dd>Set the values of exogenous variables describing hydrology</dd>
       </dl><dl><dt>
           
           <code><a href="setup_hydrology_null.html">setup_hydrology_null()</a></code> 
         </dt>
         <dd>Make parameters for the null model for hydrology (do nothing)</dd>
       </dl></div><div class="section level2">
-      <h2 id="resource-availability">Resource Availability<a class="anchor" aria-label="anchor" href="#resource-availability"></a></h2>
+      <h2 id="resources-and-availability">Resources and Availability<a class="anchor" aria-label="anchor" href="#resources-and-availability"></a></h2>
       
       <p class="section-desc"></p><p>Methods to implement resource availability</p>
 
@@ -1763,85 +2065,74 @@
         <dd>Set the values of exogenous variables describing available mosquito resources</dd>
       </dl><dl><dt>
           
+          <code><a href="HumanAvailability.html">HumanAvailability()</a></code> 
+        </dt>
+        <dd>Update the availability of blood hosts</dd>
+      </dl><dl><dt>
+          
+          <code><a href="HabitatAvailability.html">HabitatAvailability()</a></code> 
+        </dt>
+        <dd>Update the availability of aquatic habitats</dd>
+      </dl><dl><dt>
+          
+          <code><a href="SugarAvailability.html">SugarAvailability()</a></code> 
+        </dt>
+        <dd>Update the availability of sugar</dd>
+      </dl><dl><dt>
+          
           <code><a href="Resources.null.html">Resources(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
         <dd>Modify resources and resource availability</dd>
       </dl><dl><dt>
           
-          <code><a href="Resources.static.html">Resources(<i>&lt;static&gt;</i>)</a></code> 
+          <code><a href="HumanAvailability.null.html">HumanAvailability(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>Modify resources and resource availability</dd>
+        <dd>Compute availability of local humans for blood feeding</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_resources_static.html">setup_resources_static()</a></code> 
+          <code><a href="HabitatAvailability.null.html">HabitatAvailability(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>Set up parameters for a static model for resource availability</dd>
+        <dd>Compute total availability of aquatic habitats</dd>
       </dl><dl><dt>
           
-          <code><a href="Resources.dynamic.html">Resources(<i>&lt;dynamic&gt;</i>)</a></code> 
+          <code><a href="SugarAvailability.null.html">SugarAvailability(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>Modify resources and resource availability dynamically</dd>
+        <dd>Compute total availability of sugar</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Resources.forced.html">Resources(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Methods for resources</dd>
+      </dl><dl><dt>
+          
+          <code><a href="HumanAvailability.forced.html">HumanAvailability(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute availability of local humans for blood feeding</dd>
+      </dl><dl><dt>
+          
+          <code><a href="HabitatAvailability.forced.html">HabitatAvailability(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute total availability of aquatic habitats</dd>
+      </dl><dl><dt>
+          
+          <code><a href="SugarAvailability.forced.html">SugarAvailability(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute total availability of sugar</dd>
       </dl><dl><dt>
           
           <code><a href="setup_resources_null.html">setup_resources_null()</a></code> 
         </dt>
         <dd>Set up parameters for the null model for resource availability</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="blood-feeding">Blood Feeding<a class="anchor" aria-label="anchor" href="#blood-feeding"></a></h3>
-      <p class="section-desc"></p><p>Methods to simulate blood feeding rates and habits based on available resources</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="update_BloodFeeding.html">update_BloodFeeding()</a></code> 
-        </dt>
-        <dd>Update the availability of blood hosts</dd>
       </dl><dl><dt>
           
-          <code><a href="update_BloodFeeding.static.html">update_BloodFeeding(<i>&lt;static&gt;</i>)</a></code> 
+          <code><a href="setup_resources_forced.html">setup_resources_forced()</a></code> 
         </dt>
-        <dd>Update blood feeding for static models</dd>
-      </dl><dl><dt>
-          
-          <code><a href="update_BloodFeeding.dynamic.html">update_BloodFeeding(<i>&lt;dynamic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Update total availability of blood hosts for dynamical models</dd>
-      </dl><dl><dt>
-          
-          <code><a href="compute_W.html">compute_W()</a></code> 
-        </dt>
-        <dd>Compute host availability</dd>
-      </dl><dl><dt>
-          
-          <code><a href="compute_B.html">compute_B()</a></code> 
-        </dt>
-        <dd>Compute the total availability of blood hosts</dd>
-      </dl><dl><dt>
-          
-          <code><a href="update_W.html">update_W()</a></code> 
-        </dt>
-        <dd>Update host availability</dd>
-      </dl><dl><dt>
-          
-          <code><a href="update_W.static.html">update_W(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Update host availability for static models</dd>
-      </dl><dl><dt>
-          
-          <code><a href="update_W.dynamic.html">update_W(<i>&lt;dynamic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Update host availability dynamically</dd>
+        <dd>Set up a model for mass medical</dd>
       </dl><dl><dt>
           
           <code><a href="compute_local_frac.html">compute_local_frac()</a></code> 
         </dt>
-        <dd>Compute the fraction of bites occurring on local hosts</dd>
+        <dd>Compute the local fraction</dd>
       </dl></div><div class="section level2">
       
       <h3 id="other-blood-hosts">Other Blood Hosts<a class="anchor" aria-label="anchor" href="#other-blood-hosts"></a></h3>
@@ -1855,70 +2146,19 @@
 
       <dl><dt>
           
-          <code><a href="F_otherblood.html">F_otherblood()</a></code> 
+          <code><a href="OtherBloodHosts.html">OtherBloodHosts()</a></code> 
         </dt>
-        <dd>Set the availability of other</dd>
+        <dd>Set the values of exogenous variables describing other blood hosts</dd>
       </dl><dl><dt>
           
-          <code><a href="F_otherblood.null.html">F_otherblood(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="OtherBloodHosts.null.html">OtherBloodHosts(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>Null model for other blood hosts</dd>
+        <dd>Set the values of exogenous variables describing other blood hosts</dd>
       </dl><dl><dt>
           
-          <code><a href="F_otherblood.static.html">F_otherblood(<i>&lt;static&gt;</i>)</a></code> 
+          <code><a href="setup_other_blood_hosts_null.html">setup_other_blood_hosts_null()</a></code> 
         </dt>
-        <dd>Static model for other blood hosts</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_otherblood.forced.html">F_otherblood(<i>&lt;forced&gt;</i>)</a></code> 
-        </dt>
-        <dd>A basic forcing model for other blood hosts</dd>
-      </dl><dl><dt>
-          
-          <code><a href="setup_otherblood_forced.html">setup_otherblood_forced()</a></code> 
-        </dt>
-        <dd>Set up forcing for the availability of other blood hosts</dd>
-      </dl><dl><dt>
-          
-          <code><a href="update_O.html">update_O()</a></code> 
-        </dt>
-        <dd>Update the availability of other blood hosts</dd>
-      </dl><dl><dt>
-          
-          <code><a href="update_O.static.html">update_O(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Update other host availability for static models</dd>
-      </dl><dl><dt>
-          
-          <code><a href="update_O.dynamic.html">update_O(<i>&lt;dynamic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Update other host availability dynamically</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="egg-laying">Egg Laying<a class="anchor" aria-label="anchor" href="#egg-laying"></a></h3>
-      <p class="section-desc"></p><p>Methods for the egg laying interface</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="update_EggLaying.html">update_EggLaying()</a></code> 
-        </dt>
-        <dd>Update the availability of habitats and egg laying</dd>
-      </dl><dl><dt>
-          
-          <code><a href="update_EggLaying.static.html">update_EggLaying(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Update blood feeding for static models</dd>
-      </dl><dl><dt>
-          
-          <code><a href="update_EggLaying.dynamic.html">update_EggLaying(<i>&lt;dynamic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Update the total availability of aquatic habitats and egg laying</dd>
+        <dd>Make parameters for the null model for other blood hosts (do nothing)</dd>
       </dl></div><div class="section level2">
       
       <h3 id="habitat-dynamics">Habitat Dynamics<a class="anchor" aria-label="anchor" href="#habitat-dynamics"></a></h3>
@@ -1932,44 +2172,19 @@
 
       <dl><dt>
           
-          <code><a href="F_habitats.html">F_habitats()</a></code> 
+          <code><a href="HabitatDynamics.html">HabitatDynamics()</a></code> 
         </dt>
-        <dd>Set the values for habitat</dd>
+        <dd>Set the values of exogenous variables describing habitat_dynamics</dd>
       </dl><dl><dt>
           
-          <code><a href="F_habitats.null.html">F_habitats(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="HabitatDynamics.null.html">HabitatDynamics(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>A null model for habitat</dd>
+        <dd>Set the values of exogenous variables describing habitat dynamics</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_habitats_null.html">setup_habitats_null()</a></code> 
+          <code><a href="setup_habitat_dynamics_null.html">setup_habitat_dynamics_null()</a></code> 
         </dt>
-        <dd>Set up the null model for habitat dynamics</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_habitats.static.html">F_habitats(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Static model for habitat</dd>
-      </dl><dl><dt>
-          
-          <code><a href="setup_habitats_static.html">setup_habitats_static()</a></code> 
-        </dt>
-        <dd>Set up the static model for habitat dynamics</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_habitats.forced.html">F_habitats(<i>&lt;forced&gt;</i>)</a></code> 
-        </dt>
-        <dd>A basic forcing model for habitat availability</dd>
-      </dl><dl><dt>
-          
-          <code><a href="setup_habitats_forced.html">setup_habitats_forced()</a></code> 
-        </dt>
-        <dd>Set up forcing for the availability of habitats</dd>
-      </dl><dl><dt>
-          
-          <code><a href="compute_Q.html">compute_Q()</a></code> 
-        </dt>
-        <dd>Compute total availability of aquatic habitats</dd>
+        <dd>Make parameters for the null model for habitat dynamics (do nothing)</dd>
       </dl></div><div class="section level2">
       
       <h3 id="sugar">Sugar<a class="anchor" aria-label="anchor" href="#sugar"></a></h3>
@@ -1983,44 +2198,19 @@
 
       <dl><dt>
           
-          <code><a href="update_S.html">update_S()</a></code> 
+          <code><a href="Sugar.html">Sugar()</a></code> 
         </dt>
-        <dd>Update the total availability of sugar</dd>
+        <dd>Set the values of exogenous variables describing sugar</dd>
       </dl><dl><dt>
           
-          <code><a href="update_S.static.html">update_S(<i>&lt;static&gt;</i>)</a></code> 
+          <code><a href="Sugar.null.html">Sugar(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>Update sugar availability for static models</dd>
+        <dd>Set the values of exogenous variables describing sugar</dd>
       </dl><dl><dt>
           
-          <code><a href="update_S.dynamic.html">update_S(<i>&lt;dynamic&gt;</i>)</a></code> 
+          <code><a href="setup_sugar_null.html">setup_sugar_null()</a></code> 
         </dt>
-        <dd>Dynamically update the total availability of sugar</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_sugar.html">F_sugar()</a></code> 
-        </dt>
-        <dd>Set the availability of sugar</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_sugar.null.html">F_sugar(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Null model for sugar</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_sugar.static.html">F_sugar(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Basic model for sugar</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_sugar.forced.html">F_sugar(<i>&lt;forced&gt;</i>)</a></code> 
-        </dt>
-        <dd>A basic forcing model for sugar</dd>
-      </dl><dl><dt>
-          
-          <code><a href="setup_sugar_forced.html">setup_sugar_forced()</a></code> 
-        </dt>
-        <dd>Set up forcing for the availability of sugar</dd>
+        <dd>Make parameters for the null model for sugar (do nothing)</dd>
       </dl></div><div class="section level2">
       <h2 id="vector-control">Vector Control<a class="anchor" aria-label="anchor" href="#vector-control"></a></h2>
       
@@ -2036,7 +2226,17 @@
           
           <code><a href="VectorControl.html">VectorControl()</a></code> 
         </dt>
-        <dd>Modify baseline values due to vector control</dd>
+        <dd>Distribute vector control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="VectorControlEffects.html">VectorControlEffects()</a></code> 
+        </dt>
+        <dd>Vector control: durability &amp; effects</dd>
+      </dl><dl><dt>
+          
+          <code><a href="VectorControlEffectSizes.html">VectorControlEffectSizes()</a></code> 
+        </dt>
+        <dd>Vector control effect sizes</dd>
       </dl></div><div class="section level2">
       
       <h3 id="null-model-3">null model<a class="anchor" aria-label="anchor" href="#null-model-3"></a></h3>
@@ -2052,12 +2252,22 @@
           
           <code><a href="VectorControl.null.html">VectorControl(<i>&lt;null&gt;</i>)</a></code> 
         </dt>
-        <dd>Modify baseline values due to vector control</dd>
+        <dd>Distribute vector control</dd>
+      </dl><dl><dt>
+          
+          <code><a href="VectorControlEffects.null.html">VectorControlEffects(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Vector control: durability &amp; effects</dd>
+      </dl><dl><dt>
+          
+          <code><a href="VectorControlEffectSizes.null.html">VectorControlEffectSizes(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Vector control effect sizes</dd>
       </dl><dl><dt>
           
           <code><a href="setup_vc_null.html">setup_vc_null()</a></code> 
         </dt>
-        <dd>Set up the vector control null model (do nothing)</dd>
+        <dd>Distribute vector control, the null model</dd>
       </dl></div><div class="section level2">
       
       <h3 id="implement-control">Implement Control<a class="anchor" aria-label="anchor" href="#implement-control"></a></h3>
@@ -2073,7 +2283,17 @@
           
           <code><a href="VectorControl.control.html">VectorControl(<i>&lt;control&gt;</i>)</a></code> 
         </dt>
-        <dd>Modify baseline values due to vector control</dd>
+        <dd>Distribute vector control, the null model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="VectorControlEffects.control.html">VectorControlEffects(<i>&lt;control&gt;</i>)</a></code> 
+        </dt>
+        <dd>Vector control durability and effects</dd>
+      </dl><dl><dt>
+          
+          <code><a href="VectorControlEffectSizes.control.html">VectorControlEffectSizes(<i>&lt;control&gt;</i>)</a></code> 
+        </dt>
+        <dd>Distribute vector control, the null model</dd>
       </dl><dl><dt>
           
           <code><a href="setup_vc_control.html">setup_vc_control()</a></code> 
@@ -2092,14 +2312,54 @@
 
       <dl><dt>
           
-          <code><a href="BedNets.html">BedNets()</a></code> 
+          <code><a href="DistributeBedNets.html">DistributeBedNets()</a></code> 
         </dt>
-        <dd>Modify baseline bionomic values due to bed nets</dd>
+        <dd>Distribute bed nets, called from Control(VectorControl)</dd>
       </dl><dl><dt>
           
-          <code><a href="BedNets.null.html">BedNets(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="OwnBedNet.html">OwnBedNet()</a></code> 
         </dt>
-        <dd>Modify baseline values due to bed nets</dd>
+        <dd>Model bed net loss, called from Control(VectorControl)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="UseBedNet.html">UseBedNet()</a></code> 
+        </dt>
+        <dd>Model bed net usage, called from Behavior</dd>
+      </dl><dl><dt>
+          
+          <code><a href="BedNetEffects.html">BedNetEffects()</a></code> 
+        </dt>
+        <dd>Modify variables or parameters, called from VectorControlEffects</dd>
+      </dl><dl><dt>
+          
+          <code><a href="BedNetEffectSizes.html">BedNetEffectSizes()</a></code> 
+        </dt>
+        <dd>Modify baseline bionomic parameters, called from VectorControlEffectSizes</dd>
+      </dl><dl><dt>
+          
+          <code><a href="DistributeBedNets.null.html">DistributeBedNets(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Distribute bed nets</dd>
+      </dl><dl><dt>
+          
+          <code><a href="OwnBedNet.null.html">OwnBedNet(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Bed net ownership</dd>
+      </dl><dl><dt>
+          
+          <code><a href="UseBedNet.null.html">UseBedNet(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Bed net ownership</dd>
+      </dl><dl><dt>
+          
+          <code><a href="BedNetEffects.null.html">BedNetEffects(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Bed net ownership</dd>
+      </dl><dl><dt>
+          
+          <code><a href="BedNetEffectSizes.null.html">BedNetEffectSizes(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Bed net ownership</dd>
       </dl><dl><dt>
           
           <code><a href="setup_itn_null.html">setup_itn_null()</a></code> 
@@ -2107,7 +2367,7 @@
         <dd>Make parameters for the null model of bed nets (do nothing)</dd>
       </dl><dl><dt>
           
-          <code><a href="BedNets.lemenach.html">BedNets(<i>&lt;lemenach&gt;</i>)</a></code> 
+          <code><a href="BedNetEffectSizes.lemenach.html">BedNetEffectSizes(<i>&lt;lemenach&gt;</i>)</a></code> 
         </dt>
         <dd>Modify baseline values due to vector control</dd>
       </dl><dl><dt>
@@ -2128,14 +2388,34 @@
 
       <dl><dt>
           
-          <code><a href="IRS.html">IRS()</a></code> 
+          <code><a href="SprayHouses.html">SprayHouses()</a></code> 
         </dt>
-        <dd>Modify baseline bionomic values due to IRS</dd>
+        <dd>Do mass house spraying (IRS)</dd>
       </dl><dl><dt>
           
-          <code><a href="IRS.null.html">IRS(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="IRSeffects.html">IRSeffects()</a></code> 
         </dt>
-        <dd>Modify baseline values due to IRS</dd>
+        <dd>Model the effects of IRS</dd>
+      </dl><dl><dt>
+          
+          <code><a href="IRSeffectSizes.html">IRSeffectSizes()</a></code> 
+        </dt>
+        <dd>Model IRS effect sizes</dd>
+      </dl><dl><dt>
+          
+          <code><a href="SprayHouses.null.html">SprayHouses(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Do mass house spraying (IRS)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="IRSeffects.null.html">IRSeffects(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Model the effects of IRS</dd>
+      </dl><dl><dt>
+          
+          <code><a href="IRSeffectSizes.null.html">IRSeffectSizes(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Model IRS effect sizes</dd>
       </dl><dl><dt>
           
           <code><a href="setup_irs_null.html">setup_irs_null()</a></code> 
@@ -2143,8 +2423,8 @@
         <dd>Make parameters for the null model of IRS (do nothing)</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="attractive-toxic-sugar-baits">Attractive Toxic Sugar Baits<a class="anchor" aria-label="anchor" href="#attractive-toxic-sugar-baits"></a></h3>
-      <p class="section-desc"></p><p>Methods to implement ATSB</p>
+      <h3 id="area-spraying">Area Spraying<a class="anchor" aria-label="anchor" href="#area-spraying"></a></h3>
+      <p class="section-desc"></p><p>Methods to implement area spraying</p>
 
       
     </div><div id="" class="section level2">
@@ -2154,19 +2434,85 @@
 
       <dl><dt>
           
-          <code><a href="ATSB.html">ATSB()</a></code> 
+          <code><a href="AreaSpray.html">AreaSpray()</a></code> 
         </dt>
-        <dd>Modify baseline bionomic values due to ATSB</dd>
+        <dd>Methods for mass spraying</dd>
       </dl><dl><dt>
           
-          <code><a href="ATSB.null.html">ATSB(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="AreaSprayEffects.html">AreaSprayEffects()</a></code> 
         </dt>
-        <dd>Modify baseline values due to ATSB</dd>
+        <dd>Methods for mass spraying</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_atsb_null.html">setup_atsb_null()</a></code> 
+          <code><a href="AreaSprayEffectSizes.html">AreaSprayEffectSizes()</a></code> 
         </dt>
-        <dd>Make parameters for the null model of ATSB (do nothing)</dd>
+        <dd>Methods for mass spraying</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AreaSpray.null.html">AreaSpray(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set up mass spraying</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AreaSprayEffects.null.html">AreaSprayEffects(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set up mass spraying</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AreaSprayEffectSizes.null.html">AreaSprayEffectSizes(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set up mass spraying</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_area_spray_null.html">setup_area_spray_null()</a></code> 
+        </dt>
+        <dd>Set up the null model for area spraying (do nothing)</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="sugar-baits">Sugar Baits<a class="anchor" aria-label="anchor" href="#sugar-baits"></a></h3>
+      <p class="section-desc"></p><p>Methods to implement sugar baits</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="SugarBaits.html">SugarBaits()</a></code> 
+        </dt>
+        <dd>Methods for distributing sugar baits</dd>
+      </dl><dl><dt>
+          
+          <code><a href="SugarBaitEffects.html">SugarBaitEffects()</a></code> 
+        </dt>
+        <dd>Methods for the durability and effects of the sugar baits</dd>
+      </dl><dl><dt>
+          
+          <code><a href="SugarBaitEffectSizes.html">SugarBaitEffectSizes()</a></code> 
+        </dt>
+        <dd>Methods for the effect sizes of the sugar baits</dd>
+      </dl><dl><dt>
+          
+          <code><a href="SugarBaits.null.html">SugarBaits(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Methods for sugar baits</dd>
+      </dl><dl><dt>
+          
+          <code><a href="SugarBaitEffects.null.html">SugarBaitEffects(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Methods for the effects of the sugar baits</dd>
+      </dl><dl><dt>
+          
+          <code><a href="SugarBaitEffectSizes.null.html">SugarBaitEffectSizes(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Methods for the effect sizes of the sugar baits</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_sugar_baits_null.html">setup_sugar_baits_null()</a></code> 
+        </dt>
+        <dd>Set up the null model for sugar baits (do nothing)</dd>
       </dl></div><div class="section level2">
       
       <h3 id="larval-source-management">Larval Source Management<a class="anchor" aria-label="anchor" href="#larval-source-management"></a></h3>
@@ -2180,19 +2526,66 @@
 
       <dl><dt>
           
-          <code><a href="LSM.html">LSM()</a></code> 
+          <code><a href="TreatHabitats.html">TreatHabitats()</a></code> 
         </dt>
-        <dd>Modify values due to LSM</dd>
+        <dd>Modify values due to treat habitats as part of LSM,
+called by Control-&gt;VectorControl</dd>
       </dl><dl><dt>
           
-          <code><a href="LSM.null.html">LSM(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="LSMeffects.html">LSMeffects()</a></code> 
         </dt>
-        <dd>Modify baseline values due to LSM</dd>
+        <dd>Modify effects of LSM</dd>
+      </dl><dl><dt>
+          
+          <code><a href="LSMeffectSizes.html">LSMeffectSizes()</a></code> 
+        </dt>
+        <dd>Compute effect sizes of LSM</dd>
+      </dl><dl><dt>
+          
+          <code><a href="TreatHabitats.null.html">TreatHabitats(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set up the null model for LSM</dd>
+      </dl><dl><dt>
+          
+          <code><a href="LSMeffects.null.html">LSMeffects(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify effects of LSM, the null model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="LSMeffectSizes.null.html">LSMeffectSizes(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Modify effects of LSM, the null model</dd>
       </dl><dl><dt>
           
           <code><a href="setup_lsm_null.html">setup_lsm_null()</a></code> 
         </dt>
         <dd>Make parameters for the null model of LSM (do nothing)</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="ovitraps">Ovitraps<a class="anchor" aria-label="anchor" href="#ovitraps"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for ovitraps</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="OviTraps.html">OviTraps()</a></code> 
+        </dt>
+        <dd>Methods for oviposition traps</dd>
+      </dl><dl><dt>
+          
+          <code><a href="OviTraps.null.html">OviTraps(<i>&lt;null&gt;</i>)</a></code> 
+        </dt>
+        <dd>Methods for oviposition traps</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_ovitraps_null.html">setup_ovitraps_null()</a></code> 
+        </dt>
+        <dd>Set up the null model for oviposition traps (do nothing)</dd>
       </dl></div><div class="section level2">
       <h2 id="spatial-metrics">Spatial metrics<a class="anchor" aria-label="anchor" href="#spatial-metrics"></a></h2>
       
@@ -2255,6 +2648,11 @@
           <code><a href="xde_setup_human.html">xde_setup_human()</a></code> 
         </dt>
         <dd>Set up a model for xde_diffeqn_human</dd>
+      </dl><dl><dt>
+          
+          <code><a href="xde_setup_cohort.html">xde_setup_cohort()</a></code> 
+        </dt>
+        <dd>Set up a model for xde_diffeqn_cohort</dd>
       </dl></div><div class="section level2">
       <h2 id="solving">Solving<a class="anchor" aria-label="anchor" href="#solving"></a></h2>
       
@@ -2306,6 +2704,11 @@
           <code><a href="xde_solve.human.html">xde_solve(<i>&lt;human&gt;</i>)</a></code> 
         </dt>
         <dd>Solve a system of equations with xDE_diffeqn_human</dd>
+      </dl><dl><dt>
+          
+          <code><a href="xde_solve.cohort.html">xde_solve(<i>&lt;cohort&gt;</i>)</a></code> 
+        </dt>
+        <dd>Solve a system of equations with xDE_diffeqn_cohort</dd>
       </dl></div><div class="section level2">
       <h2 id="utilities">Utilities<a class="anchor" aria-label="anchor" href="#utilities"></a></h2>
       

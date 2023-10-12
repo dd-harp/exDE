@@ -111,6 +111,7 @@ model of aquatic mosquito dynamics to fill the dynamical components
 \mathcal{L}\)</span>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/exDE/">exDE</a></span><span class="op">)</span></span>
+<span><span class="co">#devtools::load_all(".")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.stats.ox.ac.uk/pub/MASS4/" class="external-link">MASS</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://R-Forge.R-project.org/projects/expm/" class="external-link">expm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a></span><span class="op">)</span></span>
@@ -238,6 +239,8 @@ set up the parameters and components of the system.</p>
 <span>          <span class="fl">3</span>, <span class="va">Hpop</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">MYZo</span>, <span class="va">calK</span>, </span>
 <span>          <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">Xo</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, </span>
 <span>          <span class="va">TaR</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">Lo</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">itn_mod</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">itn_mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup_control.html">setup_control</a></span><span class="op">(</span><span class="va">itn_mod</span><span class="op">)</span></span></code></pre></div>
 <p>If we ran the model at this point, we would get the baseline.
 Instead, we set up a time-varying function to compute the coverage of
 ITNs at any time point. We use a sine curve with a period of 365 days
@@ -245,15 +248,14 @@ which goes from 0 to 1 over that period, with the phase shifted so that
 at 0 it returns 0. The function also returns 0 for any <span class="math inline">\(t&lt;0\)</span>. This must be a function that
 takes a single argument <code>t</code> (time) and returns a scalar
 value.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ITN coverage</span></span>
 <span><span class="va">ITN_cov</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">t</span> <span class="op">&lt;</span> <span class="fl">0</span>, <span class="fl">0</span>, <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">*</span><span class="op">(</span><span class="va">t</span><span class="op">-</span><span class="fl">365</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span> <span class="op">/</span> <span class="fl">365</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
 <p>We use the null model of human demographic dynamics, which assumes
 <span class="math inline">\(H\)</span> is constant for all time.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">itn_mod</span> <span class="op">=</span> <span class="fu"><a href="../reference/setup_vc_control.html">setup_vc_control</a></span><span class="op">(</span><span class="va">itn_mod</span><span class="op">)</span></span>
-<span><span class="va">itn_mod</span> <span class="op">=</span> <span class="fu"><a href="../reference/setup_itn_lemenach.html">setup_itn_lemenach</a></span><span class="op">(</span><span class="va">itn_mod</span>, phi <span class="op">=</span> <span class="va">ITN_cov</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">itn_mod</span> <span class="op">=</span> <span class="fu"><a href="../reference/setup_itn_lemenach.html">setup_itn_lemenach</a></span><span class="op">(</span><span class="va">itn_mod</span>, phi <span class="op">=</span> <span class="va">ITN_cov</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/xde_solve.html">xde_solve</a></span><span class="op">(</span><span class="va">itn_mod</span>, <span class="fl">5</span><span class="op">*</span><span class="fl">365</span><span class="op">)</span><span class="op">$</span><span class="va">deout</span> <span class="op">-&gt;</span> <span class="va">out</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -271,7 +273,7 @@ mosquitoes (<span class="math inline">\(Y\)</span> and <span class="math inline"
 are no longer sufficient bloodmeals being taken to sustain prevalence. A
 similar pattern appears in human prevalence <span class="math inline">\(X\)</span>, with slower dynamics due to the slow
 recovery rate of untreated infection.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">[</span><span class="va">itn_mod</span><span class="op">$</span><span class="va">Lpar</span><span class="op">$</span><span class="va">L_ix</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'L_'</span>, <span class="fl">1</span><span class="op">:</span><span class="va">itn_mod</span><span class="op">$</span><span class="va">nHabitats</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">[</span><span class="va">itn_mod</span><span class="op">$</span><span class="va">MYZpar</span><span class="op">$</span><span class="va">M_ix</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'M_'</span>, <span class="fl">1</span><span class="op">:</span><span class="va">itn_mod</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span></span>
@@ -294,7 +296,7 @@ recovery rate of untreated infection.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">Component</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="vc_lemenach_files/figure-html/unnamed-chunk-12-1.png" width="100%"></p>
+<p><img src="vc_lemenach_files/figure-html/unnamed-chunk-13-1.png" width="100%"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

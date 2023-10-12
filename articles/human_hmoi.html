@@ -152,6 +152,7 @@ into the other components.</p>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/exDE/">exDE</a></span><span class="op">)</span></span>
+<span><span class="co">#devtools::load_all()</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
@@ -229,20 +230,21 @@ it must be specified as the model of bloodfeeding (<span class="math inline">\(\
 <span><span class="va">h</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">Xo</span>, <span class="va">r2</span><span class="op">*</span><span class="va">m20</span><span class="op">)</span> </span>
 <span><span class="va">Xo</span><span class="op">$</span><span class="va">m10</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">Xo</span>, <span class="va">h</span><span class="op">/</span><span class="va">r1</span><span class="op">)</span>  </span>
 <span><span class="va">Hpop</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">500</span>, <span class="fl">250</span><span class="op">)</span></span></code></pre></div>
-<p>To use <code>xde_setup_human</code> we must set the values of <span class="math inline">\(Z\)</span> that give us the correct EIR values,
-and we set these as <span class="math inline">\(Zm\)</span>. The
-function call is to <code>Ztrace</code></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">MYZo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>f<span class="op">=</span><span class="fl">0.3</span>, q<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
-<span><span class="va">MYZo</span><span class="op">$</span><span class="va">Zm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">MYZo</span>,<span class="va">Xo</span><span class="op">)</span>, <span class="va">h</span><span class="op">/</span><span class="va">b</span><span class="op">/</span><span class="va">f</span><span class="op">/</span><span class="va">q</span><span class="op">*</span><span class="va">Hpop</span><span class="op">)</span> </span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">h</span><span class="op">/</span><span class="va">b</span></span>
+<span><span class="co">#&gt; [1] 0.05454545</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/xde_setup_human.html">xde_setup_human</a></span><span class="op">(</span><span class="st">"test_hMoI"</span>, <span class="st">"hMoI"</span>, HPop<span class="op">=</span><span class="va">Hpop</span>, Xopts <span class="op">=</span> <span class="va">Xo</span>, MYZopts <span class="op">=</span> <span class="va">MYZo</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">test_hMoI</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">F_eir1</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">pars</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fl">0.05454545</span> </span>
+<span><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/xde_setup_cohort.html">xde_setup_cohort</a></span><span class="op">(</span><span class="st">"test_hMoI"</span>, <span class="va">F_eir1</span>, <span class="st">"hMoI"</span>, HPop<span class="op">=</span><span class="va">Hpop</span>, Xopts <span class="op">=</span> <span class="va">Xo</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">test_hMoI</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/xde_solve.html">xde_solve</a></span><span class="op">(</span><span class="va">test_hMoI</span>, <span class="fl">365</span>, <span class="fl">365</span><span class="op">)</span><span class="op">$</span><span class="va">deout</span> <span class="op">-&gt;</span> <span class="va">out2</span></span>
 <span><span class="fu"><a href="../reference/approx_equal.html">approx_equal</a></span><span class="op">(</span><span class="va">out2</span>, <span class="va">out1</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      time    1    2    3    4    5    6</span></span>
-<span><span class="co">#&gt; [1,] TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span></span>
-<span><span class="co">#&gt; [2,] TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt;      time     1     2     3     4     5     6</span></span>
+<span><span class="co">#&gt; [1,] TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span></span>
+<span><span class="co">#&gt; [2,] TRUE FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
