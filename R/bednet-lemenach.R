@@ -2,12 +2,12 @@
 # https://malariajournal.biomedcentral.com/articles/10.1186/1475-2875-6-10
 
 #' @title Modify baseline values due to vector control
-#' @description Implements [BedNets] for the Le Menach ITN model of vector control
-#' @inheritParams BedNets
+#' @description Implements [BedNetEffectSizes] for the Le Menach ITN model of vector control
+#' @inheritParams BedNetEffectSizes
 #' @return a named [list]
 #' @importFrom stats pexp
 #' @export
-BedNets.lemenach <- function(t, pars) {
+BedNetEffectSizes.lemenach <- function(t, pars) {
 
   n <- length(pars$MYZpar$f)
 
@@ -55,6 +55,7 @@ setup_itn_lemenach <- function(pars, tau0_frac = c(0.68/3, 2.32/3), r = 0.56, s 
   stopifnot(sum(tau0_frac) == 1)
   stopifnot(phi(0) >= 0)
   stopifnot(phi(0) <= 1)
+
   ITNpar <- list()
   class(ITNpar) <- 'lemenach'
 
@@ -63,6 +64,6 @@ setup_itn_lemenach <- function(pars, tau0_frac = c(0.68/3, 2.32/3), r = 0.56, s 
   ITNpar$s <- s
   ITNpar$cover <- phi
 
-  pars$ITNpar <- ITNpar
+  pars$ITNefsz <- ITNpar
   return(pars)
 }

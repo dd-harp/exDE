@@ -9,23 +9,29 @@ F_X.SIP <- function(t, y, pars) {
   with(pars$Xpar, y[X_ix] * c)
 }
 
+#' @title Infection blocking pre-erythrocytic immunity
+#' @description Implements [F_b] for the SIP model.
+#' @inheritParams F_b
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_b.SIP <- function(y, pars) {
+  with(pars$Xpar, b)
+}
+
 #' @title Derivatives for human population
 #' @description Implements [dXdt] for the SIP model.
 #' @inheritParams dXdt
 #' @return a [numeric] vector
 #' @export
-dXdt.SIPdX <- function(t, y, pars, EIR) {
+dXdt.SIPdX <- function(t, y, pars, FoI) {
 
   with(pars$Xpar, {
-
-    foi = F_foi(EIR, b, pars) + travel_malaria(t, pars)
-
     X <- y[X_ix]
     P <- y[P_ix]
     H <- F_H(t, y, pars)
 
-    dX <- (1-rho)*foi*(H - X - P) - (r+xi)*X
-    dP <- rho*foi*(H - X - P) + xi*(H-P) - eta*P
+    dX <- (1-rho)*FoI*(H - X - P) - (r+xi)*X
+    dP <- rho*FoI*(H - X - P) + xi*(H-P) - eta*P
 
     return(c(dX, dP))
   })
@@ -48,18 +54,16 @@ HTC.SIP <- function(pars) {
 #' @inheritParams dXdt
 #' @return a [numeric] vector
 #' @export
-dXdt.SIPdXdH <- function(t, y, pars, EIR) {
+dXdt.SIPdXdH <- function(t, y, pars, FoI) {
 
   with(pars$Xpar, {
-
-    foi = F_foi(EIR, b, pars) + travel_malaria(t, pars)
 
     X <- y[X_ix]
     P <- y[P_ix]
     H <- F_H(t, y, pars)
 
-    dX <- (1-rho)*foi*(H - X - P) - (r+xi)*X + dHdt(t, X, pars)
-    dP <- rho*foi*(H - X - P) + xi*(H-P) - eta*P + dHdt(t, P, pars)
+    dX <- (1-rho)*FoI*(H - X - P) - (r+xi)*X + dHdt(t, X, pars)
+    dP <- rho*FoI*(H - X - P) + xi*(H-P) - eta*P + dHdt(t, P, pars)
     dH <- Births(t, H, pars) + dHdt(t, H, pars)
 
     return(c(dX, dP, dH))

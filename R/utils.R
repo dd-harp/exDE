@@ -10,11 +10,14 @@ make_parameters_xde = function(solve_as='ode'){
   class(xde) <- xde
   pars$xde = xde
 
-  pars <- setup_exogenous_null(pars)
-  pars <- setup_humanbehavior_null(pars)
-  pars <- setup_resources_null(pars)
+  pars <- setup_abiotic_null(pars)
+  pars <- setup_shock_null(pars)
+  pars <- setup_control_null(pars)
   pars <- setup_vc_null(pars)
+  pars <- setup_behavior_null(pars)
   pars <- setup_visitors_null(pars)
+  pars <- setup_resources_null(pars)
+  pars <- setup_eip_static(pars)
   pars <- setup_travel_null(pars)
   pars <- setup_exposure_pois(pars)
 

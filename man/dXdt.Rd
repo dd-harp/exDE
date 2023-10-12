@@ -4,7 +4,7 @@
 \alias{dXdt}
 \title{Derivatives for human population}
 \usage{
-dXdt(t, y, pars, EIR)
+dXdt(t, y, pars, FoI)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -13,7 +13,7 @@ dXdt(t, y, pars, EIR)
 
 \item{pars}{a \link{list}}
 
-\item{EIR}{vector giving the per-capita entomological inoculation rate for each strata}
+\item{FoI}{vector giving the per-capita force of infection for each strata}
 }
 \value{
 a \link{numeric} vector

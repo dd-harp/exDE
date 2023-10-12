@@ -1,36 +1,20 @@
 # specialized methods for the adult mosquito GeRM model
 
-#' @title Set the availability of resources
-#' @description Implements [Resources] for the GeRM model
-#' @inheritParams Resources
-#' @return a named [list]
-#' @export
-Resources.GeRM <- function(t, y, pars) {
-  pars$O = F_otherblood(t, pars)
-  pars$S = F_sugar(t, pars)
-  pars$Q = compute_Q(pars)
-  pars$W = compute_W(t, y, pars)
-  pars$B = compute_B( pars)
-  pars$local_frac = with(pars, W/(W + Visitors))
-  return(pars)
-}
-
-
 #' @title Reset bloodfeeding and mortality rates to baseline
-#' @description Implements [MosquitoBehavior] for the GeRM model
-#' @inheritParams MosquitoBehavior
+#' @description Implements [MBionomics] for the GeRM model
+#' @inheritParams MBionomics
 #' @return a named [list]
 #' @export
-MosquitoBehavior.GeRM <- function(t, y, pars) {
+MBionomics.GeRM <- function(t, y, pars) {
   with(pars,{
     pars$MYZpar$f = F_f(t, pars)
     pars$MYZpar$q = F_q(t, pars)
     pars$MYZpar$g = F_g(t, pars)
     pars$MYZpar$sigma = F_sigma(t, pars)
     pars$MYZpar$nu = F_nu(t, pars)
-    pars$MYZpar$eip = F_eip(t, pars)
     return(pars)
 })}
+
 
 #' @title Blood feeding rate of the infective mosquito population
 #' @description Implements [F_fqZ] for the GeRM model.
@@ -228,18 +212,14 @@ make_MYZpar_GeRM = function(pars, MYZopts=list(), calK,
       MYZpar$nu0 <- checkIt(nu, pars$nPatches)
     } else MYZpar$nu_par= setup_Fx(setup_Fnu)
 
-    if(length(setup_Feip) == 0){
-      MYZpar$eip_par <- list()
-      class(MYZpar$eip_par) <- "static"
-      MYZpar$eip <- eip
-    } else MYZpar$eip_par = setup_Fx(setup_Feip)
+    MYZpar$eip <- eip
 
     MYZpar$eggsPerBatch <- eggsPerBatch
 
     MYZpar$calK <- calK
 
     pars$MYZpar = MYZpar
-    pars = MosquitoBehavior(0, 0, pars)
+    pars = MBionomics(0, 0, pars)
 
     return(pars)
 })}
@@ -389,49 +369,9 @@ make_parameters_MYZ_GeRM_static <- function(pars, g, sigma, f, q, nu, eggsPerBat
   MYZpar$calK <- calK
 
   pars$MYZpar <- MYZpar
-  pars = MosquitoBehavior(0, 0, pars)
+  pars = MBionomics(0, 0, pars)
   return(pars)
 }
-
-#' @title Set up a static exogenous forcing for the GeRM ODE adult mosquito model
-#' @param pars a [list]
-#' @param other is the availability of other blood hosts
-#' @param zeta is a shape parameter
-#' @param sugar is sugar availability
-#' @return none
-#' @export
-setup_forcing_MYZ_GeRM_basic <- function(pars, other, sugar, zeta) {
-
-  RApar = list()
-  class(RApar) = "GeRM"
-  pars$RApar = RApar
-
-  Wpar = list()
-  class(Wpar) <- "static"
-  pars$Wpar = Wpar
-  pars$W = compute_W(0, 0, pars)
-
-  OBHpar = list()
-  class(OBHpar) <- "static"
-  OBHpar$other = other
-  OBHpar$zeta = zeta
-  pars$OBHpar = OBHpar
-  pars$OtherBloodHosts = other^zeta
-
-  SGRpar = list()
-  class(SGRpar) <- "static"
-  pars$SGRpar = SGRpar
-  pars$sugar = sugar
-
-  Qpar = list()
-  class(Qpar) <- "static"
-  pars$Qpar = Qpar
-  pars$Q = compute_Q(pars)
-
-  pars = Resources(0, 0, pars)
-  return(pars)
-}
-
 
 #' @title Make inits for GeRM adult mosquito model
 #' @param pars a [list]

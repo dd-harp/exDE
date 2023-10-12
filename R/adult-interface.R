@@ -8,8 +8,8 @@
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-MosquitoBehavior <- function(t, y, pars) {
-  UseMethod("MosquitoBehavior", pars$MYZpar)
+MBionomics <- function(t, y, pars) {
+  UseMethod("MBionomics", pars$MYZpar)
 }
 
 #' @title Time spent host seeking/feeding and resting/ovipositing

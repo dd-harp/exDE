@@ -16,9 +16,9 @@ travel_malaria.null <- function(t, pars) {
 #' @export
 setup_travel_null = function(pars){
 
-  TRVpar <- list()
-  class(TRVpar) <- 'null'
-  pars$TRVpar <- TRVpar
+  TRAVEL <- list()
+  class(TRAVEL) <- 'null'
+  pars$TRAVEL <- TRAVEL
 
   return(pars)
 }

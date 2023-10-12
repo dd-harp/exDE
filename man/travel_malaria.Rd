@@ -15,5 +15,5 @@ travel_malaria(t, pars)
 a \link{numeric} value
 }
 \description{
-This method dispatches on the type of \code{pars$TRVpar}.
+This method dispatches on the type of \code{pars$TRAVEL}.
 }

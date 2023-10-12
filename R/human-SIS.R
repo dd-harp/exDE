@@ -9,20 +9,27 @@ F_X.SIS <- function(t, y, pars) {
   with(pars$Xpar, y[X_ix]*c)
 }
 
+#' @title Infection blocking pre-erythrocytic immunity
+#' @description Implements [F_b] for the SIS model.
+#' @inheritParams F_b
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_b.SIS <- function(y, pars) {
+  with(pars$Xpar, b)
+}
+
 #' @title Derivatives for human population
 #' @description Implements [dXdt] for the SIS model, no demography.
 #' @inheritParams dXdt
 #' @return a [numeric] vector
 #' @export
-dXdt.SISdX <- function(t, y, pars, EIR) {
+dXdt.SISdX <- function(t, y, pars, FoI) {
   with(pars$Xpar, {
-
-    foi = F_foi(EIR, b, pars) + travel_malaria(t, pars)
 
     X <- y[X_ix]
     H <- F_H(t, y, pars)
 
-    dX <- foi*(H - X) - r*X
+    dX <- FoI*(H - X) - r*X
 
     return(c(dX))
   })
@@ -33,15 +40,13 @@ dXdt.SISdX <- function(t, y, pars, EIR) {
 #' @inheritParams dXdt
 #' @return a [numeric] vector
 #' @export
-dXdt.SISdXdH <- function(t, y, pars, EIR) {
+dXdt.SISdXdH <- function(t, y, pars, FoI) {
   with(pars$Xpar, {
-
-    foi = F_foi(EIR, b, pars) + travel_malaria(t, pars)
 
     H <- F_H(t, y, pars)
     X <- y[X_ix]
 
-    dX <- foi*(H - X) - r*X + dHdt(t, X, pars)
+    dX <- FoI*(H - X) - r*X + dHdt(t, X, pars)
     dH <- Births(t, H, pars) + dHdt(t, H, pars)
 
     return(c(dX, dH))

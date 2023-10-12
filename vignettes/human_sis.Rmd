@@ -50,6 +50,7 @@ Note that in the final line, $EIR$ is a column vector of dimension $n$ due to th
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
+#devtools::load_all(".")
 library(deSolve)
 library(data.table)
 library(ggplot2)
@@ -124,17 +125,21 @@ Xo = list(b=0.55, c=0.15, r=1/200, X0 = X)
 Hpop = c(100, 500, 250)
 ```
 
-To use `xde_setup_human` we must set the values of $Z$ that give us the correct EIR values, and we set these as $Zm$. The function call is to `Ztrace` 
+
+To use `xde_setup_cohort` we must set up a function `F_eir` returns the value of EIR we computed above:  
 
 ```{r}
-EIR <- with(Xo, diag(1/b, nStrata) %*% ((r*X0)/(Hpop-X0)))
-MYZo = list(f=0.3, q=0.95)
-MYZo$Zm = with(c(MYZo,Xo), EIR/f/q*Hpop) 
+EIR 
 ```
 
+```{r}
+F_eir1 = function(t, pars){
+  0.05454545 
+}
+```
 
 ```{r}
-xde_setup_human("test_SIS", "SIS", HPop=Hpop, Xopts = Xo, MYZopts = MYZo) -> test_SIS
+xde_setup_cohort("test_SIS", F_eir1, "SIS", HPop=Hpop, Xopts = Xo) -> test_SIS
 ```
 
 ```{r}

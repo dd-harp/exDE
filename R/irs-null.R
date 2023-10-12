@@ -1,21 +1,37 @@
 # specialized methods for the null model of IRS
+# generic methods for IRS
 
-#' @title Modify baseline values due to IRS
-#' @description Implements [IRS] for the null model of IRS (do nothing)
-#' @inheritParams IRS
+#' @title Do mass house spraying (IRS)
+#' @description This method dispatches on the type of `pars$IRS`.
+#' @param t current simulation time
+#' @param pars a [list]
 #' @return a [list]
 #' @export
-IRS.null <- function(t, pars) {
-  return(pars)
-}
+SprayHouses.null <- function(t, pars) {pars}
+
+#' @title Model the effects of IRS
+#' @description This method dispatches on the type of `pars$IRS`.
+#' @param t current simulation time
+#' @param pars a [list]
+#' @return a [list]
+#' @export
+IRSeffects.null <- function(t, pars){pars}
+
+#' @title Model IRS effect sizes
+#' @description This method dispatches on the type of `pars$IRS`.
+#' @param t current simulation time
+#' @param pars a [list]
+#' @return a [list]
+#' @export
+IRSeffectSizes.null <- function(t, pars){pars}
 
 #' @title Make parameters for the null model of IRS (do nothing)
 #' @param pars a [list]
 #' @return a [list]
 #' @export
 setup_irs_null <- function(pars) {
-  IRSpar <- list()
-  class(IRSpar) <- 'null'
-  pars$IRSpar <- IRSpar
+  IRS <- list()
+  class(IRS) <- 'null'
+  pars$IRS <- IRS
   return(pars)
 }

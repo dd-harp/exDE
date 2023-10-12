@@ -222,3 +222,45 @@ xde_setup_human = function(modelName,
   return(pars)
 }
 
+#' @title Set up a model for xde_diffeqn_cohort
+#' @param modelName is a name for the model (arbitrary)
+#' @param F_eir is a function F_eir(t, pars) that returns the daily FoI
+#' @param Xname is a character string defining a X model
+#' @param HPop is the number of humans in each patch
+#' @param Xopts a list to configure the X model
+#' @param Hopts a list to configure the H model
+#' @return a [list]
+#' @export
+xde_setup_cohort = function(modelName, F_eir,
+
+                           # Dynamical Components
+                           Xname = "SIS",
+
+                           # Model Structure
+                           HPop=1000,
+
+                           # Human Strata / Options
+                           Xopts = list(),
+                           Hopts = list()
+
+){
+
+  pars = make_parameters_xde()
+  class(pars$xde) <- "cohort"
+  pars$modelName = modelName
+  pars$F_eir = F_eir
+
+  # Structure
+  nStrata = length(HPop)
+  pars$nPatches = as.integer(nStrata)
+  pars$nStrata = nStrata
+
+  pars = setup_Hpar(pars, HPop, 1:nStrata, rep(1, nStrata), Hopts)
+
+  # Dynamics
+  pars = setup_X(pars, Xname, Xopts)
+
+  pars = make_indices(pars)
+
+  return(pars)
+}

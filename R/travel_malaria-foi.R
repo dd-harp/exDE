@@ -6,7 +6,7 @@
 #' @return a [numeric]
 #' @export
 travel_malaria.foi <- function(t, pars) {
-  with(pars$TRVpar,{
+  with(pars$TRAVEL,{
     return(delta_scale*delta_t(t, pars))
 })}
 
@@ -19,13 +19,13 @@ travel_malaria.foi <- function(t, pars) {
 #' @export
 setup_travel_foi <- function(pars, travel_Opts = list(), delta_scale=0, delta_t=NULL) {with(travel_Opts,{
 
-  TRVpar <- list()
-  class(TRVpar) <- 'foi'
-  pars$TRVpar <- TRVpar
+  TRAVEL <- list()
+  class(TRAVEL) <- 'foi'
+  pars$TRAVEL <- TRAVEL
 
-  pars$TRVpar$delta_scale = delta_scale
+  pars$TRAVEL$delta_scale = delta_scale
   if(is.null(delta_t)) delta_t = function(t, pars){1}
-  pars$TRVpar$delta_t = delta_t
+  pars$TRAVEL$delta_t = delta_t
 
   return(pars)
 })}

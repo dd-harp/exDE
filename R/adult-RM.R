@@ -1,11 +1,11 @@
 # specialized methods for the adult mosquito RM model
 
 #' @title Reset bloodfeeding and mortality rates to baseline
-#' @description Implements [MosquitoBehavior] for the RM model
-#' @inheritParams MosquitoBehavior
+#' @description Implements [MBionomics] for the RM model
+#' @inheritParams MBionomics
 #' @return a named [list]
 #' @export
-MosquitoBehavior.RM <- function(t, y, pars) {
+MBionomics.RM <- function(t, y, pars) {
 
   pars$MYZpar$f <- pars$MYZpar$f0
   pars$MYZpar$q <- pars$MYZpar$q0
@@ -180,7 +180,7 @@ make_MYZpar_RM = function(pars, MYZopts=list(), calK,
     MYZpar$calK <- calK
 
     pars$MYZpar = MYZpar
-    pars = MosquitoBehavior(0, 0, pars)
+    pars = MBionomics.RM(0, 0, pars)
 
     return(pars)
 })}
@@ -298,7 +298,7 @@ make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, eip, 
   MYZpar$calK <- calK
 
   pars$MYZpar <- MYZpar
-  pars = MosquitoBehavior.RM(0, 0, pars)
+  pars = MBionomics.RM(0, 0, pars)
   return(pars)
 }
 

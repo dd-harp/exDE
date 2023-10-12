@@ -12,21 +12,26 @@
 xDE_diffeqn <- function(t, y, pars) {
 
   # set the values of exogenous forcing variables
-  pars <- ExogenousForcing(t, pars)
+  pars <- Abiotic(t, pars)
+  pars <- Shock(t, pars)
+  pars <- Control(t, y, pars)
+  pars <- Behavior(t, y, pars)
   pars <- Visitors(t, pars)
-  pars <- HumanBehavior(t, y, pars)
+  pars <- VectorControlEffects(t, y, pars)
   pars <- Resources(t, y, pars)
 
-  # set and modify the baseline mosquito bionomic parameters
-  pars <- MosquitoBehavior(t, y, pars)
-  pars <- VectorControl(t, y, pars)
+  # set and modify the baseline bionomic parameters
+  pars <- EIP(t, pars)
+  pars <- MBionomics(t, y, pars)
+  pars <- LBionomics(t, y, pars)
+  pars <- VectorControlEffectSizes(t, y, pars)
 
   # eta: egg laying
   eggs <- F_eggs(t, y, pars)
-  eta <- pars$calU %*% eggs
+  eta  <- pars$calU %*% eggs
 
   # lambda: emergence of adults
-  alpha <- F_alpha(t, y, pars)
+  alpha  <- F_alpha(t, y, pars)
   Lambda <- pars$calN %*% alpha
 
   # blood feeding & mixing
@@ -35,13 +40,16 @@ xDE_diffeqn <- function(t, y, pars) {
   # EIR: entomological inoculation rate
   EIR <- F_EIR(t, y, pars, beta)
 
+  # FoI: force of infection
+  FoI <- Exposure(t, y, pars, EIR)
+
   # kappa: net infectiousness of humans
   kappa <- F_kappa(t, y, pars, beta)
 
   # state derivatives
   dL <- dLdt(t, y, pars, eta)
   dMYZ <- dMYZdt(t, y, pars, Lambda, kappa)
-  dX <- dXdt(t, y, pars, EIR)
+  dX <- dXdt(t, y, pars, FoI)
 
   return(list(c(dL, dMYZ, dX)))
 }
@@ -57,14 +65,17 @@ xDE_diffeqn <- function(t, y, pars) {
 xDE_diffeqn_human <- function(t, y, pars) {
 
   # set the values of exogenous forcing variables
-  pars <- ExogenousForcing(t, pars)
-  pars <- Visitors(t, pars)
-  pars <- HumanBehavior(t, y, pars)
+  pars <- Abiotic(t, pars)
+  pars <- Shock(t,  pars)
+  pars <- Control(t, y, pars)
+  pars <- Behavior(t, y, pars)
   pars <- Resources(t, y, pars)
+  pars <- EIP(t, pars)
 
   # set and modify the baseline mosquito bionomic parameters
-  pars <- MosquitoBehavior(t, y, pars)
-  pars <- VectorControl(t, y, pars)
+  pars <- EIP(t, pars)
+  pars <- MBionomics(t, y, pars)
+  pars <- VectorControlEffectSizes(t, y, pars)
 
   # blood feeding & mixing
   beta <- F_beta(t, y, pars)
@@ -72,8 +83,11 @@ xDE_diffeqn_human <- function(t, y, pars) {
   # EIR: entomological inoculation rate
   EIR <- F_EIR(t, y, pars, beta)
 
+  # FoI: force of infection
+  FoI <- Exposure(t, y, pars, EIR)
+
   # state derivatives
-  dX <- dXdt(t, y, pars, EIR)
+  dX <- dXdt(t, y, pars, FoI)
 
   return(list(c(dX)))
 }
@@ -92,17 +106,16 @@ xDE_diffeqn_human <- function(t, y, pars) {
 xDE_diffeqn_mosy <- function(t, y, pars) {
 
   # set the values of exogenous forcing variables
-  pars <- ExogenousForcing(t, pars)
-  pars <- Visitors(t, pars)
-  pars <- HumanBehavior(t, y, pars)
+  pars <- Abiotic(t, pars)
+  pars <- Shock(t, pars)
+  pars <- Control(t, y, pars)
+  pars <- Behavior(t, y, pars)
   pars <- Resources(t, y, pars)
 
   # set baseline mosquito bionomic parameters
-  pars <- MosquitoBehavior(t, y, pars)
-
-  # modify baseline mosquito bionomic parameters
-  pars <- VectorControl(t, y, pars)
-
+  pars <- MBionomics(t, y, pars)
+  pars <- LBionomics(t, y, pars)
+  pars <- VectorControlEffectSizes(t, y, pars)
 
   # eta: egg laying
   eggs <- F_eggs(t, y, pars)
@@ -132,10 +145,13 @@ xDE_diffeqn_mosy <- function(t, y, pars) {
 xDE_diffeqn_cohort <- function(a, y, pars, F_eir) {
 
   # EIR: entomological inoculation rate trace
-  eir <- F_eir(a, pars)
+  EIR <- F_eir(a, pars)
+
+  # FoI: force of infection
+  FoI <- Exposure(t, y, pars, EIR)
 
   # state derivatives
-  dX <- dXdt(a, y, pars, eir)
+  dX <- dXdt(a, y, pars, FoI)
 
   return(list(c(dX)))
 }
@@ -151,11 +167,14 @@ xDE_diffeqn_cohort <- function(a, y, pars, F_eir) {
 xDE_diffeqn_aquatic <- function(t, y, pars) {
 
   # set the values of exogenous forcing variables
-  pars <- ExogenousForcing(t, pars)
+  pars <- Abiotic(t, pars)
+  pars <- Shock(t, pars)
+  pars <- Control(t, y, pars)
   pars <- Resources(t, y, pars)
 
   # modify baseline mosquito bionomic parameters
-  pars <- LSM(t, pars)
+  pars <- LBionomics(t, y, pars)
+  pars <- VectorControlEffectSizes(t, y, pars)
 
   # egg laying
   eta <- F_eggs(t, y, pars)
