@@ -320,6 +320,9 @@ parse_deout_MYZ.GeRM <- function(varslist, deout, pars) {
   varslist$G = deout[,pars$MYZpar$G_ix+1]
   varslist$Y = deout[,pars$MYZpar$Y_ix+1]
   varslist$Z = deout[,pars$MYZpar$Z_ix+1]
+  varslist$g = with(varslist, g/M)
+  varslist$y = with(varslist, Y/M)
+  varslist$z = with(varslist, Z/M)
   return(varslist)
 }
 

@@ -157,6 +157,7 @@ make_indices_MYZ.basicM <- function(pars) {
 parse_deout_MYZ.basicM <- function(varslist, deout, pars) {
   varslist$M = deout[,pars$MYZpar$M_ix+1]
   varslist$P = deout[,pars$MYZpar$P_ix+1]
+  varslist$parous = with(varslist, P/M)
   return(varslist)
 }
 
