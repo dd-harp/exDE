@@ -82,11 +82,11 @@ parse_deout <- function(deout, pars){
   if ('MYZpar' %in% names(pars)) {
     varslist = parse_deout_MYZ(varslist, deout, pars)
   }
-  if ('Xpar' %in% names(pars)) {
-    varslist = parse_deout_X(varslist, deout, pars)
-  }
   if ('Hpar' %in% names(pars)) {
     varslist = parse_deout_H(varslist, deout, pars)
+  }
+  if ('Xpar' %in% names(pars)) {
+    varslist = parse_deout_X(varslist, deout, pars)
   }
   return(varslist)
 }
