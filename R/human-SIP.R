@@ -138,6 +138,7 @@ make_Xinits_SIP = function(pars, Xopts = list(),
 parse_deout_X.SIP <- function(varslist, deout, pars) {
   varslist$X = deout[,pars$Xpar$X_ix+1]
   varslist$P = deout[,pars$Xpar$P_ix+1]
+  varslist$pr = varslist$X/varslist$H
   return(varslist)
 }
 

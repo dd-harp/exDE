@@ -109,6 +109,7 @@ make_Xinits_SIS = function(pars, Xopts = list(), X0=1){with(Xopts,{
 #' @export
 parse_deout_X.SIS <- function(varslist, deout, pars) {
   varslist$X = deout[,pars$Xpar$X_ix+1]
+  varslist$pr = varslist$X/varslist$H
   return(varslist)
 }
 

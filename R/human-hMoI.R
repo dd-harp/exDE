@@ -171,6 +171,8 @@ make_inits_X_hMoI <- function(pars, m10, m20) {
 parse_deout_X.hMoI <- function(varslist, deout, pars) {
   varslist$m1 = deout[,pars$Xpar$m1_ix+1]
   varslist$m2 = deout[,pars$Xpar$m2_ix+1]
+  varslist$pr = 1-exp(-varslist$m1)
+  varslist$pr_apparent = 1-exp(-varslist$m2)
   return(varslist)
 }
 
