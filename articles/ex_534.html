@@ -423,7 +423,7 @@ in <code>params</code> will ensure that the right methods are invoked
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/xde_solve.html">xde_solve</a></span><span class="op">(</span><span class="va">mod534</span>,Tmax<span class="op">=</span><span class="fl">365</span>,dt<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">$</span><span class="va">deout</span> <span class="op">-&gt;</span> <span class="va">out2</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">out2</span><span class="op">-</span><span class="va">out1</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.001192551</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.02906942</span></span></code></pre></div>
 <p>Interestingly, the differences are small:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/approx_equal.html">approx_equal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">out2</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">out1</span>,<span class="fl">1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-6</span><span class="op">)</span></span>
@@ -461,8 +461,8 @@ difference:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">out2l</span> <span class="op">=</span> <span class="fu"><a href="../reference/parse_deout.html">parse_deout</a></span><span class="op">(</span><span class="va">out2</span>, <span class="va">mod534</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">out2l</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "deout" "time"  "L"     "M"     "P"     "Y"     "Z"     "H"     "X"    </span></span>
-<span><span class="co">#&gt; [10] "pr"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "deout"  "time"   "L"      "M"      "P"      "Y"      "Z"      "parous"</span></span>
+<span><span class="co">#&gt;  [9] "y"      "z"      "H"      "X"      "pr"</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
