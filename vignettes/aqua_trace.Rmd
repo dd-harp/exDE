@@ -19,7 +19,8 @@ knitr::opts_chunk$set(
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
 library(MASS)
-library(expm)
+#library(expm)
+devtools::load_all(".")
 library(deSolve)
 library(data.table)
 library(ggplot2)
@@ -152,16 +153,22 @@ MYZo = list(
   sigma = 1/10,
   eip = 11,
   nu = 1/2,
-  eggsPerBatch = 30
+  eggsPerBatch = 30,
+  M0=M_eq,
+  P0=P_eq
 )
 ```
 
 ```{r}
-mosy1 = xde_setup_mosy("mosy1", MYZname = "basicM", Lname = "trace", nPatches = 3, membership = c(1,2,3,3), MYZopts = MYZo, calK = calK, Lopts = Lo, kappa = c(0.1, 0.075, 0.025))
+xde_setup_mosy("mosy1", 
+               MYZname = "basicM", Lname = "trace", 
+               nPatches = 3, membership = c(1,2,3,3), 
+               MYZopts = MYZo, calK = calK, Lopts = Lo, 
+               kappa = c(0.1, 0.075, 0.025))->mosy1
 ```
 
 ```{r}
-xde_solve(mosy1,50,1)$deout -> out2
+xde_solve(mosy1,Tmax=50,dt=1)$deout -> out2
 sum(out2-out1)
 ```
 

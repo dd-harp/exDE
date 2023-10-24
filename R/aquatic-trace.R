@@ -57,7 +57,7 @@ setup_L.trace = function(pars, Lname,
 #' @return none
 #' @export
 make_Lpar_trace = function(pars, Lopts=list(),
-                           Lambda=1, Lt = NULL){
+                           Lambda=1000, Lt = NULL){
   with(Lopts,{
     Lpar = list()
     class(Lpar) <- "trace"

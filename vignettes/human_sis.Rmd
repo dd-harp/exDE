@@ -129,13 +129,8 @@ Hpop = c(100, 500, 250)
 To use `xde_setup_cohort` we must set up a function `F_eir` returns the value of EIR we computed above:  
 
 ```{r}
-EIR 
-```
-
-```{r}
-F_eir1 = function(t, pars){
-  0.05454545 
-}
+fF_eir1 = function(EIR){return(function(t, pars){EIR})} 
+F_eir1 = fF_eir1(EIR)
 ```
 
 ```{r}

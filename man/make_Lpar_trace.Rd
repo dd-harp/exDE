@@ -4,7 +4,7 @@
 \alias{make_Lpar_trace}
 \title{Make parameters for trace aquatic mosquito model}
 \usage{
-make_Lpar_trace(pars, Lopts = list(), Lambda = 1, Lt = NULL)
+make_Lpar_trace(pars, Lopts = list(), Lambda = 1000, Lt = NULL)
 }
 \arguments{
 \item{pars}{a \link{list}}

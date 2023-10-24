@@ -14,7 +14,7 @@
 \item{dt}{the time interval for outputs}
 }
 \value{
-a \link{matrix}
+a \link{list}
 }
 \description{
 Implements \link{xde_solve} for ordinary differential equations

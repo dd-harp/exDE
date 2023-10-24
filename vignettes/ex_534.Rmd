@@ -15,7 +15,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, warning=FALSE, message=FALSE}
-library(exDE)
+#library(exDE)
+devtools::load_all(".")
 library(expm)
 library(data.table)
 library(ggplot2)
@@ -298,18 +299,19 @@ Xo = list(
 
 
 ```{r}
-mod534 = xde_setup("mod534", "RM", "SIS", "basic", 
+xde_setup("mod534", "RM", "SIS", "basic", 
                   nPatches = 3, HPop=c(10, 90, 100, 900), 
                   membership=c(1,1,1,2,2), 
                   MYZopts=MYZo, calK=calK, Xopts=Xo, 
                   residence=c(2,2,3,3), searchB=searchWtsH, 
-                  TaR=TaR, searchQ = c(7,2,1,8,2), Lopts = Lo)
+                  TaR=TaR, searchQ = c(7,2,1,8,2), Lopts = Lo) -> mod534
 ```
 
 We solve and take the differences to check: 
 
 ```{r}
-xde_solve(mod534,Tmax=365,dt=1)$deout -> out2
+mod534 <- xde_solve(mod534,Tmax=365,dt=1)
+mod534$orbits$deout -> out2
 sum(abs(out2-out1))
 ```
 
@@ -334,7 +336,8 @@ We can test the idea:
 
 ```{r}
 mod534$calU = params$calU
-xde_solve(mod534,Tmax=365,dt=1)$deout-> out2
+mod534 <- xde_solve(mod534,Tmax=365,dt=1)
+mod534$orbits$deout -> out2
 sum(abs(out2-out1))
 ```
 

@@ -14,7 +14,7 @@ xde_solve(pars, Tmax = 365, dt = 1)
 \item{dt}{the time interval for outputs}
 }
 \value{
-a \link{matrix}
+a \link{list}
 }
 \description{
 This method dispatches on the type of \code{pars$xde}.

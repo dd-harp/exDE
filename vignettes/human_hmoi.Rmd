@@ -147,14 +147,14 @@ Hpop = c(100, 500, 250)
 h/b
 ```
 
+
 ```{r}
-F_eir1 = function(t, pars){
-  0.05454545 
-}
+fF_eir1 = function(EIR){return(function(t, pars){EIR})} 
+F_eir1 = fF_eir1(EIR)
 ```
 
 ```{r}
-xde_setup_cohort("test_hMoI", F_eir1, "hMoI", HPop=Hpop, Xopts = Xo) -> test_hMoI
+xde_setup_cohort("test_hMoI", F_eir1, "hMoI", HPop=Hpop, Xopts = Xo) ->test_hMoI
 ```
 
 ```{r}
