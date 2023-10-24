@@ -19,8 +19,8 @@ knitr::opts_chunk$set(
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
 library(MASS)
-#library(expm)
-devtools::load_all(".")
+library(expm)
+#devtools::load_all(".")
 library(deSolve)
 library(data.table)
 library(ggplot2)
