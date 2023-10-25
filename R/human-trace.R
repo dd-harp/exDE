@@ -110,6 +110,15 @@ make_inits_X_trace <- function(pars) {
   return(pars)
 }
 
+#' @title Update inits for the trace human model from a vector of states
+#' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_X.trace <- function(pars, y0) {
+  return(pars)
+}
+
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param pars a [list]

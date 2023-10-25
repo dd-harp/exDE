@@ -320,6 +320,20 @@ parse_deout_MYZ.RM <- function(varslist, deout, pars) {
 
 #' @title Make inits for RM adult mosquito model
 #' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_MYZ.RM_ode <- function(pars, y0) {
+  M0 = y0[pars$MYZpar$M_ix]
+  P0 = y0[pars$MYZpar$P_ix]
+  Y0 = y0[pars$MYZpar$Y_ix]
+  Z0 = y0[pars$MYZpar$Z_ix]
+  pars = make_inits_MYZ_RM_ode(pars, M0, P0, Y0, Z0)
+  return(pars)
+}
+
+#' @title Make inits for RM adult mosquito model
+#' @param pars a [list]
 #' @param M0 total mosquito density at each patch
 #' @param P0 total parous mosquito density at each patch
 #' @param Y0 infected mosquito density at each patch
@@ -342,6 +356,21 @@ make_inits_MYZ_RM_ode <- function(pars, M0, P0, Y0, Z0) {
 #' @export
 make_inits_MYZ_RM_dde <- function(pars, M0, P0, Y0, Z0, Upsilon0) {
   pars$MYZinits = list(M0=M0, P0=P0, Y0=Y0, Z0=Z0, Upsilon0=Upsilon0, dummy=rep(0, 3*pars$nPatches))
+  return(pars)
+}
+
+#' @title Update inits for RM adult mosquito model
+#' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_MYZ.RM_dde <- function(pars, y0) {
+  M0 = y0[pars$MYZpar$M_ix]
+  P0 = y0[pars$MYZpar$P_ix]
+  Y0 = y0[pars$MYZpar$Y_ix]
+  Z0 = y0[pars$MYZpar$Z_ix]
+  Upsilon0 = y0[pars$MYZpar$Upsilon_ix]
+  pars = make_inits_MYZ_RM_dde(pars, M0, P0, Y0, Z0, Upsilon0)
   return(pars)
 }
 

@@ -82,6 +82,7 @@ reference:
   - make_indices_MYZ
   - parse_deout_MYZ
   - get_inits_MYZ
+  - update_inits_MYZ
   - make_Omega
 - subtitle: EIP
   desc: |
@@ -104,6 +105,7 @@ reference:
   - parse_deout_MYZ.Ztrace
   - make_inits_MYZ_Ztrace
   - get_inits_MYZ.Ztrace
+  - update_inits_MYZ.Ztrace
   - make_parameters_MYZ_Ztrace
 - subtitle: Gtrace
   desc: |
@@ -119,6 +121,7 @@ reference:
   - parse_deout_MYZ.Gtrace
   - make_inits_MYZ_Gtrace
   - get_inits_MYZ.Gtrace
+  - update_inits_MYZ.Gtrace
   - make_parameters_MYZ_Gtrace
 - subtitle: basicM
   desc: |
@@ -134,6 +137,7 @@ reference:
   - parse_deout_MYZ.basicM
   - make_inits_MYZ_basicM
   - get_inits_MYZ.basicM
+  - update_inits_MYZ.basicM
   - make_parameters_MYZ_basicM
 - subtitle: RM
   desc: |
@@ -154,6 +158,8 @@ reference:
   - make_inits_MYZ_RM_dde
   - get_inits_MYZ.RM_ode
   - get_inits_MYZ.RM_dde
+  - update_inits_MYZ.RM_ode
+  - update_inits_MYZ.RM_dde
   - make_parameters_MYZ_RM
 - subtitle: GeRM
   desc: |
@@ -174,6 +180,8 @@ reference:
   - make_inits_MYZ_GeRM_dde
   - get_inits_MYZ.GeRM_ode
   - get_inits_MYZ.GeRM_dde
+  - update_inits_MYZ.GeRM_ode
+  - update_inits_MYZ.GeRM_dde
   - make_parameters_MYZ_GeRM_static
 - title: Mosquito Bionomic Functional Responses
   desc: |
@@ -213,6 +221,7 @@ reference:
   - make_indices_L
   - parse_deout_L
   - get_inits_L
+  - update_inits_L
   - make_calN
   - make_calU
 - subtitle: trace
@@ -228,6 +237,7 @@ reference:
   - parse_deout_L.trace
   - make_inits_L_trace
   - get_inits_L.trace
+  - update_inits_L.trace
   - make_parameters_L_trace
 - subtitle: basic
   desc: |
@@ -243,6 +253,7 @@ reference:
   - parse_deout_L.basic
   - make_inits_L_basic
   - get_inits_L.basic
+  - update_inits_L.basic
   - make_parameters_L_basic
 - title: Human Infection Dynamics
   desc: |
@@ -255,6 +266,7 @@ reference:
   - make_indices_X
   - parse_deout_X
   - get_inits_X
+  - update_inits_X
   - HTC
 - subtitle: trace
   desc: |
@@ -269,6 +281,7 @@ reference:
   - parse_deout_X.trace
   - make_inits_X_trace
   - get_inits_X.trace
+  - update_inits_X.trace
   - make_parameters_X_trace
 - subtitle: hMoI
   desc: |
@@ -284,6 +297,7 @@ reference:
   - parse_deout_X.hMoI
   - make_inits_X_hMoI
   - get_inits_X.hMoI
+  - update_inits_X.hMoI
   - make_parameters_X_hMoI
   - HTC.hMoI
 - subtitle: SIS
@@ -301,6 +315,7 @@ reference:
   - parse_deout_X.SIS
   - make_inits_X_SIS
   - get_inits_X.SIS
+  - update_inits_X.SIS
   - make_parameters_X_SIS
   - HTC.SIS
 - subtitle: SIP
@@ -318,6 +333,7 @@ reference:
   - parse_deout_X.SIP
   - make_inits_X_SIP
   - get_inits_X.SIP
+  - update_inits_X.SIP
   - make_parameters_X_SIP
   - HTC.SIP
 - title: Human Population Dynamics
@@ -331,6 +347,7 @@ reference:
   - make_indices_H
   - parse_deout_H
   - get_inits_H
+  - update_inits_H
   - make_parameters_demography_null
 - subtitle: static
   desc: |
@@ -342,6 +359,7 @@ reference:
   - make_indices_H.static
   - parse_deout_H.static
   - get_inits_H.static
+  - update_inits_H.static
   - make_parameters_demography_static
 - subtitle: dynamic
   desc: |
@@ -353,6 +371,7 @@ reference:
   - make_indices_H.dynamic
   - parse_deout_H.dynamic
   - get_inits_H.dynamic
+  - update_inits_H.dynamic
   - make_parameters_demography_dynamic
 - subtitle: F_Births
   desc: |
@@ -675,12 +694,14 @@ reference:
   - xde_solve.mosy_dde
   - xde_solve.human
   - xde_solve.cohort
+  - xde_steady
 - title: Utilities
   contents:
   - make_parameters_xde
   - make_indices
   - parse_deout
   - get_inits
+  - last_to_inits
   - diag_inverse
   - approx_equal
   - checkIt

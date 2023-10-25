@@ -47,6 +47,16 @@ get_inits_H.static<- function(pars){
   return(numeric(0))
 }
 
+
+#' @title Update inits for the static human demography model
+#' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_H.static <- function(pars, y0) {
+  return(pars)
+}
+
 #' @title Parse the output of deSolve and return variables for models where H is a parameter
 #' @description Implements [parse_deout_H] for models with constant denominators
 #' @inheritParams parse_deout_H

@@ -148,6 +148,17 @@ make_inits_L_basic <- function(pars, L0){
   return(pars)
 }
 
+#' @title Update inits for the basic aquatic mosquito competition model
+#' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_L.basic <- function(pars, y0) {
+  L0 = y0[pars$Lpar$L_ix]
+  pars = make_inits_L_basic(pars, L0)
+  return(pars)
+}
+
 #' @title Return initial values as a vector
 #' @description Implements [get_inits_L] for the GeRM model.
 #' @inheritParams get_inits_L

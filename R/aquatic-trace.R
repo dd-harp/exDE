@@ -78,6 +78,16 @@ make_indices_L.trace <- function(pars) {
   return(pars)
 }
 
+
+#' @title Update inits for the basic aquatic mosquito competition model
+#' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_L.trace<- function(pars, y0) {
+  return(pars)
+}
+
 #' @title Make parameters for trace aquatic mosquito model
 #' @param pars a [list]
 #' @param Lambda vector of mean emergence rates from each aquatic habitat

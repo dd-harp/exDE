@@ -74,6 +74,16 @@ get_inits_X <- function(pars) {
   UseMethod("get_inits_X", pars$Xpar)
 }
 
+#' @title Set the initial values from a vector of states
+#' @description This method dispatches on the type of `pars$Xpar`.
+#' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_X <- function(pars, y0) {
+  UseMethod("update_inits_X", pars$Xpar)
+}
+
 #' @title Compute the human transmitting capacity
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param pars a [list]
