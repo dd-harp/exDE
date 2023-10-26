@@ -79,6 +79,16 @@ get_inits_H <- function(pars) {
   UseMethod("get_inits_H", pars$Hpar)
 }
 
+#' @title Set the initial values as a vector
+#' @description This method dispatches on the type of `pars$Hpar`.
+#' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_H <- function(pars, y0) {
+  UseMethod("update_inits_H", pars$Hpar)
+}
+
 #' @title Make parameters for null human demography model
 #' @param pars a [list]
 #' @param H size of human population in each strata

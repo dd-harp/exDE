@@ -222,6 +222,11 @@ params = make_Xinits_SIS(params, X0=X0)
 After the parameters for `5-3-4` have been specified, we can generate the indices for the model and attach them to the parameter list.
 
 ```{r}
+params$eir_out = FALSE
+params$fqZ_out = FALSE
+params$NI_out = FALSE
+params$kappa_out = FALSE
+
 params = make_indices(params)
 ```
 
@@ -304,7 +309,8 @@ xde_setup("mod534", "RM", "SIS", "basic",
                   membership=c(1,1,1,2,2), 
                   MYZopts=MYZo, calK=calK, Xopts=Xo, 
                   residence=c(2,2,3,3), searchB=searchWtsH, 
-                  TaR=TaR, searchQ = c(7,2,1,8,2), Lopts = Lo) -> mod534
+                  TaR=TaR, searchQ = c(7,2,1,8,2), Lopts = Lo,
+          eir_out=F, fqZ_out=F, NI_out=F, kappa_out = F) -> mod534
 ```
 
 We solve and take the differences to check: 

@@ -165,6 +165,18 @@ make_inits_X_SIS <- function(pars, X0) {
   return(pars)
 }
 
+#' @title Update inits for the SIS human model from a vector of states
+#' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_X.SIS <- function(pars, y0) {
+  X0 = y0[pars$Xpar$X_ix]
+  pars = make_inits_X_SIS(pars, X0)
+  return(pars)
+}
+
+
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param pars a [list]

@@ -30,6 +30,16 @@ parse_deout_H.dynamic <- function(varslist, deout, pars) {
   return(varslist)
 }
 
+#' @title Update inits for the static human demography model
+#' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_H.dynamic <- function(pars, y0) {
+  pars$Hpar$H = y0[pars$Hpar$H_ix]
+  return(pars)
+}
+
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Hpar`.
 #' @param pars a [list]

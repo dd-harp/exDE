@@ -101,6 +101,16 @@ get_inits_MYZ <- function(pars) {
   UseMethod("get_inits_MYZ", pars$MYZpar)
 }
 
+#' @title Set the initial values as a vector
+#' @description This method dispatches on the type of `pars$MYZpar`.
+#' @param pars a [list]
+#' @param y0 a vector of variable values from a simulation
+#' @return none
+#' @export
+update_inits_MYZ <- function(pars, y0) {
+  UseMethod("update_inits_MYZ", pars$MYZpar)
+}
+
 #' @title Make the mosquito demography matrix
 #' @param g mortality rate
 #' @param sigma emigration  rate

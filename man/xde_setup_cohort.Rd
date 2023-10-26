@@ -10,7 +10,9 @@ xde_setup_cohort(
   Xname = "SIS",
   HPop = 1000,
   Xopts = list(),
-  Hopts = list()
+  Hopts = list(),
+  eir_out = TRUE,
+  NI_out = TRUE
 )
 }
 \arguments{
@@ -25,6 +27,10 @@ xde_setup_cohort(
 \item{Xopts}{a list to configure the X model}
 
 \item{Hopts}{a list to configure the H model}
+
+\item{eir_out}{the cumulative eir is output if TRUE}
+
+\item{NI_out}{the cumulative NI is output if TRUE}
 }
 \value{
 a \link{list}

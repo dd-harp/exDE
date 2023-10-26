@@ -21,6 +21,11 @@ make_parameters_xde = function(solve_as='ode'){
   pars <- setup_travel_null(pars)
   pars <- setup_exposure_pois(pars)
 
+  pars$eir_out = FALSE
+  pars$fqZ_out = FALSE
+  pars$NI_out = FALSE
+  pars$kappa_out = FALSE
+
   return(pars)
 }
 
@@ -42,6 +47,22 @@ make_indices <- function(pars) {
   if ('Hpar' %in% names(pars)) {
     pars = make_indices_H(pars)
   }
+  if(pars$eir_out == TRUE){
+    pars$eir_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
+    pars$max_ix <- tail(pars$eir_ix, 1)
+  }
+  if(pars$fqZ_out == TRUE){
+    pars$fqZ_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+    pars$max_ix <- tail(pars$fqZ_ix, 1)
+  }
+  if(pars$NI_out == TRUE){
+    pars$NI_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
+    pars$max_ix <- tail(pars$NI_ix, 1)
+  }
+  if(pars$kappa_out == TRUE){
+    pars$kappa_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+    pars$max_ix <- tail(pars$kappa_ix, 1)
+  }
   return(pars)
 }
 
@@ -62,8 +83,19 @@ get_inits <- function(pars){
   if ('Hpar' %in% names(pars)) {
     Hi = get_inits_H(pars)
   } else {Hi = numeric(0)}
-  y = c(Li, MYZi, Xi, Hi)
-  #class(y) <- "dynamic"
+  if (pars$eir_out==TRUE) {
+    EIRi = rep(0, pars$nStrata)
+  } else {EIRi = numeric(0)}
+  if (pars$fqZ_out==TRUE) {
+    fqZi = rep(0, pars$nPatches)
+  } else {fqZi = numeric(0)}
+  if (pars$NI_out==TRUE) {
+    NIi = rep(0, pars$nStrata)
+  } else {NIi = numeric(0)}
+  if (pars$kappa_out==TRUE) {
+    kappai = rep(0, pars$nPatches)
+  } else {kappai = numeric(0)}
+  y = c(L=Li, MYZ=MYZi, X=Xi, H=Hi, eir=EIRi, fqZ=fqZi, NI=NIi, kappa=kappai)
   return(y)
 }
 
@@ -76,6 +108,7 @@ parse_deout <- function(deout, pars){
   varslist = list()
   varslist$deout = deout
   varslist$time = deout[,1]
+  dtime = diff(deout[,1])
   if ('Lpar' %in% names(pars)) {
     varslist = parse_deout_L(varslist, deout, pars)
   }
@@ -87,6 +120,38 @@ parse_deout <- function(deout, pars){
   }
   if ('Xpar' %in% names(pars)) {
     varslist = parse_deout_X(varslist, deout, pars)
+  }
+  if (pars$eir_out == TRUE) {
+    cum_eir = deout[,1+pars$eir_ix]
+    if(pars$nStrata>1){
+      varslist$eir=apply(cum_eir, 2, diff)/dtime
+    } else {
+      varslist$eir= diff(cum_eir)/dtime
+    }
+  }
+  if (pars$fqZ_out == TRUE) {
+    cum_fqZ = deout[,1+pars$fqZ_ix]
+    if(pars$nPatches>1){
+      varslist$fqZ=apply(cum_fqZ, 2, diff)/dtime
+    } else {
+      varslist$fqZ= diff(cum_fqZ)/dtime
+    }
+  }
+  if (pars$NI_out == TRUE) {
+    cum_ni = deout[,1+pars$ni_ix]
+    if(pars$nStrata>1){
+      varslist$ni=apply(cum_ni, 2, diff)/dtime
+    } else {
+      varslist$ni= diff(cum_ni)/dtime
+    }
+  }
+  if (pars$kappa_out == TRUE) {
+    cum_kappa = deout[,1+pars$kappa_ix]
+    if(pars$nPatches>1){
+      varslist$kappa=apply(cum_kappa, 2, diff)/dtime
+    } else {
+      varslist$kappa= diff(cum_kappa)/dtime
+    }
   }
   return(varslist)
 }
@@ -131,4 +196,23 @@ checkIt = function(x, lng, type = "numeric", fixit=TRUE){
   x
 }
 
-
+#' @title Set the initial values to the last values of the last simulation
+#' @param pars a [list]
+#' @return y a [numeric] vector
+#' @export
+last_to_inits <- function(pars){
+  y0 = tail(pars$orbits$deout, 1)[-1]
+  if ('Lpar' %in% names(pars)) {
+    pars = update_inits_L(pars, y0)
+  } else {Li = numeric(0)}
+  if ('MYZpar' %in% names(pars)) {
+    pars = update_inits_MYZ(pars, y0)
+  } else {MYZi = numeric(0)}
+  if ('Xpar' %in% names(pars)) {
+    pars = update_inits_X(pars, y0)
+  } else {Xi = numeric(0)}
+  if ('Hpar' %in% names(pars)) {
+    pars = update_inits_H(pars, y0)
+  } else {Hi = numeric(0)}
+  return(pars)
+}

@@ -22,7 +22,11 @@ xde_setup(
   TaR = "athome",
   TaRopts = list(),
   searchQ = 1,
-  Lopts = list()
+  Lopts = list(),
+  eir_out = TRUE,
+  fqZ_out = FALSE,
+  NI_out = FALSE,
+  kappa_out = TRUE
 )
 }
 \arguments{
@@ -61,6 +65,14 @@ xde_setup(
 \item{searchQ}{is a vector of search weights for egg laying}
 
 \item{Lopts}{a list to configure the L model}
+
+\item{eir_out}{the cumulative eir is output if TRUE}
+
+\item{fqZ_out}{the cumulative fqZ is output if TRUE}
+
+\item{NI_out}{the cumulative NI is output if TRUE}
+
+\item{kappa_out}{the cumulative kappa is output if TRUE}
 }
 \value{
 a \link{list}

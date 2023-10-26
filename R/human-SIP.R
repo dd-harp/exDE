@@ -195,6 +195,19 @@ make_inits_X_SIP <- function(pars, X0, P0) {
   return(pars)
 }
 
+#' @title Update inits for the SIP human model from a vector of states
+#' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_X.SIP <- function(pars, y0) {
+  X0 = y0[pars$Xpar$X_ix]
+  P0 = y0[pars$Xpar$P_ix]
+  pars = make_inits_X_SIP(pars, X0, P0)
+  return(pars)
+}
+
+
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param pars a [list]

@@ -9,6 +9,21 @@ xde_solve = function(pars, Tmax=365, dt=1){
   UseMethod("xde_solve", pars$xde)
 }
 
+#' @title Solve for the steady state or stable orbit of a system of equations
+#' @description This method dispatches on the type of `pars$xde`.
+#' @param pars a [list] that defines a model
+#' @param Ymax the number of years to burn-in
+#' @return a [list]
+#' @export
+xde_steady = function(pars, Ymax=10){
+  pars <- xde_solve(pars, Tmax = Ymax*365, dt=1)
+  deout = tail(pars$orbits$deout, 366)
+  deout[,1] = c(0:365)
+  steady <- parse_deout(deout, pars)
+  pars$steady <- steady
+  return(pars)
+}
+
 #' @title Solve a system of equations as an ode
 #' @description Implements [xde_solve] for ordinary differential equations
 #' @inheritParams xde_solve
@@ -109,7 +124,7 @@ xde_solve.human = function(pars, Tmax=365, dt=1){
 xde_solve.cohort = function(pars, Tmax=365, dt=1){
   tt = seq(0, Tmax, by=dt)
   y0 = get_inits(pars)
-  deSolve::ode(y = y0, times = tt, func = xDE_diffeqn_cohort, parms = pars, F_eir = pars$F_eir, method = "lsoda") -> out
+  deSolve::ode(y = y0, times = tt, func = xDE_diffeqn_cohort, parms=pars, F_eir = pars$F_eir, method = "lsoda") -> out
   pars$orbits = parse_deout(out, pars)
   return(pars)
 }

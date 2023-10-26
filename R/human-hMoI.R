@@ -163,6 +163,18 @@ make_inits_X_hMoI <- function(pars, m10, m20) {
   return(pars)
 }
 
+#' @title Update inits for hybrid MoI human model from a vector of states
+#' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_X.hMoI <- function(pars, y0) {
+  m10 = y0[pars$Xpar$m10_ix]
+  m20 = y0[pars$Xpar$m20_ix]
+  pars = make_inits_X_hMoI(pars, m10, m20)
+  return(pars)
+}
+
 #' @title Parse the output of deSolve and return variables for the hMoI model
 #' @description Implements [parse_deout_X] for the hMoI model
 #' @inheritParams parse_deout_X

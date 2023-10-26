@@ -83,6 +83,16 @@ get_inits_L <- function(pars) {
   UseMethod("get_inits_L", pars$Lpar)
 }
 
+#' @title Set the initial values from a vector of model states
+#' @description This method dispatches on the type of `pars$Lpar`.
+#' @param pars a [list]
+#' @param y0 a vector of variable values from a simulation
+#' @return none
+#' @export
+update_inits_L <- function(pars, y0) {
+  UseMethod("update_inits_L", pars$Lpar)
+}
+
 #' @title Make the habitat membership matrix, calN
 #' @param nPatches is the number of patches
 #' @param membership is a vector describing the patch where each habitat is found

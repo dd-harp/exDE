@@ -127,6 +127,15 @@ make_inits_MYZ_Gtrace<- function(pars, MYZ0=NULL) {
   return(pars)
 }
 
+#' @title Update inits for Gtrace
+#' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_MYZ.Gtrace <- function(pars, y0) {
+  return(pars)
+}
+
 #' @title Return initial values as a vector
 #' @description Implements [get_inits_MYZ] for the GeRM model.
 #' @inheritParams get_inits_MYZ

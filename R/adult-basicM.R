@@ -132,6 +132,18 @@ make_MYZinits_basicM = function(pars, MYZopts = list(),
     return(pars)
   })}
 
+#' @title Make inits for RM adult mosquito model
+#' @param pars a [list]
+#' @param y0 a vector of initial values
+#' @return none
+#' @export
+update_inits_MYZ.basicM <- function(pars, y0) {
+  M0 = y0[pars$MYZpar$M_ix]
+  P0 = y0[pars$MYZpar$P_ix]
+  pars = make_MYZinits_basicM(pars, M0=M0, P0=P0)
+  return(pars)
+}
+
 #' @title Add indices for adult mosquitoes to parameter list
 #' @description Implements [make_indices_MYZ] for the basic M model.
 #' @inheritParams make_indices_MYZ
