@@ -718,6 +718,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/last_to_inits.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_Linits_basic.html</loc>
   </url>
   <url>
@@ -1228,6 +1231,63 @@
     <loc>https://dd-harp.github.io/exDE/reference/travel_malaria.null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_H.dynamic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_H.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_H.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_L.basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_L.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_L.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_MYZ.GeRM_dde.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_MYZ.GeRM_ode.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_MYZ.Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_MYZ.RM_dde.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_MYZ.RM_ode.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_MYZ.Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_MYZ.basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_MYZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_X.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_X.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_X.hMoI.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_X.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits_X.trace.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/xDE_diffeqn.html</loc>
   </url>
   <url>
@@ -1283,5 +1343,8 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xde_solve.ode.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_steady.html</loc>
   </url>
 </urlset>

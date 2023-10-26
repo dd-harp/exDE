@@ -342,7 +342,12 @@ population size (constant <span class="math inline">\(H\)</span>).</p>
 can generate the indices for the model and attach them to the parameter
 list.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">params</span><span class="op">$</span><span class="va">eir_out</span> <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">fqZ_out</span> <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">NI_out</span> <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">kappa_out</span> <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span></span>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can set the initial conditions of the model.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y0</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_inits.html">get_inits</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
@@ -419,20 +424,21 @@ in <code>params</code> will ensure that the right methods are invoked
 <span>                  membership<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, </span>
 <span>                  MYZopts<span class="op">=</span><span class="va">MYZo</span>, calK<span class="op">=</span><span class="va">calK</span>, Xopts<span class="op">=</span><span class="va">Xo</span>, </span>
 <span>                  residence<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span>, searchB<span class="op">=</span><span class="va">searchWtsH</span>, </span>
-<span>                  TaR<span class="op">=</span><span class="va">TaR</span>, searchQ <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">8</span>,<span class="fl">2</span><span class="op">)</span>, Lopts <span class="op">=</span> <span class="va">Lo</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">mod534</span></span></code></pre></div>
+<span>                  TaR<span class="op">=</span><span class="va">TaR</span>, searchQ <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">8</span>,<span class="fl">2</span><span class="op">)</span>, Lopts <span class="op">=</span> <span class="va">Lo</span>,</span>
+<span>          eir_out<span class="op">=</span><span class="cn">F</span>, fqZ_out<span class="op">=</span><span class="cn">F</span>, NI_out<span class="op">=</span><span class="cn">F</span>, kappa_out <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">mod534</span></span></code></pre></div>
 <p>We solve and take the differences to check:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod534</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xde_solve.html">xde_solve</a></span><span class="op">(</span><span class="va">mod534</span>,Tmax<span class="op">=</span><span class="fl">365</span>,dt<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">mod534</span><span class="op">$</span><span class="va">orbits</span><span class="op">$</span><span class="va">deout</span> <span class="op">-&gt;</span> <span class="va">out2</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">out2</span><span class="op">-</span><span class="va">out1</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.001192551</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.02906942</span></span></code></pre></div>
 <p>Interestingly, the differences are small:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/approx_equal.html">approx_equal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">out2</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">out1</span>,<span class="fl">1</span><span class="op">)</span>, tol <span class="op">=</span> <span class="fl">1e-6</span><span class="op">)</span></span>
-<span><span class="co">#&gt;        time    1    2    3    4    5    6    7    8    9   10   11   12   13</span></span>
+<span><span class="co">#&gt;        time   L1   L2   L3   L4   L5 MYZ1 MYZ2 MYZ3 MYZ4 MYZ5 MYZ6 MYZ7 MYZ8</span></span>
 <span><span class="co">#&gt; [366,] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span></span>
-<span><span class="co">#&gt;          14   15   16   17   18   19   20   21</span></span>
-<span><span class="co">#&gt; [366,] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt;        MYZ9 MYZ10 MYZ11 MYZ12   X1   X2   X3   X4</span></span>
+<span><span class="co">#&gt; [366,] TRUE  TRUE  TRUE  TRUE TRUE TRUE TRUE TRUE</span></span></code></pre></div>
 <p>After some sleuthing, it appears that these arise from a very small
 difference in <span class="math inline">\(\cal U\)</span>. Note that
 <code>mod534$calU</code> appears to match <code>params$calU</code>:</p>
