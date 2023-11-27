@@ -126,7 +126,8 @@ parse_deout <- function(deout, pars){
     if(pars$nStrata>1){
       varslist$eir=apply(cum_eir, 2, diff)/dtime
     } else {
-      varslist$eir= diff(cum_eir)/dtime
+      eir = diff(cum_eir)/dtime
+      varslist$eir= c(eir, eir[1])
     }
   }
   if (pars$fqZ_out == TRUE) {
@@ -134,15 +135,17 @@ parse_deout <- function(deout, pars){
     if(pars$nPatches>1){
       varslist$fqZ=apply(cum_fqZ, 2, diff)/dtime
     } else {
-      varslist$fqZ= diff(cum_fqZ)/dtime
+      fqZ= diff(cum_fqZ)/dtime
+      varslist$fqZ = c(fqZ, fqZ[1])
     }
   }
   if (pars$NI_out == TRUE) {
-    cum_ni = deout[,1+pars$ni_ix]
+    cum_ni = deout[,1+pars$NI_ix]
     if(pars$nStrata>1){
       varslist$ni=apply(cum_ni, 2, diff)/dtime
     } else {
-      varslist$ni= diff(cum_ni)/dtime
+      ni= diff(cum_ni)/dtime
+      varslist$ni = c(ni, ni[1])
     }
   }
   if (pars$kappa_out == TRUE) {
@@ -150,7 +153,8 @@ parse_deout <- function(deout, pars){
     if(pars$nPatches>1){
       varslist$kappa=apply(cum_kappa, 2, diff)/dtime
     } else {
-      varslist$kappa= diff(cum_kappa)/dtime
+      kappa = diff(cum_kappa)/dtime
+      varslist$kappa = c(kappa, kappa[1])
     }
   }
   return(varslist)

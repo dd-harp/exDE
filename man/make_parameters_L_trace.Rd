@@ -8,7 +8,7 @@ make_parameters_L_trace(
   pars,
   Lambda,
   Lt = function(t, pars) {
-     1
+     pars$Lpar$Lambda
  }
 )
 }

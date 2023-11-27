@@ -85,7 +85,7 @@ make_MYZpar_Ztrace = function(pars, MYZopts,
     MYZpar$f0 <- checkIt(f, pars$nPatches)
     MYZpar$q0 <- checkIt(q, pars$nPatches)
     MYZpar$Zm <- checkIt(Zm, pars$nPatches)
-    if(is.null(Zf)) Zf = function(t, y, pars){return(1)}
+    if(is.null(Zf)) Zf = function(t, pars){return(0*t + 1)}
     MYZpar$Zf <- Zf
 
     pars$MYZpar = MYZpar
