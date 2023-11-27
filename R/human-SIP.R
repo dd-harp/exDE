@@ -78,7 +78,7 @@ dXdt.SIPdXdH <- function(t, y, pars, FoI) {
 setup_X.SIP = function(pars, Xname, Xopts=list()){
 
   pars$Xname = "SIP"
-  pars = make_Xpar_SIP(pars, Xopts)
+    pars = make_Xpar_SIP(pars, Xopts)
   pars = make_Xinits_SIP(pars, Xopts)
 
   return(pars)

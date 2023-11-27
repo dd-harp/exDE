@@ -694,7 +694,7 @@ reference:
   - xde_solve.mosy_dde
   - xde_solve.human
   - xde_solve.cohort
-  - xde_steady
+  - xde_stable_orbit
 - title: Utilities
   contents:
   - make_parameters_xde

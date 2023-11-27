@@ -15,7 +15,7 @@ xde_solve = function(pars, Tmax=365, dt=1){
 #' @param Ymax the number of years to burn-in
 #' @return a [list]
 #' @export
-xde_steady = function(pars, Ymax=10){
+xde_stable_orbit = function(pars, Ymax=10){
   pars <- xde_solve(pars, Tmax = Ymax*365, dt=1)
   deout = tail(pars$orbits$deout, 366)
   deout[,1] = c(0:365)

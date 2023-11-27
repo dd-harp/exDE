@@ -55,6 +55,7 @@ xDE_diffeqn <- function(t, y, pars) {
   if(pars$fqZ_out==TRUE) {fqZt = F_fqZ(t, y, pars)}else{fqZt = numeric(0)}
   if(pars$NI_out==TRUE) {NIt = F_X(t, y, pars)/F_H(t, y, pars)}else{NIt = numeric(0)}
   if(pars$kappa_out==TRUE) {kappat = kappa}else{kappat = numeric(0)}
+
   return(list(c(dL, dMYZ, dX, EIRt, fqZt, NIt, kappat)))
 }
 
@@ -77,7 +78,6 @@ xDE_diffeqn_human <- function(t, y, pars) {
   pars <- EIP(t, pars)
 
   # set and modify the baseline mosquito bionomic parameters
-  pars <- EIP(t, pars)
   pars <- MBionomics(t, y, pars)
   pars <- VectorControlEffectSizes(t, y, pars)
 
@@ -95,8 +95,9 @@ xDE_diffeqn_human <- function(t, y, pars) {
 
   if(pars$eir_out==TRUE) {EIRt = EIR}else{EIRt = numeric(0)}
   if(pars$fqZ_out==TRUE) {fqZt = F_fqZ(t, y, pars)}else{fqZt = numeric(0)}
-  if(pars$NI_out==TRUE) {NIt = F_X(t, y, pars)/F_H(t, y, pars)}else{NIt = numeric(0)}
-  if(pars$kappa_out==TRUE) {kappat = kappa}else{kappat = numeric(0)}
+  if(pars$NI_out==TRUE) {NIt = as.numeric(F_X(t, y, pars)/F_H(t, y, pars))}else{NIt = numeric(0)}
+  if(pars$kappa_out==TRUE) {kappat <- F_kappa(t, y, pars, beta)}else{kappat = numeric(0)}
+
   return(list(c(dX, EIRt, fqZt, NIt, kappat)))
 }
 
@@ -153,7 +154,7 @@ xDE_diffeqn_mosy <- function(t, y, pars) {
 xDE_diffeqn_cohort <- function(a, y, pars, F_eir) {
 
   # EIR: entomological inoculation rate trace
-  EIR <- F_eir(a, pars)
+  EIR <- F_eir(a, pars)*pars$Hpar$wts_f
 
   # FoI: force of infection
   FoI <- Exposure(a, y, pars, EIR)
@@ -163,6 +164,7 @@ xDE_diffeqn_cohort <- function(a, y, pars, F_eir) {
 
   if(pars$eir_out==TRUE) {EIRt = EIR}else{EIRt = numeric(0)}
   if(pars$NI_out==TRUE) {NIt = F_X(a, y, pars)/F_H(a, y, pars)}else{NIt = numeric(0)}
+
   return(list(c(dX, EIRt, NIt)))
 }
 

@@ -183,7 +183,7 @@ make_MYZpar_RM = function(pars, MYZopts=list(), calK,
     pars = MBionomics.RM(0, 0, pars)
 
     return(pars)
-})}
+  })}
 
 #' @title Make inits for RM adult mosquito model
 #' @param pars a [list]
@@ -205,7 +205,7 @@ make_MYZinits_RM = function(pars, MYZopts = list(),
 
     pars$MYZinits = inits
     return(pars)
-})}
+  })}
 
 #' @title Add indices for adult mosquitoes to parameter list
 #' @description Implements [make_indices_MYZ] for the RM model.
