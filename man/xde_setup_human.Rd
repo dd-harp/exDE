@@ -14,11 +14,7 @@ xde_setup_human(
   residence = 1,
   searchB = 1,
   TaR = "athome",
-  TaRopts = list(),
-  eir_out = TRUE,
-  fqZ_out = FALSE,
-  NI_out = FALSE,
-  kappa_out = TRUE
+  TaRopts = list()
 )
 }
 \arguments{
@@ -41,14 +37,6 @@ xde_setup_human(
 \item{TaR}{is either a TaR matrix or a string to call a function that sets it up}
 
 \item{TaRopts}{are the options to setup TaR}
-
-\item{eir_out}{the cumulative eir is output if TRUE}
-
-\item{fqZ_out}{the cumulative fqZ is output if TRUE}
-
-\item{NI_out}{the cumulative NI is output if TRUE}
-
-\item{kappa_out}{the cumulative kappa is output if TRUE}
 }
 \value{
 a \link{list}

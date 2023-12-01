@@ -51,12 +51,7 @@ xDE_diffeqn <- function(t, y, pars) {
   dMYZ <- dMYZdt(t, y, pars, Lambda, kappa)
   dX <- dXdt(t, y, pars, FoI)
 
-  if(pars$eir_out==TRUE) {EIRt = EIR}else{EIRt = numeric(0)}
-  if(pars$fqZ_out==TRUE) {fqZt = F_fqZ(t, y, pars)}else{fqZt = numeric(0)}
-  if(pars$NI_out==TRUE) {NIt = F_X(t, y, pars)/F_H(t, y, pars)}else{NIt = numeric(0)}
-  if(pars$kappa_out==TRUE) {kappat = kappa}else{kappat = numeric(0)}
-
-  return(list(c(dL, dMYZ, dX, EIRt, fqZt, NIt, kappat)))
+  return(list(c(dL, dMYZ, dX)))
 }
 
 #' @title Differential equations isolating the humans, forced with Ztrace
@@ -93,12 +88,7 @@ xDE_diffeqn_human <- function(t, y, pars) {
   # state derivatives
   dX <- dXdt(t, y, pars, FoI)
 
-  if(pars$eir_out==TRUE) {EIRt = EIR}else{EIRt = numeric(0)}
-  if(pars$fqZ_out==TRUE) {fqZt = F_fqZ(t, y, pars)}else{fqZt = numeric(0)}
-  if(pars$NI_out==TRUE) {NIt = as.numeric(F_X(t, y, pars)/F_H(t, y, pars))}else{NIt = numeric(0)}
-  if(pars$kappa_out==TRUE) {kappat <- F_kappa(t, y, pars, beta)}else{kappat = numeric(0)}
-
-  return(list(c(dX, EIRt, fqZt, NIt, kappat)))
+  return(list(c(dX)))
 }
 
 
@@ -162,10 +152,7 @@ xDE_diffeqn_cohort <- function(a, y, pars, F_eir) {
   # state derivatives
   dX <- dXdt(a, y, pars, FoI)
 
-  if(pars$eir_out==TRUE) {EIRt = EIR}else{EIRt = numeric(0)}
-  if(pars$NI_out==TRUE) {NIt = F_X(a, y, pars)/F_H(a, y, pars)}else{NIt = numeric(0)}
-
-  return(list(c(dX, EIRt, NIt)))
+  return(list(c(dX)))
 }
 
 #' @title Differential equation models for aquatic mosquito populations

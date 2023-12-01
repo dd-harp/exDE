@@ -106,10 +106,6 @@ params = make_parameters_demography_null(pars = params, H=H, residence=residence
 
 params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
 params = make_inits_X_hMoI(pars = params, rep(m10, nStrata), rep(m20, nStrata)) 
-params$eir_out = FALSE
-params$fqZ_out = FALSE
-params$NI_out = FALSE
-params$kappa_out = FALSE
 params = make_indices(params)
 ```
 
@@ -158,7 +154,7 @@ F_eir1 = fF_eir1(EIR)
 ```
 
 ```{r}
-xde_setup_cohort("test_hMoI", F_eir1, "hMoI", HPop=Hpop, Xopts = Xo, eir_out=F,  NI_out=F) ->test_hMoI
+xde_setup_cohort("test_hMoI", F_eir1, "hMoI", HPop=Hpop, Xopts = Xo) ->test_hMoI
 ```
 
 ```{r}

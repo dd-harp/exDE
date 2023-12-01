@@ -93,10 +93,6 @@ params = make_parameters_demography_null(pars = params, H=H, residence=residence
 params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
 
 params = make_inits_X_SIS(pars = params, X)
-params$eir_out = FALSE
-params$fqZ_out = FALSE
-params$NI_out = FALSE
-params$kappa_out = FALSE
 params = make_indices(params)
 ```
 
@@ -138,7 +134,7 @@ F_eir1 = fF_eir1(EIR)
 ```
 
 ```{r}
-xde_setup_cohort("test_SIS", F_eir1, "SIS", HPop=Hpop, Xopts = Xo, eir_out=F,  NI_out=F) -> test_SIS
+xde_setup_cohort("test_SIS", F_eir1, "SIS", HPop=Hpop, Xopts = Xo) -> test_SIS
 ```
 
 ```{r}

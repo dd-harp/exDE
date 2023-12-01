@@ -19,10 +19,6 @@
 #' @param TaRopts are the options to setup TaR
 #' @param searchQ is a vector of search weights for egg laying
 #' @param Lopts a list to configure the L model
-#' @param eir_out the cumulative eir is output if TRUE
-#' @param fqZ_out the cumulative fqZ is output if TRUE
-#' @param NI_out the cumulative NI is output if TRUE
-#' @param kappa_out the cumulative kappa is output if TRUE
 #' @return a [list]
 #' @export
 xde_setup = function(modelName,
@@ -52,12 +48,7 @@ xde_setup = function(modelName,
 
                      # Aquatic Mosquito Options
                      searchQ = 1,
-                     Lopts = list(),
-
-                     eir_out = TRUE,
-                     fqZ_out = FALSE,
-                     NI_out = FALSE,
-                     kappa_out = TRUE
+                     Lopts = list()
 
 ){
 
@@ -77,11 +68,6 @@ xde_setup = function(modelName,
   pars = setup_MYZ(pars, MYZname, nPatches, MYZopts, calK)
   pars = setup_L(pars, Lname, membership, searchQ, Lopts)
   pars = setup_X(pars, Xname, Xopts)
-
-  pars$eir_out = eir_out
-  pars$fqZ_out = fqZ_out
-  pars$NI_out = NI_out
-  pars$kappa_out = kappa_out
 
   pars = make_indices(pars)
 
@@ -193,10 +179,6 @@ xde_setup_aquatic = function(modelName,
 #' @param searchB is a vector of search weights for blood feeding
 #' @param TaR is either a TaR matrix or a string to call a function that sets it up
 #' @param TaRopts are the options to setup TaR
-#' @param eir_out the cumulative eir is output if TRUE
-#' @param fqZ_out the cumulative fqZ is output if TRUE
-#' @param NI_out the cumulative NI is output if TRUE
-#' @param kappa_out the cumulative kappa is output if TRUE
 #' @return a [list]
 #' @export
 xde_setup_human = function(modelName,
@@ -216,12 +198,7 @@ xde_setup_human = function(modelName,
                      residence=1,
                      searchB = 1,
                      TaR = "athome",
-                     TaRopts=list(),
-
-                     eir_out = TRUE,
-                     fqZ_out = FALSE,
-                     NI_out = FALSE,
-                     kappa_out = TRUE
+                     TaRopts=list()
 
 ){
 
@@ -243,11 +220,6 @@ xde_setup_human = function(modelName,
 
   pars = make_indices(pars)
 
-  pars$eir_out = eir_out
-  pars$fqZ_out = fqZ_out
-  pars$NI_out = NI_out
-  pars$kappa_out = kappa_out
-
   return(pars)
 }
 
@@ -258,8 +230,6 @@ xde_setup_human = function(modelName,
 #' @param HPop is the number of humans in each patch
 #' @param Xopts a list to configure the X model
 #' @param Hopts a list to configure the H model
-#' @param eir_out the cumulative eir is output if TRUE
-#' @param NI_out the cumulative NI is output if TRUE
 #' @return a [list]
 #' @export
 xde_setup_cohort = function(modelName, F_eir,
@@ -272,11 +242,7 @@ xde_setup_cohort = function(modelName, F_eir,
 
                            # Human Strata / Options
                            Xopts = list(),
-                           Hopts = list(),
-
-                           eir_out = TRUE,
-                           NI_out = TRUE
-
+                           Hopts = list()
 
 ){
 
@@ -294,9 +260,6 @@ xde_setup_cohort = function(modelName, F_eir,
 
   # Dynamics
   pars = setup_X(pars, Xname, Xopts)
-
-  pars$eir_out = eir_out
-  pars$NI_out = NI_out
 
   pars = make_indices(pars)
 
