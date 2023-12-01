@@ -47,22 +47,6 @@ make_indices <- function(pars) {
   if ('Hpar' %in% names(pars)) {
     pars = make_indices_H(pars)
   }
-  if(pars$eir_out == TRUE){
-    pars$eir_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-    pars$max_ix <- tail(pars$eir_ix, 1)
-  }
-  if(pars$fqZ_out == TRUE){
-    pars$fqZ_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-    pars$max_ix <- tail(pars$fqZ_ix, 1)
-  }
-  if(pars$NI_out == TRUE){
-    pars$NI_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-    pars$max_ix <- tail(pars$NI_ix, 1)
-  }
-  if(pars$kappa_out == TRUE){
-    pars$kappa_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-    pars$max_ix <- tail(pars$kappa_ix, 1)
-  }
   return(pars)
 }
 
@@ -107,8 +91,6 @@ get_inits <- function(pars){
 parse_deout <- function(deout, pars){
   varslist = list()
   varslist$deout = deout
-  varslist$time = deout[,1]
-  dtime = diff(deout[,1])
   if ('Lpar' %in% names(pars)) {
     varslist = parse_deout_L(varslist, deout, pars)
   }
@@ -121,42 +103,10 @@ parse_deout <- function(deout, pars){
   if ('Xpar' %in% names(pars)) {
     varslist = parse_deout_X(varslist, deout, pars)
   }
-  if (pars$eir_out == TRUE) {
-    cum_eir = deout[,1+pars$eir_ix]
-    if(pars$nStrata>1){
-      varslist$eir=apply(cum_eir, 2, diff)/dtime
-    } else {
-      eir = diff(cum_eir)/dtime
-      varslist$eir= c(eir, eir[1])
-    }
-  }
-  if (pars$fqZ_out == TRUE) {
-    cum_fqZ = deout[,1+pars$fqZ_ix]
-    if(pars$nPatches>1){
-      varslist$fqZ=apply(cum_fqZ, 2, diff)/dtime
-    } else {
-      fqZ= diff(cum_fqZ)/dtime
-      varslist$fqZ = c(fqZ, fqZ[1])
-    }
-  }
-  if (pars$NI_out == TRUE) {
-    cum_ni = deout[,1+pars$NI_ix]
-    if(pars$nStrata>1){
-      varslist$ni=apply(cum_ni, 2, diff)/dtime
-    } else {
-      ni= diff(cum_ni)/dtime
-      varslist$ni = c(ni, ni[1])
-    }
-  }
-  if (pars$kappa_out == TRUE) {
-    cum_kappa = deout[,1+pars$kappa_ix]
-    if(pars$nPatches>1){
-      varslist$kappa=apply(cum_kappa, 2, diff)/dtime
-    } else {
-      kappa = diff(cum_kappa)/dtime
-      varslist$kappa = c(kappa, kappa[1])
-    }
-  }
+  varslist$eir = compute_EIR(deout, pars)
+  varslist$fqZ = compute_fqZ(deout, pars)
+  varslist$NI = compute_NI(deout, pars)
+  varslist$kappa = compute_kappa(deout, pars)
   return(varslist)
 }
 

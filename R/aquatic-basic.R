@@ -113,7 +113,7 @@ make_indices_L.basic <- function(pars) {
 #' @return varslist a [list]
 #' @export
 parse_deout_L.basic <- function(varslist, deout, pars) {
-  varslist$L = deout[,pars$Lpar$Lix+1]
+  varslist$L = deout[,pars$Lpar$L_ix+1]
   return(varslist)
 }
 
