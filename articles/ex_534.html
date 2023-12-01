@@ -342,12 +342,7 @@ population size (constant <span class="math inline">\(H\)</span>).</p>
 can generate the indices for the model and attach them to the parameter
 list.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">params</span><span class="op">$</span><span class="va">eir_out</span> <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="va">params</span><span class="op">$</span><span class="va">fqZ_out</span> <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="va">params</span><span class="op">$</span><span class="va">NI_out</span> <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="va">params</span><span class="op">$</span><span class="va">kappa_out</span> <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span></span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can set the initial conditions of the model.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y0</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_inits.html">get_inits</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
@@ -424,8 +419,7 @@ in <code>params</code> will ensure that the right methods are invoked
 <span>                  membership<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, </span>
 <span>                  MYZopts<span class="op">=</span><span class="va">MYZo</span>, calK<span class="op">=</span><span class="va">calK</span>, Xopts<span class="op">=</span><span class="va">Xo</span>, </span>
 <span>                  residence<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span>, searchB<span class="op">=</span><span class="va">searchWtsH</span>, </span>
-<span>                  TaR<span class="op">=</span><span class="va">TaR</span>, searchQ <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">8</span>,<span class="fl">2</span><span class="op">)</span>, Lopts <span class="op">=</span> <span class="va">Lo</span>,</span>
-<span>          eir_out<span class="op">=</span><span class="cn">F</span>, fqZ_out<span class="op">=</span><span class="cn">F</span>, NI_out<span class="op">=</span><span class="cn">F</span>, kappa_out <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">mod534</span></span></code></pre></div>
+<span>                  TaR<span class="op">=</span><span class="va">TaR</span>, searchQ <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>,<span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">8</span>,<span class="fl">2</span><span class="op">)</span>, Lopts <span class="op">=</span> <span class="va">Lo</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">mod534</span></span></code></pre></div>
 <p>We solve and take the differences to check:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod534</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xde_solve.html">xde_solve</a></span><span class="op">(</span><span class="va">mod534</span>,Tmax<span class="op">=</span><span class="fl">365</span>,dt<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
@@ -470,8 +464,8 @@ difference:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">out2l</span> <span class="op">=</span> <span class="fu"><a href="../reference/parse_deout.html">parse_deout</a></span><span class="op">(</span><span class="va">out2</span>, <span class="va">mod534</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">out2l</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "deout"  "time"   "L"      "M"      "P"      "Y"      "Z"      "parous"</span></span>
-<span><span class="co">#&gt;  [9] "y"      "z"      "H"      "X"      "pr"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "deout"  "L"      "M"      "P"      "Y"      "Z"      "parous" "y"     </span></span>
+<span><span class="co">#&gt;  [9] "z"      "H"      "X"      "pr"     "eir"    "fqZ"    "NI"     "kappa"</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

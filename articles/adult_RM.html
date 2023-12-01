@@ -261,12 +261,7 @@ solving as an <code>ode.</code></p>
 <span>                                g <span class="op">=</span> <span class="va">g</span>, sigma <span class="op">=</span> <span class="va">sigma</span>, calK <span class="op">=</span> <span class="va">calK</span>, </span>
 <span>                                f <span class="op">=</span> <span class="va">f</span>, q <span class="op">=</span> <span class="va">q</span>, </span>
 <span>                                nu <span class="op">=</span> <span class="va">nu</span>, eggsPerBatch <span class="op">=</span> <span class="va">eggsPerBatch</span>, </span>
-<span>                                eip <span class="op">=</span> <span class="va">eip</span>, solve_as <span class="op">=</span> <span class="st">'ode'</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="va">params</span><span class="op">$</span><span class="va">eir_out</span> <span class="op">=</span> <span class="cn">FALSE</span> </span>
-<span><span class="va">params</span><span class="op">$</span><span class="va">fqZ_out</span> <span class="op">=</span> <span class="cn">FALSE</span> </span>
-<span><span class="va">params</span><span class="op">$</span><span class="va">NI_out</span> <span class="op">=</span> <span class="cn">FALSE</span> </span>
-<span><span class="va">params</span><span class="op">$</span><span class="va">kappa_out</span> <span class="op">=</span> <span class="cn">FALSE</span> </span></code></pre></div>
+<span>                                eip <span class="op">=</span> <span class="va">eip</span>, solve_as <span class="op">=</span> <span class="st">'ode'</span><span class="op">)</span> </span></code></pre></div>
 <p>Now we set the values of <span class="math inline">\(\kappa\)</span>
 and <span class="math inline">\(\Lambda\)</span> and solve for the
 equilibrium values.</p>
@@ -375,7 +370,7 @@ aquatic mosquitoes</p></li>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/xde_setup.html">xde_setup</a></span><span class="op">(</span><span class="st">"MYZeg"</span>,</span>
 <span>    MYZname <span class="op">=</span> <span class="st">"RM"</span>, Xname <span class="op">=</span> <span class="st">"trace"</span>, Lname <span class="op">=</span> <span class="st">"trace"</span>,  </span>
 <span>    nPatches<span class="op">=</span><span class="fl">3</span>, calK<span class="op">=</span><span class="va">calK</span>, membership <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>,</span>
-<span>    MYZopts <span class="op">=</span> <span class="va">MYZo</span>, Xopts <span class="op">=</span> <span class="va">Xo</span>, Lopts <span class="op">=</span> <span class="va">Lo</span>, eir_out<span class="op">=</span><span class="cn">FALSE</span>, fqZ_out<span class="op">=</span><span class="cn">FALSE</span>, NI_out<span class="op">=</span><span class="cn">FALSE</span>, kappa_out<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">MYZeg</span></span></code></pre></div>
+<span>    MYZopts <span class="op">=</span> <span class="va">MYZo</span>, Xopts <span class="op">=</span> <span class="va">Xo</span>, Lopts <span class="op">=</span> <span class="va">Lo</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">MYZeg</span></span></code></pre></div>
 <p>Now, we can solve the equations using <code>xde_solve</code> and
 compare the output to what we got above. If they are identical, the two
 objects should be identical, so can simply add the absolute value of
