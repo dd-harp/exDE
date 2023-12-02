@@ -91,6 +91,7 @@ get_inits <- function(pars){
 parse_deout <- function(deout, pars){
   varslist = list()
   varslist$deout = deout
+  varslist$time = deout[,1]
   if ('Lpar' %in% names(pars)) {
     varslist = parse_deout_L(varslist, deout, pars)
   }
@@ -103,10 +104,6 @@ parse_deout <- function(deout, pars){
   if ('Xpar' %in% names(pars)) {
     varslist = parse_deout_X(varslist, deout, pars)
   }
-  varslist$eir = compute_EIR(deout, pars)
-  varslist$fqZ = compute_fqZ(deout, pars)
-  varslist$NI = compute_NI(deout, pars)
-  varslist$kappa = compute_kappa(deout, pars)
   return(varslist)
 }
 
