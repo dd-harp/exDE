@@ -17,9 +17,13 @@ xde_solve = function(pars, Tmax=365, dt=1){
 #' @export
 xde_stable_orbit = function(pars, Ymax=10){
   pars <- xde_solve(pars, Tmax = Ymax*365, dt=1)
-  deout = tail(pars$orbits$deout, 366)
-  deout[,1] = c(0:365)
+  deout = tail(pars$orbits$deout, 365)
+  deout[,1] = c(1:365)
   steady <- parse_deout(deout, pars)
+  steady$eir=with(pars$orbits, if(exists("eir")) tail(pars$orbits$eir,365) else NULL)
+  steady$ni=with(pars$orbits, if(exists("ni")) tail(pars$orbits$ni,365) else NULL)
+  steady$fqZ=with(pars$orbits, if(exists("fqZ")) tail(pars$orbits$fqZ,365) else NULL)
+  steady$kappa=with(pars$orbits, if(exists("kappa")) tail(pars$orbits$kappa,365) else NULL)
   pars$steady <- steady
   return(pars)
 }
@@ -34,6 +38,10 @@ xde_solve.ode = function(pars, Tmax=365, dt=1){
   y0 = get_inits(pars)
   deSolve::ode(y = y0, times = tt, func = xDE_diffeqn, parms = pars, method = "lsoda") -> out
   pars$orbits = parse_deout(out, pars)
+  pars$orbits$eir = compute_EIR(out, pars)
+  pars$orbits$ni = compute_NI(out, pars)
+  pars$orbits$kappa = compute_kappa(out, pars)
+  pars$orbits$fqZ = compute_fqZ(out, pars)
   return(pars)
 }
 
@@ -47,6 +55,10 @@ xde_solve.dde = function(pars, Tmax=365, dt=1){
   y0 = get_inits(pars)
   deSolve::dede(y = y0, times = tt, func = xDE_diffeqn, parms = pars, method = "lsoda") -> out
   pars$orbits = parse_deout(out, pars)
+  pars$orbits$eir = compute_EIR(out, pars)
+  pars$orbits$ni = compute_NI(out, pars)
+  pars$orbits$kappa = compute_kappa(out, pars)
+  pars$orbits$fqZ = compute_fqZ(out, pars)
   return(pars)
 }
 
@@ -112,6 +124,9 @@ xde_solve.human = function(pars, Tmax=365, dt=1){
   y0 = get_inits(pars)
   deSolve::ode(y = y0, times = tt, func = xDE_diffeqn_human, parms = pars, method = "lsoda") -> out
   pars$orbits = parse_deout(out, pars)
+  pars$orbits$eir = compute_EIR(out, pars)
+  pars$orbits$ni = compute_NI(out, pars)
+  pars$orbits$fqZ = compute_fqZ(out, pars)
   return(pars)
 }
 
@@ -126,5 +141,7 @@ xde_solve.cohort = function(pars, Tmax=365, dt=1){
   y0 = get_inits(pars)
   deSolve::ode(y = y0, times = tt, func = xDE_diffeqn_cohort, parms=pars, F_eir = pars$F_eir, method = "lsoda") -> out
   pars$orbits = parse_deout(out, pars)
+  pars$orbits$eir = pars$F_eir(out[,1], pars)
+  pars$orbits$ni = compute_NI(out, pars)
   return(pars)
 }
