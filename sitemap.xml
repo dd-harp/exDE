@@ -583,67 +583,16 @@
     <loc>https://dd-harp.github.io/exDE/reference/check_civil.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR.aqua.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR.aqua_dde.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR.cohort.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR.dde.html</loc>
-  </url>
-  <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_EIR.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR.human.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR.mosy.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR.mosy_dde.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR.ode.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR_default.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_EIR_i.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_NI.aqua.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_NI.aqua_dde.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_NI.cohort.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_NI.dde.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR_ty.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_NI.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_NI.human.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_NI.mosy.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_NI.mosy_dde.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_NI.ode.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_NI_default.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_NI_i.html</loc>
@@ -652,70 +601,19 @@
     <loc>https://dd-harp.github.io/exDE/reference/compute_beta.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ.aqua.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ.aqua_dde.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ.cohort.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ.dde.html</loc>
-  </url>
-  <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ.human.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ.mosy.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ.mosy_dde.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ.ode.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ_default.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ_i.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa.aqua.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa.aqua_dde.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa.cohort.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa.dde.html</loc>
-  </url>
-  <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_kappa.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa.human.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa.mosy.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa.mosy_dde.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa.ode.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa_default.html</loc>
-  </url>
-  <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_kappa_i.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa_ty.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_local_frac.html</loc>
