@@ -180,13 +180,15 @@ update_inits_X.hMoI <- function(pars, y0) {
 #' @inheritParams parse_deout_X
 #' @return none
 #' @export
-parse_deout_X.hMoI <- function(varslist, deout, pars) {
-  varslist$m1 = deout[,pars$Xpar$m1_ix+1]
-  varslist$m2 = deout[,pars$Xpar$m2_ix+1]
-  varslist$pr = 1-exp(-varslist$m1)
-  varslist$pr_apparent = 1-exp(-varslist$m2)
-  return(varslist)
-}
+parse_deout_X.hMoI <- function(deout, pars) {
+  Hlist <- parse_deout_H(deout, pars)
+  with(Hlist,{
+    m1 = deout[,pars$Xpar$m1_ix+1]
+    m2 = deout[,pars$Xpar$m2_ix+1]
+    pr = 1-exp(-m1)
+    pr_apparent = 1-exp(-m2)
+    return(list(H=H,m1=m1,m2=m2,pr=pr,pr_apparent=pr_apparent))
+})}
 
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.

@@ -84,8 +84,8 @@ make_indices_X.trace <- function(pars) {
 #' @inheritParams parse_deout_X
 #' @return none
 #' @export
-parse_deout_X.trace <- function(varslist, deout, pars) {
-  return(varslist)
+parse_deout_X.trace <- function(deout, pars) {
+  return(list())
 }
 
 #' @title Make parameters for trace human model

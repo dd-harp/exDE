@@ -276,7 +276,8 @@ xde_setup("MYZeg",
 Now, we can solve the equations using `xde_solve` and compare the output to what we got above. If they are identical, the two objects should be identical, so can simply add the absolute value of their differences:  
 
 ```{r xde_solve}
-out2 <- xde_solve(MYZeg, Tmax=50, dt=1)$deout
+xde_solve(MYZeg, Tmax=50, dt=1) -> MYZeg 
+out2 <- MYZeg$orbits$deout
 sum(abs(out1-out2))==0 
 ```
 

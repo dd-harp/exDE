@@ -4,16 +4,14 @@
 \alias{parse_deout_L}
 \title{Parse the output of deSolve and return the variables by name in a list}
 \usage{
-parse_deout_L(varslist, deout, pars)
+parse_deout_L(deout, pars)
 }
 \arguments{
-\item{varslist}{a \link{list} the object to be returned}
-
 \item{deout}{a \link{matrix} of outputs from deSolve}
 
-\item{pars}{a \link{list} that defines a model}
+\item{pars}{a \link{list} that defines the model}
 }
 \description{
 This method dispatches on the type of \code{pars$Lpar}. Attaches the
-state variables for the aquatic ecology model to varslist and returns it
+state variables for the aquatic ecology model to a list and returns it
 }

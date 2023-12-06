@@ -84,6 +84,9 @@ reference:
   - get_inits_MYZ
   - update_inits_MYZ
   - make_Omega
+  - dde2ode_MYZ
+  - dde2ode_MYZ.dde
+  - dde2ode_MYZ.ode
 - subtitle: EIP
   desc: |
     Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
@@ -530,8 +533,14 @@ reference:
   - setup_weather_null
   - setup_weather_forced
   - setup_rainfall_null
+  - Rainfall
+  - Rainfall.null
   - setup_temperature_null
+  - Temperature
+  - Temperature.null
   - setup_relative_humidity_null
+  - Relative_Humidity
+  - Relative_Humidity.null
 - subtitle: Hydrology
   desc: |
     Specialized methods for hydrology
@@ -695,18 +704,27 @@ reference:
   - xde_solve.human
   - xde_solve.cohort
   - xde_stable_orbit
+  - xde_steady
 - title: Utilities
   contents:
   - make_parameters_xde
   - make_indices
   - parse_deout
+  - parse_deout_vec
   - get_inits
+  - update_inits
   - last_to_inits
   - diag_inverse
   - approx_equal
   - checkIt
 - title: Compute terms
   contents:
+  - compute_terms
+  - compute_terms.xde
+  - compute_terms.cohort
+  - compute_terms.human
+  - compute_terms.na
+  - compute_terms_steady
   - compute_EIR
   - compute_EIR_i
   - compute_EIR_ty

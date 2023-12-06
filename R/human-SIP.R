@@ -135,12 +135,14 @@ make_Xinits_SIP = function(pars, Xopts = list(),
 #' @inheritParams parse_deout_X
 #' @return none
 #' @export
-parse_deout_X.SIP <- function(varslist, deout, pars) {
-  varslist$X = deout[,pars$Xpar$X_ix+1]
-  varslist$P = deout[,pars$Xpar$P_ix+1]
-  varslist$pr = varslist$X/varslist$H
-  return(varslist)
-}
+parse_deout_X.SIP <- function(deout, pars) {
+  Hlist <- parse_deout_H(deout, pars)
+  with(Hlist,{
+    X = deout[,pars$Xpar$X_ix+1]
+    P = deout[,pars$Xpar$P_ix+1]
+    pr = X/H
+  return(list(H=H,X=X,P=P,pr=X/H))
+})}
 
 #' @title Add indices for human population to parameter list
 #' @description Implements [make_indices_X] for the SIP model.

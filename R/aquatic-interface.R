@@ -65,12 +65,11 @@ make_indices_L <- function(pars) {
 
 #' @title Parse the output of deSolve and return the variables by name in a list
 #' @description This method dispatches on the type of `pars$Lpar`. Attaches the
-#' state variables for the aquatic ecology model to varslist and returns it
-#' @param varslist a [list] the object to be returned
+#' state variables for the aquatic ecology model to a list and returns it
 #' @param deout a [matrix] of outputs from deSolve
-#' @param pars a [list] that defines a model
+#' @param pars a [list] that defines the model
 #' @export
-parse_deout_L <- function(varslist, deout, pars) {
+parse_deout_L <- function(deout, pars) {
   UseMethod("parse_deout_L", pars$Lpar)
 }
 

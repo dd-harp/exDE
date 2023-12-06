@@ -4,11 +4,9 @@
 \alias{parse_deout_X.SIS}
 \title{Parse the output of deSolve and return variables for the SIS model}
 \usage{
-\method{parse_deout_X}{SIS}(varslist, deout, pars)
+\method{parse_deout_X}{SIS}(deout, pars)
 }
 \arguments{
-\item{varslist}{a \link{list} the object to be returned}
-
 \item{deout}{a \link{matrix} of outputs from deSolve}
 
 \item{pars}{a \link{list} that defines a model}

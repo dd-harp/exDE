@@ -4,17 +4,15 @@
 \alias{parse_deout_L.trace}
 \title{Parse the variable names for the trace model}
 \usage{
-\method{parse_deout_L}{trace}(varslist, deout, pars)
+\method{parse_deout_L}{trace}(deout, pars)
 }
 \arguments{
-\item{varslist}{a \link{list} the object to be returned}
-
 \item{deout}{a \link{matrix} of outputs from deSolve}
 
-\item{pars}{a \link{list} that defines a model}
+\item{pars}{a \link{list} that defines the model}
 }
 \value{
-varslist a \link{list}
+\link{list}
 }
 \description{
 Implements \link{parse_deout_L} for the trace model.

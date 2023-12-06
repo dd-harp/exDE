@@ -117,10 +117,10 @@ make_inits_L_trace<- function(pars, L0=NULL) {
 #' @title Parse the variable names for the trace model
 #' @description Implements [parse_deout_L] for the trace model.
 #' @inheritParams parse_deout_L
-#' @return varslist a [list]
+#' @return [list]
 #' @export
-parse_deout_L.trace <- function(varslist, deout, pars) {
-  return(varslist)
+parse_deout_L.trace <- function(deout, pars) {
+  return(list())
 }
 
 #' @title Return initial values as a vector

@@ -4,16 +4,14 @@
 \alias{parse_deout_MYZ}
 \title{Parse the output of deSolve and return the variables by name in a list}
 \usage{
-parse_deout_MYZ(varslist, deout, pars)
+parse_deout_MYZ(deout, pars)
 }
 \arguments{
-\item{varslist}{a \link{list} the object to be returned}
-
 \item{deout}{a \link{matrix} of outputs from deSolve}
 
 \item{pars}{a \link{list} that defines a model}
 }
 \description{
-This method dispatches on the type of \code{pars$MYZpar}. Adds the variables
-from the MYZ model to varslist and returns it
+This method dispatches on the type of \code{pars$MYZpar}.
+It computes the variables by name and returns a named list.
 }

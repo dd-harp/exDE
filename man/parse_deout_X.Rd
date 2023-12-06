@@ -4,16 +4,14 @@
 \alias{parse_deout_X}
 \title{Parse the output of deSolve and return the variables by name in a list}
 \usage{
-parse_deout_X(varslist, deout, pars)
+parse_deout_X(deout, pars)
 }
 \arguments{
-\item{varslist}{a \link{list} the object to be returned}
-
 \item{deout}{a \link{matrix} of outputs from deSolve}
 
 \item{pars}{a \link{list} that defines a model}
 }
 \description{
 This method dispatches on the type of \code{pars$Xpar}. Adds the variables
-from the X model to varslist and returns it
+from the X model to a list and returns it
 }

@@ -146,8 +146,8 @@ MYZo = list(f=f, q=q, g=g, sigma=sigma,
 
 ```{r}
 xde_setup("itn_mod", "RM", "SIS", "basic", 
-          3, Hpop, 1:3, MYZo, calK, 
-          list(), Xo, list(), 1:3, rep(1,3), 
+          3, Hpop, c(1:3), MYZo, calK, 
+          list(), list(), Xo, list(), 1:3, rep(1,3), 
           TaR, list(), 1:3, Lo) -> itn_mod
 ```
 

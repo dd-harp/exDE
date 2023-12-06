@@ -15,6 +15,7 @@ xde_setup(
   MYZopts = list(),
   calK = "herethere",
   calKopts = list(),
+  EIPopts = list(),
   Xopts = list(),
   Hopts = list(),
   residence = 1,
@@ -45,6 +46,8 @@ xde_setup(
 \item{calK}{is either a calK matrix or a string that defines how to set it up}
 
 \item{calKopts}{are the options to setup calK}
+
+\item{EIPopts}{are the options to setup EIPmod}
 
 \item{Xopts}{a list to configure the X model}
 

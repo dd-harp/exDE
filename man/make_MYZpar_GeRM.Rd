@@ -10,17 +10,16 @@ make_MYZpar_GeRM(
   calK,
   solve_as = "dde",
   g = 1/12,
-  setup_Fg = list(),
+  g_par = list(),
   sigma = 1/8,
-  setup_Fsigma = list(),
+  sigma_par = list(),
   f = 0.3,
-  setup_Ff = list(),
+  f_par = list(),
   q = 0.95,
-  setup_Fq = list(),
+  q_par = list(),
   nu = 1,
-  setup_Fnu = list(),
+  nu_par = list(),
   eip = 11,
-  setup_Feip = list(),
   eggsPerBatch = 60
 )
 }
@@ -35,27 +34,25 @@ make_MYZpar_GeRM(
 
 \item{g}{mosquito mortality rate}
 
-\item{setup_Fg}{a \link{list} to set up F_g}
+\item{g_par}{a \link{list} to set up F_g}
 
 \item{sigma}{emigration rate}
 
-\item{setup_Fsigma}{a \link{list} to set up F_sigma}
+\item{sigma_par}{a \link{list} to set up F_sigma}
 
 \item{f}{feeding rate}
 
-\item{setup_Ff}{a \link{list} to set up F_f}
+\item{f_par}{a \link{list} to set up F_f}
 
 \item{q}{human blood fraction}
 
-\item{setup_Fq}{a \link{list} to set up F_q}
+\item{q_par}{a \link{list} to set up F_q}
 
 \item{nu}{oviposition rate, per mosquito}
 
-\item{setup_Fnu}{a \link{list} to set up F_nu}
+\item{nu_par}{a \link{list} to set up F_nu}
 
 \item{eip}{length of extrinsic incubation period}
-
-\item{setup_Feip}{a \link{list} to set up F_eip}
 
 \item{eggsPerBatch}{eggs laid per oviposition}
 }

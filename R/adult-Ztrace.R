@@ -59,10 +59,10 @@ setup_MYZ.Ztrace = function(pars, MYZname,
 #' @title Parse the output of deSolve and return variables for the Ztrace model
 #' @description Implements [parse_deout_MYZ] for Ztrace
 #' @inheritParams parse_deout_MYZ
-#' @return none
+#' @return a [list]
 #' @export
-parse_deout_MYZ.Ztrace <- function(varslist, deout, pars) {
-  return(varslist)
+parse_deout_MYZ.Ztrace <- function(deout, pars) {
+  return(list())
 }
 
 #' @title Make parameters for Ztrace aquatic mosquito model

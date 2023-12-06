@@ -12,6 +12,36 @@ MBionomics <- function(t, y, pars) {
   UseMethod("MBionomics", pars$MYZpar)
 }
 
+#' @title Convert a model from dde to the corresponding ode
+#' @description This method dispatches on the type of `pars$MYZpar$xde`
+#' @param pars a [list]
+#' @return a [list]
+#' @export
+dde2ode_MYZ = function(pars){
+  UseMethod("dde2ode_MYZ", pars$MYZpar$xde)
+}
+
+#' @title Convert a model from dde to the corresponding ode
+#' @description If it is already an ode, return pars unchanged.
+#' @param pars a [list]
+#' @return a [list]
+#' @export
+dde2ode_MYZ.ode = function(pars){pars}
+
+#' @title Convert a model from dde to the corresponding ode
+#' @description If it is a dde, return the corresponding ode
+#' @param pars a [list]
+#' @return a [list]
+#' @export
+dde2ode_MYZ.dde = function(pars){
+  pars$MYZpar$xde <- "ode"
+  pars$MYZpar$solve_as <- "ode"
+  pars <- make_MYZpar_RM(pars, MYZopts<- pars$MYZpar,
+                        calK=pars$MYZpar$calK)
+  pars <- make_indices(pars)
+  return(pars)
+}
+
 #' @title Time spent host seeking/feeding and resting/ovipositing
 #' @description This method dispatches on the type of `pars$MYZpar`.
 #' @param t current simulation time
@@ -82,13 +112,12 @@ make_indices_MYZ <- function(pars) {
 }
 
 #' @title Parse the output of deSolve and return the variables by name in a list
-#' @description This method dispatches on the type of `pars$MYZpar`. Adds the variables
-#' from the MYZ model to varslist and returns it
-#' @param varslist a [list] the object to be returned
+#' @description This method dispatches on the type of `pars$MYZpar`.
+#' It computes the variables by name and returns a named list.
 #' @param deout a [matrix] of outputs from deSolve
 #' @param pars a [list] that defines a model
 #' @export
-parse_deout_MYZ <- function(varslist, deout, pars) {
+parse_deout_MYZ <- function(deout, pars) {
   UseMethod("parse_deout_MYZ", pars$MYZpar)
 }
 

@@ -92,8 +92,8 @@ make_indices_MYZ.Gtrace <- function(pars) {
 #' @inheritParams parse_deout_MYZ
 #' @return none
 #' @export
-parse_deout_MYZ.Gtrace <- function(varslist, deout, pars) {
-  return(varslist)
+parse_deout_MYZ.Gtrace <- function(deout, pars) {
+  return(list())
 }
 
 

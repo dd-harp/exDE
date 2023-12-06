@@ -36,6 +36,9 @@ setup_weather_null <- function(pars) {
 #' @return [list]
 #' @export
 Weather.forced <- function(t, pars) {
+  pars = Temperature(t, pars)
+  pars = Rainfall(t, pars)
+  pars = Relative_Humidity(t, pars)
   return(pars)
 }
 
@@ -51,6 +54,25 @@ setup_weather_forced <- function(pars) {
   pars = setup_temperature_null(pars)
   pars = setup_rainfall_null(pars)
   pars = setup_relative_humidity_null(pars)
+  return(pars)
+}
+
+#' @title Methods for exogenous variables describing temperature
+#' @description This method dispatches on the type of `pars$TEMPERATURE`.
+#' @param t current simulation time
+#' @param pars a [list]
+#' @return [list]
+#' @export
+Temperature <- function(t, pars) {
+  UseMethod("Temperature", pars$TEMPERATURE)
+}
+
+#' @title Methods for exogenous variables describing temperature
+#' @description Implements [Temperature] for the null model (no variables)
+#' @inheritParams Temperature
+#' @return [list]
+#' @export
+Temperature.null <- function(t, pars) {
   return(pars)
 }
 
@@ -76,6 +98,25 @@ setup_rainfall_null <- function(pars) {
   return(pars)
 }
 
+#' @title Methods for exogenous variables describing rainfall
+#' @description This method dispatches on the type of `pars$RAINFALL`.
+#' @param t current simulation time
+#' @param pars a [list]
+#' @return [list]
+#' @export
+Rainfall <- function(t, pars) {
+  UseMethod("Rainfall", pars$RAINFALL)
+}
+
+#' @title Methods for exogenous variables describing rainfall
+#' @description Implements [Rainfall] for the null model (no variables)
+#' @inheritParams Rainfall
+#' @return [list]
+#' @export
+Rainfall.null <- function(t, pars) {
+  return(pars)
+}
+
 #' @title Set up the null model for HUMIDITY
 #' @param pars a [list]
 #' @return [list]
@@ -84,5 +125,24 @@ setup_relative_humidity_null <- function(pars) {
   HUMIDITY <- list()
   class(HUMIDITY) <- 'null'
   pars$HUMIDITY <- HUMIDITY
+  return(pars)
+}
+
+#' @title Methods for exogenous variables describing relative humidity
+#' @description This method dispatches on the type of `pars$HUMIDITY`.
+#' @param t current simulation time
+#' @param pars a [list]
+#' @return [list]
+#' @export
+Relative_Humidity <- function(t, pars) {
+  UseMethod("Relative_Humidity", pars$HUMIDITY)
+}
+
+#' @title Methods for exogenous variables describing relative humidity
+#' @description Implements [Relative_Humidity] for the null model (no variables)
+#' @inheritParams Relative_Humidity
+#' @return [list]
+#' @export
+Relative_Humidity.null <- function(t, pars) {
   return(pars)
 }

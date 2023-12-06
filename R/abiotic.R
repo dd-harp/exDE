@@ -58,7 +58,7 @@ setup_abiotic_forced <- function(pars) {
 #' @return [list]
 #' @export
 check_abiotic <- function(pars) {
-  UseMethod("check_abiotic", pars$EfSz)
+  UseMethod("check_abiotic", pars$ABIOTIC)
 }
 
 #' @title Check abiotic
