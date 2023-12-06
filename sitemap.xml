@@ -448,6 +448,18 @@
     <loc>https://dd-harp.github.io/exDE/reference/OwnBedNet.null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Rainfall.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Rainfall.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Relative_Humidity.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Relative_Humidity.null.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/Resources.forced.html</loc>
   </url>
   <url>
@@ -500,6 +512,12 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/SugarBaits.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Temperature.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Temperature.null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/TreatHabitats.html</loc>
@@ -619,6 +637,24 @@
     <loc>https://dd-harp.github.io/exDE/reference/compute_local_frac.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_terms.cohort.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_terms.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_terms.human.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_terms.na.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_terms.xde.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_terms_steady.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/dHdt.html</loc>
   </url>
   <url>
@@ -680,6 +716,15 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/dXdt.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/dde2ode_MYZ.dde.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/dde2ode_MYZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/dde2ode_MYZ.ode.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/diag_inverse.html</loc>
@@ -1057,6 +1102,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/parse_deout_X.trace.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/parse_deout_vec.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_Hpar.html</loc>
   </url>
   <url>
@@ -1261,6 +1309,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/travel_malaria.null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/update_inits.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/update_inits_H.dynamic.html</loc>
   </url>
   <url>
@@ -1376,5 +1427,8 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xde_stable_orbit.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_steady.html</loc>
   </url>
 </urlset>
