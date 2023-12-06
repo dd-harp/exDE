@@ -21,11 +21,6 @@ make_parameters_xde = function(solve_as='ode'){
   pars <- setup_travel_null(pars)
   pars <- setup_exposure_pois(pars)
 
-  pars$eir_out = FALSE
-  pars$fqZ_out = FALSE
-  pars$NI_out = FALSE
-  pars$kappa_out = FALSE
-
   return(pars)
 }
 
@@ -67,19 +62,7 @@ get_inits <- function(pars){
   if ('Hpar' %in% names(pars)) {
     Hi = get_inits_H(pars)
   } else {Hi = numeric(0)}
-  if (pars$eir_out==TRUE) {
-    EIRi = rep(0, pars$nStrata)
-  } else {EIRi = numeric(0)}
-  if (pars$fqZ_out==TRUE) {
-    fqZi = rep(0, pars$nPatches)
-  } else {fqZi = numeric(0)}
-  if (pars$NI_out==TRUE) {
-    NIi = rep(0, pars$nStrata)
-  } else {NIi = numeric(0)}
-  if (pars$kappa_out==TRUE) {
-    kappai = rep(0, pars$nPatches)
-  } else {kappai = numeric(0)}
-  y = c(L=Li, MYZ=MYZi, X=Xi, H=Hi, eir=EIRi, fqZ=fqZi, NI=NIi, kappa=kappai)
+  y = c(L=Li, MYZ=MYZi, X=Xi, H=Hi)
   return(y)
 }
 
@@ -90,22 +73,46 @@ get_inits <- function(pars){
 #' @export
 parse_deout <- function(deout, pars){
   varslist = list()
-  varslist$deout = deout
   varslist$time = deout[,1]
   if ('Lpar' %in% names(pars)) {
-    varslist = parse_deout_L(varslist, deout, pars)
+    varslist$L = parse_deout_L(deout, pars)
   }
   if ('MYZpar' %in% names(pars)) {
-    varslist = parse_deout_MYZ(varslist, deout, pars)
-  }
-  if ('Hpar' %in% names(pars)) {
-    varslist = parse_deout_H(varslist, deout, pars)
+    varslist$MYZ = parse_deout_MYZ(deout, pars)
   }
   if ('Xpar' %in% names(pars)) {
-    varslist = parse_deout_X(varslist, deout, pars)
+    varslist$XH = parse_deout_X(deout, pars)
   }
+  varslist$terms = compute_terms(deout, pars)
+  varslist$deout = deout
   return(varslist)
 }
+
+#' @title Parse the output of an object returned by deSolve
+#' @param vec a [vector] with the variables, as returned by rootsolve
+#' @param pars a [list]
+#' @return varslist a [list]
+#' @export
+parse_deout_vec <- function(vec, pars){
+  varslist = list()
+  deout = rbind(c(0,vec), c(0,vec))
+  varslist$vec = deout
+  if ('Lpar' %in% names(pars)) {
+    varslist$L = parse_deout_L(deout, pars)
+  }
+  if ('MYZpar' %in% names(pars)) {
+    varslist$MYZ = parse_deout_MYZ(deout, pars)
+  }
+  if ('Xpar' %in% names(pars)) {
+    varslist$X = parse_deout_X(deout, pars)
+  }
+  for(i in 1:length(varslist)){
+    varslist[[i]] = tail(varslist[[i]],1)
+  }
+  varslist$terms = compute_terms_steady(vec, pars)
+  return(varslist)
+}
+
 
 #' @title Invert a diagonal matrix
 #' @description Invert a diagonal matrix which is passed as a vector. If any
@@ -152,7 +159,17 @@ checkIt = function(x, lng, type = "numeric", fixit=TRUE){
 #' @return y a [numeric] vector
 #' @export
 last_to_inits <- function(pars){
-  y0 = tail(pars$orbits$deout, 1)[-1]
+  y0 <- tail(pars$orbits$deout, 1)[-1]
+  pars <- update_inits(y0, pars)
+  return(pars)
+}
+
+#' @title Set the initial values to the last values of the last simulation
+#' @param y0 a [vector] of initial values
+#' @param pars a [list]
+#' @return y a [numeric] vector
+#' @export
+update_inits <- function(y0, pars){
   if ('Lpar' %in% names(pars)) {
     pars = update_inits_L(pars, y0)
   } else {Li = numeric(0)}

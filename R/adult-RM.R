@@ -76,7 +76,6 @@ dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa) {
 
   nPatches <- pars$nPatches
   eip <- pars$MYZpar$eip
-
   with(pars$MYZpar,{
 
     if (t < eip) {
@@ -305,17 +304,17 @@ make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, eip, 
 #' @title Parse the output of deSolve and return variables for the RM model
 #' @description Implements [parse_deout_MYZ] for the RM model
 #' @inheritParams parse_deout_MYZ
-#' @return none
+#' @return a [list]
 #' @export
-parse_deout_MYZ.RM <- function(varslist, deout, pars) {
-  varslist$M = deout[,pars$MYZpar$M_ix+1]
-  varslist$P = deout[,pars$MYZpar$P_ix+1]
-  varslist$Y = deout[,pars$MYZpar$Y_ix+1]
-  varslist$Z = deout[,pars$MYZpar$Z_ix+1]
-  varslist$parous = with(varslist, P/M)
-  varslist$y = with(varslist, Y/M)
-  varslist$z = with(varslist, Z/M)
-  return(varslist)
+parse_deout_MYZ.RM <- function(deout, pars) {
+  M = deout[,pars$MYZpar$M_ix+1]
+  P = deout[,pars$MYZpar$P_ix+1]
+  Y = deout[,pars$MYZpar$Y_ix+1]
+  Z = deout[,pars$MYZpar$Z_ix+1]
+  y = Y/M
+  z = Z/M
+  parous = P/M
+  return(list(M=M, P=P, Y=Y, Z=Z, y=y, z=z, parous))
 }
 
 #' @title Make inits for RM adult mosquito model

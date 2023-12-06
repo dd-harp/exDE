@@ -110,11 +110,11 @@ make_indices_L.basic <- function(pars) {
 #' @title Parse the variable names for the basic model
 #' @description Implements [parse_deout_L] for basic competition model.
 #' @inheritParams parse_deout_L
-#' @return varslist a [list]
+#' @return [list]
 #' @export
-parse_deout_L.basic <- function(varslist, deout, pars) {
-  varslist$L = deout[,pars$Lpar$L_ix+1]
-  return(varslist)
+parse_deout_L.basic <- function(deout, pars) {
+  L = deout[,pars$Lpar$L_ix+1]
+  return(list(L=L))
 }
 
 

@@ -60,12 +60,12 @@ update_inits_H.static <- function(pars, y0) {
 #' @title Parse the output of deSolve and return variables for models where H is a parameter
 #' @description Implements [parse_deout_H] for models with constant denominators
 #' @inheritParams parse_deout_H
-#' @return none
+#' @return a [list]
 #' @export
-parse_deout_H.static <- function(varslist, deout, pars) {
+parse_deout_H.static <- function(deout, pars) {
   H = pars$Hpar$H
-  varslist$H = matrix(H, nrow = length(deout[,1]), ncol = length(H), byrow=T)
-  return(varslist)
+  H = matrix(H, nrow = length(deout[,1]), ncol = length(H), byrow=T)
+  return(list(H=H))
 }
 
 #' @title Make parameters for static human demography model

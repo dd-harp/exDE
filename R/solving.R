@@ -20,11 +20,23 @@ xde_stable_orbit = function(pars, Ymax=10){
   deout = tail(pars$orbits$deout, 365)
   deout[,1] = c(1:365)
   steady <- parse_deout(deout, pars)
-  steady$eir=with(pars$orbits, if(exists("eir")) tail(pars$orbits$eir,365) else NULL)
-  steady$ni=with(pars$orbits, if(exists("ni")) tail(pars$orbits$ni,365) else NULL)
-  steady$fqZ=with(pars$orbits, if(exists("fqZ")) tail(pars$orbits$fqZ,365) else NULL)
-  steady$kappa=with(pars$orbits, if(exists("kappa")) tail(pars$orbits$kappa,365) else NULL)
-  pars$steady <- steady
+  steady$terms = pars$orbits
+  for(i in 1:length(steady$terms))
+    steady$terms[[i]] = tail(steady$terms[[i]],365)
+  pars$stable_orbits <- steady
+  return(pars)
+}
+
+#' @title Solve for the steady state of a system of equations using [rootSolve::steady]
+#' @description This method dispatches on the type of `pars$xde`
+#' @param pars a [list] that defines a model
+#' @return a [list]
+#' @export
+xde_steady = function(pars){
+  y0 = get_inits(pars)
+  pars1 <- dde2ode_MYZ(pars)
+  rootSolve::steady(y=y0, func = xDE_diffeqn, parms = pars1)$y -> y_eq
+  pars$steady = parse_deout_vec(y_eq, pars)
   return(pars)
 }
 
@@ -38,10 +50,6 @@ xde_solve.ode = function(pars, Tmax=365, dt=1){
   y0 = get_inits(pars)
   deSolve::ode(y = y0, times = tt, func = xDE_diffeqn, parms = pars, method = "lsoda") -> out
   pars$orbits = parse_deout(out, pars)
-  pars$orbits$eir = compute_EIR(out, pars)
-  pars$orbits$ni = compute_NI(out, pars)
-  pars$orbits$kappa = compute_kappa(out, pars)
-  pars$orbits$fqZ = compute_fqZ(out, pars)
   return(pars)
 }
 
@@ -55,10 +63,6 @@ xde_solve.dde = function(pars, Tmax=365, dt=1){
   y0 = get_inits(pars)
   deSolve::dede(y = y0, times = tt, func = xDE_diffeqn, parms = pars, method = "lsoda") -> out
   pars$orbits = parse_deout(out, pars)
-  pars$orbits$eir = compute_EIR(out, pars)
-  pars$orbits$ni = compute_NI(out, pars)
-  pars$orbits$kappa = compute_kappa(out, pars)
-  pars$orbits$fqZ = compute_fqZ(out, pars)
   return(pars)
 }
 
@@ -124,9 +128,6 @@ xde_solve.human = function(pars, Tmax=365, dt=1){
   y0 = get_inits(pars)
   deSolve::ode(y = y0, times = tt, func = xDE_diffeqn_human, parms = pars, method = "lsoda") -> out
   pars$orbits = parse_deout(out, pars)
-  pars$orbits$eir = compute_EIR(out, pars)
-  pars$orbits$ni = compute_NI(out, pars)
-  pars$orbits$fqZ = compute_fqZ(out, pars)
   return(pars)
 }
 
@@ -141,7 +142,5 @@ xde_solve.cohort = function(pars, Tmax=365, dt=1){
   y0 = get_inits(pars)
   deSolve::ode(y = y0, times = tt, func = xDE_diffeqn_cohort, parms=pars, F_eir = pars$F_eir, method = "lsoda") -> out
   pars$orbits = parse_deout(out, pars)
-  pars$orbits$eir = pars$F_eir(out[,1], pars)
-  pars$orbits$ni = compute_NI(out, pars)
   return(pars)
 }

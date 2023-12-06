@@ -6,7 +6,7 @@
 #' @return a named [list]
 #' @export
 MBionomics.GeRM <- function(t, y, pars) {
-  with(pars,{
+  with(pars$MYZpar,{
     pars$MYZpar$f = F_f(t, pars)
     pars$MYZpar$q = F_q(t, pars)
     pars$MYZpar$g = F_g(t, pars)
@@ -146,29 +146,28 @@ setup_MYZ.GeRM = function(pars, MYZname,
 #' @param MYZopts a [list] to overwrite defaults
 #' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
 #' @param g mosquito mortality rate
-#' @param setup_Fg a [list] to set up F_g
+#' @param g_par a [list] to set up F_g
 #' @param sigma emigration rate
-#' @param setup_Fsigma a [list] to set up F_sigma
+#' @param sigma_par a [list] to set up F_sigma
 #' @param f feeding rate
-#' @param setup_Ff a [list] to set up F_f
+#' @param f_par a [list] to set up F_f
 #' @param q human blood fraction
-#' @param setup_Fq a [list] to set up F_q
+#' @param q_par a [list] to set up F_q
 #' @param nu oviposition rate, per mosquito
-#' @param setup_Fnu a [list] to set up F_nu
+#' @param nu_par a [list] to set up F_nu
 #' @param eip length of extrinsic incubation period
-#' @param setup_Feip a [list] to set up F_eip
 #' @param eggsPerBatch eggs laid per oviposition
 #' @param solve_as is either `ode` to solve as an ode or `dde` to solve as a dde
 #' @return none
 #' @export
 make_MYZpar_GeRM = function(pars, MYZopts=list(), calK,
                             solve_as = "dde",
-                            g=1/12, setup_Fg = list(),
-                            sigma=1/8, setup_Fsigma = list(),
-                            f=0.3, setup_Ff = list(),
-                            q=0.95, setup_Fq = list(),
-                            nu=1, setup_Fnu = list(),
-                            eip=11, setup_Feip = list(),
+                            g=1/12, g_par = list(),
+                            sigma=1/8, sigma_par = list(),
+                            f=0.3, f_par = list(),
+                            q=0.95, q_par = list(),
+                            nu=1, nu_par = list(),
+                            eip=11,
                             eggsPerBatch=60){
 
   stopifnot(is.matrix(calK))
@@ -182,35 +181,35 @@ make_MYZpar_GeRM = function(pars, MYZopts=list(), calK,
     if(solve_as == 'dde') class(MYZpar) <- c('GeRM', 'GeRM_dde')
     if(solve_as == 'ode') class(MYZpar) <- c('GeRM', 'GeRM_ode')
 
-    if(length(setup_Fg) == 0){
+    MYZpar$g0 <- checkIt(g, pars$nPatches)
+    if(length(g_par) == 0){
       MYZpar$g_par <- list()
       class(MYZpar$g_par) <- "static"
-      MYZpar$g0 <- checkIt(g, pars$nPatches)
-    } else MYZpar$g_par <- setup_Fx(setup_Fg)
+    } else MYZpar$g_par <- g_par
 
-    if(length(setup_Fsigma) == 0){
+    MYZpar$sigma0 <- checkIt(sigma, pars$nPatches)
+    if(length(sigma_par) == 0){
       MYZpar$sigma_par <- list()
       class(MYZpar$sigma_par) <- "static"
-      MYZpar$sigma0 <- checkIt(sigma, pars$nPatches)
-    } else MYZpar$sigma_par <- setup_Fx(setup_Fsigma)
+    } else MYZpar$sigma_par <- sigma_par
 
-    if(length(setup_Ff) == 0){
+    MYZpar$f0 <- checkIt(f, pars$nPatches)
+    if(length(f_par) == 0){
       MYZpar$f_par <- list()
       class(MYZpar$f_par) <- "static"
-      MYZpar$f0 <- checkIt(f, pars$nPatches)
-    } else MYZpar$f_par = setup_Fx(setup_Ff)
+    } else MYZpar$f_par = f_par
 
-    if(length(setup_Fq) == 0){
+    MYZpar$q0 <- checkIt(q, pars$nPatches)
+    if(length(q_par) == 0){
       MYZpar$q_par <- list()
       class(MYZpar$q_par) <- "static"
-      MYZpar$q0 <- checkIt(q, pars$nPatches)
-    } else MYZpar$q_par <- setup_Fx(setup_Fq)
+    } else MYZpar$q_par <- q_par
 
-    if(length(setup_Fnu) == 0){
+    MYZpar$nu0 <- checkIt(nu, pars$nPatches)
+    if(length(nu_par) == 0){
       MYZpar$nu_par <- list()
       class(MYZpar$nu_par) <- "static"
-      MYZpar$nu0 <- checkIt(nu, pars$nPatches)
-    } else MYZpar$nu_par= setup_Fx(setup_Fnu)
+    } else MYZpar$nu_par=nu_par
 
     MYZpar$eip <- eip
 
@@ -315,15 +314,15 @@ make_indices_MYZ.GeRM_dde <- function(pars) {
 #' @inheritParams parse_deout_MYZ
 #' @return none
 #' @export
-parse_deout_MYZ.GeRM <- function(varslist, deout, pars) {
-  varslist$M = deout[,pars$MYZpar$M_ix+1]
-  varslist$G = deout[,pars$MYZpar$G_ix+1]
-  varslist$Y = deout[,pars$MYZpar$Y_ix+1]
-  varslist$Z = deout[,pars$MYZpar$Z_ix+1]
-  varslist$g = with(varslist, G/M)
-  varslist$y = with(varslist, Y/M)
-  varslist$z = with(varslist, Z/M)
-  return(varslist)
+parse_deout_MYZ.GeRM <- function(deout, pars) {
+  M = deout[,pars$MYZpar$M_ix+1]
+  G = deout[,pars$MYZpar$G_ix+1]
+  Y = deout[,pars$MYZpar$Y_ix+1]
+  Z = deout[,pars$MYZpar$Z_ix+1]
+  y = Y/M
+  z = Z/M
+  gravid = G/M
+  return(list(M=M,G=G,Y=Y,Z=Z,y=y,z=z, gravid=gravid))
 }
 
 #' @title Make parameters for a GeRM ODE adult mosquito model

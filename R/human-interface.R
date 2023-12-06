@@ -56,12 +56,11 @@ make_indices_X <- function(pars) {
 
 #' @title Parse the output of deSolve and return the variables by name in a list
 #' @description This method dispatches on the type of `pars$Xpar`. Adds the variables
-#' from the X model to varslist and returns it
-#' @param varslist a [list] the object to be returned
+#' from the X model to a list and returns it
 #' @param deout a [matrix] of outputs from deSolve
 #' @param pars a [list] that defines a model
 #' @export
-parse_deout_X <- function(varslist, deout, pars) {
+parse_deout_X <- function(deout, pars) {
   UseMethod("parse_deout_X", pars$Xpar)
 }
 

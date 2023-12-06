@@ -17,6 +17,6 @@ compute_EIR_ty(t, y, pars)
 \link{numeric}
 }
 \description{
-Using the output of deSolve,
-compute the EIR at one point in time
+Using the time and a vector of variables,
+compute the EIR
 }

@@ -4,17 +4,15 @@
 \alias{parse_deout_MYZ.RM}
 \title{Parse the output of deSolve and return variables for the RM model}
 \usage{
-\method{parse_deout_MYZ}{RM}(varslist, deout, pars)
+\method{parse_deout_MYZ}{RM}(deout, pars)
 }
 \arguments{
-\item{varslist}{a \link{list} the object to be returned}
-
 \item{deout}{a \link{matrix} of outputs from deSolve}
 
 \item{pars}{a \link{list} that defines a model}
 }
 \value{
-none
+a \link{list}
 }
 \description{
 Implements \link{parse_deout_MYZ} for the RM model

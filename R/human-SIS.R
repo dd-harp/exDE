@@ -107,11 +107,13 @@ make_Xinits_SIS = function(pars, Xopts = list(), X0=1){with(Xopts,{
 #' @inheritParams parse_deout_X
 #' @return none
 #' @export
-parse_deout_X.SIS <- function(varslist, deout, pars) {
-  varslist$X = deout[,pars$Xpar$X_ix+1]
-  varslist$pr = varslist$X/varslist$H
-  return(varslist)
-}
+parse_deout_X.SIS <- function(deout, pars) {
+  Hlist <- parse_deout_H(deout, pars)
+  with(Hlist,{
+    X = deout[,pars$Xpar$X_ix+1]
+    pr = X/H
+    return(list(X=X, pr=pr))
+})}
 
 #' @title Compute the HTC for the SIS model
 #' @description Implements [HTC] for the SIS model with demography.

@@ -166,11 +166,11 @@ make_indices_MYZ.basicM <- function(pars) {
 #' @inheritParams parse_deout_MYZ
 #' @return none
 #' @export
-parse_deout_MYZ.basicM <- function(varslist, deout, pars) {
-  varslist$M = deout[,pars$MYZpar$M_ix+1]
-  varslist$P = deout[,pars$MYZpar$P_ix+1]
-  varslist$parous = with(varslist, P/M)
-  return(varslist)
+parse_deout_MYZ.basicM <- function(deout, pars) {
+  M = deout[,pars$MYZpar$M_ix+1]
+  P = deout[,pars$MYZpar$P_ix+1]
+  parous = P/M
+  return(list(M=M, P=P, parous=parous))
 }
 
 #' @title Make parameters for a basic adult mosquito model

@@ -2,7 +2,7 @@
 % Please edit documentation in R/compute.R
 \name{compute_EIR_i}
 \alias{compute_EIR_i}
-\title{Compute the EIR for the ith point in time}
+\title{Compute the EIR}
 \usage{
 compute_EIR_i(i, deout, pars)
 }
@@ -18,5 +18,5 @@ compute_EIR_i(i, deout, pars)
 }
 \description{
 Using the output of deSolve,
-compute the EIR at one point in time
+compute the EIR at the i^th point in time
 }

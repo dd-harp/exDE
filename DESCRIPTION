@@ -21,6 +21,7 @@ BugReports: https://github.com/dd-harp/exDE/issues
 Roxygen: list(markdown = TRUE)
 Imports: 
   deSolve,
+  rootSolve,
   expm,
   MASS
 Suggests:

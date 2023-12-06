@@ -11,6 +11,7 @@
 #' @param MYZopts a list to configure the MYZ model
 #' @param calK is either a calK matrix or a string that defines how to set it up
 #' @param calKopts are the options to setup calK
+#' @param EIPopts are the options to setup EIPmod
 #' @param Xopts a list to configure the X model
 #' @param Hopts a list to configure the H model
 #' @param residence is a vector that describes the patch where each human stratum lives
@@ -37,6 +38,7 @@ xde_setup = function(modelName,
                      MYZopts = list(),
                      calK ="herethere",
                      calKopts = list(),
+                     EIPopts = list(),
 
                      # Human Strata / Options
                      Xopts = list(),
@@ -53,6 +55,7 @@ xde_setup = function(modelName,
 ){
 
   pars = make_parameters_xde()
+
   pars$modelName = modelName
 
   # Structure
@@ -68,8 +71,12 @@ xde_setup = function(modelName,
   pars = setup_MYZ(pars, MYZname, nPatches, MYZopts, calK)
   pars = setup_L(pars, Lname, membership, searchQ, Lopts)
   pars = setup_X(pars, Xname, Xopts)
+  pars$EIP = EIPopts
 
   pars = make_indices(pars)
+
+  pars$compute = list()
+  class(pars$compute) = "xde"
 
   return(pars)
 }
@@ -132,6 +139,9 @@ xde_setup_mosy = function(modelName,
   pars = make_indices_L(pars)
   pars = make_indices_MYZ(pars)
 
+  pars$compute = list()
+  class(pars$compute) = "na"
+
   return(pars)
 }
 
@@ -163,6 +173,9 @@ xde_setup_aquatic = function(modelName,
   pars <- setup_lsm_null(pars)
 
   pars = make_indices(pars)
+
+  pars$compute = list()
+  class(pars$compute) = "na"
 
   return(pars)
 }
@@ -220,6 +233,9 @@ xde_setup_human = function(modelName,
 
   pars = make_indices(pars)
 
+  pars$compute = list()
+  class(pars$compute) = "human"
+
   return(pars)
 }
 
@@ -262,6 +278,9 @@ xde_setup_cohort = function(modelName, F_eir,
   pars = setup_X(pars, Xname, Xopts)
 
   pars = make_indices(pars)
+
+  pars$compute = list()
+  class(pars$compute) = "cohort"
 
   return(pars)
 }
