@@ -78,6 +78,8 @@ xde_setup = function(modelName,
   pars$compute = list()
   class(pars$compute) = "xde"
 
+  pars$outputs = list()
+
   return(pars)
 }
 
@@ -116,7 +118,6 @@ xde_setup_mosy = function(modelName,
 
                      # forcing
                      kappa=NULL
-
 ){
 
   pars = make_parameters_xde()
@@ -141,6 +142,8 @@ xde_setup_mosy = function(modelName,
 
   pars$compute = list()
   class(pars$compute) = "na"
+
+  pars$outputs = list()
 
   return(pars)
 }
@@ -176,6 +179,8 @@ xde_setup_aquatic = function(modelName,
 
   pars$compute = list()
   class(pars$compute) = "na"
+
+  pars$outputs = list()
 
   return(pars)
 }
@@ -236,6 +241,8 @@ xde_setup_human = function(modelName,
   pars$compute = list()
   class(pars$compute) = "human"
 
+  pars$outputs = list()
+
   return(pars)
 }
 
@@ -281,6 +288,8 @@ xde_setup_cohort = function(modelName, F_eir,
 
   pars$compute = list()
   class(pars$compute) = "cohort"
+
+  pars$outputs = list()
 
   return(pars)
 }

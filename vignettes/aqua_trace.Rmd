@@ -168,7 +168,7 @@ xde_setup_mosy("mosy1",
 ```
 
 ```{r}
-xde_solve(mosy1,Tmax=50,dt=1)$orbits$deout -> out2
+xde_solve(mosy1,Tmax=50,dt=1)$outputs$orbits$deout -> out2
 sum(out2-out1)
 ```
 

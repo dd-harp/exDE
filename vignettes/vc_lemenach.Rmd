@@ -170,7 +170,7 @@ itn_mod = setup_itn_lemenach(itn_mod, phi = ITN_cov)
 
 ```{r}
 xde_solve(itn_mod, 5*365) -> itn_mod
-itn_mod$orbits$deout -> out
+itn_mod$outputs$orbits$deout -> out
 ```
 
 ## Plot 

@@ -138,6 +138,6 @@ xde_setup_cohort("test_SIS", F_eir1, "SIS", HPop=Hpop, Xopts = Xo) -> test_SIS
 ```
 
 ```{r}
-xde_solve(test_SIS, 365, 365)$deout -> out2
+xde_solve(test_SIS, 365, 365)$outputs$orbits$deout -> out2
 approx_equal(out2,out1)
 ```
