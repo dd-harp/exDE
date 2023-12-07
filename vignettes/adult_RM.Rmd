@@ -277,7 +277,7 @@ Now, we can solve the equations using `xde_solve` and compare the output to what
 
 ```{r xde_solve}
 xde_solve(MYZeg, Tmax=50, dt=1) -> MYZeg 
-out2 <- MYZeg$orbits$deout
+out2 <- MYZeg$outputs$orbits$deout
 sum(abs(out1-out2))==0 
 ```
 

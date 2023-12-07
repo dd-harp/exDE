@@ -139,7 +139,7 @@ Mo = list(Gm = c(250, 500, 170))
 
 ```{r}
 xde_setup_aquatic("aqbasic", nHabitats = 3, Lname = "basic", Lopts = Lo, MYZopts = Mo) -> aqbasic
-xde_solve(aqbasic, Tmax=50, dt=1)$deout -> out2
+xde_solve(aqbasic, Tmax=50, dt=1)$output$orbits$deout -> out2
 sum(abs(out1-out2)) == 0
 ``` 
 

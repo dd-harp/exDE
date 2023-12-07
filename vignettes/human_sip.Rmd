@@ -139,7 +139,7 @@ xde_setup_cohort("test_SIP", F_eir1, "SIP", HPop=Hpop, Xopts = Xo) -> test_SIP
 ```
 
 ```{r}
-xde_solve(test_SIP, 365, 365)$deout -> out2
+xde_solve(test_SIP, 365, 365)$outputs$orbits$deout -> out2
 approx_equal(out2,out1) 
 ```
 
