@@ -9,6 +9,16 @@ F_X.SIP <- function(t, y, pars) {
   with(pars$Xpar, y[X_ix] * c)
 }
 
+#' @title Compute the "true" prevalence of infection / parasite rate
+#' @description Implements [F_pr] for the SIP model.
+#' @inheritParams F_pr
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_pr.SIP <- function(varslist, pars) {
+  pr = with(varslist$XH, X/H)
+  return(pr)
+}
+
 #' @title Infection blocking pre-erythrocytic immunity
 #' @description Implements [F_b] for the SIP model.
 #' @inheritParams F_b
@@ -140,8 +150,7 @@ parse_deout_X.SIP <- function(deout, pars) {
   with(Hlist,{
     X = deout[,pars$Xpar$X_ix+1]
     P = deout[,pars$Xpar$P_ix+1]
-    pr = X/H
-  return(list(H=H,X=X,P=P,pr=X/H))
+  return(list(X=X,P=P,H=H))
 })}
 
 #' @title Add indices for human population to parameter list

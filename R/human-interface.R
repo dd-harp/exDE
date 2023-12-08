@@ -11,6 +11,16 @@ F_X <- function(t, y, pars) {
   UseMethod("F_X", pars$Xpar)
 }
 
+#' @title Compute the "true" prevalence of infection / parasite rate
+#' @description This method dispatches on the type of `pars$Xpar`.
+#' @param varslist a [list] with variables attached by name
+#' @param pars a [list]
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_pr <- function(varslist, pars) {
+  UseMethod("F_pr", pars$Xpar)
+}
+
 #' @title Infection blocking pre-erythrocytic immunity
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param y state vector

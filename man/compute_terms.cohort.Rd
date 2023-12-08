@@ -4,9 +4,11 @@
 \alias{compute_terms.cohort}
 \title{Compute dynamical terms}
 \usage{
-\method{compute_terms}{cohort}(deout, pars)
+\method{compute_terms}{cohort}(varslist, deout, pars)
 }
 \arguments{
+\item{varslist}{a \link{list} with variable names attached}
+
 \item{deout}{a \link{matrix}, the output of deSolve}
 
 \item{pars}{a \link{list}}

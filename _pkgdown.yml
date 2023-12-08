@@ -263,6 +263,7 @@ reference:
     Generic methods for the dynamical component that handles human infection dynamics, immunity, disease and transmission
   contents:
   - F_X
+  - F_pr
   - F_b
   - dXdt
   - setup_X
@@ -276,6 +277,7 @@ reference:
     Specialized methods for a human trace model to pass kappa as a parameter
   contents:
   - F_X.trace
+  - F_pr.trace
   - F_b.trace
   - dXdt.trace
   - setup_X.trace
@@ -291,6 +293,7 @@ reference:
     Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.
   contents:
   - F_X.hMoI
+  - F_pr.hMoI
   - F_b.hMoI
   - dXdt.hMoI
   - setup_X.hMoI
@@ -308,6 +311,7 @@ reference:
     Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
   contents:
   - F_X.SIS
+  - F_pr.SIS
   - F_b.SIS
   - dXdt.SISdX
   - dXdt.SISdXdH
@@ -326,6 +330,7 @@ reference:
     Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
   contents:
   - F_X.SIP
+  - F_pr.SIP
   - F_b.SIP
   - dXdt.SIPdX
   - dXdt.SIPdXdH

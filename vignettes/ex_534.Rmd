@@ -311,7 +311,7 @@ We solve and take the differences to check:
 
 ```{r}
 mod534 <- xde_solve(mod534,Tmax=365,dt=1)
-mod534$orbits$deout -> out2
+mod534$outputs$orbits$deout -> out2
 sum(abs(out2-out1))
 ```
 

@@ -17,13 +17,9 @@ xde_solve = function(pars, Tmax=365, dt=1){
 #' @export
 xde_stable_orbit = function(pars, Ymax=10){
   pars <- xde_solve(pars, Tmax = Ymax*365, dt=1)
-  deout = tail(pars$orbits$deout, 365)
+  deout = tail(pars$outputs$orbits$deout, 365)
   deout[,1] = c(1:365)
-  steady <- parse_deout(deout, pars)
-  steady$terms = pars$orbits
-  for(i in 1:length(steady$terms))
-    steady$terms[[i]] = tail(steady$terms[[i]],365)
-  pars$outputs$stable_orbits <- steady
+  pars$outputs$stable_orbits <- parse_deout(deout, pars)
   return(pars)
 }
 

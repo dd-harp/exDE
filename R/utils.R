@@ -83,7 +83,8 @@ parse_deout <- function(deout, pars){
   if ('Xpar' %in% names(pars)) {
     varslist$XH = parse_deout_X(deout, pars)
   }
-  varslist$terms = compute_terms(deout, pars)
+  varslist$terms = compute_terms(varslist, deout, pars)
+  varslist$terms$time = varslist$time
   varslist$deout = deout
   return(varslist)
 }
@@ -109,7 +110,7 @@ parse_deout_vec <- function(vec, pars){
   for(i in 1:length(varslist)){
     varslist[[i]] = tail(varslist[[i]],1)
   }
-  varslist$terms = compute_terms_steady(vec, pars)
+  varslist$terms = compute_terms_steady(varslist, vec, pars)
   return(varslist)
 }
 
