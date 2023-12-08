@@ -4,9 +4,11 @@
 \alias{compute_terms_steady}
 \title{Compute dynamical terms}
 \usage{
-compute_terms_steady(y_eq, pars)
+compute_terms_steady(varslist, y_eq, pars)
 }
 \arguments{
+\item{varslist}{a \link{list} with variable names attached}
+
 \item{y_eq}{a \link{matrix}, the output of \code{rootSolve}}
 
 \item{pars}{a \link{list}}

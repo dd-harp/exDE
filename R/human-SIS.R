@@ -9,6 +9,17 @@ F_X.SIS <- function(t, y, pars) {
   with(pars$Xpar, y[X_ix]*c)
 }
 
+#' @title Compute the "true" prevalence of infection / parasite rate
+#' @description Implements [F_pr] for the SIS model.
+#' @inheritParams F_pr
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_pr.SIS <- function(varslist, pars) {
+  pr = with(varslist$XH, X/H)
+  return(pr)
+}
+
+
 #' @title Infection blocking pre-erythrocytic immunity
 #' @description Implements [F_b] for the SIS model.
 #' @inheritParams F_b
@@ -111,8 +122,7 @@ parse_deout_X.SIS <- function(deout, pars) {
   Hlist <- parse_deout_H(deout, pars)
   with(Hlist,{
     X = deout[,pars$Xpar$X_ix+1]
-    pr = X/H
-    return(list(X=X, pr=pr))
+    return(list(X=X, H=H))
 })}
 
 #' @title Compute the HTC for the SIS model

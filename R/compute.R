@@ -1,81 +1,91 @@
 #' @title Compute dynamical terms
 #' @description Using the output of deSolve compute the dynamical terms every point in time. This method dispatches on the type of `pars$compute`.
+#' @param varslist a [list] with variable names attached
 #' @param deout a [matrix], the output of deSolve
 #' @param pars a [list]
 #' @return [matrix]
 #' @export
-compute_terms <- function(deout, pars) {
+compute_terms <- function(varslist, deout, pars) {
   UseMethod("compute_terms", pars$compute)
 }
 
 #' @title Compute dynamical terms
 #' @description Using the output of deSolve
 #' compute the dynamical terms for the output of `xde_solve.ode` or `xde_solve.dde`
+#' @param varslist a [list] with variable names attached
 #' @param deout a [matrix], the output of deSolve
 #' @param pars a [list]
 #' @return [matrix]
 #' @export
-compute_terms.xde <- function(deout, pars) {
+compute_terms.xde <- function(varslist, deout, pars) {
   eir = compute_EIR(deout, pars)
   ni = compute_NI(deout, pars)
   kappa = compute_kappa(deout, pars)
   fqZ = compute_fqZ(deout, pars)
-  return(list(eir=eir,ni=ni,kappa=kappa,fqZ=fqZ))
+  pr = F_pr(varslist, pars)
+  return(list(eir=eir,pr=pr,ni=ni,kappa=kappa,fqZ=fqZ))
 }
 
 #' @title Compute dynamical terms
 #' @description Using the output of deSolve
 #' compute the dynamical terms for the output of `xde_solve.cohort`
+#' @param varslist a [list] with variable names attached
 #' @param deout a [matrix], the output of deSolve
 #' @param pars a [list]
 #' @return [matrix]
 #' @export
-compute_terms.cohort <- function(deout, pars) {
+compute_terms.cohort <- function(varslist, deout, pars) {
   eir = pars$F_eir(deout[,1], pars)
   ni = compute_NI(deout, pars)
-  return(list(eir=eir,ni=ni))
+  pr = F_pr(varslist, pars)
+  return(list(eir=eir,pr=pr,ni=ni))
 }
 
 
 #' @title Compute dynamical terms
 #' @description Using the output of deSolve
 #' compute the dynamical terms for the output of `xde_solve.human`
+#' @param varslist a [list] with variable names attached
 #' @param deout a [matrix], the output of deSolve
 #' @param pars a [list]
 #' @return [matrix]
 #' @export
-compute_terms.human<- function(deout, pars) {
+compute_terms.human<- function(varslist, deout, pars) {
   eir = compute_EIR(deout, pars)
   ni = compute_NI(deout, pars)
   fqZ = compute_fqZ(deout, pars)
-  return(list(eir=eir,ni=ni,fqZ=fqZ))
+  pr = F_pr(varslist, pars)
+  return(list(eir=eir,pr=pr,ni=ni,fqZ=fqZ))
 }
 
 #' @title Compute dynamical terms
 #' @description Using the output of deSolve
 #' compute the dynamical terms for the output of `xde_solve` that
 #' don't have any relevant dynamical terms
+#' @param varslist a [list] with variable names attached
 #' @param deout a [matrix], the output of deSolve
 #' @param pars a [list]
 #' @return [matrix]
 #' @export
-compute_terms.na <- function(deout, pars) {
+compute_terms.na <- function(varslist,deout, pars) {
  return(list())
 }
 
 #' @title Compute dynamical terms
 #' @description Using the output of deSolve
 #' compute the dynamical terms for the output of `root_solve`
+#' @param varslist a [list] with variable names attached
 #' @param y_eq a [matrix], the output of `rootSolve`
 #' @param pars a [list]
 #' @return [matrix]
 #' @export
-compute_terms_steady<- function(y_eq, pars) {
+compute_terms_steady<- function(varslist, y_eq, pars) {
   eir <- compute_EIR_ty(0, y_eq, pars)
   kappa <- compute_kappa_ty(0, y_eq, pars)
   fqZ <- F_fqZ(0, y_eq, pars)
-  ni <- F_X(0, y_eq, pars)/F_H(0, y_eq, pars)
-  return(list(eir=eir,kappa=kappa,fqZ=fqZ,ni=ni))
+  ni <- F_X(0, y_eq, pars)/varslist$XH$H
+  pr <- F_pr(varslist, pars)/varslist$XH$H
+  return(list(eir=eir,pr=pr,kappa=kappa,fqZ=fqZ,ni=ni))
 }
 
 #' @title Compute the EIR

@@ -16,6 +16,15 @@ F_X.hMoI <- function(t, y, pars) {
   })
 }
 
+#' @title Compute the "true" prevalence of infection / parasite rate
+#' @description Implements [F_pr] for the hMoI model.
+#' @inheritParams F_pr
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_pr.hMoI<- function(varslist, pars) {
+  pr = with(varslist$XH, 1-exp(-m1))
+  return(pr)
+}
 
 #' @title Infection blocking pre-erythrocytic immunity
 #' @description Implements [F_b] for the hMoI model.
@@ -180,14 +189,12 @@ update_inits_X.hMoI <- function(pars, y0) {
 #' @inheritParams parse_deout_X
 #' @return none
 #' @export
-parse_deout_X.hMoI <- function(deout, pars) {
+parse_deout_X.hMoI <- function(deout, pars){
   Hlist <- parse_deout_H(deout, pars)
   with(Hlist,{
     m1 = deout[,pars$Xpar$m1_ix+1]
     m2 = deout[,pars$Xpar$m2_ix+1]
-    pr = 1-exp(-m1)
-    pr_apparent = 1-exp(-m2)
-    return(list(H=H,m1=m1,m2=m2,pr=pr,pr_apparent=pr_apparent))
+    return(list(H=H,m1=m1,m2=m2))
 })}
 
 #' @title Return initial values as a vector

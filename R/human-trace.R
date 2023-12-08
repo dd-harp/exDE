@@ -9,6 +9,15 @@ F_X.trace <- function(t, y, pars) {
   with(pars$Xpar, kappa)
 }
 
+#' @title Compute the "true" prevalence of infection / parasite rate
+#' @description Implements [F_pr] for the trace model.
+#' @inheritParams F_pr
+#' @return a [numeric] vector numeric(0)
+#' @export
+F_pr.trace <- function(varslist, pars) {
+  return(numeric(0))
+}
+
 #' @title Infection blocking pre-erythrocytic immunity
 #' @description Implements [F_b] for the trace model.
 #' @inheritParams F_b
