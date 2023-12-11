@@ -73,18 +73,20 @@ get_inits <- function(pars){
 #' @export
 parse_deout <- function(deout, pars){
   varslist = list()
-  varslist$time = deout[,1]
   if ('Lpar' %in% names(pars)) {
     varslist$L = parse_deout_L(deout, pars)
+    varslist$L$time = deout[,1]
   }
   if ('MYZpar' %in% names(pars)) {
     varslist$MYZ = parse_deout_MYZ(deout, pars)
+    varslist$MYZ$time = deout[,1]
   }
   if ('Xpar' %in% names(pars)) {
     varslist$XH = parse_deout_X(deout, pars)
+    varslist$XH$time = deout[,1]
   }
   varslist$terms = compute_terms(varslist, deout, pars)
-  varslist$terms$time = varslist$time
+  varslist$terms$time = deout[,1]
   varslist$deout = deout
   return(varslist)
 }

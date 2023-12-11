@@ -93,6 +93,8 @@ reference:
   contents:
   - EIP
   - EIP.static
+  - dEIPdt
+  - dEIPdt.static
   - setup_eip_static
 - subtitle: Ztrace
   desc: |

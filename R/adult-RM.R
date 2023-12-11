@@ -105,7 +105,7 @@ dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa) {
     dPdt <- f*(M - P) - (Omega %*% P)
     dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
     dZdt <- Upsilon %*% (fqkappa_eip * (M_eip - Y_eip)) - (Omega %*% Z)
-    dUdt <- as.vector((Omega_eip - Omega) %*% Upsilon)
+    dUdt <- as.vector(((1-dEIPdt(t,pars))*Omega_eip - Omega) %*% Upsilon)
 
     return(c(dMdt, dPdt, dYdt, dZdt, dUdt, f*q*kappa, g, sigma))
   })

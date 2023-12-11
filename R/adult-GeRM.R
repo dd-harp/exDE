@@ -109,7 +109,7 @@ dMYZdt.GeRM_dde <- function(t, y, pars, Lambda, kappa) {
     dGdt <- f*(M - G) - nu*G - (Omega %*% G)
     dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
     dZdt <- Upsilon %*% diag(f_eip*q_eip*kappa_eip, nPatches) %*% (M_eip - Y_eip) - (Omega %*% Z)
-    dUdt <- as.vector((Omega_eip - Omega) %*% Upsilon)
+    dUdt <- as.vector(((1-dEIPdt(t,pars))*Omega_eip - Omega) %*% Upsilon)
 
     return(c(dMdt, dGdt, dYdt, dZdt, dUdt, kappa, f, q, g, sigma))
   })
