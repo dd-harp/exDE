@@ -190,11 +190,12 @@ update_inits_X.hMoI <- function(pars, y0) {
 #' @return none
 #' @export
 parse_deout_X.hMoI <- function(deout, pars){
+  time = deout[,1]
   Hlist <- parse_deout_H(deout, pars)
   with(Hlist,{
     m1 = deout[,pars$Xpar$m1_ix+1]
     m2 = deout[,pars$Xpar$m2_ix+1]
-    return(list(H=H,m1=m1,m2=m2))
+    return(list(time=time, H=H,m1=m1,m2=m2))
 })}
 
 #' @title Return initial values as a vector

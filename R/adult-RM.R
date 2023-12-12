@@ -307,6 +307,7 @@ make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, eip, 
 #' @return a [list]
 #' @export
 parse_deout_MYZ.RM <- function(deout, pars) {
+  time = deout[,1]
   M = deout[,pars$MYZpar$M_ix+1]
   P = deout[,pars$MYZpar$P_ix+1]
   Y = deout[,pars$MYZpar$Y_ix+1]
@@ -314,7 +315,7 @@ parse_deout_MYZ.RM <- function(deout, pars) {
   y = Y/M
   z = Z/M
   parous = P/M
-  return(list(M=M, P=P, Y=Y, Z=Z, y=y, z=z, parous))
+  return(list(time=time, M=M, P=P, Y=Y, Z=Z, y=y, z=z, parous))
 }
 
 #' @title Make inits for RM adult mosquito model

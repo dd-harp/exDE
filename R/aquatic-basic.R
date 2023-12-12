@@ -113,8 +113,9 @@ make_indices_L.basic <- function(pars) {
 #' @return [list]
 #' @export
 parse_deout_L.basic <- function(deout, pars) {
+  time = deout[,1]
   L = deout[,pars$Lpar$L_ix+1]
-  return(list(L=L))
+  return(list(time=time, L=L))
 }
 
 

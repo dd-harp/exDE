@@ -18,12 +18,13 @@ compute_terms <- function(varslist, deout, pars) {
 #' @return [matrix]
 #' @export
 compute_terms.xde <- function(varslist, deout, pars) {
+  time = deout[,1]
   eir = compute_EIR(deout, pars)
   ni = compute_NI(deout, pars)
   kappa = compute_kappa(deout, pars)
   fqZ = compute_fqZ(deout, pars)
   pr = F_pr(varslist, pars)
-  return(list(eir=eir,pr=pr,ni=ni,kappa=kappa,fqZ=fqZ))
+  return(list(time=time,eir=eir,pr=pr,ni=ni,kappa=kappa,fqZ=fqZ))
 }
 
 #' @title Compute dynamical terms
@@ -35,10 +36,12 @@ compute_terms.xde <- function(varslist, deout, pars) {
 #' @return [matrix]
 #' @export
 compute_terms.cohort <- function(varslist, deout, pars) {
-  eir = pars$F_eir(deout[,1], pars)
+  time = deout[,1]
+  d1 = length(time)
+  eir = matrix(pars$F_eir(time, pars), d1, pars$nStrata)
   ni = compute_NI(deout, pars)
   pr = F_pr(varslist, pars)
-  return(list(eir=eir,pr=pr,ni=ni))
+  return(list(time=time,eir=eir,pr=pr,ni=ni))
 }
 
 
@@ -51,11 +54,12 @@ compute_terms.cohort <- function(varslist, deout, pars) {
 #' @return [matrix]
 #' @export
 compute_terms.human<- function(varslist, deout, pars) {
+  time = deout[,1]
   eir = compute_EIR(deout, pars)
   ni = compute_NI(deout, pars)
   fqZ = compute_fqZ(deout, pars)
   pr = F_pr(varslist, pars)
-  return(list(eir=eir,pr=pr,ni=ni,fqZ=fqZ))
+  return(list(time=time,eir=eir,pr=pr,ni=ni,fqZ=fqZ))
 }
 
 #' @title Compute dynamical terms
@@ -84,7 +88,7 @@ compute_terms_steady<- function(varslist, y_eq, pars) {
   kappa <- compute_kappa_ty(0, y_eq, pars)
   fqZ <- F_fqZ(0, y_eq, pars)
   ni <- F_X(0, y_eq, pars)/varslist$XH$H
-  pr <- F_pr(varslist, pars)/varslist$XH$H
+  pr <- F_pr(varslist, pars)
   return(list(eir=eir,pr=pr,kappa=kappa,fqZ=fqZ,ni=ni))
 }
 
@@ -96,8 +100,9 @@ compute_terms_steady<- function(varslist, y_eq, pars) {
 #' @return [matrix]
 #' @export
 compute_EIR <- function(deout, pars) {
-  ix = 1:length(deout[,1])
-  eir = sapply(ix, compute_EIR_i, deout=deout, pars=pars)
+  d1 = length(deout[,1])
+  eir = sapply(1:d1, compute_EIR_i, deout=deout, pars=pars)
+  eir = shapeIt(eir, d1, pars$nStrata)
   return(eir)
 }
 
@@ -137,8 +142,9 @@ compute_EIR_ty <- function(t, y, pars) {
 #' @return [vector]
 #' @export
 compute_fqZ <- function(deout, pars) {
-  ix = 1:length(deout[,1])
-  fqZ = sapply(ix, compute_fqZ_i, deout=deout, pars=pars)
+  d1 = length(deout[,1])
+  fqZ = sapply(1:d1, compute_fqZ_i, deout=deout, pars=pars)
+  fqZ = shapeIt(fqZ, d1, pars$nPatches)
   return(fqZ)
 }
 
@@ -165,8 +171,9 @@ compute_fqZ_i <- function(i, deout, pars) {
 #' @return [numeric] containing the NI
 #' @export
 compute_NI <- function(deout, pars) {
-  ix = 1:length(deout[,1])
-  NI = sapply(ix, compute_NI_i, deout=deout, pars=pars)
+  d1 = length(deout[,1])
+  NI = sapply(1:d1, compute_NI_i, deout=deout, pars=pars)
+  NI = shapeIt(NI, d1, pars$nStrata)
   return(NI)
 }
 
@@ -195,8 +202,9 @@ compute_NI_i <- function(i, deout, pars) {
 #' @return [numeric] containing the kappa
 #' @export
 compute_kappa <- function(deout, pars) {
-  ix = 1:length(deout[,1])
-  kappa = sapply(ix, compute_kappa_i, deout=deout, pars=pars)
+  d1 = length(deout[,1])
+  kappa = sapply(1:d1, compute_kappa_i, deout=deout, pars=pars)
+  kappa = shapeIt(kappa, d1, pars$nPatches)
   return(kappa)
 }
 

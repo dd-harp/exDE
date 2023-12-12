@@ -90,7 +90,7 @@ make_indices_MYZ.Gtrace <- function(pars) {
 #' @title Parse the output of deSolve and return variables for the Gtrace model
 #' @description Implements [parse_deout_MYZ] for Gtrace
 #' @inheritParams parse_deout_MYZ
-#' @return none
+#' @return [list]
 #' @export
 parse_deout_MYZ.Gtrace <- function(deout, pars) {
   return(list())

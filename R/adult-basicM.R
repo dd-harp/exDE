@@ -164,13 +164,14 @@ make_indices_MYZ.basicM <- function(pars) {
 #' @title Parse the output of deSolve and return variables for the basicM model
 #' @description Implements [parse_deout_MYZ] for the basicM model.
 #' @inheritParams parse_deout_MYZ
-#' @return none
+#' @return [list]
 #' @export
 parse_deout_MYZ.basicM <- function(deout, pars) {
+  time = deout[,1]
   M = deout[,pars$MYZpar$M_ix+1]
   P = deout[,pars$MYZpar$P_ix+1]
   parous = P/M
-  return(list(M=M, P=P, parous=parous))
+  return(list(time=time, M=M, P=P, parous=parous))
 }
 
 #' @title Make parameters for a basic adult mosquito model

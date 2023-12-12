@@ -9,6 +9,7 @@ xde_setup_cohort(
   F_eir,
   Xname = "SIS",
   HPop = 1000,
+  searchB = 1,
   Xopts = list(),
   Hopts = list()
 )
@@ -21,6 +22,8 @@ xde_setup_cohort(
 \item{Xname}{is a character string defining a X model}
 
 \item{HPop}{is the number of humans in each patch}
+
+\item{searchB}{is a vector of search weights for blood feeding}
 
 \item{Xopts}{a list to configure the X model}
 

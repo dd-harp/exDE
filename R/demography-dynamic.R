@@ -85,9 +85,10 @@ make_parameters_demography_dynamic <- function(pars, H, residence, searchWts, Ta
   Hpar <- list()
   class(Hpar) <- c('dynamic')
   Hpar$H <- H
-  Hpar$residence <- residence
-  Hpar$wts_f <- searchWts
+  Hpar$residence <- checkIt(residence, pars$nStrata, F)
+  Hpar$wts_f <- checkIt(searchWts, pars$nStrata, F)
   Hpar$TaR <- TaR
+  Hpar$rbr <- searchWts*sum(H)/sum(searchWts*H)
   Hpar$birthFpars <- birthFpars
   Hpar$birthXstrata <- birthsXstrata
   Hpar$Hmatrix <- Hmatrix

@@ -269,7 +269,8 @@ Otherwise, setup takes care of all the internals:
 ```{r using setup}
 xde_setup("MYZeg",
     MYZname = "RM", Xname = "trace", Lname = "trace",  
-    nPatches=3, calK=calK, membership = c(1:3),
+    nPatches=3, calK=calK, membership = c(1:3), 
+    residence = c(1:3), HPop = rep(1, 3),
     MYZopts = MYZo, Xopts = Xo, Lopts = Lo) -> MYZeg
 ```
   

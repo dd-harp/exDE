@@ -119,10 +119,11 @@ make_Xinits_SIS = function(pars, Xopts = list(), X0=1){with(Xopts,{
 #' @return none
 #' @export
 parse_deout_X.SIS <- function(deout, pars) {
+  time = deout[,1]
   Hlist <- parse_deout_H(deout, pars)
   with(Hlist,{
     X = deout[,pars$Xpar$X_ix+1]
-    return(list(X=X, H=H))
+    return(list(time=time, X=X, H=H))
 })}
 
 #' @title Compute the HTC for the SIS model

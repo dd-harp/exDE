@@ -146,11 +146,12 @@ make_Xinits_SIP = function(pars, Xopts = list(),
 #' @return none
 #' @export
 parse_deout_X.SIP <- function(deout, pars) {
+  time = deout[,1]
   Hlist <- parse_deout_H(deout, pars)
   with(Hlist,{
     X = deout[,pars$Xpar$X_ix+1]
     P = deout[,pars$Xpar$P_ix+1]
-  return(list(X=X,P=P,H=H))
+  return(list(time=time, X=X,P=P,H=H))
 })}
 
 #' @title Add indices for human population to parameter list
