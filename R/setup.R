@@ -251,6 +251,7 @@ xde_setup_human = function(modelName,
 #' @param F_eir is a function F_eir(t, pars) that returns the daily FoI
 #' @param Xname is a character string defining a X model
 #' @param HPop is the number of humans in each patch
+#' @param searchB is a vector of search weights for blood feeding
 #' @param Xopts a list to configure the X model
 #' @param Hopts a list to configure the H model
 #' @return a [list]
@@ -262,6 +263,7 @@ xde_setup_cohort = function(modelName, F_eir,
 
                            # Model Structure
                            HPop=1000,
+                           searchB = 1,
 
                            # Human Strata / Options
                            Xopts = list(),
@@ -279,7 +281,7 @@ xde_setup_cohort = function(modelName, F_eir,
   pars$nPatches = as.integer(nStrata)
   pars$nStrata = nStrata
 
-  pars = setup_Hpar(pars, HPop, 1:nStrata, rep(1, nStrata), Hopts)
+  pars = setup_Hpar(pars, HPop, 1:nStrata, searchB, Hopts)
 
   # Dynamics
   pars = setup_X(pars, Xname, Xopts)

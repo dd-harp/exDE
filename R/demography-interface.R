@@ -104,8 +104,9 @@ make_parameters_demography_null <- function(pars, H, residence, searchWts, TaR) 
   Hpar$H <- H
 
   class(Hpar$H) <- "static"
-  Hpar$residence <- residence
-  Hpar$wts_f <- searchWts
+  Hpar$residence <- checkIt(residence, pars$nStrata, F)
+  Hpar$wts_f <- checkIt(searchWts, pars$nStrata, F)
+  Hpar$rbr <- searchWts*sum(H)/sum(searchWts*H)
   Hpar$TaR <- TaR
 
   birthF <- "null"

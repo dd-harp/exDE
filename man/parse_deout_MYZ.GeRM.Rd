@@ -12,7 +12,7 @@
 \item{pars}{a \link{list} that defines a model}
 }
 \value{
-none
+\link{list}
 }
 \description{
 Implements \link{parse_deout_MYZ} for the GeRM model.

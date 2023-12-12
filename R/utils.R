@@ -75,18 +75,14 @@ parse_deout <- function(deout, pars){
   varslist = list()
   if ('Lpar' %in% names(pars)) {
     varslist$L = parse_deout_L(deout, pars)
-    varslist$L$time = deout[,1]
   }
   if ('MYZpar' %in% names(pars)) {
     varslist$MYZ = parse_deout_MYZ(deout, pars)
-    varslist$MYZ$time = deout[,1]
   }
   if ('Xpar' %in% names(pars)) {
     varslist$XH = parse_deout_X(deout, pars)
-    varslist$XH$time = deout[,1]
   }
   varslist$terms = compute_terms(varslist, deout, pars)
-  varslist$terms$time = deout[,1]
   varslist$deout = deout
   return(varslist)
 }
@@ -155,6 +151,21 @@ checkIt = function(x, lng, type = "numeric", fixit=TRUE){
   if(length(x)==1 & fixit) x=rep(x, lng)
   stopifnot(length(x)==lng)
   x
+}
+
+#' @title Check the shape and dimensions of an object
+#' @param obj a [numeric] object
+#' @param d1 an [integer]
+#' @param d2 an [integer]
+#' @return [matrix]
+#' @export
+shapeIt = function(obj, d1, d2){
+  Obj = as.matrix(obj)
+  dd = dim(Obj)
+  stopifnot(d1 %in% dd)
+  stopifnot(d2 %in% dd)
+  if(dd[1]!=d1) obj = t(obj)
+  return(obj)
 }
 
 #' @title Set the initial values to the last values of the last simulation

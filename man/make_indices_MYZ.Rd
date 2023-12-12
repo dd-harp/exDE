@@ -10,7 +10,7 @@ make_indices_MYZ(pars)
 \item{pars}{a \link{list}}
 }
 \value{
-none
+\link{list}
 }
 \description{
 This method dispatches on the type of \code{pars$MYZpar}.

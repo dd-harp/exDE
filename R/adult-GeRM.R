@@ -312,9 +312,10 @@ make_indices_MYZ.GeRM_dde <- function(pars) {
 #' @title Parse the output of deSolve and return variables for the GeRM model
 #' @description Implements [parse_deout_MYZ] for the GeRM model.
 #' @inheritParams parse_deout_MYZ
-#' @return none
+#' @return [list]
 #' @export
 parse_deout_MYZ.GeRM <- function(deout, pars) {
+  time = deout[,1]
   M = deout[,pars$MYZpar$M_ix+1]
   G = deout[,pars$MYZpar$G_ix+1]
   Y = deout[,pars$MYZpar$Y_ix+1]
@@ -322,7 +323,7 @@ parse_deout_MYZ.GeRM <- function(deout, pars) {
   y = Y/M
   z = Z/M
   gravid = G/M
-  return(list(M=M,G=G,Y=Y,Z=Z,y=y,z=z, gravid=gravid))
+  return(list(time=time, M=M,G=G,Y=Y,Z=Z,y=y,z=z, gravid=gravid))
 }
 
 #' @title Make parameters for a GeRM ODE adult mosquito model

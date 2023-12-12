@@ -11,6 +11,9 @@ parse_deout_MYZ(deout, pars)
 
 \item{pars}{a \link{list} that defines a model}
 }
+\value{
+\link{list}
+}
 \description{
 This method dispatches on the type of \code{pars$MYZpar}.
 It computes the variables by name and returns a named list.

@@ -18,7 +18,7 @@ setup_MYZ(pars, MYZname, nPatches = 1, MYZopts = list(), calK = diag(1))
 \item{calK}{is a \link{matrix}}
 }
 \value{
-none
+\link{list}
 }
 \description{
 This method dispatches on \code{MYZname}.

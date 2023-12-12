@@ -724,6 +724,7 @@ reference:
   - diag_inverse
   - approx_equal
   - checkIt
+  - shapeIt
 - title: Compute terms
   contents:
   - compute_terms

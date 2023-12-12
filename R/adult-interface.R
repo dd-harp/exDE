@@ -95,7 +95,7 @@ dMYZdt <- function(t, y, pars, Lambda, kappa) {
 #' @param nPatches a [numeric] value (an integer), the number of patches
 #' @param MYZopts a [list]
 #' @param calK is a [matrix]
-#' @return none
+#' @return [list]
 #' @export
 setup_MYZ = function(pars, MYZname, nPatches=1, MYZopts=list(), calK=diag(1)){
   class(MYZopts) <- MYZname
@@ -105,7 +105,7 @@ setup_MYZ = function(pars, MYZname, nPatches=1, MYZopts=list(), calK=diag(1)){
 #' @title Add indices for adult mosquitoes to parameter list
 #' @description This method dispatches on the type of `pars$MYZpar`.
 #' @param pars a [list]
-#' @return none
+#' @return [list]
 #' @export
 make_indices_MYZ <- function(pars) {
   UseMethod("make_indices_MYZ", pars$MYZpar)
@@ -116,6 +116,7 @@ make_indices_MYZ <- function(pars) {
 #' It computes the variables by name and returns a named list.
 #' @param deout a [matrix] of outputs from deSolve
 #' @param pars a [list] that defines a model
+#' @return [list]
 #' @export
 parse_deout_MYZ <- function(deout, pars) {
   UseMethod("parse_deout_MYZ", pars$MYZpar)
