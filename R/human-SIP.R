@@ -228,3 +228,42 @@ update_inits_X.SIP <- function(pars, y0) {
 get_inits_X.SIP <- function(pars){with(pars$Xinits,{
   c(X0, P0)
 })}
+
+
+#' Plot the density of infected individuals for the SIP model
+#'
+#' @inheritParams xde_plot_X
+#' @export
+xde_plot_X.SIP = function(pars, clrs=c("black", "darkgreen"), llty=1, stable=FALSE, add_axes=TRUE){
+  vars=with(pars$outputs,if(stable==TRUE){stable_orbits}else{orbits})
+
+  if(add_axes==TRUE)
+    with(vars$XH,
+         plot(time, 0*time, type = "n", ylim = c(0, max(H)),
+              ylab = "# Infected", xlab = "Time"))
+
+  xde_lines_X(vars$XH, pars, clrs, llty)
+}
+
+
+#' Add lines for the density of infected individuals for the SIP model
+#'
+#' @inheritParams xde_lines_X
+#'
+#' @export
+xde_lines_X.SIP = function(XH, pars, clrs=c("black", "darkgreen"), llty=1){
+  with(XH,{
+    if(pars$nStrata==1) {
+      lines(time, X, col=clrs[1], lty = llty[1])
+      lines(time, P, col=clrs[2], lty = llty[1])
+    }
+    if(pars$nStrata>1){
+      if (length(clrs)==1) clrs=matrix(clrs, 2, pars$nStrata)
+      if (length(llty)==1) llty=rep(llty, pars$nStrata)
+      for(i in 1:pars$nStrata){
+        lines(time, X[,i], col=clrs[1,i], lty = llty[i])
+        lines(time, P[,i], col=clrs[2,i], lty = llty[i])
+      }
+    }
+  })}
+

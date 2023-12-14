@@ -10,7 +10,7 @@
 \item{pars}{a \link{list}}
 }
 \value{
-none
+\link{numeric}
 }
 \description{
 Implements \link{get_inits_MYZ} for the RM model.

@@ -122,6 +122,7 @@ parse_deout_MYZ <- function(deout, pars) {
   UseMethod("parse_deout_MYZ", pars$MYZpar)
 }
 
+
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$MYZpar`.
 #' @param pars a [list]
@@ -151,4 +152,3 @@ update_inits_MYZ <- function(pars, y0) {
 make_Omega <- function(g, sigma, K, nPatches) {
   diag(g, nPatches) + ((diag(nPatches) - K) %*% diag(sigma, nPatches))
 }
-
