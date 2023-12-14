@@ -223,10 +223,10 @@ xde_plot_X.SIS = function(pars, clrs="black", llty=1, stable=FALSE, add_axes=TRU
 xde_lines_X.SIS = function(XH, pars, clrs="black", llty=1){
   with(XH,{
     if(pars$nStrata==1) lines(time, X, col=clrs[1], lty = llty[1])
-    if(model$nStrata>1){
-      if (length(clrs)==1) clrs=rep(clrs, model$nStrata)
-      if (length(llty)==1) llty=rep(llty, model$nStrata)
-      for(i in 1:model$nStrata){
+    if(pars$nStrata>1){
+      if (length(clrs)==1) clrs=rep(clrs, pars$nStrata)
+      if (length(llty)==1) llty=rep(llty, pars$nStrata)
+      for(i in 1:pars$nStrata){
         lines(time, X[,i], col=clrs[i], lty = llty[i])
       }
     }
