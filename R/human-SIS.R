@@ -198,3 +198,36 @@ update_inits_X.SIS <- function(pars, y0) {
 get_inits_X.SIS <- function(pars){
   pars$Xinits$X0
 }
+
+#' Plot the density of infected individuals for the SIS model
+#'
+#' @inheritParams xde_plot_X
+#' @export
+xde_plot_X.SIS = function(pars, clrs="black", llty=1, stable=FALSE, add_axes=TRUE){
+  vars=with(pars$outputs,if(stable==TRUE){stable_orbits}else{orbits})
+
+  if(add_axes==TRUE)
+    with(vars$XH,
+         plot(time, 0*time, type = "n", ylim = c(0, max(H)),
+              ylab = "# Infected", xlab = "Time"))
+
+  xde_lines_X(vars$XH, pars, clrs, llty)
+}
+
+
+#' Add lines for the density of infected individuals for the SIS model
+#'
+#' @inheritParams xde_lines_X
+#'
+#' @export
+xde_lines_X.SIS = function(XH, pars, clrs="black", llty=1){
+  with(XH,{
+    if(pars$nStrata==1) lines(time, X, col=clrs[1], lty = llty[1])
+    if(model$nStrata>1){
+      if (length(clrs)==1) clrs=rep(clrs, model$nStrata)
+      if (length(llty)==1) llty=rep(llty, model$nStrata)
+      for(i in 1:model$nStrata){
+        lines(time, X[,i], col=clrs[i], lty = llty[i])
+      }
+    }
+  })}

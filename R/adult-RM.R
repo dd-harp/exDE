@@ -386,8 +386,12 @@ get_inits_MYZ.RM_ode <- function(pars) {with(pars$MYZinits,{
 #' @title Return initial values as a vector
 #' @description Implements [get_inits_MYZ] for the RM model.
 #' @inheritParams get_inits_MYZ
-#' @return none
+#' @return [numeric]
 #' @export
 get_inits_MYZ.RM_dde <- function(pars) {with(pars$MYZinits,{
   c(M0, P0, Y0, Z0, as.vector(Upsilon0), rep(0, 3*pars$nPatches))
 })}
+
+
+
+

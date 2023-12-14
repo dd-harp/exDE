@@ -87,6 +87,12 @@ reference:
   - dde2ode_MYZ
   - dde2ode_MYZ.dde
   - dde2ode_MYZ.ode
+  - xde_plot_M
+  - xde_lines_M
+  - xde_plot_YZ
+  - xde_lines_YZ
+  - xde_plot_YZ_fracs
+  - xde_lines_YZ_fracs
 - subtitle: EIP
   desc: |
     Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
@@ -274,6 +280,8 @@ reference:
   - get_inits_X
   - update_inits_X
   - HTC
+  - xde_plot_X
+  - xde_lines_X
 - subtitle: trace
   desc: |
     Specialized methods for a human trace model to pass kappa as a parameter
@@ -327,6 +335,8 @@ reference:
   - update_inits_X.SIS
   - make_parameters_X_SIS
   - HTC.SIS
+  - xde_plot_X.SIS
+  - xde_lines_X.SIS
 - subtitle: SIP
   desc: |
     Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
@@ -346,6 +356,8 @@ reference:
   - update_inits_X.SIP
   - make_parameters_X_SIP
   - HTC.SIP
+  - xde_plot_X.SIP
+  - xde_lines_X.SIP
 - title: Human Population Dynamics
   desc: |
     Generic methods for the human demography and aging
@@ -424,8 +436,7 @@ reference:
 - title: Exposure
   desc: |
     Methods to implement exposure models (i.e., EIR to FoI)
-  contents:
-  - F_foi
+  contents: F_foi
 - subtitle: Poisson
   desc: |
     Specialized methods the default model (Poisson)
@@ -441,8 +452,7 @@ reference:
 - title: Travel Malaria
   desc: |
     Methods to implement exposure to malaria while traveling
-  contents:
-  - travel_malaria
+  contents: travel_malaria
 - subtitle: null model
   desc: |
     Specialized methods the null travel malaria model
@@ -464,8 +474,7 @@ reference:
 - title: Visitors
   desc: |
     Methods to implement malaria importation through visitors
-  contents:
-  - Visitors
+  contents: Visitors
 - subtitle: null model
   desc: |
     Specialized methods for a null model for visitors (do nothing)
@@ -743,3 +752,11 @@ reference:
   - compute_kappa
   - compute_kappa_i
   - compute_kappa_ty
+- title: Plot terms
+  contents:
+  - xde_plot_EIR
+  - xde_lines_EIR
+  - xde_plot_aEIR
+  - xde_lines_aEIR
+  - xde_plot_PR
+  - xde_lines_PR
