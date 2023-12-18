@@ -35,7 +35,7 @@ test_that("human hybrid MoI model remains at equilibrium", {
     list(dXdt(t, y, pars, foi))
   }, parms = params, method = 'lsoda', foi= as.vector(foi))
 
-  expect_equal(as.vector(out[2L, params$Xpar$m1_ix+1]), rep(m10, nStrata), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2L, params$Xpar$m2_ix+1]), rep(m20, nStrata), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$ix$X$m1_ix+1]), rep(m10, nStrata), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$ix$X$m2_ix+1]), rep(m20, nStrata), tolerance = numeric_tol)
 
 })

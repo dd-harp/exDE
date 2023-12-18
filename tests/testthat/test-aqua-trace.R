@@ -70,10 +70,10 @@ test_that("forced emergence works with equilibrium", {
 
   out <- deSolve::ode(y = y0, times = c(0, 365), func = xDE_diffeqn_mosy, parms = params, method = 'lsoda')
 
-  M_sim <- as.vector(out[2, params$MYZpar$M_ix+1])
-  P_sim <- as.vector(out[2, params$MYZpar$P_ix+1])
-  Y_sim <- as.vector(out[2, params$MYZpar$Y_ix+1])
-  Z_sim <- as.vector(out[2, params$MYZpar$Z_ix+1])
+  M_sim <- as.vector(out[2, params$ix$MYZ$M_ix+1])
+  P_sim <- as.vector(out[2, params$ix$MYZ$P_ix+1])
+  Y_sim <- as.vector(out[2, params$ix$MYZ$Y_ix+1])
+  Z_sim <- as.vector(out[2, params$ix$MYZ$Z_ix+1])
 
   expect_equal(M_eq, M_sim, tolerance = numeric_tol)
   expect_equal(P_eq, P_sim, tolerance = numeric_tol)

@@ -6,7 +6,8 @@
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_X.SIS <- function(t, y, pars) {
-  with(pars$Xpar, y[X_ix]*c)
+  X = y[pars$ix$X$X_ix]
+  with(pars$Xpar, c*X)
 }
 
 #' @title Compute the "true" prevalence of infection / parasite rate
@@ -35,13 +36,12 @@ F_b.SIS <- function(y, pars) {
 #' @return a [numeric] vector
 #' @export
 dXdt.SISdX <- function(t, y, pars, FoI) {
+
+  X <- y[pars$ix$X$X_ix]
+  H <- F_H(t, y, pars)
+
   with(pars$Xpar, {
-
-    X <- y[X_ix]
-    H <- F_H(t, y, pars)
-
     dX <- FoI*(H - X) - r*X
-
     return(c(dX))
   })
 }
@@ -52,10 +52,11 @@ dXdt.SISdX <- function(t, y, pars, FoI) {
 #' @return a [numeric] vector
 #' @export
 dXdt.SISdXdH <- function(t, y, pars, FoI) {
-  with(pars$Xpar, {
 
-    H <- F_H(t, y, pars)
-    X <- y[X_ix]
+  X <- y[pars$ix$X$X_ix]
+  H <- F_H(t, y, pars)
+
+  with(pars$Xpar, {
 
     dX <- FoI*(H - X) - r*X + dHdt(t, X, pars)
     dH <- Births(t, H, pars) + dHdt(t, H, pars)
@@ -121,8 +122,8 @@ make_Xinits_SIS = function(pars, Xopts = list(), X0=1){with(Xopts,{
 parse_deout_X.SIS <- function(deout, pars) {
   time = deout[,1]
   Hlist <- parse_deout_H(deout, pars)
+  X = deout[,pars$ix$X$X_ix+1]
   with(Hlist,{
-    X = deout[,pars$Xpar$X_ix+1]
     return(list(time=time, X=X, H=H))
 })}
 
@@ -144,8 +145,8 @@ HTC.SIS <- function(pars) {
 #' @importFrom utils tail
 #' @export
 make_indices_X.SIS <- function(pars) {
-  pars$Xpar$X_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-  pars$max_ix <- tail(pars$Xpar$X_ix, 1)
+  pars$ix$X$X_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
+  pars$max_ix <- tail(pars$ix$X$X_ix, 1)
   return(pars)
 }
 
@@ -184,7 +185,7 @@ make_inits_X_SIS <- function(pars, X0) {
 #' @return none
 #' @export
 update_inits_X.SIS <- function(pars, y0) {
-  X0 = y0[pars$Xpar$X_ix]
+  X0 = y0[pars$ix$X$X_ix]
   pars = make_inits_X_SIS(pars, X0)
   return(pars)
 }

@@ -6,7 +6,8 @@
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_X.SIP <- function(t, y, pars) {
-  with(pars$Xpar, y[X_ix] * c)
+  X <- y[pars$ix$X$X_ix]
+  with(pars$Xpar, c*X)
 }
 
 #' @title Compute the "true" prevalence of infection / parasite rate
@@ -35,10 +36,11 @@ F_b.SIP <- function(y, pars) {
 #' @export
 dXdt.SIPdX <- function(t, y, pars, FoI) {
 
+  X <- y[pars$ix$X$X_ix]
+  P <- y[pars$ix$X$P_ix]
+  H <- F_H(t, y, pars)
+
   with(pars$Xpar, {
-    X <- y[X_ix]
-    P <- y[P_ix]
-    H <- F_H(t, y, pars)
 
     dX <- (1-rho)*FoI*(H - X - P) - (r+xi)*X
     dP <- rho*FoI*(H - X - P) + xi*(H-P) - eta*P
@@ -66,11 +68,11 @@ HTC.SIP <- function(pars) {
 #' @export
 dXdt.SIPdXdH <- function(t, y, pars, FoI) {
 
-  with(pars$Xpar, {
+  X <- y[pars$ix$X$X_ix]
+  P <- y[pars$ix$X$P_ix]
+  H <- F_H(t, y, pars)
 
-    X <- y[X_ix]
-    P <- y[P_ix]
-    H <- F_H(t, y, pars)
+  with(pars$Xpar, {
 
     dX <- (1-rho)*FoI*(H - X - P) - (r+xi)*X + dHdt(t, X, pars)
     dP <- rho*FoI*(H - X - P) + xi*(H-P) - eta*P + dHdt(t, P, pars)
@@ -88,7 +90,7 @@ dXdt.SIPdXdH <- function(t, y, pars, FoI) {
 setup_X.SIP = function(pars, Xname, Xopts=list()){
 
   pars$Xname = "SIP"
-    pars = make_Xpar_SIP(pars, Xopts)
+  pars = make_Xpar_SIP(pars, Xopts)
   pars = make_Xinits_SIP(pars, Xopts)
 
   return(pars)
@@ -149,8 +151,8 @@ parse_deout_X.SIP <- function(deout, pars) {
   time = deout[,1]
   Hlist <- parse_deout_H(deout, pars)
   with(Hlist,{
-    X = deout[,pars$Xpar$X_ix+1]
-    P = deout[,pars$Xpar$P_ix+1]
+    X = deout[,pars$ix$X$X_ix+1]
+    P = deout[,pars$ix$X$P_ix+1]
   return(list(time=time, X=X,P=P,H=H))
 })}
 
@@ -162,11 +164,11 @@ parse_deout_X.SIP <- function(deout, pars) {
 #' @export
 make_indices_X.SIP <- function(pars) {
 
-  pars$Xpar$X_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-  pars$max_ix <- tail(pars$Xpar$X_ix, 1)
+  pars$ix$X$X_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
+  pars$max_ix <- tail(pars$ix$X$X_ix, 1)
 
-  pars$Xpar$P_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-  pars$max_ix <- tail(pars$Xpar$P_ix, 1)
+  pars$ix$X$P_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
+  pars$max_ix <- tail(pars$ix$X$P_ix, 1)
 
   return(pars)
 }
@@ -213,8 +215,8 @@ make_inits_X_SIP <- function(pars, X0, P0) {
 #' @return none
 #' @export
 update_inits_X.SIP <- function(pars, y0) {
-  X0 = y0[pars$Xpar$X_ix]
-  P0 = y0[pars$Xpar$P_ix]
+  X0 = y0[pars$ix$X$X_ix]
+  P0 = y0[pars$ix$X$P_ix]
   pars = make_inits_X_SIP(pars, X0, P0)
   return(pars)
 }

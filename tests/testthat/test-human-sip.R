@@ -40,6 +40,6 @@ test_that("human SIP model remains at equilibrium", {
     list(dXdt(t, y, pars, foi))
   }, parms = params, method = 'lsoda', foi = as.vector(foi))
 
-  expect_equal(as.vector(out[2L, params$Xpar$X_ix+1]), X, tolerance = numeric_tol)
-  expect_equal(as.vector(out[2L, params$Xpar$P_ix+1]), as.vector(P), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$ix$X$X_ix+1]), X, tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$ix$X$P_ix+1]), as.vector(P), tolerance = numeric_tol)
 })

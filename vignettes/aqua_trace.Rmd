@@ -18,7 +18,6 @@ knitr::opts_chunk$set(
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
-#devtools::load_all(".")
 library(MASS)
 library(expm)
 library(deSolve)
@@ -115,16 +114,16 @@ params = make_indices(params)
 
 ```{r}
 y0 <- rep(0, params$max_ix)
-y0[params$MYZpar$M_ix] <- M_eq
-y0[params$MYZpar$P_ix] <- P_eq
+y0[params$ix$MYZ$M_ix] <- M_eq
+y0[params$ix$MYZ$P_ix] <- P_eq
 
 out <- deSolve::ode(y = y0, times = 0:50, func = xDE_diffeqn_mosy, parms = params, method = 'lsoda')
 out1 <- out
 ```
 
 ```{r, out.width = "100%"}
-colnames(out)[params$MYZpar$M_ix+1] <- paste0('M_', 1:params$nPatches)
-colnames(out)[params$MYZpar$P_ix+1] <- paste0('P_', 1:params$nPatches)
+colnames(out)[params$ix$MYZ$M_ix+1] <- paste0('M_', 1:params$nPatches)
+colnames(out)[params$ix$MYZ$P_ix+1] <- paste0('P_', 1:params$nPatches)
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

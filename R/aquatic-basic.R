@@ -19,8 +19,8 @@ LBionomics.basic <- function(t, y, pars) {
 #' @return a [numeric] vector of length `nHabitats`
 #' @export
 F_alpha.basic <- function(t, y, pars) {
+  L <- y[pars$ix$L$L_ix]
   with(pars$Lpar,{
-    L <- y[L_ix]
     psi*L
   })
 }
@@ -31,8 +31,8 @@ F_alpha.basic <- function(t, y, pars) {
 #' @return a [numeric] vector
 #' @export
 dLdt.basic <- function(t, y, pars, eta) {
+  L <- y[pars$ix$L$L_ix]
   with(pars$Lpar, {
-    L <- y[L_ix]
     dL = eta - (psi + phi + (theta*L))*L
     return(dL)
   })
@@ -102,8 +102,8 @@ make_Linits_basic = function(pars, Lopts=list(), L0 = 1){with(Lopts,{
 #' @importFrom utils tail
 #' @export
 make_indices_L.basic <- function(pars) {
-  pars$Lpar$L_ix <- seq(from = pars$max_ix+1, length.out = pars$nHabitats)
-  pars$max_ix <- tail(pars$Lpar$L_ix, 1)
+  pars$ix$L$L_ix <- seq(from = pars$max_ix+1, length.out = pars$nHabitats)
+  pars$max_ix <- tail(pars$ix$L$L_ix, 1)
   return(pars)
 }
 
@@ -114,7 +114,7 @@ make_indices_L.basic <- function(pars) {
 #' @export
 parse_deout_L.basic <- function(deout, pars) {
   time = deout[,1]
-  L = deout[,pars$Lpar$L_ix+1]
+  L = deout[,pars$ix$L$L_ix+1]
   return(list(time=time, L=L))
 }
 
@@ -155,7 +155,7 @@ make_inits_L_basic <- function(pars, L0){
 #' @return none
 #' @export
 update_inits_L.basic <- function(pars, y0) {
-  L0 = y0[pars$Lpar$L_ix]
+  L0 = y0[pars$ix$L$L_ix]
   pars = make_inits_L_basic(pars, L0)
   return(pars)
 }

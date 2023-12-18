@@ -29,10 +29,11 @@ xde_stable_orbit = function(pars, Ymax=10){
 #' @return a [list]
 #' @export
 xde_steady = function(pars){
-  y0 = get_inits(pars)
   pars1 <- dde2ode_MYZ(pars)
+  pars1 <- make_indices(pars1)
+  y0 = get_inits(pars1)
   rootSolve::steady(y=y0, func = xDE_diffeqn, parms = pars1)$y -> y_eq
-  pars$outputs$steady = parse_deout_vec(y_eq, pars)
+  pars$outputs$steady = parse_deout_vec(y_eq, pars1)
   return(pars)
 }
 

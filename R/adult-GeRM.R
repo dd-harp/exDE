@@ -22,7 +22,7 @@ MBionomics.GeRM <- function(t, y, pars) {
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_fqZ.GeRM <- function(t, y, pars) {
-  with(pars$MYZpar, f*q)*y[pars$MYZpar$Z_ix]
+  with(pars$MYZpar, f*q)*y[pars$ix$MYZ$Z_ix]
 }
 
 #' @title Number of eggs laid by adult mosquitoes
@@ -32,7 +32,7 @@ F_fqZ.GeRM <- function(t, y, pars) {
 #' @export
 F_eggs.GeRM <- function(t, y, pars) {
   with(pars$MYZpar, {
-    G <- y[G_ix]
+    G <- y[pars$ix$MYZ$G_ix]
     return(G*nu*eggsPerBatch)
   })
 }
@@ -42,16 +42,13 @@ F_eggs.GeRM <- function(t, y, pars) {
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
-dMYZdt.GeRM_ode <- function(t, y, pars, Lambda, kappa) {
-
-  nPatches <- pars$nPatches
-
+dMYZdt.GeRM_ode <- function(t, y, pars, Lambda, kappa) {with(pars,{
   with(pars$MYZpar,{
 
-    M <- y[M_ix]
-    G <- y[G_ix]
-    Y <- y[Y_ix]
-    Z <- y[Z_ix]
+    M <- y[ix$MYZ$M_ix]
+    G <- y[ix$MYZ$G_ix]
+    Y <- y[ix$MYZ$Y_ix]
+    Z <- y[ix$MYZ$Z_ix]
 
     Omega <- make_Omega(g, sigma, calK, nPatches)
     Upsilon <- expm(-Omega*eip)
@@ -63,7 +60,7 @@ dMYZdt.GeRM_ode <- function(t, y, pars, Lambda, kappa) {
 
     return(c(dMdt, dGdt, dYdt, dZdt))
   })
-}
+})}
 
 #' @title Derivatives for adult mosquitoes
 #' @description Implements [dMYZdt] for the GeRM DDE model.
@@ -72,35 +69,32 @@ dMYZdt.GeRM_ode <- function(t, y, pars, Lambda, kappa) {
 #' @importFrom deSolve lagvalue
 #' @importFrom deSolve lagderiv
 #' @export
-dMYZdt.GeRM_dde <- function(t, y, pars, Lambda, kappa) {
+dMYZdt.GeRM_dde <- function(t, y, pars, Lambda, kappa) {with(pars,{
 
-  nPatches <- pars$nPatches
-  eip <- pars$MYZpar$eip
-
-  with(pars$MYZpar,{
+  with(MYZpar,{
     if (t < eip) {
-      M_eip <- pars$MYZinits$M0
-      Y_eip <- pars$MYZinits$Y0
+      M_eip <- MYZinits$M0
+      Y_eip <- MYZinits$Y0
       kappa_eip <- kappa
       f_eip <- f
       q_eip <- q
       g_eip <- g
       sigma_eip <- sigma
     } else {
-      M_eip <- lagvalue(t = t - eip, nr = M_ix)
-      Y_eip <- lagvalue(t = t - eip, nr = Y_ix)
-      kappa_eip <- lagderiv(t = t-eip, nr = kappa_ix)
-      f_eip <- lagderiv(t = t-eip, nr = f_ix)
-      q_eip <- lagderiv(t = t-eip, nr = q_ix)
-      g_eip <- lagderiv(t = t-eip, nr = g_ix)
-      sigma_eip <- lagderiv(t = t-eip, nr = sigma_ix)
+      M_eip <- lagvalue(t = t - eip, nr = ix$MYZ$M_ix)
+      Y_eip <- lagvalue(t = t - eip, nr = ix$MYZ$Y_ix)
+      kappa_eip <- lagderiv(t = t-eip, nr = ix$MYZ$kappa_ix)
+      f_eip <- lagderiv(t = t-eip, nr = ix$MYZ$f_ix)
+      q_eip <- lagderiv(t = t-eip, nr = ix$MYZ$q_ix)
+      g_eip <- lagderiv(t = t-eip, nr = ix$MYZ$g_ix)
+      sigma_eip <- lagderiv(t = t-eip, nr = ix$MYZ$sigma_ix)
     }
 
-    M <- y[M_ix]
-    G <- y[G_ix]
-    Y <- y[Y_ix]
-    Z <- y[Z_ix]
-    Upsilon <- matrix(data = y[Upsilon_ix], nrow = nPatches, ncol = nPatches)
+    M <- y[ix$MYZ$M_ix]
+    G <- y[ix$MYZ$G_ix]
+    Y <- y[ix$MYZ$Y_ix]
+    Z <- y[ix$MYZ$Z_ix]
+    Upsilon <- matrix(data = y[ix$MYZ$Upsilon_ix], nrow = nPatches, ncol = nPatches)
 
     Omega <- make_Omega(g, sigma, calK, nPatches)
     Omega_eip <- make_Omega(g_eip, sigma_eip, calK, nPatches)
@@ -113,7 +107,7 @@ dMYZdt.GeRM_dde <- function(t, y, pars, Lambda, kappa) {
 
     return(c(dMdt, dGdt, dYdt, dZdt, dUdt, kappa, f, q, g, sigma))
   })
-}
+})}
 
 #' @title Setup the GeRM model for adult mosquitoes
 #' @description Implements [setup_MYZ] for the GeRM model
@@ -253,17 +247,17 @@ make_MYZinits_GeRM = function(pars, MYZopts = list(),
 #' @export
 make_indices_MYZ.GeRM_ode <- function(pars) {
 
-  pars$MYZpar$M_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$M_ix, 1)
+  pars$ix$MYZ$M_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$M_ix, 1)
 
-  pars$MYZpar$G_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$G_ix, 1)
+  pars$ix$MYZ$G_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$G_ix, 1)
 
-  pars$MYZpar$Y_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$Y_ix, 1)
+  pars$ix$MYZ$Y_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$Y_ix, 1)
 
-  pars$MYZpar$Z_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$Z_ix, 1)
+  pars$ix$MYZ$Z_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$Z_ix, 1)
 
   return(pars)
 }
@@ -276,35 +270,35 @@ make_indices_MYZ.GeRM_ode <- function(pars) {
 #' @export
 make_indices_MYZ.GeRM_dde <- function(pars) {
 
-  pars$MYZpar$M_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$M_ix, 1)
+  pars$ix$MYZ$M_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$M_ix, 1)
 
-  pars$MYZpar$G_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$G_ix, 1)
+  pars$ix$MYZ$G_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$G_ix, 1)
 
-  pars$MYZpar$Y_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$Y_ix, 1)
+  pars$ix$MYZ$Y_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$Y_ix, 1)
 
-  pars$MYZpar$Z_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$Z_ix, 1)
+  pars$ix$MYZ$Z_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$Z_ix, 1)
 
-  pars$MYZpar$Upsilon_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches^2)
-  pars$max_ix <- tail(pars$MYZpar$Upsilon_ix, 1)
+  pars$ix$MYZ$Upsilon_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches^2)
+  pars$max_ix <- tail(pars$ix$MYZ$Upsilon_ix, 1)
 
-  pars$MYZpar$kappa_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$kappa_ix, 1)
+  pars$ix$MYZ$kappa_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$kappa_ix, 1)
 
-  pars$MYZpar$f_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$f_ix, 1)
+  pars$ix$MYZ$f_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$f_ix, 1)
 
-  pars$MYZpar$q_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$q_ix, 1)
+  pars$ix$MYZ$q_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$q_ix, 1)
 
-  pars$MYZpar$g_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$g_ix, 1)
+  pars$ix$MYZ$g_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$g_ix, 1)
 
-  pars$MYZpar$sigma_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$sigma_ix, 1)
+  pars$ix$MYZ$sigma_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$sigma_ix, 1)
 
   return(pars)
 }
@@ -316,10 +310,10 @@ make_indices_MYZ.GeRM_dde <- function(pars) {
 #' @export
 parse_deout_MYZ.GeRM <- function(deout, pars) {
   time = deout[,1]
-  M = deout[,pars$MYZpar$M_ix+1]
-  G = deout[,pars$MYZpar$G_ix+1]
-  Y = deout[,pars$MYZpar$Y_ix+1]
-  Z = deout[,pars$MYZpar$Z_ix+1]
+  M = deout[,pars$ix$MYZ$M_ix+1]
+  G = deout[,pars$ix$MYZ$G_ix+1]
+  Y = deout[,pars$ix$MYZ$Y_ix+1]
+  Z = deout[,pars$ix$MYZ$Z_ix+1]
   y = Y/M
   z = Z/M
   gravid = G/M
@@ -395,10 +389,10 @@ make_inits_MYZ_GeRM_ode <- function(pars, M0, G0, Y0, Z0) {
 #' @return none
 #' @export
 update_inits_MYZ.GeRM_ode <- function(pars, y0) {
-  M0 = y0[pars$MYZpar$M_ix]
-  G0 = y0[pars$MYZpar$G_ix]
-  Y0 = y0[pars$MYZpar$Y_ix]
-  Z0 = y0[pars$MYZpar$Z_ix]
+  M0 = y0[pars$ix$MYZ$M_ix]
+  G0 = y0[pars$ix$MYZ$G_ix]
+  Y0 = y0[pars$ix$MYZ$Y_ix]
+  Z0 = y0[pars$ix$MYZ$Z_ix]
   pars = make_inits_MYZ_GeRM_ode(pars, M0, G0, Y0, Z0)
   return(pars)
 }
@@ -423,11 +417,11 @@ make_inits_MYZ_GeRM_dde <- function(pars, M0, G0, Y0, Z0, Upsilon0) {
 #' @return none
 #' @export
 update_inits_MYZ.GeRM_dde <- function(pars, y0) {
-  M0 = y0[pars$MYZpar$M_ix]
-  G0 = y0[pars$MYZpar$G_ix]
-  Y0 = y0[pars$MYZpar$Y_ix]
-  Z0 = y0[pars$MYZpar$Z_ix]
-  Upsilon0 = y0[pars$MYZpar$Upsilon_ix]
+  M0 = y0[pars$ix$MYZ$M_ix]
+  G0 = y0[pars$ix$MYZ$G_ix]
+  Y0 = y0[pars$ix$MYZ$Y_ix]
+  Z0 = y0[pars$ix$MYZ$Z_ix]
+  Upsilon0 = y0[pars$ix$MYZ$Upsilon_ix]
   pars = make_inits_MYZ_GeRM_dde(pars, M0, G0, Y0, Z0, Upsilon0)
   return(pars)
 }

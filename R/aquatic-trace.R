@@ -74,7 +74,6 @@ make_Lpar_trace = function(pars, Lopts=list(),
 #' @return none
 #' @export
 make_indices_L.trace <- function(pars) {
-  pars$L_ix <- integer(0)
   return(pars)
 }
 
@@ -120,7 +119,7 @@ make_inits_L_trace<- function(pars, L0=NULL) {
 #' @return [list]
 #' @export
 parse_deout_L.trace <- function(deout, pars) {
-  return(list())
+  return(NULL)
 }
 
 #' @title Return initial values as a vector

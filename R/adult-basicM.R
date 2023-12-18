@@ -22,8 +22,8 @@ MBionomics.basicM <- function(t, y, pars) {
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_eggs.basicM <- function(t, y, pars) {
+  M <- y[pars$ix$MYZ$M_ix]
   with(pars$MYZpar, {
-    M <- y[M_ix]
     return(M*nu*eggsPerBatch)
   })
 }
@@ -33,14 +33,12 @@ F_eggs.basicM <- function(t, y, pars) {
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
-dMYZdt.basicM <- function(t, y, pars, Lambda, kappa=NULL) {
+dMYZdt.basicM <- function(t, y, pars, Lambda, kappa=NULL) {with(pars,{
 
-  nPatches <- pars$nPatches
+  M <- y[ix$MYZ$M_ix]
+  P <- y[ix$MYZ$P_ix]
 
-  with(pars$MYZpar,{
-
-    M <- y[M_ix]
-    P <- y[P_ix]
+  with(pars$Xpar,{
 
     Omega <- make_Omega(g, sigma, calK, nPatches)
 
@@ -49,7 +47,7 @@ dMYZdt.basicM <- function(t, y, pars, Lambda, kappa=NULL) {
 
     return(c(dMdt, dPdt))
   })
-}
+})}
 
 #' @title Setup the basicM model for adult mosquitoes
 #' @description Implements [setup_MYZ] for the basicM model
@@ -137,12 +135,12 @@ make_MYZinits_basicM = function(pars, MYZopts = list(),
 #' @param y0 a vector of initial values
 #' @return none
 #' @export
-update_inits_MYZ.basicM <- function(pars, y0) {
-  M0 = y0[pars$MYZpar$M_ix]
-  P0 = y0[pars$MYZpar$P_ix]
+update_inits_MYZ.basicM <- function(pars, y0) {with(pars$ix$MYZ,{
+  M0 = y0[M_ix]
+  P0 = y0[P_ix]
   pars = make_MYZinits_basicM(pars, M0=M0, P0=P0)
   return(pars)
-}
+})}
 
 #' @title Add indices for adult mosquitoes to parameter list
 #' @description Implements [make_indices_MYZ] for the basic M model.
@@ -152,11 +150,11 @@ update_inits_MYZ.basicM <- function(pars, y0) {
 #' @export
 make_indices_MYZ.basicM <- function(pars) {
 
-  pars$MYZpar$M_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$M_ix, 1)
+  pars$ix$MYZ$M_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$M_ix, 1)
 
-  pars$MYZpar$P_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$MYZpar$P_ix, 1)
+  pars$ix$MYZ$P_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
+  pars$max_ix <- tail(pars$ix$MYZ$P_ix, 1)
 
   return(pars)
 }
@@ -168,11 +166,12 @@ make_indices_MYZ.basicM <- function(pars) {
 #' @export
 parse_deout_MYZ.basicM <- function(deout, pars) {
   time = deout[,1]
-  M = deout[,pars$MYZpar$M_ix+1]
-  P = deout[,pars$MYZpar$P_ix+1]
+  with(pars$ix$MYZ,{
+  M = deout[,M_ix+1]
+  P = deout[,P_ix+1]
   parous = P/M
   return(list(time=time, M=M, P=P, parous=parous))
-}
+})}
 
 #' @title Make parameters for a basic adult mosquito model
 #' @param pars a [list]

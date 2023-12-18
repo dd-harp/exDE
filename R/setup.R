@@ -55,6 +55,7 @@ xde_setup = function(modelName,
 ){
 
   pars = make_parameters_xde()
+  class(pars$compute) = "xde"
 
   pars$modelName = modelName
 
@@ -75,10 +76,6 @@ xde_setup = function(modelName,
 
   pars = make_indices(pars)
 
-  pars$compute = list()
-  class(pars$compute) = "xde"
-
-  pars$outputs = list()
 
   return(pars)
 }
@@ -122,6 +119,8 @@ xde_setup_mosy = function(modelName,
 
   pars = make_parameters_xde()
   class(pars$xde) <- "mosy"
+  class(pars$compute) = "na"
+
   pars$modelName = modelName
 
   # Structure
@@ -140,10 +139,6 @@ xde_setup_mosy = function(modelName,
   pars = make_indices_L(pars)
   pars = make_indices_MYZ(pars)
 
-  pars$compute = list()
-  class(pars$compute) = "na"
-
-  pars$outputs = list()
 
   return(pars)
 }
@@ -167,6 +162,8 @@ xde_setup_aquatic = function(modelName,
 
   pars = make_parameters_xde()
   class(pars$xde) <- "aqua"
+  class(pars$compute) = "na"
+
   pars$modelName = modelName
   pars = setup_MYZ(pars, "Gtrace", nHabitats, MYZopts, NULL)
   pars$nHabitats = nHabitats
@@ -177,10 +174,7 @@ xde_setup_aquatic = function(modelName,
 
   pars = make_indices(pars)
 
-  pars$compute = list()
-  class(pars$compute) = "na"
 
-  pars$outputs = list()
 
   return(pars)
 }
@@ -222,6 +216,8 @@ xde_setup_human = function(modelName,
 
   pars = make_parameters_xde()
   class(pars$xde) <- "human"
+  class(pars$compute) = "human"
+
   pars$modelName = modelName
 
   # Structure
@@ -238,10 +234,7 @@ xde_setup_human = function(modelName,
 
   pars = make_indices(pars)
 
-  pars$compute = list()
-  class(pars$compute) = "human"
 
-  pars$outputs = list()
 
   return(pars)
 }
@@ -273,6 +266,8 @@ xde_setup_cohort = function(modelName, F_eir,
 
   pars = make_parameters_xde()
   class(pars$xde) <- "cohort"
+  class(pars$compute) = "cohort"
+
   pars$modelName = modelName
   pars$F_eir = F_eir
 
@@ -288,10 +283,7 @@ xde_setup_cohort = function(modelName, F_eir,
 
   pars = make_indices(pars)
 
-  pars$compute = list()
-  class(pars$compute) = "cohort"
 
-  pars$outputs = list()
 
   return(pars)
 }

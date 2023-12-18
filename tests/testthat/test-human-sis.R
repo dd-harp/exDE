@@ -32,11 +32,11 @@ test_that("human SIS model remains at equilibrium", {
   y0 <- get_inits(params)
 
   y0 <- rep(0, 3)
-  y0[params$Xpar$X_ix] <- X
+  y0[params$ix$X$X_ix] <- X
 
   out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, foi) {
     list(dXdt(t, y, pars, foi))
   }, parms = params, method = 'lsoda', foi= as.vector(foi))
 
-  expect_equal(as.vector(out[2L, params$Xpar$X_ix+1]), X, tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$ix$X$X_ix+1]), X, tolerance = numeric_tol)
 })

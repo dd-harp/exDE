@@ -19,7 +19,6 @@ In this vignette we demonstrate how to set up a model incorporating the Le Menac
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
-#devtools::load_all(".")
 library(MASS)
 library(expm)
 library(deSolve)
@@ -179,17 +178,17 @@ We can plot the output to study the effects of the seasonal ITN coverage on the 
 
 ```{r, out.width = "100%"}
 
-colnames(out)[itn_mod$Lpar$L_ix+1] <- paste0('L_', 1:itn_mod$nHabitats)
-colnames(out)[itn_mod$MYZpar$M_ix+1] <- paste0('M_', 1:itn_mod$nPatches)
-colnames(out)[itn_mod$MYZpar$P_ix+1] <- paste0('P_', 1:itn_mod$nPatches)
-colnames(out)[itn_mod$MYZpar$Y_ix+1] <- paste0('Y_', 1:itn_mod$nPatches)
-colnames(out)[itn_mod$MYZpar$Z_ix+1] <- paste0('Z_', 1:itn_mod$nPatches)
-colnames(out)[itn_mod$Xpar$X_ix+1] <- paste0('X_', 1:itn_mod$nStrata)
+colnames(out)[itn_mod$ix$L$L_ix+1] <- paste0('L_', 1:itn_mod$nHabitats)
+colnames(out)[itn_mod$ix$MYZ$M_ix+1] <- paste0('M_', 1:itn_mod$nPatches)
+colnames(out)[itn_mod$ix$MYZ$P_ix+1] <- paste0('P_', 1:itn_mod$nPatches)
+colnames(out)[itn_mod$ix$MYZ$Y_ix+1] <- paste0('Y_', 1:itn_mod$nPatches)
+colnames(out)[itn_mod$ix$MYZ$Z_ix+1] <- paste0('Z_', 1:itn_mod$nPatches)
+colnames(out)[itn_mod$ix$X$X_ix+1] <- paste0('X_', 1:itn_mod$nStrata)
 
-out <- out[, -c(itn_mod$MYZpar$sigma_ix+1)]
-out <- out[, -c(itn_mod$MYZpar$g_ix+1)]
-out <- out[, -c(itn_mod$MYZpar$fqkappa_ix+1)]
-out <- out[, -c(itn_mod$MYZpar$Upsilon_ix+1)]
+out <- out[, -c(itn_mod$ix$MYZ$sigma_ix+1)]
+out <- out[, -c(itn_mod$ix$MYZ$g_ix+1)]
+out <- out[, -c(itn_mod$ix$MYZ$fqkappa_ix+1)]
+out <- out[, -c(itn_mod$ix$MYZ$Upsilon_ix+1)]
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

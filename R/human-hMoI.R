@@ -7,10 +7,12 @@
 #' @importFrom stats pexp
 #' @export
 F_X.hMoI <- function(t, y, pars) {
+  m1 = y[pars$ix$X$m1_ix]
+  m2 = y[pars$ix$X$m2_ix]
   with(pars$Xpar,{
     H <- F_H(t, y, pars)
-    x1 <- pexp(q = y[m1_ix])
-    x2 <- pexp(q = y[m2_ix])
+    x1 <- pexp(q = m1)
+    x2 <- pexp(q = m2)
     x <- (c2 * x2) + (c1 * (x1 - x2))
     return(x * H)
   })
@@ -42,9 +44,11 @@ F_b.hMoI <- function(y, pars) {
 #' @return a [numeric] vector
 #' @export
 dXdt.hMoI <- function(t, y, pars, FoI) {
+
+  m1 = y[pars$ix$X$m1_ix]
+  m2 = y[pars$ix$X$m2_ix]
+
   with(pars$Xpar, {
-    m1 <- y[m1_ix]
-    m2 <- y[m2_ix]
     dm1dt <- FoI - r1*m1
     dm2dt <- FoI - r2*m2
     return(c(dm1dt, dm2dt))
@@ -128,11 +132,11 @@ HTC.hMoI <- function(pars) {
 #' @importFrom utils tail
 #' @export
 make_indices_X.hMoI <- function(pars) {
-  pars$Xpar$m1_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-  pars$max_ix <- tail(pars$Xpar$m1_ix, 1)
+  pars$ix$X$m1_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
+  pars$max_ix <- tail(pars$ix$X$m1_ix, 1)
 
-  pars$Xpar$m2_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-  pars$max_ix <- tail(pars$Xpar$m2_ix, 1)
+  pars$ix$X$m2_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
+  pars$max_ix <- tail(pars$ix$X$m2_ix, 1)
   return(pars)
 }
 
@@ -178,8 +182,8 @@ make_inits_X_hMoI <- function(pars, m10, m20) {
 #' @return none
 #' @export
 update_inits_X.hMoI <- function(pars, y0) {
-  m10 = y0[pars$Xpar$m10_ix]
-  m20 = y0[pars$Xpar$m20_ix]
+  m10 = y0[pars$ix$X$m1_ix]
+  m20 = y0[pars$ix$X$m2_ix]
   pars = make_inits_X_hMoI(pars, m10, m20)
   return(pars)
 }
@@ -193,8 +197,8 @@ parse_deout_X.hMoI <- function(deout, pars){
   time = deout[,1]
   Hlist <- parse_deout_H(deout, pars)
   with(Hlist,{
-    m1 = deout[,pars$Xpar$m1_ix+1]
-    m2 = deout[,pars$Xpar$m2_ix+1]
+    m1 = deout[,pars$ix$X$m1_ix+1]
+    m2 = deout[,pars$ix$X$m2_ix+1]
     return(list(time=time, H=H,m1=m1,m2=m2))
 })}
 
