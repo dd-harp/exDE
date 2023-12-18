@@ -10,6 +10,14 @@ make_parameters_xde = function(solve_as='ode'){
   class(xde) <- xde
   pars$xde = xde
 
+  pars$ix = list()
+  pars$ix$X = list()
+  pars$ix$MYZ = list()
+  pars$ix$L = list()
+
+  pars$outputs = list()
+  pars$compute = list()
+
   pars <- setup_abiotic_null(pars)
   pars <- setup_shock_null(pars)
   pars <- setup_control_null(pars)
@@ -103,11 +111,16 @@ parse_deout_vec <- function(vec, pars){
     varslist$MYZ = parse_deout_MYZ(deout, pars)
   }
   if ('Xpar' %in% names(pars)) {
-    varslist$X = parse_deout_X(deout, pars)
+    varslist$XH = parse_deout_X(deout, pars)
   }
-  for(i in 1:length(varslist)){
-    varslist[[i]] = tail(varslist[[i]],1)
-  }
+
+  for(i in 1:length(varslist$XH))
+    varslist$XH[[i]] = tail(varslist$XH[[i]],1)
+  for(i in 1:length(varslist$MYZ))
+    varslist$MYZ[[i]] = tail(varslist$MYZ[[i]],1)
+  for(i in 1:length(varslist$L))
+    varslist$L[[i]] = tail(varslist$L[[i]],1)
+
   varslist$terms = compute_terms_steady(varslist, vec, pars)
   return(varslist)
 }

@@ -111,12 +111,12 @@ test_that("test equilibrium with RM adults (ODE), hMoI humans, trace", {
   # run simulation
   out <- deSolve::ode(y = y0, times = c(0,50), func = xDE_diffeqn, parms = params, method = "lsoda")
 
-  expect_equal(as.vector(out[2, params$MYZpar$M_ix+1]), as.vector(M), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$MYZpar$P_ix+1]), as.vector(P), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$MYZpar$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$MYZpar$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2L, params$Xpar$m1_ix+1]), rep(m10, nStrata), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2L, params$Xpar$m2_ix+1]), rep(m20, nStrata), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ$M_ix+1]), as.vector(M), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ$P_ix+1]), as.vector(P), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$ix$X$m1_ix+1]), rep(m10, nStrata), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$ix$X$m2_ix+1]), rep(m20, nStrata), tolerance = numeric_tol)
 })
 
 test_that("test equilibrium with RM adults (DDE), hMoI humans, trace", {
@@ -226,10 +226,10 @@ test_that("test equilibrium with RM adults (DDE), hMoI humans, trace", {
   # run simulation
   out <- deSolve::dede(y = y0, times = c(0,50), func = xDE_diffeqn, parms = params, method = "lsoda")
 
-  expect_equal(as.vector(out[2, params$MYZpar$M_ix+1]), as.vector(M), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$MYZpar$P_ix+1]), as.vector(P), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$MYZpar$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$MYZpar$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2L, params$Xpar$m1_ix+1]), rep(m10, nStrata), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2L, params$Xpar$m2_ix+1]), rep(m20, nStrata), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ$M_ix+1]), as.vector(M), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ$P_ix+1]), as.vector(P), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$ix$X$m1_ix+1]), rep(m10, nStrata), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$ix$X$m2_ix+1]), rep(m20, nStrata), tolerance = numeric_tol)
 })
