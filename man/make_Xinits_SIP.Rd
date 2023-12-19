@@ -4,14 +4,14 @@
 \alias{make_Xinits_SIP}
 \title{Make initial values for the SIP human model, with defaults}
 \usage{
-make_Xinits_SIP(pars, Xopts = list(), X0 = 1, P0 = 0)
+make_Xinits_SIP(pars, Xopts = list(), I0 = 1, P0 = 0)
 }
 \arguments{
 \item{pars}{a \link{list}}
 
 \item{Xopts}{a \link{list} that could overwrite defaults}
 
-\item{X0}{the initial values of the parameter X}
+\item{I0}{the initial values of the parameter X}
 
 \item{P0}{the initial values of the parameter P}
 }

@@ -68,13 +68,13 @@ nStrata <- 3
 H <- c(100, 500, 250)
 residence <- rep(1,3) 
 searchWtsH <- rep(1,3) 
-X <- c(20, 120, 80)
+I <- c(20, 120, 80)
 b <- rep(0.55, nStrata) 
 c <- rep(0.15, nStrata) 
 r <- rep(1/200, nStrata) 
 TaR <- matrix(data = 1,nrow = 1, ncol = nStrata)
 
-EIR <- diag(1/b, nStrata) %*% ((r*X)/(H-X))
+EIR <- diag(1/b, nStrata) %*% ((r*I)/(H-I))
 ```
 
 
@@ -92,7 +92,7 @@ params = make_parameters_demography_null(pars = params, H=H, residence=residence
 
 params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
 
-params = make_inits_X_SIS(pars = params, X)
+params = make_inits_X_SIS(pars = params, I)
 params = make_indices(params)
 ```
 
@@ -104,7 +104,7 @@ out1 <- out
 ```
 
 ```{r, out.width = "100%"}
-colnames(out)[params$Xpar$X_ix+1] <- paste0('X_', 1:params$nStrata)
+colnames(out)[params$ix$X$I_ix+1] <- paste0('I_', 1:params$nStrata)
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')
@@ -121,7 +121,7 @@ ggplot(data = out, mapping = aes(x = time, y = value, color = Strata)) +
 
 
 ```{r}
-Xo = list(b=0.55, c=0.15, r=1/200, X0 = X)
+Xo = list(b=0.55, c=0.15, r=1/200, I0 = I)
 Hpop = c(100, 500, 250)
 ```
 

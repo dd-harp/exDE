@@ -6,8 +6,9 @@
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_X.SIS <- function(t, y, pars) {
-  X = y[pars$ix$X$X_ix]
-  with(pars$Xpar, c*X)
+  I = y[pars$ix$X$I_ix]
+  X = with(pars$Xpar, c*I)
+  return(X)
 }
 
 #' @title Compute the "true" prevalence of infection / parasite rate
@@ -16,7 +17,7 @@ F_X.SIS <- function(t, y, pars) {
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_pr.SIS <- function(varslist, pars) {
-  pr = with(varslist$XH, X/H)
+  pr = with(varslist$XH, I/H)
   return(pr)
 }
 
@@ -37,12 +38,12 @@ F_b.SIS <- function(y, pars) {
 #' @export
 dXdt.SISdX <- function(t, y, pars, FoI) {
 
-  X <- y[pars$ix$X$X_ix]
+  I <- y[pars$ix$X$I_ix]
   H <- F_H(t, y, pars)
 
   with(pars$Xpar, {
-    dX <- FoI*(H - X) - r*X
-    return(c(dX))
+    dI <- FoI*(H - I) - r*I
+    return(c(dI))
   })
 }
 
@@ -53,15 +54,15 @@ dXdt.SISdX <- function(t, y, pars, FoI) {
 #' @export
 dXdt.SISdXdH <- function(t, y, pars, FoI) {
 
-  X <- y[pars$ix$X$X_ix]
+  I <- y[pars$ix$X$I_ix]
   H <- F_H(t, y, pars)
 
   with(pars$Xpar, {
 
-    dX <- FoI*(H - X) - r*X + dHdt(t, X, pars)
+    dI <- FoI*(H - I) - r*I + dHdt(t, I, pars)
     dH <- Births(t, H, pars) + dHdt(t, H, pars)
 
-    return(c(dX, dH))
+    return(c(dI, dH))
   })
 }
 
@@ -104,12 +105,12 @@ make_Xpar_SIS = function(pars, Xopts=list(),
 #' @title Make initial values for the SIS human model, with defaults
 #' @param pars a [list]
 #' @param Xopts a [list] to overwrite defaults
-#' @param X0 the initial values of the parameter X
+#' @param I0 the initial values of the parameter X
 #' @return a [list]
 #' @export
-make_Xinits_SIS = function(pars, Xopts = list(), X0=1){with(Xopts,{
+make_Xinits_SIS = function(pars, Xopts = list(), I0=1){with(Xopts,{
   inits = list()
-  inits$X0 = checkIt(X0, pars$nStrata)
+  inits$I0 = checkIt(I0, pars$nStrata)
   pars$Xinits = inits
   return(pars)
 })}
@@ -122,9 +123,9 @@ make_Xinits_SIS = function(pars, Xopts = list(), X0=1){with(Xopts,{
 parse_deout_X.SIS <- function(deout, pars) {
   time = deout[,1]
   Hlist <- parse_deout_H(deout, pars)
-  X = deout[,pars$ix$X$X_ix+1]
+  I = deout[,pars$ix$X$I_ix+1]
   with(Hlist,{
-    return(list(time=time, X=X, H=H))
+    return(list(time=time, I=I, H=H))
 })}
 
 #' @title Compute the HTC for the SIS model
@@ -145,8 +146,8 @@ HTC.SIS <- function(pars) {
 #' @importFrom utils tail
 #' @export
 make_indices_X.SIS <- function(pars) {
-  pars$ix$X$X_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-  pars$max_ix <- tail(pars$ix$X$X_ix, 1)
+  pars$ix$X$I_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
+  pars$max_ix <- tail(pars$ix$X$I_ix, 1)
   return(pars)
 }
 
@@ -170,12 +171,12 @@ make_parameters_X_SIS <- function(pars, b, c, r) {
 
 #' @title Make inits for SIS human model
 #' @param pars a [list]
-#' @param X0 size of infected population in each strata
+#' @param I0 size of infected population in each strata
 #' @return none
 #' @export
-make_inits_X_SIS <- function(pars, X0) {
-  stopifnot(is.numeric(X0))
-  pars$Xinits <- list(X0=X0)
+make_inits_X_SIS <- function(pars, I0) {
+  stopifnot(is.numeric(I0))
+  pars$Xinits <- list(I0=I0)
   return(pars)
 }
 
@@ -185,8 +186,8 @@ make_inits_X_SIS <- function(pars, X0) {
 #' @return none
 #' @export
 update_inits_X.SIS <- function(pars, y0) {
-  X0 = y0[pars$ix$X$X_ix]
-  pars = make_inits_X_SIS(pars, X0)
+  I0 = y0[pars$ix$X$I_ix]
+  make_Xinits_SIS(pars, list(), I0)
   return(pars)
 }
 
@@ -197,7 +198,7 @@ update_inits_X.SIS <- function(pars, y0) {
 #' @return none
 #' @export
 get_inits_X.SIS <- function(pars){
-  pars$Xinits$X0
+  pars$Xinits$I0
 }
 
 #' Plot the density of infected individuals for the SIS model

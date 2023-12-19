@@ -4,12 +4,12 @@
 \alias{make_inits_X_SIP}
 \title{Make inits for SIP human model}
 \usage{
-make_inits_X_SIP(pars, X0, P0)
+make_inits_X_SIP(pars, I0, P0)
 }
 \arguments{
 \item{pars}{a \link{list}}
 
-\item{X0}{size of infected population in each strata}
+\item{I0}{size of infected population in each strata}
 
 \item{P0}{size of population protected by prophylaxis in each strata}
 }

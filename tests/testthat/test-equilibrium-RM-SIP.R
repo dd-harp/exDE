@@ -47,8 +47,8 @@ test_that("test equilibrium with RM adults (ODE), SIP humans, trace", {
   H <- rpois(n = nStrata, lambda = 1000)
   residence = c(1,2)
   searchWtsH = c(1,1)
-  X <- rbinom(n = nStrata, size = H, prob = pfpr)
-  Px <- diag(1/eta) %*% diag(rho/(1-rho)) %*% (r*X)
+  I <- rbinom(n = nStrata, size = H, prob = pfpr)
+  Px <- diag(1/eta) %*% diag(rho/(1-rho)) %*% (r*I)
 
   # TaR
   TaR <- matrix(rexp(n = nStrata*nPatches), nStrata, nPatches)
@@ -56,7 +56,7 @@ test_that("test equilibrium with RM adults (ODE), SIP humans, trace", {
   TaR <- t(TaR)
 
   # derived EIR to sustain equilibrium pfpr
-  EIR <- diag(1/b, nStrata) %*% diag(1/(1-rho)) %*% ((r*X)/(H-X-Px))
+  EIR <- diag(1/b, nStrata) %*% diag(1/(1-rho)) %*% ((r*I)/(H-I-Px))
 
   # ambient pop
   W <- TaR %*% H
@@ -65,7 +65,7 @@ test_that("test equilibrium with RM adults (ODE), SIP humans, trace", {
   beta <- diag(wf) %*% t(TaR) %*% diag(1/as.vector(W), nPatches , nPatches)
 
   # kappa
-  kappa <- t(beta) %*% (X*c)
+  kappa <- t(beta) %*% (I*c)
 
   # equilibrium solutions for adults
   Z <- diag(1/(f*q), nPatches, nPatches) %*% ginv(beta) %*% EIR
@@ -95,7 +95,7 @@ test_that("test equilibrium with RM adults (ODE), SIP humans, trace", {
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
                                            searchWts=searchWtsH, TaR=TaR)
   params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, eta=eta, rho=rho, xi=xi)
-  params = make_inits_X_SIP(pars = params, X, Px)
+  params = make_inits_X_SIP(pars = params, I, Px)
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
 
   params = make_indices(params)
@@ -111,7 +111,7 @@ test_that("test equilibrium with RM adults (ODE), SIP humans, trace", {
   expect_equal(as.vector(out[2, params$ix$MYZ$P_ix+1]), as.vector(P), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$ix$MYZ$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$ix$MYZ$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$ix$X$X_ix+1]), as.vector(X), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$X$I_ix+1]), as.vector(I), tolerance = numeric_tol)
 })
 
 test_that("test equilibrium with RM adults (DDE), SIP humans, trace", {
@@ -157,8 +157,8 @@ test_that("test equilibrium with RM adults (DDE), SIP humans, trace", {
   H <- rpois(n = nStrata, lambda = 1000)
   residence = c(1,2)
   searchWtsH = c(1,1)
-  X <- rbinom(n = nStrata, size = H, prob = pfpr)
-  Px <- diag(1/eta) %*% diag(rho/(1-rho)) %*% (r*X)
+  I <- rbinom(n = nStrata, size = H, prob = pfpr)
+  Px <- diag(1/eta) %*% diag(rho/(1-rho)) %*% (r*I)
 
   # TaR
   TaR <- matrix(rexp(n = nStrata*nPatches), nStrata, nPatches)
@@ -166,7 +166,7 @@ test_that("test equilibrium with RM adults (DDE), SIP humans, trace", {
   TaR <- t(TaR)
 
   # derived EIR to sustain equilibrium pfpr
-  EIR <- diag(1/b, nStrata) %*% diag(1/(1-rho)) %*% ((r*X)/(H-X-Px))
+  EIR <- diag(1/b, nStrata) %*% diag(1/(1-rho)) %*% ((r*I)/(H-I-Px))
 
   # ambient pop
   W <- TaR %*% H
@@ -175,7 +175,7 @@ test_that("test equilibrium with RM adults (DDE), SIP humans, trace", {
   beta <- diag(wf) %*% t(TaR) %*% diag(1/as.vector(W), nPatches , nPatches)
 
   # kappa
-  kappa <- t(beta) %*% (X*c)
+  kappa <- t(beta) %*% (I*c)
 
   # equilibrium solutions for adults
   Z <- diag(1/(f*q), nPatches, nPatches) %*% ginv(beta) %*% EIR
@@ -205,7 +205,7 @@ test_that("test equilibrium with RM adults (DDE), SIP humans, trace", {
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
                                            searchWts=searchWtsH, TaR=TaR)
   params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, eta=eta, rho=rho, xi=xi)
-  params = make_inits_X_SIP(pars = params, X, Px)
+  params = make_inits_X_SIP(pars = params, I, Px)
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
 
   params = make_indices(params)
@@ -221,5 +221,5 @@ test_that("test equilibrium with RM adults (DDE), SIP humans, trace", {
   expect_equal(as.vector(out[2, params$ix$MYZ$P_ix+1]), as.vector(P), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$ix$MYZ$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$ix$MYZ$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$ix$X$X_ix+1]), as.vector(X), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$X$I_ix+1]), as.vector(I), tolerance = numeric_tol)
 })

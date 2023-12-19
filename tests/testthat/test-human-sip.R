@@ -7,7 +7,7 @@ test_that("human SIP model remains at equilibrium", {
   H <- c(100, 500, 250)
   residence = 1:nStrata
   searchWtsH = rep(1, nStrata)
-  X <- c(20, 120, 80)
+  I <- c(20, 120, 80)
   b <- 0.55
   c <- 0.15
   r <- 1/200
@@ -16,8 +16,8 @@ test_that("human SIP model remains at equilibrium", {
   xi <- rep(0, 3)
   TaR <- matrix(data = 1,nrow = 1, ncol = nStrata)
 
-  P <- diag(1/eta) %*% diag(rho/(1-rho)) %*% (r*X)
-  EIR <- diag(1/b, nStrata) %*% diag(1/(1-rho)) %*% ((r*X)/(H-X-P))
+  P <- diag(1/eta) %*% diag(rho/(1-rho)) %*% (r*I)
+  EIR <- diag(1/b, nStrata) %*% diag(1/(1-rho)) %*% ((r*I)/(H-I-P))
   foi <- b*EIR
 
   params <- make_parameters_xde()
@@ -27,7 +27,7 @@ test_that("human SIP model remains at equilibrium", {
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
                                            searchWts=searchWtsH, TaR=TaR)
   params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, eta=eta, rho=rho, xi=xi)
-  params = make_inits_X_SIP(pars = params, X, P)
+  params = make_inits_X_SIP(pars = params, I, P)
 
   params = make_indices(params)
 
@@ -40,6 +40,6 @@ test_that("human SIP model remains at equilibrium", {
     list(dXdt(t, y, pars, foi))
   }, parms = params, method = 'lsoda', foi = as.vector(foi))
 
-  expect_equal(as.vector(out[2L, params$ix$X$X_ix+1]), X, tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$ix$X$I_ix+1]), I, tolerance = numeric_tol)
   expect_equal(as.vector(out[2L, params$ix$X$P_ix+1]), as.vector(P), tolerance = numeric_tol)
 })

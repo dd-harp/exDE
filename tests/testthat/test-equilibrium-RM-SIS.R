@@ -44,7 +44,7 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, trace", {
   H <- rpois(n = nStrata, lambda = 1000)
   residence = 1:nStrata
   searchWtsH = rep(1, nStrata)
-  X <- rbinom(n = nStrata, size = H, prob = pfpr)
+  I <- rbinom(n = nStrata, size = H, prob = pfpr)
 
   # TaR
   TaR <- matrix(rexp(n = nStrata*nPatches), nStrata, nPatches)
@@ -52,7 +52,7 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, trace", {
   TaR <- t(TaR)
 
   # derived EIR to sustain equilibrium pfpr
-  EIR <- diag(1/b, nStrata, nStrata) %*% ((r*X) / (H - X))
+  EIR <- diag(1/b, nStrata, nStrata) %*% ((r*I) / (H - I))
 
   # ambient pop
   W <- TaR %*% H
@@ -61,7 +61,7 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, trace", {
   beta <- diag(wf) %*% t(TaR) %*% diag(1/as.vector(W), nPatches , nPatches)
 
   # kappa
-  kappa <- t(beta) %*% (X*c)
+  kappa <- t(beta) %*% (I*c)
 
   # equilibrium solutions for adults
   Z <- diag(1/(f*q), nPatches, nPatches) %*% ginv(beta) %*% EIR
@@ -91,7 +91,7 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, trace", {
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
                                            searchWts=searchWtsH, TaR=TaR)
   params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
-  params = make_inits_X_SIS(pars = params, X)
+  params = make_inits_X_SIS(pars = params, I)
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
 
   params = make_indices(params)
@@ -107,7 +107,7 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, trace", {
   expect_equal(as.vector(out[2, params$ix$MYZ$P_ix+1]), as.vector(P), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$ix$MYZ$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$ix$MYZ$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$ix$X$X_ix+1]), as.vector(X), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$X$I_ix+1]), as.vector(I), tolerance = numeric_tol)
 })
 
 test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
@@ -150,7 +150,7 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
   H <- rpois(n = nStrata, lambda = 1000)
   residence = c(1,2)
   searchWtsH = c(1,1)
-  X <- rbinom(n = nStrata, size = H, prob = pfpr)
+  I <- rbinom(n = nStrata, size = H, prob = pfpr)
 
   # TaR
   TaR <- matrix(rexp(n = nStrata*nPatches), nStrata, nPatches)
@@ -158,7 +158,7 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
   TaR <- t(TaR)
 
   # derived EIR to sustain equilibrium pfpr
-  EIR <- diag(1/b, nStrata, nStrata) %*% ((r*X) / (H - X))
+  EIR <- diag(1/b, nStrata, nStrata) %*% ((r*I) / (H - I))
 
   # ambient pop
   W <- TaR %*% H
@@ -167,7 +167,7 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
   beta <- diag(wf) %*% t(TaR) %*% diag(1/as.vector(W), nPatches , nPatches)
 
   # kappa
-  kappa <- t(beta) %*% (X*c)
+  kappa <- t(beta) %*% (I*c)
 
   # equilibrium solutions for adults
   Z <- diag(1/(f*q), nPatches, nPatches) %*% ginv(beta) %*% EIR
@@ -197,7 +197,7 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
                                            searchWts=searchWtsH, TaR=TaR)
   params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
-  params = make_inits_X_SIS(pars = params, X)
+  params = make_inits_X_SIS(pars = params, I)
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
 
   params = make_indices(params)
@@ -213,5 +213,5 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
   expect_equal(as.vector(out[2, params$ix$MYZ$P_ix+1]), as.vector(P), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$ix$MYZ$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
   expect_equal(as.vector(out[2, params$ix$MYZ$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$ix$X$X_ix+1]), as.vector(X), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$X$I_ix+1]), as.vector(I), tolerance = numeric_tol)
 })

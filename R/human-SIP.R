@@ -6,8 +6,8 @@
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_X.SIP <- function(t, y, pars) {
-  X <- y[pars$ix$X$X_ix]
-  with(pars$Xpar, c*X)
+  I <- y[pars$ix$X$I_ix]
+  with(pars$Xpar, c*I)
 }
 
 #' @title Compute the "true" prevalence of infection / parasite rate
@@ -16,7 +16,7 @@ F_X.SIP <- function(t, y, pars) {
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_pr.SIP <- function(varslist, pars) {
-  pr = with(varslist$XH, X/H)
+  pr = with(varslist$XH, I/H)
   return(pr)
 }
 
@@ -36,16 +36,16 @@ F_b.SIP <- function(y, pars) {
 #' @export
 dXdt.SIPdX <- function(t, y, pars, FoI) {
 
-  X <- y[pars$ix$X$X_ix]
+  I <- y[pars$ix$X$I_ix]
   P <- y[pars$ix$X$P_ix]
   H <- F_H(t, y, pars)
 
   with(pars$Xpar, {
 
-    dX <- (1-rho)*FoI*(H - X - P) - (r+xi)*X
-    dP <- rho*FoI*(H - X - P) + xi*(H-P) - eta*P
+    dI <- (1-rho)*FoI*(H-I-P) - (r+xi)*I
+    dP <- rho*FoI*(H-I-P) + xi*(H-P) - eta*P
 
-    return(c(dX, dP))
+    return(c(dI, dP))
   })
 }
 
@@ -68,17 +68,17 @@ HTC.SIP <- function(pars) {
 #' @export
 dXdt.SIPdXdH <- function(t, y, pars, FoI) {
 
-  X <- y[pars$ix$X$X_ix]
+  I <- y[pars$ix$X$I_ix]
   P <- y[pars$ix$X$P_ix]
   H <- F_H(t, y, pars)
 
   with(pars$Xpar, {
 
-    dX <- (1-rho)*FoI*(H - X - P) - (r+xi)*X + dHdt(t, X, pars)
-    dP <- rho*FoI*(H - X - P) + xi*(H-P) - eta*P + dHdt(t, P, pars)
+    dI <- (1-rho)*FoI*(H-I-P) - (r+xi)*I + dHdt(t, I, pars)
+    dP <- rho*FoI*(H-I-P) + xi*(H-P) - eta*P + dHdt(t, P, pars)
     dH <- Births(t, H, pars) + dHdt(t, H, pars)
 
-    return(c(dX, dP, dH))
+    return(c(dI, dP, dH))
   })
 }
 
@@ -129,14 +129,14 @@ make_Xpar_SIP = function(pars, Xopts=list(),
 #' @title Make initial values for the SIP human model, with defaults
 #' @param pars a [list]
 #' @param Xopts a [list] that could overwrite defaults
-#' @param X0 the initial values of the parameter X
+#' @param I0 the initial values of the parameter X
 #' @param P0 the initial values of the parameter P
 #' @return a [list]
 #' @export
 make_Xinits_SIP = function(pars, Xopts = list(),
-                           X0=1, P0=0){with(Xopts,{
+                           I0=1, P0=0){with(Xopts,{
   inits = list()
-  inits$X0 = checkIt(X0, pars$nStrata)
+  inits$I0 = checkIt(I0, pars$nStrata)
   inits$P0 = checkIt(P0, pars$nStrata)
   pars$Xinits = inits
   return(pars)
@@ -151,9 +151,9 @@ parse_deout_X.SIP <- function(deout, pars) {
   time = deout[,1]
   Hlist <- parse_deout_H(deout, pars)
   with(Hlist,{
-    X = deout[,pars$ix$X$X_ix+1]
+    I = deout[,pars$ix$X$I_ix+1]
     P = deout[,pars$ix$X$P_ix+1]
-  return(list(time=time, X=X,P=P,H=H))
+  return(list(time=time,I=I,P=P,H=H))
 })}
 
 #' @title Add indices for human population to parameter list
@@ -164,8 +164,8 @@ parse_deout_X.SIP <- function(deout, pars) {
 #' @export
 make_indices_X.SIP <- function(pars) {
 
-  pars$ix$X$X_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-  pars$max_ix <- tail(pars$ix$X$X_ix, 1)
+  pars$ix$X$I_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
+  pars$max_ix <- tail(pars$ix$X$I_ix, 1)
 
   pars$ix$X$P_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
   pars$max_ix <- tail(pars$ix$X$P_ix, 1)
@@ -199,13 +199,13 @@ make_parameters_X_SIP <- function(pars, b, c, r, rho, eta, xi){
 
 #' @title Make inits for SIP human model
 #' @param pars a [list]
-#' @param X0 size of infected population in each strata
+#' @param I0 size of infected population in each strata
 #' @param P0 size of population protected by prophylaxis in each strata
 #' @return none
 #' @export
-make_inits_X_SIP <- function(pars, X0, P0) {
-  stopifnot(is.numeric(X0), is.numeric(P0))
-  pars$Xinits = list(X0 = X0, P0 = P0)
+make_inits_X_SIP <- function(pars, I0, P0) {
+  stopifnot(is.numeric(I0), is.numeric(P0))
+  pars$Xinits = list(I0 = I0, P0 = P0)
   return(pars)
 }
 
@@ -215,9 +215,9 @@ make_inits_X_SIP <- function(pars, X0, P0) {
 #' @return none
 #' @export
 update_inits_X.SIP <- function(pars, y0) {
-  X0 = y0[pars$ix$X$X_ix]
+  I0 = y0[pars$ix$X$I_ix]
   P0 = y0[pars$ix$X$P_ix]
-  pars = make_inits_X_SIP(pars, X0, P0)
+  pars = make_inits_X_SIP(pars, I0, P0)
   return(pars)
 }
 
@@ -228,7 +228,7 @@ update_inits_X.SIP <- function(pars, y0) {
 #' @return none
 #' @export
 get_inits_X.SIP <- function(pars){with(pars$Xinits,{
-  c(X0, P0)
+  c(I0, P0)
 })}
 
 
