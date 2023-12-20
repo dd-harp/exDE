@@ -9,7 +9,7 @@ F_b(y, pars)
 \arguments{
 \item{y}{state vector}
 
-\item{pars}{a \link{list}}
+\item{pars}{a list}
 }
 \value{
 a \link{numeric} vector of length \code{nStrata}

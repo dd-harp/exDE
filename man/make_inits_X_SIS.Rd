@@ -4,12 +4,14 @@
 \alias{make_inits_X_SIS}
 \title{Make inits for SIS human model}
 \usage{
-make_inits_X_SIS(pars, X0)
+make_inits_X_SIS(pars, S0, I0)
 }
 \arguments{
 \item{pars}{a \link{list}}
 
-\item{X0}{size of infected population in each strata}
+\item{S0}{size of infected population in each strata}
+
+\item{I0}{size of infected population in each strata}
 }
 \value{
 none

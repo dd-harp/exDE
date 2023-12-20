@@ -18,6 +18,15 @@ F_X.hMoI <- function(t, y, pars) {
   })
 }
 
+#' @title Size of the human population
+#' @description Implements [F_H] for the hybrid MoI model.
+#' @inheritParams F_H
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_H.hMoI <- function(t, y, pars) {
+  pars$Hpar$H
+}
+
 #' @title Compute the "true" prevalence of infection / parasite rate
 #' @description Implements [F_pr] for the hMoI model.
 #' @inheritParams F_pr
@@ -195,12 +204,11 @@ update_inits_X.hMoI <- function(pars, y0) {
 #' @export
 parse_deout_X.hMoI <- function(deout, pars){
   time = deout[,1]
-  Hlist <- parse_deout_H(deout, pars)
-  with(Hlist,{
-    m1 = deout[,pars$ix$X$m1_ix+1]
-    m2 = deout[,pars$ix$X$m2_ix+1]
-    return(list(time=time, H=H,m1=m1,m2=m2))
-})}
+  m1 = deout[,pars$ix$X$m1_ix+1]
+  m2 = deout[,pars$ix$X$m2_ix+1]
+  H = pars$Hpar$H + 0*m1
+  return(list(time=time, H=H,m1=m1,m2=m2))
+}
 
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.

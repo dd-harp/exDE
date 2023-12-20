@@ -10,7 +10,7 @@ make_indices_X(pars)
 \item{pars}{a \link{list}}
 }
 \value{
-none
+a \link{list}
 }
 \description{
 This method dispatches on the type of \code{pars$Xpar}.

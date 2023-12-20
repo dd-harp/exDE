@@ -271,6 +271,7 @@ reference:
     Generic methods for the dynamical component that handles human infection dynamics, immunity, disease and transmission
   contents:
   - F_X
+  - F_H
   - F_pr
   - F_b
   - dXdt
@@ -287,6 +288,7 @@ reference:
     Specialized methods for a human trace model to pass kappa as a parameter
   contents:
   - F_X.trace
+  - F_H.trace
   - F_pr.trace
   - F_b.trace
   - dXdt.trace
@@ -303,6 +305,7 @@ reference:
     Specialized methods for a hybrid model of MoI (Multiplicity of Infection) for human infection dynamics.
   contents:
   - F_X.hMoI
+  - F_H.hMoI
   - F_pr.hMoI
   - F_b.hMoI
   - dXdt.hMoI
@@ -321,10 +324,10 @@ reference:
     Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
   contents:
   - F_X.SIS
+  - F_H.SIS
   - F_pr.SIS
   - F_b.SIS
-  - dXdt.SISdX
-  - dXdt.SISdXdH
+  - dXdt.SIS
   - setup_X.SIS
   - make_Xpar_SIS
   - make_Xinits_SIS
@@ -342,10 +345,10 @@ reference:
     Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
   contents:
   - F_X.SIP
+  - F_H.SIP
   - F_pr.SIP
   - F_b.SIP
-  - dXdt.SIPdX
-  - dXdt.SIPdXdH
+  - dXdt.SIP
   - setup_X.SIP
   - make_Xpar_SIP
   - make_Xinits_SIP
@@ -362,48 +365,16 @@ reference:
   desc: |
     Generic methods for the human demography and aging
   contents:
-  - F_H
   - dHdt
   - setup_Hpar
   - Births
-  - make_indices_H
-  - parse_deout_H
-  - get_inits_H
-  - update_inits_H
   - make_parameters_demography_null
 - subtitle: static
   desc: |
     Specialized methods for the static (constant) demographic model
   contents:
-  - F_H.static
-  - Births.static
-  - dHdt.static
-  - make_indices_H.static
-  - parse_deout_H.static
-  - get_inits_H.static
-  - update_inits_H.static
-  - make_parameters_demography_static
-- subtitle: dynamic
-  desc: |
-    Specialized methods for the demographic model with dynamic denominators
-  contents:
-  - F_H.dynamic
-  - Births.numeric
-  - dHdt.numeric
-  - make_indices_H.dynamic
-  - parse_deout_H.dynamic
-  - get_inits_H.dynamic
-  - update_inits_H.dynamic
-  - make_parameters_demography_dynamic
-- subtitle: F_Births
-  desc: |
-    Specialized methods to compute population birth rates
-  contents:
-  - F_births
-  - F_births.null
-  - F_births.constant
-  - F_births.forced
-  - F_births.exp
+  - Births.zero
+  - dHdt.zero
 - title: Time at Risk
   desc: |
     Method to set up time at risk (TaR) matrices

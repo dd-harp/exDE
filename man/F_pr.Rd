@@ -7,9 +7,9 @@
 F_pr(varslist, pars)
 }
 \arguments{
-\item{varslist}{a \link{list} with variables attached by name}
+\item{varslist}{a list with variables attached by name}
 
-\item{pars}{a \link{list}}
+\item{pars}{a list}
 }
 \value{
 a \link{numeric} vector of length \code{nStrata}
