@@ -9,6 +9,15 @@ F_X.trace <- function(t, y, pars) {
   with(pars$Xpar, kappa)
 }
 
+#' @title Size of the human population
+#' @description Implements [F_H] for the trace model.
+#' @inheritParams F_H
+#' @return a [numeric] vector of length `nStrata`
+#' @export
+F_H.trace <- function(t, y, pars) {
+  with(pars$Hpar, H)
+}
+
 #' @title Compute the "true" prevalence of infection / parasite rate
 #' @description Implements [F_pr] for the trace model.
 #' @inheritParams F_pr
