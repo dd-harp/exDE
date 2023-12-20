@@ -109,10 +109,7 @@
     <loc>https://dd-harp.github.io/exDE/reference/Births.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/Births.numeric.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/Births.static.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/Births.zero.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/CareSeeking.html</loc>
@@ -172,13 +169,19 @@
     <loc>https://dd-harp.github.io/exDE/reference/F_EIR.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/F_H.dynamic.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_H.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_H.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_H.hMoI.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_H.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/F_H.static.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/F_H.trace.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_alpha.basic.html</loc>
@@ -206,21 +209,6 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_beta.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/F_births.constant.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/F_births.exp.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/F_births.forced.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/F_births.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/F_births.null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_eggs.GeRM.html</loc>
@@ -679,10 +667,7 @@
     <loc>https://dd-harp.github.io/exDE/reference/dHdt.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/dHdt.numeric.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/dHdt.static.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dHdt.zero.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/dLdt.basic.html</loc>
@@ -718,16 +703,10 @@
     <loc>https://dd-harp.github.io/exDE/reference/dMYZdt.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SIPdX.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SIP.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SIPdXdH.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SISdX.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SISdXdH.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/dXdt.SIS.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/dXdt.hMoI.html</loc>
@@ -752,15 +731,6 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/get_inits.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/get_inits_H.dynamic.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/get_inits_H.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/get_inits_H.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/get_inits_L.basic.html</loc>
@@ -916,15 +886,6 @@
     <loc>https://dd-harp.github.io/exDE/reference/make_indices.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_indices_H.dynamic.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_indices_H.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_indices_H.static.html</loc>
-  </url>
-  <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_indices_L.basic.html</loc>
   </url>
   <url>
@@ -1045,13 +1006,7 @@
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_X_trace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_demography_dynamic.html</loc>
-  </url>
-  <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_demography_null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_parameters_demography_static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_parameters_xde.html</loc>
@@ -1070,15 +1025,6 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/parse_deout.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/parse_deout_H.dynamic.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/parse_deout_H.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/parse_deout_H.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/parse_deout_L.basic.html</loc>
@@ -1334,15 +1280,6 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/update_inits.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/update_inits_H.dynamic.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/update_inits_H.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/update_inits_H.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/update_inits_L.basic.html</loc>

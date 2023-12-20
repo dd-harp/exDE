@@ -1038,6 +1038,11 @@
         <dd>Size of effective infectious human population</dd>
       </dl><dl><dt>
           
+          <code><a href="F_H.html">F_H()</a></code> 
+        </dt>
+        <dd>Size of human population denominators</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_pr.html">F_pr()</a></code> 
         </dt>
         <dd>Compute the "true" prevalence of infection / parasite rate</dd>
@@ -1109,6 +1114,11 @@
         <dd>Size of effective infectious human population</dd>
       </dl><dl><dt>
           
+          <code><a href="F_H.trace.html">F_H(<i>&lt;trace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Size of the human population</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_pr.trace.html">F_pr(<i>&lt;trace&gt;</i>)</a></code> 
         </dt>
         <dd>Compute the "true" prevalence of infection / parasite rate</dd>
@@ -1178,6 +1188,11 @@
           <code><a href="F_x.hMoI.html">F_X(<i>&lt;hMoI&gt;</i>)</a></code> 
         </dt>
         <dd>Size of effective infectious human population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_H.hMoI.html">F_H(<i>&lt;hMoI&gt;</i>)</a></code> 
+        </dt>
+        <dd>Size of the human population</dd>
       </dl><dl><dt>
           
           <code><a href="F_pr.hMoI.html">F_pr(<i>&lt;hMoI&gt;</i>)</a></code> 
@@ -1261,6 +1276,11 @@
         <dd>Size of effective infectious human population</dd>
       </dl><dl><dt>
           
+          <code><a href="F_H.SIS.html">F_H(<i>&lt;SIS&gt;</i>)</a></code> 
+        </dt>
+        <dd>Size of effective infectious human population</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_pr.SIS.html">F_pr(<i>&lt;SIS&gt;</i>)</a></code> 
         </dt>
         <dd>Compute the "true" prevalence of infection / parasite rate</dd>
@@ -1271,12 +1291,7 @@
         <dd>Infection blocking pre-erythrocytic immunity</dd>
       </dl><dl><dt>
           
-          <code><a href="dXdt.SISdX.html">dXdt(<i>&lt;SISdX&gt;</i>)</a></code> 
-        </dt>
-        <dd>Derivatives for human population</dd>
-      </dl><dl><dt>
-          
-          <code><a href="dXdt.SISdXdH.html">dXdt(<i>&lt;SISdXdH&gt;</i>)</a></code> 
+          <code><a href="dXdt.SIS.html">dXdt(<i>&lt;SIS&gt;</i>)</a></code> 
         </dt>
         <dd>Derivatives for human population</dd>
       </dl><dl><dt>
@@ -1357,6 +1372,11 @@
         <dd>Size of effective infectious human population</dd>
       </dl><dl><dt>
           
+          <code><a href="F_H.SIP.html">F_H(<i>&lt;SIP&gt;</i>)</a></code> 
+        </dt>
+        <dd>Size of effective infectious human population</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_pr.SIP.html">F_pr(<i>&lt;SIP&gt;</i>)</a></code> 
         </dt>
         <dd>Compute the "true" prevalence of infection / parasite rate</dd>
@@ -1367,12 +1387,7 @@
         <dd>Infection blocking pre-erythrocytic immunity</dd>
       </dl><dl><dt>
           
-          <code><a href="dXdt.SIPdX.html">dXdt(<i>&lt;SIPdX&gt;</i>)</a></code> 
-        </dt>
-        <dd>Derivatives for human population</dd>
-      </dl><dl><dt>
-          
-          <code><a href="dXdt.SIPdXdH.html">dXdt(<i>&lt;SIPdXdH&gt;</i>)</a></code> 
+          <code><a href="dXdt.SIP.html">dXdt(<i>&lt;SIP&gt;</i>)</a></code> 
         </dt>
         <dd>Derivatives for human population</dd>
       </dl><dl><dt>
@@ -1448,11 +1463,6 @@
 
       <dl><dt>
           
-          <code><a href="F_H.html">F_H()</a></code> 
-        </dt>
-        <dd>Size of human population denominators</dd>
-      </dl><dl><dt>
-          
           <code><a href="dHdt.html">dHdt()</a></code> 
         </dt>
         <dd>Derivatives of demographic changes in human populations</dd>
@@ -1466,26 +1476,6 @@
           <code><a href="Births.html">Births()</a></code> 
         </dt>
         <dd>A function that computes the birth rate for human populations</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_indices_H.html">make_indices_H()</a></code> 
-        </dt>
-        <dd>Add indices for human population denominators to parameter list</dd>
-      </dl><dl><dt>
-          
-          <code><a href="parse_deout_H.html">parse_deout_H()</a></code> 
-        </dt>
-        <dd>Parse the output of deSolve and return the demography variables by name in a list</dd>
-      </dl><dl><dt>
-          
-          <code><a href="get_inits_H.html">get_inits_H()</a></code> 
-        </dt>
-        <dd>Return initial values as a vector</dd>
-      </dl><dl><dt>
-          
-          <code><a href="update_inits_H.html">update_inits_H()</a></code> 
-        </dt>
-        <dd>Set the initial values as a vector</dd>
       </dl><dl><dt>
           
           <code><a href="make_parameters_demography_null.html">make_parameters_demography_null()</a></code> 
@@ -1504,131 +1494,14 @@
 
       <dl><dt>
           
-          <code><a href="F_H.static.html">F_H(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Size of human population denominators</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Births.static.html">Births(<i>&lt;static&gt;</i>)</a></code> 
+          <code><a href="Births.zero.html">Births(<i>&lt;zero&gt;</i>)</a></code> 
         </dt>
         <dd>Derivatives of demographic changes in human populations</dd>
       </dl><dl><dt>
           
-          <code><a href="dHdt.static.html">dHdt(<i>&lt;static&gt;</i>)</a></code> 
+          <code><a href="dHdt.zero.html">dHdt(<i>&lt;zero&gt;</i>)</a></code> 
         </dt>
         <dd>Derivatives of demographic changes in human populations</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_indices_H.static.html">make_indices_H(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Add indices for human population denominators to parameter list</dd>
-      </dl><dl><dt>
-          
-          <code><a href="parse_deout_H.static.html">parse_deout_H(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Parse the output of deSolve and return variables for models where H is a parameter</dd>
-      </dl><dl><dt>
-          
-          <code><a href="get_inits_H.static.html">get_inits_H(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Return initial values as a vector</dd>
-      </dl><dl><dt>
-          
-          <code><a href="update_inits_H.static.html">update_inits_H(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Update inits for the static human demography model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_demography_static.html">make_parameters_demography_static()</a></code> 
-        </dt>
-        <dd>Make parameters for static human demography model</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="dynamic">dynamic<a class="anchor" aria-label="anchor" href="#dynamic"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for the demographic model with dynamic denominators</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="F_H.dynamic.html">F_H(<i>&lt;dynamic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Size of human population denominators</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Births.numeric.html">Births(<i>&lt;numeric&gt;</i>)</a></code> 
-        </dt>
-        <dd>Derivatives of demographic changes in human populations</dd>
-      </dl><dl><dt>
-          
-          <code><a href="dHdt.numeric.html">dHdt(<i>&lt;numeric&gt;</i>)</a></code> 
-        </dt>
-        <dd>Derivatives of demographic changes in human populations</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_indices_H.dynamic.html">make_indices_H(<i>&lt;dynamic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Add indices for human population denominators to parameter list</dd>
-      </dl><dl><dt>
-          
-          <code><a href="parse_deout_H.dynamic.html">parse_deout_H(<i>&lt;dynamic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Parse the output of deSolve and return H for models with dynamic demography</dd>
-      </dl><dl><dt>
-          
-          <code><a href="get_inits_H.dynamic.html">get_inits_H(<i>&lt;dynamic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Return initial values as a vector</dd>
-      </dl><dl><dt>
-          
-          <code><a href="update_inits_H.dynamic.html">update_inits_H(<i>&lt;dynamic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Update inits for the static human demography model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_parameters_demography_dynamic.html">make_parameters_demography_dynamic()</a></code> 
-        </dt>
-        <dd>Make parameters for forced (dynamic) human demography model</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="f-births">F_Births<a class="anchor" aria-label="anchor" href="#f-births"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods to compute population birth rates</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="F_births.html">F_births()</a></code> 
-        </dt>
-        <dd>The human population birth rate</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_births.null.html">F_births(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Null human population births</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_births.constant.html">F_births(<i>&lt;constant&gt;</i>)</a></code> 
-        </dt>
-        <dd>Constant human population birth rate (forced)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_births.forced.html">F_births(<i>&lt;forced&gt;</i>)</a></code> 
-        </dt>
-        <dd>Growing human population birth rate (forced)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_births.exp.html">F_births(<i>&lt;exp&gt;</i>)</a></code> 
-        </dt>
-        <dd>Constant per-capita human population birth rate (endogenous)</dd>
       </dl></div><div class="section level2">
       <h2 id="time-at-risk">Time at Risk<a class="anchor" aria-label="anchor" href="#time-at-risk"></a></h2>
       
