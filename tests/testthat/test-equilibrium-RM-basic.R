@@ -43,7 +43,7 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   # human PfPR and H
   pfpr <- rep(0.3, times = nStrata)
   H <- rpois(n = nStrata, lambda = 1000)
-  X <- rbinom(n = nStrata, size = H, prob = pfpr)
+  I <- rbinom(n = nStrata, size = H, prob = pfpr)
 
   # TaR
   Psi <- matrix(rexp(n = nStrata*nPatches), nStrata, nPatches)
@@ -51,7 +51,7 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   Psi <- t(Psi)
 
   # derived EIR to sustain equilibrium pfpr
-  EIR <- diag(1/b, nPatches, nPatches) %*% ((r*X) / (H - X))
+  EIR <- diag(1/b, nPatches, nPatches) %*% ((r*I) / (H - I))
 
   # ambient pop
   W <- Psi %*% H
@@ -60,7 +60,7 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   beta <- diag(wf) %*% t(Psi) %*% diag(1/as.vector(W), nPatches , nPatches)
 
   # kappa
-  kappa <- t(beta) %*% (X*c)
+  kappa <- t(beta) %*% (I*c)
 
   # equilibrium solutions for adults
   Z <- diag(1/(f*q), nPatches, nPatches) %*% ginv(beta) %*% EIR
@@ -156,7 +156,7 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   # human PfPR and H
   pfpr <- rep(0.3, times = nStrata)
   H <- rpois(n = nStrata, lambda = 1000)
-  X <- rbinom(n = nStrata, size = H, prob = pfpr)
+  I <- rbinom(n = nStrata, size = H, prob = pfpr)
 
   # TaR
   Psi <- matrix(rexp(n = nStrata*nPatches), nStrata, nPatches)
@@ -164,7 +164,7 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   Psi <- t(Psi)
 
   # derived EIR to sustain equilibrium pfpr
-  EIR <- diag(1/b, nPatches, nPatches) %*% ((r*X) / (H - X))
+  EIR <- diag(1/b, nPatches, nPatches) %*% ((r*I) / (H - I))
 
   # ambient pop
   W <- Psi %*% H
@@ -173,7 +173,7 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   beta <- diag(wf) %*% t(Psi) %*% diag(1/as.vector(W), nPatches , nPatches)
 
   # kappa
-  kappa <- t(beta) %*% (X*c)
+  kappa <- t(beta) %*% (I*c)
 
   # equilibrium solutions for adults
   Z <- diag(1/(f*q), nPatches, nPatches) %*% ginv(beta) %*% EIR

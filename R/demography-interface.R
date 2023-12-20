@@ -13,80 +13,48 @@ setup_Hpar = function(pars, HPop=1000, residence=1, searchWts=1, Hopts=NULL){
     with(pars, if(!exists("nStrata")) pars$nStrata = length(HPop))
 
     Hpar = list()
-    class(Hpar) <- "static"
     Hpar$H = HPop
-    class(Hpar$H) <- "static"
+
+    Hpar$residence <- checkIt(residence, pars$nStrata, F)
+    Hpar$wts_f <- checkIt(searchWts, pars$nStrata, F)
+    Hpar$rbr <- searchWts*sum(HPop)/sum(searchWts*HPop)
+
+    Births <- "zero"
+    class(Births) <- "zero"
+    Hpar$Births <- Births
+
+    dH <- "zero"
+    class(dH) <- "zero"
+    Hpar$dH <- dH
+
     Hpar$residence = residence
     Hpar$wts_f = searchWts
-
-    birthF <- "null"
-    class(birthF) <- "null"
-    Hpar$birthF <- birthF
-    Hpar$Hmatrix <- diag(0, length(HPop))
 
     pars$Hpar <- Hpar
     return(pars)
 })}
 
-#' @title Size of human population denominators
-#' @description This method dispatches on the type of `pars$Hpar`.
-#' @param t current simulation time
-#' @param y state vector
-#' @param pars a [list]
-#' @return a [numeric] vector of length `nStrata`
-#' @export
-F_H <- function(t, y, pars) {
-  UseMethod("F_H", pars$Hpar)
-}
 
 #' @title Derivatives of demographic changes in human populations
-#' @description This method dispatches on the type of `y`.
+#' @description This method dispatches on the type of pars$Hpar$dH
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
 #' @return see help pages for specific methods
 #' @export
 dHdt <- function(t, y, pars){
-  UseMethod("dHdt", y)
+  UseMethod("dHdt", pars$Hpar$dH)
 }
 
 #' @title A function that computes the birth rate for human populations
-#' @description This method dispatches on the type of `y`.
+#' @description This method dispatches on the type of pars$Hpar$Births
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
 #' @return see help pages for specific methods
 #' @export
 Births <- function(t, y, pars){
-  UseMethod("Births", y)
-}
-
-#' @title Add indices for human population denominators to parameter list
-#' @description This method dispatches on the type of `pars$Hpar`.
-#' @param pars a [list]
-#' @return none
-#' @export
-make_indices_H <- function(pars) {
-  UseMethod("make_indices_H", pars$Hpar)
-}
-
-#' @title Return initial values as a vector
-#' @description This method dispatches on the type of `pars$Hpar`.
-#' @param pars a [list]
-#' @return none
-#' @export
-get_inits_H <- function(pars) {
-  UseMethod("get_inits_H", pars$Hpar)
-}
-
-#' @title Set the initial values as a vector
-#' @description This method dispatches on the type of `pars$Hpar`.
-#' @param pars a [list]
-#' @param y0 a vector of initial values
-#' @return none
-#' @export
-update_inits_H <- function(pars, y0) {
-  UseMethod("update_inits_H", pars$Hpar)
+  UseMethod("Births", pars$Hpar$Births)
 }
 
 #' @title Make parameters for null human demography model
@@ -100,19 +68,20 @@ update_inits_H <- function(pars, y0) {
 make_parameters_demography_null <- function(pars, H, residence, searchWts, TaR) {
   stopifnot(length(H) == pars$nStrata)
   Hpar <- list()
-  class(Hpar) <- c("static")
   Hpar$H <- H
 
-  class(Hpar$H) <- "static"
   Hpar$residence <- checkIt(residence, pars$nStrata, F)
   Hpar$wts_f <- checkIt(searchWts, pars$nStrata, F)
   Hpar$rbr <- searchWts*sum(H)/sum(searchWts*H)
   Hpar$TaR <- TaR
 
-  birthF <- "null"
-  class(birthF) <- "null"
-  Hpar$birthF <- birthF
-  Hpar$Hmatrix <- diag(0, length(H))
+  Births <- "zero"
+  class(Births) <- "zero"
+  Hpar$Births <- Births
+
+  dH <- "zero"
+  class(dH) <- "zero"
+  Hpar$dH <- dH
 
   pars$Hpar <- Hpar
   pars$nStrata <- length(H)
@@ -120,13 +89,4 @@ make_parameters_demography_null <- function(pars, H, residence, searchWts, TaR) 
   return(pars)
 }
 
-#' @title Parse the output of deSolve and return the demography variables by name in a list
-#' @description This method dispatches on the type of `pars$Hpar`. Adds the variables
-#' from the demography module to a list and returns it
-#' @param deout a [matrix] of outputs from deSolve
-#' @param pars a [list] that defines a model
-#' @export
-parse_deout_H <- function(deout, pars) {
-  UseMethod("parse_deout_H", pars$Hpar)
-}
 

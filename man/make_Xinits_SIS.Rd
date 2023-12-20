@@ -4,14 +4,16 @@
 \alias{make_Xinits_SIS}
 \title{Make initial values for the SIS human model, with defaults}
 \usage{
-make_Xinits_SIS(pars, Xopts = list(), I0 = 1)
+make_Xinits_SIS(pars, Xopts = list(), S0 = NULL, I0 = 1)
 }
 \arguments{
 \item{pars}{a \link{list}}
 
 \item{Xopts}{a \link{list} to overwrite defaults}
 
-\item{I0}{the initial values of the parameter X}
+\item{S0}{the initial values of the parameter S}
+
+\item{I0}{the initial values of the parameter I}
 }
 \value{
 a \link{list}

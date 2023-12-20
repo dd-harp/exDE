@@ -47,9 +47,6 @@ make_indices <- function(pars) {
   if ('Xpar' %in% names(pars)) {
     pars = make_indices_X(pars)
   }
-  if ('Hpar' %in% names(pars)) {
-    pars = make_indices_H(pars)
-  }
   return(pars)
 }
 
@@ -67,10 +64,7 @@ get_inits <- function(pars){
   if ('Xpar' %in% names(pars)) {
     Xi = get_inits_X(pars)
   } else {Xi = numeric(0)}
-  if ('Hpar' %in% names(pars)) {
-    Hi = get_inits_H(pars)
-  } else {Hi = numeric(0)}
-  y = c(L=Li, MYZ=MYZi, X=Xi, H=Hi)
+  y = c(L=Li, MYZ=MYZi, X=Xi)
   return(y)
 }
 
@@ -206,8 +200,5 @@ update_inits <- function(y0, pars){
   if ('Xpar' %in% names(pars)) {
     pars = update_inits_X(pars, y0)
   } else {Xi = numeric(0)}
-  if ('Hpar' %in% names(pars)) {
-    pars = update_inits_H(pars, y0)
-  } else {Hi = numeric(0)}
   return(pars)
 }

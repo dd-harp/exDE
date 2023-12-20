@@ -14,7 +14,7 @@ setup_X(pars, Xname, Xopts = list())
 \item{Xopts}{a \link{list}}
 }
 \value{
-none
+a \link{list}
 }
 \description{
 This method dispatches on \code{Xname}.

@@ -91,7 +91,7 @@ F_eir = function(t, pars){
 params = make_parameters_demography_null(pars = params, H=H, residence=residence, searchWts=searchWtsH, TaR=TaR)
 
 params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, xi=xi)
-params = make_inits_X_SIP(pars = params, I, as.vector(P))
+params = make_inits_X_SIP(pars = params, H-I-P, I, as.vector(P))
 params = make_indices(params)
 ```
 
@@ -102,7 +102,8 @@ out1<- out
 ```
  
 ```{r, out.width = "100%"}
-colnames(out)[params$ix$X$X_ix+1] <- paste0('I_', 1:params$nStrata)
+colnames(out)[params$ix$X$S_ix+1] <- paste0('S_', 1:params$nStrata)
+colnames(out)[params$ix$X$I_ix+1] <- paste0('I_', 1:params$nStrata)
 colnames(out)[params$ix$X$P_ix+1] <- paste0('P_', 1:params$nStrata)
 
 out <- as.data.table(out)

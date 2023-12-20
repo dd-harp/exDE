@@ -27,7 +27,7 @@ test_that("human SIP model remains at equilibrium", {
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
                                            searchWts=searchWtsH, TaR=TaR)
   params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, eta=eta, rho=rho, xi=xi)
-  params = make_inits_X_SIP(pars = params, I, P)
+  params = make_inits_X_SIP(pars = params, H-I-P, I, P)
 
   params = make_indices(params)
 

@@ -91,7 +91,7 @@ test_that("test equilibrium with RM adults (ODE), SIS humans, trace", {
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
                                            searchWts=searchWtsH, TaR=TaR)
   params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
-  params = make_inits_X_SIS(pars = params, I)
+  params = make_inits_X_SIS(pars = params, H-I, I)
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
 
   params = make_indices(params)
@@ -197,7 +197,7 @@ test_that("test equilibrium with RM adults (DDE), SIS humans, trace", {
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
                                            searchWts=searchWtsH, TaR=TaR)
   params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
-  params = make_inits_X_SIS(pars = params, I)
+  params = make_inits_X_SIS(pars = params, H-I, I)
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
 
   params = make_indices(params)

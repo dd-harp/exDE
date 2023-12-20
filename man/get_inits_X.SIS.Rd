@@ -10,7 +10,7 @@
 \item{pars}{a \link{list}}
 }
 \value{
-none
+a \link{numeric} vector
 }
 \description{
 This method dispatches on the type of \code{pars$Xpar}.

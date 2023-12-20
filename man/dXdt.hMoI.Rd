@@ -11,7 +11,7 @@
 
 \item{y}{state vector}
 
-\item{pars}{a \link{list}}
+\item{pars}{a list}
 
 \item{FoI}{vector giving the per-capita force of infection for each strata}
 }

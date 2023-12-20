@@ -40,7 +40,7 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   # human PfPR and H
   pfpr <- runif(n = pars$nStrata, min = 0.25, max = 0.35)
   H <- rpois(n = pars$nStrata, lambda = 1000)
-  X <- rbinom(n = pars$nStrata, size = H, prob = pfpr)
+  I <- rbinom(n = pars$nStrata, size = H, prob = pfpr)
   residence = 1:pars$nStrata
   searchWtsH = rep(1, pars$nStrata)
 
@@ -54,7 +54,7 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   TaR <- t(TaR)
 
   # derived EIR to sustain equilibrium pfpr
-  EIR <- diag(1/b, pars$nStrata) %*% ((r*X) / (H - X))
+  EIR <- diag(1/b, pars$nStrata) %*% ((r*I) / (H - I))
 
   # ambient pop
   W <- TaR %*% H
@@ -63,7 +63,7 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   beta <- diag(wf) %*% t(TaR) %*% diag(1/as.vector(W), pars$nPatches)
 
   # kappa
-  kappa <- t(beta) %*% (X*c)
+  kappa <- t(beta) %*% (I*c)
 
   # equilibrium solutions
   Z <- diag(1/(f*q), pars$nPatches) %*% ginv(beta) %*% EIR
@@ -82,7 +82,7 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   pars = make_inits_L_trace(pars = pars)
   pars = setup_itn_lemenach(pars = pars, phi=function(t){0})
   pars = make_parameters_X_SIS(pars = pars, b = b, c = c, r = r)
-  pars = make_inits_X_SIS(pars = pars, X)
+  pars = make_inits_X_SIS(pars = pars, H-I, I)
 
   pars$calU <- diag(pars$nPatches)
   pars$calN <- diag(pars$nHabitats)

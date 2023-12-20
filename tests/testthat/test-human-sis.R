@@ -23,7 +23,7 @@ test_that("human SIS model remains at equilibrium", {
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
                                            searchWts=searchWtsH, TaR=TaR)
   params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
-  params = make_inits_X_SIS(pars = params, I)
+  params = make_inits_X_SIS(pars = params, H-I, I)
 
   params = make_indices(params)
 
@@ -33,6 +33,7 @@ test_that("human SIS model remains at equilibrium", {
 
   y0 <- rep(0, 3)
   y0[params$ix$X$I_ix] <- I
+  y0[params$ix$X$S_ix] <- H-I
 
   out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, foi) {
     list(dXdt(t, y, pars, foi))

@@ -17,5 +17,5 @@ Births(t, y, pars)
 see help pages for specific methods
 }
 \description{
-This method dispatches on the type of \code{y}.
+This method dispatches on the type of pars$Hpar$Births
 }
