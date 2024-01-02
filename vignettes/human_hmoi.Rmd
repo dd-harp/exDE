@@ -58,7 +58,6 @@ We can use this to calculate the net infectious probability, and then $\kappa = 
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
-#devtools::load_all()
 library(deSolve)
 library(data.table)
 library(ggplot2)
@@ -120,8 +119,8 @@ out1 <- out
 
 ```{r, out.width = "100%"}
 
-colnames(out)[params$Xpar$m1_ix+1] <- paste0('m1_', 1:params$nStrata)
-colnames(out)[params$Xpar$m2_ix+1] <- paste0('m2_', 1:params$nStrata)
+colnames(out)[params$ix$X[[1]]$m1_ix+1] <- paste0('m1_', 1:params$nStrata)
+colnames(out)[params$ix$X[[1]]$m2_ix+1] <- paste0('m2_', 1:params$nStrata)
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

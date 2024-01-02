@@ -4,10 +4,10 @@
 \alias{make_Lpar_basic}
 \title{Make parameters for basic competition aquatic mosquito model}
 \usage{
-make_Lpar_basic(pars, Lopts = list(), psi = 1/8, phi = 1/8, theta = 1/100)
+make_Lpar_basic(nHabitats, Lopts = list(), psi = 1/8, phi = 1/8, theta = 1/100)
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{nHabitats}{the number of habitats in the model}
 
 \item{Lopts}{a \link{list} that overwrites default values}
 

@@ -4,10 +4,12 @@
 \alias{get_inits_X.SIP}
 \title{Return initial values as a vector}
 \usage{
-\method{get_inits_X}{SIP}(pars)
+\method{get_inits_X}{SIP}(pars, i)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{i}{the host species index}
 }
 \value{
 none

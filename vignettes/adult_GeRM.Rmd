@@ -129,8 +129,9 @@ to run a full simulation.
 
 ```{r}
 nPatches <- 3
-params <- make_parameters_xde()
+params <- make_parameters_xde("ode")
 params$nPatches <- nPatches
+params$nVectors =1
 ```
 
 ## The Ross-Macdonald Parameterization 
@@ -155,7 +156,7 @@ calK <- t(calK)
 Omega <- make_Omega(g, sigma, calK, nPatches)
 Upsilon <- expm::expm(-Omega * eip)
 
-params = make_parameters_MYZ_GeRM_static(params, g, sigma, f, q, nu, eggsPerBatch, eip, calK, "ode")
+params = make_parameters_MYZ_GeRM(params, g, sigma, f, q, nu, eggsPerBatch, eip, calK, solve_as = "ode")
 ```
 
 
@@ -183,31 +184,30 @@ params = make_inits_MYZ_GeRM_ode(pars = params,
 We and set the indices with `exDE::make_indices`. 
 
 ```{r}
-params$max_ix = 0 
 params = make_indices(params)
 ```
 
 Then we can set up the initial conditions vector and use `deSolve::ode` to solve the model.  Normally these values would be computed within `exDE::xDE_diffeqn`. Here, we set up a local version: 
 
 ```{r, out.width = "100%"}
-y0 = get_inits_MYZ(params) 
+y0 = get_inits_MYZ(params, 1) 
 
 
-dMYZdt_local = func=function(t, y, pars, Lambda, kappa) {
-  list(dMYZdt(t, y, pars, Lambda, kappa))
+dMYZdt_local = function(t, y, pars, Lambda, kappa, s=1) {
+  list(dMYZdt(t, y, pars, Lambda, kappa, s))
 }
 
 out <- deSolve::ode(y = y0, times = 0:50, dMYZdt_local, parms=params, 
-                    method = 'lsoda', Lambda = Lambda, kappa = kappa) 
+                    method = 'lsoda', Lambda = Lambda, kappa = kappa, s=1) 
 ```
 
 The output is plotted below. The flat lines shown here is a verification that the steady state solutions that we computed above match the steady states computed by solving the equations: 
 
 ```{r, out.width = "100%"}
-colnames(out)[params$MYZpar$M_ix+1] <- paste0('M_', 1:params$nPatches)
-colnames(out)[params$MYZpar$G_ix+1] <- paste0('G_', 1:params$nPatches)
-colnames(out)[params$MYZpar$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
-colnames(out)[params$MYZpar$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
+colnames(out)[params$ix$MYZ[[1]]$M_ix+1] <- paste0('M_', 1:params$nPatches)
+colnames(out)[params$ix$MYZ[[1]]$G_ix+1] <- paste0('G_', 1:params$nPatches)
+colnames(out)[params$ix$MYZ[[1]]$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
+colnames(out)[params$ix$MYZ[[1]]$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

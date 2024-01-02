@@ -4,7 +4,7 @@
 \alias{compute_EIR_ty}
 \title{Compute the EIR}
 \usage{
-compute_EIR_ty(t, y, pars)
+compute_EIR_ty(t, y, pars, s, i)
 }
 \arguments{
 \item{t}{\link{numeric}}
@@ -12,6 +12,10 @@ compute_EIR_ty(t, y, pars)
 \item{y}{\link{vector} the state variables}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the vector species index}
+
+\item{i}{the host species index}
 }
 \value{
 \link{numeric}

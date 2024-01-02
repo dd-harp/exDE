@@ -4,12 +4,14 @@
 \alias{parse_deout_MYZ}
 \title{Parse the output of deSolve and return the variables by name in a list}
 \usage{
-parse_deout_MYZ(deout, pars)
+parse_deout_MYZ(deout, pars, s)
 }
 \arguments{
 \item{deout}{a \link{matrix} of outputs from deSolve}
 
 \item{pars}{a \link{list} that defines a model}
+
+\item{s}{the species index}
 }
 \value{
 \link{list}

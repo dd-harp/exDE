@@ -4,7 +4,7 @@
 \alias{dMYZdt.basicM}
 \title{Derivatives for adult mosquitoes}
 \usage{
-\method{dMYZdt}{basicM}(t, y, pars, Lambda, kappa = NULL)
+\method{dMYZdt}{basicM}(t, y, pars, Lambda, kappa = NULL, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -16,6 +16,8 @@
 \item{Lambda}{emergence rate of adult mosquitoes}
 
 \item{kappa}{net infectiousness of human population}
+
+\item{s}{the species index}
 }
 \value{
 a \link{numeric} vector

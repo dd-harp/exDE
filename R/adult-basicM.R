@@ -5,15 +5,25 @@
 #' @inheritParams MBionomics
 #' @return a named [list]
 #' @export
-MBionomics.basicM <- function(t, y, pars) {
+MBionomics.basicM <- function(t, y, pars, s) {
 
-  pars$MYZpar$f <- pars$MYZpar$f0
-  pars$MYZpar$q <- pars$MYZpar$q0
-  pars$MYZpar$g <- pars$MYZpar$g0
-  pars$MYZpar$sigma <- pars$MYZpar$sigma0
-  pars$MYZpar$nu <- pars$MYZpar$nu0
+  with(pars$MYZpar[[s]],{
+    pars$MYZpar[[s]]$f <- f0
+    pars$MYZpar[[s]]$q <- q0
+    pars$MYZpar[[s]]$g <- g0
+    pars$MYZpar[[s]]$sigma <- sigma0
+    pars$MYZpar[[s]]$nu <- nu0
 
-  return(pars)
+    return(pars)
+})}
+
+#' @title The net blood feeding rate of the infective mosquito population in a patch
+#' @description Implements [F_fqZ] for the basicM model.
+#' @inheritParams F_fqZ
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_fqZ.basicM <- function(t, y, pars, s) {
+  0*y[pars$ix$MYZ[[s]]$M_ix]
 }
 
 #' @title Number of eggs laid by adult mosquitoes
@@ -21,9 +31,9 @@ MBionomics.basicM <- function(t, y, pars) {
 #' @inheritParams F_eggs
 #' @return a [numeric] vector of length `nPatches`
 #' @export
-F_eggs.basicM <- function(t, y, pars) {
-  M <- y[pars$ix$MYZ$M_ix]
-  with(pars$MYZpar, {
+F_eggs.basicM <- function(t, y, pars, s) {
+  M <- y[pars$ix$MYZ[[s]]$M_ix]
+  with(pars$MYZpar[[s]], {
     return(M*nu*eggsPerBatch)
   })
 }
@@ -33,12 +43,12 @@ F_eggs.basicM <- function(t, y, pars) {
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
-dMYZdt.basicM <- function(t, y, pars, Lambda, kappa=NULL) {with(pars,{
+dMYZdt.basicM <- function(t, y, pars, Lambda, kappa=NULL, s) {with(pars,{
 
-  M <- y[ix$MYZ$M_ix]
-  P <- y[ix$MYZ$P_ix]
+  M <- y[ix$MYZ[[s]]$M_ix]
+  P <- y[ix$MYZ[[s]]$P_ix]
 
-  with(pars$Xpar,{
+  with(pars$MYZpar[[s]],{
 
     Omega <- make_Omega(g, sigma, calK, nPatches)
 
@@ -49,48 +59,34 @@ dMYZdt.basicM <- function(t, y, pars, Lambda, kappa=NULL) {with(pars,{
   })
 })}
 
-#' @title Setup the basicM model for adult mosquitoes
-#' @description Implements [setup_MYZ] for the basicM model
-#' @inheritParams setup_MYZ
-#' @return a [list]
+#' @title Setup MYZpar for the basicM model
+#' @description Implements [setup_MYZpar] for the basicM model
+#' @inheritParams setup_MYZpar
+#' @return a [list] vector
 #' @export
-setup_MYZ.basicM = function(pars, MYZname,
-                           nPatches=1, MYZopts=list(),
-                           calK=diag(1)){
-
-  pars$MYZname = "basicM"
-  pars$nPatches = nPatches
-
-  pars = make_MYZpar_basicM(pars, MYZopts, calK)
-  pars = make_MYZinits_basicM(pars, MYZopts)
-
+setup_MYZpar.basicM = function(MYZname, pars, s, MYZopts=list(), EIPmod=NULL, calK){
+  pars$MYZpar[[s]] = make_MYZpar_basicM(pars$nPatches, MYZopts, calK)
   return(pars)
 }
 
-
 #' @title Make parameters for basicM ODE adult mosquito model
-#' @param pars a [list]
+#' @param nPatches the number of patches
 #' @param MYZopts a [list] of values that overwrites the defaults
 #' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
-#' @param solve_as is either `ode` to solve as an ode or `dde` to solve as a dde
 #' @param g mosquito mortality rate
 #' @param sigma emigration rate
 #' @param f blood feeding rate
 #' @param q human blood feeding fraction
 #' @param nu oviposition rate, per mosquito
 #' @param eggsPerBatch eggs laid per oviposition
-#' @return a [list]
+#' @return a [list] with a configured MYZpar
 #' @export
-make_MYZpar_basicM = function(pars, MYZopts=list(), calK,
-                          solve_as = "dde",
-                          g=1/12, sigma=1/8,
-                          f=0.3, q=0.95,
-                          nu=1, eggsPerBatch=60){
-
+make_MYZpar_basicM = function(nPatches, MYZopts=list(), calK,
+                              g=1/12, sigma=1/8,
+                              f=0.3, q=0.95,
+                              nu=1, eggsPerBatch=60){
   stopifnot(is.matrix(calK))
-  stopifnot(dim(calK) == c(pars$nPatches, pars$nPatches))
-
-
+  stopifnot(dim(calK) == c(nPatches, nPatches))
   with(MYZopts,{
     MYZpar <- list()
     class(MYZpar) <- "basicM"
@@ -98,47 +94,64 @@ make_MYZpar_basicM = function(pars, MYZopts=list(), calK,
     MYZpar$xde <- "ode"
     class(MYZpar$xde) <- "ode"
 
-    MYZpar$g0      <- checkIt(g, pars$nPatches)
-    MYZpar$sigma0  <- checkIt(sigma, pars$nPatches)
-    MYZpar$f0      <- checkIt(f, pars$nPatches)
-    MYZpar$q0      <- checkIt(q, pars$nPatches)
-    MYZpar$nu0     <- checkIt(nu, pars$nPatches)
+    MYZpar$nPatches <- nPatches
+
+    MYZpar$g      <- checkIt(g, nPatches)
+    MYZpar$sigma  <- checkIt(sigma, nPatches)
+    MYZpar$f      <- checkIt(f, nPatches)
+    MYZpar$q      <- checkIt(q, nPatches)
+    MYZpar$nu     <- checkIt(nu, nPatches)
     MYZpar$eggsPerBatch <- eggsPerBatch
+
+    # Store as baseline values
+    MYZpar$g0      <- MYZpar$g
+    MYZpar$sigma0  <- MYZpar$sigma
+    MYZpar$f0      <- MYZpar$f
+    MYZpar$q0      <- MYZpar$q
+    MYZpar$nu0     <- MYZpar$nu
+
     MYZpar$calK <- calK
 
-    pars$MYZpar = MYZpar
-    pars = MBionomics(0, 0, pars)
+    MYZpar$Omega <- make_Omega(g, sigma, calK, nPatches)
 
-    return(pars)
-  })}
+    return(MYZpar)
+})}
+
+#' @title Setup the basicM model
+#' @description Implements [setup_MYZinits] for the basicM model
+#' @inheritParams setup_MYZinits
+#' @return a [list] vector
+#' @export
+setup_MYZinits.basicM = function(pars, s, MYZopts=list()){
+  pars$MYZinits[[s]] = make_MYZinits_basicM(pars$nPatches, MYZopts)
+  return(pars)
+}
+
+
 
 #' @title Make inits for basicM adult mosquito model
-#' @param pars a [list]
+#' @param nPatches the number of patches in the model
 #' @param MYZopts a [list] of values that overwrites the defaults
 #' @param M0 total mosquito density at each patch
 #' @param P0 total parous mosquito density at each patch
 #' @return none
 #' @export
-make_MYZinits_basicM = function(pars, MYZopts = list(),
+make_MYZinits_basicM = function(nPatches, MYZopts = list(),
                             M0=5, P0=1){
   with(MYZopts,{
-    inits = list()
-    inits$M0 = checkIt(M0, pars$nPatches)
-    inits$P0 = checkIt(P0, pars$nPatches)
-
-    pars$MYZinits = inits
-    return(pars)
+    M = checkIt(M0, nPatches)
+    P = checkIt(P0, nPatches)
+    return(list(M=M, P=P))
   })}
 
 #' @title Make inits for RM adult mosquito model
-#' @param pars a [list]
-#' @param y0 a vector of initial values
+#' @inheritParams update_inits_MYZ
 #' @return none
 #' @export
-update_inits_MYZ.basicM <- function(pars, y0) {with(pars$ix$MYZ,{
-  M0 = y0[M_ix]
-  P0 = y0[P_ix]
-  pars = make_MYZinits_basicM(pars, M0=M0, P0=P0)
+update_inits_MYZ.basicM <- function(pars, y0, s) {with(pars$ix$MYZ[[s]],{
+  M = y0[M_ix]
+  P = y0[P_ix]
+  pars$MYZinits[[s]] = make_MYZinits_basicM(pars, list(), M0=M, P0=P)
   return(pars)
 })}
 
@@ -148,28 +161,32 @@ update_inits_MYZ.basicM <- function(pars, y0) {with(pars$ix$MYZ,{
 #' @return none
 #' @importFrom utils tail
 #' @export
-make_indices_MYZ.basicM <- function(pars) {
+make_indices_MYZ.basicM <- function(pars, s) {with(pars,{
 
-  pars$ix$MYZ$M_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$ix$MYZ$M_ix, 1)
+  M_ix <- seq(from = max_ix+1, length.out = nPatches)
+  max_ix <- tail(M_ix, 1)
 
-  pars$ix$MYZ$P_ix <- seq(from = pars$max_ix+1, length.out = pars$nPatches)
-  pars$max_ix <- tail(pars$ix$MYZ$P_ix, 1)
+  P_ix <- seq(from = max_ix+1, length.out = nPatches)
+  max_ix <- tail(P_ix, 1)
+
+  pars$max_ix = max_ix
+
+  pars$ix$MYZ[[s]] = list(M_ix=M_ix, P_ix=P_ix)
 
   return(pars)
-}
+})}
 
 #' @title Parse the output of deSolve and return variables for the basicM model
 #' @description Implements [parse_deout_MYZ] for the basicM model.
 #' @inheritParams parse_deout_MYZ
 #' @return [list]
 #' @export
-parse_deout_MYZ.basicM <- function(deout, pars) {
+parse_deout_MYZ.basicM <- function(deout, pars, s) {
   time = deout[,1]
-  with(pars$ix$MYZ,{
-  M = deout[,M_ix+1]
-  P = deout[,P_ix+1]
-  parous = P/M
+  with(pars$ix$MYZ[[s]],{
+    M = deout[,M_ix+1]
+    P = deout[,P_ix+1]
+    parous = P/M
   return(list(time=time, M=M, P=P, parous=parous))
 })}
 
@@ -198,8 +215,14 @@ make_parameters_MYZ_basicM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, c
   MYZpar$eggsPerBatch <- eggsPerBatch
   MYZpar$calK <- calK
 
-  pars$MYZpar <- MYZpar
-  pars = MBionomics(0, 0, pars)
+  MYZpar$g <- g
+  MYZpar$sigma <- sigma
+  MYZpar$f <- f
+  MYZpar$q <- q
+  MYZpar$nu <- nu
+
+  pars$MYZpar[[1]] <- MYZpar
+
   return(pars)
 }
 
@@ -210,7 +233,7 @@ make_parameters_MYZ_basicM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, c
 #' @return none
 #' @export
 make_inits_MYZ_basicM <- function(pars, M0, P0) {
-  pars$MYZinits = list(M0=M0, P0=P0)
+  pars$MYZinits[[1]] = list(M=M0, P=P0)
   return(pars)
 }
 
@@ -219,6 +242,6 @@ make_inits_MYZ_basicM <- function(pars, M0, P0) {
 #' @inheritParams get_inits_MYZ
 #' @return none
 #' @export
-get_inits_MYZ.basicM <- function(pars) {with(pars$MYZinits,{
-  c(M0, P0)
+get_inits_MYZ.basicM <- function(pars, s) {with(pars$MYZinits[[s]],{
+  c(M, P)
 })}

@@ -4,12 +4,14 @@
 \alias{compute_kappa}
 \title{Compute kappa}
 \usage{
-compute_kappa(deout, pars)
+compute_kappa(deout, pars, i)
 }
 \arguments{
 \item{deout}{a matrix, the output of deSolve}
 
 \item{pars}{a \link{list}}
+
+\item{i}{the host species index}
 }
 \value{
 \link{numeric} containing the kappa

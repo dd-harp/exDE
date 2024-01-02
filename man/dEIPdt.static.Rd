@@ -4,16 +4,16 @@
 \alias{dEIPdt.static}
 \title{This function computes the negative derivative of the EIP as a function of time}
 \usage{
-\method{dEIPdt}{static}(t, pars)
+\method{dEIPdt}{static}(t, EIPmod)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{a \link{list}}
+\item{EIPmod}{a \link{list}}
 }
 \value{
 \link{numeric}
 }
 \description{
-Implements \link{EIP} for the static model (the dEIPdt=0)
+Implements \link{dEIPdt} for the static model (the dEIPdt=0)
 }

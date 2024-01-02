@@ -5,7 +5,7 @@
 #' @inheritParams MBionomics
 #' @return a named [list]
 #' @export
-MBionomics.Gtrace <- function(t, y, pars) {
+MBionomics.Gtrace <- function(t, y, pars, s) {
   return(pars)
 }
 
@@ -14,7 +14,7 @@ MBionomics.Gtrace <- function(t, y, pars) {
 #' @inheritParams F_fqZ
 #' @return a [numeric] vector of length `nHabitats`
 #' @export
-F_fqZ.Gtrace <- function(t, y, pars) {
+F_fqZ.Gtrace <- function(t, y, pars, s) {
   numeric(0)
 }
 
@@ -23,8 +23,8 @@ F_fqZ.Gtrace <- function(t, y, pars) {
 #' @inheritParams F_eggs
 #' @return a [numeric] vector of length `nPatches`
 #' @export
-F_eggs.Gtrace <- function(t, y, pars) {
-  with(pars$MYZpar, return(Gm*Gf(t, pars)))
+F_eggs.Gtrace <- function(t, y, pars, s) {
+  with(pars$MYZpar[[s]], return(Gm*Gf(t, pars$MYZpar[[s]])))
 }
 
 #' @title Derivatives for aquatic stage mosquitoes
@@ -32,58 +32,56 @@ F_eggs.Gtrace <- function(t, y, pars) {
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
-dMYZdt.Gtrace <- function(t, y, pars, Lambda, kappa){
+dMYZdt.Gtrace <- function(t, y, pars, Lambda, kappa, s){
   numeric(0)
 }
 
 
 #' @title Setup the Gtrace
-#' @description Implements [setup_MYZ] for the Gtrace model
-#' @inheritParams setup_MYZ
+#' @description Implements [setup_MYZpar] for the Gtrace model
+#' @inheritParams setup_MYZpar
 #' @return a [list] vector
 #' @export
-setup_MYZ.Gtrace = function(pars, MYZname,
-                               nPatches=1, MYZopts=NULL,
-                               calK=diag(1)){
-
-  pars$MYZname = "Gtrace"
-  pars$nPatches = checkIt(nPatches, 1, "integer")
-
-  pars = make_MYZpar_Gtrace(pars, MYZopts)
-  pars$MYZinits = numeric(0)
-
+setup_MYZpar.Gtrace = function(MYZname, pars, s, MYZopts=NULL, EIPmod=NULL, calK=NULL){
+  pars$MYZpar[[s]] = make_MYZpar_Gtrace(pars$nPatches, MYZopts)
   return(pars)
 }
 
 
 #' @title Make parameters for Gtrace aquatic mosquito model
-#' @param pars a [list]
+#' @param nPatches the number of patches in the model
 #' @param MYZopts a [list] to overwrite the defaults
 #' @param Gm a vector of mean mosquito densities
 #' @param Gf a [function] of the form Gf(t, pars) that computes temporal fluctuations
 #' @return none
 #' @export
-make_MYZpar_Gtrace = function(pars, MYZopts,
-                              Gm = 1, Gf=NULL){
+make_MYZpar_Gtrace = function(nPatches, MYZopts, Gm = 1, Gf=NULL){
   with(MYZopts,{
     MYZpar <- list()
     class(MYZpar) <- "Gtrace"
 
-    MYZpar$Gm <- checkIt(Gm, pars$nPatches)
-    if(is.null(Gf)) Gf = function(t, y, pars){return(1)}
+    MYZpar$Gm <- checkIt(Gm, nPatches)
+    if(is.null(Gf)) Gf = function(t, MYZpar){return(1)}
     MYZpar$Gf = Gf
 
-    pars$MYZpar = MYZpar
-    return(pars)
+    return(MYZpar)
 })}
+
+#' @title Setup the Gtrace model
+#' @description Implements [setup_MYZinits] for the Gtrace model
+#' @inheritParams setup_MYZinits
+#' @return a [list] vector
+#' @export
+setup_MYZinits.Gtrace = function(pars, s, MYZopts=NULL){
+  return(pars)
+}
 
 #' @title Add indices for aquatic stage mosquitoes to parameter list
 #' @description Implements [make_indices_MYZ] for Gtrace (forced emergence) model.
 #' @inheritParams make_indices_MYZ
 #' @return none
 #' @export
-make_indices_MYZ.Gtrace <- function(pars) {
-  pars$MYZpar$MYZ_ix <- integer(0)
+make_indices_MYZ.Gtrace <- function(pars, s) {
   return(pars)
 }
 
@@ -92,10 +90,9 @@ make_indices_MYZ.Gtrace <- function(pars) {
 #' @inheritParams parse_deout_MYZ
 #' @return [list]
 #' @export
-parse_deout_MYZ.Gtrace <- function(deout, pars) {
+parse_deout_MYZ.Gtrace <- function(deout, pars, s) {
   return(list())
 }
-
 
 #' @title Make parameters for Gtrace aquatic mosquito model
 #' @param pars a [list]
@@ -112,8 +109,7 @@ make_parameters_MYZ_Gtrace <- function(pars, Gm, Gf) {
   MYZpar$xde <- xde
   MYZpar$Gm <- Gm
   MYZpar$Gf = Gf
-  pars$MYZpar <- MYZpar
-  pars = MBionomics(pars)
+  pars$MYZpar[[1]] <- MYZpar
   return(pars)
 }
 
@@ -123,16 +119,15 @@ make_parameters_MYZ_Gtrace <- function(pars, Gm, Gf) {
 #' @return none
 #' @export
 make_inits_MYZ_Gtrace<- function(pars, MYZ0=NULL) {
-  pars$MYZinits = numeric(0)
+  pars$MYZinits[[1]] = numeric(0)
   return(pars)
 }
 
 #' @title Update inits for Gtrace
-#' @param pars a [list]
-#' @param y0 a vector of initial values
+#' @inheritParams update_inits_MYZ
 #' @return none
 #' @export
-update_inits_MYZ.Gtrace <- function(pars, y0) {
+update_inits_MYZ.Gtrace <- function(pars, y0, s) {
   return(pars)
 }
 
@@ -141,7 +136,7 @@ update_inits_MYZ.Gtrace <- function(pars, y0) {
 #' @inheritParams get_inits_MYZ
 #' @return none
 #' @export
-get_inits_MYZ.Gtrace <- function(pars){
-  numeric(0)
+get_inits_MYZ.Gtrace <- function(pars, s){
+  return(c())
 }
 

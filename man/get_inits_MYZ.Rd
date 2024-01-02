@@ -4,13 +4,15 @@
 \alias{get_inits_MYZ}
 \title{Return initial values as a vector}
 \usage{
-get_inits_MYZ(pars)
+get_inits_MYZ(pars, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
-none
+\link{numeric}
 }
 \description{
 This method dispatches on the type of \code{pars$MYZpar}.

@@ -4,12 +4,14 @@
 \alias{update_inits_MYZ.Gtrace}
 \title{Update inits for Gtrace}
 \usage{
-\method{update_inits_MYZ}{Gtrace}(pars, y0)
+\method{update_inits_MYZ}{Gtrace}(pars, y0, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
 
-\item{y0}{a vector of initial values}
+\item{y0}{a vector of variable values from a simulation}
+
+\item{s}{the species index}
 }
 \value{
 none

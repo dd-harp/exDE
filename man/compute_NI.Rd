@@ -4,12 +4,14 @@
 \alias{compute_NI}
 \title{Compute the NI}
 \usage{
-compute_NI(deout, pars)
+compute_NI(deout, pars, i)
 }
 \arguments{
 \item{deout}{a matrix, the output of deSolve}
 
 \item{pars}{a \link{list}}
+
+\item{i}{the host species index}
 }
 \value{
 \link{numeric} containing the NI

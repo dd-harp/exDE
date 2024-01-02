@@ -4,7 +4,7 @@
 \alias{MBionomics.basicM}
 \title{Set bionomic parameters to baseline}
 \usage{
-\method{MBionomics}{basicM}(t, y, pars)
+\method{MBionomics}{basicM}(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 a named \link{list}

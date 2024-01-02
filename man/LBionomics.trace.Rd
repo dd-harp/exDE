@@ -4,7 +4,7 @@
 \alias{LBionomics.trace}
 \title{Reset aquatic parameters to baseline}
 \usage{
-\method{LBionomics}{trace}(t, y, pars)
+\method{LBionomics}{trace}(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 a named \link{list}

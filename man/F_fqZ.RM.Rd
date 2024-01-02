@@ -2,9 +2,9 @@
 % Please edit documentation in R/adult-RM.R
 \name{F_fqZ.RM}
 \alias{F_fqZ.RM}
-\title{Blood feeding rate of the infective mosquito population}
+\title{The net blood feeding rate of the infective mosquito population in a patch}
 \usage{
-\method{F_fqZ}{RM}(t, y, pars)
+\method{F_fqZ}{RM}(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}

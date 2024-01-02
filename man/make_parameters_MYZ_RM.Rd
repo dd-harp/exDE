@@ -39,7 +39,7 @@ make_parameters_MYZ_RM(
 \item{solve_as}{is either \code{ode} to solve as an ode or \code{dde} to solve as a dde}
 }
 \value{
-none
+a \link{list}
 }
 \description{
 Make parameters for RM ODE adult mosquito model

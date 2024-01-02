@@ -10,11 +10,14 @@ xde_setup(
   Xname = "SIS",
   Lname = "trace",
   nPatches = 1,
+  nVectors = 1,
+  nHosts = 1,
   HPop = 1000,
   membership = 1,
   MYZopts = list(),
   calK = "herethere",
   calKopts = list(),
+  EIPname = "static",
   EIPopts = list(),
   Xopts = list(),
   Hopts = list(),
@@ -37,6 +40,10 @@ xde_setup(
 
 \item{nPatches}{is the number of patches}
 
+\item{nVectors}{is the number of vector species}
+
+\item{nHosts}{is the number of vertebrate host species}
+
 \item{HPop}{is the number of humans in each patch}
 
 \item{membership}{is a vector that describes the patch where each aquatic habitat is found}
@@ -46,6 +53,8 @@ xde_setup(
 \item{calK}{is either a calK matrix or a string that defines how to set it up}
 
 \item{calKopts}{are the options to setup calK}
+
+\item{EIPname}{are the options to setup EIPmod}
 
 \item{EIPopts}{are the options to setup EIPmod}
 

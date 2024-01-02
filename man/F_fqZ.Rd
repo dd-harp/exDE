@@ -4,7 +4,7 @@
 \alias{F_fqZ}
 \title{Blood feeding rate of the infective mosquito population}
 \usage{
-F_fqZ(t, y, pars)
+F_fqZ(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@ F_fqZ(t, y, pars)
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}

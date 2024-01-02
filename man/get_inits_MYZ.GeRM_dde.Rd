@@ -4,13 +4,15 @@
 \alias{get_inits_MYZ.GeRM_dde}
 \title{Return initial values as a vector}
 \usage{
-\method{get_inits_MYZ}{GeRM_dde}(pars)
+\method{get_inits_MYZ}{GeRM_dde}(pars, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
-none
+\link{numeric}
 }
 \description{
 Implements \link{get_inits_MYZ} for the GeRM model.

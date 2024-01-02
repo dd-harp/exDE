@@ -4,10 +4,12 @@
 \alias{HTC.hMoI}
 \title{Compute the HTC for the hMoI model}
 \usage{
-\method{HTC}{hMoI}(pars)
+\method{HTC}{hMoI}(pars, i)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{i}{the host species index}
 }
 \value{
 a \link{numeric} vector

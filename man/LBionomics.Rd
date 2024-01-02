@@ -4,7 +4,7 @@
 \alias{LBionomics}
 \title{Set aquatic bionomic parameter rates relative to baseline}
 \usage{
-LBionomics(t, y, pars)
+LBionomics(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@ LBionomics(t, y, pars)
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 a \link{list}

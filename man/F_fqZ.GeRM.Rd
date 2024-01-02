@@ -4,7 +4,7 @@
 \alias{F_fqZ.GeRM}
 \title{Blood feeding rate of the infective mosquito population}
 \usage{
-\method{F_fqZ}{GeRM}(t, y, pars)
+\method{F_fqZ}{GeRM}(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}

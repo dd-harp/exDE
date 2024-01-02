@@ -4,7 +4,7 @@
 \alias{F_H}
 \title{Size of human population denominators}
 \usage{
-F_H(t, y, pars)
+F_H(t, y, pars, i)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@ F_H(t, y, pars)
 \item{y}{state vector}
 
 \item{pars}{a list}
+
+\item{i}{the host species index}
 }
 \value{
 a \link{numeric} vector of length \code{nStrata}

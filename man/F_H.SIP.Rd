@@ -4,7 +4,7 @@
 \alias{F_H.SIP}
 \title{Size of effective infectious human population}
 \usage{
-\method{F_H}{SIP}(t, y, pars)
+\method{F_H}{SIP}(t, y, pars, i)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@
 \item{y}{state vector}
 
 \item{pars}{a list}
+
+\item{i}{the host species index}
 }
 \value{
 a \link{numeric} vector of length \code{nStrata}

@@ -4,10 +4,10 @@
 \alias{make_Xpar_SIS}
 \title{Make parameters for SIS human model, with defaults}
 \usage{
-make_Xpar_SIS(pars, Xopts = list(), b = 0.55, r = 1/180, c = 0.15)
+make_Xpar_SIS(nStrata, Xopts = list(), b = 0.55, r = 1/180, c = 0.15)
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{nStrata}{is the number of population strata}
 
 \item{Xopts}{a \link{list} that could overwrite defaults}
 

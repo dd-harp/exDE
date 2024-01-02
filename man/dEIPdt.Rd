@@ -4,16 +4,16 @@
 \alias{dEIPdt}
 \title{Compute the derivative of the EIP as a function of time}
 \usage{
-dEIPdt(t, pars)
+dEIPdt(t, EIPmod)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{a \link{list}}
+\item{EIPmod}{a \link{list}}
 }
 \value{
 \link{numeric}
 }
 \description{
-This method dispatches on the type of \code{pars$EIPmod}.
+This method dispatches on the type of \code{EIPmod}.
 }

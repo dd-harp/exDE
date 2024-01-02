@@ -4,10 +4,10 @@
 \alias{make_Linits_basic}
 \title{Make inits for basic competition aquatic mosquito model}
 \usage{
-make_Linits_basic(pars, Lopts = list(), L0 = 1)
+make_Linits_basic(nHabitats, Lopts = list(), L0 = 1)
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{nHabitats}{the number of habitats in the model}
 
 \item{Lopts}{a \link{list} that overwrites default values}
 

@@ -4,10 +4,12 @@
 \alias{make_indices_X}
 \title{Add indices for human population to parameter list}
 \usage{
-make_indices_X(pars)
+make_indices_X(pars, i)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{i}{the host species index}
 }
 \value{
 a \link{list}

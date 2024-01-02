@@ -4,13 +4,15 @@
 \alias{make_indices_MYZ.RM_dde}
 \title{Add indices for adult mosquitoes to parameter list}
 \usage{
-\method{make_indices_MYZ}{RM_dde}(pars)
+\method{make_indices_MYZ}{RM_dde}(pars, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
-none
+a \link{list}
 }
 \description{
 Implements \link{make_indices_MYZ} for the RM model.

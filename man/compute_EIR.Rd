@@ -4,12 +4,16 @@
 \alias{compute_EIR}
 \title{Compute the EIR}
 \usage{
-compute_EIR(deout, pars)
+compute_EIR(deout, pars, s, i)
 }
 \arguments{
 \item{deout}{a \link{matrix}, the output of deSolve}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the vector species index}
+
+\item{i}{the host species index}
 }
 \value{
 \link{matrix}

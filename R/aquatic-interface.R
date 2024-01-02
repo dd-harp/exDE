@@ -8,10 +8,11 @@
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
+#' @param s the species index
 #' @return a [list]
 #' @export
-LBionomics <- function(t, y, pars) {
-  UseMethod("LBionomics", pars$Lpar)
+LBionomics <- function(t, y, pars, s) {
+  UseMethod("LBionomics", pars$Lpar[[s]])
 }
 
 #' @title Number of newly emerging adults from each larval habitat
@@ -19,10 +20,11 @@ LBionomics <- function(t, y, pars) {
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
+#' @param s the species index
 #' @return a [numeric] vector of length `nHabitats`
 #' @export
-F_alpha <- function(t, y, pars) {
-  UseMethod("F_alpha", pars$Lpar)
+F_alpha <- function(t, y, pars, s) {
+  UseMethod("F_alpha", pars$Lpar[[s]])
 }
 
 #' @title Derivatives for aquatic stage mosquitoes
@@ -30,37 +32,48 @@ F_alpha <- function(t, y, pars) {
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
+#' @param s the species index
 #' @param eta vector giving number of eggs being laid in each larval habitat
 #' @return a [numeric] vector of length `pars$L_ix`
 #' @export
-dLdt <- function(t, y, pars, eta) {
-  UseMethod("dLdt", pars$Lpar)
+dLdt <- function(t, y, pars, eta, s) {
+  UseMethod("dLdt", pars$Lpar[[s]])
 }
 
-#' @title A function to set up Lpar
+
+#' @title A function to set up adult mosquito models
+#' @description This method dispatches on `Lname`.
+#' @param Lname the class name of the aquatic model
+#' @param pars a [list]
+#' @param s the species index
+#' @param Lopts a [list]
+#' @return [list]
+#' @export
+setup_Lpar = function(Lname, pars, s, Lopts=list()){
+  class(Lopts) <- Lname
+  UseMethod("setup_Lpar", Lopts)
+}
+
+#' @title A function to set up adult mosquito models
 #' @description This method dispatches on `Lname`.
 #' @param pars a [list]
-#' @param Lname a [character] string
-#' @param membership a [vector] of length `nHabitats`
-#' @param searchQ a [vector] of length `nHabitats`
+#' @param s the species index
 #' @param Lopts a [list]
-#' @return none
+#' @return [list]
 #' @export
-setup_L = function(pars, Lname,
-                      membership=1, searchQ=1,
-                      Lopts=list()){
-  class(Lname) <- Lname
-  UseMethod("setup_L", Lname)
+setup_Linits = function(pars, s, Lopts=list()){
+  UseMethod("setup_Linits", pars$Lpar[[s]])
 }
 
 #' @title Add indices for aquatic stage mosquitoes to parameter list
 #' @description This method dispatches on the type of `pars$Lpar`. Adds field `L_ix`
 #' to parameter list.
 #' @param pars a [list]
+#' @param s the species index
 #' @return none
 #' @export
-make_indices_L <- function(pars) {
-  UseMethod("make_indices_L", pars$Lpar)
+make_indices_L <- function(pars, s) {
+  UseMethod("make_indices_L", pars$Lpar[[s]])
 }
 
 #' @title Parse the output of deSolve and return the variables by name in a list
@@ -68,28 +81,31 @@ make_indices_L <- function(pars) {
 #' state variables for the aquatic ecology model to a list and returns it
 #' @param deout a [matrix] of outputs from deSolve
 #' @param pars a [list] that defines the model
+#' @param s the species index
 #' @export
-parse_deout_L <- function(deout, pars) {
-  UseMethod("parse_deout_L", pars$Lpar)
+parse_deout_L <- function(deout, pars, s) {
+  UseMethod("parse_deout_L", pars$Lpar[[s]])
 }
 
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Lpar`.
 #' @param pars a [list]
+#' @param s the species index
 #' @return none
 #' @export
-get_inits_L <- function(pars) {
-  UseMethod("get_inits_L", pars$Lpar)
+get_inits_L <- function(pars, s) {
+  UseMethod("get_inits_L", pars$Lpar[[s]])
 }
 
 #' @title Set the initial values from a vector of model states
 #' @description This method dispatches on the type of `pars$Lpar`.
 #' @param pars a [list]
 #' @param y0 a vector of variable values from a simulation
+#' @param s the species index
 #' @return none
 #' @export
-update_inits_L <- function(pars, y0) {
-  UseMethod("update_inits_L", pars$Lpar)
+update_inits_L <- function(pars, y0, s) {
+  UseMethod("update_inits_L", pars$Lpar[[s]])
 }
 
 #' @title Make the habitat membership matrix, calN

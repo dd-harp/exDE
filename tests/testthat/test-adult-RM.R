@@ -41,25 +41,25 @@ test_that("RM models reach equilibrium", {
   y0 <- get_inits(params)
 
   # solve ODEs
-  out <- deSolve::ode(y = y0, times = c(0, 730), func = function(t, y, pars, Lambda, kappa) {
-    list(dMYZdt(t, y, pars, Lambda, kappa))
-  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa)
+  out <- deSolve::ode(y = y0, times = c(0, 730), func = function(t, y, pars, Lambda, kappa, s) {
+    list(dMYZdt(t, y, pars, Lambda, kappa, s))
+  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa, s=1)
 
   # equilibrium solutions (forward)
   Omega_inv <- solve(Omega)
   OmegaEIP_inv <- expm::expm(Omega * eip)
 
   M_eq <- as.vector(Omega_inv %*% Lambda)
-  M_sim <- as.vector(out[2, params$ix$MYZ$M_ix+1])
+  M_sim <- as.vector(out[2, params$ix$MYZ[[1]]$M_ix+1])
 
   P_eq <- as.vector(solve(diag(f, nPatches) + Omega) %*% diag(f, nPatches) %*% M_eq)
-  P_sim <- as.vector(out[2, params$ix$MYZ$P_ix+1])
+  P_sim <- as.vector(out[2, params$ix$MYZ[[1]]$P_ix+1])
 
   Y_eq <- as.vector(solve(diag(f*q*kappa) + Omega) %*% diag(f*q*kappa) %*% M_eq)
-  Y_sim <- as.vector(out[2, params$ix$MYZ$Y_ix+1])
+  Y_sim <- as.vector(out[2, params$ix$MYZ[[1]]$Y_ix+1])
 
   Z_eq <- as.vector(Omega_inv %*% OmegaEIP %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
-  Z_sim <- as.vector(out[2, params$ix$MYZ$Z_ix+1])
+  Z_sim <- as.vector(out[2, params$ix$MYZ[[1]]$Z_ix+1])
 
   expect_equal(M_eq, M_sim, tolerance = numeric_tol)
   expect_equal(P_eq, P_sim, tolerance = numeric_tol)
@@ -91,23 +91,23 @@ test_that("RM models reach equilibrium", {
   y0 <- get_inits(params)
 
   # solve DDEs
-  out <- deSolve::dede(y = y0, times = c(0, 365), func = function(t, y, pars, Lambda, kappa) {
-    list(dMYZdt(t, y, pars, Lambda, kappa))
-  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa
+  out <- deSolve::dede(y = y0, times = c(0, 365), func = function(t, y, pars, Lambda, kappa, s) {
+    list(dMYZdt(t, y, pars, Lambda, kappa, s))
+  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa, s=1
   )
 
   # equilibrium solutions (forward)
   M_eq <- as.vector(Omega_inv %*% Lambda)
-  M_sim <- as.vector(out[2, params$ix$MYZ$M_ix+1])
+  M_sim <- as.vector(out[2, params$ix$MYZ[[1]]$M_ix+1])
 
   P_eq <- as.vector(solve(diag(f, nPatches) + Omega) %*% diag(f, nPatches) %*% M_eq)
-  P_sim <- as.vector(out[2, params$ix$MYZ$P_ix+1])
+  P_sim <- as.vector(out[2, params$ix$MYZ[[1]]$P_ix+1])
 
   Y_eq <- as.vector(solve(diag(f*q*kappa) + Omega) %*% diag(f*q*kappa) %*% M_eq)
-  Y_sim <- as.vector(out[2, params$ix$MYZ$Y_ix+1])
+  Y_sim <- as.vector(out[2, params$ix$MYZ[[1]]$Y_ix+1])
 
   Z_eq <- as.vector(Omega_inv %*% OmegaEIP %*% diag(f*q*kappa) %*% (M_eq - Y_eq))
-  Z_sim <- as.vector(out[2, params$ix$MYZ$Z_ix+1])
+  Z_sim <- as.vector(out[2, params$ix$MYZ[[1]]$Z_ix+1])
 
   expect_equal(M_eq, M_sim, tolerance = numeric_tol)
   expect_equal(P_eq, P_sim, tolerance = numeric_tol)

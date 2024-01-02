@@ -4,12 +4,12 @@
 \alias{F_g.static}
 \title{Static model for mosquito survival}
 \usage{
-\method{F_g}{static}(t, pars)
+\method{F_g}{static}(t, MYZpar)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{a \link{list}}
+\item{MYZpar}{a \link{list}}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}

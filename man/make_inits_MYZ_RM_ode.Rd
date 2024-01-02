@@ -18,7 +18,7 @@ make_inits_MYZ_RM_ode(pars, M0, P0, Y0, Z0)
 \item{Z0}{infectious mosquito density at each patch}
 }
 \value{
-none
+a \link{list}
 }
 \description{
 Make inits for RM adult mosquito model

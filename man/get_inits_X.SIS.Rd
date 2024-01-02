@@ -4,10 +4,12 @@
 \alias{get_inits_X.SIS}
 \title{Return initial values as a vector}
 \usage{
-\method{get_inits_X}{SIS}(pars)
+\method{get_inits_X}{SIS}(pars, i)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{i}{the host species index}
 }
 \value{
 a \link{numeric} vector

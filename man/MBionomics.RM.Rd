@@ -4,7 +4,7 @@
 \alias{MBionomics.RM}
 \title{Reset bloodfeeding and mortality rates to baseline}
 \usage{
-\method{MBionomics}{RM}(t, y, pars)
+\method{MBionomics}{RM}(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,9 +12,11 @@
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
-a named \link{list}
+the model as a \link{list}
 }
 \description{
 Implements \link{MBionomics} for the RM model

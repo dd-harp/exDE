@@ -4,15 +4,15 @@
 \alias{EIP.static}
 \title{Modify parameters due to exogenous forcing by all kinds of control}
 \usage{
-\method{EIP}{static}(t, pars)
+\method{EIP}{static}(t, EIPmod)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{a \link{list}}
+\item{EIPmod}{a \link{list}}
 }
 \value{
-\link{list}
+\link{numeric}
 }
 \description{
 Implements \link{EIP} for the static model (the EIP is constant)

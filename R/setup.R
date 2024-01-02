@@ -6,11 +6,14 @@
 #' @param Xname is a character string defining a X model
 #' @param Lname is a character string defining a L model
 #' @param nPatches is the number of patches
+#' @param nVectors is the number of vector species
+#' @param nHosts is the number of vertebrate host species
 #' @param HPop is the number of humans in each patch
 #' @param membership is a vector that describes the patch where each aquatic habitat is found
 #' @param MYZopts a list to configure the MYZ model
 #' @param calK is either a calK matrix or a string that defines how to set it up
 #' @param calKopts are the options to setup calK
+#' @param EIPname are the options to setup EIPmod
 #' @param EIPopts are the options to setup EIPmod
 #' @param Xopts a list to configure the X model
 #' @param Hopts a list to configure the H model
@@ -31,6 +34,8 @@ xde_setup = function(modelName,
 
                      # Model Structure
                      nPatches = 1,
+                     nVectors = 1,
+                     nHosts = 1,
                      HPop=1000,
                      membership=1,
 
@@ -38,6 +43,7 @@ xde_setup = function(modelName,
                      MYZopts = list(),
                      calK ="herethere",
                      calKopts = list(),
+                     EIPname = "static",
                      EIPopts = list(),
 
                      # Human Strata / Options
@@ -58,21 +64,36 @@ xde_setup = function(modelName,
   class(pars$compute) = "xde"
 
   pars$modelName = modelName
+  pars$Xname = Xname
+  pars$MYZname = MYZname
+  pars$Lname = Lname
 
-  # Structure
+  # Fixed Structural Elements
   pars$nPatches = nPatches
   pars$nStrata = length(HPop)
+  pars$nVectors = nVectors
   pars$nHabitats = length(membership)
+  pars$membership = membership
+  pars$calN = make_calN(pars$nPatches, pars$membership)
 
   pars = setup_Hpar(pars, HPop, residence, searchB, Hopts)
-  pars$Hpar$TaR = make_TaR(nPatches, pars$Hpar$residence, TaR, TaRopts)
+  pars$Hpar[[1]]$TaR = make_TaR(nPatches, pars$Hpar$residence, TaR, TaRopts)
 
-  # Dynamics
+  # Adult Mosquito Dynamics
+  EIPmod = setup_EIP(EIPname, EIPopts)
   calK = make_calK(nPatches, calK, calKopts)
-  pars = setup_MYZ(pars, MYZname, nPatches, MYZopts, calK)
-  pars = setup_L(pars, Lname, membership, searchQ, Lopts)
-  pars = setup_X(pars, Xname, Xopts)
-  pars$EIP = EIPopts
+
+  pars = setup_MYZpar(MYZname, pars, 1, MYZopts, EIPmod, calK)
+  pars = setup_MYZinits(pars, 1, MYZopts)
+
+  # Aquatic Mosquito Dynamics
+  pars = setup_Lpar(Lname, pars, 1, Lopts)
+  pars = setup_Linits(pars, 1, Lopts)
+  pars = setup_EggLaying(pars, 1, searchQ)
+
+  # Vertebrate Host Dynamics
+  pars = setup_Xpar(Xname, pars, 1, Xopts)
+  pars = setup_Xinits(pars, 1, Xopts)
 
   pars = make_indices(pars)
 
@@ -85,6 +106,7 @@ xde_setup = function(modelName,
 #' @param MYZname is a character string defining a MYZ model
 #' @param Lname is a character string defining a L model
 #' @param nPatches is the number of patches
+#' @param nVectors is the number of vector species
 #' @param membership is a vector that describes the patch where each aquatic habitat is found
 #' @param MYZopts a list to configure the MYZ model
 #' @param calK is either a calK matrix or a string that defines how to set it up
@@ -102,6 +124,7 @@ xde_setup_mosy = function(modelName,
 
                      # Model Structure
                      nPatches = 1,
+                     nVectors = 1,
                      membership=1,
 
                      # Adult Mosquito Options
@@ -122,22 +145,30 @@ xde_setup_mosy = function(modelName,
   class(pars$compute) = "na"
 
   pars$modelName = modelName
+  pars$MYZname = MYZname
+  pars$Lname = Lname
 
   # Structure
   pars$nPatches = nPatches
   pars$nHabitats = length(membership)
+  pars$membership = membership
+  pars$calN = make_calN(pars$nPatches, pars$membership)
+  pars$nVectors = 1
 
   # Dynamics
   calK = make_calK(nPatches, calK, calKopts)
-  pars = setup_MYZ(pars, MYZname, nPatches, MYZopts, calK)
-  pars = setup_L(pars, Lname, membership, searchQ, Lopts)
+  pars = setup_MYZpar(MYZname, pars, 1, MYZopts, NULL, calK)
+  pars = setup_MYZinits(pars, 1, MYZopts)
+
+  # Aquatic Mosquito Dynamics
+  pars = setup_Lpar(Lname, pars, 1, Lopts)
+  pars = setup_Linits(pars, 1, Lopts)
+  pars = setup_EggLaying(pars, 1, searchQ)
 
   if(is.null(kappa))  kappa = rep(0, nPatches)
   pars$kappa = checkIt(kappa, nPatches)
 
-  pars$max_ix <- 0
-  pars = make_indices_L(pars)
-  pars = make_indices_MYZ(pars)
+  pars = make_indices(pars)
 
 
   return(pars)
@@ -147,6 +178,7 @@ xde_setup_mosy = function(modelName,
 #' @title Set up a model for xde_diffeqn_aqua
 #' @param modelName is a name for the model (arbitrary)
 #' @param nHabitats is the number of habitats
+#' @param nVectors is the number of vector species
 #' @param Lname is a character string defining a L model
 #' @param Lopts a list to configure the L model
 #' @param MYZopts a list to configure F_eggs from the Gtrace model
@@ -155,6 +187,7 @@ xde_setup_mosy = function(modelName,
 #' @export
 xde_setup_aquatic = function(modelName,
                      nHabitats = 1,
+                     nVectors = 1,
                      Lname = "basic",
                      Lopts = list(),
                      MYZopts = list(),
@@ -165,16 +198,24 @@ xde_setup_aquatic = function(modelName,
   class(pars$compute) = "na"
 
   pars$modelName = modelName
-  pars = setup_MYZ(pars, "Gtrace", nHabitats, MYZopts, NULL)
+  pars$MYZname = "Gtrace"
+  pars$Lname = Lname
+
+  pars$nVectors = nVectors
+  pars = setup_MYZpar("Gtrace", pars, 1, MYZopts, EIPmod=NULL, calK=NULL)
+
   pars$nHabitats = nHabitats
   membership = 1:nHabitats
+  pars$membership = membership
+  pars$calN = make_calN(pars$nHabitats, pars$membership)
   searchQ = rep(1, nHabitats)
-  pars = setup_L(pars, Lname, membership, searchQ, Lopts)
+  pars = setup_Lpar(Lname, pars, 1, Lopts)
+  pars = setup_Linits(pars, 1, Lopts)
+  pars = setup_EggLaying(pars, 1, searchQ, Lopts)
+
   pars <- setup_lsm_null(pars)
 
   pars = make_indices(pars)
-
-
 
   return(pars)
 }
@@ -219,18 +260,22 @@ xde_setup_human = function(modelName,
   class(pars$compute) = "human"
 
   pars$modelName = modelName
+  pars$Xname = Xname
+  pars$MYZname = "Ztrace"
 
   # Structure
   nStrata = length(HPop)
   pars$nPatches = as.integer(nStrata)
   pars$nStrata = nStrata
 
-  pars = setup_Hpar(pars, HPop, 1:nStrata, rep(1, nStrata), Hopts)
+  pars= setup_Hpar(pars, HPop, 1:nStrata, rep(1, nStrata), Hopts)
   pars$Hpar$TaR = make_TaR(pars$nPatches, pars$Hpar$residence, TaR, TaRopts)
 
   # Dynamics
-  pars = setup_MYZ(pars, "Ztrace", pars$nPatches, MYZopts, calK=NULL)
-  pars = setup_X(pars, Xname, Xopts)
+  pars = setup_MYZpar("Ztrace", pars, 1, MYZopts, EIPmod=NULL, calK=NULL)
+
+  pars = setup_Xpar(Xname, pars, 1, Xopts)
+  pars = setup_Xinits(pars, 1, Xopts)
 
   pars = make_indices(pars)
 
@@ -269,6 +314,8 @@ xde_setup_cohort = function(modelName, F_eir,
   class(pars$compute) = "cohort"
 
   pars$modelName = modelName
+  pars$Xname = Xname
+
   pars$F_eir = F_eir
 
   # Structure
@@ -279,11 +326,10 @@ xde_setup_cohort = function(modelName, F_eir,
   pars = setup_Hpar(pars, HPop, 1:nStrata, searchB, Hopts)
 
   # Dynamics
-  pars = setup_X(pars, Xname, Xopts)
+  pars = setup_Xpar(Xname, pars, 1, Xopts)
+  pars = setup_Xinits(pars, 1, Xopts)
 
   pars = make_indices(pars)
-
-
 
   return(pars)
 }

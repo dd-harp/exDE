@@ -5,7 +5,7 @@
 \title{Make parameters for SIP human model, with defaults}
 \usage{
 make_Xpar_SIP(
-  pars,
+  nStrata,
   Xopts = list(),
   b = 0.55,
   r = 1/180,
@@ -16,7 +16,7 @@ make_Xpar_SIP(
 )
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{nStrata}{the number of population strata}
 
 \item{Xopts}{a \link{list} that could overwrite defaults}
 

@@ -4,7 +4,7 @@
 \alias{F_alpha}
 \title{Number of newly emerging adults from each larval habitat}
 \usage{
-F_alpha(t, y, pars)
+F_alpha(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@ F_alpha(t, y, pars)
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 a \link{numeric} vector of length \code{nHabitats}

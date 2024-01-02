@@ -4,12 +4,14 @@
 \alias{update_inits_L.basic}
 \title{Update inits for the basic aquatic mosquito competition model}
 \usage{
-\method{update_inits_L}{basic}(pars, y0)
+\method{update_inits_L}{basic}(pars, y0, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
 
-\item{y0}{a vector of initial values}
+\item{y0}{a vector of variable values from a simulation}
+
+\item{s}{the species index}
 }
 \value{
 none

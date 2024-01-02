@@ -4,7 +4,7 @@
 \alias{make_parameters_xde}
 \title{Make base parameters}
 \usage{
-make_parameters_xde(solve_as = "ode")
+make_parameters_xde(solve_as = "dde")
 }
 \arguments{
 \item{solve_as, }{either "ode" or "dde"}

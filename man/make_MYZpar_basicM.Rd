@@ -5,10 +5,9 @@
 \title{Make parameters for basicM ODE adult mosquito model}
 \usage{
 make_MYZpar_basicM(
-  pars,
+  nPatches,
   MYZopts = list(),
   calK,
-  solve_as = "dde",
   g = 1/12,
   sigma = 1/8,
   f = 0.3,
@@ -18,13 +17,11 @@ make_MYZpar_basicM(
 )
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{nPatches}{the number of patches}
 
 \item{MYZopts}{a \link{list} of values that overwrites the defaults}
 
 \item{calK}{mosquito dispersal matrix of dimensions \code{nPatches} by \code{nPatches}}
-
-\item{solve_as}{is either \code{ode} to solve as an ode or \code{dde} to solve as a dde}
 
 \item{g}{mosquito mortality rate}
 
@@ -39,7 +36,7 @@ make_MYZpar_basicM(
 \item{eggsPerBatch}{eggs laid per oviposition}
 }
 \value{
-a \link{list}
+a \link{list} with a configured MYZpar
 }
 \description{
 Make parameters for basicM ODE adult mosquito model

@@ -4,7 +4,7 @@
 \alias{F_eggs}
 \title{Number of eggs laid by adult mosquitoes}
 \usage{
-F_eggs(t, y, pars)
+F_eggs(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@ F_eggs(t, y, pars)
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}

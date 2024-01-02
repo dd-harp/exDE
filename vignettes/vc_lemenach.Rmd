@@ -145,9 +145,9 @@ MYZo = list(f=f, q=q, g=g, sigma=sigma,
 
 ```{r}
 xde_setup("itn_mod", "RM", "SIS", "basic", 
-          3, Hpop, c(1:3), MYZo, calK, 
-          list(), list(), Xo, list(), 1:3, rep(1,3), 
-          TaR, list(), 1:3, Lo) -> itn_mod
+          nPatches=3, HPop=Hpop, membership=c(1:3), MYZopts=MYZo, calK=calK, 
+          Xopts=Xo, residence=1:3, searchB=rep(1,3), 
+          TaR=TaR, searchQ=rep(1,3), Lopts=Lo) -> itn_mod
 ```
 
 ```{r}
@@ -178,17 +178,17 @@ We can plot the output to study the effects of the seasonal ITN coverage on the 
 
 ```{r, out.width = "100%"}
 
-colnames(out)[itn_mod$ix$L$L_ix+1] <- paste0('L_', 1:itn_mod$nHabitats)
-colnames(out)[itn_mod$ix$MYZ$M_ix+1] <- paste0('M_', 1:itn_mod$nPatches)
-colnames(out)[itn_mod$ix$MYZ$P_ix+1] <- paste0('P_', 1:itn_mod$nPatches)
-colnames(out)[itn_mod$ix$MYZ$Y_ix+1] <- paste0('Y_', 1:itn_mod$nPatches)
-colnames(out)[itn_mod$ix$MYZ$Z_ix+1] <- paste0('Z_', 1:itn_mod$nPatches)
-colnames(out)[itn_mod$ix$X$X_ix+1] <- paste0('X_', 1:itn_mod$nStrata)
+colnames(out)[itn_mod$ix$L[[1]]$L_ix+1] <- paste0('L_', 1:itn_mod$nHabitats)
+colnames(out)[itn_mod$ix$MYZ[[1]]$M_ix+1] <- paste0('M_', 1:itn_mod$nPatches)
+colnames(out)[itn_mod$ix$MYZ[[1]]$P_ix+1] <- paste0('P_', 1:itn_mod$nPatches)
+colnames(out)[itn_mod$ix$MYZ[[1]]$Y_ix+1] <- paste0('Y_', 1:itn_mod$nPatches)
+colnames(out)[itn_mod$ix$MYZ[[1]]$Z_ix+1] <- paste0('Z_', 1:itn_mod$nPatches)
+colnames(out)[itn_mod$ix$X[[1]]$X_ix+1] <- paste0('X_', 1:itn_mod$nStrata)
 
-out <- out[, -c(itn_mod$ix$MYZ$sigma_ix+1)]
-out <- out[, -c(itn_mod$ix$MYZ$g_ix+1)]
-out <- out[, -c(itn_mod$ix$MYZ$fqkappa_ix+1)]
-out <- out[, -c(itn_mod$ix$MYZ$Upsilon_ix+1)]
+out <- out[, -c(itn_mod$ix$MYZ[[1]]$sigma_ix+1)]
+out <- out[, -c(itn_mod$ix$MYZ[[1]]$g_ix+1)]
+out <- out[, -c(itn_mod$ix$MYZ[[1]]$fqkappa_ix+1)]
+out <- out[, -c(itn_mod$ix$MYZ[[1]]$Upsilon_ix+1)]
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

@@ -4,7 +4,7 @@
 \alias{dMYZdt.Gtrace}
 \title{Derivatives for aquatic stage mosquitoes}
 \usage{
-\method{dMYZdt}{Gtrace}(t, y, pars, Lambda, kappa)
+\method{dMYZdt}{Gtrace}(t, y, pars, Lambda, kappa, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -16,6 +16,8 @@
 \item{Lambda}{emergence rate of adult mosquitoes}
 
 \item{kappa}{net infectiousness of human population}
+
+\item{s}{the species index}
 }
 \value{
 a \link{numeric} vector

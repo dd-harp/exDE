@@ -4,10 +4,12 @@
 \alias{make_indices_MYZ.Ztrace}
 \title{Add indices for aquatic stage mosquitoes to parameter list}
 \usage{
-\method{make_indices_MYZ}{Ztrace}(pars)
+\method{make_indices_MYZ}{Ztrace}(pars, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 none

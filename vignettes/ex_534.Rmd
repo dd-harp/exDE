@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
 
 ```{r, warning=FALSE, message=FALSE}
 library(exDE)
-#devtools::load_all(".")
 library(expm)
 library(data.table)
 library(ggplot2)
@@ -91,7 +90,9 @@ The egg dispersal matrix $\mathcal{U}$ is a $l \times p$ matrix describing how e
 
 ```{r}
 xi <- matrix(c(.7, .2, .1, .8, .2), 5, 1) 
-params$calU <- t(calN %*% diag(as.vector(xi)))
+params$egg_laying = list()
+params$egg_laying[[1]] = list()
+params$egg_laying[[1]]$calU <- t(calN %*% diag(as.vector(xi)))
 ```
 
 ## Aquatic Mosquito Parameters
@@ -104,8 +105,8 @@ psi <- rep(1/8, params$nHabitats)
 phi <- rep(1/8, params$nHabitats)
 theta <- c(1/10, 1/20, 1/40, 1/100, 1/10) 
 
-params = make_Lpar_basic(params, psi = psi, phi = phi, theta = theta)
-params = make_Linits_basic(params, L0=L0)
+params = make_parameters_L_basic(params, psi = psi, phi = phi, theta = theta)
+params = make_inits_L_basic(params, L0=L0)
 ```
 
 ## Adult Mosquito Parameters
@@ -134,13 +135,13 @@ Z0 <- rep(0, params$nPatches)
 Omega <- make_Omega(g, sigma, calK, params$nPatches)
 Upsilon <- expm::expm(-Omega*eip)
 
-params = make_MYZpar_RM(pars = params, g = g, 
+params = make_parameters_MYZ_RM(pars = params, g = g, 
                 sigma = sigma, calK=calK, 
                 eip=eip, f=f, q=q, nu=nu, 
                 eggsPerBatch=eggsPerBatch, 
                 solve_as = "ode") 
 
-params = make_MYZinits_RM(params, M0=M0, P0=P0, 
+params = make_inits_MYZ_RM_ode(params, M0=M0, P0=P0, 
              Y0=Y0, Z0=Z0)
 ```
 
@@ -201,7 +202,7 @@ We use the null demographic model, which assumes a constant population size (con
 ```{r}
 H <- matrix(c(10,90, 100, 900), 4, 1)
 params = setup_Hpar(params, HPop=H, residence=residence, searchWts=searchWtsH) 
-params$Hpar$TaR <- TaR
+params$Hpar[[1]]$TaR <- TaR
 ```
 
 ```{r}
@@ -210,8 +211,8 @@ r <- 1/200
 b <- 0.55
 c <- c(0.1, .02, .1, .02)
 
-params = make_Xpar_SIS(pars = params, b = b, c = c, r = r)
-params = make_Xinits_SIS(params, I0=I0)
+params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
+params = make_inits_X_SIS(params, S0 = H-I0, I0=I0)
 ```
 
 
@@ -246,12 +247,12 @@ out1 <- out
 With a small amount of data wrangling made easier by the `data.table` package, we can plot the output.
 
 ```{r, out.width = "100%"}
-colnames(out)[params$ix$L$L_ix+1] <- paste0('L_', 1:params$nHabitats)
-colnames(out)[params$ix$MYZ$M_ix+1] <- paste0('M_', 1:params$nPatches)
-colnames(out)[params$ix$MYZ$P_ix+1] <- paste0('P_', 1:params$nPatches)
-colnames(out)[params$ix$MYZ$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
-colnames(out)[params$ix$MYZ$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
-colnames(out)[params$ix$X$X_ix+1] <- paste0('X_', 1:params$nStrata)
+colnames(out)[params$ix$L[[1]]$L_ix+1] <- paste0('L_', 1:params$nHabitats)
+colnames(out)[params$ix$MYZ[[1]]$M_ix+1] <- paste0('M_', 1:params$nPatches)
+colnames(out)[params$ix$MYZ[[1]]$P_ix+1] <- paste0('P_', 1:params$nPatches)
+colnames(out)[params$ix$MYZ[[1]]$Y_ix+1] <- paste0('Y_', 1:params$nPatches)
+colnames(out)[params$ix$MYZ[[1]]$Z_ix+1] <- paste0('Z_', 1:params$nPatches)
+colnames(out)[params$ix$X[[1]]$X_ix+1] <- paste0('X_', 1:params$nStrata)
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')
@@ -296,12 +297,16 @@ Xo = list(
 )
 ```
 
+```{r}
+EIPo <- list(eip=12) 
+```
+
 
 
 ```{r}
 xde_setup("mod534", "RM", "SIS", "basic", 
                   nPatches = 3, HPop=c(10, 90, 100, 900), 
-                  membership=c(1,1,1,2,2), 
+                  membership=c(1,1,1,2,2), EIPopts = EIPo,
                   MYZopts=MYZo, calK=calK, Xopts=Xo, 
                   residence=c(2,2,3,3), searchB=searchWtsH, 
                   TaR=TaR, searchQ = c(7,2,1,8,2), Lopts = Lo) -> mod534
@@ -318,24 +323,25 @@ sum(abs(out2-out1))
 Interestingly, the differences are small: 
 
 ```{r}
-approx_equal(tail(out2, 1), tail(out1,1), tol = 1e-6)
+approx_equal(tail(out2, 1), tail(out1,1), tol = 1e-5)
 ```
 
 After some sleuthing, it appears that these arise from a very small difference in $\cal U$. Note that `mod534$calU` appears to match `params$calU`:
 
 ```{r}
-mod534$calU
+mod534$egg_laying[[1]]$calU -> U1
+params$egg_laying[[1]]$calU -> U2
 ```
 but there is a very small difference that only shows up by taking the difference: 
 
 ```{r}
-mod534$calU - params$calU
+U1-U2
 ```
 
 We can test the idea:
 
 ```{r}
-mod534$calU = params$calU
+mod534$egg_laying[[1]]$calU = U2 
 mod534 <- xde_solve(mod534,Tmax=365,dt=1)
 mod534$outputs$orbits$deout -> out2
 sum(abs(out2-out1))

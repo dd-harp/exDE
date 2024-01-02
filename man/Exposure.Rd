@@ -4,7 +4,7 @@
 \alias{Exposure}
 \title{A model for exposure. The function \code{F_b} must be define}
 \usage{
-Exposure(t, y, pars, EIR)
+Exposure(t, y, pars, EIR, i)
 }
 \arguments{
 \item{t}{the time}
@@ -14,6 +14,8 @@ Exposure(t, y, pars, EIR)
 \item{pars}{a \link{list}}
 
 \item{EIR}{is the daily eir}
+
+\item{i}{the host species index}
 }
 \description{
 A model for exposure. The function \code{F_b} must be define

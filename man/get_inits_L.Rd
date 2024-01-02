@@ -4,10 +4,12 @@
 \alias{get_inits_L}
 \title{Return initial values as a vector}
 \usage{
-get_inits_L(pars)
+get_inits_L(pars, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 none

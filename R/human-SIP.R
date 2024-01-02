@@ -5,9 +5,10 @@
 #' @inheritParams F_X
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_X.SIP <- function(t, y, pars) {
-  I <- y[pars$ix$X$I_ix]
-  with(pars$Xpar, c*I)
+F_X.SIP <- function(t, y, pars, i) {
+  I = y[pars$ix$X[[i]]$I_ix]
+  X = with(pars$Xpar[[i]], c*I)
+  return(X)
 }
 
 #' @title Size of effective infectious human population
@@ -15,21 +16,21 @@ F_X.SIP <- function(t, y, pars) {
 #' @inheritParams F_X
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_H.SIP <- function(t, y, pars){
-  S = y[pars$ix$X$S_ix]
-  I = y[pars$ix$X$I_ix]
-  P = y[pars$ix$X$P_ix]
-  H = S+I+P
-  return(H)
-}
+F_H.SIP <- function(t, y, pars, i){
+  with(pars$ix$X[[i]],{
+    S = y[S_ix]
+    I = y[I_ix]
+    P = y[P_ix]
+    return(S+I+P)
+})}
 
 #' @title Compute the "true" prevalence of infection / parasite rate
 #' @description Implements [F_pr] for the SIP model.
 #' @inheritParams F_pr
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_pr.SIP <- function(varslist, pars) {
-  pr = with(varslist$XH, I/H)
+F_pr.SIP <- function(varslist, pars, i) {
+  pr = with(varslist$XH[[i]], I/H)
   return(pr)
 }
 
@@ -38,8 +39,8 @@ F_pr.SIP <- function(varslist, pars) {
 #' @inheritParams F_b
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_b.SIP <- function(y, pars) {
-  with(pars$Xpar, b)
+F_b.SIP <- function(y, pars,i) {
+  with(pars$Xpar[[i]], b)
 }
 
 #' @title Derivatives for human population
@@ -47,18 +48,18 @@ F_b.SIP <- function(y, pars) {
 #' @inheritParams dXdt
 #' @return a [numeric] vector
 #' @export
-dXdt.SIP <- function(t, y, pars, FoI) {
+dXdt.SIP <- function(t, y, pars, FoI, i) {
 
-  S <- y[pars$ix$X$S_ix]
-  I <- y[pars$ix$X$I_ix]
-  P <- y[pars$ix$X$P_ix]
-  H <- F_H(t, y, pars)
+  S <- y[pars$ix$X[[i]]$S_ix]
+  I <- y[pars$ix$X[[i]]$I_ix]
+  P <- y[pars$ix$X[[i]]$P_ix]
+  H <- F_H(t, y, pars, i)
 
-  with(pars$Xpar, {
+  with(pars$Xpar[[i]], {
 
-    dS <- Births(t, H, pars)-FoI*S -xi*S + r*I + eta*P + dHdt(t, S, pars)
-    dI <- (1-rho)*FoI*S - (r+xi)*I + dHdt(t, I, pars)
-    dP <- rho*FoI*S + xi*(S+I) - eta*P + dHdt(t, P, pars)
+    dS <- Births(t, H, pars, i)-FoI*S -xi*S + r*I + eta*P + dHdt(t, S, pars, i)
+    dI <- (1-rho)*FoI*S - (r+xi)*I + dHdt(t, I, pars, i)
+    dP <- rho*FoI*S + xi*(S+I) - eta*P + dHdt(t, P, pars, i)
 
     return(c(dS, dI, dP))
   })
@@ -70,28 +71,34 @@ dXdt.SIP <- function(t, y, pars, FoI) {
 #' @inheritParams HTC
 #' @return a [numeric] vector
 #' @export
-HTC.SIP <- function(pars) {
-  with(pars$Xpar,
+HTC.SIP <- function(pars, i) {
+  with(pars$Xpar[[i]],
        return((1-rho)*b/(r+xi)*xi/(eta+xi))
   )
 }
 
 #' @title Setup Xpar.SIP
-#' @description Implements [setup_X] for the SIP model
-#' @inheritParams setup_X
+#' @description Implements [setup_Xpar] for the SIP model
+#' @inheritParams setup_Xpar
 #' @return a [list] vector
 #' @export
-setup_X.SIP = function(pars, Xname, Xopts=list()){
+setup_Xpar.SIP = function(Xname, pars, i, Xopts=list()){
+  pars$Xpar[[i]] = make_Xpar_SIP(pars$nStrata, Xopts)
+  return(pars)
+}
 
-  pars$Xname = "SIP"
-  pars = make_Xpar_SIP(pars, Xopts)
-  pars = make_Xinits_SIP(pars, Xopts)
-
+#' @title Setup Xinits.SIP
+#' @description Implements [setup_Xinits] for the SIP model
+#' @inheritParams setup_Xinits
+#' @return a [list] vector
+#' @export
+setup_Xinits.SIP = function(pars, i, Xopts=list()){
+  pars$Xinits[[i]] = make_Xinits_SIP(pars$nStrata, Xopts, H0=pars$Hpar[[i]]$H)
   return(pars)
 }
 
 #' @title Make parameters for SIP human model, with defaults
-#' @param pars a [list]
+#' @param nStrata the number of population strata
 #' @param Xopts a [list] that could overwrite defaults
 #' @param b transmission probability (efficiency) from mosquito to human
 #' @param c transmission probability (efficiency) from human to mosquito
@@ -101,42 +108,40 @@ setup_X.SIP = function(pars, Xname, Xopts=list()){
 #' @param xi background treatment rate
 #' @return a [list]
 #' @export
-make_Xpar_SIP = function(pars, Xopts=list(),
+make_Xpar_SIP = function(nStrata, Xopts=list(),
                          b=0.55, r=1/180, c=0.15,
                          rho=.1, eta=1/25, xi=1/365){
   with(Xopts,{
     Xpar = list()
-    class(Xpar) <- c("SIP", "SIPdX")
+    class(Xpar) <- c("SIP")
 
-    Xpar$b = checkIt(b, pars$nStrata)
-    Xpar$c = checkIt(c, pars$nStrata)
-    Xpar$r = checkIt(r, pars$nStrata)
-    Xpar$rho = checkIt(rho, pars$nStrata)
-    Xpar$eta = checkIt(eta, pars$nStrata)
-    Xpar$xi = checkIt(xi, pars$nStrata)
+    Xpar$b = checkIt(b, nStrata)
+    Xpar$c = checkIt(c, nStrata)
+    Xpar$r = checkIt(r, nStrata)
+    Xpar$rho = checkIt(rho, nStrata)
+    Xpar$eta = checkIt(eta, nStrata)
+    Xpar$xi = checkIt(xi, nStrata)
 
-    pars$Xpar = Xpar
-    return(pars)
+    return(Xpar)
 })}
 
 
 #' @title Make initial values for the SIP human model, with defaults
-#' @param pars a [list]
+#' @param nStrata the number of population strata
 #' @param Xopts a [list] that could overwrite defaults
+#' @param H0 the initial human population density
 #' @param S0 the initial values of the parameter S
 #' @param I0 the initial values of the parameter I
 #' @param P0 the initial values of the parameter P
 #' @return a [list]
 #' @export
-make_Xinits_SIP = function(pars, Xopts = list(), S0=NULL,
+make_Xinits_SIP = function(nStrata, Xopts = list(), H0=NULL, S0=NULL,
                            I0=1, P0=0){with(Xopts,{
-  if(is.null(S0)) S0=pars$Hpar$H-I0-P0
-  inits = list()
-  inits$S0 = checkIt(S0, pars$nStrata)
-  inits$I0 = checkIt(I0, pars$nStrata)
-  inits$P0 = checkIt(P0, pars$nStrata)
-  pars$Xinits = inits
-  return(pars)
+  if(is.null(S0)) S0=H0-I0-P0
+  S = checkIt(S0, nStrata)
+  I = checkIt(I0, nStrata)
+  P = checkIt(P0, nStrata)
+  return(list(S=S, I=I, P=P))
 })}
 
 #' @title Parse the output of deSolve and return variables for the SIP model
@@ -144,9 +149,9 @@ make_Xinits_SIP = function(pars, Xopts = list(), S0=NULL,
 #' @inheritParams parse_deout_X
 #' @return none
 #' @export
-parse_deout_X.SIP <- function(deout, pars) {
+parse_deout_X.SIP <- function(deout, pars, i) {
   time = deout[,1]
-  with(pars$ix$X,{
+  with(pars$ix$X[[i]],{
     S = deout[,S_ix+1]
     I = deout[,I_ix+1]
     P = deout[,P_ix+1]
@@ -160,19 +165,21 @@ parse_deout_X.SIP <- function(deout, pars) {
 #' @return none
 #' @importFrom utils tail
 #' @export
-make_indices_X.SIP <- function(pars) {
+make_indices_X.SIP <- function(pars, i) {with(pars,{
 
-  pars$ix$X$S_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-  pars$max_ix <- tail(pars$ix$X$S_ix, 1)
+  S_ix <- seq(from = max_ix+1, length.out=nStrata)
+  max_ix <- tail(S_ix, 1)
 
-  pars$ix$X$I_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-  pars$max_ix <- tail(pars$ix$X$I_ix, 1)
+  I_ix <- seq(from = max_ix+1, length.out=nStrata)
+  max_ix <- tail(I_ix, 1)
 
-  pars$ix$X$P_ix <- seq(from = pars$max_ix+1, length.out = pars$nStrata)
-  pars$max_ix <- tail(pars$ix$X$P_ix, 1)
+  P_ix <- seq(from = max_ix+1, length.out=nStrata)
+  max_ix <- tail(P_ix, 1)
 
+  pars$max_ix = max_ix
+  pars$ix$X[[i]] = list(S_ix=S_ix, I_ix=I_ix, P_ix=P_ix)
   return(pars)
-}
+})}
 
 #' @title Make parameters for SIP human model
 #' @param pars a [list]
@@ -187,14 +194,14 @@ make_indices_X.SIP <- function(pars) {
 make_parameters_X_SIP <- function(pars, b, c, r, rho, eta, xi){
   stopifnot(is.numeric(b), is.numeric(c), is.numeric(r), is.numeric(rho), is.numeric(eta), is.numeric(xi))
   Xpar <- list()
-  class(Xpar) <- c('SIP', 'SIPdX')
+  class(Xpar) <- c('SIP')
   Xpar$b <- b
   Xpar$c <- c
   Xpar$r <- r
   Xpar$rho <- rho
   Xpar$eta <- eta
   Xpar$xi <- xi
-  pars$Xpar <- Xpar
+  pars$Xpar[[1]] <- Xpar
   return(pars)
 }
 
@@ -207,32 +214,31 @@ make_parameters_X_SIP <- function(pars, b, c, r, rho, eta, xi){
 #' @export
 make_inits_X_SIP <- function(pars, S0, I0, P0) {
   stopifnot(is.numeric(I0), is.numeric(P0), is.numeric(S0))
-  pars$Xinits = list(S0=S0, I0=I0, P0=P0)
+  pars$Xinits[[1]] = list(S=S0, I=I0, P=P0)
   return(pars)
 }
 
 #' @title Update inits for the SIP human model from a vector of states
-#' @param pars a [list]
-#' @param y0 a vector of initial values
+#' @inheritParams update_inits_X
 #' @return none
 #' @export
-update_inits_X.SIP <- function(pars, y0) {
-  with(pars,ix$X,{
-  S0 = y0[S_ix]
-  I0 = y0[I_ix]
-  P0 = y0[P_ix]
-  pars = make_Xinits_SIP(pars, list(), S0, I0, P0)
+update_inits_X.SIP <- function(pars, y0, i) {
+  with(pars,ix$X[[i]],{
+  S = y0[S_ix]
+  I = y0[I_ix]
+  P = y0[P_ix]
+  pars$Xinits[[i]] = make_Xinits_SIP(pars$nStrata, list(), S0=S, I0=I, P0=P)
   return(pars)
 })}
 
 
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.
-#' @param pars a [list]
+#' @inheritParams get_inits_X
 #' @return none
 #' @export
-get_inits_X.SIP <- function(pars){with(pars$Xinits,{
-  c(S0, I0, P0)
+get_inits_X.SIP <- function(pars, i){with(pars$Xinits[[i]],{
+  c(S, I, P)
 })}
 
 
@@ -240,15 +246,15 @@ get_inits_X.SIP <- function(pars){with(pars$Xinits,{
 #'
 #' @inheritParams xde_plot_X
 #' @export
-xde_plot_X.SIP = function(pars, clrs=c("darkblue", "darkred", "darkgreen"), llty=1, stable=FALSE, add_axes=TRUE){
+xde_plot_X.SIP = function(pars, i, clrs=c("darkblue", "darkred", "darkgreen"), llty=1, stable=FALSE, add_axes=TRUE){
   vars=with(pars$outputs,if(stable==TRUE){stable_orbits}else{orbits})
 
   if(add_axes==TRUE)
-    with(vars$XH,
+    with(vars$XH[[i]],
          plot(time, 0*time, type = "n", ylim = c(0, max(H)),
               ylab = "# Infected", xlab = "Time"))
 
-  xde_lines_X(vars$XH, pars, clrs, llty)
+  xde_lines_X(vars$XH[[i]], pars, clrs, llty)
 }
 
 

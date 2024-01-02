@@ -4,10 +4,10 @@
 \alias{make_Xinits_hMoI}
 \title{Make inits for hybrid MoI human model}
 \usage{
-make_Xinits_hMoI(pars, Xopts = list(), m10 = 2, m20 = 1)
+make_Xinits_hMoI(nStrata, Xopts = list(), m10 = 2, m20 = 1)
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{nStrata}{the number of population strata}
 
 \item{Xopts}{a \link{list} that overwrites default values}
 

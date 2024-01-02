@@ -4,10 +4,12 @@
 \alias{make_indices_MYZ}
 \title{Add indices for adult mosquitoes to parameter list}
 \usage{
-make_indices_MYZ(pars)
+make_indices_MYZ(pars, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 \link{list}

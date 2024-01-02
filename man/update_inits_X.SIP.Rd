@@ -4,12 +4,14 @@
 \alias{update_inits_X.SIP}
 \title{Update inits for the SIP human model from a vector of states}
 \usage{
-\method{update_inits_X}{SIP}(pars, y0)
+\method{update_inits_X}{SIP}(pars, y0, i)
 }
 \arguments{
 \item{pars}{a \link{list}}
 
 \item{y0}{a vector of initial values}
+
+\item{i}{the host species index}
 }
 \value{
 none

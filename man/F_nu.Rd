@@ -4,17 +4,17 @@
 \alias{F_nu}
 \title{Compute the egg laying rate}
 \usage{
-F_nu(t, pars)
+F_nu(t, MYZpar)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{a \link{list}}
+\item{MYZpar}{a \link{list}}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}
 }
 \description{
-This method dispatches on the type of \code{pars$MYZpar$nu_par}. It should
+This method dispatches on the type of \code{MYZpar$nu_par}. It should
 set the values of nu to (possibly changing) baseline value(s).
 }

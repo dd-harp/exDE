@@ -4,12 +4,12 @@
 \alias{F_sigma.BQS}
 \title{Model for mosquito emigration based on resource availability}
 \usage{
-\method{F_sigma}{BQS}(t, pars)
+\method{F_sigma}{BQS}(t, MYZpar)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{a \link{list}}
+\item{MYZpar}{a \link{list}}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}

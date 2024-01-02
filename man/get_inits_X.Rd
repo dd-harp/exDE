@@ -4,10 +4,12 @@
 \alias{get_inits_X}
 \title{Return initial values as a vector}
 \usage{
-get_inits_X(pars)
+get_inits_X(pars, i)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{i}{the host species index}
 }
 \value{
 none

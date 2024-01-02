@@ -4,16 +4,18 @@
 \alias{parse_deout_MYZ.GeRM}
 \title{Parse the output of deSolve and return variables for the GeRM model}
 \usage{
-\method{parse_deout_MYZ}{GeRM}(deout, pars)
+\method{parse_deout_MYZ}{GeRM}(deout, pars, s)
 }
 \arguments{
 \item{deout}{a \link{matrix} of outputs from deSolve}
 
 \item{pars}{a \link{list} that defines a model}
+
+\item{s}{the species index}
 }
 \value{
-\link{list}
+a \link{list}
 }
 \description{
-Implements \link{parse_deout_MYZ} for the GeRM model.
+Implements \link{parse_deout_MYZ} for the GeRM model
 }

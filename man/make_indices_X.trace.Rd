@@ -4,10 +4,12 @@
 \alias{make_indices_X.trace}
 \title{Add indices for human population to parameter list}
 \usage{
-\method{make_indices_X}{trace}(pars)
+\method{make_indices_X}{trace}(pars, i)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{i}{the host species index}
 }
 \value{
 none

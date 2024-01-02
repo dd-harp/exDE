@@ -4,13 +4,15 @@
 \alias{get_inits_MYZ.RM_ode}
 \title{Return initial values as a vector}
 \usage{
-\method{get_inits_MYZ}{RM_ode}(pars)
+\method{get_inits_MYZ}{RM_ode}(pars, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
-none
+\link{numeric}
 }
 \description{
 Implements \link{get_inits_MYZ} for the RM model.

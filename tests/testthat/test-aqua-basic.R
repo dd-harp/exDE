@@ -24,9 +24,9 @@ test_that("basic competition stays at equilibrium", {
 
   y0 <- rep(0, 3)
 
-  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, eta) {
-    list(dLdt(t, y, pars, eta))
-  }, parms = params, method = 'lsoda', eta = eta)
+  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, eta, s) {
+    list(dLdt(t, y, pars, eta, s))
+  }, parms = params, method = 'lsoda', eta = eta, s=1)
 
   expect_equal(as.vector(out[2L, 2:4]), L, tolerance = numeric_tol)
 })

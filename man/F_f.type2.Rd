@@ -4,12 +4,12 @@
 \alias{F_f.type2}
 \title{Type 2 functional response for the blood feeding rate}
 \usage{
-\method{F_f}{type2}(t, pars)
+\method{F_f}{type2}(t, MYZpar)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{a \link{list}}
+\item{MYZpar}{a \link{list}}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}
