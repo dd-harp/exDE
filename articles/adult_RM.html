@@ -220,7 +220,6 @@ M = (M - Y) + Y
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/exDE/">exDE</a></span><span class="op">)</span></span>
-<span><span class="co">#devtools::load_all()</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://R-Forge.R-project.org/projects/expm/" class="external-link">expm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
@@ -279,7 +278,7 @@ equilibrium values.</p>
 values. These equations have been implemented to compute <span class="math inline">\(\Upsilon\)</span> dynamically, so we attach
 <code>Upsilon</code> as initial values:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_MYZinits_RM.html">make_MYZinits_RM</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, </span>
+<code class="sourceCode R"><span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_inits_MYZ_RM_ode.html">make_inits_MYZ_RM_ode</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, </span>
 <span>                             M0 <span class="op">=</span> <span class="va">M_eq</span>, P0 <span class="op">=</span> <span class="va">P_eq</span>, Y0 <span class="op">=</span> <span class="va">Y_eq</span>, Z0 <span class="op">=</span> <span class="va">Z_eq</span><span class="op">)</span></span></code></pre></div>
 <p>We and set the indices with <code><a href="../reference/make_indices.html">exDE::make_indices</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -290,15 +289,15 @@ values. These equations have been implemented to compute <span class="math inlin
 would be computed within <code><a href="../reference/xDE_diffeqn.html">exDE::xDE_diffeqn</a></code>. Here, we set up
 a local version:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">y0</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_inits_MYZ.html">get_inits_MYZ</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span> </span>
+<code class="sourceCode R"><span><span class="va">y0</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_inits_MYZ.html">get_inits_MYZ</a></span><span class="op">(</span><span class="va">params</span>, <span class="fl">1</span><span class="op">)</span> </span>
 <span></span>
 <span></span>
-<span><span class="va">dMYZdt_local</span> <span class="op">=</span> <span class="va">func</span><span class="op">=</span><span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">Lambda</span>, <span class="va">kappa</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/dMYZdt.html">dMYZdt</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">Lambda</span>, <span class="va">kappa</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">dMYZdt_local</span> <span class="op">=</span> <span class="va">func</span><span class="op">=</span><span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">Lambda</span>, <span class="va">kappa</span>, <span class="va">s</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/dMYZdt.html">dMYZdt</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">Lambda</span>, <span class="va">kappa</span>, <span class="va">s</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">deSolve</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">ode</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y0</span>, times <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span>, <span class="va">dMYZdt_local</span>, parms<span class="op">=</span><span class="va">params</span>, </span>
-<span>                    method <span class="op">=</span> <span class="st">'lsoda'</span>, Lambda <span class="op">=</span> <span class="va">Lambda</span>, kappa <span class="op">=</span> <span class="va">kappa</span><span class="op">)</span> </span>
+<span>                    method <span class="op">=</span> <span class="st">'lsoda'</span>, Lambda <span class="op">=</span> <span class="va">Lambda</span>, kappa <span class="op">=</span> <span class="va">kappa</span>, s<span class="op">=</span><span class="fl">1</span><span class="op">)</span> </span>
 <span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="va">out</span></span></code></pre></div>
 <p>The output is plotted below. The flat lines shown here is a
 verification that the steady state solutions that we computed above
@@ -367,7 +366,7 @@ aquatic mosquitoes</p></li>
 </ul>
 <p>Otherwise, setup takes care of all the internals:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/xde_setup.html">xde_setup</a></span><span class="op">(</span><span class="st">"MYZeg"</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/xde_setup.html">xde_setup</a></span><span class="op">(</span><span class="st">"MYZeg"</span>, </span>
 <span>    MYZname <span class="op">=</span> <span class="st">"RM"</span>, Xname <span class="op">=</span> <span class="st">"trace"</span>, Lname <span class="op">=</span> <span class="st">"trace"</span>,  </span>
 <span>    nPatches<span class="op">=</span><span class="fl">3</span>, calK<span class="op">=</span><span class="va">calK</span>, membership <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, </span>
 <span>    residence <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, HPop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>,</span>

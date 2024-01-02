@@ -181,7 +181,12 @@
         <dd>Derivatives for adult mosquitoes</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_MYZ.html">setup_MYZ()</a></code> 
+          <code><a href="setup_MYZpar.html">setup_MYZpar()</a></code> 
+        </dt>
+        <dd>A function to set up adult mosquito models</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_MYZinits.html">setup_MYZinits()</a></code> 
         </dt>
         <dd>A function to set up adult mosquito models</dd>
       </dl><dl><dt>
@@ -287,9 +292,19 @@
         <dd>This function computes the negative derivative of the EIP as a function of time</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_eip_static.html">setup_eip_static()</a></code> 
+          <code><a href="setup_EIP.html">setup_EIP()</a></code> 
         </dt>
         <dd>Set up the static model for control forcing (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_EIP.static.html">setup_EIP(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set up a static model for the EIP</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_eip_static.html">setup_eip_static()</a></code> 
+        </dt>
+        <dd>Set up a static model for the EIP</dd>
       </dl></div><div class="section level2">
       
       <h3 id="ztrace">Ztrace<a class="anchor" aria-label="anchor" href="#ztrace"></a></h3>
@@ -323,7 +338,12 @@
         <dd>Derivatives for aquatic stage mosquitoes</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_MYZ.Ztrace.html">setup_MYZ(<i>&lt;Ztrace&gt;</i>)</a></code> 
+          <code><a href="setup_MYZpar.Ztrace.html">setup_MYZpar(<i>&lt;Ztrace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup the Ztrace model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_MYZinits.Ztrace.html">setup_MYZinits(<i>&lt;Ztrace&gt;</i>)</a></code> 
         </dt>
         <dd>Setup the Ztrace model</dd>
       </dl><dl><dt>
@@ -394,9 +414,14 @@
         <dd>Derivatives for aquatic stage mosquitoes</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_MYZ.Gtrace.html">setup_MYZ(<i>&lt;Gtrace&gt;</i>)</a></code> 
+          <code><a href="setup_MYZpar.Gtrace.html">setup_MYZpar(<i>&lt;Gtrace&gt;</i>)</a></code> 
         </dt>
         <dd>Setup the Gtrace</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_MYZinits.Gtrace.html">setup_MYZinits(<i>&lt;Gtrace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup the Gtrace model</dd>
       </dl><dl><dt>
           
           <code><a href="make_MYZpar_Gtrace.html">make_MYZpar_Gtrace()</a></code> 
@@ -450,6 +475,11 @@
         <dd>Set bionomic parameters to baseline</dd>
       </dl><dl><dt>
           
+          <code><a href="F_fqZ.basicM.html">F_fqZ(<i>&lt;basicM&gt;</i>)</a></code> 
+        </dt>
+        <dd>The net blood feeding rate of the infective mosquito population in a patch</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_eggs.basicM.html">F_eggs(<i>&lt;basicM&gt;</i>)</a></code> 
         </dt>
         <dd>Number of eggs laid by adult mosquitoes</dd>
@@ -460,9 +490,14 @@
         <dd>Derivatives for adult mosquitoes</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_MYZ.basicM.html">setup_MYZ(<i>&lt;basicM&gt;</i>)</a></code> 
+          <code><a href="setup_MYZpar.basicM.html">setup_MYZpar(<i>&lt;basicM&gt;</i>)</a></code> 
         </dt>
-        <dd>Setup the basicM model for adult mosquitoes</dd>
+        <dd>Setup MYZpar for the basicM model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_MYZinits.basicM.html">setup_MYZinits(<i>&lt;basicM&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup the basicM model</dd>
       </dl><dl><dt>
           
           <code><a href="make_MYZpar_basicM.html">make_MYZpar_basicM()</a></code> 
@@ -523,7 +558,7 @@
           
           <code><a href="F_fqZ.RM.html">F_fqZ(<i>&lt;RM&gt;</i>)</a></code> 
         </dt>
-        <dd>Blood feeding rate of the infective mosquito population</dd>
+        <dd>The net blood feeding rate of the infective mosquito population in a patch</dd>
       </dl><dl><dt>
           
           <code><a href="F_eggs.RM.html">F_eggs(<i>&lt;RM&gt;</i>)</a></code> 
@@ -541,7 +576,12 @@
         <dd>Derivatives for adult mosquitoes</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_MYZ.RM.html">setup_MYZ(<i>&lt;RM&gt;</i>)</a></code> 
+          <code><a href="setup_MYZpar.RM.html">setup_MYZpar(<i>&lt;RM&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup MYZpar for the RM model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_MYZinits.RM.html">setup_MYZinits(<i>&lt;RM&gt;</i>)</a></code> 
         </dt>
         <dd>Setup the RM model</dd>
       </dl><dl><dt>
@@ -551,7 +591,12 @@
         <dd>Make parameters for RM ODE adult mosquito model</dd>
       </dl><dl><dt>
           
-          <code><a href="make_MYZinits_RM.html">make_MYZinits_RM()</a></code> 
+          <code><a href="make_MYZinits_RM_ode.html">make_MYZinits_RM_ode()</a></code> 
+        </dt>
+        <dd>Make inits for RM adult mosquito model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_MYZinits_RM_dde.html">make_MYZinits_RM_dde()</a></code> 
         </dt>
         <dd>Make inits for RM adult mosquito model</dd>
       </dl><dl><dt>
@@ -642,17 +687,27 @@
         <dd>Derivatives for adult mosquitoes</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_MYZ.GeRM.html">setup_MYZ(<i>&lt;GeRM&gt;</i>)</a></code> 
+          <code><a href="setup_MYZpar.GeRM.html">setup_MYZpar(<i>&lt;GeRM&gt;</i>)</a></code> 
         </dt>
-        <dd>Setup the GeRM model for adult mosquitoes</dd>
+        <dd>Setup MYZpar for the GeRM model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_MYZinits.GeRM.html">setup_MYZinits(<i>&lt;GeRM&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup the GeRM model</dd>
       </dl><dl><dt>
           
           <code><a href="make_MYZpar_GeRM.html">make_MYZpar_GeRM()</a></code> 
         </dt>
-        <dd>Make parameters for a GeRM ODE adult mosquito model</dd>
+        <dd>Make parameters for GeRM ODE adult mosquito model</dd>
       </dl><dl><dt>
           
-          <code><a href="make_MYZinits_GeRM.html">make_MYZinits_GeRM()</a></code> 
+          <code><a href="make_MYZinits_GeRM_ode.html">make_MYZinits_GeRM_ode()</a></code> 
+        </dt>
+        <dd>Make inits for GeRM adult mosquito model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_MYZinits_GeRM_dde.html">make_MYZinits_GeRM_dde()</a></code> 
         </dt>
         <dd>Make inits for GeRM adult mosquito model</dd>
       </dl><dl><dt>
@@ -699,12 +754,12 @@
           
           <code><a href="update_inits_MYZ.GeRM_dde.html">update_inits_MYZ(<i>&lt;GeRM_dde&gt;</i>)</a></code> 
         </dt>
-        <dd>Make inits for RM adult mosquito model</dd>
+        <dd>Update the initial values for GeRM adult mosquito model</dd>
       </dl><dl><dt>
           
-          <code><a href="make_parameters_MYZ_GeRM_static.html">make_parameters_MYZ_GeRM_static()</a></code> 
+          <code><a href="make_parameters_MYZ_GeRM.html">make_parameters_MYZ_GeRM()</a></code> 
         </dt>
-        <dd>Make parameters for a GeRM ODE adult mosquito model</dd>
+        <dd>Make parameters for GeRM ODE adult mosquito model</dd>
       </dl></div><div class="section level2">
       <h2 id="mosquito-bionomic-functional-responses">Mosquito Bionomic Functional Responses<a class="anchor" aria-label="anchor" href="#mosquito-bionomic-functional-responses"></a></h2>
       
@@ -850,9 +905,14 @@
         <dd>Derivatives for aquatic stage mosquitoes</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_L.html">setup_L()</a></code> 
+          <code><a href="setup_Lpar.html">setup_Lpar()</a></code> 
         </dt>
-        <dd>A function to set up Lpar</dd>
+        <dd>A function to set up adult mosquito models</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_Linits.html">setup_Linits()</a></code> 
+        </dt>
+        <dd>A function to set up adult mosquito models</dd>
       </dl><dl><dt>
           
           <code><a href="make_indices_L.html">make_indices_L()</a></code> 
@@ -883,6 +943,16 @@
           <code><a href="make_calU.html">make_calU()</a></code> 
         </dt>
         <dd>Make the egg distribution matrix, calU</dd>
+      </dl><dl><dt>
+          
+          <code><a href="LayEggs.html">LayEggs()</a></code> 
+        </dt>
+        <dd>Compute eggs laid</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_EggLaying.html">setup_EggLaying()</a></code> 
+        </dt>
+        <dd>Setup egg laying for most models</dd>
       </dl></div><div class="section level2">
       
       <h3 id="trace">trace<a class="anchor" aria-label="anchor" href="#trace"></a></h3>
@@ -911,9 +981,14 @@
         <dd>Derivatives for aquatic stage mosquitoes</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_L.trace.html">setup_L(<i>&lt;trace&gt;</i>)</a></code> 
+          <code><a href="setup_Lpar.trace.html">setup_Lpar(<i>&lt;trace&gt;</i>)</a></code> 
         </dt>
-        <dd>Setup Lpar.trace</dd>
+        <dd>Setup Lpar for the trace model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_Linits.trace.html">setup_Linits(<i>&lt;trace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup the trace model</dd>
       </dl><dl><dt>
           
           <code><a href="make_Lpar_trace.html">make_Lpar_trace()</a></code> 
@@ -977,9 +1052,14 @@
         <dd>Derivatives for aquatic stage mosquitoes</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_L.basic.html">setup_L(<i>&lt;basic&gt;</i>)</a></code> 
+          <code><a href="setup_Lpar.basic.html">setup_Lpar(<i>&lt;basic&gt;</i>)</a></code> 
         </dt>
-        <dd>Setup Lpar.basic</dd>
+        <dd>Setup Lpar for the basic model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_Linits.basic.html">setup_Linits(<i>&lt;basic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup the basic model</dd>
       </dl><dl><dt>
           
           <code><a href="make_Lpar_basic.html">make_Lpar_basic()</a></code> 
@@ -1058,7 +1138,12 @@
         <dd>Derivatives for human population</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_X.html">setup_X()</a></code> 
+          <code><a href="setup_Xpar.html">setup_Xpar()</a></code> 
+        </dt>
+        <dd>A function to set up Xpar</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_Xinits.html">setup_Xinits()</a></code> 
         </dt>
         <dd>A function to set up Xpar</dd>
       </dl><dl><dt>
@@ -1134,9 +1219,14 @@
         <dd>Derivatives for human population</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_X.trace.html">setup_X(<i>&lt;trace&gt;</i>)</a></code> 
+          <code><a href="setup_Xpar.trace.html">setup_Xpar(<i>&lt;trace&gt;</i>)</a></code> 
         </dt>
         <dd>Setup Xpar.trace</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_Xinits.trace.html">setup_Xinits(<i>&lt;trace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup Xinits.trace</dd>
       </dl><dl><dt>
           
           <code><a href="make_Xpar_trace.html">make_Xpar_trace()</a></code> 
@@ -1210,9 +1300,14 @@
         <dd>Derivatives for human population</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_X.hMoI.html">setup_X(<i>&lt;hMoI&gt;</i>)</a></code> 
+          <code><a href="setup_Xpar.hMoI.html">setup_Xpar(<i>&lt;hMoI&gt;</i>)</a></code> 
         </dt>
         <dd>Setup Xpar.hMoI</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_Xinits.hMoI.html">setup_Xinits(<i>&lt;hMoI&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup Xinits.hMoI</dd>
       </dl><dl><dt>
           
           <code><a href="make_Xpar_hMoI.html">make_Xpar_hMoI()</a></code> 
@@ -1296,9 +1391,14 @@
         <dd>Derivatives for human population</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_X.SIS.html">setup_X(<i>&lt;SIS&gt;</i>)</a></code> 
+          <code><a href="setup_Xpar.SIS.html">setup_Xpar(<i>&lt;SIS&gt;</i>)</a></code> 
         </dt>
         <dd>Setup Xpar.SIS</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_Xinits.SIS.html">setup_Xinits(<i>&lt;SIS&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup Xinits.SIS</dd>
       </dl><dl><dt>
           
           <code><a href="make_Xpar_SIS.html">make_Xpar_SIS()</a></code> 
@@ -1392,9 +1492,14 @@
         <dd>Derivatives for human population</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_X.SIP.html">setup_X(<i>&lt;SIP&gt;</i>)</a></code> 
+          <code><a href="setup_Xpar.SIP.html">setup_Xpar(<i>&lt;SIP&gt;</i>)</a></code> 
         </dt>
         <dd>Setup Xpar.SIP</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_Xinits.SIP.html">setup_Xinits(<i>&lt;SIP&gt;</i>)</a></code> 
+        </dt>
+        <dd>Setup Xinits.SIP</dd>
       </dl><dl><dt>
           
           <code><a href="make_Xpar_SIP.html">make_Xpar_SIP()</a></code> 
@@ -1481,6 +1586,11 @@
           <code><a href="make_parameters_demography_null.html">make_parameters_demography_null()</a></code> 
         </dt>
         <dd>Make parameters for null human demography model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_Hpar_trace.html">make_Hpar_trace()</a></code> 
+        </dt>
+        <dd>Make parameters for human null model</dd>
       </dl></div><div class="section level2">
       
       <h3 id="static">static<a class="anchor" aria-label="anchor" href="#static"></a></h3>
@@ -2941,7 +3051,7 @@ called by Control-&gt;VectorControl</dd>
         <dd>Compute the EIR</dd>
       </dl><dl><dt>
           
-          <code><a href="compute_EIR_i.html">compute_EIR_i()</a></code> 
+          <code><a href="compute_EIR_ix.html">compute_EIR_ix()</a></code> 
         </dt>
         <dd>Compute the EIR</dd>
       </dl><dl><dt>
@@ -2956,7 +3066,7 @@ called by Control-&gt;VectorControl</dd>
         <dd>Compute the fqZ</dd>
       </dl><dl><dt>
           
-          <code><a href="compute_fqZ_i.html">compute_fqZ_i()</a></code> 
+          <code><a href="compute_fqZ_ix.html">compute_fqZ_ix()</a></code> 
         </dt>
         <dd>Compute the fqZ for the ith</dd>
       </dl><dl><dt>
@@ -2966,7 +3076,7 @@ called by Control-&gt;VectorControl</dd>
         <dd>Compute the NI</dd>
       </dl><dl><dt>
           
-          <code><a href="compute_NI_i.html">compute_NI_i()</a></code> 
+          <code><a href="compute_NI_ix.html">compute_NI_ix()</a></code> 
         </dt>
         <dd>Compute NI once</dd>
       </dl><dl><dt>
@@ -2976,7 +3086,7 @@ called by Control-&gt;VectorControl</dd>
         <dd>Compute kappa</dd>
       </dl><dl><dt>
           
-          <code><a href="compute_kappa_i.html">compute_kappa_i()</a></code> 
+          <code><a href="compute_kappa_ix.html">compute_kappa_ix()</a></code> 
         </dt>
         <dd>Compute kappa once</dd>
       </dl><dl><dt>

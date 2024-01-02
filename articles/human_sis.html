@@ -108,10 +108,26 @@ simplest model of endemic diseases in humans.</p>
 <div class="section level2">
 <h2 id="differential-equations">Differential Equations<a class="anchor" aria-label="anchor" href="#differential-equations"></a>
 </h2>
-<p>Let the generalized SIS human model be:</p>
+<p>We subdivide a population into susceptible (<span class="math inline">\(S\)</span>) and infected and infectious (<span class="math inline">\(I\)</span>) individuals, where the total
+population is <span class="math inline">\(H = S+I.\)</span> We assume
+the force of infection (<span class="math inline">\(h\)</span>, FoI) is
+linearly proportional to the EIR: <span class="math inline">\(h = b
+\times EIR.\)</span> In its general form, with births (<span class="math inline">\(B(H)\)</span>) and deaths (at the per-capita rate
+<span class="math inline">\(\mu\)</span>), the generalized SIS dynamics
+are:</p>
 <p><span class="math display">\[
-\dot{X} = \mbox{diag}(bEIR) \cdot (H-X) - rX
+\begin{array}{rl}
+\dot{S} &amp;= -h S + rI + B(H) -\mu S\\
+\dot{I} &amp;= h S  - rI - \mu I
+\end{array}
 \]</span></p>
+<p>If there is no demographic change, the SIS model can be rewritten as
+a single equation:</p>
+<p><span class="math display">\[
+\dot{I} = h (H-I) - rI
+\]</span> Even in this simplified form, we are assuming that a
+population could be stratified, such that the variables and parameter
+are all vectors with length <code>nStrata.</code></p>
 </div>
 <div class="section level2">
 <h2 id="equilibrium-solutions">Equilibrium Solutions<a class="anchor" aria-label="anchor" href="#equilibrium-solutions"></a>
@@ -123,16 +139,16 @@ find the value of <span class="math inline">\(EIR\)</span>
 (Entomological Inoculation Rate) which leads to that prevalence at
 equilibrium.</p>
 <p><span class="math display">\[
-0 = \mbox{diag}(bEIR) \cdot (H-X) - rX
+0 = \mbox{diag}(bEIR) \cdot (H-I) - rI
 \]</span></p>
 <p><span class="math display">\[
-rX = \mbox{diag}(b) \cdot \mbox{diag}(EIR) \cdot (H-X)
+rI = \mbox{diag}(b) \cdot \mbox{diag}(EIR) \cdot (H-I)
 \]</span></p>
 <p><span class="math display">\[
-\frac{rX}{H-X} = \mbox{diag}(b) \cdot \mbox{diag}(EIR)
+\frac{rI}{H-I} = \mbox{diag}(b) \cdot \mbox{diag}(EIR)
 \]</span></p>
 <p><span class="math display">\[
-\mbox{diag}(1/b) \cdot \left(\frac{rX}{H-X}\right) = EIR
+\mbox{diag}(1/b) \cdot \left(\frac{rI}{H-I}\right) = EIR
 \]</span></p>
 <p>Note that in the final line, <span class="math inline">\(EIR\)</span>
 is a column vector of dimension <span class="math inline">\(n\)</span>
@@ -145,7 +161,6 @@ infectious bites (summing across all the places they visit).</p>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/exDE/">exDE</a></span><span class="op">)</span></span>
-<span><span class="co">#devtools::load_all(".")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://desolve.r-forge.r-project.org/" class="external-link">deSolve</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
@@ -158,6 +173,8 @@ example</a> to run a full simulation.</p>
 <div class="section level3">
 <h3 id="the-long-way">The Long Way<a class="anchor" aria-label="anchor" href="#the-long-way"></a>
 </h3>
+<p>To set up systems of differential equations, we must set the values
+of all our parameters.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nStrata</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
 <span><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">500</span>, <span class="fl">250</span><span class="op">)</span></span>
@@ -180,7 +197,8 @@ example</a> to run a full simulation.</p>
 <span>  <span class="va">pars</span><span class="op">$</span><span class="va">eir</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_demography_null.html">make_parameters_demography_null</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, H<span class="op">=</span><span class="va">H</span>, residence<span class="op">=</span><span class="va">residence</span>, searchWts<span class="op">=</span><span class="va">searchWtsH</span>, TaR<span class="op">=</span><span class="va">TaR</span><span class="op">)</span></span>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_demography_null.html">make_parameters_demography_null</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, </span>
+<span>              H<span class="op">=</span><span class="va">H</span>, residence<span class="op">=</span><span class="va">residence</span>, searchWts<span class="op">=</span><span class="va">searchWtsH</span>, TaR<span class="op">=</span><span class="va">TaR</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_X_SIS.html">make_parameters_X_SIS</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, b <span class="op">=</span> <span class="va">b</span>, c <span class="op">=</span> <span class="va">c</span>, r <span class="op">=</span> <span class="va">r</span><span class="op">)</span></span>
 <span></span>
@@ -188,9 +206,10 @@ example</a> to run a full simulation.</p>
 <span></span>
 <span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">y0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_inits_X.html">get_inits_X</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">y0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_inits.html">get_inits</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">deSolve</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">ode</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y0</span>, times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">365</span><span class="op">)</span>, <span class="va">xDE_diffeqn_cohort</span>, parms <span class="op">=</span> <span class="va">params</span>, method <span class="op">=</span> <span class="st">'lsoda'</span>, F_eir <span class="op">=</span> <span class="va">F_eir</span><span class="op">)</span> </span>
+<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">deSolve</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">ode</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y0</span>, times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">365</span><span class="op">)</span>, <span class="va">xDE_diffeqn_cohort</span>, </span>
+<span>                    parms <span class="op">=</span> <span class="va">params</span>, method <span class="op">=</span> <span class="st">'lsoda'</span>, F_eir <span class="op">=</span> <span class="va">F_eir</span><span class="op">)</span> </span>
 <span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="va">out</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">[</span><span class="va">params</span><span class="op">$</span><span class="va">ix</span><span class="op">$</span><span class="va">X</span><span class="op">$</span><span class="va">S_ix</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'S_'</span>, <span class="fl">1</span><span class="op">:</span><span class="va">params</span><span class="op">$</span><span class="va">nStrata</span><span class="op">)</span></span>
@@ -210,6 +229,8 @@ example</a> to run a full simulation.</p>
 <div class="section level3">
 <h3 id="using-setup">Using Setup<a class="anchor" aria-label="anchor" href="#using-setup"></a>
 </h3>
+<p>We have developed utilities for setting up models. We pass the
+parameter values and initial values as lists:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Xo</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>b<span class="op">=</span><span class="fl">0.55</span>, c<span class="op">=</span><span class="fl">0.15</span>, r<span class="op">=</span><span class="fl">1</span><span class="op">/</span><span class="fl">200</span>, I0 <span class="op">=</span> <span class="va">I</span><span class="op">)</span></span>
 <span><span class="va">Hpop</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">500</span>, <span class="fl">250</span><span class="op">)</span></span></code></pre></div>
