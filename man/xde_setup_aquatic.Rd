@@ -7,6 +7,7 @@
 xde_setup_aquatic(
   modelName,
   nHabitats = 1,
+  nVectors = 1,
   Lname = "basic",
   Lopts = list(),
   MYZopts = list(),
@@ -17,6 +18,8 @@ xde_setup_aquatic(
 \item{modelName}{is a name for the model (arbitrary)}
 
 \item{nHabitats}{is the number of habitats}
+
+\item{nVectors}{is the number of vector species}
 
 \item{Lname}{is a character string defining a L model}
 

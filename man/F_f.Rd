@@ -4,17 +4,17 @@
 \alias{F_f}
 \title{Compute the blood feeding rate, f}
 \usage{
-F_f(t, pars)
+F_f(t, MYZpar)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{a \link{list}}
+\item{MYZpar}{a \link{list}}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}
 }
 \description{
-This method dispatches on the type of \code{pars$MYZpar$f_par}. It should
+This method dispatches on the type of \code{MYZpar$f_par}. It should
 set the values of the bionomic parameters to baseline values.
 }

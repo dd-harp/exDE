@@ -4,10 +4,10 @@
 \alias{make_MYZpar_Ztrace}
 \title{Make parameters for Ztrace aquatic mosquito model}
 \usage{
-make_MYZpar_Ztrace(pars, MYZopts, f = 0.3, q = 0.95, Zm = 1, Zf = NULL)
+make_MYZpar_Ztrace(nPatches, MYZopts, f = 0.3, q = 0.95, Zm = 1, Zf = NULL)
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{nPatches}{an integer}
 
 \item{MYZopts}{a \link{list} of values that overwrites the defaults}
 

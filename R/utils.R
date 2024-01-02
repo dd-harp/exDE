@@ -3,12 +3,24 @@
 #' @param solve_as, either "ode" or "dde"
 #' @return a [list]
 #' @export
-make_parameters_xde = function(solve_as='ode'){
+make_parameters_xde = function(solve_as='dde'){
   pars = list()
 
   xde <- solve_as
   class(xde) <- xde
   pars$xde = xde
+
+  pars$MYZpar = list()
+  pars$MYZinits = list()
+
+  pars$Lpar = list()
+  pars$Linits = list()
+
+  pars$Xpar = list()
+  pars$Xinits = list()
+  pars$Hpar = list()
+
+  pars$egg_laying = list()
 
   pars$ix = list()
   pars$ix$X = list()
@@ -25,7 +37,6 @@ make_parameters_xde = function(solve_as='ode'){
   pars <- setup_behavior_null(pars)
   pars <- setup_visitors_null(pars)
   pars <- setup_resources_null(pars)
-  pars <- setup_eip_static(pars)
   pars <- setup_travel_null(pars)
   pars <- setup_exposure_pois(pars)
 
@@ -38,15 +49,22 @@ make_parameters_xde = function(solve_as='ode'){
 #' @export
 make_indices <- function(pars) {
   pars$max_ix <- 0
-  if ('Lpar' %in% names(pars)) {
-    pars = make_indices_L(pars)
-  }
-  if ('MYZpar' %in% names(pars)) {
-    pars = make_indices_MYZ(pars)
-  }
-  if ('Xpar' %in% names(pars)) {
-    pars = make_indices_X(pars)
-  }
+
+  s = length(pars$Linits)
+  if(s>0)
+    for(ix in 1:s)
+      pars = make_indices_L(pars, ix)
+
+  s = length(pars$MYZinits)
+  if(s>0)
+    for(ix in 1:s)
+      pars = make_indices_MYZ(pars, ix)
+
+  i = length(pars$Xinits)
+  if(i>0)
+    for(ix in 1:i)
+      pars = make_indices_X(pars, ix)
+
   return(pars)
 }
 
@@ -55,15 +73,25 @@ make_indices <- function(pars) {
 #' @return y a [numeric] vector assigned the class "dynamic"
 #' @export
 get_inits <- function(pars){
-  if ('Lpar' %in% names(pars)) {
-    Li = get_inits_L(pars)
-  } else {Li = numeric(0)}
-  if ('MYZpar' %in% names(pars)) {
-    MYZi = get_inits_MYZ(pars)
-  } else {MYZi = numeric(0)}
-  if ('Xpar' %in% names(pars)) {
-    Xi = get_inits_X(pars)
-  } else {Xi = numeric(0)}
+
+  Li = c()
+  s = length(pars$Lpar)
+  if(s>0)
+    for(ix in 1:s)
+      Li = c(Li, get_inits_L(pars, ix))
+
+  MYZi = c()
+  s = length(pars$MYZpar)
+  if(s>0)
+    for(ix in 1:s)
+      MYZi = c(MYZi, get_inits_MYZ(pars, ix))
+
+  Xi = c()
+  i = length(pars$Xpar)
+  if(i>0)
+    for(ix in 1:i)
+      Xi = c(Xi, get_inits_X(pars, ix))
+
   y = c(L=Li, MYZ=MYZi, X=Xi)
   return(y)
 }
@@ -75,16 +103,23 @@ get_inits <- function(pars){
 #' @export
 parse_deout <- function(deout, pars){
   varslist = list()
-  if ('Lpar' %in% names(pars)) {
-    varslist$L = parse_deout_L(deout, pars)
-  }
-  if ('MYZpar' %in% names(pars)) {
-    varslist$MYZ = parse_deout_MYZ(deout, pars)
-  }
-  if ('Xpar' %in% names(pars)) {
-    varslist$XH = parse_deout_X(deout, pars)
-  }
-  varslist$terms = compute_terms(varslist, deout, pars)
+
+  s = length(pars$Lpar)
+  if(s>0)
+    for(ix in 1:s)
+      varslist$L[[ix]]= parse_deout_L(deout, pars, ix)
+
+  s = length(pars$MYZpar)
+  if(s>0)
+    for(ix in 1:s)
+      varslist$MYZ[[ix]]= parse_deout_MYZ(deout, pars, ix)
+
+  s = length(pars$Xpar)
+  if(s>0)
+    for(ix in 1:s)
+      varslist$XH[[ix]]= parse_deout_X(deout, pars, ix)
+
+  varslist$terms = compute_terms(varslist, deout, pars, 1, 1)
   varslist$deout = deout
   return(varslist)
 }

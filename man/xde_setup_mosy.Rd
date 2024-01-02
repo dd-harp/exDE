@@ -9,6 +9,7 @@ xde_setup_mosy(
   MYZname = "basicM",
   Lname = "basic",
   nPatches = 1,
+  nVectors = 1,
   membership = 1,
   MYZopts = list(),
   calK = "herethere",
@@ -26,6 +27,8 @@ xde_setup_mosy(
 \item{Lname}{is a character string defining a L model}
 
 \item{nPatches}{is the number of patches}
+
+\item{nVectors}{is the number of vector species}
 
 \item{membership}{is a vector that describes the patch where each aquatic habitat is found}
 

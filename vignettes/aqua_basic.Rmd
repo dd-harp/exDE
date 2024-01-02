@@ -50,7 +50,6 @@ $$
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
-#devtools::load_all(".")
 library(deSolve)
 library(data.table)
 library(ggplot2)
@@ -80,8 +79,8 @@ F_eta = function(t, pars){
   pars$eta
 }
 
-params = make_Lpar_basic(pars = params, psi = psi, phi = phi, theta = theta)
-params = make_Linits_basic(params, L0=L)
+params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
+params = make_inits_L_basic(params, L0=L)
 
 params = make_indices(params)
 ```
@@ -89,13 +88,13 @@ params = make_indices(params)
 ```{r}
 xDE_aquatic = function(t, y, pars, F_eta) {
   eta <- F_eta(t, pars)
-  dL <- dLdt(t, y, pars, eta)
+  dL <- dLdt(t, y, pars, eta,1)
   return(list(c(dL)))
 }
 ```
 
 ```{r}
-y0 <- get_inits_L(params) 
+y0 <- get_inits_L(params,1) 
 
 out <- deSolve::ode(y = y0, times = 0:50, xDE_aquatic, parms = params, method = 'lsoda', F_eta = F_eta) 
 out1 <- out

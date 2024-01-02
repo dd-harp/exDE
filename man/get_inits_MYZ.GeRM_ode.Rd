@@ -4,10 +4,12 @@
 \alias{get_inits_MYZ.GeRM_ode}
 \title{Return initial values as a vector}
 \usage{
-\method{get_inits_MYZ}{GeRM_ode}(pars)
+\method{get_inits_MYZ}{GeRM_ode}(pars, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 none

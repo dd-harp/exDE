@@ -4,7 +4,7 @@
 \alias{F_beta}
 \title{Compute the biting distribution matrix, beta}
 \usage{
-F_beta(t, y, pars)
+F_beta(t, y, pars, i)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@ F_beta(t, y, pars)
 \item{y}{state vector}
 
 \item{pars, }{a \link{list}}
+
+\item{i}{the host species index}
 }
 \value{
 pars, a \link{list}

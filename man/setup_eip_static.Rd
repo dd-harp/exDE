@@ -2,16 +2,18 @@
 % Please edit documentation in R/eip.R
 \name{setup_eip_static}
 \alias{setup_eip_static}
-\title{Set up the static model for control forcing (do nothing)}
+\title{Set up a static model for the EIP}
 \usage{
-setup_eip_static(pars)
+setup_eip_static(EIPopts = list(), eip = 11)
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{EIPopts}{a \link{list}}
+
+\item{eip}{the extrinsic incubation period (in days)}
 }
 \value{
 \link{list}
 }
 \description{
-Set up the static model for control forcing (do nothing)
+Set up a static model for the EIP
 }

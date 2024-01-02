@@ -91,7 +91,8 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   params$nStrata <- nStrata
   params$nPatches <- nPatches
   params$nHabitats <- nHabitats
-  params$calU <- calU
+  params$egg_laying[[1]] = list()
+  params$egg_laying[[1]]$calU <- calU
   params$calN <- calN
 
   params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode")
@@ -107,13 +108,13 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
 
 
   # run simulation
-  out <- deSolve::ode(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda")
+  out <- deSolve::ode(y = y0, times = c(0,190), func = xDE_diffeqn_mosy, parms = params, method = "lsoda")
 
-  expect_equal(as.vector(out[2, params$ix$L$L_ix+1]), as.vector(L), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$ix$MYZ$M_ix+1]), as.vector(M), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$ix$MYZ$P_ix+1]), as.vector(P), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$ix$MYZ$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$ix$MYZ$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$L[[1]]$L_ix+1]), as.vector(L), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ[[1]]$M_ix+1]), as.vector(M), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ[[1]]$P_ix+1]), as.vector(P), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ[[1]]$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ[[1]]$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
 })
 
 test_that("test equilibrium with RM adults (DDE), basic competition", {
@@ -203,7 +204,8 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   params$nStrata <- nStrata
   params$nPatches <- nPatches
   params$nHabitats <- nHabitats
-  params$calU <- calU
+  params$egg_laying[[1]] = list()
+  params$egg_laying[[1]]$calU <- calU
   params$calN <- calN
 
   # parameters for exDE
@@ -222,9 +224,9 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   # run simulation
   out <- deSolve::dede(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda")
 
-  expect_equal(as.vector(out[2, params$ix$L$L_ix+1]), as.vector(L), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$ix$MYZ$M_ix+1]), as.vector(M), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$ix$MYZ$P_ix+1]), as.vector(P), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$ix$MYZ$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2, params$ix$MYZ$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$L[[1]]$L_ix+1]), as.vector(L), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ[[1]]$M_ix+1]), as.vector(M), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ[[1]]$P_ix+1]), as.vector(P), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ[[1]]$Y_ix+1]), as.vector(Y), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2, params$ix$MYZ[[1]]$Z_ix+1]), as.vector(Z), tolerance = numeric_tol)
 })

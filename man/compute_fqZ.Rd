@@ -4,12 +4,14 @@
 \alias{compute_fqZ}
 \title{Compute the fqZ}
 \usage{
-compute_fqZ(deout, pars)
+compute_fqZ(deout, pars, s)
 }
 \arguments{
 \item{deout}{a matrix, the output of deSolve}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the vector species index}
 }
 \value{
 \link{vector}

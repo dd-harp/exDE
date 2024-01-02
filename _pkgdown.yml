@@ -78,7 +78,8 @@ reference:
   - F_tau
   - F_eggs
   - dMYZdt
-  - setup_MYZ
+  - setup_MYZpar
+  - setup_MYZinits
   - make_indices_MYZ
   - parse_deout_MYZ
   - get_inits_MYZ
@@ -101,6 +102,8 @@ reference:
   - EIP.static
   - dEIPdt
   - dEIPdt.static
+  - setup_EIP
+  - setup_EIP.static
   - setup_eip_static
 - subtitle: Ztrace
   desc: |
@@ -110,7 +113,8 @@ reference:
   - F_fqZ.Ztrace
   - F_eggs.Ztrace
   - dMYZdt.Ztrace
-  - setup_MYZ.Ztrace
+  - setup_MYZpar.Ztrace
+  - setup_MYZinits.Ztrace
   - make_MYZpar_Ztrace
   - make_indices_MYZ.Ztrace
   - parse_deout_MYZ.Ztrace
@@ -126,7 +130,10 @@ reference:
   - F_fqZ.Gtrace
   - F_eggs.Gtrace
   - dMYZdt.Gtrace
-  - setup_MYZ.Gtrace
+  - setup_MYZpar.Gtrace
+  - setup_MYZinits.Gtrace
+  - setup_MYZpar.Gtrace
+  - setup_MYZinits.Gtrace
   - make_MYZpar_Gtrace
   - make_indices_MYZ.Gtrace
   - parse_deout_MYZ.Gtrace
@@ -139,9 +146,11 @@ reference:
     Specialized methods for basicM, a model of adult mosquito dynamics with no parasite infection dynamics.
   contents:
   - MBionomics.basicM
+  - F_fqZ.basicM
   - F_eggs.basicM
   - dMYZdt.basicM
-  - setup_MYZ.basicM
+  - setup_MYZpar.basicM
+  - setup_MYZinits.basicM
   - make_MYZpar_basicM
   - make_MYZinits_basicM
   - make_indices_MYZ.basicM
@@ -159,9 +168,11 @@ reference:
   - F_eggs.RM
   - dMYZdt.RM_ode
   - dMYZdt.RM_dde
-  - setup_MYZ.RM
+  - setup_MYZpar.RM
+  - setup_MYZinits.RM
   - make_MYZpar_RM
-  - make_MYZinits_RM
+  - make_MYZinits_RM_ode
+  - make_MYZinits_RM_dde
   - make_indices_MYZ.RM_ode
   - make_indices_MYZ.RM_dde
   - parse_deout_MYZ.RM
@@ -181,9 +192,11 @@ reference:
   - F_eggs.GeRM
   - dMYZdt.GeRM_ode
   - dMYZdt.GeRM_dde
-  - setup_MYZ.GeRM
+  - setup_MYZpar.GeRM
+  - setup_MYZinits.GeRM
   - make_MYZpar_GeRM
-  - make_MYZinits_GeRM
+  - make_MYZinits_GeRM_ode
+  - make_MYZinits_GeRM_dde
   - make_indices_MYZ.GeRM_ode
   - make_indices_MYZ.GeRM_dde
   - parse_deout_MYZ.GeRM
@@ -193,7 +206,7 @@ reference:
   - get_inits_MYZ.GeRM_dde
   - update_inits_MYZ.GeRM_ode
   - update_inits_MYZ.GeRM_dde
-  - make_parameters_MYZ_GeRM_static
+  - make_parameters_MYZ_GeRM
 - title: Mosquito Bionomic Functional Responses
   desc: |
     Compute bionomic parameters as functional responses to resource availability
@@ -228,13 +241,16 @@ reference:
   - LBionomics
   - F_alpha
   - dLdt
-  - setup_L
+  - setup_Lpar
+  - setup_Linits
   - make_indices_L
   - parse_deout_L
   - get_inits_L
   - update_inits_L
   - make_calN
   - make_calU
+  - LayEggs
+  - setup_EggLaying
 - subtitle: trace
   desc: |
     Specialized methods for the exogeneously forced trace model of aquatic mosquito dynamics.
@@ -242,7 +258,8 @@ reference:
   - LBionomics.trace
   - F_alpha.trace
   - dLdt.trace
-  - setup_L.trace
+  - setup_Lpar.trace
+  - setup_Linits.trace
   - make_Lpar_trace
   - make_indices_L.trace
   - parse_deout_L.trace
@@ -257,7 +274,8 @@ reference:
   - LBionomics.basic
   - F_alpha.basic
   - dLdt.basic
-  - setup_L.basic
+  - setup_Lpar.basic
+  - setup_Linits.basic
   - make_Lpar_basic
   - make_Linits_basic
   - make_indices_L.basic
@@ -275,7 +293,8 @@ reference:
   - F_pr
   - F_b
   - dXdt
-  - setup_X
+  - setup_Xpar
+  - setup_Xinits
   - make_indices_X
   - parse_deout_X
   - get_inits_X
@@ -292,7 +311,8 @@ reference:
   - F_pr.trace
   - F_b.trace
   - dXdt.trace
-  - setup_X.trace
+  - setup_Xpar.trace
+  - setup_Xinits.trace
   - make_Xpar_trace
   - make_indices_X.trace
   - parse_deout_X.trace
@@ -309,7 +329,8 @@ reference:
   - F_pr.hMoI
   - F_b.hMoI
   - dXdt.hMoI
-  - setup_X.hMoI
+  - setup_Xpar.hMoI
+  - setup_Xinits.hMoI
   - make_Xpar_hMoI
   - make_Xinits_hMoI
   - make_indices_X.hMoI
@@ -328,7 +349,8 @@ reference:
   - F_pr.SIS
   - F_b.SIS
   - dXdt.SIS
-  - setup_X.SIS
+  - setup_Xpar.SIS
+  - setup_Xinits.SIS
   - make_Xpar_SIS
   - make_Xinits_SIS
   - make_indices_X.SIS
@@ -349,7 +371,8 @@ reference:
   - F_pr.SIP
   - F_b.SIP
   - dXdt.SIP
-  - setup_X.SIP
+  - setup_Xpar.SIP
+  - setup_Xinits.SIP
   - make_Xpar_SIP
   - make_Xinits_SIP
   - make_indices_X.SIP
@@ -369,6 +392,7 @@ reference:
   - setup_Hpar
   - Births
   - make_parameters_demography_null
+  - make_Hpar_trace
 - subtitle: static
   desc: |
     Specialized methods for the static (constant) demographic model
@@ -714,14 +738,14 @@ reference:
   - compute_terms.na
   - compute_terms_steady
   - compute_EIR
-  - compute_EIR_i
+  - compute_EIR_ix
   - compute_EIR_ty
   - compute_fqZ
-  - compute_fqZ_i
+  - compute_fqZ_ix
   - compute_NI
-  - compute_NI_i
+  - compute_NI_ix
   - compute_kappa
-  - compute_kappa_i
+  - compute_kappa_ix
   - compute_kappa_ty
 - title: Plot terms
   contents:

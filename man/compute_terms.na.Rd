@@ -4,7 +4,7 @@
 \alias{compute_terms.na}
 \title{Compute dynamical terms}
 \usage{
-\method{compute_terms}{na}(varslist, deout, pars)
+\method{compute_terms}{na}(varslist, deout, pars, s, i)
 }
 \arguments{
 \item{varslist}{a \link{list} with variable names attached}
@@ -12,6 +12,10 @@
 \item{deout}{a \link{matrix}, the output of deSolve}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the vector species index}
+
+\item{i}{the host species index}
 }
 \value{
 \link{matrix}

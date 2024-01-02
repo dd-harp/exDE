@@ -4,12 +4,14 @@
 \alias{parse_deout_L.trace}
 \title{Parse the variable names for the trace model}
 \usage{
-\method{parse_deout_L}{trace}(deout, pars)
+\method{parse_deout_L}{trace}(deout, pars, s)
 }
 \arguments{
 \item{deout}{a \link{matrix} of outputs from deSolve}
 
 \item{pars}{a \link{list} that defines the model}
+
+\item{s}{the species index}
 }
 \value{
 \link{list}

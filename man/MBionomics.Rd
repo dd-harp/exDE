@@ -4,7 +4,7 @@
 \alias{MBionomics}
 \title{Set bloodfeeding and mortality rates to baseline}
 \usage{
-MBionomics(t, y, pars)
+MBionomics(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@ MBionomics(t, y, pars)
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 a \link{list}

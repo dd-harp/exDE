@@ -4,12 +4,14 @@
 \alias{update_inits_L}
 \title{Set the initial values from a vector of model states}
 \usage{
-update_inits_L(pars, y0)
+update_inits_L(pars, y0, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
 
 \item{y0}{a vector of variable values from a simulation}
+
+\item{s}{the species index}
 }
 \value{
 none

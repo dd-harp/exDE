@@ -5,7 +5,7 @@
 \title{Make parameters for hybrid MoI human model}
 \usage{
 make_Xpar_hMoI(
-  pars,
+  nStrata,
   Xopts = list(),
   b = 0.55,
   r1 = 1/180,
@@ -15,7 +15,7 @@ make_Xpar_hMoI(
 )
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{nStrata}{is the number of human population strata}
 
 \item{Xopts}{a \link{list} that overwrites default values}
 

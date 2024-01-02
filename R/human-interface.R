@@ -5,10 +5,11 @@
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a list
+#' @param i the host species index
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_X <- function(t, y, pars) {
-  UseMethod("F_X", pars$Xpar)
+F_X <- function(t, y, pars, i) {
+  UseMethod("F_X", pars$Xpar[[i]])
 }
 
 #' @title Size of human population denominators
@@ -16,30 +17,33 @@ F_X <- function(t, y, pars) {
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a list
+#' @param i the host species index
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_H <- function(t, y, pars) {
-  UseMethod("F_H", pars$Xpar)
+F_H <- function(t, y, pars, i) {
+  UseMethod("F_H", pars$Xpar[[i]])
 }
 
 #' @title Compute the "true" prevalence of infection / parasite rate
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param varslist a list with variables attached by name
 #' @param pars a list
+#' @param i the host species index
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_pr <- function(varslist, pars) {
-  UseMethod("F_pr", pars$Xpar)
+F_pr <- function(varslist, pars, i) {
+  UseMethod("F_pr", pars$Xpar[[i]])
 }
 
 #' @title Infection blocking pre-erythrocytic immunity
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param y state vector
 #' @param pars a list
+#' @param i the host species index
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_b <- function(y, pars) {
-  UseMethod("F_b", pars$Xpar)
+F_b <- function(y, pars, i) {
+  UseMethod("F_b", pars$Xpar[[i]])
 }
 
 #' @title Derivatives for human population
@@ -48,31 +52,45 @@ F_b <- function(y, pars) {
 #' @param y state vector
 #' @param pars a list
 #' @param FoI vector giving the per-capita force of infection for each strata
+#' @param i the host species index
 #' @return a [numeric] vector
 #' @export
-dXdt <- function(t, y, pars, FoI) {
-  UseMethod("dXdt", pars$Xpar)
+dXdt <- function(t, y, pars, FoI, i) {
+  UseMethod("dXdt", pars$Xpar[[i]])
+}
+
+#' @title A function to set up Xpar
+#' @description This method dispatches on `Xname`.
+#' @param Xname a [character] string
+#' @param pars a [list]
+#' @param i the host species index
+#' @param Xopts a [list]
+#' @return a [list]
+#' @export
+setup_Xpar = function(Xname, pars, i, Xopts=list()){
+  class(Xname) <- Xname
+  UseMethod("setup_Xpar", Xname)
 }
 
 #' @title A function to set up Xpar
 #' @description This method dispatches on `Xname`.
 #' @param pars a [list]
-#' @param Xname a [character] string
+#' @param i the host species index
 #' @param Xopts a [list]
 #' @return a [list]
 #' @export
-setup_X = function(pars, Xname, Xopts=list()){
-  class(Xname) <- Xname
-  UseMethod("setup_X", Xname)
+setup_Xinits = function(pars, i, Xopts=list()){
+  UseMethod("setup_Xinits", pars$Xpar[[i]])
 }
 
 #' @title Add indices for human population to parameter list
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param pars a [list]
+#' @param i the host species index
 #' @return a [list]
 #' @export
-make_indices_X <- function(pars) {
-  UseMethod("make_indices_X", pars$Xpar)
+make_indices_X <- function(pars, i) {
+  UseMethod("make_indices_X", pars$Xpar[[i]])
 }
 
 #' @title Parse the output of deSolve and return the variables by name in a list
@@ -80,50 +98,55 @@ make_indices_X <- function(pars) {
 #' from the X model to a list and returns it
 #' @param deout a [matrix] of outputs from deSolve
 #' @param pars a [list] that defines a model
+#' @param i the host species index
 #' @export
-parse_deout_X <- function(deout, pars) {
-  UseMethod("parse_deout_X", pars$Xpar)
+parse_deout_X <- function(deout, pars, i) {
+  UseMethod("parse_deout_X", pars$Xpar[[i]])
 }
 
 #' @title Return initial values as a vector
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param pars a [list]
+#' @param i the host species index
 #' @return none
 #' @export
-get_inits_X <- function(pars) {
-  UseMethod("get_inits_X", pars$Xpar)
+get_inits_X <- function(pars, i) {
+  UseMethod("get_inits_X", pars$Xpar[[i]])
 }
 
 #' @title Set the initial values from a vector of states
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param pars a [list]
 #' @param y0 a vector of initial values
+#' @param i the host species index
 #' @return none
 #' @export
-update_inits_X <- function(pars, y0) {
-  UseMethod("update_inits_X", pars$Xpar)
+update_inits_X <- function(pars, y0, i) {
+  UseMethod("update_inits_X", pars$Xpar[[i]])
 }
 
 #' @title Compute the human transmitting capacity
 #' @description This method dispatches on the type of `pars$Xpar`.
 #' @param pars a [list]
+#' @param i the host species index
 #' @return none
 #' @export
-HTC <- function(pars) {
-  UseMethod("get_inits_X", pars$Xpar)
+HTC <- function(pars, i) {
+  UseMethod("get_inits_X", pars$Xpar[[i]])
 }
 
 #' Basic plotting for epidemiological models
 #'
 #' @param pars a list that defines an `exDE` model (*e.g.*,  generated by `xde_setup()`)
+#' @param i the host species index
 #' @param clrs a vector of colors
 #' @param llty an integer (or integers) to set the `lty` for plotting
 #' @param stable a logical: set to FALSE for `orbits` and TRUE for `stable_orbits`
 #' @param add_axes a logical: plot axes only if TRUE
 #'
 #' @export
-xde_plot_X = function(pars, clrs="black", llty=1, stable=FALSE, add_axes=TRUE){
-  UseMethod("xde_plot_X", pars$Xpar)
+xde_plot_X = function(pars, i, clrs="black", llty=1, stable=FALSE, add_axes=TRUE){
+  UseMethod("xde_plot_X", pars$Xpar[[i]])
 }
 
 #' Add lines for basic outputs of epidemiological models

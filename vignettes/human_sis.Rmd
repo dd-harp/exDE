@@ -18,30 +18,40 @@ The SIS (Susceptible-Infected-Susceptible) human model model fulfills the generi
 
 # Differential Equations
 
-Let the generalized SIS human model be:
+We subdivide a population into susceptible ($S$) and infected and infectious ($I$) individuals, where the total population is $H = S+I.$ We assume the force of infection ($h$, FoI) is linearly proportional to the EIR: $h = b \times EIR.$ In its general form, with births ($B(H)$) and deaths (at the per-capita rate $\mu$), the generalized SIS dynamics are:
 
 $$
-\dot{X} = \mbox{diag}(bEIR) \cdot (H-X) - rX
+\begin{array}{rl}
+\dot{S} &= -h S + rI + B(H) -\mu S\\
+\dot{I} &= h S  - rI - \mu I
+\end{array}
 $$
+
+If there is no demographic change, the SIS model can be rewritten as a single equation: 
+
+$$
+\dot{I} = h (H-I) - rI
+$$
+Even in this simplified form, we are assuming that a population could be stratified, such that the variables and parameter are all vectors with length `nStrata.`
 
 # Equilibrium Solutions
 
 A typical situation when using this model is that $H$ (total population size by strata) and $X$ (number of infectious persons by strata) are known from census and survey data. Then it is of interest to find the value of $EIR$ (Entomological Inoculation Rate) which leads to that prevalence at equilibrium.
 
 $$
-0 = \mbox{diag}(bEIR) \cdot (H-X) - rX 
+0 = \mbox{diag}(bEIR) \cdot (H-I) - rI 
 $$
 
 $$ 
-rX = \mbox{diag}(b) \cdot \mbox{diag}(EIR) \cdot (H-X) 
+rI = \mbox{diag}(b) \cdot \mbox{diag}(EIR) \cdot (H-I) 
 $$
 
 $$
-\frac{rX}{H-X} = \mbox{diag}(b) \cdot \mbox{diag}(EIR)
+\frac{rI}{H-I} = \mbox{diag}(b) \cdot \mbox{diag}(EIR)
 $$
 
 $$
-\mbox{diag}(1/b) \cdot \left(\frac{rX}{H-X}\right) = EIR
+\mbox{diag}(1/b) \cdot \left(\frac{rI}{H-I}\right) = EIR
 $$
 
 Note that in the final line, $EIR$ is a column vector of dimension $n$ due to the operations on the left. Each element gives the per-capita rate at which individuals in that population strata receive potentially infectious bites (summing across all the places they visit).
@@ -50,7 +60,6 @@ Note that in the final line, $EIR$ is a column vector of dimension $n$ due to th
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
-#devtools::load_all(".")
 library(deSolve)
 library(data.table)
 library(ggplot2)
@@ -62,6 +71,8 @@ set up parameters. Please note that this only runs the human population componen
 We use the null (constant) model of human demography ($H$ constant for all time).
 
 ## The Long Way
+
+To set up systems of differential equations, we must set the values of all our parameters. 
 
 ```{r}
 nStrata <- 3
@@ -88,7 +99,8 @@ F_eir = function(t, pars){
   pars$eir
 }
 
-params = make_parameters_demography_null(pars = params, H=H, residence=residence, searchWts=searchWtsH, TaR=TaR)
+params = make_parameters_demography_null(pars = params, 
+              H=H, residence=residence, searchWts=searchWtsH, TaR=TaR)
 
 params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
 
@@ -98,9 +110,10 @@ params = make_indices(params)
 ```
 
 ```{r}
-y0 <- get_inits_X(params)
+y0 <- get_inits(params)
 
-out <- deSolve::ode(y = y0, times = c(0, 365), xDE_diffeqn_cohort, parms = params, method = 'lsoda', F_eir = F_eir) 
+out <- deSolve::ode(y = y0, times = c(0, 365), xDE_diffeqn_cohort, 
+                    parms = params, method = 'lsoda', F_eir = F_eir) 
 out1 <- out
 ```
 
@@ -122,7 +135,7 @@ ggplot(data = out, mapping = aes(x = time, y = value, color = Strata)) +
 
 ## Using Setup
 
-
+We have developed utilities for setting up models. We pass the parameter values and initial values as lists: 
 
 ```{r}
 Xo = list(b=0.55, c=0.15, r=1/200, I0 = I)

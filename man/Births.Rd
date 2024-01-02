@@ -4,7 +4,7 @@
 \alias{Births}
 \title{A function that computes the birth rate for human populations}
 \usage{
-Births(t, y, pars)
+Births(t, y, pars, i)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@ Births(t, y, pars)
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{i}{the index of the host species}
 }
 \value{
 see help pages for specific methods

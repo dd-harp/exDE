@@ -4,10 +4,10 @@
 \alias{make_Lpar_trace}
 \title{Make parameters for trace aquatic mosquito model}
 \usage{
-make_Lpar_trace(pars, Lopts = list(), Lambda = 1000, Lt = NULL)
+make_Lpar_trace(nHabitats, Lopts = list(), Lambda = 1000, Lt = NULL)
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{nHabitats}{the number of habitats in the model}
 
 \item{Lopts}{a \link{list} that overwrites default values}
 

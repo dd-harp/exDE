@@ -4,7 +4,7 @@
 \alias{F_eggs.GeRM}
 \title{Number of eggs laid by adult mosquitoes}
 \usage{
-\method{F_eggs}{GeRM}(t, y, pars)
+\method{F_eggs}{GeRM}(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}

@@ -4,12 +4,12 @@
 \alias{F_nu.static}
 \title{Static model for the egg laying rate}
 \usage{
-\method{F_nu}{static}(t, pars)
+\method{F_nu}{static}(t, MYZpar)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{a \link{list}}
+\item{MYZpar}{a \link{list}}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}

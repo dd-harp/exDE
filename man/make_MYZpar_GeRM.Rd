@@ -2,13 +2,13 @@
 % Please edit documentation in R/adult-GeRM.R
 \name{make_MYZpar_GeRM}
 \alias{make_MYZpar_GeRM}
-\title{Make parameters for a GeRM ODE adult mosquito model}
+\title{Make parameters for GeRM ODE adult mosquito model}
 \usage{
 make_MYZpar_GeRM(
-  pars,
+  nPatches,
   MYZopts = list(),
+  EIPmod,
   calK,
-  solve_as = "dde",
   g = 1/12,
   g_par = list(),
   sigma = 1/8,
@@ -19,46 +19,43 @@ make_MYZpar_GeRM(
   q_par = list(),
   nu = 1,
   nu_par = list(),
-  eip = 11,
   eggsPerBatch = 60
 )
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{nPatches}{is the number of patches, an integer}
 
-\item{MYZopts}{a \link{list} to overwrite defaults}
+\item{MYZopts}{a \link{list} of values that overwrites the defaults}
 
-\item{calK}{mosquito dispersal matrix of dimensions \code{nPatches} by \code{nPatches}}
+\item{EIPmod}{a \link{list} that defines the EIP model}
 
-\item{solve_as}{is either \code{ode} to solve as an ode or \code{dde} to solve as a dde}
+\item{calK}{a mosquito dispersal matrix of dimensions \code{nPatches} by \code{nPatches}}
 
 \item{g}{mosquito mortality rate}
 
-\item{g_par}{a \link{list} to set up F_g}
+\item{g_par}{parameters to configure F_g}
 
 \item{sigma}{emigration rate}
 
-\item{sigma_par}{a \link{list} to set up F_sigma}
+\item{sigma_par}{parameters to configure F_sigma}
 
 \item{f}{feeding rate}
 
-\item{f_par}{a \link{list} to set up F_f}
+\item{f_par}{parameters to configure F_f}
 
 \item{q}{human blood fraction}
 
-\item{q_par}{a \link{list} to set up F_q}
+\item{q_par}{parameters to configure F_q}
 
 \item{nu}{oviposition rate, per mosquito}
 
-\item{nu_par}{a \link{list} to set up F_nu}
-
-\item{eip}{length of extrinsic incubation period}
+\item{nu_par}{parameters to configure F_nu}
 
 \item{eggsPerBatch}{eggs laid per oviposition}
 }
 \value{
-none
+a \link{list}
 }
 \description{
-Make parameters for a GeRM ODE adult mosquito model
+Make parameters for GeRM ODE adult mosquito model
 }

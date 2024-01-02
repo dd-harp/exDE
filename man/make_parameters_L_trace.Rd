@@ -4,13 +4,7 @@
 \alias{make_parameters_L_trace}
 \title{Make parameters for trace aquatic mosquito model}
 \usage{
-make_parameters_L_trace(
-  pars,
-  Lambda,
-  Lt = function(t, pars) {
-     pars$Lpar$Lambda
- }
-)
+make_parameters_L_trace(pars, Lambda, Lt = NULL)
 }
 \arguments{
 \item{pars}{a \link{list}}

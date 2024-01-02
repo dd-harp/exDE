@@ -4,7 +4,7 @@
 \alias{F_EIR}
 \title{Entomological inoculation rate on human strata}
 \usage{
-F_EIR(t, y, pars, beta)
+F_EIR(t, y, pars, beta, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -14,6 +14,8 @@ F_EIR(t, y, pars, beta)
 \item{pars}{a \link{list}}
 
 \item{beta, }{a \link{matrix}}
+
+\item{s}{the vector species index}
 }
 \value{
 a \link{numeric} vector of length \code{nStrata}

@@ -4,12 +4,14 @@
 \alias{make_Xinits_SIS}
 \title{Make initial values for the SIS human model, with defaults}
 \usage{
-make_Xinits_SIS(pars, Xopts = list(), S0 = NULL, I0 = 1)
+make_Xinits_SIS(nStrata, Xopts = list(), H0 = NULL, S0 = NULL, I0 = 1)
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{nStrata}{the number of strata in the model}
 
 \item{Xopts}{a \link{list} to overwrite defaults}
+
+\item{H0}{the initial human population density}
 
 \item{S0}{the initial values of the parameter S}
 

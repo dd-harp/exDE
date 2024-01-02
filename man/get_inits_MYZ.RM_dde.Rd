@@ -4,10 +4,12 @@
 \alias{get_inits_MYZ.RM_dde}
 \title{Return initial values as a vector}
 \usage{
-\method{get_inits_MYZ}{RM_dde}(pars)
+\method{get_inits_MYZ}{RM_dde}(pars, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 \link{numeric}

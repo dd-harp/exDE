@@ -4,6 +4,6 @@
 #' @inheritParams dHdt
 #' @return a [numeric] vector of 0s
 #' @export
-dHdt.zero <- function(t, y, pars){
+dHdt.zero <- function(t, y, pars, i){
   0*y
 }

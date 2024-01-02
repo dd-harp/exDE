@@ -4,10 +4,12 @@
 \alias{make_indices_L.basic}
 \title{Add indices for aquatic stage mosquitoes to parameter list}
 \usage{
-\method{make_indices_L}{basic}(pars)
+\method{make_indices_L}{basic}(pars, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 none

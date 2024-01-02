@@ -4,7 +4,7 @@
 \alias{F_kappa}
 \title{Net infectiousness of human population to mosquitoes}
 \usage{
-F_kappa(t, y, pars, beta)
+F_kappa(t, y, pars, beta, i)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -14,6 +14,8 @@ F_kappa(t, y, pars, beta)
 \item{pars}{a \link{list}}
 
 \item{beta, }{a \link{matrix}}
+
+\item{i}{the host species index}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}

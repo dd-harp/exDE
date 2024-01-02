@@ -5,12 +5,13 @@
 #' @inheritParams LBionomics
 #' @return a named [list]
 #' @export
-LBionomics.basic <- function(t, y, pars) {
-  pars$Lpar$psi <- pars$Lpar$psi0
-  pars$Lpar$phi <- pars$Lpar$phi0
-  pars$Lpar$theta <- pars$Lpar$theta0
+LBionomics.basic <- function(t, y, pars, s) {with(pars$Lpar[[s]],{
+  pars$Lpar[[s]]$psi <- psi0
+  pars$Lpar[[s]]$phi <- phi0
+  pars$Lpar[[s]]$theta <- theta0
+
   return(pars)
-}
+})}
 
 
 #' @title Number of newly emerging adults from each larval habitat
@@ -18,10 +19,10 @@ LBionomics.basic <- function(t, y, pars) {
 #' @inheritParams F_alpha
 #' @return a [numeric] vector of length `nHabitats`
 #' @export
-F_alpha.basic <- function(t, y, pars) {
-  L <- y[pars$ix$L$L_ix]
-  with(pars$Lpar,{
-    psi*L
+F_alpha.basic <- function(t, y, pars, s) {
+  L <- y[pars$ix$L[[s]]$L_ix]
+  with(pars$Lpar[[s]],{
+    return(psi*L)
   })
 }
 
@@ -30,69 +31,61 @@ F_alpha.basic <- function(t, y, pars) {
 #' @inheritParams dLdt
 #' @return a [numeric] vector
 #' @export
-dLdt.basic <- function(t, y, pars, eta) {
-  L <- y[pars$ix$L$L_ix]
-  with(pars$Lpar, {
+dLdt.basic <- function(t, y, pars, eta, s) {
+  L <- y[pars$ix$L[[s]]$L_ix]
+  with(pars$Lpar[[s]], {
     dL = eta - (psi + phi + (theta*L))*L
     return(dL)
   })
 }
 
-#' @title Setup Lpar.basic
-#' @description Implements [setup_L] for the basic model
-#' @inheritParams setup_L
+#' @title Setup Lpar for the basic model
+#' @description Implements [setup_Lpar] for the basic model
+#' @inheritParams setup_Lpar
 #' @return a [list] vector
 #' @export
-setup_L.basic = function(pars, Lname,
-                            membership=1, searchQ=1,
-                            Lopts=list()){
+setup_Lpar.basic = function(Lname, pars, s, Lopts=list()){
+  pars$Lpar[[s]] = make_Lpar_basic(pars$nHabitats, Lopts)
+  return(pars)
+}
 
-  pars$nHabitats=length(membership)
-  pars$Lname = "basic"
-  pars$membership = membership
-  pars$searchQ = checkIt(searchQ, length(membership), F)
-  pars$calN = make_calN(pars$nPatches, membership)
-  pars$calU = make_calU(pars$calN, pars$searchQ)
-
-  with(Lopts,{
-
-    pars <- make_Lpar_basic(pars, Lopts)
-    pars <- LBionomics.basic(0, 0, pars)
-    pars <- make_Linits_basic(pars, Lopts)
-
-    return(pars)
- })}
+#' @title Setup the basic model
+#' @description Implements [setup_Linits] for the basic model
+#' @inheritParams setup_Linits
+#' @return a [list]
+#' @export
+setup_Linits.basic = function(pars, s, Lopts=list()){
+  pars$Linits[[s]] = make_Linits_basic(pars$nHabitats, Lopts)
+  return(pars)
+}
 
 #' @title Make parameters for basic competition aquatic mosquito model
-#' @param pars a [list]
+#' @param nHabitats the number of habitats in the model
 #' @param Lopts a [list] that overwrites default values
 #' @param psi maturation rates for each aquatic habitat
 #' @param phi density-independent mortality rates for each aquatic habitat
 #' @param theta density-dependent mortality terms for each aquatic habitat
 #' @return a [list] with Lpar added
 #' @export
-make_Lpar_basic = function(pars, Lopts=list(), psi=1/8, phi=1/8, theta=1/100){with(Lopts,{
+make_Lpar_basic = function(nHabitats, Lopts=list(), psi=1/8, phi=1/8, theta=1/100){with(Lopts,{
   Lpar = list()
   class(Lpar) <- "basic"
-  Lpar$psi0 = checkIt(psi, pars$nHabitats)
-  Lpar$phi0 = checkIt(phi, pars$nHabitats)
-  Lpar$theta0 = checkIt(theta, pars$nHabitats)
+  Lpar$psi0 = checkIt(psi, nHabitats)
+  Lpar$phi0 = checkIt(phi, nHabitats)
+  Lpar$theta0 = checkIt(theta, nHabitats)
 
-  pars$Lpar = Lpar
-  return(pars)
+  return(Lpar)
 })}
 
 #' @title Make inits for basic competition aquatic mosquito model
-#' @param pars a [list]
+#' @param nHabitats the number of habitats in the model
 #' @param Lopts a [list] that overwrites default values
 #' @param L0 initial conditions
 #' @return a [list] with Linits added
 #' @export
-make_Linits_basic = function(pars, Lopts=list(), L0 = 1){with(Lopts,{
-  inits = list()
-  inits$L0 = checkIt(L0, pars$nHabitats)
-  pars$Linits = inits
-  return(pars)
+make_Linits_basic = function(nHabitats, Lopts=list(), L0=1){with(Lopts,{
+  L0 = checkIt(L0, nHabitats)
+  return(list(L=L0))
 })}
 
 #' @title Add indices for aquatic stage mosquitoes to parameter list
@@ -101,20 +94,24 @@ make_Linits_basic = function(pars, Lopts=list(), L0 = 1){with(Lopts,{
 #' @return none
 #' @importFrom utils tail
 #' @export
-make_indices_L.basic <- function(pars) {
-  pars$ix$L$L_ix <- seq(from = pars$max_ix+1, length.out = pars$nHabitats)
-  pars$max_ix <- tail(pars$ix$L$L_ix, 1)
+make_indices_L.basic <- function(pars, s) {with(pars,{
+
+  L_ix <- seq(from = max_ix+1, length.out=nHabitats)
+  max_ix <- tail(L_ix, 1)
+
+  pars$max_ix = max_ix
+  pars$ix$L[[s]] = list(L_ix=L_ix)
   return(pars)
-}
+})}
 
 #' @title Parse the variable names for the basic model
 #' @description Implements [parse_deout_L] for basic competition model.
 #' @inheritParams parse_deout_L
 #' @return [list]
 #' @export
-parse_deout_L.basic <- function(deout, pars) {
+parse_deout_L.basic <- function(deout, pars, s) {
   time = deout[,1]
-  L = deout[,pars$ix$L$L_ix+1]
+  L = deout[,pars$ix$L[[s]]$L_ix+1]
   return(list(time=time, L=L))
 }
 
@@ -130,11 +127,15 @@ make_parameters_L_basic <- function(pars, psi, phi, theta) {
   stopifnot(is.numeric(psi), is.numeric(phi), is.numeric(theta))
   Lpar <- list()
   class(Lpar) <- 'basic'
+  Lpar$psi <- psi
+  Lpar$phi <- phi
+  Lpar$theta <- theta
+
   Lpar$psi0 <- psi
   Lpar$phi0 <- phi
   Lpar$theta0 <- theta
-  pars$Lpar <- Lpar
-  pars <- LBionomics.basic(0, 0, pars)
+
+  pars$Lpar[[1]] <- Lpar
   return(pars)
 }
 
@@ -145,18 +146,17 @@ make_parameters_L_basic <- function(pars, psi, phi, theta) {
 #' @export
 make_inits_L_basic <- function(pars, L0){
   stopifnot(is.numeric(L0))
-  pars$Linits <- list(L0=L0)
+  pars$Linits[[1]] <- list(L=L0)
   return(pars)
 }
 
 #' @title Update inits for the basic aquatic mosquito competition model
-#' @param pars a [list]
-#' @param y0 a vector of initial values
+#' @inheritParams update_inits_L
 #' @return none
 #' @export
-update_inits_L.basic <- function(pars, y0) {
-  L0 = y0[pars$ix$L$L_ix]
-  pars = make_inits_L_basic(pars, L0)
+update_inits_L.basic <- function(pars, y0, s) {
+  L = y0[pars$ix$L[[s]]$L_ix]
+  pars = make_Linits_basic(pars$nHabitats, L0=L)
   return(pars)
 }
 
@@ -165,7 +165,7 @@ update_inits_L.basic <- function(pars, y0) {
 #' @inheritParams get_inits_L
 #' @return none
 #' @export
-get_inits_L.basic <- function(pars){
-  pars$Linits$L0
+get_inits_L.basic <- function(pars, s){
+  pars$Linits[[s]]$L
 }
 

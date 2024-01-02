@@ -4,10 +4,12 @@
 \alias{get_inits_MYZ.Ztrace}
 \title{Return initial values as a vector}
 \usage{
-\method{get_inits_MYZ}{Ztrace}(pars)
+\method{get_inits_MYZ}{Ztrace}(pars, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 none

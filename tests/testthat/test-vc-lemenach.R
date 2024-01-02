@@ -84,7 +84,8 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   pars = make_parameters_X_SIS(pars = pars, b = b, c = c, r = r)
   pars = make_inits_X_SIS(pars = pars, H-I, I)
 
-  pars$calU <- diag(pars$nPatches)
+  pars$egg_laying[[1]] = list()
+  pars$egg_laying[[1]]$calU <- diag(pars$nPatches)
   pars$calN <- diag(pars$nHabitats)
 
   pars= make_indices(pars)

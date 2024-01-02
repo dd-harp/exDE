@@ -31,11 +31,11 @@ test_that("human hybrid MoI model remains at equilibrium", {
   # set initial conditions
   y0 <- get_inits(params)
 
-  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, foi) {
-    list(dXdt(t, y, pars, foi))
-  }, parms = params, method = 'lsoda', foi= as.vector(foi))
+  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, foi, s) {
+    list(dXdt(t, y, pars, foi, s))
+  }, parms = params, method = 'lsoda', foi= as.vector(foi), s=1)
 
-  expect_equal(as.vector(out[2L, params$ix$X$m1_ix+1]), rep(m10, nStrata), tolerance = numeric_tol)
-  expect_equal(as.vector(out[2L, params$ix$X$m2_ix+1]), rep(m20, nStrata), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$ix$X[[1]]$m1_ix+1]), rep(m10, nStrata), tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$ix$X[[1]]$m2_ix+1]), rep(m20, nStrata), tolerance = numeric_tol)
 
 })

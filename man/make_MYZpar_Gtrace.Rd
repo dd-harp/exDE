@@ -4,10 +4,10 @@
 \alias{make_MYZpar_Gtrace}
 \title{Make parameters for Gtrace aquatic mosquito model}
 \usage{
-make_MYZpar_Gtrace(pars, MYZopts, Gm = 1, Gf = NULL)
+make_MYZpar_Gtrace(nPatches, MYZopts, Gm = 1, Gf = NULL)
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{nPatches}{the number of patches in the model}
 
 \item{MYZopts}{a \link{list} to overwrite the defaults}
 

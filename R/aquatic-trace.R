@@ -5,7 +5,7 @@
 #' @inheritParams LBionomics
 #' @return a named [list]
 #' @export
-LBionomics.trace <- function(t, y, pars) {
+LBionomics.trace <- function(t, y, pars, s) {
   return(pars)
 }
 
@@ -14,8 +14,9 @@ LBionomics.trace <- function(t, y, pars) {
 #' @inheritParams F_alpha
 #' @return a [numeric] vector of length `nHabitats`
 #' @export
-F_alpha.trace <- function(t, y, pars) {
-  pars$Lpar$Lt(t, pars)
+F_alpha.trace <- function(t, y, pars, s) {
+  Lp = pars$Lpar[[s]]
+  with(Lp, Lt(t, Lp))
 }
 
 #' @title Derivatives for aquatic stage mosquitoes
@@ -23,49 +24,45 @@ F_alpha.trace <- function(t, y, pars) {
 #' @inheritParams dLdt
 #' @return a [numeric] vector
 #' @export
-dLdt.trace <- function(t, y, pars, eta) {
+dLdt.trace <- function(t, y, pars, eta, s) {
   numeric(0)
 }
 
-#' @title Setup Lpar.trace
-#' @description Implements [setup_L] for the trace model
-#' @inheritParams setup_L
+#' @title Setup Lpar for the trace model
+#' @description Implements [setup_Lpar] for the trace model
+#' @inheritParams setup_Lpar
 #' @return a [list] vector
 #' @export
-setup_L.trace = function(pars, Lname,
-                            membership=1, searchQ=1,
-                            Lopts=list()){
+setup_Lpar.trace = function(Lname, pars, s, Lopts=list()){
+  pars$Lpar[[s]] = make_Lpar_trace(pars$nHabitats, Lopts)
+  return(pars)
+}
 
-
-  nHabitats = length(membership)
-  pars$nHabits = nHabitats
-  pars$calN = make_calN(pars$nPatches, membership)
-  pars$calU = t(pars$calN)
-
-  with(Lopts,{
-    pars$Lname = "trace"
-    pars = make_Lpar_trace(pars, Lopts)
-    pars$Linits = numeric(0)
-    return(pars)
-})}
+#' @title Setup the trace model
+#' @description Implements [setup_Linits] for the trace model
+#' @inheritParams setup_Linits
+#' @return a [list]
+#' @export
+setup_Linits.trace = function(pars, s, Lopts=list()){
+  pars$Linits[[s]] = list()
+  return(pars)
+}
 
 #' @title Make parameters for trace aquatic mosquito model
-#' @param pars a [list]
+#' @param nHabitats the number of habitats in the model
 #' @param Lopts a [list] that overwrites default values
 #' @param Lambda vector of mean emergence rates from each aquatic habitat
 #' @param Lt is a [function] of the form Lt(t,pars) that computes temporal fluctuations
 #' @return none
 #' @export
-make_Lpar_trace = function(pars, Lopts=list(),
-                           Lambda=1000, Lt = NULL){
+make_Lpar_trace = function(nHabitats, Lopts=list(), Lambda=1000, Lt = NULL){
   with(Lopts,{
     Lpar = list()
     class(Lpar) <- "trace"
-    Lpar$Lambda = checkIt(Lambda, pars$nHabitats)
-    if(is.null(Lt)) Lt = function(t, pars){pars$Lpar$Lambda}
+    Lpar$Lambda = checkIt(Lambda, nHabitats)
+    if(is.null(Lt)) Lt = function(t, Lpar){Lpar$Lambda}
     Lpar$Lt = Lt
-    pars$Lpar <- Lpar
-    return(pars)
+    return(Lpar)
 })}
 
 #' @title Add indices for aquatic stage mosquitoes to parameter list
@@ -73,17 +70,16 @@ make_Lpar_trace = function(pars, Lopts=list(),
 #' @inheritParams make_indices_L
 #' @return none
 #' @export
-make_indices_L.trace <- function(pars) {
+make_indices_L.trace <- function(pars, s) {
   return(pars)
 }
 
 
 #' @title Update inits for the basic aquatic mosquito competition model
-#' @param pars a [list]
-#' @param y0 a vector of initial values
+#' @inheritParams update_inits_L
 #' @return none
 #' @export
-update_inits_L.trace<- function(pars, y0) {
+update_inits_L.trace<- function(pars, y0, s) {
   return(pars)
 }
 
@@ -93,13 +89,14 @@ update_inits_L.trace<- function(pars, y0) {
 #' @param Lt is a [function] of the form Lt(t,pars) that computes temporal fluctuations
 #' @return none
 #' @export
-make_parameters_L_trace <- function(pars, Lambda, Lt=function(t,pars){pars$Lpar$Lambda}) {
+make_parameters_L_trace <- function(pars, Lambda, Lt=NULL) {
   stopifnot(is.numeric(Lambda))
   Lpar <- list()
   class(Lpar) <- 'trace'
   Lpar$Lambda <- Lambda
+  if(is.null(Lt)) Lt = function(t, Lpar){Lpar$Lambda}
   Lpar$Lt = Lt
-  pars$Lpar <- Lpar
+  pars$Lpar[[1]] <- Lpar
   return(pars)
 }
 
@@ -118,7 +115,7 @@ make_inits_L_trace<- function(pars, L0=NULL) {
 #' @inheritParams parse_deout_L
 #' @return [list]
 #' @export
-parse_deout_L.trace <- function(deout, pars) {
+parse_deout_L.trace <- function(deout, pars, s) {
   return(NULL)
 }
 
@@ -127,7 +124,7 @@ parse_deout_L.trace <- function(deout, pars) {
 #' @inheritParams get_inits_L
 #' @return none
 #' @export
-get_inits_L.trace <- function(pars){
+get_inits_L.trace <- function(pars, s){
   numeric(0)
 }
 

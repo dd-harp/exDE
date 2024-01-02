@@ -15,22 +15,19 @@ setup_Hpar = function(pars, HPop=1000, residence=1, searchWts=1, Hopts=NULL){
     Hpar = list()
     Hpar$H = HPop
 
-    Hpar$residence <- checkIt(residence, pars$nStrata, F)
-    Hpar$wts_f <- checkIt(searchWts, pars$nStrata, F)
+    Hpar$residence <- checkIt(residence, pars$nStrata)
+    Hpar$wts_f <- checkIt(searchWts, pars$nStrata)
     Hpar$rbr <- searchWts*sum(HPop)/sum(searchWts*HPop)
 
-    Births <- "zero"
-    class(Births) <- "zero"
-    Hpar$Births <- Births
+    Bf <- "zero"
+    class(Bf) <- "zero"
+    Hpar$Bf <- Bf
 
     dH <- "zero"
     class(dH) <- "zero"
     Hpar$dH <- dH
 
-    Hpar$residence = residence
-    Hpar$wts_f = searchWts
-
-    pars$Hpar <- Hpar
+    pars$Hpar[[1]] <- Hpar
     return(pars)
 })}
 
@@ -40,10 +37,11 @@ setup_Hpar = function(pars, HPop=1000, residence=1, searchWts=1, Hopts=NULL){
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
+#' @param i the index of the host species
 #' @return see help pages for specific methods
 #' @export
-dHdt <- function(t, y, pars){
-  UseMethod("dHdt", pars$Hpar$dH)
+dHdt <- function(t, y, pars, i){
+  UseMethod("dHdt", pars$Hpar[[i]]$dH)
 }
 
 #' @title A function that computes the birth rate for human populations
@@ -51,10 +49,11 @@ dHdt <- function(t, y, pars){
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
+#' @param i the index of the host species
 #' @return see help pages for specific methods
 #' @export
-Births <- function(t, y, pars){
-  UseMethod("Births", pars$Hpar$Births)
+Births <- function(t, y, pars, i){
+  UseMethod("Births", pars$Hpar[[i]]$Bf)
 }
 
 #' @title Make parameters for null human demography model
@@ -75,15 +74,15 @@ make_parameters_demography_null <- function(pars, H, residence, searchWts, TaR) 
   Hpar$rbr <- searchWts*sum(H)/sum(searchWts*H)
   Hpar$TaR <- TaR
 
-  Births <- "zero"
-  class(Births) <- "zero"
-  Hpar$Births <- Births
+  Bf <- "zero"
+  class(Bf) <- "zero"
+  Hpar$Bf <- Bf
 
   dH <- "zero"
   class(dH) <- "zero"
   Hpar$dH <- dH
 
-  pars$Hpar <- Hpar
+  pars$Hpar[[1]] <- Hpar
   pars$nStrata <- length(H)
 
   return(pars)

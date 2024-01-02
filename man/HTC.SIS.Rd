@@ -4,10 +4,12 @@
 \alias{HTC.SIS}
 \title{Compute the HTC for the SIS model}
 \usage{
-\method{HTC}{SIS}(pars)
+\method{HTC}{SIS}(pars, i)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{i}{the host species index}
 }
 \value{
 a \link{numeric} vector

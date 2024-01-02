@@ -5,27 +5,26 @@
 \title{Make parameters for RM ODE adult mosquito model}
 \usage{
 make_MYZpar_RM(
-  pars,
+  nPatches,
   MYZopts = list(),
+  EIPmod,
   calK,
-  solve_as = "dde",
   g = 1/12,
   sigma = 1/8,
   f = 0.3,
   q = 0.95,
-  eip = 11,
   nu = 1,
   eggsPerBatch = 60
 )
 }
 \arguments{
-\item{pars}{a \link{list}}
+\item{nPatches}{is the number of patches, an integer}
 
 \item{MYZopts}{a \link{list} of values that overwrites the defaults}
 
-\item{calK}{mosquito dispersal matrix of dimensions \code{nPatches} by \code{nPatches}}
+\item{EIPmod}{a \link{list} that defines the EIP model}
 
-\item{solve_as}{is either \code{ode} to solve as an ode or \code{dde} to solve as a dde}
+\item{calK}{a mosquito dispersal matrix of dimensions \code{nPatches} by \code{nPatches}}
 
 \item{g}{mosquito mortality rate}
 
@@ -34,8 +33,6 @@ make_MYZpar_RM(
 \item{f}{feeding rate}
 
 \item{q}{human blood fraction}
-
-\item{eip}{length of extrinsic incubation period}
 
 \item{nu}{oviposition rate, per mosquito}
 

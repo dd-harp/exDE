@@ -4,17 +4,17 @@
 \alias{F_q}
 \title{Compute the human blood fraction}
 \usage{
-F_q(t, pars)
+F_q(t, MYZpar)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{a \link{list}}
+\item{MYZpar}{a \link{list}}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}
 }
 \description{
-This method dispatches on the type of \code{pars$MYZpar$q_par}. It should
+This method dispatches on the type of \code{MYZpar$q_par}. It should
 set the values of the bionomic parameters to baseline values.
 }

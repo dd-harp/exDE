@@ -4,7 +4,7 @@
 \alias{dHdt.zero}
 \title{Derivatives of demographic changes in human populations}
 \usage{
-\method{dHdt}{zero}(t, y, pars)
+\method{dHdt}{zero}(t, y, pars, i)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{i}{the index of the host species}
 }
 \value{
 a \link{numeric} vector of 0s

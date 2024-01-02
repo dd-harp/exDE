@@ -100,30 +100,33 @@ to `exDE::xDE_diffeqn_mosy`.
 params = make_parameters_xde()
 params$nPatches = nPatches
 params$nHabitats = nHabitats
-params$calU = calU
+params$egg_laying=list() 
+params$egg_laying[[1]] = list() 
+params$egg_laying[[1]]$calU = calU
 params$calN = calN
 
 
 # ODE
 params$beta = beta
-params = make_Lpar_trace(pars = params, Lambda = alpha)
-params = make_MYZpar_basicM(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch)
-params = make_MYZinits_basicM(params, M0=M_eq, P0=P_eq)
+params = make_parameters_L_trace(pars = params, Lambda = alpha)
+params = make_parameters_MYZ_basicM(pars = params, g = g, sigma = sigma, calK = calK, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch)
+params = make_inits_MYZ_basicM(params, M0=M_eq, P0=P_eq)
+
 params = make_indices(params)
 ```
 
 ```{r}
 y0 <- rep(0, params$max_ix)
-y0[params$ix$MYZ$M_ix] <- M_eq
-y0[params$ix$MYZ$P_ix] <- P_eq
+y0[params$ix$MYZ[[1]]$M_ix] <- M_eq
+y0[params$ix$MYZ[[1]]$P_ix] <- P_eq
 
 out <- deSolve::ode(y = y0, times = 0:50, func = xDE_diffeqn_mosy, parms = params, method = 'lsoda')
 out1 <- out
 ```
 
 ```{r, out.width = "100%"}
-colnames(out)[params$ix$MYZ$M_ix+1] <- paste0('M_', 1:params$nPatches)
-colnames(out)[params$ix$MYZ$P_ix+1] <- paste0('P_', 1:params$nPatches)
+colnames(out)[params$ix$MYZ[[1]]$M_ix+1] <- paste0('M_', 1:params$nPatches)
+colnames(out)[params$ix$MYZ[[1]]$P_ix+1] <- paste0('P_', 1:params$nPatches)
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

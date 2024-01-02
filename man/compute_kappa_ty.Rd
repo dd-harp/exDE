@@ -4,7 +4,7 @@
 \alias{compute_kappa_ty}
 \title{Compute kappa, ty}
 \usage{
-compute_kappa_ty(t, y, pars)
+compute_kappa_ty(t, y, pars, i)
 }
 \arguments{
 \item{t}{\link{numeric}}
@@ -12,6 +12,8 @@ compute_kappa_ty(t, y, pars)
 \item{y}{\link{vector} the state variables}
 
 \item{pars}{a \link{list}}
+
+\item{i}{the host species index}
 }
 \value{
 a \link{list} containing the kappa

@@ -4,15 +4,17 @@
 \alias{update_inits_MYZ}
 \title{Set the initial values as a vector}
 \usage{
-update_inits_MYZ(pars, y0)
+update_inits_MYZ(pars, y0, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
 
 \item{y0}{a vector of variable values from a simulation}
+
+\item{s}{the species index}
 }
 \value{
-none
+a \link{list}
 }
 \description{
 This method dispatches on the type of \code{pars$MYZpar}.

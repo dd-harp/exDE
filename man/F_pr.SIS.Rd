@@ -4,12 +4,14 @@
 \alias{F_pr.SIS}
 \title{Compute the "true" prevalence of infection / parasite rate}
 \usage{
-\method{F_pr}{SIS}(varslist, pars)
+\method{F_pr}{SIS}(varslist, pars, i)
 }
 \arguments{
 \item{varslist}{a list with variables attached by name}
 
 \item{pars}{a list}
+
+\item{i}{the host species index}
 }
 \value{
 a \link{numeric} vector of length \code{nStrata}

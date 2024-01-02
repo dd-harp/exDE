@@ -4,17 +4,17 @@
 \alias{F_sigma}
 \title{Compute mosquito emigration rates}
 \usage{
-F_sigma(t, pars)
+F_sigma(t, MYZpar)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{a \link{list}}
+\item{MYZpar}{a \link{list}}
 }
 \value{
 a \link{numeric} vector of length \code{nPatches}
 }
 \description{
-This method dispatches on the type of \code{pars$MYZpar$sigma_par}. It should
+This method dispatches on the type of \code{MYZpar$sigma_par}. It should
 set the values of sigma to (possibly changing) baseline value(s).
 }

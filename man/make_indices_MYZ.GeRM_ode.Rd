@@ -4,10 +4,12 @@
 \alias{make_indices_MYZ.GeRM_ode}
 \title{Add indices for adult mosquitoes to parameter list}
 \usage{
-\method{make_indices_MYZ}{GeRM_ode}(pars)
+\method{make_indices_MYZ}{GeRM_ode}(pars, s)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 none

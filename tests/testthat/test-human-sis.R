@@ -27,17 +27,12 @@ test_that("human SIS model remains at equilibrium", {
 
   params = make_indices(params)
 
-
   # set initial conditions
   y0 <- get_inits(params)
 
-  y0 <- rep(0, 3)
-  y0[params$ix$X$I_ix] <- I
-  y0[params$ix$X$S_ix] <- H-I
+  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, foi, s) {
+    list(dXdt(t, y, pars, foi, s))
+  }, parms = params, method = 'lsoda', foi= as.vector(foi), s=1)
 
-  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, foi) {
-    list(dXdt(t, y, pars, foi))
-  }, parms = params, method = 'lsoda', foi= as.vector(foi))
-
-  expect_equal(as.vector(out[2L, params$ix$X$I_ix+1]), I, tolerance = numeric_tol)
+  expect_equal(as.vector(out[2L, params$ix$X[[1]]$I_ix+1]), I, tolerance = numeric_tol)
 })

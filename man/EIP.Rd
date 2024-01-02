@@ -4,16 +4,16 @@
 \alias{EIP}
 \title{Compute the EIP}
 \usage{
-EIP(t, pars)
+EIP(t, EIPmod)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{pars}{a \link{list}}
+\item{EIPmod}{a \link{list}}
 }
 \value{
-\link{list}
+\link{numeric}
 }
 \description{
-This method dispatches on the type of \code{pars$EIPmod}.
+This method dispatches on the type of \code{EIPmod}.
 }

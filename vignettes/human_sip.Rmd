@@ -46,7 +46,6 @@ Given $EIR$ we can solve for the mosquito population which would have given rise
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
-#devtools::load_all(".")
 library(deSolve)
 library(data.table)
 library(ggplot2)
@@ -96,15 +95,15 @@ params = make_indices(params)
 ```
 
 ```{r} 
-y0 <- get_inits_X(params)
+y0 <- get_inits(params)
 out <- deSolve::ode(y = y0, times = c(0, 365), xDE_diffeqn_cohort, parms = params, method = 'lsoda', F_eir = F_eir) 
 out1<- out
 ```
  
 ```{r, out.width = "100%"}
-colnames(out)[params$ix$X$S_ix+1] <- paste0('S_', 1:params$nStrata)
-colnames(out)[params$ix$X$I_ix+1] <- paste0('I_', 1:params$nStrata)
-colnames(out)[params$ix$X$P_ix+1] <- paste0('P_', 1:params$nStrata)
+colnames(out)[params$ix$X[[1]]$S_ix+1] <- paste0('S_', 1:params$nStrata)
+colnames(out)[params$ix$X[[1]]$I_ix+1] <- paste0('I_', 1:params$nStrata)
+colnames(out)[params$ix$X[[1]]$P_ix+1] <- paste0('P_', 1:params$nStrata)
 
 out <- as.data.table(out)
 out <- melt(out, id.vars = 'time')

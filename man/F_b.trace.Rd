@@ -4,12 +4,14 @@
 \alias{F_b.trace}
 \title{Infection blocking pre-erythrocytic immunity}
 \usage{
-\method{F_b}{trace}(y, pars)
+\method{F_b}{trace}(y, pars, i)
 }
 \arguments{
 \item{y}{state vector}
 
 \item{pars}{a list}
+
+\item{i}{the host species index}
 }
 \value{
 a \link{numeric} vector of length \code{nStrata}

@@ -4,12 +4,14 @@
 \alias{parse_deout_MYZ.Ztrace}
 \title{Parse the output of deSolve and return variables for the Ztrace model}
 \usage{
-\method{parse_deout_MYZ}{Ztrace}(deout, pars)
+\method{parse_deout_MYZ}{Ztrace}(deout, pars, s)
 }
 \arguments{
 \item{deout}{a \link{matrix} of outputs from deSolve}
 
 \item{pars}{a \link{list} that defines a model}
+
+\item{s}{the species index}
 }
 \value{
 a \link{list}

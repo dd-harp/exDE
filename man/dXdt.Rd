@@ -4,7 +4,7 @@
 \alias{dXdt}
 \title{Derivatives for human population}
 \usage{
-dXdt(t, y, pars, FoI)
+dXdt(t, y, pars, FoI, i)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -14,6 +14,8 @@ dXdt(t, y, pars, FoI)
 \item{pars}{a list}
 
 \item{FoI}{vector giving the per-capita force of infection for each strata}
+
+\item{i}{the host species index}
 }
 \value{
 a \link{numeric} vector

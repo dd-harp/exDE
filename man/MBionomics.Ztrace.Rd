@@ -4,7 +4,7 @@
 \alias{MBionomics.Ztrace}
 \title{Compute bloodfeeding and mortality rates}
 \usage{
-\method{MBionomics}{Ztrace}(t, y, pars)
+\method{MBionomics}{Ztrace}(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,6 +12,8 @@
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the species index}
 }
 \value{
 a named \link{list}

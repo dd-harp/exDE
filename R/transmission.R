@@ -5,11 +5,12 @@
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars, a [list]
+#' @param i the host species index
 #' @return pars, a [list]
 #' @export
-F_beta <- function(t, y, pars){
-  H <- F_H(t, y, pars)
-  beta = compute_beta(H, pars$Hpar$wts_f, pars$Hpar$TaR)
+F_beta <- function(t, y, pars, i){
+  H <- F_H(t, y, pars, i)
+  beta = compute_beta(H, pars$Hpar[[i]]$wts_f, pars$Hpar[[i]]$TaR)
   return(beta)
 }
 
@@ -19,10 +20,11 @@ F_beta <- function(t, y, pars){
 #' @param y state vector
 #' @param pars a [list]
 #' @param beta, a [matrix]
+#' @param s the vector species index
 #' @return a [numeric] vector of length `nStrata`
 #' @export
-F_EIR <- function(t, y, pars, beta) {
-  fqZ <- F_fqZ(t, y, pars) * pars$local_frac
+F_EIR <- function(t, y, pars, beta, s) {
+  fqZ <- F_fqZ(t, y, pars, s) * pars$local_frac
   as.vector(beta %*% fqZ)
 }
 
@@ -32,10 +34,11 @@ F_EIR <- function(t, y, pars, beta) {
 #' @param y state vector
 #' @param pars a [list]
 #' @param beta, a [matrix]
+#' @param i the host species index
 #' @return a [numeric] vector of length `nPatches`
 #' @export
-F_kappa <- function(t, y, pars, beta) {
-  kappa = as.vector(t(beta) %*% F_X(t, y, pars))
+F_kappa <- function(t, y, pars, beta, i) {
+  kappa = as.vector(t(beta) %*% F_X(t, y, pars, i))
   with(pars, return(local_frac*kappa + (1-local_frac)*x_visitors))
 }
 

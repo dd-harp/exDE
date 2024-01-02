@@ -4,10 +4,12 @@
 \alias{HTC}
 \title{Compute the human transmitting capacity}
 \usage{
-HTC(pars)
+HTC(pars, i)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{i}{the host species index}
 }
 \value{
 none
