@@ -278,7 +278,9 @@ values. These equations have been implemented to compute <span class="math inlin
 <code>Upsilon</code> as initial values:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_inits_MYZ_GeRM_ode.html">make_inits_MYZ_GeRM_ode</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, </span>
-<span>                             M0 <span class="op">=</span> <span class="va">M_eq</span>, G0 <span class="op">=</span> <span class="va">G_eq</span>, Y0 <span class="op">=</span> <span class="va">Y_eq</span>, Z0 <span class="op">=</span> <span class="va">Z_eq</span><span class="op">)</span></span></code></pre></div>
+<span>                             M0 <span class="op">=</span> <span class="va">M_eq</span>, G0 <span class="op">=</span> <span class="va">G_eq</span>, Y0 <span class="op">=</span> <span class="va">Y_eq</span>, Z0 <span class="op">=</span> <span class="va">Z_eq</span><span class="op">)</span></span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">Lambda</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="va">Lambda</span> </span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">kappa</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="va">kappa</span> </span></code></pre></div>
 <p>We and set the indices with <code><a href="../reference/make_indices.html">exDE::make_indices</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
@@ -290,12 +292,12 @@ a local version:</p>
 <code class="sourceCode R"><span><span class="va">y0</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_inits_MYZ.html">get_inits_MYZ</a></span><span class="op">(</span><span class="va">params</span>, <span class="fl">1</span><span class="op">)</span> </span>
 <span></span>
 <span></span>
-<span><span class="va">dMYZdt_local</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">Lambda</span>, <span class="va">kappa</span>, <span class="va">s</span><span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/dMYZdt.html">dMYZdt</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">Lambda</span>, <span class="va">kappa</span>, <span class="va">s</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">dMYZdt_local</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">s</span><span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/dMYZdt.html">dMYZdt</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span>, <span class="va">s</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">deSolve</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">ode</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y0</span>, times <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">50</span>, <span class="va">dMYZdt_local</span>, parms<span class="op">=</span><span class="va">params</span>, </span>
-<span>                    method <span class="op">=</span> <span class="st">'lsoda'</span>, Lambda <span class="op">=</span> <span class="va">Lambda</span>, kappa <span class="op">=</span> <span class="va">kappa</span>, s<span class="op">=</span><span class="fl">1</span><span class="op">)</span> </span></code></pre></div>
+<span>                    method <span class="op">=</span> <span class="st">'lsoda'</span>, s<span class="op">=</span><span class="fl">1</span><span class="op">)</span> </span></code></pre></div>
 <p>The output is plotted below. The flat lines shown here is a
 verification that the steady state solutions that we computed above
 match the steady states computed by solving the equations:</p>

@@ -187,11 +187,14 @@ it must be specified as the model of bloodfeeding (<span class="math inline">\(\
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">params</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_parameters_xde.html">make_parameters_xde</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">params</span><span class="op">$</span><span class="va">nStrata</span> <span class="op">=</span> <span class="va">nStrata</span></span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">nVectors</span> <span class="op">=</span> <span class="fl">1</span> </span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">nHosts</span> <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="va">params</span><span class="op">$</span><span class="va">nPatches</span> <span class="op">=</span> <span class="fl">1</span> </span>
-<span></span>
 <span><span class="va">params</span><span class="op">$</span><span class="va">eir</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">EIR</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">EIR</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">F_eir</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">pars</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="va">pars</span><span class="op">$</span><span class="va">eir</span></span>
+<span>  <span class="va">pars</span><span class="op">$</span><span class="va">EIR</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="va">pars</span><span class="op">$</span><span class="va">eir</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_demography_null.html">make_parameters_demography_null</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, H<span class="op">=</span><span class="va">H</span>, residence<span class="op">=</span><span class="va">residence</span>, searchWts<span class="op">=</span><span class="va">searchWtsH</span>, TaR<span class="op">=</span><span class="va">TaR</span><span class="op">)</span> </span>

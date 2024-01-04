@@ -106,6 +106,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/Behavior.null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Bionomics.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/Births.html</loc>
   </url>
   <url>
@@ -161,6 +164,12 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/EIP.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/EggLaying.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Emergence.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/Exposure.html</loc>
@@ -361,6 +370,15 @@
     <loc>https://dd-harp.github.io/exDE/reference/HabitatDynamics.null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/HabitatSearch.dynamic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/HabitatSearch.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/HabitatSearch.static.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/HumanAvailability.forced.html</loc>
   </url>
   <url>
@@ -407,9 +425,6 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/LSMeffects.null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/LayEggs.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/MBionomics.GeRM.html</loc>
@@ -527,6 +542,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/Temperature.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Transmission.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/TreatHabitats.html</loc>
