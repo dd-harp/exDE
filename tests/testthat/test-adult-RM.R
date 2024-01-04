@@ -34,16 +34,19 @@ test_that("RM models reach equilibrium", {
   # ODE
   params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode")
   params = make_inits_MYZ_RM_ode(pars = params, M0 = rep(0, nPatches), P0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 =rep(0, nPatches))
-
+  params$Lambda = list()
+  params$kappa = list()
+  params$Lambda[[1]] = Lambda
+  params$kappa[[1]] = kappa
   params = make_indices(params)
 
   # make indices and set up initial conditions
   y0 <- get_inits(params)
 
   # solve ODEs
-  out <- deSolve::ode(y = y0, times = c(0, 730), func = function(t, y, pars, Lambda, kappa, s) {
-    list(dMYZdt(t, y, pars, Lambda, kappa, s))
-  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa, s=1)
+  out <- deSolve::ode(y = y0, times = c(0, 730), func = function(t, y, pars, s) {
+    list(dMYZdt(t, y, pars, s))
+  }, parms = params, method = 'lsoda', s=1)
 
   # equilibrium solutions (forward)
   Omega_inv <- solve(Omega)
@@ -85,16 +88,19 @@ test_that("RM models reach equilibrium", {
   # DDE
   params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "dde")
   params = make_inits_MYZ_RM_dde(pars = params, M0 = rep(0, nPatches), P0 = rep(0, nPatches), Y0 = rep(0, nPatches), Z0 =rep(0, nPatches), Upsilon0=as.vector(OmegaEIP))
+  params$Lambda = list()
+  params$kappa = list()
+  params$Lambda[[1]] = Lambda
+  params$kappa[[1]] = kappa
 
   params = make_indices(params)
 
   y0 <- get_inits(params)
 
   # solve DDEs
-  out <- deSolve::dede(y = y0, times = c(0, 365), func = function(t, y, pars, Lambda, kappa, s) {
-    list(dMYZdt(t, y, pars, Lambda, kappa, s))
-  }, parms = params, method = 'lsoda', Lambda = Lambda, kappa = kappa, s=1
-  )
+  out <- deSolve::dede(y = y0, times = c(0, 365), func = function(t, y, pars, s) {
+    list(dMYZdt(t, y, pars, s))
+  }, parms = params, method = 'lsoda', s=1)
 
   # equilibrium solutions (forward)
   M_eq <- as.vector(Omega_inv %*% Lambda)

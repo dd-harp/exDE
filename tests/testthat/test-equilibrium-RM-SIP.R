@@ -87,8 +87,9 @@ test_that("test equilibrium with RM adults (ODE), SIP humans, trace", {
   params$nStrata <- nStrata
   params$nPatches <- nPatches
   params$nHabitats <- nHabitats
-  params$egg_laying[[1]] = list()
-  params$egg_laying[[1]]$calU <- calU
+  params$nVectors <- 1
+  params$nHosts <- 1
+  params$calU[[1]] <- calU
   params$calN <- calN
 
   params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
@@ -198,8 +199,9 @@ test_that("test equilibrium with RM adults (DDE), SIP humans, trace", {
   params$nStrata <- nStrata
   params$nPatches <- nPatches
   params$nHabitats <- nHabitats
-  params$egg_laying[[1]] = list()
-  params$egg_laying[[1]]$calU <- calU
+  params$nVectors <- 1
+  params$nHosts <- 1
+  params$calU[[1]] <- calU
   params$calN <- calN
 
   params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")

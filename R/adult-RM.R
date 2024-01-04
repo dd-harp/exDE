@@ -43,26 +43,26 @@ F_eggs.RM <- function(t, y, pars, s) {
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
-dMYZdt.RM_ode <- function(t, y, pars, Lambda, kappa, s) {with(pars,{
+dMYZdt.RM_ode <- function(t, y, pars, s) {
+  Lambda = pars$Lambda[[s]]
+  kappa = pars$kappa [[s]]
 
-  M <- y[ix$MYZ[[s]]$M_ix]
-  P <- y[ix$MYZ[[s]]$P_ix]
-  Y <- y[ix$MYZ[[s]]$Y_ix]
-  Z <- y[ix$MYZ[[s]]$Z_ix]
+  with(pars$ix$MYZ[[s]],{
+    M <- y[M_ix]
+    P <- y[P_ix]
+    Y <- y[Y_ix]
+    Z <- y[Z_ix]
 
-  with(MYZpar[[s]],{
+    with(pars$MYZpar[[s]],{
+      dMdt <- Lambda - (Omega %*% M)
+      dPdt <- f*(M - P) - (Omega %*% P)
+      dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
+      dZdt <- Upsilon %*% diag(f*q*kappa, nPatches) %*% (M - Y) - (Omega %*% Z)
 
-    Omega <- make_Omega(g, sigma, calK, nPatches)
-    Upsilon <- expm(-Omega*eip)
-
-    dMdt <- Lambda - (Omega %*% M)
-    dPdt <- f*(M - P) - (Omega %*% P)
-    dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
-    dZdt <- Upsilon %*% diag(f*q*kappa, nPatches) %*% (M - Y) - (Omega %*% Z)
-
-    return(c(dMdt, dPdt, dYdt, dZdt))
+      return(c(dMdt, dPdt, dYdt, dZdt))
+    })
   })
-})}
+}
 
 #' @title Derivatives for adult mosquitoes
 #' @description Implements [dMYZdt] for the RM DDE model.
@@ -71,41 +71,46 @@ dMYZdt.RM_ode <- function(t, y, pars, Lambda, kappa, s) {with(pars,{
 #' @importFrom deSolve lagvalue
 #' @importFrom deSolve lagderiv
 #' @export
-dMYZdt.RM_dde <- function(t, y, pars, Lambda, kappa, s){with(pars,{
+dMYZdt.RM_dde <- function(t, y, pars, s){
 
-  M <- y[ix$MYZ[[s]]$M_ix]
-  P <- y[ix$MYZ[[s]]$P_ix]
-  Y <- y[ix$MYZ[[s]]$Y_ix]
-  Z <- y[ix$MYZ[[s]]$Z_ix]
-  Upsilon <- matrix(data = y[ix$MYZ[[s]]$Upsilon_ix], nrow = nPatches, ncol = nPatches)
+  Lambda = pars$Lambda[[s]]
+  kappa = pars$kappa [[s]]
 
-  with(MYZpar[[s]],{
+  with(pars$ix$MYZ[[s]],{
+    M <- y[M_ix]
+    P <- y[P_ix]
+    Y <- y[Y_ix]
+    Z <- y[Z_ix]
+    Upsilon <- y[Upsilon_ix]
 
-    if (t <= eip) {
-      M_eip <- pars$MYZinits[[s]]$M
-      Y_eip <- pars$MYZinits[[s]]$Y
-      fqkappa_eip <- kappa*f*q
-      g_eip <- g
-      sigma_eip <- sigma
-    } else {
-      M_eip <- lagvalue(t = t - eip, nr = ix$MYZ[[s]]$M_ix)
-      Y_eip <- lagvalue(t = t - eip, nr = ix$MYZ[[s]]$Y_ix)
-      fqkappa_eip <- lagderiv(t = t-eip, nr = ix$MYZ[[s]]$fqkappa_ix)
-      g_eip <- lagderiv(t = t-eip, nr = ix$MYZ[[s]]$g_ix)
-      sigma_eip <- lagderiv(t = t-eip, nr = ix$MYZ[[s]]$sigma_ix)
-    }
+    with(pars$MYZpar[[s]],{
 
-    Omega <- make_Omega(g, sigma, calK, nPatches)
-    Omega_eip <- make_Omega(g_eip, sigma_eip, calK, nPatches)
-    dMdt <- Lambda - (Omega %*% M)
-    dPdt <- f*(M - P) - (Omega %*% P)
-    dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
-    dZdt <- Upsilon %*% (fqkappa_eip * (M_eip - Y_eip)) - (Omega %*% Z)
-    dUdt <- as.vector(((1-dEIPdt(t,EIPmod))*Omega_eip - Omega) %*% Upsilon)
+      if (t <= eip) {
+        M_eip <- pars$MYZinits[[s]]$M
+        Y_eip <- pars$MYZinits[[s]]$Y
+        fqkappa_eip <- kappa*f*q
+        g_eip <- g
+        sigma_eip <- sigma
+      } else {
+        M_eip <- lagvalue(t = t - eip, nr = M_ix)
+        Y_eip <- lagvalue(t = t - eip, nr = Y_ix)
+        fqkappa_eip <- lagderiv(t = t-eip, nr = fqkappa_ix)
+        g_eip <- lagderiv(t = t-eip, nr = g_ix)
+        sigma_eip <- lagderiv(t = t-eip, nr = sigma_ix)
+      }
 
-    return(c(dMdt, dPdt, dYdt, dZdt, dUdt, f*q*kappa, g, sigma))
+      Omega <- make_Omega(g, sigma, calK, nPatches)
+      Omega_eip <- make_Omega(g_eip, sigma_eip, calK, nPatches)
+      dMdt <- Lambda - (Omega %*% M)
+      dPdt <- f*(M - P) - (Omega %*% P)
+      dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
+      dZdt <- Upsilon %*% (fqkappa_eip * (M_eip - Y_eip)) - (Omega %*% Z)
+      dUdt <- as.vector(((1-dEIPdt(t,EIPmod))*Omega_eip - Omega) %*% Upsilon)
+
+      return(c(dMdt, dPdt, dYdt, dZdt, dUdt, f*q*kappa, g, sigma))
+    })
   })
-})}
+}
 
 
 #' @title Setup MYZpar for the RM model
@@ -175,7 +180,7 @@ make_MYZpar_RM = function(nPatches, MYZopts=list(), EIPmod, calK,
     return(MYZpar)
 })}
 
-#' @title Setup the RM model
+#' @title Setup initial values for the RM model
 #' @description Implements [setup_MYZinits] for the RM model
 #' @inheritParams setup_MYZinits
 #' @return a [list]
@@ -333,9 +338,13 @@ make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, eip, 
   MYZpar$q0      <- MYZpar$q
   MYZpar$nu0     <- MYZpar$nu
 
+  Omega   <- make_Omega(g, sigma, calK, pars$nPatches)
+  MYZpar$Omega <- Omega
+  MYZpar$Upsilon <- expm(-Omega*eip)
   MYZpar$EIPmod <- setup_eip_static(eip=eip)
   MYZpar$eip <- eip
   MYZpar$calK <- calK
+  MYZpar$nPatches <- pars$nPatches
 
   pars$MYZpar = list()
   pars$MYZpar[[1]] = MYZpar

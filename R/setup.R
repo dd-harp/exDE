@@ -72,6 +72,7 @@ xde_setup = function(modelName,
   pars$nPatches = nPatches
   pars$nStrata = length(HPop)
   pars$nVectors = nVectors
+  pars$nHosts = nHosts
   pars$nHabitats = length(membership)
   pars$membership = membership
   pars$calN = make_calN(pars$nPatches, pars$membership)
@@ -166,7 +167,7 @@ xde_setup_mosy = function(modelName,
   pars = setup_EggLaying(pars, 1, searchQ)
 
   if(is.null(kappa))  kappa = rep(0, nPatches)
-  pars$kappa = checkIt(kappa, nPatches)
+  pars$kappa[[1]] = checkIt(kappa, nPatches)
 
   pars = make_indices(pars)
 
@@ -322,6 +323,7 @@ xde_setup_cohort = function(modelName, F_eir,
   nStrata = length(HPop)
   pars$nPatches = as.integer(nStrata)
   pars$nStrata = nStrata
+  pars$nHosts = 1
 
   pars = setup_Hpar(pars, HPop, 1:nStrata, searchB, Hopts)
 

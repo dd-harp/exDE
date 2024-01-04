@@ -21,12 +21,14 @@ test_that("basic competition stays at equilibrium", {
   params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
   params = make_inits_L_basic(pars = params, L0 = L)
   params = make_indices(params)
+  params$eta = list()
+  params$eta[[1]] = eta
 
   y0 <- rep(0, 3)
 
-  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, eta, s) {
-    list(dLdt(t, y, pars, eta, s))
-  }, parms = params, method = 'lsoda', eta = eta, s=1)
+  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, s) {
+    list(dLdt(t, y, pars, s))
+  }, parms = params, method = 'lsoda', s=1)
 
   expect_equal(as.vector(out[2L, 2:4]), L, tolerance = numeric_tol)
 })

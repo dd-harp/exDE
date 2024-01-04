@@ -10,6 +10,9 @@ make_parameters_xde = function(solve_as='dde'){
   class(xde) <- xde
   pars$xde = xde
 
+  static_l = list()
+  class(static_l) <- "static"
+
   pars$MYZpar = list()
   pars$MYZinits = list()
 
@@ -20,7 +23,14 @@ make_parameters_xde = function(solve_as='dde'){
   pars$Xinits = list()
   pars$Hpar = list()
 
-  pars$egg_laying = list()
+  pars$search4habitat = list()
+  pars$calU = static_l
+  pars$eta = list()
+  pars$Lambda = list()
+  pars$beta = list()
+  pars$EIR = list()
+  pars$FoI = list()
+  pars$kappa = list()
 
   pars$ix = list()
   pars$ix$X = list()

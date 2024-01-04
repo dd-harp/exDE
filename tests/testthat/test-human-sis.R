@@ -18,6 +18,7 @@ test_that("human SIS model remains at equilibrium", {
 
   params <- make_parameters_xde()
   params$nStrata <- nStrata
+  params$nHosts <- 1
   params$nPatches <- 1
 
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
@@ -26,13 +27,14 @@ test_that("human SIS model remains at equilibrium", {
   params = make_inits_X_SIS(pars = params, H-I, I)
 
   params = make_indices(params)
+  params$FoI[[1]] <- foi
 
   # set initial conditions
   y0 <- get_inits(params)
 
-  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, foi, s) {
-    list(dXdt(t, y, pars, foi, s))
-  }, parms = params, method = 'lsoda', foi= as.vector(foi), s=1)
+  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, s) {
+    list(dXdt(t, y, pars, s))
+  }, parms = params, method = 'lsoda', s=1)
 
   expect_equal(as.vector(out[2L, params$ix$X[[1]]$I_ix+1]), I, tolerance = numeric_tol)
 })

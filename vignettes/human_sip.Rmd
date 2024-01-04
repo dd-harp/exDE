@@ -81,10 +81,13 @@ EIR <- diag(1/b, nStrata) %*% diag(1/(1-rho)) %*% ((r*I)/(H-I-P))
 params <- make_parameters_xde()
 params$nStrata = nStrata
 params$nPatches = 1 
+params$nHosts = 1 
 
-params$eir = EIR 
+params$eir = EIR
+params$EIR = list()
+
 F_eir = function(t, pars){
-  pars$eir
+  pars$EIR[[1]] = params$eir
 }
 
 params = make_parameters_demography_null(pars = params, H=H, residence=residence, searchWts=searchWtsH, TaR=TaR)

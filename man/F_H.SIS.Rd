@@ -19,5 +19,5 @@
 a \link{numeric} vector of length \code{nStrata}
 }
 \description{
-Implements \link{F_X} for the SIS model.
+Implements \link{F_H} for the SIS model.
 }

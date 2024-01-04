@@ -4,7 +4,7 @@
 \alias{dXdt.hMoI}
 \title{Derivatives for human population}
 \usage{
-\method{dXdt}{hMoI}(t, y, pars, FoI, i)
+\method{dXdt}{hMoI}(t, y, pars, i)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,8 +12,6 @@
 \item{y}{state vector}
 
 \item{pars}{a list}
-
-\item{FoI}{vector giving the per-capita force of infection for each strata}
 
 \item{i}{the host species index}
 }

@@ -32,7 +32,7 @@ F_eggs.Gtrace <- function(t, y, pars, s) {
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
-dMYZdt.Gtrace <- function(t, y, pars, Lambda, kappa, s){
+dMYZdt.Gtrace <- function(t, y, pars, s){
   numeric(0)
 }
 

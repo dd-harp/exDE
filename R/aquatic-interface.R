@@ -33,10 +33,9 @@ F_alpha <- function(t, y, pars, s) {
 #' @param y state vector
 #' @param pars a [list]
 #' @param s the species index
-#' @param eta vector giving number of eggs being laid in each larval habitat
 #' @return a [numeric] vector of length `pars$L_ix`
 #' @export
-dLdt <- function(t, y, pars, eta, s) {
+dLdt <- function(t, y, pars, s) {
   UseMethod("dLdt", pars$Lpar[[s]])
 }
 

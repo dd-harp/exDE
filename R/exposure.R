@@ -2,13 +2,14 @@
 #' @param t the time
 #' @param y the variables
 #' @param pars a [list]
-#' @param i the host species index
-#' @param EIR is the daily eir
+#' @return [list]
 #' @export
-Exposure <- function(t, y, pars, EIR, i){
-  b = F_b(y, pars, i)
-  foi = F_foi(EIR, b, pars) + travel_malaria(t, pars)
-  return(foi)
+Exposure <- function(t, y, pars){
+  for(i in 1:pars$nHosts){
+    b = F_b(y, pars, i)
+    pars$FoI[[i]] = F_foi(pars$EIR[[i]], b, pars) + travel_malaria(t, pars)
+  }
+  return(pars)
 }
 
 #' @title A model for exposure

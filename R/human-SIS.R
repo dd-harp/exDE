@@ -12,8 +12,8 @@ F_X.SIS <- function(t, y, pars, i) {
 }
 
 #' @title Size of effective infectious human population
-#' @description Implements [F_X] for the SIS model.
-#' @inheritParams F_X
+#' @description Implements [F_H] for the SIS model.
+#' @inheritParams F_H
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_H.SIS <- function(t, y, pars, i){
@@ -47,15 +47,19 @@ F_b.SIS <- function(y, pars, i) {
 #' @inheritParams dXdt
 #' @return a [numeric] vector
 #' @export
-dXdt.SIS <- function(t, y, pars, FoI, i) {
+dXdt.SIS <- function(t, y, pars, i) {
 
-  S <- y[pars$ix$X[[i]]$S_ix]
-  I <- y[pars$ix$X[[i]]$I_ix]
-  H <- F_H(t, y, pars, i)
-  with(pars$Xpar[[i]], {
-    dS <- Births(t, H, pars, i) - FoI*S + r*I + dHdt(t, S, pars, i)
-    dI <- FoI*S - r*I + dHdt(t, I, pars, i)
-    return(c(dS, dI))
+  foi <- pars$FoI[[i]]
+
+  with(pars$ix$X[[i]],{
+    S <- y[S_ix]
+    I <- y[I_ix]
+    H <- F_H(t, y, pars, i)
+    with(pars$Xpar[[i]], {
+      dS <- Births(t, H, pars, i) - foi*S + r*I + dHdt(t, S, pars, i)
+      dI <- foi*S - r*I + dHdt(t, I, pars, i)
+      return(c(dS, dI))
+    })
   })
 }
 

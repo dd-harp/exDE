@@ -94,11 +94,14 @@ EIR <- h/b
 ```{r}
 params <- make_parameters_xde()
 params$nStrata = nStrata
+params$nVectors = 1 
+params$nHosts = 1
 params$nPatches = 1 
-
 params$eir = rep(EIR, 3)
+params$EIR = list()
+
 F_eir = function(t, pars){
-  pars$eir
+  pars$EIR[[1]] = pars$eir
 }
 
 params = make_parameters_demography_null(pars = params, H=H, residence=residence, searchWts=searchWtsH, TaR=TaR) 

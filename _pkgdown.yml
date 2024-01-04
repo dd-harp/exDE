@@ -68,6 +68,7 @@ reference:
   - F_EIR
   - F_kappa
   - compute_beta
+  - Transmission
   - Exposure
 - title: Adult Mosquito Dynamics
   desc: |
@@ -234,6 +235,17 @@ reference:
   - make_calK.as_matrix
   - make_calK.xy
   - make_calK_xy
+- title: Mosquito Ecology
+  desc: |
+    Generic methods for the aquatic (immature) mosquito component.
+  contents:
+  - Bionomics
+  - HabitatSearch
+  - HabitatSearch.static
+  - HabitatSearch.dynamic
+  - EggLaying
+  - setup_EggLaying
+  - Emergence
 - title: Aquatic Mosquito Dynamics
   desc: |
     Generic methods for the aquatic (immature) mosquito component.
@@ -249,8 +261,6 @@ reference:
   - update_inits_L
   - make_calN
   - make_calU
-  - LayEggs
-  - setup_EggLaying
 - subtitle: trace
   desc: |
     Specialized methods for the exogeneously forced trace model of aquatic mosquito dynamics.

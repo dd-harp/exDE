@@ -44,6 +44,8 @@ We already know three important parameters, $l$, $p$ and $n$ because they are de
 
 ```{r}
 params = make_parameters_xde() 
+params$nVectors = 1
+params$nHosts = 1
 params$nHabitats = 5
 params$nPatches = 3
 params$nStrata = 4
@@ -90,9 +92,7 @@ The egg dispersal matrix $\mathcal{U}$ is a $l \times p$ matrix describing how e
 
 ```{r}
 xi <- matrix(c(.7, .2, .1, .8, .2), 5, 1) 
-params$egg_laying = list()
-params$egg_laying[[1]] = list()
-params$egg_laying[[1]]$calU <- t(calN %*% diag(as.vector(xi)))
+params$calU[[1]]<- t(calN %*% diag(as.vector(xi)))
 ```
 
 ## Aquatic Mosquito Parameters

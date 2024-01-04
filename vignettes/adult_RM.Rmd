@@ -161,7 +161,6 @@ params = make_parameters_MYZ_RM(params,
                                 f = f, q = q, 
                                 nu = nu, eggsPerBatch = eggsPerBatch, 
                                 eip = eip, solve_as = 'ode') 
-
 ```
 
 Now we set the values of $\kappa$ and $\Lambda$ and solve for the equilibrium values.
@@ -183,6 +182,7 @@ We use `exDE::make_inits_MYZ_RM` to store the initial values. These equations ha
 ```{r}
 params = make_inits_MYZ_RM_ode(pars = params, 
                              M0 = M_eq, P0 = P_eq, Y0 = Y_eq, Z0 = Z_eq)
+
 ```
 
 We and set the indices with `exDE::make_indices`. 
@@ -199,7 +199,9 @@ y0 = get_inits_MYZ(params, 1)
 
 
 dMYZdt_local = func=function(t, y, pars, Lambda, kappa, s) {
-  list(dMYZdt(t, y, pars, Lambda, kappa, s))
+  pars$Lambda[[s]] = Lambda
+  pars$kappa[[s]] = kappa 
+  list(dMYZdt(t, y, pars, s))
 }
 
 out <- deSolve::ode(y = y0, times = 0:50, dMYZdt_local, parms=params, 

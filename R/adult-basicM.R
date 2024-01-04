@@ -43,21 +43,24 @@ F_eggs.basicM <- function(t, y, pars, s) {
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
-dMYZdt.basicM <- function(t, y, pars, Lambda, kappa=NULL, s) {with(pars,{
+dMYZdt.basicM <- function(t, y, pars, s){
 
-  M <- y[ix$MYZ[[s]]$M_ix]
-  P <- y[ix$MYZ[[s]]$P_ix]
+  Lambda = pars$Lambda[[s]]
 
-  with(pars$MYZpar[[s]],{
+  with(pars$ix$MYZ[[s]],{
+    M <- y[M_ix]
+    P <- y[P_ix]
 
-    Omega <- make_Omega(g, sigma, calK, nPatches)
+    with(pars$MYZpar[[s]],{
+      Omega <- make_Omega(g, sigma, calK, nPatches)
 
-    dMdt <- Lambda - (Omega %*% M)
-    dPdt <- f*(M - P) - (Omega %*% P)
+      dMdt <- Lambda - (Omega %*% M)
+      dPdt <- f*(M - P) - (Omega %*% P)
 
-    return(c(dMdt, dPdt))
+      return(c(dMdt, dPdt))
+    })
   })
-})}
+ }
 
 #' @title Setup MYZpar for the basicM model
 #' @description Implements [setup_MYZpar] for the basicM model

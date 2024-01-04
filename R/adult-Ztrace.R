@@ -36,7 +36,7 @@ F_eggs.Ztrace <- function(t, y, pars, s) {
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
-dMYZdt.Ztrace <- function(t, y, pars, Lambda, kappa, s){
+dMYZdt.Ztrace <- function(t, y, pars, s){
   numeric(0)
 }
 

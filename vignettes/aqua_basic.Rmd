@@ -73,10 +73,10 @@ theta <- (eta - psi*L - phi*L)/(L^2)
 ```{r}
 params <- make_parameters_xde() 
 params$nHabitats = nHabitats
-
-params$eta = eta 
+params$eta = list() 
+params$eta[[1]] = eta 
 F_eta = function(t, pars){
-  pars$eta
+  pars$eta[[1]]
 }
 
 params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
@@ -87,14 +87,14 @@ params = make_indices(params)
 
 ```{r}
 xDE_aquatic = function(t, y, pars, F_eta) {
-  eta <- F_eta(t, pars)
-  dL <- dLdt(t, y, pars, eta,1)
+  pars$eta[[1]] <- F_eta(t, pars)
+  dL <- dLdt(t, y, pars, 1)
   return(list(c(dL)))
 }
 ```
 
 ```{r}
-y0 <- get_inits_L(params,1) 
+y0 <- get_inits(params) 
 
 out <- deSolve::ode(y = y0, times = 0:50, xDE_aquatic, parms = params, method = 'lsoda', F_eta = F_eta) 
 out1 <- out
