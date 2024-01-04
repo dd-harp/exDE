@@ -31,11 +31,14 @@ F_alpha.basic <- function(t, y, pars, s) {
 #' @inheritParams dLdt
 #' @return a [numeric] vector
 #' @export
-dLdt.basic <- function(t, y, pars, eta, s) {
-  L <- y[pars$ix$L[[s]]$L_ix]
-  with(pars$Lpar[[s]], {
-    dL = eta - (psi + phi + (theta*L))*L
-    return(dL)
+dLdt.basic <- function(t, y, pars, s) {
+  eta <- pars$eta[[s]]
+  with(pars$ix$L[[s]],{
+    L <- y[L_ix]
+    with(pars$Lpar[[s]], {
+      dL = eta - (psi + phi + (theta*L))*L
+      return(dL)
+    })
   })
 }
 

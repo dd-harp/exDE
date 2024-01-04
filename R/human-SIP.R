@@ -48,20 +48,24 @@ F_b.SIP <- function(y, pars,i) {
 #' @inheritParams dXdt
 #' @return a [numeric] vector
 #' @export
-dXdt.SIP <- function(t, y, pars, FoI, i) {
+dXdt.SIP <- function(t, y, pars, i){
 
-  S <- y[pars$ix$X[[i]]$S_ix]
-  I <- y[pars$ix$X[[i]]$I_ix]
-  P <- y[pars$ix$X[[i]]$P_ix]
-  H <- F_H(t, y, pars, i)
+  foi <- pars$FoI[[i]]
 
-  with(pars$Xpar[[i]], {
+  with(pars$ix$X[[i]], {
+    S <- y[S_ix]
+    I <- y[I_ix]
+    P <- y[P_ix]
+    H <- F_H(t, y, pars, i)
 
-    dS <- Births(t, H, pars, i)-FoI*S -xi*S + r*I + eta*P + dHdt(t, S, pars, i)
-    dI <- (1-rho)*FoI*S - (r+xi)*I + dHdt(t, I, pars, i)
-    dP <- rho*FoI*S + xi*(S+I) - eta*P + dHdt(t, P, pars, i)
+   with(pars$Xpar[[i]], {
 
-    return(c(dS, dI, dP))
+      dS <- Births(t, H, pars, i)-foi*S -xi*S + r*I + eta*P + dHdt(t, S, pars, i)
+      dI <- (1-rho)*foi*S - (r+xi)*I + dHdt(t, I, pars, i)
+      dP <- rho*foi*S + xi*(S+I) - eta*P + dHdt(t, P, pars, i)
+
+      return(c(dS, dI, dP))
+    })
   })
 }
 

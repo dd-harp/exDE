@@ -179,6 +179,8 @@ We use `exDE::make_inits_MYZ_RM` to store the initial values. These equations ha
 ```{r}
 params = make_inits_MYZ_GeRM_ode(pars = params, 
                              M0 = M_eq, G0 = G_eq, Y0 = Y_eq, Z0 = Z_eq)
+params$Lambda[[1]] = Lambda 
+params$kappa[[1]] = kappa 
 ```
 
 We and set the indices with `exDE::make_indices`. 
@@ -193,12 +195,12 @@ Then we can set up the initial conditions vector and use `deSolve::ode` to solve
 y0 = get_inits_MYZ(params, 1) 
 
 
-dMYZdt_local = function(t, y, pars, Lambda, kappa, s=1) {
-  list(dMYZdt(t, y, pars, Lambda, kappa, s))
+dMYZdt_local = function(t, y, pars, s=1) {
+  list(dMYZdt(t, y, pars, s))
 }
 
 out <- deSolve::ode(y = y0, times = 0:50, dMYZdt_local, parms=params, 
-                    method = 'lsoda', Lambda = Lambda, kappa = kappa, s=1) 
+                    method = 'lsoda', s=1) 
 ```
 
 The output is plotted below. The flat lines shown here is a verification that the steady state solutions that we computed above match the steady states computed by solving the equations: 

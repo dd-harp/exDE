@@ -4,7 +4,7 @@
 \alias{dMYZdt}
 \title{Derivatives for adult mosquitoes}
 \usage{
-dMYZdt(t, y, pars, Lambda, kappa, s)
+dMYZdt(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,10 +12,6 @@ dMYZdt(t, y, pars, Lambda, kappa, s)
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
-
-\item{Lambda}{emergence rate of adult mosquitoes}
-
-\item{kappa}{net infectiousness of human population}
 
 \item{s}{the species index}
 }

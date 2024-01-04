@@ -92,11 +92,14 @@ EIR <- diag(1/b, nStrata) %*% ((r*I)/(H-I))
 ```{r} 
 params <- make_parameters_xde()
 params$nStrata = nStrata
-params$nPatches = 1 
+params$nPatches = 1
+params$nHosts = 1 
+params$eir = EIR
+params$EIR = list() 
 
 params$eir = as.vector(EIR)
 F_eir = function(t, pars){
-  pars$eir
+  pars$EIR[[1]] = pars$eir
 }
 
 params = make_parameters_demography_null(pars = params, 

@@ -4,7 +4,7 @@
 \alias{dLdt.basic}
 \title{Derivatives for aquatic stage mosquitoes}
 \usage{
-\method{dLdt}{basic}(t, y, pars, eta, s)
+\method{dLdt}{basic}(t, y, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,8 +12,6 @@
 \item{y}{state vector}
 
 \item{pars}{a \link{list}}
-
-\item{eta}{vector giving number of eggs being laid in each larval habitat}
 
 \item{s}{the species index}
 }

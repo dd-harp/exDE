@@ -33,7 +33,7 @@ F_pr.trace <- function(varslist, pars, i) {
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_b.trace <- function(y, pars, i) {
-  numeric(0)
+  return(1)
 }
 
 #' @title Derivatives for human population
@@ -41,7 +41,7 @@ F_b.trace <- function(y, pars, i) {
 #' @inheritParams dXdt
 #' @return a [numeric] vector
 #' @export
-dXdt.trace <- function(t, y, pars, FoI, i) {
+dXdt.trace <- function(t, y, pars, i) {
   numeric(0)
 }
 

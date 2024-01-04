@@ -24,7 +24,7 @@ F_alpha.trace <- function(t, y, pars, s) {
 #' @inheritParams dLdt
 #' @return a [numeric] vector
 #' @export
-dLdt.trace <- function(t, y, pars, eta, s) {
+dLdt.trace <- function(t, y, pars, s) {
   numeric(0)
 }
 

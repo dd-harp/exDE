@@ -91,8 +91,11 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   params$nStrata <- nStrata
   params$nPatches <- nPatches
   params$nHabitats <- nHabitats
-  params$egg_laying[[1]] = list()
-  params$egg_laying[[1]]$calU <- calU
+  params$nVectors <- 1
+  params$nHosts <- 1
+  params$calU=list()
+  class(params$calU) <- "static"
+  params$calU[[1]] = calU
   params$calN <- calN
 
   params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as = "ode")
@@ -101,7 +104,8 @@ test_that("test equilibrium with RM adults (ODE), basic competition", {
   params = make_inits_L_basic(pars = params,  L0 = L)
 
   params = make_indices(params)
-  params$kappa = as.vector(kappa)
+  params$kappa[[1]] = as.vector(kappa)
+  params$Lambda[[1]] = as.vector(Lambda)
 
   # set initial conditions
   y0 <- get_inits(params)
@@ -204,8 +208,11 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
   params$nStrata <- nStrata
   params$nPatches <- nPatches
   params$nHabitats <- nHabitats
-  params$egg_laying[[1]] = list()
-  params$egg_laying[[1]]$calU <- calU
+  params$nVectors <- 1
+  params$nHosts <- 1
+  params$calU=list()
+  class(params$calU) <- "static"
+  params$calU[[1]] = calU
   params$calN <- calN
 
   # parameters for exDE
@@ -218,8 +225,8 @@ test_that("test equilibrium with RM adults (DDE), basic competition", {
 
   # set initial conditions
   y0 <- get_inits(params)
-  params$kappa = as.vector(kappa)
-
+  params$kappa[[1]] = as.vector(kappa)
+  params$Lambda[[1]] = as.vector(Lambda)
 
   # run simulation
   out <- deSolve::dede(y = y0, times = c(0,90), func = xDE_diffeqn_mosy, parms = params, method = "lsoda")

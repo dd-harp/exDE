@@ -5,6 +5,27 @@
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars, a [list]
+#' @return [list]
+#' @export
+Transmission <- function(t, y, pars){
+  for(s in 1:pars$nVectors){
+    # blood feeding & mixing
+    pars$beta[[s]] <- F_beta(t, y, pars, s)
+
+    # EIR: entomological inoculation rate
+    pars$EIR[[s]] <- F_EIR(t, y, pars, pars$beta[[s]], s)
+
+    # kappa: net infectiousness of humans
+    pars$kappa[[s]] <- F_kappa(t, y, pars, pars$beta[[s]], s)
+  }
+  return(pars)
+}
+
+#' @title Compute the biting distribution matrix, beta
+#' @description This method dispatches on the type of `pars$xde`
+#' @param t current simulation time
+#' @param y state vector
+#' @param pars, a [list]
 #' @param i the host species index
 #' @return pars, a [list]
 #' @export
@@ -39,7 +60,7 @@ F_EIR <- function(t, y, pars, beta, s) {
 #' @export
 F_kappa <- function(t, y, pars, beta, i) {
   kappa = as.vector(t(beta) %*% F_X(t, y, pars, i))
-  with(pars, return(local_frac*kappa + (1-local_frac)*x_visitors))
+  return(pars$local_frac*kappa + (1-pars$local_frac)*pars$x_visitors)
 }
 
 #' @title Compute beta, the biting distribution matrix

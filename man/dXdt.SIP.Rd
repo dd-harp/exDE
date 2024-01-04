@@ -4,7 +4,7 @@
 \alias{dXdt.SIP}
 \title{Derivatives for human population}
 \usage{
-\method{dXdt}{SIP}(t, y, pars, FoI, i)
+\method{dXdt}{SIP}(t, y, pars, i)
 }
 \arguments{
 \item{t}{current simulation time}
@@ -12,8 +12,6 @@
 \item{y}{state vector}
 
 \item{pars}{a list}
-
-\item{FoI}{vector giving the per-capita force of infection for each strata}
 
 \item{i}{the host species index}
 }

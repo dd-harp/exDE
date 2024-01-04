@@ -6,6 +6,7 @@ numeric_tol <- 1e-5
 
 test_that("forced emergence works with equilibrium", {
   nPatches <- 3
+  nVectors <- 1
   nHabitats <- 4
   f <- 0.3
   q <- 0.9
@@ -53,9 +54,13 @@ test_that("forced emergence works with equilibrium", {
   params <- make_parameters_xde()
   params$nPatches = nPatches
   params$nHabitats = nHabitats
-  params$egg_laying[[1]] = list()
-  params$egg_laying[[1]]$calU = calU
+  params$nVectors = nVectors
+  params$calU=list()
+  class(params$calU) <- "static"
+  params$calU[[1]] = calU
   params$calN = calN
+  params$kappa[[1]] = kappa
+  params$Lambda[[1]] = Lambda
 
 
   # ODE
@@ -64,12 +69,11 @@ test_that("forced emergence works with equilibrium", {
   params = make_parameters_L_trace(pars = params, Lambda = alpha)
 
   params = make_indices(params)
-  params$kappa = kappa
 
   y0 <- get_inits(params)
 
 
-  out <- deSolve::ode(y = y0, times = c(0, 365), func = xDE_diffeqn_mosy, parms = params, method = 'lsoda')
+  out <- deSolve::ode(y = y0, times = c(0, 365), func = xDE_diffeqn_mosy, parms=params, method = 'lsoda')
 
   M_sim <- as.vector(out[2, params$ix$MYZ[[1]]$M_ix+1])
   P_sim <- as.vector(out[2, params$ix$MYZ[[1]]$P_ix+1])

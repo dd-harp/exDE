@@ -51,11 +51,10 @@ F_b <- function(y, pars, i) {
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a list
-#' @param FoI vector giving the per-capita force of infection for each strata
 #' @param i the host species index
 #' @return a [numeric] vector
 #' @export
-dXdt <- function(t, y, pars, FoI, i) {
+dXdt <- function(t, y, pars, i) {
   UseMethod("dXdt", pars$Xpar[[i]])
 }
 

@@ -53,12 +53,10 @@ F_eggs <- function(t, y, pars, s) {
 #' @param t current simulation time
 #' @param y state vector
 #' @param pars a [list]
-#' @param Lambda emergence rate of adult mosquitoes
-#' @param kappa net infectiousness of human population
 #' @param s the species index
 #' @return the derivatives a [vector]
 #' @export
-dMYZdt <- function(t, y, pars, Lambda, kappa, s) {
+dMYZdt <- function(t, y, pars, s) {
   UseMethod("dMYZdt", pars$MYZpar[[s]])
 }
 

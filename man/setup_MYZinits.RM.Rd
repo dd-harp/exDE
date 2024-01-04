@@ -2,7 +2,7 @@
 % Please edit documentation in R/adult-RM.R
 \name{setup_MYZinits.RM}
 \alias{setup_MYZinits.RM}
-\title{Setup the RM model}
+\title{Setup initial values for the RM model}
 \usage{
 \method{setup_MYZinits}{RM}(pars, s, MYZopts = list())
 }

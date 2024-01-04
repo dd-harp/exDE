@@ -7,16 +7,15 @@
 #' @export
 MBionomics.GeRM <- function(t, y, pars, s) {
   with(pars,{
-
-    pars$MYZpar[[s]]$f <- F_f(t, MYZpar[[s]])
-    pars$MYZpar[[s]]$q <- F_q(t, MYZpar[[s]])
-    pars$MYZpar[[s]]$g <-  F_g(t, MYZpar[[s]])
+    pars$MYZpar[[s]]$f     <- F_f(t, MYZpar[[s]])
+    pars$MYZpar[[s]]$q     <- F_q(t, MYZpar[[s]])
+    pars$MYZpar[[s]]$g     <- F_g(t, MYZpar[[s]])
     pars$MYZpar[[s]]$sigma <- F_sigma(t, MYZpar[[s]])
-    pars$MYZpar[[s]]$nu <- F_nu(t, MYZpar[[s]])
-    pars$MYZpar[[s]]$eip<- EIP(t, MYZpar[[s]]$EIPmod)
-
-  return(pars)
-})}
+    pars$MYZpar[[s]]$nu    <- F_nu(t, MYZpar[[s]])
+    pars$MYZpar[[s]]$eip   <- EIP(t, MYZpar[[s]]$EIPmod)
+    return(pars)
+  })
+}
 
 #' @title Blood feeding rate of the infective mosquito population
 #' @description Implements [F_fqZ] for the GeRM model.
@@ -44,26 +43,31 @@ F_eggs.GeRM <- function(t, y, pars, s) {
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
-dMYZdt.GeRM_ode <- function(t, y, pars, Lambda, kappa, s) {with(pars,{
+dMYZdt.GeRM_ode <- function(t, y, pars, s) {
 
-  M <- y[ix$MYZ[[s]]$M_ix]
-  G <- y[ix$MYZ[[s]]$G_ix]
-  Y <- y[ix$MYZ[[s]]$Y_ix]
-  Z <- y[ix$MYZ[[s]]$Z_ix]
+  Lambda = pars$Lambda[[s]]
+  kappa = pars$kappa[[s]]
 
-  with(MYZpar[[s]],{
+  with(pars$ix$MYZ[[s]],{
+    M <- y[M_ix]
+    G <- y[G_ix]
+    Y <- y[Y_ix]
+    Z <- y[Z_ix]
 
-    Omega <- make_Omega(g, sigma, calK, nPatches)
-    Upsilon <- expm(-Omega*eip)
+    with(pars$MYZpar[[s]],{
 
-    dMdt <- Lambda - (Omega %*% M)
-    dGdt <-  f*(M - G) - nu*G  - (Omega %*% G)
-    dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
-    dZdt <- Upsilon %*% diag(f*q*kappa, nPatches) %*% (M - Y) - (Omega %*% Z)
+      Omega <- make_Omega(g, sigma, calK, nPatches)
+      Upsilon <- expm(-Omega*eip)
 
-    return(c(dMdt, dGdt, dYdt, dZdt))
+      dMdt <- Lambda - (Omega %*% M)
+      dGdt <-  f*(M - G) - nu*G  - (Omega %*% G)
+      dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
+      dZdt <- Upsilon %*% diag(f*q*kappa, nPatches) %*% (M - Y) - (Omega %*% Z)
+
+      return(c(dMdt, dGdt, dYdt, dZdt))
+    })
   })
-})}
+}
 
 #' @title Derivatives for adult mosquitoes
 #' @description Implements [dMYZdt] for the GeRM DDE model.
@@ -72,42 +76,47 @@ dMYZdt.GeRM_ode <- function(t, y, pars, Lambda, kappa, s) {with(pars,{
 #' @importFrom deSolve lagvalue
 #' @importFrom deSolve lagderiv
 #' @export
-dMYZdt.GeRM_dde <- function(t, y, pars, Lambda, kappa, s){with(pars,{
+dMYZdt.GeRM_dde <- function(t, y, pars, s){
 
-  M <- y[ix$MYZ[[s]]$M_ix]
-  G <- y[ix$MYZ[[s]]$G_ix]
-  Y <- y[ix$MYZ[[s]]$Y_ix]
-  Z <- y[ix$MYZ[[s]]$Z_ix]
-  Upsilon <- matrix(data = y[ix$MYZ[[s]]$Upsilon_ix], nrow = nPatches, ncol = nPatches)
+  Lambda = pars$Lambda[[s]]
+  kappa = pars$kappa[[s]]
 
-  with(MYZpar[[s]],{
+  with(pars$ix$MYZ[[s]],{
+    M <- y[M_ix]
+    G <- y[G_ix]
+    Y <- y[Y_ix]
+    Z <- y[Z_ix]
+    Upsilon <- matrix(data = y[Upsilon_ix], nrow = nPatches, ncol = nPatches)
 
-    if (t < eip) {
-      M_eip <- MYZinits[[s]]$M0
-      Y_eip <- MYZinits[[s]]$Y0
-      fqkappa_eip <- kappa*f*q
-      g_eip <- g
-      sigma_eip <- sigma
-    } else {
-      M_eip <- lagvalue(t = t - eip, nr = ix$MYZ[[s]]$M_ix)
-      Y_eip <- lagvalue(t = t - eip, nr = ix$MYZ[[s]]$Y_ix)
-      fqkappa_eip <- lagderiv(t = t-eip, nr = ix$MYZ[[s]]$fqkappa_ix)
-      g_eip <- lagderiv(t = t-eip, nr = ix$MYZ[[s]]$g_ix)
-      sigma_eip <- lagderiv(t = t-eip, nr = ix$MYZ[[s]]$sigma_ix)
-    }
+    with(pars$MYZpar[[s]],{
 
-    Omega <- make_Omega(g, sigma, calK, nPatches)
-    Omega_eip <- make_Omega(g_eip, sigma_eip, calK, nPatches)
+      if (t < eip) {
+        M_eip <- MYZinits[[s]]$M0
+        Y_eip <- MYZinits[[s]]$Y0
+        fqkappa_eip <- kappa*f*q
+        g_eip <- g
+        sigma_eip <- sigma
+      } else {
+        M_eip <- lagvalue(t = t - eip, nr = M_ix)
+        Y_eip <- lagvalue(t = t - eip, nr = Y_ix)
+        fqkappa_eip <- lagderiv(t = t-eip, nr = fqkappa_ix)
+        g_eip <- lagderiv(t = t-eip, nr = g_ix)
+        sigma_eip <- lagderiv(t = t-eip, nr = sigma_ix)
+      }
 
-    dMdt <- Lambda - (Omega %*% M)
-    dGdt <-  f*(M - G) - nu*G  - (Omega %*% G)
-    dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
-    dZdt <- Upsilon %*% (fqkappa_eip * (M_eip - Y_eip)) - (Omega %*% Z)
-    dUdt <- as.vector(((1-dEIPdt(t,pars))*Omega_eip - Omega) %*% Upsilon)
+      Omega <- make_Omega(g, sigma, calK, nPatches)
+      Omega_eip <- make_Omega(g_eip, sigma_eip, calK, nPatches)
 
-    return(c(dMdt, dGdt, dYdt, dZdt, dUdt, f*q*kappa, g, sigma))
+      dMdt <- Lambda - (Omega %*% M)
+      dGdt <-  f*(M - G) - nu*G  - (Omega %*% G)
+      dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
+      dZdt <- Upsilon %*% (fqkappa_eip * (M_eip - Y_eip)) - (Omega %*% Z)
+      dUdt <- as.vector(((1-dEIPdt(t,pars))*Omega_eip - Omega) %*% Upsilon)
+
+      return(c(dMdt, dGdt, dYdt, dZdt, dUdt, f*q*kappa, g, sigma))
+    })
   })
-})}
+}
 
 #' @title Setup MYZpar for the GeRM model
 #' @description Implements [setup_MYZpar] for the GeRM model

@@ -53,15 +53,19 @@ F_b.hMoI <- function(y, pars,i) {
 #' @inheritParams dXdt
 #' @return a [numeric] vector
 #' @export
-dXdt.hMoI <- function(t, y, pars, FoI, i) {
+dXdt.hMoI <- function(t, y, pars, i) {
 
-  m1 = y[pars$ix$X[[i]]$m1_ix]
-  m2 = y[pars$ix$X[[i]]$m2_ix]
+  foi = pars$FoI[[i]]
 
-  with(pars$Xpar[[i]], {
-    dm1dt <- FoI - r1*m1
-    dm2dt <- FoI - r2*m2
-    return(c(dm1dt, dm2dt))
+  with(pars$ix$X[[i]],{
+    m1 = y[m1_ix]
+    m2 = y[m2_ix]
+
+    with(pars$Xpar[[i]], {
+      dm1dt <- foi - r1*m1
+      dm2dt <- foi - r2*m2
+      return(c(dm1dt, dm2dt))
+    })
   })
 }
 

@@ -20,6 +20,7 @@ test_that("human hybrid MoI model remains at equilibrium", {
 
   params <- make_parameters_xde()
   params$nStrata = nStrata
+  params$nHosts <- 1
   params$nPatches = 1
   params = make_parameters_demography_null(pars = params, H=H, residence=residence,
                                            searchWts=searchWtsH, TaR=TaR)
@@ -30,10 +31,10 @@ test_that("human hybrid MoI model remains at equilibrium", {
 
   # set initial conditions
   y0 <- get_inits(params)
-
-  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, foi, s) {
-    list(dXdt(t, y, pars, foi, s))
-  }, parms = params, method = 'lsoda', foi= as.vector(foi), s=1)
+  params$FoI[[1]] <- foi
+  out <- deSolve::ode(y = y0, times = c(0, 365), func = function(t, y, pars, s) {
+    list(dXdt(t, y, pars, s))
+  }, parms = params, method = 'lsoda', s=1)
 
   expect_equal(as.vector(out[2L, params$ix$X[[1]]$m1_ix+1]), rep(m10, nStrata), tolerance = numeric_tol)
   expect_equal(as.vector(out[2L, params$ix$X[[1]]$m2_ix+1]), rep(m20, nStrata), tolerance = numeric_tol)

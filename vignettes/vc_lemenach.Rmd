@@ -32,6 +32,7 @@ This case study will use a simple model with 3 patches, 3 population strata, and
 
 ```{r}
 nPatches <- 3
+nVectors <- 1
 nStrata <- 3
 nHabitats <- 3
 
