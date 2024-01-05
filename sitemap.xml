@@ -256,6 +256,24 @@
     <loc>https://dd-harp.github.io/exDE/reference/F_foi.pois.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_fqM.GeRM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_fqM.Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_fqM.RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_fqM.Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_fqM.basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/F_fqM.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/F_fqZ.GeRM.html</loc>
   </url>
   <url>
@@ -628,15 +646,6 @@
     <loc>https://dd-harp.github.io/exDE/reference/check_civil.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR_ix.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR_ty.html</loc>
-  </url>
-  <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_NI.html</loc>
   </url>
   <url>
@@ -646,19 +655,16 @@
     <loc>https://dd-harp.github.io/exDE/reference/compute_beta.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_fqM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_fqM_ix.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ_ix.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa_ix.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa_ty.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_local_frac.html</loc>

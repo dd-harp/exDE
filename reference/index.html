@@ -171,6 +171,11 @@
         <dd>Blood feeding rate of the infective mosquito population</dd>
       </dl><dl><dt>
           
+          <code><a href="F_fqM.html">F_fqM()</a></code> 
+        </dt>
+        <dd>Blood feeding rate of the mosquito population</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_tau.html">F_tau()</a></code> 
         </dt>
         <dd>Time spent host seeking/feeding and resting/ovipositing</dd>
@@ -333,6 +338,11 @@
         <dd>Blood feeding rate of the infective mosquito population</dd>
       </dl><dl><dt>
           
+          <code><a href="F_fqM.Ztrace.html">F_fqM(<i>&lt;Ztrace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Blood feeding rate of the infective mosquito population</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_eggs.Ztrace.html">F_eggs(<i>&lt;Ztrace&gt;</i>)</a></code> 
         </dt>
         <dd>Number of eggs laid by adult mosquitoes</dd>
@@ -405,6 +415,11 @@
       </dl><dl><dt>
           
           <code><a href="F_fqZ.Gtrace.html">F_fqZ(<i>&lt;Gtrace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Blood feeding rate of the infective mosquito population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_fqM.Gtrace.html">F_fqM(<i>&lt;Gtrace&gt;</i>)</a></code> 
         </dt>
         <dd>Blood feeding rate of the infective mosquito population</dd>
       </dl><dl><dt>
@@ -485,6 +500,11 @@
         <dd>The net blood feeding rate of the infective mosquito population in a patch</dd>
       </dl><dl><dt>
           
+          <code><a href="F_fqM.basicM.html">F_fqM(<i>&lt;basicM&gt;</i>)</a></code> 
+        </dt>
+        <dd>The net blood feeding rate of the mosquito population in a patch</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_eggs.basicM.html">F_eggs(<i>&lt;basicM&gt;</i>)</a></code> 
         </dt>
         <dd>Number of eggs laid by adult mosquitoes</dd>
@@ -562,6 +582,11 @@
       </dl><dl><dt>
           
           <code><a href="F_fqZ.RM.html">F_fqZ(<i>&lt;RM&gt;</i>)</a></code> 
+        </dt>
+        <dd>The net blood feeding rate of the infective mosquito population in a patch</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_fqM.RM.html">F_fqM(<i>&lt;RM&gt;</i>)</a></code> 
         </dt>
         <dd>The net blood feeding rate of the infective mosquito population in a patch</dd>
       </dl><dl><dt>
@@ -673,6 +698,11 @@
       </dl><dl><dt>
           
           <code><a href="F_fqZ.GeRM.html">F_fqZ(<i>&lt;GeRM&gt;</i>)</a></code> 
+        </dt>
+        <dd>Blood feeding rate of the infective mosquito population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_fqM.GeRM.html">F_fqM(<i>&lt;GeRM&gt;</i>)</a></code> 
         </dt>
         <dd>Blood feeding rate of the infective mosquito population</dd>
       </dl><dl><dt>
@@ -2993,7 +3023,7 @@ called by Control-&gt;VectorControl</dd>
           
           <code><a href="make_parameters_xde.html">make_parameters_xde()</a></code> 
         </dt>
-        <dd>Make base parameters</dd>
+        <dd>Make base parameters, assuming nVectors = nHosts = 1</dd>
       </dl><dl><dt>
           
           <code><a href="make_indices.html">make_indices()</a></code> 
@@ -3087,21 +3117,6 @@ called by Control-&gt;VectorControl</dd>
         <dd>Compute dynamical terms</dd>
       </dl><dl><dt>
           
-          <code><a href="compute_EIR.html">compute_EIR()</a></code> 
-        </dt>
-        <dd>Compute the EIR</dd>
-      </dl><dl><dt>
-          
-          <code><a href="compute_EIR_ix.html">compute_EIR_ix()</a></code> 
-        </dt>
-        <dd>Compute the EIR</dd>
-      </dl><dl><dt>
-          
-          <code><a href="compute_EIR_ty.html">compute_EIR_ty()</a></code> 
-        </dt>
-        <dd>Compute the EIR</dd>
-      </dl><dl><dt>
-          
           <code><a href="compute_fqZ.html">compute_fqZ()</a></code> 
         </dt>
         <dd>Compute the fqZ</dd>
@@ -3112,6 +3127,16 @@ called by Control-&gt;VectorControl</dd>
         <dd>Compute the fqZ for the ith</dd>
       </dl><dl><dt>
           
+          <code><a href="compute_fqM.html">compute_fqM()</a></code> 
+        </dt>
+        <dd>Compute the fqM</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_fqM_ix.html">compute_fqM_ix()</a></code> 
+        </dt>
+        <dd>Compute the fqM for the ith</dd>
+      </dl><dl><dt>
+          
           <code><a href="compute_NI.html">compute_NI()</a></code> 
         </dt>
         <dd>Compute the NI</dd>
@@ -3120,21 +3145,6 @@ called by Control-&gt;VectorControl</dd>
           <code><a href="compute_NI_ix.html">compute_NI_ix()</a></code> 
         </dt>
         <dd>Compute NI once</dd>
-      </dl><dl><dt>
-          
-          <code><a href="compute_kappa.html">compute_kappa()</a></code> 
-        </dt>
-        <dd>Compute kappa</dd>
-      </dl><dl><dt>
-          
-          <code><a href="compute_kappa_ix.html">compute_kappa_ix()</a></code> 
-        </dt>
-        <dd>Compute kappa once</dd>
-      </dl><dl><dt>
-          
-          <code><a href="compute_kappa_ty.html">compute_kappa_ty()</a></code> 
-        </dt>
-        <dd>Compute kappa, ty</dd>
       </dl></div><div class="section level2">
       <h2 id="plot-terms">Plot terms<a class="anchor" aria-label="anchor" href="#plot-terms"></a></h2>
       
