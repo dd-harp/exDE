@@ -26,6 +26,15 @@ F_fqZ.basicM <- function(t, y, pars, s) {
   0*y[pars$ix$MYZ[[s]]$M_ix]
 }
 
+#' @title The net blood feeding rate of the mosquito population in a patch
+#' @description Implements [F_fqM] for the basicM model.
+#' @inheritParams F_fqM
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_fqM.basicM <- function(t, y, pars, s) {
+  y[pars$ix$MYZ[[s]]$M_ix]
+}
+
 #' @title Number of eggs laid by adult mosquitoes
 #' @description Implements [F_eggs] for the basic ecology model
 #' @inheritParams F_eggs

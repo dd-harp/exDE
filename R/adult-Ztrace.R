@@ -22,6 +22,15 @@ F_fqZ.Ztrace <- function(t, y, pars, s) {
   with(pars$MYZpar[[s]], return(f*q*Zm*Zf(t, pars)))
 }
 
+#' @title Blood feeding rate of the infective mosquito population
+#' @description Implements [F_fqM] for the Ztrace model.
+#' @inheritParams F_fqM
+#' @return a [numeric] vector of length `nHabitats`
+#' @export
+F_fqM.Ztrace <- function(t, y, pars, s) {
+  numeric(0)
+}
+
 #' @title Number of eggs laid by adult mosquitoes
 #' @description Implements [F_eggs] for the Ztrace model.
 #' @inheritParams F_eggs

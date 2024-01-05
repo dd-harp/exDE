@@ -18,6 +18,16 @@ F_fqZ.Gtrace <- function(t, y, pars, s) {
   numeric(0)
 }
 
+#' @title Blood feeding rate of the infective mosquito population
+#' @description Implements [F_fqM] for the Gtrace model.
+#' @inheritParams F_fqM
+#' @return a [numeric] vector of length `nHabitats`
+#' @export
+F_fqM.Gtrace <- function(t, y, pars, s) {
+  numeric(0)
+}
+
+
 #' @title Number of eggs laid by adult mosquitoes
 #' @description Implements [F_eggs] for the Gtrace model.
 #' @inheritParams F_eggs

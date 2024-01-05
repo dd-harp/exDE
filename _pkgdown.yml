@@ -76,6 +76,7 @@ reference:
   contents:
   - MBionomics
   - F_fqZ
+  - F_fqM
   - F_tau
   - F_eggs
   - dMYZdt
@@ -112,6 +113,7 @@ reference:
   contents:
   - MBionomics.Ztrace
   - F_fqZ.Ztrace
+  - F_fqM.Ztrace
   - F_eggs.Ztrace
   - dMYZdt.Ztrace
   - setup_MYZpar.Ztrace
@@ -129,6 +131,7 @@ reference:
   contents:
   - MBionomics.Gtrace
   - F_fqZ.Gtrace
+  - F_fqM.Gtrace
   - F_eggs.Gtrace
   - dMYZdt.Gtrace
   - setup_MYZpar.Gtrace
@@ -148,6 +151,7 @@ reference:
   contents:
   - MBionomics.basicM
   - F_fqZ.basicM
+  - F_fqM.basicM
   - F_eggs.basicM
   - dMYZdt.basicM
   - setup_MYZpar.basicM
@@ -166,6 +170,7 @@ reference:
   contents:
   - MBionomics.RM
   - F_fqZ.RM
+  - F_fqM.RM
   - F_eggs.RM
   - dMYZdt.RM_ode
   - dMYZdt.RM_dde
@@ -190,6 +195,7 @@ reference:
   contents:
   - MBionomics.GeRM
   - F_fqZ.GeRM
+  - F_fqM.GeRM
   - F_eggs.GeRM
   - dMYZdt.GeRM_ode
   - dMYZdt.GeRM_dde
@@ -747,16 +753,12 @@ reference:
   - compute_terms.human
   - compute_terms.na
   - compute_terms_steady
-  - compute_EIR
-  - compute_EIR_ix
-  - compute_EIR_ty
   - compute_fqZ
   - compute_fqZ_ix
+  - compute_fqM
+  - compute_fqM_ix
   - compute_NI
   - compute_NI_ix
-  - compute_kappa
-  - compute_kappa_ix
-  - compute_kappa_ty
 - title: Plot terms
   contents:
   - xde_plot_EIR

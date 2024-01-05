@@ -21,7 +21,7 @@ setup_EggLaying = function(pars, s, searchQ=1, Lopts=list()){with(Lopts,{
 #' @export
 EggLaying = function(t, y, pars){
   for(s in 1:pars$nVectors)
-    pars$eta[[s]] = pars$calU[[s]] %*% F_eggs(t, y, pars,s)
+    pars$eta[[s]] = pars$calU[[s]] %*% F_eggs(t, y, pars, s)
   return(pars)
 }
 

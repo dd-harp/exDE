@@ -19,9 +19,13 @@ compute_terms <- function(varslist, deout, pars, s, i) {
 #' @export
 compute_terms.xde <- function(varslist, deout, pars, s, i) {
   time = deout[,1]
-  eir = compute_EIR(deout, pars, s, i)
+  for (ix in 1:length(time)){
+    yt = deout[i,-1]
+    pars = Transmission(time[i], yt, pars)
+    eir = pars$EIR[[1]]
+    kappa = pars$kappa[[1]]
+  }
   ni = compute_NI(deout, pars, i)
-  kappa = compute_kappa(deout, pars, i)
   fqZ = compute_fqZ(deout, pars, s)
   pr = F_pr(varslist, pars, i)
   return(list(time=time,eir=eir,pr=pr,ni=ni,kappa=kappa,fqZ=fqZ))
@@ -36,6 +40,7 @@ compute_terms.xde <- function(varslist, deout, pars, s, i) {
 compute_terms.cohort <- function(varslist, deout, pars, s, i) {
   time = deout[,1]
   d1 = length(time)
+
   eir = matrix(pars$F_eir(time, pars), d1, pars$nStrata)
   ni = compute_NI(deout, pars, i)
   pr = F_pr(varslist, pars, i)
@@ -51,7 +56,11 @@ compute_terms.cohort <- function(varslist, deout, pars, s, i) {
 #' @export
 compute_terms.human<- function(varslist, deout, pars, s, i) {
   time = deout[,1]
-  eir = compute_EIR(deout, pars, s, i)
+  for (ix in 1:length(time)){
+    yt = deout[i,-1]
+    pars = Transmission(time[i], yt, pars)
+    eir = pars$EIR[[1]]
+  }
   ni = compute_NI(deout, pars)
   fqZ = compute_fqZ(deout, pars)
   pr = F_pr(varslist, pars)
@@ -80,60 +89,12 @@ compute_terms.na <- function(varslist,deout, pars, s, i) {
 #' @return [matrix]
 #' @export
 compute_terms_steady<- function(varslist, y_eq, pars, s, i) {
-  eir <- compute_EIR_ty(0, y_eq, pars, s, i)
-  kappa <- compute_kappa_ty(0, y_eq, pars, i)
+  pars = Transmission(0, y_eq, pars)
+  eir = pars$EIR[[1]]
   fqZ <- F_fqZ(0, y_eq, pars, s)
   ni <- F_X(0, y_eq, pars, i)/varslist$XH$H
   pr <- F_pr(varslist, pars, i)
   return(list(eir=eir,pr=pr,kappa=kappa,fqZ=fqZ,ni=ni))
-}
-
-#' @title Compute the EIR
-#' @description Using the output of deSolve,
-#' compute the EIR at every point in time
-#' @param deout a [matrix], the output of deSolve
-#' @param pars a [list]
-#' @param s the vector species index
-#' @param i the host species index
-#' @return [matrix]
-#' @export
-compute_EIR <- function(deout, pars, s, i) {
-  d1 = length(deout[,1])
-  eir = sapply(1:d1, compute_EIR_ix, deout=deout, pars=pars, s=s, i=i)
-  eir = shapeIt(eir, d1, pars$nStrata)
-  return(eir)
-}
-
-#' @title Compute the EIR
-#' @description Using the output of deSolve,
-#' compute the EIR at the i^th point in time
-#' @param ix an [integer]
-#' @param deout a matrix, the output of deSolve
-#' @param pars a [list]
-#' @param s the vector species index
-#' @param i the host species index
-#' @return [numeric]
-#' @export
-compute_EIR_ix <- function(ix, deout, pars, s, i) {
-  t = deout[ix,1]
-  y = deout[ix,-1]
-  compute_EIR_ty(t, y, pars, s, i)
-}
-
-#' @title Compute the EIR
-#' @description Using the time and a vector of variables,
-#' compute the EIR
-#' @param t [numeric]
-#' @param y [vector] the state variables
-#' @param pars a [list]
-#' @param s the vector species index
-#' @param i the host species index
-#' @return [numeric]
-#' @export
-compute_EIR_ty <- function(t, y, pars, s, i) {
-  beta <- F_beta(t, y, pars, i)
-  eir = F_EIR(t, y, pars, beta, s)
-  return(eir)
 }
 
 #' @title Compute the fqZ
@@ -166,6 +127,38 @@ compute_fqZ_ix <- function(ix, deout, pars, s) {
   fqZ = F_fqZ(t, y, pars, s)
   return(fqZ)
 }
+
+#' @title Compute the fqM
+#' @description Using the output of [deSolve::ode] or [deSolve::dede],
+#' compute the fqM at every point in time
+#' @param deout a matrix, the output of deSolve
+#' @param pars a [list]
+#' @param s the vector species index
+#' @return [vector]
+#' @export
+compute_fqM <- function(deout, pars, s) {
+  d1 = length(deout[,1])
+  fqM = sapply(1:d1, compute_fqM_ix, deout=deout, pars=pars, s=s)
+  fqM = shapeIt(fqM, d1, pars$nPatches)
+  return(fqM)
+}
+
+#' @title Compute the fqM for the ith
+#' @description Using the output of [deSolve::ode] or [deSolve::dede],
+#' compute the fqM at one point in time
+#' @param ix an [integer]
+#' @param deout a matrix, the output of deSolve
+#' @param pars a [list]
+#' @param s the vector species index
+#' @return [numeric]
+#' @export
+compute_fqM_ix <- function(ix, deout, pars, s) {
+  t = deout[ix,1]
+  y = deout[ix,-1]
+  fqM = F_fqM(t, y, pars, s)
+  return(fqM)
+}
+
 
 #' @title Compute the NI
 #' @description Using the output of [deSolve::ode] or [deSolve::dede],
@@ -200,47 +193,3 @@ compute_NI_ix <- function(ix, deout, pars, i) {
   return(NI)
 }
 
-#' @title Compute kappa
-#' @description Using the output of [deSolve::ode] or [deSolve::dede],
-#' compute the kappa for each stratum
-#' @param deout a matrix, the output of deSolve
-#' @param pars a [list]
-#' @param i the host species index
-#' @return [numeric] containing the kappa
-#' @export
-compute_kappa <- function(deout, pars, i) {
-  d1 = length(deout[,1])
-  kappa = sapply(1:d1, compute_kappa_ix, deout=deout, pars=pars, i=i)
-  kappa = shapeIt(kappa, d1, pars$nPatches)
-  return(kappa)
-}
-
-#' @title Compute kappa once
-#' @description Using the output of [deSolve::ode] or [deSolve::dede],
-#' compute the kappa at a point in time
-#' @param ix an [integer]
-#' @param deout a matrix, the output of deSolve
-#' @param pars a [list]
-#' @param i the host species index
-#' @return a [list] containing the kappa
-#' @export
-compute_kappa_ix <- function(ix, deout, pars, i) {
-  t = deout[ix,1]
-  y = deout[ix,-1]
-  compute_kappa_ty(t,y,pars,i)
-}
-
-#' @title Compute kappa, ty
-#' @description Using the output of [deSolve::ode] or [deSolve::dede],
-#' compute the kappa at a point in time
-#' @param t [numeric]
-#' @param y [vector] the state variables
-#' @param pars a [list]
-#' @param i the host species index
-#' @return a [list] containing the kappa
-#' @export
-compute_kappa_ty <- function(t, y, pars, i) {
-  beta <- F_beta(t, y, pars,  i)
-  kappa = F_kappa(t, y, pars, beta, i)
-  return(kappa)
-}

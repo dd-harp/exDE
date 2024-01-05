@@ -26,6 +26,16 @@ F_fqZ.GeRM <- function(t, y, pars, s) {
   with(pars$MYZpar[[s]], f*q)*y[pars$ix$MYZ[[s]]$Z_ix]
 }
 
+#' @title Blood feeding rate of the infective mosquito population
+#' @description Implements [F_fqM] for the GeRM model.
+#' @inheritParams F_fqM
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_fqM.GeRM <- function(t, y, pars, s) {
+  with(pars$MYZpar[[s]], f*q)*y[pars$ix$MYZ[[s]]$M_ix]
+}
+
+
 #' @title Number of eggs laid by adult mosquitoes
 #' @description Implements [F_eggs] for the GeRM model.
 #' @inheritParams F_eggs

@@ -99,6 +99,7 @@ to `exDE::xDE_diffeqn_mosy`.
 ```{r}
 params = make_parameters_xde()
 params$nVectors = 1 
+params$nHosts = 1 
 params$nPatches = nPatches
 params$nHabitats = nHabitats
 params$calU[[1]] = calU

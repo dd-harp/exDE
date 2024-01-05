@@ -117,6 +117,7 @@ We can use the same equation for $P$ as above.
 
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
+#devtools::load_all()
 library(expm)
 library(deSolve)
 library(data.table)

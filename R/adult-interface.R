@@ -35,6 +35,18 @@ F_fqZ <- function(t, y, pars, s) {
   UseMethod("F_fqZ", pars$MYZpar[[s]])
 }
 
+#' @title Blood feeding rate of the mosquito population
+#' @description This method dispatches on the type of `pars$MYZpar`.
+#' @param t current simulation time
+#' @param y state vector
+#' @param pars a [list]
+#' @param s the species index
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_fqM <- function(t, y, pars, s) {
+  UseMethod("F_fqM", pars$MYZpar[[s]])
+}
+
 #' @title Number of eggs laid by adult mosquitoes
 #' @description This method dispatches on the type of `pars$MYZpar`.
 #' @param t current simulation time

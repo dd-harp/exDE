@@ -1,5 +1,5 @@
 
-#' @title Make base parameters
+#' @title Make base parameters, assuming nVectors = nHosts = 1
 #' @param solve_as, either "ode" or "dde"
 #' @return a [list]
 #' @export
@@ -27,9 +27,15 @@ make_parameters_xde = function(solve_as='dde'){
   pars$calU = static_l
   pars$eta = list()
   pars$Lambda = list()
+  pars$HostAvailability = list()
   pars$beta = list()
+  pars$beta[[1]] = list()
+#  pars$eir = list()
+#  pars$eir[[1]] = list()
   pars$EIR = list()
   pars$FoI = list()
+#  pars$ni = list()
+#  pars$ni[[1]] = list()
   pars$kappa = list()
 
   pars$ix = list()
@@ -140,18 +146,8 @@ parse_deout <- function(deout, pars){
 #' @return varslist a [list]
 #' @export
 parse_deout_vec <- function(vec, pars){
-  varslist = list()
   deout = rbind(c(0,vec), c(0,vec))
-  varslist$vec = deout
-  if ('Lpar' %in% names(pars)) {
-    varslist$L = parse_deout_L(deout, pars)
-  }
-  if ('MYZpar' %in% names(pars)) {
-    varslist$MYZ = parse_deout_MYZ(deout, pars)
-  }
-  if ('Xpar' %in% names(pars)) {
-    varslist$XH = parse_deout_X(deout, pars)
-  }
+  varslist = parse_deout(deout, pars)
 
   for(i in 1:length(varslist$XH))
     varslist$XH[[i]] = tail(varslist$XH[[i]],1)
@@ -236,14 +232,20 @@ last_to_inits <- function(pars){
 #' @return y a [numeric] vector
 #' @export
 update_inits <- function(y0, pars){
-  if ('Lpar' %in% names(pars)) {
-    pars = update_inits_L(pars, y0)
-  } else {Li = numeric(0)}
-  if ('MYZpar' %in% names(pars)) {
-    pars = update_inits_MYZ(pars, y0)
-  } else {MYZi = numeric(0)}
-  if ('Xpar' %in% names(pars)) {
-    pars = update_inits_X(pars, y0)
-  } else {Xi = numeric(0)}
+  s = length(pars$Lpar)
+  if(s>0)
+    for(ix in 1:s)
+      pars = update_inits_L(pars, y0)
+
+  s = length(pars$MYZpar)
+  if(s>0)
+    for(ix in 1:s)
+      pars = update_inits_MYZ(pars, y0)
+
+  s = length(pars$Xpar)
+  if(s>0)
+    for(ix in 1:s)
+      pars = update_inits_X(pars, y0)
+
   return(pars)
 }
