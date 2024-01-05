@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{make_parameters_xde}
 \alias{make_parameters_xde}
-\title{Make base parameters}
+\title{Make base parameters, assuming nVectors = nHosts = 1}
 \usage{
 make_parameters_xde(solve_as = "dde")
 }
@@ -13,5 +13,5 @@ make_parameters_xde(solve_as = "dde")
 a \link{list}
 }
 \description{
-Make base parameters
+Make base parameters, assuming nVectors = nHosts = 1
 }

@@ -18,7 +18,7 @@ F_EIR(t, y, pars, beta, s)
 \item{s}{the vector species index}
 }
 \value{
-a \link{numeric} vector of length \code{nStrata}
+\link{numeric} vector of length \code{nStrata}
 }
 \description{
 Compute the daily EIR for all the strata at time \code{t}

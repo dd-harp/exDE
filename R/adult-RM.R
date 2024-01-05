@@ -26,6 +26,15 @@ F_fqZ.RM <- function(t, y, pars, s) {
   with(pars$MYZpar[[s]], f*q)*y[pars$ix$MYZ[[s]]$Z_ix]
 }
 
+#' @title The net blood feeding rate of the infective mosquito population in a patch
+#' @description Implements [F_fqM] for the RM model.
+#' @inheritParams F_fqM
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_fqM.RM <- function(t, y, pars, s) {
+  with(pars$MYZpar[[s]], f*q)*y[pars$ix$MYZ[[s]]$Z_ix]
+}
+
 #' @title Number of eggs laid by adult mosquitoes
 #' @description Implements [F_eggs] for the RM model.
 #' @inheritParams F_eggs
