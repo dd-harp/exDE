@@ -90,6 +90,6 @@ F_kappa <- function(t, y, pars, beta, i) {
 #' @export
 compute_beta = function(H, wts_f, TaR){
   W <- as.vector(TaR %*% (wts_f*H))
-  beta <- diag(wts_f, length(H)) %*% t(TaR) %*% diag(1/W, dim(TaR)[1])
+  beta <- diag(wts_f, length(H)) %*% t(TaR) %*% diag(1/W, length(W))
   return(beta)
 }
