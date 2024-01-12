@@ -19,11 +19,13 @@ compute_terms <- function(varslist, deout, pars, s, i) {
 #' @export
 compute_terms.xde <- function(varslist, deout, pars, s, i) {
   time = deout[,1]
+  eir = c()
+  kappa = c()
   for (ix in 1:length(time)){
-    yt = deout[i,-1]
-    pars = Transmission(time[i], yt, pars)
-    eir = pars$EIR[[1]]
-    kappa = pars$kappa[[1]]
+    yt = deout[ix,-1]
+    pars = Transmission(time[ix], yt, pars)
+    eir = c(eir, pars$EIR[[1]])
+    kappa = c(kappa, pars$kappa[[1]])
   }
   ni = compute_NI(deout, pars, i)
   fqZ = compute_fqZ(deout, pars, s)
@@ -56,10 +58,11 @@ compute_terms.cohort <- function(varslist, deout, pars, s, i) {
 #' @export
 compute_terms.human<- function(varslist, deout, pars, s, i) {
   time = deout[,1]
+  eir = c()
   for (ix in 1:length(time)){
     yt = deout[i,-1]
     pars = Transmission(time[i], yt, pars)
-    eir = pars$EIR[[1]]
+    eir = c(eir, pars$EIR[[1]])
   }
   ni = compute_NI(deout, pars)
   fqZ = compute_fqZ(deout, pars)

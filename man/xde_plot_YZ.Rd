@@ -6,7 +6,7 @@
 \usage{
 xde_plot_YZ(
   pars,
-  s,
+  s = 1,
   Yclrs = "purple",
   Zclrs = "darkred",
   llty = 1,

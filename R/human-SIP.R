@@ -250,7 +250,7 @@ get_inits_X.SIP <- function(pars, i){with(pars$Xinits[[i]],{
 #'
 #' @inheritParams xde_plot_X
 #' @export
-xde_plot_X.SIP = function(pars, i, clrs=c("darkblue", "darkred", "darkgreen"), llty=1, stable=FALSE, add_axes=TRUE){
+xde_plot_X.SIP = function(pars, i=1, clrs=c("darkblue", "darkred", "darkgreen"), llty=1, stable=FALSE, add_axes=TRUE){
   vars=with(pars$outputs,if(stable==TRUE){stable_orbits}else{orbits})
 
   if(add_axes==TRUE)

@@ -5,7 +5,7 @@
 \title{Set up a model for xde_diffeqn}
 \usage{
 xde_setup(
-  modelName,
+  modelName = "unnamed",
   MYZname = "RM",
   Xname = "SIS",
   Lname = "trace",

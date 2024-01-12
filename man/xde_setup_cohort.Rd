@@ -5,8 +5,8 @@
 \title{Set up a model for xde_diffeqn_cohort}
 \usage{
 xde_setup_cohort(
-  modelName,
   F_eir,
+  modelName = "unnamed",
   Xname = "SIS",
   HPop = 1000,
   searchB = 1,
@@ -15,9 +15,9 @@ xde_setup_cohort(
 )
 }
 \arguments{
-\item{modelName}{is a name for the model (arbitrary)}
-
 \item{F_eir}{is a function F_eir(t, pars) that returns the daily FoI}
+
+\item{modelName}{is a name for the model (arbitrary)}
 
 \item{Xname}{is a character string defining a X model}
 

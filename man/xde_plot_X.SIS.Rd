@@ -6,7 +6,7 @@
 \usage{
 \method{xde_plot_X}{SIS}(
   pars,
-  i,
+  i = 1,
   clrs = c("darkblue", "darkred"),
   llty = 1,
   stable = FALSE,

@@ -5,7 +5,7 @@
 \title{Set up a model for xde_diffeqn_aqua}
 \usage{
 xde_setup_aquatic(
-  modelName,
+  modelName = "unnamed",
   nHabitats = 1,
   nVectors = 1,
   Lname = "basic",

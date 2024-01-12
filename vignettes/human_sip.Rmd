@@ -138,7 +138,7 @@ F_eir1 = fF_eir1(EIR)
 ```
 
 ```{r}
-xde_setup_cohort("test_SIP", F_eir1, "SIP", HPop=Hpop, Xopts = Xo) -> test_SIP
+xde_setup_cohort(F_eir1, Xname="SIP", HPop=Hpop, Xopts = Xo) -> test_SIP
 ```
 
 ```{r}

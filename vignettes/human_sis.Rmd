@@ -154,7 +154,7 @@ F_eir1 = fF_eir1(EIR)
 ```
 
 ```{r}
-xde_setup_cohort("test_SIS", F_eir1, "SIS", HPop=Hpop, Xopts = Xo) -> test_SIS
+xde_setup_cohort(F_eir1, Xname="SIS", HPop=Hpop, Xopts = Xo) -> test_SIS
 ```
 
 ```{r}

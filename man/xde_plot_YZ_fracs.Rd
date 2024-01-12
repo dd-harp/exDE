@@ -6,7 +6,7 @@
 \usage{
 xde_plot_YZ_fracs(
   pars,
-  s,
+  s = 1,
   Yclrs = "purple",
   Zclrs = "darkred",
   llty = 1,

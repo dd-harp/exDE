@@ -9,7 +9,7 @@
 #' @param add_axes a logical: plot axes only if TRUE
 #'
 #' @export
-xde_plot_M = function(pars, s, clrs="darkblue", llty=1, stable=FALSE, add_axes=TRUE){
+xde_plot_M = function(pars, s=1, clrs="darkblue", llty=1, stable=FALSE, add_axes=TRUE){
   vars=with(pars$outputs,if(stable==TRUE){stable_orbits}else{orbits})
 
   if(add_axes == TRUE) with(vars$MYZ[[s]],
@@ -50,7 +50,7 @@ xde_lines_M = function(MYZ, pars, clrs="darkblue", llty=1){
 #' @param add_axes to plot axes only if TRUE
 #'
 #' @export
-xde_plot_YZ = function(pars, s, Yclrs = "purple", Zclrs="darkred", llty=1, stable=FALSE, add_axes=TRUE){
+xde_plot_YZ = function(pars, s=1, Yclrs = "purple", Zclrs="darkred", llty=1, stable=FALSE, add_axes=TRUE){
   vars=with(pars$outputs,if(stable==TRUE){stable_orbits}else{orbits})
 
   if(add_axes == TRUE)
@@ -99,7 +99,7 @@ xde_lines_YZ = function(MYZ, pars, Yclrs="purple", Zclrs = "darkred", llty=1){
 #' @param add_axes a logical to plot axes only if TRUE
 #'
 #' @export
-xde_plot_YZ_fracs = function(pars, s, Yclrs = "purple", Zclrs = "darkred", llty=1, stable=FALSE, add_axes=TRUE){
+xde_plot_YZ_fracs = function(pars, s=1, Yclrs = "purple", Zclrs = "darkred", llty=1, stable=FALSE, add_axes=TRUE){
   vars=with(pars$outputs,if(stable==TRUE){stable_orbits}else{orbits})
 
   if(add_axes == TRUE)

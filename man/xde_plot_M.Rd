@@ -6,7 +6,7 @@
 \usage{
 xde_plot_M(
   pars,
-  s,
+  s = 1,
   clrs = "darkblue",
   llty = 1,
   stable = FALSE,

@@ -144,6 +144,6 @@ HTC <- function(pars, i) {
 #' @param add_axes a logical: plot axes only if TRUE
 #'
 #' @export
-xde_plot_X = function(pars, i, clrs="black", llty=1, stable=FALSE, add_axes=TRUE){
+xde_plot_X = function(pars, i=1, clrs="black", llty=1, stable=FALSE, add_axes=TRUE){
   UseMethod("xde_plot_X", pars$Xpar[[i]])
 }
