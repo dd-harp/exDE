@@ -15,8 +15,7 @@ LBionomics.trace <- function(t, y, pars, s) {
 #' @return a [numeric] vector of length `nHabitats`
 #' @export
 F_alpha.trace <- function(t, y, pars, s) {
-  Lp = pars$Lpar[[s]]
-  with(Lp, Lt(t, Lp))
+  pars$Lpar[[s]]$Lt(t)
 }
 
 #' @title Derivatives for aquatic stage mosquitoes
@@ -60,7 +59,8 @@ make_Lpar_trace = function(nHabitats, Lopts=list(), Lambda=1000, Lt = NULL){
     Lpar = list()
     class(Lpar) <- "trace"
     Lpar$Lambda = checkIt(Lambda, nHabitats)
-    if(is.null(Lt)) Lt = function(t, Lpar){Lpar$Lambda}
+    #if(is.null(Lt)) Lt = function(t, Lpar){Lpar$Lambda}
+    if(is.null(Lt)) Lt = function(t){Lambda}
     Lpar$Lt = Lt
     return(Lpar)
 })}
@@ -93,8 +93,8 @@ make_parameters_L_trace <- function(pars, Lambda, Lt=NULL) {
   stopifnot(is.numeric(Lambda))
   Lpar <- list()
   class(Lpar) <- 'trace'
-  Lpar$Lambda <- Lambda
-  if(is.null(Lt)) Lt = function(t, Lpar){Lpar$Lambda}
+  Lpar$Lambda = checkIt(Lambda, pars$nHabitats)
+  if(is.null(Lt)) Lt = function(t){Lambda}
   Lpar$Lt = Lt
   pars$Lpar[[1]] <- Lpar
   return(pars)

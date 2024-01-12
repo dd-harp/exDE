@@ -156,11 +156,11 @@ F_eir1 = fF_eir1(EIR)
 ```
 
 ```{r}
-xde_setup_cohort("test_hMoI", F_eir1, "hMoI", HPop=Hpop, Xopts = Xo) ->test_hMoI
+xde_setup_cohort(F_eir1, Xname="hMoI", HPop=Hpop, Xopts = Xo) ->test_hMoI
 ```
 
 ```{r}
-xde_solve(test_hMoI, 365, 365)$outputs$deout -> out2
+xde_solve(test_hMoI, 365, 365)$outputs$orbits$deout -> out2
 approx_equal(out2, out1)
 ```
 

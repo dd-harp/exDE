@@ -5,7 +5,7 @@
 \title{Set up a model for xde_diffeqn_human}
 \usage{
 xde_setup_human(
-  modelName,
+  modelName = "unnamed",
   Xname = "SIS",
   HPop = 1000,
   MYZopts = list(),

@@ -5,7 +5,7 @@
 \title{Set up a model for xde_diffeqn_mosy}
 \usage{
 xde_setup_mosy(
-  modelName,
+  modelName = "unnamed",
   MYZname = "basicM",
   Lname = "basic",
   nPatches = 1,

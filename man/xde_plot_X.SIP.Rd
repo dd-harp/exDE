@@ -6,7 +6,7 @@
 \usage{
 \method{xde_plot_X}{SIP}(
   pars,
-  i,
+  i = 1,
   clrs = c("darkblue", "darkred", "darkgreen"),
   llty = 1,
   stable = FALSE,

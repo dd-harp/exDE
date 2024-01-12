@@ -54,7 +54,7 @@ F_eggs.RM <- function(t, y, pars, s) {
 #' @export
 dMYZdt.RM_ode <- function(t, y, pars, s) {
   Lambda = pars$Lambda[[s]]
-  kappa = pars$kappa [[s]]
+  kappa = pars$kappa[[s]]
 
   with(pars$ix$MYZ[[s]],{
     M <- y[M_ix]
@@ -83,7 +83,7 @@ dMYZdt.RM_ode <- function(t, y, pars, s) {
 dMYZdt.RM_dde <- function(t, y, pars, s){
 
   Lambda = pars$Lambda[[s]]
-  kappa = pars$kappa [[s]]
+  kappa = pars$kappa[[s]]
 
   with(pars$ix$MYZ[[s]],{
     M <- y[M_ix]
@@ -110,6 +110,7 @@ dMYZdt.RM_dde <- function(t, y, pars, s){
 
       Omega <- make_Omega(g, sigma, calK, nPatches)
       Omega_eip <- make_Omega(g_eip, sigma_eip, calK, nPatches)
+
       dMdt <- Lambda - (Omega %*% M)
       dPdt <- f*(M - P) - (Omega %*% P)
       dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)

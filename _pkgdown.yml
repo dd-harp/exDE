@@ -317,7 +317,6 @@ reference:
   - update_inits_X
   - HTC
   - xde_plot_X
-  - xde_lines_X
 - subtitle: trace
   desc: |
     Specialized methods for a human trace model to pass kappa as a parameter
@@ -377,7 +376,7 @@ reference:
   - make_parameters_X_SIS
   - HTC.SIS
   - xde_plot_X.SIS
-  - xde_lines_X.SIS
+  - xde_lines_X_SIS
 - subtitle: SIP
   desc: |
     Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
@@ -399,7 +398,7 @@ reference:
   - make_parameters_X_SIP
   - HTC.SIP
   - xde_plot_X.SIP
-  - xde_lines_X.SIP
+  - xde_lines_X_SIP
 - title: Human Population Dynamics
   desc: |
     Generic methods for the human demography and aging

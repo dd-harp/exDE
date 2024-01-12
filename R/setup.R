@@ -25,7 +25,7 @@
 #' @param Lopts a list to configure the L model
 #' @return a [list]
 #' @export
-xde_setup = function(modelName,
+xde_setup = function(modelName = "unnamed",
 
                      # Dynamical Components
                      MYZname = "RM",
@@ -117,7 +117,7 @@ xde_setup = function(modelName,
 #' @param kappa values -- net infectivity to force adult infection dynamics
 #' @return a [list]
 #' @export
-xde_setup_mosy = function(modelName,
+xde_setup_mosy = function(modelName = "unnamed",
 
                      # Dynamical Components
                      MYZname = "basicM",
@@ -186,7 +186,7 @@ xde_setup_mosy = function(modelName,
 #' @param LSMname is a character string defining a LSM model
 #' @return a [list]
 #' @export
-xde_setup_aquatic = function(modelName,
+xde_setup_aquatic = function(modelName = "unnamed",
                      nHabitats = 1,
                      nVectors = 1,
                      Lname = "basic",
@@ -235,7 +235,7 @@ xde_setup_aquatic = function(modelName,
 #' @param TaRopts are the options to setup TaR
 #' @return a [list]
 #' @export
-xde_setup_human = function(modelName,
+xde_setup_human = function(modelName = "unnamed",
 
                      # Dynamical Components
                      Xname = "SIS",
@@ -286,8 +286,8 @@ xde_setup_human = function(modelName,
 }
 
 #' @title Set up a model for xde_diffeqn_cohort
-#' @param modelName is a name for the model (arbitrary)
 #' @param F_eir is a function F_eir(t, pars) that returns the daily FoI
+#' @param modelName is a name for the model (arbitrary)
 #' @param Xname is a character string defining a X model
 #' @param HPop is the number of humans in each patch
 #' @param searchB is a vector of search weights for blood feeding
@@ -295,7 +295,8 @@ xde_setup_human = function(modelName,
 #' @param Hopts a list to configure the H model
 #' @return a [list]
 #' @export
-xde_setup_cohort = function(modelName, F_eir,
+xde_setup_cohort = function(F_eir,
+                           modelName = "unnamed",
 
                            # Dynamical Components
                            Xname = "SIS",
