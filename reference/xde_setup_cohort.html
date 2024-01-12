@@ -80,8 +80,8 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">xde_setup_cohort</span><span class="op">(</span></span>
-<span>  <span class="va">modelName</span>,</span>
 <span>  <span class="va">F_eir</span>,</span>
+<span>  modelName <span class="op">=</span> <span class="st">"unnamed"</span>,</span>
 <span>  Xname <span class="op">=</span> <span class="st">"SIS"</span>,</span>
 <span>  HPop <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>  searchB <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -92,12 +92,12 @@
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>modelName</dt>
-<dd><p>is a name for the model (arbitrary)</p></dd>
-
-
-<dt>F_eir</dt>
+    <dl><dt>F_eir</dt>
 <dd><p>is a function F_eir(t, pars) that returns the daily FoI</p></dd>
+
+
+<dt>modelName</dt>
+<dd><p>is a name for the model (arbitrary)</p></dd>
 
 
 <dt>Xname</dt>
