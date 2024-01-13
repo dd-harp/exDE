@@ -1,0 +1,77 @@
+---
+title: "Understanding exDE"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Understanding exDE}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## Introduction 
+
+The goal of developing `exDE` was to lower the costs of building models  (*e.g.* time spent developing, coding, verifying, debugging, & *etc.*) that are realistic enough to support decisions affecting malaria policies. The operating assumption of the development process has been that robust decision support for malaria policies would put demands on model-building that differ from what is expected from a scientific publication. In some ways, it was the need for *realism* and the associated *computational complexity* that drove the development of several *individual-based models* (IBMs). While models developed as systems of differential equations can not replicate some advantages that come from being *individual-based,* we wanted software that could handle computational complexity just as well as IBMs. The advantage is that the resulting models would be much easier to analyze. 
+
+We wanted a framework that could *scale complexity,* to start with a simple model, and then progressively modifying the models to add realism including:
+
++ realistic human demography, including age structure, births & deaths, and migration. 
+
++ spatial heterogeneity and spatial dynamics, including human mobility and mosquito dispersal 
+
++ exogenous forcing by weather and other factors
+
++ multiple host and vector species or types 
+
+ If we think of a model as defining a *skill set,* or output variables that naturally represent a subset of all possible features, then the framework should make it easy to build models that have the right subset of features.  The models should be -- as Einstein suggested -- as simple as possible, but no simpler. While most people would agree with Einstein in principle, he provided no usable advice about how to do this. How would you know a model had the right level of complexity unless, at some point, a model had been developed that was clearly too complex? 
+
+To support decisions, model building must be *nimble.*  As malaria programs integrate sophisticated analytics into their decision-making, the conversation in a room can shift. Over time, programmatic priorities and needs can change. To keep up, the model builders *ought* to have the capability of building new models that could address the new concerns. While this might not be possible to do in real time, it should be possible to have a new model developed with preliminary results within a week or so.  
+
+With these goals in mind, we developed a mathematical framework that could make computation for dynamical systems **modular.** The mathematical basis for modularity was described in [Spatial Dynamics of Malaria Transmission](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010684){target="_blank"}. We have also developed a *vignette* that describes the [modular forms](modularity.html){target="_blank"} that we use to describe models implemented in `exDE`.
+
+## Structural Elements
+
+Each model has several structural parameters that describe the basic features of a model: 
+
++ `nPatches` -- the number of distinct *patches* in a model. 
+
+    - A model has *spatial dynamics* if `nPatches`$>1,$ making it necessary to 
+
++ Aqu
++ `nHabitats` -- the number of distinct *patches* in a model. 
+
+
+## Dynamical Components
+
+We identified three inseparable chunks of any model that would need to be internally coherent but that could be represented in several different ways. The chunks represented five distinct processes: 
+
++ Models for human ecology and parasite / pathogen infection dynamics would appear in one dynamical component. The part that computes the dynamics of infection and immunity was called $\cal X$, and the part that describes human demography was called $\cal H.$  These two components can't be separated in any easy way, so we call this chunk $\cal XH$.
+
+    - The derivatives for a model of this type are computed by a `S3` function `dXdt` 
+    
+    - The parameters for the  model are in an object called `Xpar` and the model dispatches on `class(Xpar)`
+    
+    - Since there could be multiple host species, the $i^{th}$ species is in  `pars$Xpar[[i]].`
+    
+    - The function `dXdt` dispatches on `class(pars$Xpar[[i]])` 
+
++ Models for adult mosquito ecology and parasite / pathogen infection dynamics would appear in a second dynamical component. The part that computes the dynamics of infection was called $\cal YZ$, and the part that computes mosquito population dynamics was called $\cal M$. These two components can't be separated in any easy way, so we call this chunk $\cal MYZ$.   
+
++ Models for aquatic mosquito ecology were called $\cal L$. 
+
+## Interfaces 
+
+In developing a modular framework, we recognized the need to develop a rigorous yet flexible *interface* that would allow different dynamical components to interact. 
+To connect these two dynamical components, we developed two well-defined interfaces: 
+
++ A *model* for **blood feeding** and parasite / pathogen **transmission** by mosquitoes. This model *should* constrain mosquito blood feeding rates and the human fraction in sensible ways. 
+
++ A description of the locations of aquatic habitats and a *model* for **egg laying** and **emergence.**
+
+In a related vignette, a Ross-Maconald model is presented in its [modular form](modularity.html)

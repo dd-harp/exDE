@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 The Ross-Macdonald adult mosquito model fulfills the generic interface of the adult mosquito component. 
 
-Here, we use a Ross-Macdonald model based on a model first published in 1982 by Joan Aron and Robert May (Aron JL, and May RM (1982). The population dynamics of malaria. In *The Population Dynamics of Infectious Diseases: Theory and Applications,* R. M. Anderson, ed. (Springer US), pp. 139–179). It includes state variables for total mosquito density $M$, infected mosquito density $Y$, and infectious mosquito density $Z$. Because of the interest in parity, the model has been extended to include a variable that tracks parous mosquitoes, $P$.
+Here, we use a Ross-Macdonald model based on a model first published in 1982 by Joan Aron and Robert May^[The population dynamics of malaria. In *The Population Dynamics of Infectious Diseases: Theory and Applications,* R. M. Anderson, ed. (Springer US), pp. 139–179. [online](https://link.springer.com/chapter/10.1007/978-1-4899-2901-3_5){target="_blank"}]. It includes state variables for total mosquito density $M$, infected mosquito density $Y$, and infectious mosquito density $Z$. Because of the interest in parity, the model has been extended to include a variable that tracks parous mosquitoes, $P$.
 
 # Differential Equations 
 
@@ -54,9 +54,7 @@ The system of ODEs is the same as above except for the equation giving the rate 
 $$
 \dot{Z} = e^{-\Omega \tau} \cdot \mbox{diag}(fq\kappa) \cdot (M-Y) - \Omega \cdot Z
 $$
-The resulting set of equations is similar in spirit to the simple model presented in
-[Smith & McKenzie (2004)](https://malariajournal.biomedcentral.com/articles/10.1186/1475-2875-3-13) in that
-mortality and dispersal over the EIP is accounted for, but the time lag is not. While
+The resulting set of equations is similar in spirit to the simple model presented in  Smith & McKenzie (2004)^[Smith, D.L., Ellis McKenzie, F. Statics and dynamics of malaria infection in Anopheles mosquitoes. Malar J 3, 13 (2004). [online](https://doi.org/10.1186/1475-2875-3-13){target="_blank"}]. in that mortality and dispersal over the EIP is accounted for, but the time lag is not. While
 transient dynamics of the ODE model will not equal the DDE model, they have the same
 equilibrium values, and so for numerical work requiring finding equilibrium points, the faster
 ODE model can be safely substituted.
@@ -115,14 +113,18 @@ We can use the same equation for $P$ as above.
 
 # Example
 
+
 ```{r, message=FALSE, warning=FALSE}
 library(exDE)
-#devtools::load_all()
 library(expm)
 library(deSolve)
 library(data.table)
 library(ggplot2)
 ```
+
+```{r, echo=F, eval=F}
+#devtools::load_all()
+``` 
 
 Here we show an example of starting and solving a model at equilibrium. Please note that this only
 runs this adult mosquito model and that most users should read [our fully worked example](ex_534.html)

@@ -34,7 +34,7 @@ F_fqM.Gtrace <- function(t, y, pars, s) {
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_eggs.Gtrace <- function(t, y, pars, s) {
-  with(pars$MYZpar[[s]], return(Gm*Gf(t, pars$MYZpar[[s]])))
+  with(pars$MYZpar[[s]], return(scale*Gf(t)))
 }
 
 #' @title Derivatives for aquatic stage mosquitoes
@@ -70,8 +70,8 @@ make_MYZpar_Gtrace = function(nPatches, MYZopts, Gm = 1, Gf=NULL){
     MYZpar <- list()
     class(MYZpar) <- "Gtrace"
 
-    MYZpar$Gm <- checkIt(Gm, nPatches)
-    if(is.null(Gf)) Gf = function(t, MYZpar){return(1)}
+    MYZpar$scale <- checkIt(Gm, nPatches)
+    if(is.null(Gf)) Gf = function(t){return(1)}
     MYZpar$Gf = Gf
 
     return(MYZpar)
@@ -110,14 +110,15 @@ parse_deout_MYZ.Gtrace <- function(deout, pars, s) {
 #' @param Gf a [function] of the form Gf(t, pars) that computes temporal fluctuations
 #' @return none
 #' @export
-make_parameters_MYZ_Gtrace <- function(pars, Gm, Gf) {
+make_parameters_MYZ_Gtrace <- function(pars, Gm, Gf=NULL) {
   stopifnot(is.numeric(Gm))
   MYZpar <- list()
   class(MYZpar) <- 'Gtrace'
   xde <- "trace"
   class(xde) <- "trace"
   MYZpar$xde <- xde
-  MYZpar$Gm <- Gm
+  MYZpar$scale <- checkIt(Gm, pars$nPatches)
+  if(is.null(Gf)) Gf = function(t){return(1)}
   MYZpar$Gf = Gf
   pars$MYZpar[[1]] <- MYZpar
   return(pars)
