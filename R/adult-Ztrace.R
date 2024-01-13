@@ -19,7 +19,7 @@ MBionomics.Ztrace <- function(t, y, pars, s) {
 #' @return a [numeric] vector of length `nHabitats`
 #' @export
 F_fqZ.Ztrace <- function(t, y, pars, s) {
-  with(pars$MYZpar[[s]], return(f*q*Zm*Zf(t, pars)))
+  with(pars$MYZpar[[s]], return(f*q*scale*Zf(t)))
 }
 
 #' @title Blood feeding rate of the infective mosquito population
@@ -82,8 +82,8 @@ make_MYZpar_Ztrace = function(nPatches, MYZopts,
     MYZpar$f0 <- MYZpar$f
     MYZpar$q0 <- MYZpar$q
 
-    MYZpar$Zm <- checkIt(Zm, pars$nPatches)
-    if(is.null(Zf)) Zf = function(t, pars){return(0*t + 1)}
+    MYZpar$scale <- checkIt(Zm, pars$nPatches)
+    if(is.null(Zf)) Zf = function(t){return(1)}
     MYZpar$Zf <- Zf
 
     return(MYZpar)
@@ -125,18 +125,19 @@ make_indices_MYZ.Ztrace <- function(pars, s) {
 #' @param Zf a [function] of the form Zf(t, pars) that computes temporal fluctuations
 #' @return none
 #' @export
-make_parameters_MYZ_Ztrace <- function(pars, Zm, f, q, Zf) {
+make_parameters_MYZ_Ztrace <- function(pars, Zm, f, q, Zf=NULL) {
   stopifnot(is.numeric(Zm))
   MYZpar <- list()
   class(MYZpar) <- 'Ztrace'
   xde <- "trace"
   class(xde) <- "trace"
   MYZpar$xde <- xde
-  MYZpar$Zm <- Zm
   MYZpar$f0 <- f
   MYZpar$f <- f
   MYZpar$q0 <- q
   MYZpar$q <- q
+  MYZpar$scale <- checkIt(Zm, pars$nPatches)
+  if(is.null(Zf)) Zf = function(t){return(1)}
   MYZpar$Zf = Zf
   pars$MYZpar <- MYZpar
   return(pars)

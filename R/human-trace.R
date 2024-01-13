@@ -6,7 +6,7 @@
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_X.trace <- function(t, y, pars, i) {
-  with(pars$Xpar[[i]], kappa)
+  with(pars$Xpar[[i]], scale*Kf(t))
 }
 
 #' @title Size of the human population
@@ -80,8 +80,8 @@ make_Xpar_trace = function(nPatches, Xopts=list(),
     Xpar = list()
     class(Xpar) <- "trace"
 
-    Xpar$kappa = checkIt(kappa, nPatches)
-    if(is.null(Kf)) Kf = function(t, y, pars){return(1)}
+    Xpar$scale = checkIt(kappa, nPatches)
+    if(is.null(Kf)) Kf = function(t){return(1)}
     Xpar$Kf = Kf
     return(Xpar)
 })}
@@ -128,7 +128,8 @@ parse_deout_X.trace <- function(deout, pars,i) {
 make_parameters_X_trace <- function(pars, kappa) {
   Xpar <- list()
   class(Xpar) <- c('trace')
-  Xpar$kappa <- kappa
+  Xpar$scale = checkIt(kappa, pars$nPatches)
+  Xpar$Kf = function(t){return(1)}
   pars$Xpar[[1]] <- Xpar
   return(pars)
 }

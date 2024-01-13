@@ -4,7 +4,7 @@
 \alias{make_parameters_MYZ_Gtrace}
 \title{Make parameters for Gtrace aquatic mosquito model}
 \usage{
-make_parameters_MYZ_Gtrace(pars, Gm, Gf)
+make_parameters_MYZ_Gtrace(pars, Gm, Gf = NULL)
 }
 \arguments{
 \item{pars}{a \link{list}}

@@ -37,12 +37,18 @@ xDE_diffeqn <- function(t, y, pars) {
   pars <- Exposure(t, y, pars)
 
   # state derivatives
-  dL <- c()
-  for(s in 1:pars$nVectors) dL <- c(dL, dLdt(t, y, pars, s))
-  dMYZ <- c()
-  for(s in 1:pars$nVectors) dMYZ <- c(dMYZ, dMYZdt(t, y, pars, s))
-  dX <- c()
-  for(i in 1:pars$nHosts) dX <- c(dX, dXdt(t, y, pars, i))
+  dL <- dLdt(t, y, pars, 1)
+  dMYZ <- dMYZdt(t, y, pars, 1)
+  if(pars$nVectors > 1)
+    for(s in 1:pars$nVectors){
+      dL <- c(dL, dLdt(t, y, pars, s))
+      dMYZ <- c(dMYZ, dMYZdt(t, y, pars, s))
+    }
+
+  dX <- dXdt(t, y, pars, 1)
+  if(pars$nHosts > 1)
+    for(i in 1:pars$nHosts)
+      dX <- c(dX, dXdt(t, y, pars, i))
 
   return(list(c(dL, dMYZ, dX)))
 }
@@ -75,8 +81,10 @@ xDE_diffeqn_human <- function(t, y, pars) {
   pars <- Exposure(t, y, pars)
 
   # state derivatives
-  dX <- c()
-  for(i in 1:pars$nHosts) dX <- c(dX, dXdt(t, y, pars, i))
+  dX <- dXdt(t, y, pars, 1)
+  if(pars$nHosts > 1)
+    for(i in 1:pars$nHosts)
+      dX <- c(dX, dXdt(t, y, pars, i))
 
   return(list(c(dX)))
 }
@@ -112,10 +120,13 @@ xDE_diffeqn_mosy <- function(t, y, pars) {
   pars <- Emergence(t, y, pars)
 
   # state derivatives
-  dL <- c()
-  for(s in 1:pars$nVectors) dL <- c(dL, dLdt(t, y, pars, s))
-  dM <- c()
-  for(s in 1:pars$nVectors) dM <- c(dM, dMYZdt(t, y, pars, s))
+  dL <- dLdt(t, y, pars, 1)
+  dM <- dMYZdt(t, y, pars, 1)
+  if (pars$nVectors > 1)
+    for(s in 2:pars$nVectors){
+      dL <- c(dL, dLdt(t, y, pars, s))
+      dM <- c(dM, dMYZdt(t, y, pars, s))
+    }
 
   return(list(c(dL, dM)))
 }
@@ -138,8 +149,10 @@ xDE_diffeqn_cohort <- function(a, y, pars, F_eir) {
   pars <- Exposure(a, y, pars)
 
   # state derivatives
-  dX <- c()
-  for(i in 1:pars$nHosts) dX <- c(dX, dXdt(t, y, pars, i))
+  dX <- dXdt(t, y, pars, 1)
+  if(pars$nHosts > 1)
+    for(i in 1:pars$nHosts)
+      dX <- c(dX, dXdt(t, y, pars, i))
 
   return(list(c(dX)))
 }
@@ -168,8 +181,10 @@ xDE_diffeqn_aquatic <- function(t, y, pars) {
   pars <- EggLaying(t, y, pars)
 
   # state derivatives
-  dL <- c()
-  for(s in 1:pars$nVectors) dL <- c(dL, dLdt(t, y, pars, s))
+  dL <- dLdt(t, y, pars, 1)
+  if(pars$nVectors > 1)
+    for(s in 1:pars$nVectors)
+      dL <- c(dL, dLdt(t, y, pars, s))
 
   return(list(c(dL)))
 }

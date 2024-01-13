@@ -7,6 +7,10 @@ navbar:
     href: reference/index.html
   - text: Articles
     menu:
+    - text: Understanding exDE
+      href: articles/Understanding_exDE.html
+    - text: Modular Forms for Disease Dynamics
+      href: articles/modularity.html
     - text: 5-3-4 Spatial Example
       href: articles/ex_534.html
     - text: Spatial Metrics
