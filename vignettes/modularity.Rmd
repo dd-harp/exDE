@@ -10,12 +10,19 @@ vignette: >
 ## Introduction
 
 
-**Modular forms** for disease dynamics are stylized ways of writing the dynamical systems that emphasize the modularity. A mathematical basis and modular framework for building models describing the dynamics and control of malaria and other mosquito-borne pathogens was described in [Spatial Dynamics of Malaria Transmission](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010684){target="_blank"}, and the framework was implemented in `exDE.` The forms we describe here are a natural way of rewriting models that closely resembles their implementation in `exDE`, which makes it possible to relate written equations and computed code. (Also, see the closely related vignette 
+**Modular forms** for disease dynamics are stylized ways of writing the dynamical systems that emphasize their modular structure. A mathematical framework for building models of malaria dynamics and control (and other mosquito-borne pathogens) was described in [Spatial Dynamics of Malaria Transmission](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010684){target="_blank"}, and the framework was implemented in `exDE.` The forms we describe here rewrite models so that they closely resemble their implementation in `exDE`, which makes it possible to relate written equations and computed code. (Also, see the closely related vignette 
 [Understanding exDE](Understanding_exDE.html){target="_blank"}.)
 
 ## The Modular Form
 
-To illustrate how this process works, we start by writing a Ross-Macdonald model in its modular form (Figure 1). 
+We illustrate by writing a Ross-Macdonald model in its modular form (Figure 1). In its classical form, this is the model: 
+
+$$ \begin{array}{rl}
+dX/dt &= b e^{-gn}fq \frac YH (H-X) - r X \\
+dY/dt &= a c \frac XH (M-Y) - g Y
+\end{array}$$
+
+The model is explained below. 
 
 *** 
 
@@ -23,7 +30,7 @@ To illustrate how this process works, we start by writing a Ross-Macdonald model
 
 *** 
 
-### Parasite Infection Dynamics in Humans 
+### Parasite Infection Dynamics in Humans, $\cal X$
 
 The equation describing human infections is written in the following way:
 
@@ -37,11 +44,11 @@ where:
 
 + $H$ is the density of humans;
 
-+ $h$ is the force of infection (FoI), the number of infections, per perspon, per day; 
++ $h$ is the force of infection (FoI), the number of infections, per perspon, per day; it is related to the daily entomological inoculation rate (dEIR). 
 
 + $r$ is the clearance rate, the number of infections that clear, per infected person, per day. 
 
-### Parasite Infection Dynamics in Mosquitoes 
+### Parasite Infection Dynamics in Mosquitoes, $\cal YZ$ 
 
 Similarly, the equation describing infected mosquitoes is the following: 
 
@@ -55,50 +62,44 @@ where:
 
 + $M$ is the density of mosquitoes; 
 
-+ $a$ is the mosquito human blood feeding rate, the number of human blood meals, per mosquito, per day;  
++ $f$ is the overall mosquito blood feeding rate, the number of human blood meals, per mosquito, per day;  
 
-+ $\kappa$ is the net infectiousness (NI) of humans, the probability a mosquito would become infected after blood feeding on a human;
++ $q$ is the human fraction; human blood feeding as a fraction of all blood feeding;  
+
++ $\kappa$ is the net infectiousness (NI) of humans, the probability a mosquito would become infected after blood feeding on a human; it is related to the density of infected humans.
 
 + $g$ is the mosquito death rate, the number of mosquitoes dying, per mosquito, per day;   
 
 ### Blood Feeding 
 
-There are two **terms,** the FoI ($h$) and the NI ($\kappa$), in the equations above that rely on information that comes from the other equation. In the generic form, the computation of these terms defines the blood feeding model, which is the interface between $\cal YZ$ and $\cal X.$
+There are two **terms,** the FoI ($h$) and the NI ($\kappa$), in the equations above that rely on information that comes from the other equation. To compute them, we need a construct to deal with the concept of *mixing,* which we will denote $\beta$. In the generic form, the computation of these terms defines the blood feeding model, which is the interface between $\cal YZ$ and $\cal X.$
 
-#### FoI 
+#### Force of Infection (FoI)
 
 The FoI $h$ must be related to the density of infected mosquitoes. We compute this in several steps. First, in this Ross-Macdonald model, the density of blood feeding mosquitoes is given by a formula: 
 $$Z = F_Z(Y) = e^{-gn} Y$$ 
-Next, we need to compute the EIR, which is
-$$a \frac ZH$$
-and finally, we must compute the FoI, which could draws information from many different sources, : 
+where $n$ is the extrinsic incubation period (EIP) 
 
-$$ h = F_h(E, ...) = b E$$ 
+Next, we need to compute the EIR, which is computed by distributing the infective bites among the humans. In this model, mixing is uniform so $\beta = 1/H$, and we write: 
 
-where:
+$$ E = \beta \cdot fqZ = \frac {fqZ}H$$
+and finally, we must compute the FoI, which could draws information from many different sources,  
 
-+ $b$ is the fraction of infective bites that cause an infection; 
-    
-+ $n$ is the extrinsic incubation period (EIP) 
+$$ h = F_h(E, ...) = b E.$$ 
 
-#### NI  
+where $b$ is the fraction of infective bites that cause an infection; 
 
-The NI $\kappa$ must be related to the density of infected humans. In the Ross-Macdonald model: 
+#### Net Infectiousness (NI) 
+
+The NI $\kappa$ must be related to the density of infected humans. In the Ross-Macdonald model, the effective density of infected humans is: 
 
 $$X = F_X(I) = cI$$ 
+where $c$ is the probability a mosquito would become infected after blood feeding on an infected human. 
 
-$$\kappa =  F_\kappa(X, ...) = \frac XH$$
-where 
-+ $c$ is the probability a mosquito would become infected after blood feeding on an infected human. 
+The net infectiousness is computed as the infective density averaged over biting among the humans. For reasons that will become clear later, we call this $\beta^T = 1/H$: 
 
-## Classical Form 
+$$\kappa =  \beta^T \cdot X = \frac XH$$
 
-If we had wanted to write this all down in the ordinary way, the model would look like this:
-
-$$ \begin{array}{rl}
-dX/dt &= b e^{-gn}\frac YH (H-X) - r X \\
-dY/dt &= a c \frac XH (M-Y) - g Y
-\end{array}$$
 
 ## Computation
 
@@ -108,8 +109,8 @@ To solve these equations, we need to write functions that compute the derivative
 RMv1 <- function(t, y, pars) {
   with(pars,{
       foi = b*exp(-g*n)*Y/H
-      kappa = c*X/H
-      dX = foi*(H-X) - r*X
+      kappa = c*I/H
+      dX = foi*(H-I) - r*I
       dY = a*kappa*(M-Y) - g*Y 
       return(list(dX, dY))
   })
@@ -118,15 +119,17 @@ RMv1 <- function(t, y, pars) {
 
 In `exDE,` the equations are solved by computing the terms and the derivatives separately. 
 
-+ `Transmission(t,y,pars)` computes three terms, attached to the main model object `pars`:
++ `Transmission(t,y,pars)` computes three terms required to compute parasite transmission during blood feeding. These are stored in the main model object `pars`:
 
-    - pars$beta 
+    - `pars$beta`
     
-    - pars$EIR
+    - `pars$EIR`
     
-    - pars$NI
+    - `pars$NI`
 
-The density of infected humans in this model is $X$, but 
++ `Exposure(t, y, pars)` computes the FoI from the EIR under a model of exposure and stores it as `pars$FoI` 
+
+So instead of developing models like `RMv1`, we have implemented the code in the syle of `RMv2`:
 
 ```{r}
 RMv2 <- function(t, y, pars) {
@@ -139,3 +142,13 @@ RMv2 <- function(t, y, pars) {
   })
 }
 ```
+
+## Full Modularity
+
+The full structure of computation in `exDE` is diagrammed in *Figure 2* and easily examined in the corresponding code. One advantage of the modular notation is that it is possible to set up and describe reasonably complex models with fairly simple scripts. The vignette [5-3-4 Example](ex_534.html) shows how this works. 
+
+***
+
+![Figure 2](RossMacdonald4.png)
+
+***
