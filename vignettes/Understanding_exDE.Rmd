@@ -14,64 +14,127 @@ knitr::opts_chunk$set(
 )
 ```
 
+The purpose of this vignette is to explain how `exDE` implements a mathematical framework described in  [Spatial Dynamics of Malaria Transmission](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010684){target="_blank"}. 
 
 ## Introduction 
 
-The goal of developing `exDE` was to lower the costs of building models  (*e.g.* time spent developing, coding, verifying, debugging, & *etc.*) that are realistic enough to support decisions affecting malaria policies. The operating assumption of the development process has been that robust decision support for malaria policies would put demands on model-building that differ from what is expected from a scientific publication. In some ways, it was the need for *realism* and the associated *computational complexity* that drove the development of several *individual-based models* (IBMs). While models developed as systems of differential equations can not replicate some advantages that come from being *individual-based,* we wanted software that could handle computational complexity just as well as IBMs. The advantage is that the resulting models would be much easier to analyze. 
+The goal of developing `exDE` was to lower the costs of developing models (*e.g.* time spent formulating, coding, verifying, debugging, & *etc.*) that are realistic enough to support decisions affecting malaria policies. The operating assumption for developing the framework and software has been that robust decision support for malaria policies would put demands on model-building that differ from what is expected from a scientific publication. For models to work in a policy setting, they must be *realistic* enough to be relevant to the policy discussions. In some ways, it was the need for realism and the associated *computational complexity* drove the development of several comprehensive *individual-based models* (IBMs), such as OpenMalaria, eMod, and MalariaTools. While models developed as systems of differential equations can not replicate some advantages that come from being *individual-based,* we wanted software that could handle computational complexity just as well as IBMs. An advantage of using systems of differential equations is that the resulting models would be much easier to analyze. 
 
 We wanted a framework that could *scale complexity,* to start with a simple model, and then progressively modifying the models to add realism including:
 
 + realistic human demography, including age structure, births & deaths, and migration. 
 
-+ spatial heterogeneity and spatial dynamics, including human mobility and mosquito dispersal 
-
-+ exogenous forcing by weather and other factors
-
 + multiple host and vector species or types 
 
- If we think of a model as defining a *skill set,* or output variables that naturally represent a subset of all possible features, then the framework should make it easy to build models that have the right subset of features.  The models should be -- as Einstein suggested -- as simple as possible, but no simpler. While most people would agree with Einstein in principle, he provided no usable advice about how to do this. How would you know a model had the right level of complexity unless, at some point, a model had been developed that was clearly too complex? 
++ spatial heterogeneity and spatial dynamics, including human mobility and mosquito dispersal 
 
-To support decisions, model building must be *nimble.*  As malaria programs integrate sophisticated analytics into their decision-making, the conversation in a room can shift. Over time, programmatic priorities and needs can change. To keep up, the model builders *ought* to have the capability of building new models that could address the new concerns. While this might not be possible to do in real time, it should be possible to have a new model developed with preliminary results within a week or so.  
++ realistic mosquito ecology with exogenous forcing by weather and other factors
+
+At the same time, we wanted to have the flexibility to isolate and analyze various components of the model. Since the framework is modular, it should be possible to pass the inputs to one (or more) of the dynamical components from a *trace* function, rather than from a fully coupled model. These trivial models also provide a way of rigorously pressure testing the software. 
+
+If we think of a model as defining a *skill set,* or output variables that naturally represent a subset of all possible features, then a framework should make it easy to build models that have the right subset of features.  The models should be -- as Einstein suggested -- *as simple as possible, but no simpler.* While most people would agree with Einstein in principle, he provided no usable advice about how to do this. How would you know a model had the right level of complexity? One way is to develop at least one model that is clearly too complex and then to provide some rigorous model selection on a suite of models of varying levels of complexity.
+
+To support decisions affecting malaria policy, model building must be *nimble.*  As malaria programs integrate sophisticated analytics into their decision-making, the conversation in a room can shift. Over time, programmatic priorities and needs can change. To keep up, the model builders *ought* to have the capability of building new models that could address the new concerns. While this might not be possible to do in real time, it should be possible to have a new model developed with preliminary results within a week or so.  
 
 With these goals in mind, we developed a mathematical framework that could make computation for dynamical systems **modular.** The mathematical basis for modularity was described in [Spatial Dynamics of Malaria Transmission](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010684){target="_blank"}. We have also developed a *vignette* that describes the [modular forms](modularity.html){target="_blank"} that we use to describe models implemented in `exDE`.
 
 ## Structural Elements
 
-Each model has several structural parameters that describe the basic features of a model: 
+Each model has several parameters that describe the structure of a model: 
+
++ `nVectors` -- the number of distinct *mosquito vector* species in a model
+
++ `nHosts` -- the number of distinct *vertebrate host* species in a model
+
++ `HPop` -- the population density for the population strata of each vertebrate host species. The length of `HPop` is used to set the value of `nStrata` 
 
 + `nPatches` -- the number of distinct *patches* in a model. 
 
-    - A model has *spatial dynamics* if `nPatches`$>1,$ making it necessary to 
++ `nHabitats` -- the number of distinct aquatic habitats in a model. Additional information is needed to configure the model for *egg laying* (see below):  
 
-+ Aqu
-+ `nHabitats` -- the number of distinct *patches* in a model. 
+    - a `membership` vector is required: the $i^{th}$ element of the membership matrix identifies the patch to which it belongs. 
+
+    - a `searchQ` vector is required: the $i^{th}$ element gives the habitat *search weight* to compute egg laying.
+
++ `MYZname` -- a string, corresponding to a model from the `exDE` library, that specifies the model family for adult mosquitoes
+
++ `Lname` -- a string, corresponding to a model from the `exDE` library, that specifies the model family for aquatic mosquito population dynamics that should be used  
+
++ `Xname` -- a string, corresponding to a model from the `exDE` library, that specifies the model family for human infection dynamics that should be used  
 
 
 ## Dynamical Components
 
-We identified three inseparable chunks of any model that would need to be internally coherent but that could be represented in several different ways. The chunks represented five distinct processes: 
+In developing the mathematical framework, we identified three inseparable chunks of any model that would need to be internally coherent but that could be represented in several different ways. The chunks represented five distinct processes: 
 
 + Models for human ecology and parasite / pathogen infection dynamics would appear in one dynamical component. The part that computes the dynamics of infection and immunity was called $\cal X$, and the part that describes human demography was called $\cal H.$  These two components can't be separated in any easy way, so we call this chunk $\cal XH$.
 
-    - The derivatives for a model of this type are computed by a `S3` function `dXdt` 
+    - The derivatives for a model of class $\cal X$ this type are computed by a `S3` function `dXdt(t, y, pars)` 
     
-    - The parameters for the  model are in an object called `Xpar` and the model dispatches on `class(Xpar)`
+    - The parameters for the  model are in an object called `Xpar` and `dXdt` dispatches on `class(Xpar)`
     
-    - Since there could be multiple host species, the $i^{th}$ species is in  `pars$Xpar[[i]].`
+    - Since there could be multiple host species, `Xpar` for the $i^{th}$ species is `pars$Xpar[[i]].`
     
-    - The function `dXdt` dispatches on `class(pars$Xpar[[i]])` 
+    - A demographic model, $\cal H$, can be configured as part of $\cal X$  
 
 + Models for adult mosquito ecology and parasite / pathogen infection dynamics would appear in a second dynamical component. The part that computes the dynamics of infection was called $\cal YZ$, and the part that computes mosquito population dynamics was called $\cal M$. These two components can't be separated in any easy way, so we call this chunk $\cal MYZ$.   
+    
+    - The derivatives for a model of this type are computed by a `S3` function `dMYZdt(t, y, pars)` or `dMdt(t, y, pars)`
+    
+    - The parameters for the  model are in an object called `MYZpar` and `dMYZdt` dispatches on `class(MYZpar)`
+    
+    - Since there could be multiple host species, `MYZpar` for the $i^{th}$ species is `pars$MYZpar[[i]].`
 
 + Models for aquatic mosquito ecology were called $\cal L$. 
+
+    - The derivatives for a model of this type are computed by a `S3` function `dLdt(t, y, pars)` or `dMdt(t, y, pars)`
+    
+    - The parameters for the  model are in an object called `Lpar` and `dLdt` dispatches on `class(Lpar)`
+    
+    - Since there could be multiple host species, `Lpar` for the $i^{th}$ species is `pars$Lpar[[i]].`
 
 ## Interfaces 
 
 In developing a modular framework, we recognized the need to develop a rigorous yet flexible *interface* that would allow different dynamical components to interact. 
-To connect these two dynamical components, we developed two well-defined interfaces: 
 
-+ A *model* for **blood feeding** and parasite / pathogen **transmission** by mosquitoes. This model *should* constrain mosquito blood feeding rates and the human fraction in sensible ways. 
+To connect these two dynamical components, we developed two well-defined interfaces: **blood feeding** and **egg laying.** 
 
-+ A description of the locations of aquatic habitats and a *model* for **egg laying** and **emergence.**
+### Blood Feeding 
+
+A *model* for **blood feeding** and parasite / pathogen **transmission** by mosquitoes. This model *should* constrain mosquito blood feeding rates and the human fraction in sensible ways. It is possible to set the values of mosquito bionomic parameters to static values that are not constrained. In [Spatial Dynamics of Malaria Transmission](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010684){target="_blank"}, we introduce a fully defined blood feeding module that constrains the blood feeding rate and the human fraction using the concept of *resource availability.* 
+
+If `nPatches`$>1$ or if `nStrata`$>1$, then it is necessary to supply some additional information to configure the mixing matrix, $\beta$, which is attached as `pars$beta[[i]][[s]]` for the $i^{th}$ host and $s^{th}$ vector species. 
+
++ A *time spent* matrix must be configured for each host species
+
++ A vector of *blood feeding search weights* must be provided for each stratum, and for each species. The $i^{th}$ element of the $s^{th}$ vector is used to compute its *availability* to hosts for blood feeding.
+    
++ A *circadian weighting function* is required for each vector species, which is used to transform the $i^{th}$ time spent matrix into a set of `nVectors` matrices describing *time at risk.* 
+    
++ A *demographic* matrix must be configured for each mosquito species that describes mosquito survival and dispersal in the patches.  
+
+### Egg Laying 
+
+A description of the locations of aquatic habitats and a *model* for **egg laying** and **emergence.** 
+
++ A *membership* vector must be provided: the $i^{th}$ element is the index of the patch where the habitat is found 
+
++ A *search* vector must be provided: the $i^{th}$ element is the index of the patch where the habitat is found 
+
+### Human Demography 
+
+`exDE` provides built-in support for human demography: 
+
++ births are handled through an object  
+
++ deaths, migration, and aging are handled through configuration of the `dHdt` object.
+
+## Exogenous Forcing
+
+The software was designed to handle exogenous forcing by weather and other variables. 
+
+## Setup & Solving 
+
+A set of functions has been developed for basic setup
 
 In a related vignette, a Ross-Maconald model is presented in its [modular form](modularity.html)
