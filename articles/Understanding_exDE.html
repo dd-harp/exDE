@@ -104,51 +104,64 @@
 
     
     
+<p>The purpose of this vignette is to explain how <code>exDE</code>
+implements a mathematical framework described in <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010684" target="_blank" class="external-link">Spatial Dynamics of Malaria Transmission</a>.</p>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>The goal of developing <code>exDE</code> was to lower the costs of
-building models (<em>e.g.</em> time spent developing, coding, verifying,
-debugging, &amp; <em>etc.</em>) that are realistic enough to support
-decisions affecting malaria policies. The operating assumption of the
-development process has been that robust decision support for malaria
-policies would put demands on model-building that differ from what is
-expected from a scientific publication. In some ways, it was the need
-for <em>realism</em> and the associated <em>computational
-complexity</em> that drove the development of several
-<em>individual-based models</em> (IBMs). While models developed as
-systems of differential equations can not replicate some advantages that
-come from being <em>individual-based,</em> we wanted software that could
-handle computational complexity just as well as IBMs. The advantage is
-that the resulting models would be much easier to analyze.</p>
+developing models (<em>e.g.</em> time spent formulating, coding,
+verifying, debugging, &amp; <em>etc.</em>) that are realistic enough to
+support decisions affecting malaria policies. The operating assumption
+for developing the framework and software has been that robust decision
+support for malaria policies would put demands on model-building that
+differ from what is expected from a scientific publication. For models
+to work in a policy setting, they must be <em>realistic</em> enough to
+be relevant to the policy discussions. In some ways, it was the need for
+realism and the associated <em>computational complexity</em> drove the
+development of several comprehensive <em>individual-based models</em>
+(IBMs), such as OpenMalaria, eMod, and MalariaTools. While models
+developed as systems of differential equations can not replicate some
+advantages that come from being <em>individual-based,</em> we wanted
+software that could handle computational complexity just as well as
+IBMs. An advantage of using systems of differential equations is that
+the resulting models would be much easier to analyze.</p>
 <p>We wanted a framework that could <em>scale complexity,</em> to start
 with a simple model, and then progressively modifying the models to add
 realism including:</p>
 <ul>
 <li><p>realistic human demography, including age structure, births &amp;
 deaths, and migration.</p></li>
+<li><p>multiple host and vector species or types</p></li>
 <li><p>spatial heterogeneity and spatial dynamics, including human
 mobility and mosquito dispersal</p></li>
-<li><p>exogenous forcing by weather and other factors</p></li>
-<li><p>multiple host and vector species or types</p></li>
+<li><p>realistic mosquito ecology with exogenous forcing by weather and
+other factors</p></li>
 </ul>
+<p>At the same time, we wanted to have the flexibility to isolate and
+analyze various components of the model. Since the framework is modular,
+it should be possible to pass the inputs to one (or more) of the
+dynamical components from a <em>trace</em> function, rather than from a
+fully coupled model. These trivial models also provide a way of
+rigorously pressure testing the software.</p>
 <p>If we think of a model as defining a <em>skill set,</em> or output
 variables that naturally represent a subset of all possible features,
-then the framework should make it easy to build models that have the
-right subset of features. The models should be – as Einstein suggested –
-as simple as possible, but no simpler. While most people would agree
-with Einstein in principle, he provided no usable advice about how to do
-this. How would you know a model had the right level of complexity
-unless, at some point, a model had been developed that was clearly too
-complex?</p>
-<p>To support decisions, model building must be <em>nimble.</em> As
-malaria programs integrate sophisticated analytics into their
-decision-making, the conversation in a room can shift. Over time,
-programmatic priorities and needs can change. To keep up, the model
-builders <em>ought</em> to have the capability of building new models
-that could address the new concerns. While this might not be possible to
-do in real time, it should be possible to have a new model developed
-with preliminary results within a week or so.</p>
+then a framework should make it easy to build models that have the right
+subset of features. The models should be – as Einstein suggested –
+<em>as simple as possible, but no simpler.</em> While most people would
+agree with Einstein in principle, he provided no usable advice about how
+to do this. How would you know a model had the right level of
+complexity? One way is to develop at least one model that is clearly too
+complex and then to provide some rigorous model selection on a suite of
+models of varying levels of complexity.</p>
+<p>To support decisions affecting malaria policy, model building must be
+<em>nimble.</em> As malaria programs integrate sophisticated analytics
+into their decision-making, the conversation in a room can shift. Over
+time, programmatic priorities and needs can change. To keep up, the
+model builders <em>ought</em> to have the capability of building new
+models that could address the new concerns. While this might not be
+possible to do in real time, it should be possible to have a new model
+developed with preliminary results within a week or so.</p>
 <p>With these goals in mind, we developed a mathematical framework that
 could make computation for dynamical systems <strong>modular.</strong>
 The mathematical basis for modularity was described in <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010684" target="_blank" class="external-link">Spatial Dynamics of Malaria Transmission</a>. We have
@@ -158,27 +171,47 @@ describe models implemented in <code>exDE</code>.</p>
 <div class="section level2">
 <h2 id="structural-elements">Structural Elements<a class="anchor" aria-label="anchor" href="#structural-elements"></a>
 </h2>
-<p>Each model has several structural parameters that describe the basic
-features of a model:</p>
+<p>Each model has several parameters that describe the structure of a
+model:</p>
 <ul>
+<li><p><code>nVectors</code> – the number of distinct <em>mosquito
+vector</em> species in a model</p></li>
+<li><p><code>nHosts</code> – the number of distinct <em>vertebrate
+host</em> species in a model</p></li>
+<li><p><code>HPop</code> – the population density for the population
+strata of each vertebrate host species. The length of <code>HPop</code>
+is used to set the value of <code>nStrata</code></p></li>
+<li><p><code>nPatches</code> – the number of distinct <em>patches</em>
+in a model.</p></li>
 <li>
-<p><code>nPatches</code> – the number of distinct <em>patches</em>
-in a model.</p>
+<p><code>nHabitats</code> – the number of distinct aquatic habitats
+in a model. Additional information is needed to configure the model for
+<em>egg laying</em> (see below):</p>
 <ul>
-<li>A model has <em>spatial dynamics</em> if <code>nPatches</code><span class="math inline">\(&gt;1,\)</span> making it necessary to</li>
+<li><p>a <code>membership</code> vector is required: the <span class="math inline">\(i^{th}\)</span> element of the membership matrix
+identifies the patch to which it belongs.</p></li>
+<li><p>a <code>searchQ</code> vector is required: the <span class="math inline">\(i^{th}\)</span> element gives the habitat
+<em>search weight</em> to compute egg laying.</p></li>
 </ul>
 </li>
-<li><p>Aqu</p></li>
-<li><p><code>nHabitats</code> – the number of distinct <em>patches</em>
-in a model.</p></li>
+<li><p><code>MYZname</code> – a string, corresponding to a model from
+the <code>exDE</code> library, that specifies the model family for adult
+mosquitoes</p></li>
+<li><p><code>Lname</code> – a string, corresponding to a model from the
+<code>exDE</code> library, that specifies the model family for aquatic
+mosquito population dynamics that should be used</p></li>
+<li><p><code>Xname</code> – a string, corresponding to a model from the
+<code>exDE</code> library, that specifies the model family for human
+infection dynamics that should be used</p></li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="dynamical-components">Dynamical Components<a class="anchor" aria-label="anchor" href="#dynamical-components"></a>
 </h2>
-<p>We identified three inseparable chunks of any model that would need
-to be internally coherent but that could be represented in several
-different ways. The chunks represented five distinct processes:</p>
+<p>In developing the mathematical framework, we identified three
+inseparable chunks of any model that would need to be internally
+coherent but that could be represented in several different ways. The
+chunks represented five distinct processes:</p>
 <ul>
 <li>
 <p>Models for human ecology and parasite / pathogen infection
@@ -188,25 +221,52 @@ demography was called <span class="math inline">\(\cal H.\)</span> These
 two components can’t be separated in any easy way, so we call this chunk
 <span class="math inline">\(\cal XH\)</span>.</p>
 <ul>
-<li><p>The derivatives for a model of this type are computed by a
-<code>S3</code> function <code>dXdt</code></p></li>
+<li><p>The derivatives for a model of class <span class="math inline">\(\cal X\)</span> this type are computed by a
+<code>S3</code> function <code>dXdt(t, y, pars)</code></p></li>
 <li><p>The parameters for the model are in an object called
-<code>Xpar</code> and the model dispatches on
+<code>Xpar</code> and <code>dXdt</code> dispatches on
 <code>class(Xpar)</code></p></li>
-<li><p>Since there could be multiple host species, the <span class="math inline">\(i^{th}\)</span> species is in
+<li><p>Since there could be multiple host species, <code>Xpar</code> for
+the <span class="math inline">\(i^{th}\)</span> species is
 <code>pars$Xpar[[i]].</code></p></li>
-<li><p>The function <code>dXdt</code> dispatches on
-<code>class(pars$Xpar[[i]])</code></p></li>
+<li><p>A demographic model, <span class="math inline">\(\cal H\)</span>,
+can be configured as part of <span class="math inline">\(\cal
+X\)</span></p></li>
 </ul>
 </li>
-<li><p>Models for adult mosquito ecology and parasite / pathogen
+<li>
+<p>Models for adult mosquito ecology and parasite / pathogen
 infection dynamics would appear in a second dynamical component. The
 part that computes the dynamics of infection was called <span class="math inline">\(\cal YZ\)</span>, and the part that computes
 mosquito population dynamics was called <span class="math inline">\(\cal
 M\)</span>. These two components can’t be separated in any easy way, so
-we call this chunk <span class="math inline">\(\cal
-MYZ\)</span>.</p></li>
-<li><p>Models for aquatic mosquito ecology were called <span class="math inline">\(\cal L\)</span>.</p></li>
+we call this chunk <span class="math inline">\(\cal MYZ\)</span>.</p>
+<ul>
+<li><p>The derivatives for a model of this type are computed by a
+<code>S3</code> function <code>dMYZdt(t, y, pars)</code> or
+<code>dMdt(t, y, pars)</code></p></li>
+<li><p>The parameters for the model are in an object called
+<code>MYZpar</code> and <code>dMYZdt</code> dispatches on
+<code>class(MYZpar)</code></p></li>
+<li><p>Since there could be multiple host species, <code>MYZpar</code>
+for the <span class="math inline">\(i^{th}\)</span> species is
+<code>pars$MYZpar[[i]].</code></p></li>
+</ul>
+</li>
+<li>
+<p>Models for aquatic mosquito ecology were called <span class="math inline">\(\cal L\)</span>.</p>
+<ul>
+<li><p>The derivatives for a model of this type are computed by a
+<code>S3</code> function <code>dLdt(t, y, pars)</code> or
+<code>dMdt(t, y, pars)</code></p></li>
+<li><p>The parameters for the model are in an object called
+<code>Lpar</code> and <code>dLdt</code> dispatches on
+<code>class(Lpar)</code></p></li>
+<li><p>Since there could be multiple host species, <code>Lpar</code> for
+the <span class="math inline">\(i^{th}\)</span> species is
+<code>pars$Lpar[[i]].</code></p></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="section level2">
@@ -214,17 +274,75 @@ MYZ\)</span>.</p></li>
 </h2>
 <p>In developing a modular framework, we recognized the need to develop
 a rigorous yet flexible <em>interface</em> that would allow different
-dynamical components to interact. To connect these two dynamical
-components, we developed two well-defined interfaces:</p>
-<ul>
-<li><p>A <em>model</em> for <strong>blood feeding</strong> and parasite
-/ pathogen <strong>transmission</strong> by mosquitoes. This model
+dynamical components to interact.</p>
+<p>To connect these two dynamical components, we developed two
+well-defined interfaces: <strong>blood feeding</strong> and <strong>egg
+laying.</strong></p>
+<div class="section level3">
+<h3 id="blood-feeding">Blood Feeding<a class="anchor" aria-label="anchor" href="#blood-feeding"></a>
+</h3>
+<p>A <em>model</em> for <strong>blood feeding</strong> and parasite /
+pathogen <strong>transmission</strong> by mosquitoes. This model
 <em>should</em> constrain mosquito blood feeding rates and the human
-fraction in sensible ways.</p></li>
-<li><p>A description of the locations of aquatic habitats and a
-<em>model</em> for <strong>egg laying</strong> and
-<strong>emergence.</strong></p></li>
+fraction in sensible ways. It is possible to set the values of mosquito
+bionomic parameters to static values that are not constrained. In <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010684" target="_blank" class="external-link">Spatial Dynamics of Malaria Transmission</a>, we
+introduce a fully defined blood feeding module that constrains the blood
+feeding rate and the human fraction using the concept of <em>resource
+availability.</em></p>
+<p>If <code>nPatches</code><span class="math inline">\(&gt;1\)</span> or
+if <code>nStrata</code><span class="math inline">\(&gt;1\)</span>, then
+it is necessary to supply some additional information to configure the
+mixing matrix, <span class="math inline">\(\beta\)</span>, which is
+attached as <code>pars$beta[[i]][[s]]</code> for the <span class="math inline">\(i^{th}\)</span> host and <span class="math inline">\(s^{th}\)</span> vector species.</p>
+<ul>
+<li><p>A <em>time spent</em> matrix must be configured for each host
+species</p></li>
+<li><p>A vector of <em>blood feeding search weights</em> must be
+provided for each stratum, and for each species. The <span class="math inline">\(i^{th}\)</span> element of the <span class="math inline">\(s^{th}\)</span> vector is used to compute its
+<em>availability</em> to hosts for blood feeding.</p></li>
+<li><p>A <em>circadian weighting function</em> is required for each
+vector species, which is used to transform the <span class="math inline">\(i^{th}\)</span> time spent matrix into a set of
+<code>nVectors</code> matrices describing <em>time at
+risk.</em></p></li>
+<li><p>A <em>demographic</em> matrix must be configured for each
+mosquito species that describes mosquito survival and dispersal in the
+patches.</p></li>
 </ul>
+</div>
+<div class="section level3">
+<h3 id="egg-laying">Egg Laying<a class="anchor" aria-label="anchor" href="#egg-laying"></a>
+</h3>
+<p>A description of the locations of aquatic habitats and a
+<em>model</em> for <strong>egg laying</strong> and
+<strong>emergence.</strong></p>
+<ul>
+<li><p>A <em>membership</em> vector must be provided: the <span class="math inline">\(i^{th}\)</span> element is the index of the patch
+where the habitat is found</p></li>
+<li><p>A <em>search</em> vector must be provided: the <span class="math inline">\(i^{th}\)</span> element is the index of the patch
+where the habitat is found</p></li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="human-demography">Human Demography<a class="anchor" aria-label="anchor" href="#human-demography"></a>
+</h3>
+<p><code>exDE</code> provides built-in support for human demography:</p>
+<ul>
+<li><p>births are handled through an object</p></li>
+<li><p>deaths, migration, and aging are handled through configuration of
+the <code>dHdt</code> object.</p></li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="exogenous-forcing">Exogenous Forcing<a class="anchor" aria-label="anchor" href="#exogenous-forcing"></a>
+</h2>
+<p>The software was designed to handle exogenous forcing by weather and
+other variables.</p>
+</div>
+<div class="section level2">
+<h2 id="setup-solving">Setup &amp; Solving<a class="anchor" aria-label="anchor" href="#setup-solving"></a>
+</h2>
+<p>A set of functions has been developed for basic setup</p>
 <p>In a related vignette, a Ross-Maconald model is presented in its <a href="modularity.html">modular form</a></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

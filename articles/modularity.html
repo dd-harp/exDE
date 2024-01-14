@@ -108,22 +108,25 @@
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p><strong>Modular forms</strong> for disease dynamics are stylized ways
-of writing the dynamical systems that emphasize the modularity. A
-mathematical basis and modular framework for building models describing
-the dynamics and control of malaria and other mosquito-borne pathogens
-was described in <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010684" target="_blank" class="external-link">Spatial Dynamics of Malaria Transmission</a>, and the
+of writing the dynamical systems that emphasize their modular structure.
+A mathematical framework for building models of malaria dynamics and
+control (and other mosquito-borne pathogens) was described in <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010684" target="_blank" class="external-link">Spatial Dynamics of Malaria Transmission</a>, and the
 framework was implemented in <code>exDE.</code> The forms we describe
-here are a natural way of rewriting models that closely resembles their
-implementation in <code>exDE</code>, which makes it possible to relate
-written equations and computed code. (Also, see the closely related
-vignette <a href="Understanding_exDE.html" target="_blank">Understanding
+here rewrite models so that they closely resemble their implementation
+in <code>exDE</code>, which makes it possible to relate written
+equations and computed code. (Also, see the closely related vignette <a href="Understanding_exDE.html" target="_blank">Understanding
 exDE</a>.)</p>
 </div>
 <div class="section level2">
 <h2 id="the-modular-form">The Modular Form<a class="anchor" aria-label="anchor" href="#the-modular-form"></a>
 </h2>
-<p>To illustrate how this process works, we start by writing a
-Ross-Macdonald model in its modular form (Figure 1).</p>
+<p>We illustrate by writing a Ross-Macdonald model in its modular form
+(Figure 1). In its classical form, this is the model:</p>
+<p><span class="math display">\[ \begin{array}{rl}
+dX/dt &amp;= b e^{-gn}fq \frac YH (H-X) - r X \\
+dY/dt &amp;= a c \frac XH (M-Y) - g Y
+\end{array}\]</span></p>
+<p>The model is explained below.</p>
 <hr>
 <div class="figure">
 <img src="RossMacdonald3b.png" alt=""><p class="caption"><strong>Figure 1</strong> - Diagram of a
@@ -131,7 +134,7 @@ Ross-Macdonald model as it is written in its modular form.</p>
 </div>
 <hr>
 <div class="section level3">
-<h3 id="parasite-infection-dynamics-in-humans">Parasite Infection Dynamics in Humans<a class="anchor" aria-label="anchor" href="#parasite-infection-dynamics-in-humans"></a>
+<h3 id="parasite-infection-dynamics-in-humans-cal-x">Parasite Infection Dynamics in Humans, <span class="math inline">\(\cal X\)</span><a class="anchor" aria-label="anchor" href="#parasite-infection-dynamics-in-humans-cal-x"></a>
 </h3>
 <p>The equation describing human infections is written in the following
 way:</p>
@@ -145,13 +148,14 @@ and infectious humans;</p></li>
 <li><p><span class="math inline">\(H\)</span> is the density of
 humans;</p></li>
 <li><p><span class="math inline">\(h\)</span> is the force of infection
-(FoI), the number of infections, per perspon, per day;</p></li>
+(FoI), the number of infections, per perspon, per day; it is related to
+the daily entomological inoculation rate (dEIR).</p></li>
 <li><p><span class="math inline">\(r\)</span> is the clearance rate, the
 number of infections that clear, per infected person, per day.</p></li>
 </ul>
 </div>
 <div class="section level3">
-<h3 id="parasite-infection-dynamics-in-mosquitoes">Parasite Infection Dynamics in Mosquitoes<a class="anchor" aria-label="anchor" href="#parasite-infection-dynamics-in-mosquitoes"></a>
+<h3 id="parasite-infection-dynamics-in-mosquitoes-cal-yz">Parasite Infection Dynamics in Mosquitoes, <span class="math inline">\(\cal YZ\)</span><a class="anchor" aria-label="anchor" href="#parasite-infection-dynamics-in-mosquitoes-cal-yz"></a>
 </h3>
 <p>Similarly, the equation describing infected mosquitoes is the
 following:</p>
@@ -164,12 +168,15 @@ dY/dt = a\kappa (M-Y) - g Y
 mosquitoes;</p></li>
 <li><p><span class="math inline">\(M\)</span> is the density of
 mosquitoes;</p></li>
-<li><p><span class="math inline">\(a\)</span> is the mosquito human
+<li><p><span class="math inline">\(f\)</span> is the overall mosquito
 blood feeding rate, the number of human blood meals, per mosquito, per
 day;</p></li>
+<li><p><span class="math inline">\(q\)</span> is the human fraction;
+human blood feeding as a fraction of all blood feeding;</p></li>
 <li><p><span class="math inline">\(\kappa\)</span> is the net
 infectiousness (NI) of humans, the probability a mosquito would become
-infected after blood feeding on a human;</p></li>
+infected after blood feeding on a human; it is related to the density of
+infected humans.</p></li>
 <li><p><span class="math inline">\(g\)</span> is the mosquito death
 rate, the number of mosquitoes dying, per mosquito, per day;</p></li>
 </ul>
@@ -178,51 +185,46 @@ rate, the number of mosquitoes dying, per mosquito, per day;</p></li>
 <h3 id="blood-feeding">Blood Feeding<a class="anchor" aria-label="anchor" href="#blood-feeding"></a>
 </h3>
 <p>There are two <strong>terms,</strong> the FoI (<span class="math inline">\(h\)</span>) and the NI (<span class="math inline">\(\kappa\)</span>), in the equations above that rely
-on information that comes from the other equation. In the generic form,
-the computation of these terms defines the blood feeding model, which is
-the interface between <span class="math inline">\(\cal YZ\)</span> and
-<span class="math inline">\(\cal X.\)</span></p>
+on information that comes from the other equation. To compute them, we
+need a construct to deal with the concept of <em>mixing,</em> which we
+will denote <span class="math inline">\(\beta\)</span>. In the generic
+form, the computation of these terms defines the blood feeding model,
+which is the interface between <span class="math inline">\(\cal
+YZ\)</span> and <span class="math inline">\(\cal X.\)</span></p>
 <div class="section level4">
-<h4 id="foi">FoI<a class="anchor" aria-label="anchor" href="#foi"></a>
+<h4 id="force-of-infection-foi">Force of Infection (FoI)<a class="anchor" aria-label="anchor" href="#force-of-infection-foi"></a>
 </h4>
 <p>The FoI <span class="math inline">\(h\)</span> must be related to the
 density of infected mosquitoes. We compute this in several steps. First,
 in this Ross-Macdonald model, the density of blood feeding mosquitoes is
 given by a formula: <span class="math display">\[Z = F_Z(Y) = e^{-gn}
-Y\]</span> Next, we need to compute the EIR, which is <span class="math display">\[a \frac ZH\]</span> and finally, we must compute
-the FoI, which could draws information from many different sources,
-:</p>
-<p><span class="math display">\[ h = F_h(E, ...) = b E\]</span></p>
-<p>where:</p>
-<ul>
-<li><p><span class="math inline">\(b\)</span> is the fraction of
-infective bites that cause an infection;</p></li>
-<li><p><span class="math inline">\(n\)</span> is the extrinsic
-incubation period (EIP)</p></li>
-</ul>
+Y\]</span> where <span class="math inline">\(n\)</span> is the extrinsic
+incubation period (EIP)</p>
+<p>Next, we need to compute the EIR, which is computed by distributing
+the infective bites among the humans. In this model, mixing is uniform
+so <span class="math inline">\(\beta = 1/H\)</span>, and we write:</p>
+<p><span class="math display">\[ E = \beta \cdot fqZ = \frac
+{fqZ}H\]</span> and finally, we must compute the FoI, which could draws
+information from many different sources,</p>
+<p><span class="math display">\[ h = F_h(E, ...) = b E.\]</span></p>
+<p>where <span class="math inline">\(b\)</span> is the fraction of
+infective bites that cause an infection;</p>
 </div>
 <div class="section level4">
-<h4 id="ni">NI<a class="anchor" aria-label="anchor" href="#ni"></a>
+<h4 id="net-infectiousness-ni">Net Infectiousness (NI)<a class="anchor" aria-label="anchor" href="#net-infectiousness-ni"></a>
 </h4>
 <p>The NI <span class="math inline">\(\kappa\)</span> must be related to
-the density of infected humans. In the Ross-Macdonald model:</p>
-<p><span class="math display">\[X = F_X(I) = cI\]</span></p>
-<p><span class="math display">\[\kappa =  F_\kappa(X, ...) = \frac
-XH\]</span> where + <span class="math inline">\(c\)</span> is the
-probability a mosquito would become infected after blood feeding on an
-infected human.</p>
+the density of infected humans. In the Ross-Macdonald model, the
+effective density of infected humans is:</p>
+<p><span class="math display">\[X = F_X(I) = cI\]</span> where <span class="math inline">\(c\)</span> is the probability a mosquito would
+become infected after blood feeding on an infected human.</p>
+<p>The net infectiousness is computed as the infective density averaged
+over biting among the humans. For reasons that will become clear later,
+we call this <span class="math inline">\(\beta^T = 1/H\)</span>:</p>
+<p><span class="math display">\[\kappa =  \beta^T \cdot X = \frac
+XH\]</span></p>
 </div>
 </div>
-</div>
-<div class="section level2">
-<h2 id="classical-form">Classical Form<a class="anchor" aria-label="anchor" href="#classical-form"></a>
-</h2>
-<p>If we had wanted to write this all down in the ordinary way, the
-model would look like this:</p>
-<p><span class="math display">\[ \begin{array}{rl}
-dX/dt &amp;= b e^{-gn}\frac YH (H-X) - r X \\
-dY/dt &amp;= a c \frac XH (M-Y) - g Y
-\end{array}\]</span></p>
 </div>
 <div class="section level2">
 <h2 id="computation">Computation<a class="anchor" aria-label="anchor" href="#computation"></a>
@@ -234,8 +236,8 @@ derivative function would have a constrained form:</p>
 <code class="sourceCode R"><span><span class="va">RMv1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">pars</span>,<span class="op">{</span></span>
 <span>      <span class="va">foi</span> <span class="op">=</span> <span class="va">b</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">g</span><span class="op">*</span><span class="va">n</span><span class="op">)</span><span class="op">*</span><span class="va">Y</span><span class="op">/</span><span class="va">H</span></span>
-<span>      <span class="va">kappa</span> <span class="op">=</span> <span class="va">c</span><span class="op">*</span><span class="va">X</span><span class="op">/</span><span class="va">H</span></span>
-<span>      <span class="va">dX</span> <span class="op">=</span> <span class="va">foi</span><span class="op">*</span><span class="op">(</span><span class="va">H</span><span class="op">-</span><span class="va">X</span><span class="op">)</span> <span class="op">-</span> <span class="va">r</span><span class="op">*</span><span class="va">X</span></span>
+<span>      <span class="va">kappa</span> <span class="op">=</span> <span class="va">c</span><span class="op">*</span><span class="va">I</span><span class="op">/</span><span class="va">H</span></span>
+<span>      <span class="va">dX</span> <span class="op">=</span> <span class="va">foi</span><span class="op">*</span><span class="op">(</span><span class="va">H</span><span class="op">-</span><span class="va">I</span><span class="op">)</span> <span class="op">-</span> <span class="va">r</span><span class="op">*</span><span class="va">I</span></span>
 <span>      <span class="va">dY</span> <span class="op">=</span> <span class="va">a</span><span class="op">*</span><span class="va">kappa</span><span class="op">*</span><span class="op">(</span><span class="va">M</span><span class="op">-</span><span class="va">Y</span><span class="op">)</span> <span class="op">-</span> <span class="va">g</span><span class="op">*</span><span class="va">Y</span> </span>
 <span>      <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">dX</span>, <span class="va">dY</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
@@ -244,16 +246,21 @@ derivative function would have a constrained form:</p>
 and the derivatives separately.</p>
 <ul>
 <li>
-<p><code>Transmission(t,y,pars)</code> computes three terms,
-attached to the main model object <code>pars</code>:</p>
+<p><code>Transmission(t,y,pars)</code> computes three terms required
+to compute parasite transmission during blood feeding. These are stored
+in the main model object <code>pars</code>:</p>
 <ul>
-<li><p>pars$beta</p></li>
-<li><p>pars$EIR</p></li>
-<li><p>pars$NI</p></li>
+<li><p><code>pars$beta</code></p></li>
+<li><p><code>pars$EIR</code></p></li>
+<li><p><code>pars$NI</code></p></li>
 </ul>
 </li>
+<li><p><code>Exposure(t, y, pars)</code> computes the FoI from the EIR
+under a model of exposure and stores it as
+<code>pars$FoI</code></p></li>
 </ul>
-<p>The density of infected humans in this model is <span class="math inline">\(X\)</span>, but</p>
+<p>So instead of developing models like <code>RMv1</code>, we have
+implemented the code in the syle of <code>RMv2</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">RMv2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">y</span>, <span class="va">pars</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">pars</span>,<span class="op">{</span></span>
@@ -264,6 +271,21 @@ attached to the main model object <code>pars</code>:</p>
 <span>      <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">dX</span>, <span class="va">dY</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="full-modularity">Full Modularity<a class="anchor" aria-label="anchor" href="#full-modularity"></a>
+</h2>
+<p>The full structure of computation in <code>exDE</code> is diagrammed
+in <em>Figure 2</em> and easily examined in the corresponding code. One
+advantage of the modular notation is that it is possible to set up and
+describe reasonably complex models with fairly simple scripts. The
+vignette <a href="ex_534.html">5-3-4 Example</a> shows how this
+works.</p>
+<hr>
+<div class="figure">
+<img src="RossMacdonald4.png" alt=""><p class="caption">Figure 2</p>
+</div>
+<hr>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
