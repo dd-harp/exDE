@@ -74,9 +74,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="derivatives-functions">Derivatives functions<a class="anchor" aria-label="anchor" href="#derivatives-functions"></a></h2>
+      <h2 id="blood-feeding-and-transmission">Blood Feeding and Transmission<a class="anchor" aria-label="anchor" href="#blood-feeding-and-transmission"></a></h2>
       
-      
+      <p class="section-desc"></p><p>Methods to compute the transmission terms</p>
 
       
     </div><div id="" class="section level2">
@@ -86,33 +86,28 @@
 
       <dl><dt>
           
-          <code><a href="xDE_diffeqn.html">xDE_diffeqn()</a></code> 
+          <code><a href="Transmission.html">Transmission()</a></code> 
         </dt>
-        <dd>Generalized spatial differential equation model</dd>
+        <dd>Compute transmission terms dynamically</dd>
       </dl><dl><dt>
           
-          <code><a href="xDE_diffeqn_aquatic.html">xDE_diffeqn_aquatic()</a></code> 
+          <code><a href="Exposure.html">Exposure()</a></code> 
         </dt>
-        <dd>Differential equation models for aquatic mosquito populations</dd>
+        <dd>A model for exposure. The function <code>F_b</code> must be define</dd>
       </dl><dl><dt>
           
-          <code><a href="xDE_diffeqn_mosy.html">xDE_diffeqn_mosy()</a></code> 
+          <code><a href="LocalFrac.html">LocalFrac()</a></code> 
         </dt>
-        <dd>Generalized spatial differential equation model (mosquito only)</dd>
+        <dd>Compute the local fraction</dd>
       </dl><dl><dt>
           
-          <code><a href="xDE_diffeqn_human.html">xDE_diffeqn_human()</a></code> 
+          <code><a href="AvailableBlood.html">AvailableBlood()</a></code> 
         </dt>
-        <dd>Differential equations isolating the humans, forced with Ztrace</dd>
-      </dl><dl><dt>
-          
-          <code><a href="xDE_diffeqn_cohort.html">xDE_diffeqn_cohort()</a></code> 
-        </dt>
-        <dd>Differential equation models for human cohorts</dd>
+        <dd>Update the availability of blood hosts</dd>
       </dl></div><div class="section level2">
-      <h2 id="transmission">Transmission<a class="anchor" aria-label="anchor" href="#transmission"></a></h2>
       
-      <p class="section-desc"></p><p>Generic methods for transmission.</p>
+      <h3 id="transmision">Transmision<a class="anchor" aria-label="anchor" href="#transmision"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods to compute the transmission terms</p>
 
       
     </div><div id="" class="section level2">
@@ -121,10 +116,30 @@
       
 
       <dl><dt>
+          
+          <code><a href="Transmission.static.html">Transmission(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute transmission terms dynamically, no update required</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Transmission.dynamic.html">Transmission(<i>&lt;dynamic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute transmission terms, the dynamic case</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Transmission.setup.html">Transmission(<i>&lt;setup&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute transmission terms, the dynamic case</dd>
+      </dl><dl><dt>
           
           <code><a href="F_beta.html">F_beta()</a></code> 
         </dt>
-        <dd>Compute the biting distribution matrix, beta</dd>
+        <dd>Compute beta, the biting distribution matrix</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_beta.html">compute_beta()</a></code> 
+        </dt>
+        <dd>Compute beta</dd>
       </dl><dl><dt>
           
           <code><a href="F_EIR.html">F_EIR()</a></code> 
@@ -132,24 +147,292 @@
         <dd>Entomological inoculation rate on human strata</dd>
       </dl><dl><dt>
           
+          <code><a href="compute_EIR.html">compute_EIR()</a></code> 
+        </dt>
+        <dd>Compute EIR</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_EIR_full.html">compute_EIR_full()</a></code> 
+        </dt>
+        <dd>Compute EIR for each vector-host pair</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_kappa.html">F_kappa()</a></code> 
         </dt>
         <dd>Net infectiousness of human population to mosquitoes</dd>
       </dl><dl><dt>
           
-          <code><a href="compute_beta.html">compute_beta()</a></code> 
+          <code><a href="compute_kappa.html">compute_kappa()</a></code> 
         </dt>
-        <dd>Compute beta, the biting distribution matrix</dd>
+        <dd>Compute kappa</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="blood-feeding">Blood Feeding<a class="anchor" aria-label="anchor" href="#blood-feeding"></a></h3>
+      <p class="section-desc"></p><p>Method to set up the blood feeding model</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="setup_BFpar_static.html">setup_BFpar_static()</a></code> 
+        </dt>
+        <dd>Set up the blood feeding model</dd>
       </dl><dl><dt>
           
-          <code><a href="Transmission.html">Transmission()</a></code> 
+          <code><a href="setup_BloodFeeding.html">setup_BloodFeeding()</a></code> 
         </dt>
-        <dd>Compute the biting distribution matrix, beta</dd>
+        <dd>Set up blood feeding</dd>
       </dl><dl><dt>
           
-          <code><a href="Exposure.html">Exposure()</a></code> 
+          <code><a href="make_TaR.html">make_TaR()</a></code> 
         </dt>
-        <dd>A model for exposure. The function <code>F_b</code> must be define</dd>
+        <dd>Make TaR</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="time-spent-and-time-at-risk">Time Spent and Time at Risk<a class="anchor" aria-label="anchor" href="#time-spent-and-time-at-risk"></a></h3>
+      <p class="section-desc"></p><p>Method to set up time spent and time at risk (TaR) matrices</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="make_TimeSpent.html">make_TimeSpent()</a></code> 
+        </dt>
+        <dd>Make a time spent matrix, called TimeSpent</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_TimeSpent.athome.html">make_TimeSpent(<i>&lt;athome&gt;</i>)</a></code> 
+        </dt>
+        <dd>Make a mosquito dispersal matrix, called TimeSpent with a here / away</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_TimeSpent_athome.html">make_TimeSpent_athome()</a></code> 
+        </dt>
+        <dd>Make a mosquito dispersal matrix, called TimeSpent</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_TimeSpent.as_matrix.html">make_TimeSpent(<i>&lt;as_matrix&gt;</i>)</a></code> 
+        </dt>
+        <dd>Pass a pre-configured TimeSpent</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_TimeSpent.xy.html">make_TimeSpent(<i>&lt;xy&gt;</i>)</a></code> 
+        </dt>
+        <dd>Develop a mosquito dispersal matrix from a kernel and xy-coordinates</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_TimeSpent_xy.html">make_TimeSpent_xy()</a></code> 
+        </dt>
+        <dd>Make a mosquito dispersal matrix, called TimeSpent</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="availability-of-humans-hosts">Availability of humans / hosts<a class="anchor" aria-label="anchor" href="#availability-of-humans-hosts"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods to compute available humans / hosts</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="AvailableBlood.static.html">AvailableBlood(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute availability of local humans for blood feeding</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AvailableBlood.setup.html">AvailableBlood(<i>&lt;setup&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute availability of local humans for blood feeding</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AvailableBlood.forced.html">AvailableBlood(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute availability of local humans for blood feeding</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_AvailableHosts.html">compute_AvailableHosts()</a></code> 
+        </dt>
+        <dd>Compute availability blood hosts of the i^th species</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="exposure">Exposure<a class="anchor" aria-label="anchor" href="#exposure"></a></h3>
+      <p class="section-desc"></p><p>Methods to model the force of infection</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="F_foi.html">F_foi()</a></code> 
+        </dt>
+        <dd>A model for exposure</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="poisson-exposure">Poisson Exposure<a class="anchor" aria-label="anchor" href="#poisson-exposure"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods the Poisson exposure model</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="F_foi.pois.html">F_foi(<i>&lt;pois&gt;</i>)</a></code> 
+        </dt>
+        <dd>Null human population births</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_exposure_pois.html">setup_exposure_pois()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model of exposure</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="negative-binomial-exposure">Negative Binomial Exposure<a class="anchor" aria-label="anchor" href="#negative-binomial-exposure"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods the Negative Binomial exposure model</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="F_foi.nb.html">F_foi(<i>&lt;nb&gt;</i>)</a></code> 
+        </dt>
+        <dd>Null human population births</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_exposure_nb.html">setup_exposure_nb()</a></code> 
+        </dt>
+        <dd>Make parameters for the null model of exposure</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="local-fraction">Local Fraction<a class="anchor" aria-label="anchor" href="#local-fraction"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for NULL dynamics: a funtion generates values of Z to force human infection dynamics</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="LocalFrac.static.html">LocalFrac(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute transmission terms dynamically, no update required</dd>
+      </dl><dl><dt>
+          
+          <code><a href="LocalFrac.dynamic.html">LocalFrac(<i>&lt;dynamic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute transmission terms dynamically, no update required</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_local_frac.html">compute_local_frac()</a></code> 
+        </dt>
+        <dd>Compute the local fraction</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_local_fraction_simple.html">setup_local_fraction_simple()</a></code> 
+        </dt>
+        <dd>Set up the local_fraction for static models</dd>
+      </dl></div><div class="section level2">
+      <h2 id="egg-laying-emergence">Egg Laying &amp; Emergence<a class="anchor" aria-label="anchor" href="#egg-laying-emergence"></a></h2>
+      
+      <p class="section-desc"></p><p>Generic methods for the aquatic (immature) mosquito component.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="Emergence.html">Emergence()</a></code> 
+        </dt>
+        <dd>Compute emerging adults</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_calN.html">make_calN()</a></code> 
+        </dt>
+        <dd>Make the habitat membership matrix, calN</dd>
+      </dl><dl><dt>
+          
+          <code><a href="EggLaying.html">EggLaying()</a></code> 
+        </dt>
+        <dd>Compute eggs laid</dd>
+      </dl><dl><dt>
+          
+          <code><a href="EggLaying.static.html">EggLaying(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute eggs laid</dd>
+      </dl><dl><dt>
+          
+          <code><a href="EggLaying.dynamic.html">EggLaying(<i>&lt;dynamic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute eggs laid</dd>
+      </dl><dl><dt>
+          
+          <code><a href="EggLaying.simple.html">EggLaying(<i>&lt;simple&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute eggs laid</dd>
+      </dl><dl><dt>
+          
+          <code><a href="EggLaying.setup.html">EggLaying(<i>&lt;setup&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute eggs laid</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_calU.html">compute_calU()</a></code> 
+        </dt>
+        <dd>Compute calU</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_EggsLaid.html">compute_EggsLaid()</a></code> 
+        </dt>
+        <dd>Compute eggs laid</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_calU.html">make_calU()</a></code> 
+        </dt>
+        <dd>Make the egg distribution matrix, calU</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_calU_s.html">make_calU_s()</a></code> 
+        </dt>
+        <dd>Make the egg distribution matrix, calU</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_EggLaying_static.html">setup_EggLaying_static()</a></code> 
+        </dt>
+        <dd>Setup egg laying for most models</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_EggLaying_simple.html">setup_EggLaying_simple()</a></code> 
+        </dt>
+        <dd>Setup egg laying for most models</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_EGGpar_static.html">setup_EGGpar_static()</a></code> 
+        </dt>
+        <dd>Setup the structures required for egg laying</dd>
       </dl></div><div class="section level2">
       <h2 id="adult-mosquito-dynamics">Adult Mosquito Dynamics<a class="anchor" aria-label="anchor" href="#adult-mosquito-dynamics"></a></h2>
       
@@ -798,169 +1081,6 @@
         </dt>
         <dd>Make parameters for GeRM ODE adult mosquito model</dd>
       </dl></div><div class="section level2">
-      <h2 id="mosquito-bionomic-functional-responses">Mosquito Bionomic Functional Responses<a class="anchor" aria-label="anchor" href="#mosquito-bionomic-functional-responses"></a></h2>
-      
-      <p class="section-desc"></p><p>Compute bionomic parameters as functional responses to resource availability</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="F_sigma.html">F_sigma()</a></code> 
-        </dt>
-        <dd>Compute mosquito emigration rates</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_sigma.static.html">F_sigma(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Static model for mosquito emigration</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_sigma.BQS.html">F_sigma(<i>&lt;BQS&gt;</i>)</a></code> 
-        </dt>
-        <dd>Model for mosquito emigration based on resource availability</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_nu.html">F_nu()</a></code> 
-        </dt>
-        <dd>Compute the egg laying rate</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_nu.static.html">F_nu(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Static model for the egg laying rate</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_nu.type2.html">F_nu(<i>&lt;type2&gt;</i>)</a></code> 
-        </dt>
-        <dd>Type 2 functional response for the blood feeding rate</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_f.html">F_f()</a></code> 
-        </dt>
-        <dd>Compute the blood feeding rate, f</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_f.static.html">F_f(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Static model for the blood feeding rate</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_f.type2.html">F_f(<i>&lt;type2&gt;</i>)</a></code> 
-        </dt>
-        <dd>Type 2 functional response for the blood feeding rate</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_q.html">F_q()</a></code> 
-        </dt>
-        <dd>Compute the human blood fraction</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_q.static.html">F_q(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Static model for human blood fraction</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_q.dynamic.html">F_q(<i>&lt;dynamic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Static model for human blood fraction</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_g.html">F_g()</a></code> 
-        </dt>
-        <dd>Compute mosguito survival</dd>
-      </dl><dl><dt>
-          
-          <code><a href="F_g.static.html">F_g(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Static model for mosquito survival</dd>
-      </dl></div><div class="section level2">
-      <h2 id="mosquito-dispersal">Mosquito Dispersal<a class="anchor" aria-label="anchor" href="#mosquito-dispersal"></a></h2>
-      
-      <p class="section-desc"></p><p>Specialized methods to set up mosquito dispersal matrices</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="make_calK.html">make_calK()</a></code> 
-        </dt>
-        <dd>Make a mosquito dispersal matrix, called calK</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_calK.herethere.html">make_calK(<i>&lt;herethere&gt;</i>)</a></code> 
-        </dt>
-        <dd>Dispersal to every other patch, with equal probability</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_calK.as_matrix.html">make_calK(<i>&lt;as_matrix&gt;</i>)</a></code> 
-        </dt>
-        <dd>Pass a pre-configured calK</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_calK.xy.html">make_calK(<i>&lt;xy&gt;</i>)</a></code> 
-        </dt>
-        <dd>Develop a mosquito dispersal matrix from a kernel and xy-coordinates</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_calK_xy.html">make_calK_xy()</a></code> 
-        </dt>
-        <dd>Develop a mosquito dispersal matrix from a kernel and xy-coordinates</dd>
-      </dl></div><div class="section level2">
-      <h2 id="mosquito-ecology">Mosquito Ecology<a class="anchor" aria-label="anchor" href="#mosquito-ecology"></a></h2>
-      
-      <p class="section-desc"></p><p>Generic methods for the aquatic (immature) mosquito component.</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="Bionomics.html">Bionomics()</a></code> 
-        </dt>
-        <dd>Set bionomic parameter rates relative to baseline</dd>
-      </dl><dl><dt>
-          
-          <code><a href="HabitatSearch.html">HabitatSearch()</a></code> 
-        </dt>
-        <dd>Searching for Habitat</dd>
-      </dl><dl><dt>
-          
-          <code><a href="HabitatSearch.static.html">HabitatSearch(<i>&lt;static&gt;</i>)</a></code> 
-        </dt>
-        <dd>Searching for Habitat</dd>
-      </dl><dl><dt>
-          
-          <code><a href="HabitatSearch.dynamic.html">HabitatSearch(<i>&lt;dynamic&gt;</i>)</a></code> 
-        </dt>
-        <dd>Searching for Habitat</dd>
-      </dl><dl><dt>
-          
-          <code><a href="EggLaying.html">EggLaying()</a></code> 
-        </dt>
-        <dd>Compute eggs laid</dd>
-      </dl><dl><dt>
-          
-          <code><a href="setup_EggLaying.html">setup_EggLaying()</a></code> 
-        </dt>
-        <dd>Setup egg laying for most models</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Emergence.html">Emergence()</a></code> 
-        </dt>
-        <dd>Compute emerging adults</dd>
-      </dl></div><div class="section level2">
       <h2 id="aquatic-mosquito-dynamics">Aquatic Mosquito Dynamics<a class="anchor" aria-label="anchor" href="#aquatic-mosquito-dynamics"></a></h2>
       
       <p class="section-desc"></p><p>Generic methods for the aquatic (immature) mosquito component.</p>
@@ -1016,16 +1136,6 @@
           <code><a href="update_inits_L.html">update_inits_L()</a></code> 
         </dt>
         <dd>Set the initial values from a vector of model states</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_calN.html">make_calN()</a></code> 
-        </dt>
-        <dd>Make the habitat membership matrix, calN</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_calU.html">make_calU()</a></code> 
-        </dt>
-        <dd>Make the egg distribution matrix, calU</dd>
       </dl></div><div class="section level2">
       
       <h3 id="trace">trace<a class="anchor" aria-label="anchor" href="#trace"></a></h3>
@@ -1173,6 +1283,169 @@
           <code><a href="make_parameters_L_basic.html">make_parameters_L_basic()</a></code> 
         </dt>
         <dd>Make parameters for basic competition aquatic mosquito model</dd>
+      </dl></div><div class="section level2">
+      <h2 id="mosquito-bionomics">Mosquito Bionomics<a class="anchor" aria-label="anchor" href="#mosquito-bionomics"></a></h2>
+      
+      <p class="section-desc"></p><p>Methods to compute or update mosquito bionomic parameters</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="Bionomics.html">Bionomics()</a></code> 
+        </dt>
+        <dd>Set bionomic parameter rates relative to baseline</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Bionomics.static.html">Bionomics(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set bionomic parameter rates relative to baseline</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Bionomics.dynamic.html">Bionomics(<i>&lt;dynamic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set bionomic parameter rates relative to baseline</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Bionomics.Ldynamic.html">Bionomics(<i>&lt;Ldynamic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set bionomic parameter rates relative to baseline</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Bionomics.Mdynamic.html">Bionomics(<i>&lt;Mdynamic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set bionomic parameter rates relative to baseline</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Bionomics.setup.html">Bionomics(<i>&lt;setup&gt;</i>)</a></code> 
+        </dt>
+        <dd>Set bionomic parameter rates relative to baseline</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_bionomics_static.html">setup_bionomics_static()</a></code> 
+        </dt>
+        <dd>Make parameters for the static model bionomics</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="functional-responses">Functional Responses<a class="anchor" aria-label="anchor" href="#functional-responses"></a></h3>
+      <p class="section-desc"></p><p>Compute bionomic parameters as functional responses to resource availability</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="F_sigma.html">F_sigma()</a></code> 
+        </dt>
+        <dd>Compute mosquito emigration rates</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_sigma.static.html">F_sigma(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Static model for mosquito emigration</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_sigma.BQS.html">F_sigma(<i>&lt;BQS&gt;</i>)</a></code> 
+        </dt>
+        <dd>Model for mosquito emigration based on resource availability</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_nu.html">F_nu()</a></code> 
+        </dt>
+        <dd>Compute the egg laying rate</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_nu.static.html">F_nu(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Static model for the egg laying rate</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_nu.type2.html">F_nu(<i>&lt;type2&gt;</i>)</a></code> 
+        </dt>
+        <dd>Type 2 functional response for the blood feeding rate</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_f.html">F_f()</a></code> 
+        </dt>
+        <dd>Compute the blood feeding rate, f</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_f.static.html">F_f(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Static model for the blood feeding rate</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_f.type2.html">F_f(<i>&lt;type2&gt;</i>)</a></code> 
+        </dt>
+        <dd>Type 2 functional response for the blood feeding rate</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_q.html">F_q()</a></code> 
+        </dt>
+        <dd>Compute the human blood fraction</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_q.static.html">F_q(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Static model for human blood fraction</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_q.dynamic.html">F_q(<i>&lt;dynamic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Static model for human blood fraction</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_g.html">F_g()</a></code> 
+        </dt>
+        <dd>Compute mosguito survival</dd>
+      </dl><dl><dt>
+          
+          <code><a href="F_g.static.html">F_g(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Static model for mosquito survival</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="mosquito-dispersal">Mosquito Dispersal<a class="anchor" aria-label="anchor" href="#mosquito-dispersal"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods to set up mosquito dispersal matrices</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="make_calK.html">make_calK()</a></code> 
+        </dt>
+        <dd>Make a mosquito dispersal matrix, called calK</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_calK.herethere.html">make_calK(<i>&lt;herethere&gt;</i>)</a></code> 
+        </dt>
+        <dd>Dispersal to every other patch, with equal probability</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_calK.as_matrix.html">make_calK(<i>&lt;as_matrix&gt;</i>)</a></code> 
+        </dt>
+        <dd>Pass a pre-configured calK</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_calK.xy.html">make_calK(<i>&lt;xy&gt;</i>)</a></code> 
+        </dt>
+        <dd>Develop a mosquito dispersal matrix from a kernel and xy-coordinates</dd>
+      </dl><dl><dt>
+          
+          <code><a href="make_calK_xy.html">make_calK_xy()</a></code> 
+        </dt>
+        <dd>Develop a mosquito dispersal matrix from a kernel and xy-coordinates</dd>
       </dl></div><div class="section level2">
       <h2 id="human-infection-dynamics">Human Infection Dynamics<a class="anchor" aria-label="anchor" href="#human-infection-dynamics"></a></h2>
       
@@ -1641,7 +1914,7 @@
         <dd>Derivatives of demographic changes in human populations</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_Hpar.html">setup_Hpar()</a></code> 
+          <code><a href="setup_Hpar_static.html">setup_Hpar_static()</a></code> 
         </dt>
         <dd>A utility to set up Hpar</dd>
       </dl><dl><dt>
@@ -1681,48 +1954,7 @@
         </dt>
         <dd>Derivatives of demographic changes in human populations</dd>
       </dl></div><div class="section level2">
-      <h2 id="time-at-risk">Time at Risk<a class="anchor" aria-label="anchor" href="#time-at-risk"></a></h2>
-      
-      <p class="section-desc"></p><p>Method to set up time at risk (TaR) matrices</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="make_TaR.html">make_TaR()</a></code> 
-        </dt>
-        <dd>Make a mosquito dispersal matrix, called TaR</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_TaR.athome.html">make_TaR(<i>&lt;athome&gt;</i>)</a></code> 
-        </dt>
-        <dd>Make a mosquito dispersal matrix, called TaR with a here / away</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_TaR_athome.html">make_TaR_athome()</a></code> 
-        </dt>
-        <dd>Make a mosquito dispersal matrix, called TaR</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_TaR.as_matrix.html">make_TaR(<i>&lt;as_matrix&gt;</i>)</a></code> 
-        </dt>
-        <dd>Pass a pre-configured TaR</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_TaR.xy.html">make_TaR(<i>&lt;xy&gt;</i>)</a></code> 
-        </dt>
-        <dd>Develop a mosquito dispersal matrix from a kernel and xy-coordinates</dd>
-      </dl><dl><dt>
-          
-          <code><a href="make_TaR_xy.html">make_TaR_xy()</a></code> 
-        </dt>
-        <dd>Make a mosquito dispersal matrix, called TaR</dd>
-      </dl></div><div class="section level2">
-      <h2 id="human-and-mosqutio-behaviors">Human and Mosqutio Behaviors<a class="anchor" aria-label="anchor" href="#human-and-mosqutio-behaviors"></a></h2>
+      <h2 id="human-and-mosquito-behaviors">Human and Mosquito Behaviors<a class="anchor" aria-label="anchor" href="#human-and-mosquito-behaviors"></a></h2>
       
       <p class="section-desc"></p><p>Methods to implement human and Mosquito Behaviorsbehaviors</p>
 
@@ -1799,67 +2031,9 @@
         </dt>
         <dd>Make parameters for the null model for care seeking (do nothing)</dd>
       </dl></div><div class="section level2">
-      <h2 id="exposure">Exposure<a class="anchor" aria-label="anchor" href="#exposure"></a></h2>
+      <h2 id="imported-malaria">Imported Malaria<a class="anchor" aria-label="anchor" href="#imported-malaria"></a></h2>
       
-      <p class="section-desc"></p><p>Methods to implement exposure models (i.e., EIR to FoI)</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="F_foi.html">F_foi()</a></code> 
-        </dt>
-        <dd>A model for exposure</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="poisson">Poisson<a class="anchor" aria-label="anchor" href="#poisson"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods the default model (Poisson)</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="F_foi.pois.html">F_foi(<i>&lt;pois&gt;</i>)</a></code> 
-        </dt>
-        <dd>Null human population births</dd>
-      </dl><dl><dt>
-          
-          <code><a href="setup_exposure_pois.html">setup_exposure_pois()</a></code> 
-        </dt>
-        <dd>Make parameters for the null model of exposure</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="nb">nb<a class="anchor" aria-label="anchor" href="#nb"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods the negative binomial model</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="F_foi.nb.html">F_foi(<i>&lt;nb&gt;</i>)</a></code> 
-        </dt>
-        <dd>Null human population births</dd>
-      </dl><dl><dt>
-          
-          <code><a href="setup_exposure_nb.html">setup_exposure_nb()</a></code> 
-        </dt>
-        <dd>Make parameters for the null model of exposure</dd>
-      </dl></div><div class="section level2">
-      <h2 id="travel-malaria">Travel Malaria<a class="anchor" aria-label="anchor" href="#travel-malaria"></a></h2>
-      
-      <p class="section-desc"></p><p>Methods to implement exposure to malaria while traveling</p>
+      <p class="section-desc"></p><p>Methods to implement imported malaria</p>
 
       
     </div><div id="" class="section level2">
@@ -1872,31 +2046,15 @@
           <code><a href="travel_malaria.html">travel_malaria()</a></code> 
         </dt>
         <dd>Simulate travel malaria</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="null-model">null model<a class="anchor" aria-label="anchor" href="#null-model"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods the null travel malaria model</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="travel_malaria.null.html">travel_malaria(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>travel, a null model</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_travel_null.html">setup_travel_null()</a></code> 
+          <code><a href="Visitors.html">Visitors()</a></code> 
         </dt>
-        <dd>A function to set up malaria importation</dd>
+        <dd>Visitors</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="foi">FoI<a class="anchor" aria-label="anchor" href="#foi"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods the foi-based travel malaria model</p>
+      <h3 id="travel-malaria">Travel Malaria<a class="anchor" aria-label="anchor" href="#travel-malaria"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for travel malaria</p>
 
       
     </div><div id="" class="section level2">
@@ -1905,6 +2063,16 @@
       
 
       <dl><dt>
+          
+          <code><a href="travel_malaria.static.html">travel_malaria(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>travel, a static model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_travel_static.html">setup_travel_static()</a></code> 
+        </dt>
+        <dd>A function to set up malaria importation</dd>
+      </dl><dl><dt>
           
           <code><a href="travel_malaria.foi.html">travel_malaria(<i>&lt;foi&gt;</i>)</a></code> 
         </dt>
@@ -1914,18 +2082,7 @@
           <code><a href="setup_travel_foi.html">setup_travel_foi()</a></code> 
         </dt>
         <dd>Set up parameters and function for the FoI-based travel_malaria model</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="eir">EIR<a class="anchor" aria-label="anchor" href="#eir"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods the eir-based travel malaria model</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
+      </dl><dl><dt>
           
           <code><a href="travel_malaria.eir.html">travel_malaria(<i>&lt;eir&gt;</i>)</a></code> 
         </dt>
@@ -1936,9 +2093,9 @@
         </dt>
         <dd>Set up parameters and function for an eir-based travel_malaria model</dd>
       </dl></div><div class="section level2">
-      <h2 id="visitors">Visitors<a class="anchor" aria-label="anchor" href="#visitors"></a></h2>
       
-      <p class="section-desc"></p><p>Methods to implement malaria importation through visitors</p>
+      <h3 id="visitors">Visitors<a class="anchor" aria-label="anchor" href="#visitors"></a></h3>
+      <p class="section-desc"></p><p>Methods for the availability and infectiousness of a visitor population</p>
 
       
     </div><div id="" class="section level2">
@@ -1948,42 +2105,15 @@
 
       <dl><dt>
           
-          <code><a href="Visitors.html">Visitors()</a></code> 
+          <code><a href="Visitors.static.html">Visitors(<i>&lt;static&gt;</i>)</a></code> 
         </dt>
-        <dd>Visitors</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="null-model-1">null model<a class="anchor" aria-label="anchor" href="#null-model-1"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a null model for visitors (do nothing)</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="Visitors.null.html">Visitors(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Visitors, a null model</dd>
+        <dd>Visitors, a static model</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_visitors_null.html">setup_visitors_null()</a></code> 
+          <code><a href="setup_visitors_static.html">setup_visitors_static()</a></code> 
         </dt>
-        <dd>Make parameters for the null model visitors (no visitors)</dd>
-      </dl></div><div class="section level2">
-      
-      <h3 id="basic-1">basic<a class="anchor" aria-label="anchor" href="#basic-1"></a></h3>
-      <p class="section-desc"></p><p>Specialized methods for a basic model of malaria visitorsation</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
+        <dd>Make parameters for the static model visitors (no visitors)</dd>
+      </dl><dl><dt>
           
           <code><a href="Visitors.basic.html">Visitors(<i>&lt;basic&gt;</i>)</a></code> 
         </dt>
@@ -2041,7 +2171,7 @@
         <dd>Methods for mass medical interventions</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="null-model-2">null model<a class="anchor" aria-label="anchor" href="#null-model-2"></a></h3>
+      <h3 id="models">Models<a class="anchor" aria-label="anchor" href="#models"></a></h3>
       <p class="section-desc"></p><p>Specialized methods the null model (no exogenous forcing)</p>
 
       
@@ -2092,14 +2222,14 @@
         <dd>Modify parameters due to exogenous forcing by all kinds of control</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_control_null.html">setup_control_null()</a></code> 
-        </dt>
-        <dd>Set up the null model for control forcing (do nothing)</dd>
-      </dl><dl><dt>
-          
           <code><a href="setup_control.html">setup_control()</a></code> 
         </dt>
         <dd>Setup CONTROL with forcing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_control_null.html">setup_control_null()</a></code> 
+        </dt>
+        <dd>Set up the null model for control forcing (do nothing)</dd>
       </dl><dl><dt>
           
           <code><a href="setup_control.null.html">setup_control(<i>&lt;null&gt;</i>)</a></code> 
@@ -2334,7 +2464,7 @@
         </dt>
         <dd>Make parameters for the null model for hydrology (do nothing)</dd>
       </dl></div><div class="section level2">
-      <h2 id="resources-and-availability">Resources and Availability<a class="anchor" aria-label="anchor" href="#resources-and-availability"></a></h2>
+      <h2 id="resource-dynamics">Resource Dynamics<a class="anchor" aria-label="anchor" href="#resource-dynamics"></a></h2>
       
       <p class="section-desc"></p><p>Methods to implement resource availability</p>
 
@@ -2351,39 +2481,14 @@
         <dd>Set the values of exogenous variables describing available mosquito resources</dd>
       </dl><dl><dt>
           
-          <code><a href="HumanAvailability.html">HumanAvailability()</a></code> 
-        </dt>
-        <dd>Update the availability of blood hosts</dd>
-      </dl><dl><dt>
-          
-          <code><a href="HabitatAvailability.html">HabitatAvailability()</a></code> 
-        </dt>
-        <dd>Update the availability of aquatic habitats</dd>
-      </dl><dl><dt>
-          
-          <code><a href="SugarAvailability.html">SugarAvailability()</a></code> 
-        </dt>
-        <dd>Update the availability of sugar</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Resources.null.html">Resources(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="Resources.static.html">Resources(<i>&lt;static&gt;</i>)</a></code> 
         </dt>
         <dd>Modify resources and resource availability</dd>
       </dl><dl><dt>
           
-          <code><a href="HumanAvailability.null.html">HumanAvailability(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="Resources.setup.html">Resources(<i>&lt;setup&gt;</i>)</a></code> 
         </dt>
-        <dd>Compute availability of local humans for blood feeding</dd>
-      </dl><dl><dt>
-          
-          <code><a href="HabitatAvailability.null.html">HabitatAvailability(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Compute total availability of aquatic habitats</dd>
-      </dl><dl><dt>
-          
-          <code><a href="SugarAvailability.null.html">SugarAvailability(<i>&lt;null&gt;</i>)</a></code> 
-        </dt>
-        <dd>Compute total availability of sugar</dd>
+        <dd>Modify resources and resource availability</dd>
       </dl><dl><dt>
           
           <code><a href="Resources.forced.html">Resources(<i>&lt;forced&gt;</i>)</a></code> 
@@ -2391,22 +2496,12 @@
         <dd>Methods for resources</dd>
       </dl><dl><dt>
           
-          <code><a href="HumanAvailability.forced.html">HumanAvailability(<i>&lt;forced&gt;</i>)</a></code> 
-        </dt>
-        <dd>Compute availability of local humans for blood feeding</dd>
-      </dl><dl><dt>
-          
-          <code><a href="HabitatAvailability.forced.html">HabitatAvailability(<i>&lt;forced&gt;</i>)</a></code> 
-        </dt>
-        <dd>Compute total availability of aquatic habitats</dd>
-      </dl><dl><dt>
-          
-          <code><a href="SugarAvailability.forced.html">SugarAvailability(<i>&lt;forced&gt;</i>)</a></code> 
-        </dt>
-        <dd>Compute total availability of sugar</dd>
-      </dl><dl><dt>
-          
           <code><a href="setup_resources_null.html">setup_resources_null()</a></code> 
+        </dt>
+        <dd>Set up parameters for the null model for resource availability</dd>
+      </dl><dl><dt>
+          
+          <code><a href="setup_resources_static.html">setup_resources_static()</a></code> 
         </dt>
         <dd>Set up parameters for the null model for resource availability</dd>
       </dl><dl><dt>
@@ -2414,11 +2509,6 @@
           <code><a href="setup_resources_forced.html">setup_resources_forced()</a></code> 
         </dt>
         <dd>Set up a model for mass medical</dd>
-      </dl><dl><dt>
-          
-          <code><a href="compute_local_frac.html">compute_local_frac()</a></code> 
-        </dt>
-        <dd>Compute the local fraction</dd>
       </dl></div><div class="section level2">
       
       <h3 id="other-blood-hosts">Other Blood Hosts<a class="anchor" aria-label="anchor" href="#other-blood-hosts"></a></h3>
@@ -2437,18 +2527,18 @@
         <dd>Set the values of exogenous variables describing other blood hosts</dd>
       </dl><dl><dt>
           
-          <code><a href="OtherBloodHosts.null.html">OtherBloodHosts(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="OtherBloodHosts.static.html">OtherBloodHosts(<i>&lt;static&gt;</i>)</a></code> 
         </dt>
         <dd>Set the values of exogenous variables describing other blood hosts</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_other_blood_hosts_null.html">setup_other_blood_hosts_null()</a></code> 
+          <code><a href="setup_other_blood_hosts_static.html">setup_other_blood_hosts_static()</a></code> 
         </dt>
-        <dd>Make parameters for the null model for other blood hosts (do nothing)</dd>
+        <dd>Make parameters for the static model for other blood hosts (do nothing)</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="habitat-dynamics">Habitat Dynamics<a class="anchor" aria-label="anchor" href="#habitat-dynamics"></a></h3>
-      <p class="section-desc"></p><p>Methods to implement habitat dynamics</p>
+      <h3 id="habitat-dynamics-and-availability">Habitat Dynamics and Availability<a class="anchor" aria-label="anchor" href="#habitat-dynamics-and-availability"></a></h3>
+      <p class="section-desc"></p><p>Specialized methods for weather</p>
 
       
     </div><div id="" class="section level2">
@@ -2458,19 +2548,44 @@
 
       <dl><dt>
           
+          <code><a href="AvailableHabitat.html">AvailableHabitat()</a></code> 
+        </dt>
+        <dd>Update the availability of aquatic habitats</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AvailableHabitat.static.html">AvailableHabitat(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute total availability of aquatic habitats</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AvailableHabitat.simple.html">AvailableHabitat(<i>&lt;simple&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute total availability of aquatic habitats</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AvailableHabitat.forced.html">AvailableHabitat(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute total availability of aquatic habitats</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_AvailableHabitat.html">compute_AvailableHabitat()</a></code> 
+        </dt>
+        <dd>Compute total availability of aquatic habitats</dd>
+      </dl><dl><dt>
+          
           <code><a href="HabitatDynamics.html">HabitatDynamics()</a></code> 
         </dt>
-        <dd>Set the values of exogenous variables describing habitat_dynamics</dd>
+        <dd>Habitat Dynamics and Searching</dd>
       </dl><dl><dt>
           
-          <code><a href="HabitatDynamics.null.html">HabitatDynamics(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="HabitatDynamics.static.html">HabitatDynamics(<i>&lt;static&gt;</i>)</a></code> 
         </dt>
-        <dd>Set the values of exogenous variables describing habitat dynamics</dd>
+        <dd>Set the values of habitat search weights and other exogenous variables describing habitat_dynamics</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_habitat_dynamics_null.html">setup_habitat_dynamics_null()</a></code> 
+          <code><a href="setup_habitat_dynamics_static.html">setup_habitat_dynamics_static()</a></code> 
         </dt>
-        <dd>Make parameters for the null model for habitat dynamics (do nothing)</dd>
+        <dd>Setup the egg laying object</dd>
       </dl></div><div class="section level2">
       
       <h3 id="sugar">Sugar<a class="anchor" aria-label="anchor" href="#sugar"></a></h3>
@@ -2484,19 +2599,34 @@
 
       <dl><dt>
           
-          <code><a href="Sugar.html">Sugar()</a></code> 
+          <code><a href="SugarDynamics.html">SugarDynamics()</a></code> 
         </dt>
         <dd>Set the values of exogenous variables describing sugar</dd>
       </dl><dl><dt>
           
-          <code><a href="Sugar.null.html">Sugar(<i>&lt;null&gt;</i>)</a></code> 
+          <code><a href="SugarDynamics.static.html">SugarDynamics(<i>&lt;static&gt;</i>)</a></code> 
         </dt>
         <dd>Set the values of exogenous variables describing sugar</dd>
       </dl><dl><dt>
           
-          <code><a href="setup_sugar_null.html">setup_sugar_null()</a></code> 
+          <code><a href="setup_sugar_static.html">setup_sugar_static()</a></code> 
         </dt>
-        <dd>Make parameters for the null model for sugar (do nothing)</dd>
+        <dd>Make parameters for the static model for sugar (do nothing)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AvailableSugar.html">AvailableSugar()</a></code> 
+        </dt>
+        <dd>Update the availability of sugar</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AvailableSugar.static.html">AvailableSugar(<i>&lt;static&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute total availability of sugar</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AvailableSugar.forced.html">AvailableSugar(<i>&lt;forced&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute total availability of sugar</dd>
       </dl></div><div class="section level2">
       <h2 id="vector-control">Vector Control<a class="anchor" aria-label="anchor" href="#vector-control"></a></h2>
       
@@ -2525,7 +2655,7 @@
         <dd>Vector control effect sizes</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="null-model-3">null model<a class="anchor" aria-label="anchor" href="#null-model-3"></a></h3>
+      <h3 id="null-model">null model<a class="anchor" aria-label="anchor" href="#null-model"></a></h3>
       <p class="section-desc"></p><p>Specialized methods for the null model (no vector control)</p>
 
       
@@ -2873,9 +3003,9 @@ called by Control-&gt;VectorControl</dd>
         </dt>
         <dd>Set up the null model for oviposition traps (do nothing)</dd>
       </dl></div><div class="section level2">
-      <h2 id="spatial-metrics">Spatial metrics<a class="anchor" aria-label="anchor" href="#spatial-metrics"></a></h2>
+      <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a></h2>
       
-      
+      <p class="section-desc"></p><p>Basic setup for models</p>
 
       
     </div><div id="" class="section level2">
@@ -2885,28 +3015,18 @@ called by Control-&gt;VectorControl</dd>
 
       <dl><dt>
           
-          <code><a href="metric_calV.html">metric_calV()</a></code> 
+          <code><a href="make_parameters_xde.html">make_parameters_xde()</a></code> 
         </dt>
-        <dd>Parasite dispersal by mosquitoes</dd>
+        <dd>Make base parameters, assuming nVectors = nHosts = 1</dd>
       </dl><dl><dt>
           
-          <code><a href="metric_calD.html">metric_calD()</a></code> 
+          <code><a href="make_indices.html">make_indices()</a></code> 
         </dt>
-        <dd>Parasite dispersal by humans</dd>
-      </dl><dl><dt>
-          
-          <code><a href="metric_calR.html">metric_calR()</a></code> 
-        </dt>
-        <dd>Parasite Dispersal through one Parasite Generation (Humans)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="metric_calZ.html">metric_calZ()</a></code> 
-        </dt>
-        <dd>Parasite Dispersal through one Parasite Generation (Mosquitoes)</dd>
+        <dd>Set indices for generalized spatial model</dd>
       </dl></div><div class="section level2">
-      <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a></h2>
       
-      
+      <h3 id="setting-up">Setting Up<a class="anchor" aria-label="anchor" href="#setting-up"></a></h3>
+      <p class="section-desc"></p><p>Methods to set up basic models</p>
 
       
     </div><div id="" class="section level2">
@@ -2940,9 +3060,77 @@ called by Control-&gt;VectorControl</dd>
         </dt>
         <dd>Set up a model for xde_diffeqn_cohort</dd>
       </dl></div><div class="section level2">
+      
+      <h3 id="initial-values">Initial Values<a class="anchor" aria-label="anchor" href="#initial-values"></a></h3>
+      <p class="section-desc"></p><p>Methods to set up basic models</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="get_inits.html">get_inits()</a></code> 
+        </dt>
+        <dd>Get the initial values as a vector</dd>
+      </dl><dl><dt>
+          
+          <code><a href="update_inits.html">update_inits()</a></code> 
+        </dt>
+        <dd>Set the initial values to the last values of the last simulation</dd>
+      </dl><dl><dt>
+          
+          <code><a href="last_to_inits.html">last_to_inits()</a></code> 
+        </dt>
+        <dd>Set the initial values to the last values of the last simulation</dd>
+      </dl></div><div class="section level2">
       <h2 id="solving">Solving<a class="anchor" aria-label="anchor" href="#solving"></a></h2>
       
+      <p class="section-desc"></p><p>Methods to compute the derivatives and solve the equat</p>
+
       
+    </div><div class="section level2">
+      
+      <h3 id="derivatives">Derivatives<a class="anchor" aria-label="anchor" href="#derivatives"></a></h3>
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="xDE_diffeqn.html">xDE_diffeqn()</a></code> 
+        </dt>
+        <dd>Generalized spatial differential equation model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="xDE_diffeqn_aquatic.html">xDE_diffeqn_aquatic()</a></code> 
+        </dt>
+        <dd>Differential equation models for aquatic mosquito populations</dd>
+      </dl><dl><dt>
+          
+          <code><a href="xDE_diffeqn_mosy.html">xDE_diffeqn_mosy()</a></code> 
+        </dt>
+        <dd>Generalized spatial differential equation model (mosquito only)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="xDE_diffeqn_human.html">xDE_diffeqn_human()</a></code> 
+        </dt>
+        <dd>Differential equations isolating the humans, forced with Ztrace</dd>
+      </dl><dl><dt>
+          
+          <code><a href="xDE_diffeqn_cohort.html">xDE_diffeqn_cohort()</a></code> 
+        </dt>
+        <dd>Differential equation models for human cohorts</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="solving-1">Solving<a class="anchor" aria-label="anchor" href="#solving-1"></a></h3>
+      <p class="section-desc"></p><p>Wrappers around the derivatives functions that handle time and parse outputs</p>
 
       
     </div><div id="" class="section level2">
@@ -3006,8 +3194,14 @@ called by Control-&gt;VectorControl</dd>
         </dt>
         <dd>Solve for the steady state of a system of equations using <a href="https://rdrr.io/pkg/rootSolve/man/steady.html" class="external-link">rootSolve::steady</a></dd>
       </dl></div><div class="section level2">
-      <h2 id="utilities">Utilities<a class="anchor" aria-label="anchor" href="#utilities"></a></h2>
+      <h2 id="analysis-and-visualization">Analysis and Visualization<a class="anchor" aria-label="anchor" href="#analysis-and-visualization"></a></h2>
       
+      <p class="section-desc"></p><p>Methods to compute and output terms</p>
+
+      
+    </div><div class="section level2">
+      
+      <h3 id="spatial-metrics">Spatial metrics<a class="anchor" aria-label="anchor" href="#spatial-metrics"></a></h3>
       
 
       
@@ -3018,15 +3212,36 @@ called by Control-&gt;VectorControl</dd>
 
       <dl><dt>
           
-          <code><a href="make_parameters_xde.html">make_parameters_xde()</a></code> 
+          <code><a href="metric_calV.html">metric_calV()</a></code> 
         </dt>
-        <dd>Make base parameters, assuming nVectors = nHosts = 1</dd>
+        <dd>Parasite dispersal by mosquitoes</dd>
       </dl><dl><dt>
           
-          <code><a href="make_indices.html">make_indices()</a></code> 
+          <code><a href="metric_calD.html">metric_calD()</a></code> 
         </dt>
-        <dd>Set indices for generalized spatial model</dd>
+        <dd>Parasite dispersal by humans</dd>
       </dl><dl><dt>
+          
+          <code><a href="metric_calR.html">metric_calR()</a></code> 
+        </dt>
+        <dd>Parasite Dispersal through one Parasite Generation (Humans)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="metric_calZ.html">metric_calZ()</a></code> 
+        </dt>
+        <dd>Parasite Dispersal through one Parasite Generation (Mosquitoes)</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="compute-terms">Compute terms<a class="anchor" aria-label="anchor" href="#compute-terms"></a></h3>
+      <p class="section-desc"></p><p>Methods to compute and transmission terms</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="parse_deout.html">parse_deout()</a></code> 
         </dt>
@@ -3037,52 +3252,6 @@ called by Control-&gt;VectorControl</dd>
         </dt>
         <dd>Parse the output of an object returned by deSolve</dd>
       </dl><dl><dt>
-          
-          <code><a href="get_inits.html">get_inits()</a></code> 
-        </dt>
-        <dd>Get the initial values as a vector</dd>
-      </dl><dl><dt>
-          
-          <code><a href="update_inits.html">update_inits()</a></code> 
-        </dt>
-        <dd>Set the initial values to the last values of the last simulation</dd>
-      </dl><dl><dt>
-          
-          <code><a href="last_to_inits.html">last_to_inits()</a></code> 
-        </dt>
-        <dd>Set the initial values to the last values of the last simulation</dd>
-      </dl><dl><dt>
-          
-          <code><a href="diag_inverse.html">diag_inverse()</a></code> 
-        </dt>
-        <dd>Invert a diagonal matrix</dd>
-      </dl><dl><dt>
-          
-          <code><a href="approx_equal.html">approx_equal()</a></code> 
-        </dt>
-        <dd>Check if two numeric values are approximately equal</dd>
-      </dl><dl><dt>
-          
-          <code><a href="checkIt.html">checkIt()</a></code> 
-        </dt>
-        <dd>Check the length of an input value</dd>
-      </dl><dl><dt>
-          
-          <code><a href="shapeIt.html">shapeIt()</a></code> 
-        </dt>
-        <dd>Check the shape and dimensions of an object</dd>
-      </dl></div><div class="section level2">
-      <h2 id="compute-terms">Compute terms<a class="anchor" aria-label="anchor" href="#compute-terms"></a></h2>
-      
-      
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
           
           <code><a href="compute_terms.html">compute_terms()</a></code> 
         </dt>
@@ -3143,9 +3312,9 @@ called by Control-&gt;VectorControl</dd>
         </dt>
         <dd>Compute NI once</dd>
       </dl></div><div class="section level2">
-      <h2 id="plot-terms">Plot terms<a class="anchor" aria-label="anchor" href="#plot-terms"></a></h2>
       
-      
+      <h3 id="plot-terms">Plot terms<a class="anchor" aria-label="anchor" href="#plot-terms"></a></h3>
+      <p class="section-desc"></p><p>Basic visualization of the transmission terms</p>
 
       
     </div><div id="" class="section level2">
@@ -3183,6 +3352,37 @@ called by Control-&gt;VectorControl</dd>
           <code><a href="xde_lines_PR.html">xde_lines_PR()</a></code> 
         </dt>
         <dd>Add lines for the prevalence / parasite rate (PR) from a model of human infection and immunity</dd>
+      </dl></div><div class="section level2">
+      <h2 id="utilities">Utilities<a class="anchor" aria-label="anchor" href="#utilities"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="diag_inverse.html">diag_inverse()</a></code> 
+        </dt>
+        <dd>Invert a diagonal matrix</dd>
+      </dl><dl><dt>
+          
+          <code><a href="approx_equal.html">approx_equal()</a></code> 
+        </dt>
+        <dd>Check if two numeric values are approximately equal</dd>
+      </dl><dl><dt>
+          
+          <code><a href="checkIt.html">checkIt()</a></code> 
+        </dt>
+        <dd>Check the length of an input value</dd>
+      </dl><dl><dt>
+          
+          <code><a href="shapeIt.html">shapeIt()</a></code> 
+        </dt>
+        <dd>Check the shape and dimensions of an object</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

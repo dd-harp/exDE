@@ -88,6 +88,39 @@
     <loc>https://dd-harp.github.io/exDE/reference/AreaSprayEffects.null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/AvailableBlood.forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/AvailableBlood.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/AvailableBlood.setup.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/AvailableBlood.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/AvailableHabitat.forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/AvailableHabitat.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/AvailableHabitat.simple.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/AvailableHabitat.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/AvailableSugar.forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/AvailableSugar.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/AvailableSugar.static.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/BedNetEffectSizes.html</loc>
   </url>
   <url>
@@ -112,7 +145,22 @@
     <loc>https://dd-harp.github.io/exDE/reference/Behavior.null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Bionomics.Ldynamic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Bionomics.Mdynamic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Bionomics.dynamic.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/Bionomics.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Bionomics.setup.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Bionomics.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/Births.html</loc>
@@ -172,7 +220,19 @@
     <loc>https://dd-harp.github.io/exDE/reference/EIP.static.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/EggLaying.dynamic.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/EggLaying.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/EggLaying.setup.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/EggLaying.simple.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/EggLaying.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/Emergence.html</loc>
@@ -379,37 +439,10 @@
     <loc>https://dd-harp.github.io/exDE/reference/HTC.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/HabitatAvailability.forced.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/HabitatAvailability.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/HabitatAvailability.null.html</loc>
-  </url>
-  <url>
     <loc>https://dd-harp.github.io/exDE/reference/HabitatDynamics.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/HabitatDynamics.null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/HabitatSearch.dynamic.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/HabitatSearch.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/HabitatSearch.static.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/HumanAvailability.forced.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/HumanAvailability.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/HumanAvailability.null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/HabitatDynamics.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/Hydrology.html</loc>
@@ -451,6 +484,15 @@
     <loc>https://dd-harp.github.io/exDE/reference/LSMeffects.null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/LocalFrac.dynamic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/LocalFrac.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/LocalFrac.static.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/MBionomics.GeRM.html</loc>
   </url>
   <url>
@@ -481,7 +523,7 @@
     <loc>https://dd-harp.github.io/exDE/reference/OtherBloodHosts.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/OtherBloodHosts.null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/OtherBloodHosts.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/OviTraps.html</loc>
@@ -514,7 +556,10 @@
     <loc>https://dd-harp.github.io/exDE/reference/Resources.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/Resources.null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/Resources.setup.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Resources.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/Shock.html</loc>
@@ -527,21 +572,6 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/SprayHouses.null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/Sugar.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/Sugar.null.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/SugarAvailability.forced.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/SugarAvailability.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/SugarAvailability.null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/SugarBaitEffectSizes.html</loc>
@@ -562,13 +592,28 @@
     <loc>https://dd-harp.github.io/exDE/reference/SugarBaits.null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/SugarDynamics.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/SugarDynamics.static.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/Temperature.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/Temperature.null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Transmission.dynamic.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/Transmission.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Transmission.setup.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/Transmission.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/TreatHabitats.html</loc>
@@ -616,7 +661,7 @@
     <loc>https://dd-harp.github.io/exDE/reference/Visitors.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/Visitors.null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/Visitors.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/Weather.forced.html</loc>
@@ -652,6 +697,21 @@
     <loc>https://dd-harp.github.io/exDE/reference/check_civil.null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_AvailableHabitat.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_AvailableHosts.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_EIR_full.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_EggsLaid.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_NI.html</loc>
   </url>
   <url>
@@ -659,6 +719,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_beta.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_calU.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_fqM.html</loc>
@@ -671,6 +734,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_fqZ_ix.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/compute_kappa.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/compute_local_frac.html</loc>
@@ -868,22 +934,25 @@
     <loc>https://dd-harp.github.io/exDE/reference/make_Omega.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_TaR.as_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_TaR.athome.html</loc>
-  </url>
-  <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_TaR.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_TaR.xy.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_TimeSpent.as_matrix.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_TaR_athome.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_TimeSpent.athome.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_TaR_xy.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/make_TimeSpent.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_TimeSpent.xy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_TimeSpent_athome.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_TimeSpent_xy.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_Xinits_SIP.html</loc>
@@ -926,6 +995,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_calU.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/make_calU_s.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_indices.html</loc>
@@ -1117,16 +1189,28 @@
     <loc>https://dd-harp.github.io/exDE/reference/parse_deout_vec.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_BFpar_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_BloodFeeding.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_EGGpar_static.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_EIP.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_EIP.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/setup_EggLaying.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_EggLaying_simple.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/setup_Hpar.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_EggLaying_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_Hpar_static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_Linits.basic.html</loc>
@@ -1237,6 +1321,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/setup_behavior_null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_bionomics_static.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_care_seeking_null.html</loc>
   </url>
   <url>
@@ -1279,7 +1366,7 @@
     <loc>https://dd-harp.github.io/exDE/reference/setup_exposure_pois.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/setup_habitat_dynamics_null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_habitat_dynamics_static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_hydrology_null.html</loc>
@@ -1294,6 +1381,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/setup_itn_null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_local_fraction_simple.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_lsm_null.html</loc>
   </url>
   <url>
@@ -1303,7 +1393,7 @@
     <loc>https://dd-harp.github.io/exDE/reference/setup_mass_medical_null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/setup_other_blood_hosts_null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_other_blood_hosts_static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_ovitraps_null.html</loc>
@@ -1321,13 +1411,16 @@
     <loc>https://dd-harp.github.io/exDE/reference/setup_resources_null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_resources_static.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_shock_null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_sugar_baits_null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/setup_sugar_null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_sugar_static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_temperature_null.html</loc>
@@ -1339,7 +1432,7 @@
     <loc>https://dd-harp.github.io/exDE/reference/setup_travel_foi.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/setup_travel_null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_travel_static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_vc_control.html</loc>
@@ -1351,7 +1444,7 @@
     <loc>https://dd-harp.github.io/exDE/reference/setup_visitors_basic.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/setup_visitors_null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/setup_visitors_static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/setup_weather_forced.html</loc>
@@ -1372,7 +1465,7 @@
     <loc>https://dd-harp.github.io/exDE/reference/travel_malaria.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/travel_malaria.null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/travel_malaria.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/update_inits.html</loc>

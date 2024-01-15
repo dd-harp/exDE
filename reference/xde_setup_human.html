@@ -87,11 +87,12 @@
 <span>  HPop <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>  MYZopts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  Xopts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  Hopts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  BFopts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  residence <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  searchB <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  TaR <span class="op">=</span> <span class="st">"athome"</span>,</span>
-<span>  TaRopts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  F_circadian <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  TimeSpent <span class="op">=</span> <span class="st">"athome"</span>,</span>
+<span>  TimeSpentOpts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -117,8 +118,8 @@
 <dd><p>a list to configure the X model</p></dd>
 
 
-<dt>Hopts</dt>
-<dd><p>a list to configure the H model</p></dd>
+<dt>BFopts</dt>
+<dd><p>a list to configure the blood feeding model</p></dd>
 
 
 <dt>residence</dt>
@@ -129,12 +130,16 @@
 <dd><p>is a vector of search weights for blood feeding</p></dd>
 
 
-<dt>TaR</dt>
-<dd><p>is either a TaR matrix or a string to call a function that sets it up</p></dd>
+<dt>F_circadian</dt>
+<dd><p>is a function describing mosquito daily activity</p></dd>
 
 
-<dt>TaRopts</dt>
-<dd><p>are the options to setup TaR</p></dd>
+<dt>TimeSpent</dt>
+<dd><p>is either a TimeSpent matrix or a string to call a function that sets it up</p></dd>
+
+
+<dt>TimeSpentOpts</dt>
+<dd><p>are the options to setup TimeSpent</p></dd>
 
 </dl></div>
     <div class="section level2">
