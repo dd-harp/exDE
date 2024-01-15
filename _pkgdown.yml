@@ -57,23 +57,96 @@ home:
         title: Changelog
         text: <a href="news/index.html">News</a>
 reference:
-- title: Derivatives functions
-  contents:
-  - xDE_diffeqn
-  - xDE_diffeqn_aquatic
-  - xDE_diffeqn_mosy
-  - xDE_diffeqn_human
-  - xDE_diffeqn_cohort
-- title: Transmission
+- title: Blood Feeding and Transmission
   desc: |
-    Generic methods for transmission.
+    Methods to compute the transmission terms
   contents:
-  - F_beta
-  - F_EIR
-  - F_kappa
-  - compute_beta
   - Transmission
   - Exposure
+  - LocalFrac
+  - AvailableBlood
+- subtitle: Transmision
+  desc: |
+    Specialized methods to compute the transmission terms
+  contents:
+  - Transmission.static
+  - Transmission.dynamic
+  - Transmission.setup
+  - F_beta
+  - compute_beta
+  - F_EIR
+  - compute_EIR
+  - compute_EIR_full
+  - F_kappa
+  - compute_kappa
+- subtitle: Blood Feeding
+  desc: |
+    Method to set up the blood feeding model
+  contents:
+  - setup_BFpar_static
+  - setup_BloodFeeding
+  - make_TaR
+- subtitle: Time Spent and Time at Risk
+  desc: |
+    Method to set up time spent and time at risk (TaR) matrices
+  contents:
+  - make_TimeSpent
+  - make_TimeSpent.athome
+  - make_TimeSpent_athome
+  - make_TimeSpent.as_matrix
+  - make_TimeSpent.xy
+  - make_TimeSpent_xy
+- subtitle: Availability of humans / hosts
+  desc: |
+    Specialized methods to compute available humans / hosts
+  contents:
+  - AvailableBlood.static
+  - AvailableBlood.setup
+  - AvailableBlood.forced
+  - compute_AvailableHosts
+- subtitle: Exposure
+  desc: |
+    Methods to model the force of infection
+  contents:
+  - F_foi
+- subtitle: Poisson Exposure
+  desc: |
+    Specialized methods the Poisson exposure model
+  contents:
+  - F_foi.pois
+  - setup_exposure_pois
+- subtitle: Negative Binomial Exposure
+  desc: |
+    Specialized methods the Negative Binomial exposure model
+  contents:
+  - F_foi.nb
+  - setup_exposure_nb
+- subtitle: Local Fraction
+  desc: |
+    Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
+  contents:
+  - LocalFrac.static
+  - LocalFrac.dynamic
+  - compute_local_frac
+  - setup_local_fraction_simple
+- title: Egg Laying & Emergence
+  desc: |
+    Generic methods for the aquatic (immature) mosquito component.
+  contents:
+  - Emergence
+  - make_calN
+  - EggLaying
+  - EggLaying.static
+  - EggLaying.dynamic
+  - EggLaying.simple
+  - EggLaying.setup
+  - compute_calU
+  - compute_EggsLaid
+  - make_calU
+  - make_calU_s
+  - setup_EggLaying_static
+  - setup_EggLaying_simple
+  - setup_EGGpar_static
 - title: Adult Mosquito Dynamics
   desc: |
     Generic methods for the adult mosquito dynamics component.
@@ -218,44 +291,6 @@ reference:
   - update_inits_MYZ.GeRM_ode
   - update_inits_MYZ.GeRM_dde
   - make_parameters_MYZ_GeRM
-- title: Mosquito Bionomic Functional Responses
-  desc: |
-    Compute bionomic parameters as functional responses to resource availability
-  contents:
-  - F_sigma
-  - F_sigma.static
-  - F_sigma.BQS
-  - F_nu
-  - F_nu.static
-  - F_nu.type2
-  - F_f
-  - F_f.static
-  - F_f.type2
-  - F_q
-  - F_q.static
-  - F_q.dynamic
-  - F_g
-  - F_g.static
-- title: Mosquito Dispersal
-  desc: |
-    Specialized methods to set up mosquito dispersal matrices
-  contents:
-  - make_calK
-  - make_calK.herethere
-  - make_calK.as_matrix
-  - make_calK.xy
-  - make_calK_xy
-- title: Mosquito Ecology
-  desc: |
-    Generic methods for the aquatic (immature) mosquito component.
-  contents:
-  - Bionomics
-  - HabitatSearch
-  - HabitatSearch.static
-  - HabitatSearch.dynamic
-  - EggLaying
-  - setup_EggLaying
-  - Emergence
 - title: Aquatic Mosquito Dynamics
   desc: |
     Generic methods for the aquatic (immature) mosquito component.
@@ -269,8 +304,6 @@ reference:
   - parse_deout_L
   - get_inits_L
   - update_inits_L
-  - make_calN
-  - make_calU
 - subtitle: trace
   desc: |
     Specialized methods for the exogeneously forced trace model of aquatic mosquito dynamics.
@@ -304,6 +337,44 @@ reference:
   - get_inits_L.basic
   - update_inits_L.basic
   - make_parameters_L_basic
+- title: Mosquito Bionomics
+  desc: |
+    Methods to compute or update mosquito bionomic parameters
+  contents:
+  - Bionomics
+  - Bionomics.static
+  - Bionomics.dynamic
+  - Bionomics.Ldynamic
+  - Bionomics.Mdynamic
+  - Bionomics.setup
+  - setup_bionomics_static
+- subtitle:  Functional Responses
+  desc: |
+    Compute bionomic parameters as functional responses to resource availability
+  contents:
+  - F_sigma
+  - F_sigma.static
+  - F_sigma.BQS
+  - F_nu
+  - F_nu.static
+  - F_nu.type2
+  - F_f
+  - F_f.static
+  - F_f.type2
+  - F_q
+  - F_q.static
+  - F_q.dynamic
+  - F_g
+  - F_g.static
+- subtitle: Mosquito Dispersal
+  desc: |
+    Specialized methods to set up mosquito dispersal matrices
+  contents:
+  - make_calK
+  - make_calK.herethere
+  - make_calK.as_matrix
+  - make_calK.xy
+  - make_calK_xy
 - title: Human Infection Dynamics
   desc: |
     Generic methods for the dynamical component that handles human infection dynamics, immunity, disease and transmission
@@ -408,7 +479,7 @@ reference:
     Generic methods for the human demography and aging
   contents:
   - dHdt
-  - setup_Hpar
+  - setup_Hpar_static
   - Births
   - make_parameters_demography_null
   - make_Hpar_trace
@@ -418,17 +489,7 @@ reference:
   contents:
   - Births.zero
   - dHdt.zero
-- title: Time at Risk
-  desc: |
-    Method to set up time at risk (TaR) matrices
-  contents:
-  - make_TaR
-  - make_TaR.athome
-  - make_TaR_athome
-  - make_TaR.as_matrix
-  - make_TaR.xy
-  - make_TaR_xy
-- title: Human and Mosqutio Behaviors
+- title: Human and Mosquito Behaviors
   desc: |
     Methods to implement human and Mosquito Behaviorsbehaviors
   contents:
@@ -447,58 +508,28 @@ reference:
   - CareSeeking
   - CareSeeking.null
   - setup_care_seeking_null
-- title: Exposure
+- title: Imported Malaria
   desc: |
-    Methods to implement exposure models (i.e., EIR to FoI)
-  contents: F_foi
-- subtitle: Poisson
-  desc: |
-    Specialized methods the default model (Poisson)
+    Methods to implement imported malaria
   contents:
-  - F_foi.pois
-  - setup_exposure_pois
-- subtitle: nb
+  - travel_malaria
+  - Visitors
+- subtitle: Travel Malaria
   desc: |
-    Specialized methods the negative binomial model
+    Specialized methods for travel malaria
   contents:
-  - F_foi.nb
-  - setup_exposure_nb
-- title: Travel Malaria
-  desc: |
-    Methods to implement exposure to malaria while traveling
-  contents: travel_malaria
-- subtitle: null model
-  desc: |
-    Specialized methods the null travel malaria model
-  contents:
-  - travel_malaria.null
-  - setup_travel_null
-- subtitle: FoI
-  desc: |
-    Specialized methods the foi-based travel malaria model
-  contents:
+  - travel_malaria.static
+  - setup_travel_static
   - travel_malaria.foi
   - setup_travel_foi
-- subtitle: EIR
-  desc: |
-    Specialized methods the eir-based travel malaria model
-  contents:
   - travel_malaria.eir
   - setup_travel_eir
-- title: Visitors
+- subtitle: Visitors
   desc: |
-    Methods to implement malaria importation through visitors
-  contents: Visitors
-- subtitle: null model
-  desc: |
-    Specialized methods for a null model for visitors (do nothing)
+    Methods for the availability and infectiousness of a visitor population
   contents:
-  - Visitors.null
-  - setup_visitors_null
-- subtitle: basic
-  desc: |
-    Specialized methods for a basic model of malaria visitorsation
-  contents:
+  - Visitors.static
+  - setup_visitors_static
   - Visitors.basic
   - setup_visitors_basic
 - title: Exogeneous Forcing
@@ -512,7 +543,7 @@ reference:
   - Clinic
   - Development
   - MassMedical
-- subtitle: null model
+- subtitle: Models
   desc: |
     Specialized methods the null model (no exogenous forcing)
   contents:
@@ -524,8 +555,8 @@ reference:
   - setup_shock_null
   - Control.null
   - Control.static
-  - setup_control_null
   - setup_control
+  - setup_control_null
   - setup_control.null
   - setup_control.forced
   - Clinic.null
@@ -578,46 +609,46 @@ reference:
   - Hydrology
   - Hydrology.null
   - setup_hydrology_null
-- title: Resources and Availability
+- title: Resource Dynamics
   desc: |
     Methods to implement resource availability
   contents:
   - Resources
-  - HumanAvailability
-  - HabitatAvailability
-  - SugarAvailability
-  - Resources.null
-  - HumanAvailability.null
-  - HabitatAvailability.null
-  - SugarAvailability.null
+  - Resources.static
+  - Resources.setup
   - Resources.forced
-  - HumanAvailability.forced
-  - HabitatAvailability.forced
-  - SugarAvailability.forced
   - setup_resources_null
+  - setup_resources_static
   - setup_resources_forced
-  - compute_local_frac
 - subtitle: Other Blood Hosts
   desc: |
     Methods to simulate availability of other blood hosts
   contents:
   - OtherBloodHosts
-  - OtherBloodHosts.null
-  - setup_other_blood_hosts_null
-- subtitle: Habitat Dynamics
+  - OtherBloodHosts.static
+  - setup_other_blood_hosts_static
+- subtitle: Habitat Dynamics and Availability
   desc: |
-    Methods to implement habitat dynamics
+    Specialized methods for weather
   contents:
+  - AvailableHabitat
+  - AvailableHabitat.static
+  - AvailableHabitat.simple
+  - AvailableHabitat.forced
+  - compute_AvailableHabitat
   - HabitatDynamics
-  - HabitatDynamics.null
-  - setup_habitat_dynamics_null
+  - HabitatDynamics.static
+  - setup_habitat_dynamics_static
 - subtitle: Sugar
   desc: |
     Methods to simulate availability of sugar
   contents:
-  - Sugar
-  - Sugar.null
-  - setup_sugar_null
+  - SugarDynamics
+  - SugarDynamics.static
+  - setup_sugar_static
+  - AvailableSugar
+  - AvailableSugar.static
+  - AvailableSugar.forced
 - title: Vector Control
   desc: |
     Methods to implement vector control.
@@ -709,20 +740,42 @@ reference:
   - OviTraps
   - OviTraps.null
   - setup_ovitraps_null
-- title: Spatial metrics
-  contents:
-  - metric_calV
-  - metric_calD
-  - metric_calR
-  - metric_calZ
+
 - title: Setup
+  desc: |
+    Basic setup for models
+  contents:
+  - make_parameters_xde
+  - make_indices
+- subtitle: Setting Up
+  desc: |
+    Methods to set up basic models
   contents:
   - xde_setup
   - xde_setup_aquatic
   - xde_setup_mosy
   - xde_setup_human
   - xde_setup_cohort
+- subtitle: Initial Values
+  desc: |
+    Methods to set up basic models
+  contents:
+  - get_inits
+  - update_inits
+  - last_to_inits
 - title: Solving
+  desc: |
+    Methods to compute the derivatives and solve the equat
+- subtitle: Derivatives
+  contents:
+  - xDE_diffeqn
+  - xDE_diffeqn_aquatic
+  - xDE_diffeqn_mosy
+  - xDE_diffeqn_human
+  - xDE_diffeqn_cohort
+- subtitle: Solving
+  desc: |
+    Wrappers around the derivatives functions that handle time and parse outputs
   contents:
   - xde_solve
   - xde_solve.dde
@@ -735,21 +788,21 @@ reference:
   - xde_solve.cohort
   - xde_stable_orbit
   - xde_steady
-- title: Utilities
+- title: Analysis and Visualization
+  desc: |
+    Methods to compute and output terms
+- subtitle: Spatial metrics
   contents:
-  - make_parameters_xde
-  - make_indices
+  - metric_calV
+  - metric_calD
+  - metric_calR
+  - metric_calZ
+- subtitle: Compute terms
+  desc: |
+    Methods to compute and transmission terms
+  contents:
   - parse_deout
   - parse_deout_vec
-  - get_inits
-  - update_inits
-  - last_to_inits
-  - diag_inverse
-  - approx_equal
-  - checkIt
-  - shapeIt
-- title: Compute terms
-  contents:
   - compute_terms
   - compute_terms.xde
   - compute_terms.cohort
@@ -762,7 +815,9 @@ reference:
   - compute_fqM_ix
   - compute_NI
   - compute_NI_ix
-- title: Plot terms
+- subtitle: Plot terms
+  desc: |
+    Basic visualization of the transmission terms
   contents:
   - xde_plot_EIR
   - xde_lines_EIR
@@ -770,3 +825,9 @@ reference:
   - xde_lines_aEIR
   - xde_plot_PR
   - xde_lines_PR
+- title: Utilities
+  contents:
+  - diag_inverse
+  - approx_equal
+  - checkIt
+  - shapeIt

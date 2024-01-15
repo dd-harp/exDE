@@ -103,6 +103,8 @@ to `exDE::xDE_diffeqn_mosy`.
 
 ```{r}
 params = make_parameters_xde()
+class(params$BFpar) <- "static"
+class(params$EGGpar) <- "simple"
 params$nVectors = 1 
 params$nHosts = 1 
 params$nPatches = nPatches
@@ -167,8 +169,7 @@ MYZo = list(
 ```
 
 ```{r}
-xde_setup_mosy("mosy1", 
-               MYZname = "basicM", Lname = "trace", 
+xde_setup_mosy(MYZname = "basicM", Lname = "trace", 
                nPatches = 3, membership = c(1,2,3,3), 
                MYZopts = MYZo, calK = calK, Lopts = Lo, 
                kappa = c(0.1, 0.075, 0.025))->mosy1

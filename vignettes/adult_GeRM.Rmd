@@ -123,6 +123,10 @@ library(data.table)
 library(ggplot2)
 ```
 
+```{r, echo=FALSE}
+#devtools::load_all()
+```
+
 Here we show an example of starting and solving a model at equilibrium. Please note that this only
 runs this adult mosquito model and that most users should read [our fully worked example](ex_534.html)
 to run a full simulation.

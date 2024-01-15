@@ -22,8 +22,9 @@ test_that("human hybrid MoI model remains at equilibrium", {
   params$nStrata = nStrata
   params$nHosts <- 1
   params$nPatches = 1
-  params = make_parameters_demography_null(pars = params, H=H, residence=residence,
-                                           searchWts=searchWtsH, TaR=TaR)
+  params = make_parameters_demography_null(pars = params, H=H)
+  params = setup_BloodFeeding(params, 1, 1, residence=residence, searchWts=searchWtsH)
+  params$BFpar$TaR[[1]][[1]]=TaR
   params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
   params = make_inits_X_hMoI(pars = params, m10 = rep(m10,nStrata), m20 = rep(m20,nStrata))
 

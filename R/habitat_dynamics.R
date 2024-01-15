@@ -1,7 +1,7 @@
 # Methods to set up variables describing exogenous forcing by habitat_dynamics
 
-#' @title Set the values of exogenous variables describing habitat_dynamics
-#' @description This method dispatches on the type of `pars$HABITAT_DYNAMICS`.
+#' @title Habitat Dynamics and Searching
+#' @description Set the values of habitat search weights and other exogenous variables describing habitat_dynamics. This method dispatches on the type of `pars$HABITAT_DYNAMICS`.
 #' @param t current simulation time
 #' @param pars a [list]
 #' @return [list]
@@ -10,22 +10,23 @@ HabitatDynamics <- function(t, pars) {
   UseMethod("HabitatDynamics", pars$HABITAT_DYNAMICS)
 }
 
-#' @title Set the values of exogenous variables describing habitat dynamics
-#' @description Implements [HabitatDynamics] for the null model of habitat_dynamics (do nothing)
+#' @title Set the values of habitat search weights and other exogenous variables describing habitat_dynamics
+#' @description Implements [HabitatDynamics] for the static model of habitat_dynamics (do nothing)
 #' @inheritParams HabitatDynamics
 #' @return [list]
 #' @export
-HabitatDynamics.null <- function(t, pars) {
+HabitatDynamics.static <- function(t, pars) {
   return(pars)
 }
 
-#' @title Make parameters for the null model for habitat dynamics (do nothing)
-#' @param pars a [list]
-#' @return [list]
+#' @title Setup the egg laying object
+#' @description Sets up the egg-deposition matrix calU for the s^th species
+#' @param pars the model object
+#' @return a [list] vector
 #' @export
-setup_habitat_dynamics_null <- function(pars) {
-  HABITAT_DYNAMICS <- list()
-  class(HABITAT_DYNAMICS) <- 'null'
-  pars$HABITAT_DYNAMICS <- HABITAT_DYNAMICS
+setup_habitat_dynamics_static = function(pars){
+  up <- list()
+  class(up) <- "static"
+  pars$HABITAT_DYNAMICS <- up
   return(pars)
 }

@@ -98,8 +98,9 @@ test_that("test equilibrium with RM adults (ODE), hMoI humans, trace", {
 
   params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
   params = make_inits_MYZ_RM_ode(pars = params, M0 = as.vector(M), P0 = as.vector(P), Y0 = as.vector(Y), Z0 = as.vector(Z))
-  params = make_parameters_demography_null(pars = params, H=H, residence=residence,
-                                           searchWts=searchWtsH, TaR=TaR)
+  params = make_parameters_demography_null(pars = params, H=H)
+  params = setup_BloodFeeding(params, 1, 1, residence=residence, searchWts=searchWtsH)
+  params$BFpar$TaR[[1]][[1]]=TaR
   params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
   params = make_inits_X_hMoI(pars = params, m10 = rep(m10,2), m20 = rep(m20,2))
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))
@@ -215,8 +216,9 @@ test_that("test equilibrium with RM adults (DDE), hMoI humans, trace", {
 
   params = make_parameters_MYZ_RM(pars = params, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
   params = make_inits_MYZ_RM_dde(pars = params, M0 = as.vector(M), P0 = as.vector(P), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=OmegaEIP)
-  params = make_parameters_demography_null(pars = params, H=H, residence=residence,
-                                           searchWts=searchWtsH, TaR=TaR)
+  params = make_parameters_demography_null(pars = params, H=H)
+  params = setup_BloodFeeding(params, 1, 1, residence=residence, searchWts=searchWtsH)
+  params$BFpar$TaR[[1]][[1]]=TaR
   params = make_parameters_X_hMoI(pars = params, b = b, c1 = c1, c2 = c2, r1 = r1, r2 = r2)
   params = make_inits_X_hMoI(pars = params, m10 = rep(m10,2), m20 = rep(m20,2))
   params = make_parameters_L_trace(pars = params, Lambda = as.vector(Lambda))

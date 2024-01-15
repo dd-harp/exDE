@@ -11,21 +11,23 @@ OtherBloodHosts <- function(t, pars) {
 }
 
 #' @title Set the values of exogenous variables describing other blood hosts
-#' @description Implements [OtherBloodHosts] for the null model of other_blood_hosts (do nothing)
+#' @description Implements [OtherBloodHosts] for the static model of other_blood_hosts (do nothing)
 #' @inheritParams OtherBloodHosts
 #' @return [list]
 #' @export
-OtherBloodHosts.null <- function(t, pars) {
+OtherBloodHosts.static <- function(t, pars) {
   return(pars)
 }
 
-#' @title Make parameters for the null model for other blood hosts (do nothing)
+#' @title Make parameters for the static model for other blood hosts (do nothing)
 #' @param pars a [list]
+#' @param Other the availability of other blood hosts
 #' @return [list]
 #' @export
-setup_other_blood_hosts_null <- function(pars) {
+setup_other_blood_hosts_static <- function(pars, Other=0) {
   OTHER_BLOOD <- list()
-  class(OTHER_BLOOD) <- 'null'
+  class(OTHER_BLOOD) <- 'static'
+  pars$vars$Other[[1]] = Other
   pars$OTHER_BLOOD <- OTHER_BLOOD
   return(pars)
 }

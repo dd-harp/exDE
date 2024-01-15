@@ -21,8 +21,9 @@ test_that("human SIS model remains at equilibrium", {
   params$nHosts <- 1
   params$nPatches <- 1
 
-  params = make_parameters_demography_null(pars = params, H=H, residence=residence,
-                                           searchWts=searchWtsH, TaR=TaR)
+  params = make_parameters_demography_null(pars = params, H=H)
+  params = setup_BloodFeeding(params, 1, 1, residence=residence, searchWts=searchWtsH)
+  params$BFpar$TaR[[1]][[1]]=TaR
   params = make_parameters_X_SIS(pars = params, b = b, c = c, r = r)
   params = make_inits_X_SIS(pars = params, H-I, I)
 

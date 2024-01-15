@@ -51,6 +51,11 @@ library(data.table)
 library(ggplot2)
 ```
 
+
+```{r, echo=FALSE} 
+#devtools::load_all()
+```
+
 Here we run a simple example with 3 population strata at equilibrium. We use `exDE::make_parameters_X_SIP` to
 set up parameters. Please note that this only runs the human population component and that most users should read [our fully worked example](ex_534.html) to run a full simulation.
 
@@ -90,7 +95,10 @@ F_eir = function(t, pars){
   pars$EIR[[1]] = params$eir
 }
 
-params = make_parameters_demography_null(pars = params, H=H, residence=residence, searchWts=searchWtsH, TaR=TaR)
+params = make_parameters_demography_null(pars = params, H=H) 
+
+params = setup_BloodFeeding(params, 1, 1, residence=residence, searchWts =searchWtsH) 
+params$BFpar$TaR[[1]][[1]]=TaR
 
 params = make_parameters_X_SIP(pars = params, b = b, c = c, r = r, rho = rho, eta = eta, xi=xi)
 params = make_inits_X_SIP(pars = params, H-I-P, I, as.vector(P))

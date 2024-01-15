@@ -2,7 +2,7 @@
 % Please edit documentation in R/habitat_dynamics.R
 \name{HabitatDynamics}
 \alias{HabitatDynamics}
-\title{Set the values of exogenous variables describing habitat_dynamics}
+\title{Habitat Dynamics and Searching}
 \usage{
 HabitatDynamics(t, pars)
 }
@@ -15,5 +15,5 @@ HabitatDynamics(t, pars)
 \link{list}
 }
 \description{
-This method dispatches on the type of \code{pars$HABITAT_DYNAMICS}.
+Set the values of habitat search weights and other exogenous variables describing habitat_dynamics. This method dispatches on the type of \code{pars$HABITAT_DYNAMICS}.
 }

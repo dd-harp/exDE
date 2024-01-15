@@ -53,7 +53,7 @@ xde_solve.ode = function(pars, Tmax=365, dt=1){
 #' @title Solve a system of equations as a dde
 #' @description Implements [xde_solve] for delay differential equations
 #' @inheritParams xde_solve
-#' @return a [list]
+#'@return a [list]
 #' @export
 xde_solve.dde = function(pars, Tmax=365, dt=1){
   tt = seq(0, Tmax, by=dt)
@@ -70,7 +70,6 @@ xde_solve.dde = function(pars, Tmax=365, dt=1){
 #' @export
 xde_solve.aqua = function(pars, Tmax=365, dt=1){
   tt = seq(0, Tmax, by=dt)
-  #y0 = get_inits_L(pars, 1)
   y0 = get_inits(pars)
   deSolve::ode(y = y0, times = tt, func = xDE_diffeqn_aquatic, parms = pars, method = "lsoda") -> out
   pars$outputs$orbits = parse_deout(out, pars)
@@ -84,7 +83,7 @@ xde_solve.aqua = function(pars, Tmax=365, dt=1){
 #' @export
 xde_solve.aqua_dde = function(pars, Tmax=365, dt=1){
   tt = seq(0, Tmax, by=dt)
-  y0 = get_inits_L(pars, 1)
+  y0 = get_inits(pars)
   deSolve::dede(y = y0, times = tt, func = xDE_diffeqn_aquatic, parms = pars, method = "lsoda") -> out
   pars$outputs$orbits = parse_deout(out, pars)
   return(pars)

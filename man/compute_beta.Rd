@@ -2,20 +2,20 @@
 % Please edit documentation in R/transmission.R
 \name{compute_beta}
 \alias{compute_beta}
-\title{Compute beta, the biting distribution matrix}
+\title{Compute beta}
 \usage{
-compute_beta(H, wts_f, TaR)
+compute_beta(t, y, pars)
 }
 \arguments{
-\item{H}{the human population size}
+\item{t}{current simulation time}
 
-\item{wts_f}{the blood feeding search weights}
+\item{y}{state vector}
 
-\item{TaR}{(time at risk), a \link{matrix}  dimensions \code{nPatches} by \code{nStrata}}
+\item{pars, }{a \link{list}}
 }
 \value{
-a \link{matrix} of dimensions \code{nStrata} by \code{nPatches}
+\link{list}
 }
 \description{
-Compute beta, the biting distribution matrix
+This function computes the mixing matrix, beta
 }

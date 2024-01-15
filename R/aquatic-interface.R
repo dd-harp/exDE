@@ -119,16 +119,4 @@ make_calN = function(nPatches, membership){
   return(calN)
 }
 
-#' @title Make the egg distribution matrix, calU
-#' @param calN the habitat membership matrix
-#' @param searchQ the habitat search weights
-#' @return a [matrix] of dimensions `nHabitats` by `nPatches`
-#' @export
-make_calU = function(calN, searchQ=1){
-  calU = searchQ*t(calN)
-  colNorms = colSums(calU)
-  ix = which(colNorms == 0)
-  if(length(ix)>0) colNorms[ix]=1
-  calU = calU %*% diag(1/colNorms)
-  return(calU)
-}
+

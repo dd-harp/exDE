@@ -5,6 +5,7 @@
 #' @return [list]
 #' @export
 Exposure <- function(t, y, pars){
+
   for(i in 1:pars$nHosts){
     b = F_b(y, pars, i)
     pars$FoI[[i]] = F_foi(pars$EIR[[i]], b, pars) + travel_malaria(t, pars)

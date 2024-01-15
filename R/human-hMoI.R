@@ -75,7 +75,7 @@ dXdt.hMoI <- function(t, y, pars, i) {
 #' @return a [list] vector
 #' @export
 setup_Xpar.hMoI = function(Xname, pars, i, Xopts=list()){
-  pars$Xpar[[i]] = make_Xpar_hMoI(pars$nStrata, Xopts)
+  pars$Xpar[[i]] = make_Xpar_hMoI(pars$Hpar[[i]]$nStrata, Xopts)
   return(pars)
 }
 
@@ -85,7 +85,7 @@ setup_Xpar.hMoI = function(Xname, pars, i, Xopts=list()){
 #' @return a [list] vector
 #' @export
 setup_Xinits.hMoI = function(pars, i, Xopts=list()){
-  pars$Xinits[[i]] = make_Xinits_hMoI(pars$nStrata, Xopts)
+  pars$Xinits[[i]] = make_Xinits_hMoI(pars$Hpar[[i]]$nStrata, Xopts)
   return(pars)
 }
 
@@ -150,10 +150,10 @@ HTC.hMoI <- function(pars, i) {
 #' @importFrom utils tail
 #' @export
 make_indices_X.hMoI <- function(pars, i) {with(pars,{
-  m1_ix <- seq(from = max_ix+1, length.out=nStrata)
+  m1_ix <- seq(from = max_ix+1, length.out=Hpar[[i]]$nStrata)
   max_ix <- tail(m1_ix, 1)
 
-  m2_ix <- seq(from = max_ix+1, length.out=nStrata)
+  m2_ix <- seq(from = max_ix+1, length.out=Hpar[[i]]$nStrata)
   max_ix <- tail(m2_ix, 1)
 
   pars$max_ix = max_ix
@@ -205,7 +205,7 @@ update_inits_X.hMoI <- function(pars, y0,i) {
   with(pars$ix$X[[i]],{
     m1 = y0[m1_ix]
     m2 = y0[m2_ix]
-    pars$Xinits[[i]] = make_Xinits_hMoI(pars$nStrata, m10=m1, m20=m2)
+    pars$Xinits[[i]] = make_Xinits_hMoI(pars$Hpar[[1]]$nStrata, m10=m1, m20=m2)
     return(pars)
 })}
 

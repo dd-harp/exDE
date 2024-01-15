@@ -32,7 +32,7 @@ F_alpha.basic <- function(t, y, pars, s) {
 #' @return a [numeric] vector
 #' @export
 dLdt.basic <- function(t, y, pars, s) {
-  eta <- pars$eta[[s]]
+  eta <- pars$eggs_laid[[s]]
   with(pars$ix$L[[s]],{
     L <- y[L_ix]
     with(pars$Lpar[[s]], {

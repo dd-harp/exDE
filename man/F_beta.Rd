@@ -2,24 +2,22 @@
 % Please edit documentation in R/transmission.R
 \name{F_beta}
 \alias{F_beta}
-\title{Compute the biting distribution matrix, beta}
+\title{Compute beta, the biting distribution matrix}
 \usage{
-F_beta(t, y, pars, s, i)
+F_beta(H, W, wts_f, TaR)
 }
 \arguments{
-\item{t}{current simulation time}
+\item{H}{human / host population density}
 
-\item{y}{state vector}
+\item{W}{human / host availability in the patches}
 
-\item{pars, }{a \link{list}}
+\item{wts_f}{the blood feeding search weights}
 
-\item{s}{the vector species index}
-
-\item{i}{the host species index}
+\item{TaR}{(time at risk), a \link{matrix}  dimensions \code{nPatches} by \code{nStrata}}
 }
 \value{
-\link{list}
+a \link{matrix} of dimensions \code{nStrata} by \code{nPatches}
 }
 \description{
-This method dispatches on the type of \code{pars$xde}
+Compute beta, the biting distribution matrix
 }

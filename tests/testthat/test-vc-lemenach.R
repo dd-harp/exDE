@@ -76,8 +76,9 @@ test_that("Le Menach VC model with 0 coverage stays roughly at equilibrium", {
   Lambda <- Omega %*% M
 
   # set parameters
-  pars = make_parameters_demography_null(pars = pars, H=H, residence=residence,
-                                           searchWts=searchWtsH, TaR=TaR)
+  pars = make_parameters_demography_null(pars = pars, H=H)
+  pars = setup_BloodFeeding(pars, 1, 1, residence=residence, searchWts=searchWtsH)
+  pars$BFpar$TaR[[1]][[1]]=TaR
   pars = make_parameters_MYZ_RM(pars = pars, g = g, sigma = sigma, calK = calK, eip = eip, f = f, q = q, nu = nu, eggsPerBatch = eggsPerBatch, solve_as="ode")
   pars = make_inits_MYZ_RM_dde(pars = pars, M0 = as.vector(M), P0 = as.vector(P), Y0 = as.vector(Y), Z0 = as.vector(Z), Upsilon0=Upsilon)
   pars = make_parameters_L_trace(pars = pars,  Lambda = as.vector(Lambda))

@@ -10,8 +10,8 @@ xde_setup_cohort(
   Xname = "SIS",
   HPop = 1000,
   searchB = 1,
-  Xopts = list(),
-  Hopts = list()
+  residence = 1,
+  Xopts = list()
 )
 }
 \arguments{
@@ -25,9 +25,9 @@ xde_setup_cohort(
 
 \item{searchB}{is a vector of search weights for blood feeding}
 
-\item{Xopts}{a list to configure the X model}
+\item{residence}{is a vector that describes the patch where each human stratum lives}
 
-\item{Hopts}{a list to configure the H model}
+\item{Xopts}{a list to configure the X model}
 }
 \value{
 a \link{list}
