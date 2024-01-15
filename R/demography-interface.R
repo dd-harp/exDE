@@ -2,34 +2,29 @@
 
 #' @title A utility to set up Hpar
 #' @param pars a [list]
+#' @param i the host species index
 #' @param HPop a [numeric] vector of population densities
-#' @param residence is the patch where each stratum resides
-#' @param searchWts is the blood feeding search weight for each stratum
-#' @param Hopts a [list] to overwrite default values
 #' @return a [list]
 #' @export
-setup_Hpar = function(pars, HPop=1000, residence=1, searchWts=1, Hopts=NULL){
-  with(Hopts,{
-    with(pars, if(!exists("nStrata")) pars$nStrata = length(HPop))
+setup_Hpar_static = function(pars, i, HPop=1000){
 
-    Hpar = list()
-    Hpar$H = HPop
+  Hpar = list()
+  class(Hpar) <- "static"
+  Hpar$H = HPop
+  Hpar$nStrata = length(HPop)
 
-    Hpar$residence <- checkIt(residence, pars$nStrata)
-    Hpar$wts_f <- checkIt(searchWts, pars$nStrata)
-    Hpar$rbr <- searchWts*sum(HPop)/sum(searchWts*HPop)
+  Bf <- "zero"
+  class(Bf) <- "zero"
+  Hpar$Bf <- Bf
 
-    Bf <- "zero"
-    class(Bf) <- "zero"
-    Hpar$Bf <- Bf
+  dH <- "zero"
+  class(dH) <- "zero"
+  Hpar$dH <- dH
 
-    dH <- "zero"
-    class(dH) <- "zero"
-    Hpar$dH <- dH
+  pars$Hpar[[i]] <- Hpar
 
-    pars$Hpar[[1]] <- Hpar
-    return(pars)
-})}
+  return(pars)
+}
 
 
 #' @title Derivatives of demographic changes in human populations
@@ -59,20 +54,13 @@ Births <- function(t, y, pars, i){
 #' @title Make parameters for null human demography model
 #' @param pars a [list]
 #' @param H size of human population in each strata
-#' @param residence is a vector describing patch residency
-#' @param searchWts is a vector describing blood feeding search weights
-#' @param TaR is a matrix describing time spent among patches
 #' @return none
 #' @export
-make_parameters_demography_null <- function(pars, H, residence, searchWts, TaR) {
+make_parameters_demography_null <- function(pars, H) {
   stopifnot(length(H) == pars$nStrata)
   Hpar <- list()
   Hpar$H <- H
-
-  Hpar$residence <- checkIt(residence, pars$nStrata, F)
-  Hpar$wts_f <- checkIt(searchWts, pars$nStrata, F)
-  Hpar$rbr <- searchWts*sum(H)/sum(searchWts*H)
-  Hpar$TaR <- TaR
+  Hpar$nStrata <- length(H)
 
   Bf <- "zero"
   class(Bf) <- "zero"
@@ -83,7 +71,6 @@ make_parameters_demography_null <- function(pars, H, residence, searchWts, TaR) 
   Hpar$dH <- dH
 
   pars$Hpar[[1]] <- Hpar
-  pars$nStrata <- length(H)
 
   return(pars)
 }

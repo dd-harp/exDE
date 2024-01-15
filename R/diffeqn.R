@@ -36,19 +36,20 @@ xDE_diffeqn <- function(t, y, pars) {
   # compute the FoI
   pars <- Exposure(t, y, pars)
 
-  # state derivatives
+  # compute derivatives
   dL <- dLdt(t, y, pars, 1)
   dMYZ <- dMYZdt(t, y, pars, 1)
   if(pars$nVectors > 1)
-    for(s in 1:pars$nVectors){
+    for(s in 2:pars$nVectors){
       dL <- c(dL, dLdt(t, y, pars, s))
       dMYZ <- c(dMYZ, dMYZdt(t, y, pars, s))
     }
 
   dX <- dXdt(t, y, pars, 1)
   if(pars$nHosts > 1)
-    for(i in 1:pars$nHosts)
+    for(i in 2:pars$nHosts)
       dX <- c(dX, dXdt(t, y, pars, i))
+
 
   return(list(c(dL, dMYZ, dX)))
 }
@@ -83,7 +84,7 @@ xDE_diffeqn_human <- function(t, y, pars) {
   # state derivatives
   dX <- dXdt(t, y, pars, 1)
   if(pars$nHosts > 1)
-    for(i in 1:pars$nHosts)
+    for(i in 2:pars$nHosts)
       dX <- c(dX, dXdt(t, y, pars, i))
 
   return(list(c(dX)))
@@ -107,7 +108,7 @@ xDE_diffeqn_mosy <- function(t, y, pars) {
   pars <- Shock(t, pars)
   pars <- Control(t, y, pars)
   pars <- Behavior(t, y, pars)
-  pars <- Resources(t, y, pars)
+  #pars <- Resources(t, y, pars)
 
   # set baseline mosquito bionomic parameters
   pars <- Bionomics(t, y, pars)
@@ -143,7 +144,7 @@ xDE_diffeqn_mosy <- function(t, y, pars) {
 xDE_diffeqn_cohort <- function(a, y, pars, F_eir) {
 
   # EIR: entomological inoculation rate trace
-  pars$EIR[[1]] <- F_eir(a, pars)*pars$Hpar[[1]]$wts_f
+  pars$EIR[[1]] <- F_eir(a, pars)*pars$BFpar$relativeBitingRate[[1]][[1]]
 
   # FoI: force of infection
   pars <- Exposure(a, y, pars)
@@ -151,7 +152,7 @@ xDE_diffeqn_cohort <- function(a, y, pars, F_eir) {
   # state derivatives
   dX <- dXdt(t, y, pars, 1)
   if(pars$nHosts > 1)
-    for(i in 1:pars$nHosts)
+    for(i in 2:pars$nHosts)
       dX <- c(dX, dXdt(t, y, pars, i))
 
   return(list(c(dX)))
@@ -171,14 +172,15 @@ xDE_diffeqn_aquatic <- function(t, y, pars) {
   pars <- Abiotic(t, pars)
   pars <- Shock(t, pars)
   pars <- Control(t, y, pars)
-  pars <- Resources(t, y, pars)
+  pars <- HabitatDynamics(t, pars)
 
   # modify baseline mosquito bionomic parameters
   pars <- LBionomics(t, y, pars, 1)
   pars <- VectorControlEffectSizes(t, y, pars)
 
   # egg laying: compute eta
-  pars <- EggLaying(t, y, pars)
+
+  pars$eggs_laid[[1]] = F_eggs(t, y, pars, 1)
 
   # state derivatives
   dL <- dLdt(t, y, pars, 1)

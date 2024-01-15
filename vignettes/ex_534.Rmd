@@ -22,6 +22,10 @@ library(ggplot2)
 library(deSolve)
 ```
 
+```{r, echo=F}
+#devtools::load_all()
+```
+
 # Introduction
 
 We show how to setup, solve, and analyze models of mosquito-borne pathogen transmission dynamics and control using modular software. This vignette is designed to explain modular notation by constructing a model with five aquatic habitats ($l=5$), three patches ($p=3$), and four human population strata ($n=4$). We call it `5-3-4`.
@@ -92,8 +96,10 @@ The egg dispersal matrix $\mathcal{U}$ is a $l \times p$ matrix describing how e
 
 ```{r}
 xi <- matrix(c(.7, .2, .1, .8, .2), 5, 1) 
+params$EGGpar$searchWts[[1]] <- as.vector(xi)
 params$calU[[1]]<- t(calN %*% diag(as.vector(xi)))
 ```
+
 
 ## Aquatic Mosquito Parameters
 
@@ -149,11 +155,19 @@ params = make_inits_MYZ_RM_ode(params, M0=M0, P0=P0,
 
 ## Mixing
 
+We use the static demographic model, which assumes a constant population size (constant $H$).
+
+```{r}
+H <- matrix(c(10,90, 100, 900), 4, 1)
+params = setup_Hpar_static(params, 1, HPop=H) 
+```
+
 In this model, we define four population strata. We can describe their residency with a vector describing residence: 
 
 ```{r}
 residence = c(2,2,3,3)
 searchWtsH = c(1,1,1,1)
+params = setup_BloodFeeding(params, 1, 1, residence=residence, searchWts=searchWtsH)
 ``` 
 
 Although not directly used in this example, we create the residency membership matrix $\mathcal{J}$, a $p \times n$ matrix indicating which patch each human population strata resides in.
@@ -193,17 +207,11 @@ TaR <- t(matrix(
   c(.95,.92,.04,.02),
   c(.04,.02,.959,.929)), 4, 3
 ))
+params$BFpar$TaR[[1]][[1]] <- TaR
 ```
 
 We use the basic SIS (Susceptible-Infected-Susceptible) model for the human component (see more [here](human_sis.html)). We set it up like the rest of the components, using `exDE::make_parameters_X_SIS` to make the correct return type, which is attached to the parameter list with name `Xpar`.
 
-We use the null demographic model, which assumes a constant population size (constant $H$).
-
-```{r}
-H <- matrix(c(10,90, 100, 900), 4, 1)
-params = setup_Hpar(params, HPop=H, residence=residence, searchWts=searchWtsH) 
-params$Hpar[[1]]$TaR <- TaR
-```
 
 ```{r}
 I0 <- as.vector(0.2*H)
@@ -232,11 +240,16 @@ Now we can set the initial conditions of the model.
 y0 = get_inits(params)
 ```
 
+```{r}
+params <- EggLaying(0, y0, params)
+```
+
 ## Numerical Solution
 
 Now we can pass the vector of initial conditions, `y`, our parameter list `params`, and the function `exDE::xDE_diffeqn` to the differential equation solvers in `deSolve::ode` to generate a numerical trajectory. The classes of `Xpar`, `MYZpar`, and `Lpar` in `params` will ensure that the right methods are invoked (dispatched) to solve your model.
 
 ```{r}
+
 out <- deSolve::ode(y = y0, times = 0:365, 
                     func = xDE_diffeqn, parms = params, method = "lsoda")
 out1 <- out
@@ -309,7 +322,7 @@ xde_setup("mod534", "RM", "SIS", "basic",
                   membership=c(1,1,1,2,2), EIPopts = EIPo,
                   MYZopts=MYZo, calK=calK, Xopts=Xo, 
                   residence=c(2,2,3,3), searchB=searchWtsH, 
-                  TaR=TaR, searchQ = c(7,2,1,8,2), Lopts = Lo) -> mod534
+                  TimeSpent=TaR, searchQ = c(7,2,1,8,2), Lopts = Lo) -> mod534
 ```
 
 We solve and take the differences to check: 
@@ -317,7 +330,6 @@ We solve and take the differences to check:
 ```{r}
 mod534 <- xde_solve(mod534,Tmax=365,dt=1)
 mod534$outputs$orbits$deout -> out2
-sum(abs(out2-out1))
 ```
 
 Interestingly, the differences are small: 
@@ -325,31 +337,3 @@ Interestingly, the differences are small:
 ```{r}
 approx_equal(tail(out2, 1), tail(out1,1), tol = 1e-5)
 ```
-
-After some sleuthing, it appears that these arise from a very small difference in $\cal U$. Note that `mod534$calU` appears to match `params$calU`:
-
-```{r}
-mod534$egg_laying[[1]]$calU -> U1
-params$egg_laying[[1]]$calU -> U2
-```
-but there is a very small difference that only shows up by taking the difference: 
-
-```{r}
-U1-U2
-```
-
-We can test the idea:
-
-```{r}
-mod534$egg_laying[[1]]$calU = U2 
-mod534 <- xde_solve(mod534,Tmax=365,dt=1)
-mod534$outputs$orbits$deout -> out2
-sum(abs(out2-out1))
-```
-
-```{r}
-out2l = parse_deout(out2, mod534)
-names(out2l)
-```
-
-

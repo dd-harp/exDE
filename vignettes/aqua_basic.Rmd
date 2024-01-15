@@ -59,6 +59,7 @@ library(ggplot2)
 ```{r, echo=F}
 #devtools::load_all()
 ``` 
+
 ## The long way 
 
 Here we run a simple example with 3 aquatic habitats at equilibrium. We use `exDE::make_parameters_L_basic` to
@@ -77,10 +78,10 @@ theta <- (eta - psi*L - phi*L)/(L^2)
 ```{r}
 params <- make_parameters_xde() 
 params$nHabitats = nHabitats
-params$eta = list() 
-params$eta[[1]] = eta 
+params$eggs_laid = list() 
+params$eggs_laid[[1]] = eta 
 F_eta = function(t, pars){
-  pars$eta[[1]]
+  pars$eggs_laid[[1]]
 }
 
 params = make_parameters_L_basic(pars = params, psi = psi, phi = phi, theta = theta)
@@ -91,7 +92,7 @@ params = make_indices(params)
 
 ```{r}
 xDE_aquatic = function(t, y, pars, F_eta) {
-  pars$eta[[1]] <- F_eta(t, pars)
+  pars$eggs_laid[[1]] <- F_eta(t, pars)
   dL <- dLdt(t, y, pars, 1)
   return(list(c(dL)))
 }
@@ -141,7 +142,7 @@ Mo = list(Gm = c(250, 500, 170))
 
 
 ```{r}
-xde_setup_aquatic("aqbasic", nHabitats = 3, Lname = "basic", Lopts = Lo, MYZopts = Mo) -> aqbasic
+xde_setup_aquatic(nHabitats = 3, Lname = "basic", Lopts = Lo, MYZopts = Mo) -> aqbasic
 xde_solve(aqbasic, Tmax=50, dt=1)$output$orbits$deout -> out2
 sum(abs(out1-out2)) == 0
 ``` 

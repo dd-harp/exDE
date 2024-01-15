@@ -43,7 +43,7 @@ compute_terms.cohort <- function(varslist, deout, pars, s, i) {
   time = deout[,1]
   d1 = length(time)
 
-  eir = matrix(pars$F_eir(time, pars), d1, pars$nStrata)
+  eir = matrix(pars$F_eir(time, pars), d1, pars$Hpar[[i]]$nStrata)
   ni = compute_NI(deout, pars, i)
   pr = F_pr(varslist, pars, i)
   return(list(time=time,eir=eir,pr=pr,ni=ni))

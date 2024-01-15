@@ -10,50 +10,41 @@ make_parameters_xde = function(solve_as='dde'){
   class(xde) <- xde
   pars$xde = xde
 
-  static_l = list()
-  class(static_l) <- "static"
-
   pars$MYZpar = list()
-  pars$MYZinits = list()
-
   pars$Lpar = list()
-  pars$Linits = list()
-
   pars$Xpar = list()
-  pars$Xinits = list()
   pars$Hpar = list()
+  pars$vars = list()
 
-  pars$search4habitat = list()
-  pars$calU = static_l
-  pars$eta = list()
   pars$Lambda = list()
-  pars$HostAvailability = list()
-  pars$beta = list()
-  pars$beta[[1]] = list()
-#  pars$eir = list()
-#  pars$eir[[1]] = list()
-  pars$EIR = list()
-  pars$FoI = list()
-#  pars$ni = list()
-#  pars$ni[[1]] = list()
-  pars$kappa = list()
+  pars <- setup_EGGpar_static(pars)
+  pars <- setup_BFpar_static(pars)
+
+  pars$Linits = list()
+  pars$MYZinits = list()
+  pars$Xinits = list()
 
   pars$ix = list()
   pars$ix$X = list()
   pars$ix$MYZ = list()
   pars$ix$L = list()
 
+
   pars$outputs = list()
   pars$compute = list()
+
+  pars$HostAvailability = list()
 
   pars <- setup_abiotic_null(pars)
   pars <- setup_shock_null(pars)
   pars <- setup_control_null(pars)
   pars <- setup_vc_null(pars)
   pars <- setup_behavior_null(pars)
-  pars <- setup_visitors_null(pars)
+  pars <- setup_habitat_dynamics_static(pars)
+  pars <- setup_bionomics_static(pars)
+  pars <- setup_visitors_static(pars)
   pars <- setup_resources_null(pars)
-  pars <- setup_travel_null(pars)
+  pars <- setup_travel_static(pars)
   pars <- setup_exposure_pois(pars)
 
   return(pars)

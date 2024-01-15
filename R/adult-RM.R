@@ -63,12 +63,12 @@ dMYZdt.RM_ode <- function(t, y, pars, s) {
     Z <- y[Z_ix]
 
     with(pars$MYZpar[[s]],{
-      dMdt <- Lambda - (Omega %*% M)
-      dPdt <- f*(M - P) - (Omega %*% P)
-      dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
-      dZdt <- Upsilon %*% diag(f*q*kappa, nPatches) %*% (M - Y) - (Omega %*% Z)
+      dM <- Lambda - (Omega %*% M)
+      dP <- f*(M - P) - (Omega %*% P)
+      dY <- f*q*kappa*(M - Y) - (Omega %*% Y)
+      dZ <- Upsilon %*% diag(f*q*kappa, nPatches) %*% (M - Y) - (Omega %*% Z)
 
-      return(c(dMdt, dPdt, dYdt, dZdt))
+      return(c(dM, dP, dY, dZ))
     })
   })
 }

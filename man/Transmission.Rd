@@ -2,7 +2,7 @@
 % Please edit documentation in R/transmission.R
 \name{Transmission}
 \alias{Transmission}
-\title{Compute the biting distribution matrix, beta}
+\title{Compute transmission terms dynamically}
 \usage{
 Transmission(t, y, pars)
 }
@@ -17,5 +17,5 @@ Transmission(t, y, pars)
 \link{list}
 }
 \description{
-This method dispatches on the type of \code{pars$xde}
+This method dispatches on the type of \code{pars$BFpar}
 }

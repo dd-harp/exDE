@@ -69,7 +69,7 @@ dXdt.SIS <- function(t, y, pars, i) {
 #' @return a [list] vector
 #' @export
 setup_Xpar.SIS = function(Xname, pars, i, Xopts=list()){
-  pars$Xpar[[i]] = make_Xpar_SIS(pars$nStrata, Xopts)
+  pars$Xpar[[i]] = make_Xpar_SIS(pars$Hpar[[i]]$nStrata, Xopts)
   return(pars)
 }
 
@@ -79,7 +79,7 @@ setup_Xpar.SIS = function(Xname, pars, i, Xopts=list()){
 #' @return a [list] vector
 #' @export
 setup_Xinits.SIS = function(pars, i, Xopts=list()){
-  pars$Xinits[[i]] = with(pars,make_Xinits_SIS(nStrata, Xopts, H0=Hpar[[i]]$H))
+  pars$Xinits[[i]] = with(pars,make_Xinits_SIS(pars$Hpar[[i]]$nStrata, Xopts, H0=Hpar[[i]]$H))
   return(pars)
 }
 
@@ -154,10 +154,10 @@ HTC.SIS <- function(pars, i) {
 #' @export
 make_indices_X.SIS <- function(pars, i) {with(pars,{
 
-  S_ix <- seq(from = max_ix+1, length.out=nStrata)
+  S_ix <- seq(from = max_ix+1, length.out=Hpar[[i]]$nStrata)
   max_ix <- tail(S_ix, 1)
 
-  I_ix <- seq(from = max_ix+1, length.out=nStrata)
+  I_ix <- seq(from = max_ix+1, length.out=Hpar[[i]]$nStrata)
   max_ix <- tail(I_ix, 1)
 
   pars$max_ix = max_ix
@@ -244,15 +244,15 @@ xde_plot_X.SIS = function(pars, i=1, clrs=c("darkblue","darkred"), llty=1, stabl
 #' @export
 xde_lines_X_SIS = function(XH, pars, clrs=c("darkblue","darkred"), llty=1){
   with(XH,{
-    if(pars$nStrata==1) {
+    if(pars$Hpar[[i]]$nStrata==1) {
       lines(time, S, col=clrs[1], lty = llty[1])
       lines(time, I, col=clrs[2], lty = llty[1])
     }
-    if(pars$nStrata>1){
-      if (length(clrs)==2) clrs=matrix(clrs, 2, pars$nStrata)
-      if (length(llty)==1) llty=rep(llty, pars$nStrata)
+    if(pars$Hpar[[i]]$nStrata>1){
+      if (length(clrs)==2) clrs=matrix(clrs, 2, pars$Hpar[[i]]$nStrata)
+      if (length(llty)==1) llty=rep(llty, pars$Hpar[[i]]$nStrata)
 
-      for(i in 1:pars$nStrata){
+      for(i in 1:pars$Hpar[[i]]$nStrata){
         lines(time, S[,i], col=clrs[1,i], lty = llty[i])
         lines(time, I[,i], col=clrs[2,i], lty = llty[i])
       }

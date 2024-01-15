@@ -26,6 +26,11 @@ library(data.table)
 library(ggplot2)
 ```
 
+
+```{r, echo=FALSE} 
+#devtools::load_all()
+```
+
 ## Parameters
 
 This case study will use a simple model with 3 patches, 3 population strata, and 3 aquatic habitats. As usual, we set up parameter values and compute the values of state variables at equilibrium. As part of the equilibrium calculation we must compute $\Upsilon(0) = \exp\left(-\int_{-\tau}^{0} \Omega(s) ds \right)$; the value of the integrated mosquito demography matrix at the initial time point. To simplify things, we simply assume that conditions were constant prior to $t=0$ so that $\Upsilon(0) = e^{-\Omega\tau}$.
@@ -145,10 +150,10 @@ MYZo = list(f=f, q=q, g=g, sigma=sigma,
 ```
 
 ```{r}
-xde_setup("itn_mod", "RM", "SIS", "basic", 
+xde_setup(MYZname="RM", Xname="SIS", Lname="basic", 
           nPatches=3, HPop=Hpop, membership=c(1:3), MYZopts=MYZo, calK=calK, 
           Xopts=Xo, residence=1:3, searchB=rep(1,3), 
-          TaR=TaR, searchQ=rep(1,3), Lopts=Lo) -> itn_mod
+          TimeSpent =TaR, searchQ=rep(1,3), Lopts=Lo) -> itn_mod
 ```
 
 ```{r}
@@ -184,7 +189,7 @@ colnames(out)[itn_mod$ix$MYZ[[1]]$M_ix+1] <- paste0('M_', 1:itn_mod$nPatches)
 colnames(out)[itn_mod$ix$MYZ[[1]]$P_ix+1] <- paste0('P_', 1:itn_mod$nPatches)
 colnames(out)[itn_mod$ix$MYZ[[1]]$Y_ix+1] <- paste0('Y_', 1:itn_mod$nPatches)
 colnames(out)[itn_mod$ix$MYZ[[1]]$Z_ix+1] <- paste0('Z_', 1:itn_mod$nPatches)
-colnames(out)[itn_mod$ix$X[[1]]$X_ix+1] <- paste0('X_', 1:itn_mod$nStrata)
+colnames(out)[itn_mod$ix$X[[1]]$X_ix+1] <- paste0('X_', 1:itn_mod$Hpar[[1]]$nStrata)
 
 out <- out[, -c(itn_mod$ix$MYZ[[1]]$sigma_ix+1)]
 out <- out[, -c(itn_mod$ix$MYZ[[1]]$g_ix+1)]

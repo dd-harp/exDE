@@ -16,11 +16,12 @@
 #' @param EIPname are the options to setup EIPmod
 #' @param EIPopts are the options to setup EIPmod
 #' @param Xopts a list to configure the X model
-#' @param Hopts a list to configure the H model
+#' @param BFopts a list to configure the blood feeding model
 #' @param residence is a vector that describes the patch where each human stratum lives
 #' @param searchB is a vector of search weights for blood feeding
-#' @param TaR is either a TaR matrix or a string to call a function that sets it up
-#' @param TaRopts are the options to setup TaR
+#' @param F_circadian is a function describing mosquito daily activity
+#' @param TimeSpent is either a TimeSpent matrix or a string to call a function that sets it up
+#' @param TimeSpentOpts are the options to setup TimeSpent
 #' @param searchQ is a vector of search weights for egg laying
 #' @param Lopts a list to configure the L model
 #' @return a [list]
@@ -48,11 +49,14 @@ xde_setup = function(modelName = "unnamed",
 
                      # Human Strata / Options
                      Xopts = list(),
-                     Hopts = list(),
+
+                     # Blood Feeding
+                     BFopts = list(),
                      residence=1,
                      searchB = 1,
-                     TaR = "athome",
-                     TaRopts=list(),
+                     F_circadian = NULL,
+                     TimeSpent = "athome",
+                     TimeSpentOpts=list(),
 
                      # Aquatic Mosquito Options
                      searchQ = 1,
@@ -70,27 +74,30 @@ xde_setup = function(modelName = "unnamed",
 
   # Fixed Structural Elements
   pars$nPatches = nPatches
-  pars$nStrata = length(HPop)
   pars$nVectors = nVectors
   pars$nHosts = nHosts
   pars$nHabitats = length(membership)
   pars$membership = membership
   pars$calN = make_calN(pars$nPatches, pars$membership)
 
-  pars = setup_Hpar(pars, HPop, residence, searchB, Hopts)
-  pars$Hpar[[1]]$TaR = make_TaR(nPatches, pars$Hpar$residence, TaR, TaRopts)
+  # Human Demography
+  pars = setup_Hpar_static(pars, 1, HPop)
+
+  # Blood Feeding
+  pars = setup_BloodFeeding(pars, 1, 1, BFopts, residence, searchB, F_circadian)
+  pars = make_TimeSpent(pars, 1, TimeSpent, TimeSpentOpts)
 
   # Adult Mosquito Dynamics
   EIPmod = setup_EIP(EIPname, EIPopts)
   calK = make_calK(nPatches, calK, calKopts)
-
   pars = setup_MYZpar(MYZname, pars, 1, MYZopts, EIPmod, calK)
   pars = setup_MYZinits(pars, 1, MYZopts)
 
   # Aquatic Mosquito Dynamics
   pars = setup_Lpar(Lname, pars, 1, Lopts)
   pars = setup_Linits(pars, 1, Lopts)
-  pars = setup_EggLaying(pars, 1, searchQ)
+
+  pars = setup_EggLaying_static(pars, 1, searchQ)
 
   # Vertebrate Host Dynamics
   pars = setup_Xpar(Xname, pars, 1, Xopts)
@@ -98,6 +105,11 @@ xde_setup = function(modelName = "unnamed",
 
   pars = make_indices(pars)
 
+  y0 <- get_inits(pars)
+  pars <- EggLaying(0, y0, pars)
+  pars <- Resources(0, y0, pars)
+  pars <- Bionomics(0, y0, pars)
+  pars <- Transmission(0, y0, pars)
 
   return(pars)
 }
@@ -164,13 +176,12 @@ xde_setup_mosy = function(modelName = "unnamed",
   # Aquatic Mosquito Dynamics
   pars = setup_Lpar(Lname, pars, 1, Lopts)
   pars = setup_Linits(pars, 1, Lopts)
-  pars = setup_EggLaying(pars, 1, searchQ)
+  pars = setup_EggLaying_simple(pars, 1, searchQ)
 
   if(is.null(kappa))  kappa = rep(0, nPatches)
   pars$kappa[[1]] = checkIt(kappa, nPatches)
 
   pars = make_indices(pars)
-
 
   return(pars)
 }
@@ -212,11 +223,11 @@ xde_setup_aquatic = function(modelName = "unnamed",
   searchQ = rep(1, nHabitats)
   pars = setup_Lpar(Lname, pars, 1, Lopts)
   pars = setup_Linits(pars, 1, Lopts)
-  pars = setup_EggLaying(pars, 1, searchQ, Lopts)
 
   pars <- setup_lsm_null(pars)
 
   pars = make_indices(pars)
+
 
   return(pars)
 }
@@ -228,11 +239,12 @@ xde_setup_aquatic = function(modelName = "unnamed",
 #' @param HPop is the number of humans in each patch
 #' @param MYZopts a list to configure the MYZ model
 #' @param Xopts a list to configure the X model
-#' @param Hopts a list to configure the H model
+#' @param BFopts a list to configure the blood feeding model
 #' @param residence is a vector that describes the patch where each human stratum lives
 #' @param searchB is a vector of search weights for blood feeding
-#' @param TaR is either a TaR matrix or a string to call a function that sets it up
-#' @param TaRopts are the options to setup TaR
+#' @param F_circadian is a function describing mosquito daily activity
+#' @param TimeSpent is either a TimeSpent matrix or a string to call a function that sets it up
+#' @param TimeSpentOpts are the options to setup TimeSpent
 #' @return a [list]
 #' @export
 xde_setup_human = function(modelName = "unnamed",
@@ -248,11 +260,14 @@ xde_setup_human = function(modelName = "unnamed",
 
                      # Human Strata / Options
                      Xopts = list(),
-                     Hopts = list(),
+
+                     # Blood Feeding
+                     BFopts = list(),
                      residence=1,
                      searchB = 1,
-                     TaR = "athome",
-                     TaRopts=list()
+                     F_circadian = NULL,
+                     TimeSpent = "athome",
+                     TimeSpentOpts=list()
 
 ){
 
@@ -269,8 +284,9 @@ xde_setup_human = function(modelName = "unnamed",
   pars$nPatches = as.integer(nStrata)
   pars$nStrata = nStrata
 
-  pars= setup_Hpar(pars, HPop, 1:nStrata, rep(1, nStrata), Hopts)
-  pars$Hpar$TaR = make_TaR(pars$nPatches, pars$Hpar$residence, TaR, TaRopts)
+  pars = setup_Hpar_static(pars, 1, HPop)
+  pars = setup_BloodFeeding(pars, 1, 1, BFopts, residence, searchB, F_circadian)
+  pars = make_TimeSpent(pars, 1, TimeSpent, TimeSpentOpts)
 
   # Dynamics
   pars = setup_MYZpar("Ztrace", pars, 1, MYZopts, EIPmod=NULL, calK=NULL)
@@ -291,8 +307,8 @@ xde_setup_human = function(modelName = "unnamed",
 #' @param Xname is a character string defining a X model
 #' @param HPop is the number of humans in each patch
 #' @param searchB is a vector of search weights for blood feeding
+#' @param residence is a vector that describes the patch where each human stratum lives
 #' @param Xopts a list to configure the X model
-#' @param Hopts a list to configure the H model
 #' @return a [list]
 #' @export
 xde_setup_cohort = function(F_eir,
@@ -304,10 +320,10 @@ xde_setup_cohort = function(F_eir,
                            # Model Structure
                            HPop=1000,
                            searchB = 1,
+                           residence = 1,
 
                            # Human Strata / Options
-                           Xopts = list(),
-                           Hopts = list()
+                           Xopts = list()
 
 ){
 
@@ -323,10 +339,10 @@ xde_setup_cohort = function(F_eir,
   # Structure
   nStrata = length(HPop)
   pars$nPatches = as.integer(nStrata)
-  pars$nStrata = nStrata
   pars$nHosts = 1
 
-  pars = setup_Hpar(pars, HPop, 1:nStrata, searchB, Hopts)
+  pars = setup_Hpar_static(pars, 1, HPop)
+  pars = setup_BloodFeeding(pars, 1, 1, list(), residence, searchB, NULL)
 
   # Dynamics
   pars = setup_Xpar(Xname, pars, 1, Xopts)

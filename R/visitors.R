@@ -10,28 +10,34 @@ Visitors <- function(t, pars) {
   UseMethod("Visitors", pars$VISITORS)
 }
 
-#' @title Visitors, a null model
-#' @description Implements [Visitors] for the null model (do nothing)
+#' @title Visitors, a static model
+#' @description Implements [Visitors] for the static model (do nothing)
 #' @inheritParams Visitors
 #' @return a [list]
 #' @export
-Visitors.null <- function(t, pars) {
+Visitors.static <- function(t, pars) {
   return(pars)
 }
 
-#' @title Make parameters for the null model visitors (no visitors)
+#' @title Make parameters for the static model visitors (no visitors)
 #' @param pars a [list]
+#' @param local_frac is the fraction of humans / hosts that are not visitors
+#' @param Visitors is the availability of visitors
+#' @param x_visitors is the net infectiousness of the visitors
 #' @return [list]
 #' @export
-setup_visitors_null <- function(pars) {
+setup_visitors_static <- function(pars, local_frac=1, Visitors=0, x_visitors=0) {
 
   VISITORS <- list()
-  class(VISITORS) <- 'null'
+  class(VISITORS) <- "static"
   pars$VISITORS <- VISITORS
 
-  pars$local_frac = 1
-  pars$Visitors = 0
-  pars$x_visitors = 0
+  pars$vars$local_frac = list()
+  pars$vars$local_frac[[1]] = local_frac
+  pars$vars$Visitors = list()
+  pars$vars$Visitors[[1]]  = Visitors
+  pars$vars$x_visitors = list()
+  pars$vars$x_visitors[[1]]  = x_visitors
 
   return(pars)
 }
@@ -43,8 +49,8 @@ setup_visitors_null <- function(pars) {
 #' @return a [list]
 #' @export
 Visitors.basic <- function(t, pars) {
-  pars$x_visitors =  with(pars$VISITORS, x_scale*xt(t, pars))
-  pars$Visitors =  with(pars$VISITORS, V_scale*Vt(t, pars))
+  pars$vars$x_visitors =  with(pars$VISITORS, x_scale*xt(t, pars))
+  pars$vars$Visitors =  with(pars$VISITORS, V_scale*Vt(t, pars))
   return(pars)
 }
 

@@ -20,11 +20,12 @@ xde_setup(
   EIPname = "static",
   EIPopts = list(),
   Xopts = list(),
-  Hopts = list(),
+  BFopts = list(),
   residence = 1,
   searchB = 1,
-  TaR = "athome",
-  TaRopts = list(),
+  F_circadian = NULL,
+  TimeSpent = "athome",
+  TimeSpentOpts = list(),
   searchQ = 1,
   Lopts = list()
 )
@@ -60,15 +61,17 @@ xde_setup(
 
 \item{Xopts}{a list to configure the X model}
 
-\item{Hopts}{a list to configure the H model}
+\item{BFopts}{a list to configure the blood feeding model}
 
 \item{residence}{is a vector that describes the patch where each human stratum lives}
 
 \item{searchB}{is a vector of search weights for blood feeding}
 
-\item{TaR}{is either a TaR matrix or a string to call a function that sets it up}
+\item{F_circadian}{is a function describing mosquito daily activity}
 
-\item{TaRopts}{are the options to setup TaR}
+\item{TimeSpent}{is either a TimeSpent matrix or a string to call a function that sets it up}
+
+\item{TimeSpentOpts}{are the options to setup TimeSpent}
 
 \item{searchQ}{is a vector of search weights for egg laying}
 
