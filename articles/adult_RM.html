@@ -285,7 +285,8 @@ values. These equations have been implemented to compute <span class="math inlin
 <p>We and set the indices with <code><a href="../reference/make_indices.html">exDE::make_indices</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">params</span><span class="op">$</span><span class="va">max_ix</span> <span class="op">=</span> <span class="fl">0</span> </span>
-<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_indices.html">make_indices</a></span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span>
+<span><span class="va">params</span><span class="op">$</span><span class="va">nHosts</span> <span class="op">=</span> <span class="fl">0</span> </span></code></pre></div>
 <p>Then we can set up the initial conditions vector and use
 <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">deSolve::ode</a></code> to solve the model. Normally these values
 would be computed within <code><a href="../reference/xDE_diffeqn.html">exDE::xDE_diffeqn</a></code>. Here, we set up

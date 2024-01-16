@@ -88,12 +88,7 @@
           
           <code><a href="Transmission.html">Transmission()</a></code> 
         </dt>
-        <dd>Compute transmission terms dynamically</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Exposure.html">Exposure()</a></code> 
-        </dt>
-        <dd>A model for exposure. The function <code>F_b</code> must be define</dd>
+        <dd>Compute the mixing matrix and transmission terms</dd>
       </dl><dl><dt>
           
           <code><a href="LocalFrac.html">LocalFrac()</a></code> 
@@ -264,8 +259,8 @@
         </dt>
         <dd>Compute availability blood hosts of the i^th species</dd>
       </dl></div><div class="section level2">
+      <h2 id="exposure">Exposure<a class="anchor" aria-label="anchor" href="#exposure"></a></h2>
       
-      <h3 id="exposure">Exposure<a class="anchor" aria-label="anchor" href="#exposure"></a></h3>
       <p class="section-desc"></p><p>Methods to model the force of infection</p>
 
       
@@ -276,9 +271,14 @@
 
       <dl><dt>
           
+          <code><a href="Exposure.html">Exposure()</a></code> 
+        </dt>
+        <dd>Exposure and Infection</dd>
+      </dl><dl><dt>
+          
           <code><a href="F_foi.html">F_foi()</a></code> 
         </dt>
-        <dd>A model for exposure</dd>
+        <dd>A model for daily FoI as a function of the daily EIR.</dd>
       </dl></div><div class="section level2">
       
       <h3 id="poisson-exposure">Poisson Exposure<a class="anchor" aria-label="anchor" href="#poisson-exposure"></a></h3>
@@ -294,7 +294,7 @@
           
           <code><a href="F_foi.pois.html">F_foi(<i>&lt;pois&gt;</i>)</a></code> 
         </dt>
-        <dd>Null human population births</dd>
+        <dd>A Poisson model for the daily local FoI as a function of the daily EIR.</dd>
       </dl><dl><dt>
           
           <code><a href="setup_exposure_pois.html">setup_exposure_pois()</a></code> 
@@ -315,7 +315,7 @@
           
           <code><a href="F_foi.nb.html">F_foi(<i>&lt;nb&gt;</i>)</a></code> 
         </dt>
-        <dd>Null human population births</dd>
+        <dd>The daily FoI as a function of the daily EIR under a negative binomial model of exposure.</dd>
       </dl><dl><dt>
           
           <code><a href="setup_exposure_nb.html">setup_exposure_nb()</a></code> 
@@ -3311,6 +3311,31 @@ called by Control-&gt;VectorControl</dd>
           <code><a href="compute_NI_ix.html">compute_NI_ix()</a></code> 
         </dt>
         <dd>Compute NI once</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_vars_full.html">compute_vars_full()</a></code> 
+        </dt>
+        <dd>Compute other variables at time t</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_vars_human.html">compute_vars_human()</a></code> 
+        </dt>
+        <dd>Compute other variables at time t</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_vars_aqua.html">compute_vars_aqua()</a></code> 
+        </dt>
+        <dd>Differential equation models for aquatic mosquito populations</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_vars_mosy.html">compute_vars_mosy()</a></code> 
+        </dt>
+        <dd>Compute other variables at time t</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_vars_cohort.html">compute_vars_cohort()</a></code> 
+        </dt>
+        <dd>Differential equation models for human cohorts</dd>
       </dl></div><div class="section level2">
       
       <h3 id="plot-terms">Plot terms<a class="anchor" aria-label="anchor" href="#plot-terms"></a></h3>
@@ -3341,7 +3366,7 @@ called by Control-&gt;VectorControl</dd>
           
           <code><a href="xde_lines_aEIR.html">xde_lines_aEIR()</a></code> 
         </dt>
-        <dd>Add lines for the annualized EIR <em>vs.</em> time</dd>
+        <dd>Add lines for the annualized EIR <em>vs.</em> t</dd>
       </dl><dl><dt>
           
           <code><a href="xde_plot_PR.html">xde_plot_PR()</a></code> 
