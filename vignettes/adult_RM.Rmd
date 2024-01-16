@@ -115,7 +115,7 @@ We can use the same equation for $P$ as above.
 
 
 ```{r, message=FALSE, warning=FALSE}
-library(exDE)
+#library(exDE)
 library(expm)
 library(deSolve)
 library(data.table)
@@ -123,7 +123,7 @@ library(ggplot2)
 ```
 
 ```{r, echo=F}
-#devtools::load_all()
+devtools::load_all()
 ``` 
 
 Here we show an example of starting and solving a model at equilibrium. Please note that this only
@@ -193,6 +193,7 @@ We and set the indices with `exDE::make_indices`.
 ```{r}
 params$max_ix = 0 
 params = make_indices(params)
+params$nHosts = 0 
 ```
 
 Then we can set up the initial conditions vector and use `deSolve::ode` to solve the model.  Normally these values would be computed within `exDE::xDE_diffeqn`. Here, we set up a local version: 

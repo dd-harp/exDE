@@ -96,8 +96,7 @@ make_Hpar_trace = function(nPatches, Hopts=list()){
     Hpar = list()
     Hpar$wts_f = rep(1, nPatches)
     Hpar$H = rep(1, nPatches)
-    Hpar$residence = c(1:nPatches)
-    Hpar$TaR = diag(1, nPatches)
+    Hpar$nStrata = nPatches
     return(Hpar)
   })}
 

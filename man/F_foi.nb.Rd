@@ -2,16 +2,16 @@
 % Please edit documentation in R/exposure.R
 \name{F_foi.nb}
 \alias{F_foi.nb}
-\title{Null human population births}
+\title{The daily FoI as a function of the daily EIR under a negative binomial model of exposure.}
 \usage{
 \method{F_foi}{nb}(eir, b, pars)
 }
 \arguments{
-\item{eir}{the daily eir}
+\item{eir}{the daily eir for each stratum}
 
 \item{b}{the probability of infection, per bite}
 
-\item{pars}{a \link{list}}
+\item{pars}{the model object as a \link{list}}
 }
 \value{
 a \link{numeric} vector of length \code{nStrata}

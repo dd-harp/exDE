@@ -62,7 +62,6 @@ reference:
     Methods to compute the transmission terms
   contents:
   - Transmission
-  - Exposure
   - LocalFrac
   - AvailableBlood
 - subtitle: Transmision
@@ -104,10 +103,11 @@ reference:
   - AvailableBlood.setup
   - AvailableBlood.forced
   - compute_AvailableHosts
-- subtitle: Exposure
+- title: Exposure
   desc: |
     Methods to model the force of infection
   contents:
+  - Exposure
   - F_foi
 - subtitle: Poisson Exposure
   desc: |
@@ -815,6 +815,11 @@ reference:
   - compute_fqM_ix
   - compute_NI
   - compute_NI_ix
+  - compute_vars_full
+  - compute_vars_human
+  - compute_vars_aqua
+  - compute_vars_mosy
+  - compute_vars_cohort
 - subtitle: Plot terms
   desc: |
     Basic visualization of the transmission terms

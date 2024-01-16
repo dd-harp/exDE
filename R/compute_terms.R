@@ -19,17 +19,41 @@ compute_terms <- function(varslist, deout, pars, s, i) {
 #' @export
 compute_terms.xde <- function(varslist, deout, pars, s, i) {
   time = deout[,1]
-  eir = c()
-  kappa = c()
+
+  eir = list()
+  if(pars$nHosts>0) for(i in 1:pars$nHosts)
+     eir[[i]] = matrix(0, nrow = length(time), ncol = pars$Hpar[[i]]$nStrata)
+
+  kappa = list()
+  fqZ = list()
+  fqM = list()
+  for(s in 1:pars$nVectors){
+     kappa[[s]] = matrix(0, nrow = length(time), ncol = pars$nPatches)
+     fqZ[[s]] = matrix(0, nrow = length(time), ncol = pars$nPatches)
+     fqM[[s]] = matrix(0, nrow = length(time), ncol = pars$nPatches)
+  }
+
   for (ix in 1:length(time)){
     yt = deout[ix,-1]
-    pars = Transmission(time[ix], yt, pars)
-    eir = c(eir, pars$EIR[[1]])
-    kappa = c(kappa, pars$kappa[[1]])
+    pars = compute_vars_full(time[ix], yt, pars)
+
+    for(i in 1:pars$nHosts)
+      eir[[i]][ix,] = pars$EIR[[i]]
+
+
+    for(s in 1:pars$nVectors){
+      kappa[[s]][ix,] = pars$kappa[[i]]
+      fqZ[[s]][ix,] = F_fqZ(time[ix], yt, pars, s)
+      fqM[[s]][ix,] = F_fqM(time[ix], yt, pars, s)
+    }
   }
-  ni = compute_NI(deout, pars, i)
-  fqZ = compute_fqZ(deout, pars, s)
-  pr = F_pr(varslist, pars, i)
+  pr = list()
+  ni = list()
+  for(i in 1:pars$nHosts){
+    ni[[i]] = compute_NI(deout, pars, i)
+    pr[[i]] = F_pr(varslist, pars, i)
+  }
+
   return(list(time=time,eir=eir,pr=pr,ni=ni,kappa=kappa,fqZ=fqZ))
 }
 

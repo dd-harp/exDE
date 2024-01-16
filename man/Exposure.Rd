@@ -2,20 +2,25 @@
 % Please edit documentation in R/exposure.R
 \name{Exposure}
 \alias{Exposure}
-\title{A model for exposure. The function \code{F_b} must be define}
+\title{Exposure and Infection}
 \usage{
 Exposure(t, y, pars)
 }
 \arguments{
 \item{t}{the time}
 
-\item{y}{the variables}
+\item{y}{the state variables}
 
-\item{pars}{a \link{list}}
+\item{pars}{the model object as a \link{list}}
 }
 \value{
-\link{list}
+the function modifies \strong{pars} and returns it: the computed FoI are stored as \code{pars$FoI}
 }
 \description{
-A model for exposure. The function \code{F_b} must be define
+This function translates the local daily entomological
+inoculation rate (dEIR), computed as one of the transmission terms
+into a measure of the daily force of infection (dFoI). The daily FoI
+is the sum of two terms: 1) a function \link{F_foi} computes the local dFoI;
+2) a function \link{travel_malaria} that computes the FoI resulting from
+exposure while traveling.
 }

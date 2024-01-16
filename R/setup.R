@@ -296,8 +296,6 @@ xde_setup_human = function(modelName = "unnamed",
 
   pars = make_indices(pars)
 
-
-
   return(pars)
 }
 
