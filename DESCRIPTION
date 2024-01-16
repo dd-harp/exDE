@@ -23,6 +23,7 @@ Imports:
   deSolve,
   rootSolve,
   expm,
+  graphics,
   MASS
 Suggests:
     ggplot2,

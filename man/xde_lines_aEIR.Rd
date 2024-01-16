@@ -2,12 +2,12 @@
 % Please edit documentation in R/plot-terms.R
 \name{xde_lines_aEIR}
 \alias{xde_lines_aEIR}
-\title{Add lines for the annualized EIR \emph{vs.} time}
+\title{Add lines for the annualized EIR \emph{vs.} t}
 \usage{
-xde_lines_aEIR(time, EIR, nStrata, clrs = "black", llty = 1)
+xde_lines_aEIR(tm, EIR, nStrata, clrs = "black", llty = 1)
 }
 \arguments{
-\item{time}{the time}
+\item{tm}{the time}
 
 \item{EIR}{the entomological inoculation rate}
 
@@ -18,5 +18,5 @@ xde_lines_aEIR(time, EIR, nStrata, clrs = "black", llty = 1)
 \item{llty}{an integer (or integers) to set the \code{lty} for plotting}
 }
 \description{
-Add lines for the annualized EIR \emph{vs.} time
+Add lines for the annualized EIR \emph{vs.} t
 }

@@ -4,10 +4,10 @@
 \alias{xde_lines_EIR}
 \title{Add lines for the EIR \emph{vs.} time}
 \usage{
-xde_lines_EIR(time, EIR, nStrata, clrs = "black", llty = 1)
+xde_lines_EIR(tm, EIR, nStrata, clrs = "black", llty = 1)
 }
 \arguments{
-\item{time}{the time}
+\item{tm}{the time}
 
 \item{EIR}{the entomological inoculation rate}
 
