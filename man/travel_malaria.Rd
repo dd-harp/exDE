@@ -12,7 +12,7 @@ travel_malaria(t, pars)
 \item{pars}{a \link{list}}
 }
 \value{
-a \link{numeric} value
+the travel FoI, a \link{numeric} value
 }
 \description{
 This method dispatches on the type of \code{pars$TRAVEL}.

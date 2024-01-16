@@ -1,8 +1,14 @@
-#' @title A model for exposure. The function `F_b` must be define
+#' @title Exposure and Infection
+#' @description This function translates the local daily entomological
+#' inoculation rate (dEIR), computed as one of the transmission terms
+#' into a measure of the daily force of infection (dFoI). The daily FoI
+#' is the sum of two terms: 1) a function [F_foi] computes the local dFoI;
+#' 2) a function [travel_malaria] that computes the FoI resulting from
+#' exposure while traveling.
 #' @param t the time
-#' @param y the variables
-#' @param pars a [list]
-#' @return [list]
+#' @param y the state variables
+#' @param pars the model object as a [list]
+#' @return the function modifies **pars** and returns it: the computed FoI are stored as `pars$FoI`
 #' @export
 Exposure <- function(t, y, pars){
 
@@ -13,18 +19,24 @@ Exposure <- function(t, y, pars){
   return(pars)
 }
 
-#' @title A model for exposure
-#' @description This method dispatches on the type of `pars$FOIpar`.
-#' @param eir the daily eir
+#' @title A model for daily FoI as a function of the daily EIR.
+#' @description This function compute the daily local FoI as a function
+#' of the daily EIR and effects of partial immunity.
+#' It is computed based on a probabilistic model of exposure and
+#' possibly including environmental heterogeneity. If a model of human / host
+#' infection has terms that describe partial immunity, *e.g.* affecting
+#' pre-erythrocytic immunity to malaria called by [F_b], those effects are implemented here.
+#' The method dispatches on the type of `pars$FOIpar`.
+#' @param eir the daily eir for each stratum
 #' @param b the probability of infection, per bite
-#' @param pars a [list]
-#' @return see help pages for specific methods
+#' @param pars the model object as a [list]
+#' @return the daily, local force of infection as a [numeric] vector
 #' @export
 F_foi <- function(eir, b, pars){
   UseMethod("F_foi", pars$FOIpar)
 }
 
-#' @title Null human population births
+#' @title A Poisson model for the daily local FoI as a function of the daily EIR.
 #' @description Implements [F_foi] for a Poisson model
 #' @inheritParams F_foi
 #' @return a [numeric] vector of length `nStrata`
@@ -33,7 +45,7 @@ F_foi.pois <- function(eir, b, pars){
   b*eir
 }
 
-#' @title Null human population births
+#' @title The daily FoI as a function of the daily EIR under a negative binomial model of exposure.
 #' @description Implements [F_foi] for a negative binomial model
 #' @inheritParams F_foi
 #' @return a [numeric] vector of length `nStrata`

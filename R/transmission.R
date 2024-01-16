@@ -1,6 +1,6 @@
-# Compute the Transmission Terms
+# Methods to compute mixing and parasite / pathogen transmission during bloood feeding
 
-#' @title Compute transmission terms dynamically
+#' @title Compute the mixing matrix and transmission terms
 #' @description This method dispatches on the type of `pars$BFpar`
 #' @param t current simulation time
 #' @param y state vector

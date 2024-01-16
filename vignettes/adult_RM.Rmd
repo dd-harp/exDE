@@ -193,6 +193,7 @@ We and set the indices with `exDE::make_indices`.
 ```{r}
 params$max_ix = 0 
 params = make_indices(params)
+params$nHosts = 0 
 ```
 
 Then we can set up the initial conditions vector and use `deSolve::ode` to solve the model.  Normally these values would be computed within `exDE::xDE_diffeqn`. Here, we set up a local version: 

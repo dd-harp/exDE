@@ -2,7 +2,7 @@
 % Please edit documentation in R/transmission.R
 \name{Transmission}
 \alias{Transmission}
-\title{Compute transmission terms dynamically}
+\title{Compute the mixing matrix and transmission terms}
 \usage{
 Transmission(t, y, pars)
 }

@@ -2,16 +2,16 @@
 % Please edit documentation in R/exposure.R
 \name{F_foi.pois}
 \alias{F_foi.pois}
-\title{Null human population births}
+\title{A Poisson model for the daily local FoI as a function of the daily EIR.}
 \usage{
 \method{F_foi}{pois}(eir, b, pars)
 }
 \arguments{
-\item{eir}{the daily eir}
+\item{eir}{the daily eir for each stratum}
 
 \item{b}{the probability of infection, per bite}
 
-\item{pars}{a \link{list}}
+\item{pars}{the model object as a \link{list}}
 }
 \value{
 a \link{numeric} vector of length \code{nStrata}

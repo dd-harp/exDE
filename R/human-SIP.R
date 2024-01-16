@@ -272,15 +272,15 @@ xde_plot_X.SIP = function(pars, i=1, clrs=c("darkblue", "darkred", "darkgreen"),
 #' @export
 xde_lines_X_SIP = function(XH, pars, clrs=c("darkblue", "darkred", "darkgreen"), llty=1){
   with(XH,{
-    if(pars$Hpar[[i]]$nStrata==1) {
+    if(pars$Hpar[[1]]$nStrata==1) {
       lines(time, S, col=clrs[1], lty = llty[1])
       lines(time, I, col=clrs[2], lty = llty[1])
       lines(time, P, col=clrs[3], lty = llty[1])
     }
-    if(pars$Hpar[[i]]$nStrata>1){
+    if(pars$Hpar[[1]]$nStrata>1){
       if (length(clrs)==1) clrs=matrix(clrs, 3, pars$Hpar[[i]]$nStrata)
       if (length(llty)==1) llty=rep(llty, pars$Hpar[[i]]$nStrata)
-      for(i in 1:pars$Hpar[[i]]$nStrata){
+      for(i in 1:pars$Hpar[[1]]$nStrata){
         lines(time, S[,i], col=clrs[1,i], lty = llty[i])
         lines(time, I[,i], col=clrs[2,i], lty = llty[i])
         lines(time, P[,i], col=clrs[3,i], lty = llty[i])
