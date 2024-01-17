@@ -19,7 +19,7 @@ make_TimeSpent = function(pars, i, TimeSpent, opts = list()){
 #' @export
 make_TimeSpent.athome = function(pars, i, TimeSpent = "athome", opts = list()){
 
-    residence = pars$BFpar$residence[[i]]
+  residence = pars$BFpar$residence[[i]]
   TiSp = make_TimeSpent_athome(pars$nPatches, residence, opts)
   pars$BFpar$TimeSpent[[i]] = TiSp
   for(s in 1:pars$nVectors) pars = make_TaR(t, pars, i, s)
