@@ -63,6 +63,9 @@ dMYZdt.RM_ode <- function(t, y, pars, s) {
     Z <- y[Z_ix]
 
     with(pars$MYZpar[[s]],{
+      Omega <- make_Omega(g, sigma, calK, nPatches)
+      Upsilon <- expm::expm(-Omega*eip)
+
       dM <- Lambda - (Omega %*% M)
       dP <- f*(M - P) - (Omega %*% P)
       dY <- f*q*kappa*(M - Y) - (Omega %*% Y)
@@ -350,7 +353,7 @@ make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, eip, 
 
   Omega   <- make_Omega(g, sigma, calK, pars$nPatches)
   MYZpar$Omega <- Omega
-  MYZpar$Upsilon <- expm(-Omega*eip)
+  MYZpar$Upsilon <- expm::expm(-Omega*eip)
   MYZpar$EIPmod <- setup_eip_static(eip=eip)
   MYZpar$eip <- eip
   MYZpar$calK <- calK

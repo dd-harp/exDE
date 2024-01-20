@@ -13,7 +13,7 @@ xDE_diffeqn_cohort(a, y, pars, F_eir)
 
 \item{pars}{a \link{list}}
 
-\item{F_eir}{a trace function that returns the eir}
+\item{F_eir}{a trace function that returns the eir as a function of time}
 }
 \value{
 a \link{list} containing the vector of all state derivatives

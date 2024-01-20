@@ -6,16 +6,21 @@
 \usage{
 xde_setup_cohort(
   F_eir,
+  bday = 0,
+  scale = 1,
   modelName = "unnamed",
   Xname = "SIS",
   HPop = 1000,
   searchB = 1,
-  residence = 1,
   Xopts = list()
 )
 }
 \arguments{
 \item{F_eir}{is a function F_eir(t, pars) that returns the daily FoI}
+
+\item{bday}{the birthday of a cohort}
+
+\item{scale}{the birthday of a cohort}
 
 \item{modelName}{is a name for the model (arbitrary)}
 
@@ -24,8 +29,6 @@ xde_setup_cohort(
 \item{HPop}{is the number of humans in each patch}
 
 \item{searchB}{is a vector of search weights for blood feeding}
-
-\item{residence}{is a vector that describes the patch where each human stratum lives}
 
 \item{Xopts}{a list to configure the X model}
 }

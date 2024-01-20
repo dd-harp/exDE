@@ -67,7 +67,7 @@ dMYZdt.GeRM_ode <- function(t, y, pars, s) {
     with(pars$MYZpar[[s]],{
 
       Omega <- make_Omega(g, sigma, calK, nPatches)
-      Upsilon <- expm(-Omega*eip)
+      Upsilon <- expm::expm(-Omega*eip)
 
       dMdt <- Lambda - (Omega %*% M)
       dGdt <-  f*(M - G) - nu*G  - (Omega %*% G)
@@ -121,7 +121,7 @@ dMYZdt.GeRM_dde <- function(t, y, pars, s){
       dGdt <-  f*(M - G) - nu*G  - (Omega %*% G)
       dYdt <- f*q*kappa*(M - Y) - (Omega %*% Y)
       dZdt <- Upsilon %*% (fqkappa_eip * (M_eip - Y_eip)) - (Omega %*% Z)
-      dUdt <- as.vector(((1-dEIPdt(t,pars))*Omega_eip - Omega) %*% Upsilon)
+      dUdt <- as.vector(((1-dEIPdt(t,EIPmod))*Omega_eip - Omega) %*% Upsilon)
 
       return(c(dMdt, dGdt, dYdt, dZdt, dUdt, f*q*kappa, g, sigma))
     })

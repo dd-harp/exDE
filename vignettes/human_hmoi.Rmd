@@ -92,7 +92,7 @@ m20 <- 1.5
 h <- r2*m20
 m10 <- h/r1
 
-EIR <- h/b
+EIR <- rep(h/b, 3) 
 ```
 
 ```{r}
@@ -101,12 +101,13 @@ params$nStrata = nStrata
 params$nVectors = 1 
 params$nHosts = 1
 params$nPatches = 1 
-params$eir = rep(EIR, 3)
 params$EIR = list()
 
-F_eir = function(t, pars){
-  pars$EIR[[1]] = pars$eir
-}
+fF_eir = function(EIR){
+  EIR = as.vector(EIR) 
+  return(function(t, bday=0, scale=1){EIR})
+} 
+F_eir = fF_eir(EIR)
 
 params = make_parameters_demography_null(pars = params, H=H) 
 
@@ -152,17 +153,7 @@ Hpop = c(100, 500, 250)
 ```
 
 ```{r}
-h/b
-```
-
-
-```{r}
-fF_eir1 = function(EIR){return(function(t, pars){EIR})} 
-F_eir1 = fF_eir1(EIR)
-```
-
-```{r}
-xde_setup_cohort(F_eir1, Xname="hMoI", HPop=Hpop, Xopts = Xo) ->test_hMoI
+xde_setup_cohort(F_eir, Xname="hMoI", HPop=Hpop, Xopts = Xo) ->test_hMoI
 ```
 
 ```{r}
