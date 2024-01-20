@@ -91,9 +91,11 @@ params$nHosts = 1
 params$eir = EIR
 params$EIR = list()
 
-F_eir = function(t, pars){
-  pars$EIR[[1]] = params$eir
-}
+fF_eir = function(EIR){
+  EIR = as.vector(EIR) 
+  return(function(t, bday=0, scale=1){EIR})
+} 
+F_eir = fF_eir(EIR)
 
 params = make_parameters_demography_null(pars = params, H=H) 
 
@@ -138,15 +140,9 @@ Xo = list(b=0.55, c=0.15, r=1/200,
 Hpop = c(100, 500, 250)
 ```
 
-To use `xde_setup_cohort` we must set up a function `F_eir` returns the value of EIR we computed above:  
 
 ```{r}
-fF_eir1 = function(EIR){return(function(t, pars){EIR})} 
-F_eir1 = fF_eir1(EIR)
-```
-
-```{r}
-xde_setup_cohort(F_eir1, Xname="SIP", HPop=Hpop, Xopts = Xo) -> test_SIP
+xde_setup_cohort(F_eir, Xname="SIP", HPop=Hpop, Xopts = Xo) -> test_SIP
 ```
 
 ```{r}

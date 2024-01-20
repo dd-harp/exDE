@@ -301,15 +301,16 @@ xde_setup_human = function(modelName = "unnamed",
 
 #' @title Set up a model for xde_diffeqn_cohort
 #' @param F_eir is a function F_eir(t, pars) that returns the daily FoI
+#' @param bday the birthday of a cohort
+#' @param scale the birthday of a cohort
 #' @param modelName is a name for the model (arbitrary)
 #' @param Xname is a character string defining a X model
 #' @param HPop is the number of humans in each patch
 #' @param searchB is a vector of search weights for blood feeding
-#' @param residence is a vector that describes the patch where each human stratum lives
 #' @param Xopts a list to configure the X model
 #' @return a [list]
 #' @export
-xde_setup_cohort = function(F_eir,
+xde_setup_cohort = function(F_eir, bday=0, scale=1,
                            modelName = "unnamed",
 
                            # Dynamical Components
@@ -318,7 +319,6 @@ xde_setup_cohort = function(F_eir,
                            # Model Structure
                            HPop=1000,
                            searchB = 1,
-                           residence = 1,
 
                            # Human Strata / Options
                            Xopts = list()
@@ -329,18 +329,26 @@ xde_setup_cohort = function(F_eir,
   class(pars$xde) <- "cohort"
   class(pars$compute) = "cohort"
 
+  pars$nVectors = 1
+  pars$nHosts = 1
+  pars$nPatches = 1
+
   pars$modelName = modelName
   pars$Xname = Xname
 
   pars$F_eir = F_eir
+  pars$EIRpar = list()
+  pars$EIRpar$bday = bday
+  pars$EIRpar$scale = scale
 
   # Structure
   nStrata = length(HPop)
-  pars$nPatches = as.integer(nStrata)
-  pars$nHosts = 1
+  residence = rep(1, nStrata)
 
   pars = setup_Hpar_static(pars, 1, HPop)
   pars = setup_BloodFeeding(pars, 1, 1, list(), residence, searchB, NULL)
+  pars$BFpar$TimeSpent[[1]] = make_TimeSpent_athome(1, residence)
+  pars = make_TaR(0, pars, 1, 1)
 
   # Dynamics
   pars = setup_Xpar(Xname, pars, 1, Xopts)

@@ -101,7 +101,7 @@ xde_plot_PR = function(pars, i=1, clrs="black", llty=1, stable=FALSE, add_axes=T
               ylab = "Prevalence", xlab = "Time")
   }
 
-  xde_lines_PR(tm, vars$terms$PR[[i]], pars$Hpar[[i]]$nStrata, clrs, llty)
+  xde_lines_PR(tm, vars$terms$pr[[i]], pars$Hpar[[i]]$nStrata, clrs, llty)
 }
 
 #' Add lines for the prevalence / parasite rate (PR) from a model of human infection and immunity

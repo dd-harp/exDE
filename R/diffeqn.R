@@ -138,13 +138,13 @@ xDE_diffeqn_mosy <- function(t, y, pars) {
 #' @param a age of a cohort
 #' @param y state vector
 #' @param pars a [list]
-#' @param F_eir a trace function that returns the eir
+#' @param F_eir a trace function that returns the eir as a function of time
 #' @return a [list] containing the vector of all state derivatives
 #' @export
 xDE_diffeqn_cohort <- function(a, y, pars, F_eir) {
 
   # EIR: entomological inoculation rate trace
-  pars$EIR[[1]] <- F_eir(a, pars)*pars$BFpar$relativeBitingRate[[1]][[1]]
+  pars$EIR[[1]] <- with(pars$EIRpar, F_eir(a, bday, scale))*pars$BFpar$relativeBitingRate[[1]][[1]]
 
   # FoI: force of infection
   pars <- Exposure(a, y, pars)
