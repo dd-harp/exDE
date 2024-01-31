@@ -121,25 +121,46 @@ malaria transmission dynamics and control, and it has been implemented
 in <code>exDE</code> through several related concepts and
 constructs.</p>
 <ul>
-<li><p><strong>Mosquito populations</strong> are heterogeneous over
-space and time. Spatial dynamics in <code>exDE</code> are organized
-around the concept of a <em>patch.</em> The adult mosquito populations
-in each <em>state</em> are assumed to be homogeneously distributed
-within each patch.</p></li>
-<li><p><strong>Human populations:</strong> and human behaviors are
-heterogeneous in ways that affect exposure and transmission. The design
-of <code>exDE</code> makes it possible to <em>sub-divide</em> the human
+<li><p><em>Mosquito populations</em> are heterogeneous over space and
+time. Spatial dynamics in <code>exDE</code> are organized around the
+concept of a <em>patch.</em> The adult mosquito populations in each
+<em>state</em> are assumed to be homogeneously distributed within each
+patch.</p></li>
+<li><p><em>Human populations:</em> and human behaviors are heterogeneous
+in ways that affect exposure and transmission. The design of
+<code>exDE</code> makes it possible to <em>sub-divide</em> the human
 population into an arbitrary number of homogeneous strata.</p></li>
+<li><p><em>Blood feeding</em> is an interaction between mosquitoes and
+humans that gives rise to parasite transmission. The design of
+<code>exDE</code> has a new model for blood feeding that incorporates
+various kinds of heterogeneous transmission.</p></li>
 </ul>
-<p>Heterogeneous transmission includes at least three distinct
-concepts:</p>
+<p>Heterogeneous transmission includes several concepts:</p>
 <ul>
 <li><p><strong><a href="heterogeneous_biting.html">Heterogeneous
-Biting</a></strong></p></li>
+Biting</a></strong> describes differences among population strata in the
+average rate of exposure. In effect, heterogeneous biting is a kind of
+<em>frailty.</em> Heterogeneous biting is implemented through <em>blood
+feeding search weights.</em></p></li>
 <li><p><strong><a href="environmental_heterogeneity.html">Environmental
-Heterogeneity</a></strong></p></li>
+Heterogeneity</a></strong> describes the distribution of the expected
+number of bites in a homogenous populations stratum. For example, if the
+expected number of bites is <em>Gamma</em> distributed, then the number
+of bites, per person, would have a negative binomial distribution.
+Environmental heterogeneity is implemented through a function
+<code>F_foi</code> that converts the daily entomological inoculation
+rate into a daily force of infection (in
+<code>Exposure</code>).</p></li>
 <li><p><strong><a href="heterogeneous_mixing.html">Heterogeneous
-Mixing</a></strong></p></li>
+Mixing</a></strong> describes departures in a model from the idealized
+<em>mass-action</em> assumption for two-species mixing. The algorithms
+in <code>exDE</code> compute the mixing matrix, <span class="math inline">\(\beta\)</span> integrates information about time
+spent, mosquito daily activity patterns, the sizes of various population
+strata, search weights, other vertebrate hosts, and visitors.</p></li>
+<li><p>Temporal variability in mosquito populations driven by exogenous
+factors, such as weather and vector control, that modify <em>potential
+transmission</em> by mosquito populations, including
+<strong>seasonality</strong> and long-term trends.</p></li>
 </ul></main>
 </div>
 

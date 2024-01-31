@@ -151,8 +151,10 @@ weights are related to relative biting rates.</p>
 <p>A flexible implementation is handled through the blood feeding model,
 which includes the the concepts of <em>blood feeding search weights</em>
 and <em>availability</em>. The search weights, <span class="math inline">\(\left\{\omega\right\}\)</span>, are a measure of
-how easy it is for mosquitoes to find and blood feed on a host. The
-total <em>availability</em> of humans for blood feeding is:</p>
+how easy it is for mosquitoes to find and blood feed on a host.</p>
+<p>We let <span class="math inline">\(H_i\)</span> denote the size of
+the <span class="math inline">\(i^{th}\)</span> population, where <span class="math display">\[H = \sum_i H_i.\]</span> The total
+<em>availability</em> of humans for blood feeding is:</p>
 <p><span class="math display">\[W = \sum_i \omega_i H_i.\]</span>
 Availability is used to compute the overall blood feeding rate for
 mosquitoes and the human fraction (human blood meals as a fraction of
@@ -170,13 +172,7 @@ bites:</p>
 <div class="section level2">
 <h2 id="relative-biting-rates">Relative Biting Rates<a class="anchor" aria-label="anchor" href="#relative-biting-rates"></a>
 </h2>
-<p>If we let <span class="math inline">\(h\)</span> denote the
-<em>average</em> force of infection (FoI) for a population with multiple
-strata, and <span class="math inline">\(\xi_i\)</span> the frailty term,
-then the FoI for the <span class="math inline">\(i^{th}\)</span> stratum
-is <span class="math display">\[h_i = \xi_i h;\]</span></p>
-<p>We let <span class="math inline">\(H_i\)</span> denote the size of
-the <span class="math inline">\(i^{th}\)</span> population, where <span class="math display">\[H = \sum_i H_i.\]</span></p>
+<p>The relative biting rates are defined at the top.</p>
 <p>The relative biting rates are constrained such that <span class="math display">\[\sum_i \xi_i \frac{H_i}H = 1\]</span></p>
 <p><strong>Example 2:</strong></p>
 <p>For example, if 20% of the population gets bitten at a rate that is
@@ -208,13 +204,16 @@ biting weights</p>
 </h2>
 <p>In <code>exDE,</code> the concept of human <em>availability</em> for
 blood feeding is also modified by time spent, and the algorithms were
-designed to deal with both changing denominators and changing search
-weights. Infective bites in a patch are distributed among population
-strata by taking a stratum’s availability divided by the whole. The
+designed to deal with both changing denominators and search weights. In
+a patch, the available human population is a measure of the search
+weighted ambient population density. The infective bites in each patch
+are allocated among human population strata by taking a stratum’s
+availability divided by the total availability of all blood hosts. The
 blood feeding model outputs a vector of dEIR values for each
 stratum.</p>
-<p>A relative biting rate is an interesting summary statistic, but it
-not computed as part of the blood feeding model.</p>
+<p>Relative biting rates are an important concept, and they are
+sometimes useful to compute, but they are not computed as part of the
+blood feeding model.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
