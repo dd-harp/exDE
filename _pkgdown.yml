@@ -492,7 +492,6 @@ reference:
   - setup_Hpar_static
   - Births
   - make_parameters_demography_null
-  - make_Hpar_trace
 - subtitle: static
   desc: |
     Specialized methods for the static (constant) demographic model

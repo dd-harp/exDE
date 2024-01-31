@@ -22,12 +22,11 @@ Blood feeding is an interaction among humans and mosquitoes. Parasite transmissi
 
 Heterogeneous transmission includes at least three distinct concepts:
 
-+ [Heterogeneous Mixing](heterogeneous_mixing.html)
++ **[Heterogeneous Biting](heterogeneous_biting.html)**
 
-+ [Heterogeneous Biting](heterogeneous_mixing.html)
++ **[Environmental Heterogeneity](environmental_heterogeneity.html)**
 
-+ [Environmental Heterogeneity](environmental_heterogeneity.html)
-
++ **[Heterogeneous Mixing](heterogeneous_mixing.html)**
 
 
 
