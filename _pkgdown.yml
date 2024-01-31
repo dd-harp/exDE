@@ -19,12 +19,16 @@ navbar:
       href: articles/vc_lemenach.html
     - text: Contributing
       href: articles/Contributing.html
-  - text: Basic Concepts
+  - text: Concepts
     menu:
     - text: Heterogeneous Transmission
       href: articles/heterogeneous_transmission.html
     - text: Heterogeneous Biting
       href: articles/heterogeneous_biting.html
+    - text: Heterogeneous Mixing
+      href: articles/heterogeneous_mixing.html
+    - text: Environmental Heterogeneity
+      href: articles/environmental_heterogeneity.html
   - text: Adult Mosquito Dynamics
     menu:
     - text: Ross-Macdonald model
