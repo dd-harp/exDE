@@ -1567,6 +1567,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/xde_lines_YZ_fracs.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_lines_Z_fracs.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/xde_lines_aEIR.html</loc>
   </url>
   <url>
@@ -1592,6 +1595,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xde_plot_YZ_fracs.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/reference/xde_plot_Z_fracs.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/xde_plot_aEIR.html</loc>

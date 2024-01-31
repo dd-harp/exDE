@@ -113,17 +113,25 @@
 
     
     
+<p>In <code>exDE,</code> the term <strong>heterogeneous biting</strong>
+is used to describe differences among population strata in the expected
+rate of exposure to infective mosquitoes. To be more rigorous, let <span class="math inline">\(E\)</span> denote the <em>average</em> daily
+entomological inoculation rate (dEIR) for a population with multiple
+strata, and <span class="math inline">\(\xi_i\)</span> the frailty term,
+then the dEIR for the <span class="math inline">\(i^{th}\)</span>
+stratum is: <span class="math display">\[E_i = \xi_i E.\]</span> The
+implementation is part of a coherent model for blood feeding that serves
+at the interface between models of parasite/pathogen infections in
+humans (<em>i.e.</em> <span class="math inline">\(\cal X\)</span>), and
+models of parasite infections in mosquitoes (<em>i.e.</em> <span class="math inline">\(\cal YZ\)</span>). In this vignette, we introduce
+the <em>concept</em> of heterogeneous biting and its implementation in
+the blood feeding model using <strong>blood feeding search
+weights.</strong></p>
 <p>Heterogeneous blood feeding is a basic feature of malaria
-transmission (see <a href="heterogeneous_transmission.html">Heterogeneous Transmission</a>).
-In <code>exDE,</code> the term <strong>heterogeneous biting</strong> is
-used to describe differences in the expected rate of exposure among
-population strata.</p>
-<p>To be more rigorous, let <span class="math inline">\(h\)</span>
-denote the <em>average</em> force of infection (FoI) for a population
-with multiple strata, and <span class="math inline">\(\xi_i\)</span> the
-frailty term, then the FoI for the <span class="math inline">\(i^{th}\)</span> stratum is <span class="math display">\[h_i = \xi_i h;\]</span></p>
+transmission, and an important aspect of <a href="heterogeneous_transmission.html">Heterogeneous
+Transmission</a>.</p>
 <div class="section level2">
-<h2 id="heterogeneous-biting">Heterogeneous Biting<a class="anchor" aria-label="anchor" href="#heterogeneous-biting"></a>
+<h2 id="definitions">Definitions<a class="anchor" aria-label="anchor" href="#definitions"></a>
 </h2>
 <p><strong>Heterogeneous Biting</strong> is defined throughout the
 <code>exDE</code> implementation and documentation as a difference in
@@ -133,9 +141,13 @@ The implementation relies on two concepts:</p>
 <li><p><strong>blood feeding search weights</strong> or <span class="math inline">\(\left\{\omega\right\}\)</span></p></li>
 <li><p><strong>relative biting rates</strong> or <span class="math inline">\(\left\{\xi\right\}\)</span></p></li>
 </ul>
-<div class="section level3">
-<h3 id="blood-feeding-search-weights">Blood Feeding Search Weights<a class="anchor" aria-label="anchor" href="#blood-feeding-search-weights"></a>
-</h3>
+<p>The software deals mainly with the search weights because the
+denominators are changing, but it is useful to understand how search
+weights are related to relative biting rates.</p>
+</div>
+<div class="section level2">
+<h2 id="blood-feeding-search-weights">Blood Feeding Search Weights<a class="anchor" aria-label="anchor" href="#blood-feeding-search-weights"></a>
+</h2>
 <p>A flexible implementation is handled through the blood feeding model,
 which includes the the concepts of <em>blood feeding search weights</em>
 and <em>availability</em>. The search weights, <span class="math inline">\(\left\{\omega\right\}\)</span>, are a measure of
@@ -146,11 +158,18 @@ Availability is used to compute the overall blood feeding rate for
 mosquitoes and the human fraction (human blood meals as a fraction of
 all blood meals). If we assign a biting weight to a stratum, then the
 fraction of bites received by that stratum is:</p>
-<p><span class="math display">\[ \frac{\omega_i H_i}W.\]</span></p>
+<p><span class="math display">\[ \frac{\omega_i H_i}W.\]</span>
+<strong>Example 1:</strong> For example, suppose that there are 200
+people with a biting weight of 2.25 and 800 people with a biting weight
+of 1. In this model, the first stratum would get 36% of the total
+bites:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">2.25</span><span class="op">*</span><span class="fl">200</span><span class="op">/</span><span class="op">(</span><span class="fl">2.25</span><span class="op">*</span><span class="op">(</span><span class="fl">200</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">*</span><span class="op">(</span><span class="fl">800</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.36</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="relative-biting-rates">Relative Biting Rates<a class="anchor" aria-label="anchor" href="#relative-biting-rates"></a>
-</h3>
+<div class="section level2">
+<h2 id="relative-biting-rates">Relative Biting Rates<a class="anchor" aria-label="anchor" href="#relative-biting-rates"></a>
+</h2>
 <p>If we let <span class="math inline">\(h\)</span> denote the
 <em>average</em> force of infection (FoI) for a population with multiple
 strata, and <span class="math inline">\(\xi_i\)</span> the frailty term,
@@ -158,15 +177,44 @@ then the FoI for the <span class="math inline">\(i^{th}\)</span> stratum
 is <span class="math display">\[h_i = \xi_i h;\]</span></p>
 <p>We let <span class="math inline">\(H_i\)</span> denote the size of
 the <span class="math inline">\(i^{th}\)</span> population, where <span class="math display">\[H = \sum_i H_i.\]</span></p>
-<p>The relative biting rates are constrained such that <span class="math display">\[\sum_i \xi_i \frac{H_i}H = 1\]</span> For
-example, if 20% of the population gets bitten at a rate that is twice as
-high as the population average, then the other 80% must get bitten (on
-average) at a rate that is 3/4 the population average, since:</p>
-<p><span class="math display">\[ 2\;(0.2)+ 0.75\;(0.8)= 1\]</span></p>
+<p>The relative biting rates are constrained such that <span class="math display">\[\sum_i \xi_i \frac{H_i}H = 1\]</span></p>
+<p><strong>Example 2:</strong></p>
+<p>For example, if 20% of the population gets bitten at a rate that is
+80% higher than the population average, then the other 80% must get
+bitten (on average) at a rate that is 80% of the population average.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">1.8</span><span class="op">*</span><span class="fl">0.2</span><span class="op">+</span> <span class="fl">0.8</span><span class="op">*</span><span class="fl">0.8</span></span>
+<span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
 <p>Relative biting rates are computed automatically from the blood
 feeding search weights, <span class="math inline">\(\left\{\omega\right\},\)</span> where</p>
-<p><span class="math display">\[\xi_i = \omega_i \frac H W.\]</span></p>
+<p><span class="math display">\[\xi_i =
+\omega_i\frac{H}{W}.\]</span></p>
+<p><strong>Example 3</strong> computes the search weights from the
+biting weights</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">searchWts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.25</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">Hi</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">800</span><span class="op">)</span></span>
+<span><span class="va">H</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">Hi</span><span class="op">)</span> </span>
+<span><span class="va">W</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">searchWts</span><span class="op">*</span><span class="va">Hi</span><span class="op">)</span></span>
+<span><span class="va">xi</span> <span class="op">=</span> <span class="va">searchWts</span><span class="op">*</span><span class="va">H</span><span class="op">/</span><span class="va">W</span></span>
+<span><span class="va">xi</span> </span>
+<span><span class="co">#&gt; [1] 1.8 0.8</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">xi</span><span class="op">*</span><span class="va">Hi</span><span class="op">)</span><span class="op">/</span><span class="va">H</span></span>
+<span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
 </div>
+<div class="section level2">
+<h2 id="implementation">Implementation<a class="anchor" aria-label="anchor" href="#implementation"></a>
+</h2>
+<p>In <code>exDE,</code> the concept of human <em>availability</em> for
+blood feeding is also modified by time spent, and the algorithms were
+designed to deal with both changing denominators and changing search
+weights. Infective bites in a patch are distributed among population
+strata by taking a stratum’s availability divided by the whole. The
+blood feeding model outputs a vector of dEIR values for each
+stratum.</p>
+<p>A relative biting rate is an interesting summary statistic, but it
+not computed as part of the blood feeding model.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
