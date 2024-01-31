@@ -80,28 +80,27 @@ xde_setup = function(modelName = "unnamed",
   pars$membership = membership
   pars$calN = make_calN(pars$nPatches, pars$membership)
 
-  # Human Demography
-  pars = setup_Hpar_static(pars, 1, HPop)
-
-  # Blood Feeding
-  pars = setup_BloodFeeding(pars, 1, 1, BFopts, residence, searchB, F_circadian)
-  pars = make_TimeSpent(pars, 1, TimeSpent, TimeSpentOpts)
-
   # Adult Mosquito Dynamics
   EIPmod = setup_EIP(EIPname, EIPopts)
   calK = make_calK(nPatches, calK, calKopts)
   pars = setup_MYZpar(MYZname, pars, 1, MYZopts, EIPmod, calK)
   pars = setup_MYZinits(pars, 1, MYZopts)
 
-  # Aquatic Mosquito Dynamics
-  pars = setup_Lpar(Lname, pars, 1, Lopts)
-  pars = setup_Linits(pars, 1, Lopts)
-
-  pars = setup_EggLaying_static(pars, 1, searchQ)
-
+  # Human Demography
+  pars = setup_Hpar_static(pars, 1, HPop)
+  # Blood Feeding
+  pars = setup_BloodFeeding(pars, 1, 1, BFopts, residence, searchB, F_circadian)
+  pars = make_TimeSpent(pars, 1, TimeSpent, TimeSpentOpts)
   # Vertebrate Host Dynamics
   pars = setup_Xpar(Xname, pars, 1, Xopts)
   pars = setup_Xinits(pars, 1, Xopts)
+
+  # Aquatic Mosquito Dynamics
+  pars = setup_Lpar(Lname, pars, 1, Lopts)
+  pars = setup_Linits(pars, 1, Lopts)
+  # Egg Laying
+  pars = setup_EggLaying_static(pars, 1, searchQ)
+
 
   pars = make_indices(pars)
 

@@ -1,0 +1,17 @@
+---
+title: "Heterogeneous Mixing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Heterogeneous Mixing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Heterogeneous blood feeding is a basic feature of malaria transmission (see [Heterogeneous Transmission](heterogeneous_transmission.html). In `exDE,` the term **heterogeneous biting** is used to describe differences in the expected rate of exposure among population strata. Other departures from being *well-mixed* fall under the category of *heterogeneous mixing.* Computation of the mixing matrix, $\beta$, is described in detail by Wu SL, *et al.*, (2023)^[Wu SL, Henry JM, Citron DT, *et al.* (2023). Spatial dynamics of malaria transmission. PLoS Comput Biol 19: e1010684, https://doi.org/10.1371/journal.pcbi.1010684].

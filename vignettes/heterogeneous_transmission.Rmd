@@ -1,0 +1,32 @@
+---
+title: "Heterogeneous Transmission"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Heterogeneous Transmission}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Blood feeding is an interaction among humans and mosquitoes. Parasite transmission is heterogeneous because mosquito populations are spatially heterogeneous and because human behaviors are heterogeneous. Heterogeneous blood feeding and transmission is an important aspect of malaria transmission dynamics and control, and it has been implemented in `exDE` through several related concepts and constructs. 
+
++ **Mosquito populations** are heterogeneous over space and time. Spatial dynamics in `exDE` are organized around the concept of a *patch.* The adult mosquito populations in each *state* are assumed to be homogeneously distributed within each patch.
+
++ **Human populations:** and human behaviors are heterogeneous in ways that affect exposure and transmission. The design of `exDE` makes it possible to *sub-divide* the human population into an arbitrary number of homogeneous strata. 
+
+Heterogeneous transmission includes at least three distinct concepts:
+
++ **[Heterogeneous Biting](heterogeneous_biting.html)**
+
++ **[Environmental Heterogeneity](environmental_heterogeneity.html)**
+
++ **[Heterogeneous Mixing](heterogeneous_mixing.html)**
+
+
+

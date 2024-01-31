@@ -1,0 +1,54 @@
+---
+title: "Heterogeneous Biting"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Heterogeneous Biting}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Heterogeneous blood feeding is a basic feature of malaria transmission (see [Heterogeneous Transmission](heterogeneous_transmission.html)). In `exDE,` the term **heterogeneous biting** is used to describe differences in the expected rate of exposure among population strata. 
+
+To be more rigorous, let $h$ denote the *average* force of infection (FoI) for a population with multiple strata, and $\xi_i$ the frailty term, then the FoI for the $i^{th}$ stratum is $$h_i = \xi_i h;$$ 
+
+## Heterogeneous Biting 
+
+**Heterogeneous Biting** is defined throughout the `exDE` implementation and documentation as a difference in the relative biting rates for two strata that are otherwise identical. The implementation relies on two concepts:
+
++ **blood feeding search weights** or $\left\{\omega\right\}$
+
++ **relative biting rates** or  $\left\{\xi\right\}$
+
+### Blood Feeding Search Weights 
+
+A flexible implementation is handled through the blood feeding model, which includes the the concepts of *blood feeding search weights* and *availability*. The search weights, $\left\{\omega\right\}$, are a measure of how easy it is for mosquitoes to find and blood feed on a host. The total *availability* of humans for blood feeding is:
+
+$$W = \sum_i \omega_i H_i.$$
+Availability is used to compute the overall blood feeding rate for mosquitoes and the human fraction (human blood meals as a fraction of all blood meals). If we assign a biting weight to a stratum, then the fraction of bites received by that stratum is: 
+
+$$ \frac{\omega_i H_i}W.$$ 
+
+### Relative Biting Rates 
+
+If we let $h$ denote the *average* force of infection (FoI) for a population with multiple strata, and $\xi_i$ the frailty term, then the FoI for the $i^{th}$ stratum is $$h_i = \xi_i h;$$ 
+
+We let $H_i$ denote the size of the $i^{th}$ population, where $$H = \sum_i H_i.$$ 
+
+The relative biting rates are constrained such that 
+$$\sum_i \xi_i \frac{H_i}H = 1$$ 
+For example, if 20% of the population gets bitten at a rate that is twice as high as the population  average, then the other 80% must get bitten (on average) at a rate that is 3/4 the population average, since:
+
+$$ 2\;(0.2)+ 0.75\;(0.8)= 1$$ 
+
+
+
+Relative biting rates are computed automatically from the blood feeding search weights, $\left\{\omega\right\},$ where 
+
+$$\xi_i = \omega_i \frac H W.$$
