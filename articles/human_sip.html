@@ -50,6 +50,15 @@
   </div>
 </li>
 <li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-concepts">Concepts</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-concepts">
+    <a class="dropdown-item" href="../articles/heterogeneous_transmission.html">Heterogeneous Transmission</a>
+    <a class="dropdown-item" href="../articles/heterogeneous_biting.html">Heterogeneous Biting</a>
+    <a class="dropdown-item" href="../articles/heterogeneous_mixing.html">Heterogeneous Mixing</a>
+    <a class="dropdown-item" href="../articles/environmental_heterogeneity.html">Environmental Heterogeneity</a>
+  </div>
+</li>
+<li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-adult-mosquito-dynamics">Adult Mosquito Dynamics</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-adult-mosquito-dynamics">
     <a class="dropdown-item" href="../articles/adult_RM.html">Ross-Macdonald model</a>
@@ -180,9 +189,11 @@ example</a> to run a full simulation.</p>
 <span><span class="va">params</span><span class="op">$</span><span class="va">eir</span> <span class="op">=</span> <span class="va">EIR</span></span>
 <span><span class="va">params</span><span class="op">$</span><span class="va">EIR</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">F_eir</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">pars</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="va">pars</span><span class="op">$</span><span class="va">EIR</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="va">params</span><span class="op">$</span><span class="va">eir</span></span>
-<span><span class="op">}</span></span>
+<span><span class="va">fF_eir</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">EIR</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">EIR</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">EIR</span><span class="op">)</span> </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">bday</span><span class="op">=</span><span class="fl">0</span>, <span class="va">scale</span><span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">{</span><span class="va">EIR</span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span> </span>
+<span><span class="va">F_eir</span> <span class="op">=</span> <span class="fu">fF_eir</span><span class="op">(</span><span class="va">EIR</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_parameters_demography_null.html">make_parameters_demography_null</a></span><span class="op">(</span>pars <span class="op">=</span> <span class="va">params</span>, H<span class="op">=</span><span class="va">H</span><span class="op">)</span> </span>
 <span></span>
@@ -221,14 +232,9 @@ example</a> to run a full simulation.</p>
 <span>          xi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">3</span><span class="op">)</span>, </span>
 <span>          I0<span class="op">=</span><span class="va">I</span>, P0<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">P</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">Hpop</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">500</span>, <span class="fl">250</span><span class="op">)</span></span></code></pre></div>
-<p>To use <code>xde_setup_cohort</code> we must set up a function
-<code>F_eir</code> returns the value of EIR we computed above:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fF_eir1</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">EIR</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">pars</span><span class="op">)</span><span class="op">{</span><span class="va">EIR</span><span class="op">}</span><span class="op">)</span><span class="op">}</span> </span>
-<span><span class="va">F_eir1</span> <span class="op">=</span> <span class="fu">fF_eir1</span><span class="op">(</span><span class="va">EIR</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/xde_setup_cohort.html">xde_setup_cohort</a></span><span class="op">(</span><span class="va">F_eir</span>, Xname<span class="op">=</span><span class="st">"SIP"</span>, HPop<span class="op">=</span><span class="va">Hpop</span>, Xopts <span class="op">=</span> <span class="va">Xo</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">test_SIP</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/xde_setup_cohort.html">xde_setup_cohort</a></span><span class="op">(</span><span class="va">F_eir1</span>, Xname<span class="op">=</span><span class="st">"SIP"</span>, HPop<span class="op">=</span><span class="va">Hpop</span>, Xopts <span class="op">=</span> <span class="va">Xo</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">test_SIP</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/xde_solve.html">xde_solve</a></span><span class="op">(</span><span class="va">test_SIP</span>, <span class="fl">365</span>, <span class="fl">365</span><span class="op">)</span><span class="op">$</span><span class="va">outputs</span><span class="op">$</span><span class="va">orbits</span><span class="op">$</span><span class="va">deout</span> <span class="op">-&gt;</span> <span class="va">out2</span></span>
 <span><span class="fu"><a href="../reference/approx_equal.html">approx_equal</a></span><span class="op">(</span><span class="va">out2</span>,<span class="va">out1</span><span class="op">)</span> </span>
 <span><span class="co">#&gt;      time   X1   X2   X3   X4   X5   X6   X7   X8   X9</span></span>

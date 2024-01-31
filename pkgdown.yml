@@ -8,14 +8,18 @@ articles:
   adult_RM: adult_RM.html
   aqua_basic: aqua_basic.html
   aqua_trace: aqua_trace.html
+  environmental_heterogeneity: environmental_heterogeneity.html
   ex_534: ex_534.html
+  heterogeneous_biting: heterogeneous_biting.html
+  heterogeneous_mixing: heterogeneous_mixing.html
+  heterogeneous_transmission: heterogeneous_transmission.html
   human_hmoi: human_hmoi.html
   human_sip: human_sip.html
   human_sis: human_sis.html
   modularity: modularity.html
   spat_metric: spat_metric.html
   vc_lemenach: vc_lemenach.html
-last_built: 2024-01-17T05:33Z
+last_built: 2024-01-31T00:49Z
 urls:
   reference: https://dd-harp.github.io/exDE/reference
   article: https://dd-harp.github.io/exDE/articles

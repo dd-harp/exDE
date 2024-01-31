@@ -28,7 +28,19 @@
     <loc>https://dd-harp.github.io/exDE/articles/aqua_trace.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/articles/environmental_heterogeneity.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/articles/ex_534.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/articles/heterogeneous_biting.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/articles/heterogeneous_mixing.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/exDE/articles/heterogeneous_transmission.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/articles/human_hmoi.html</loc>
@@ -890,9 +902,6 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/last_to_inits.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/exDE/reference/make_Hpar_trace.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/make_Linits_basic.html</loc>
