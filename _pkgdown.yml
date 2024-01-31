@@ -183,6 +183,8 @@ reference:
   - xde_lines_YZ
   - xde_plot_YZ_fracs
   - xde_lines_YZ_fracs
+  - xde_plot_Z_fracs
+  - xde_lines_Z_fracs
 - subtitle: EIP
   desc: |
     Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
