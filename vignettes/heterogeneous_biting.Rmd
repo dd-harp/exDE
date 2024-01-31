@@ -35,7 +35,9 @@ The software deals mainly with the search weights because the denominators are c
 
 ## Blood Feeding Search Weights 
 
-A flexible implementation is handled through the blood feeding model, which includes the the concepts of *blood feeding search weights* and *availability*. The search weights, $\left\{\omega\right\}$, are a measure of how easy it is for mosquitoes to find and blood feed on a host. The total *availability* of humans for blood feeding is:
+A flexible implementation is handled through the blood feeding model, which includes the the concepts of *blood feeding search weights* and *availability*. The search weights, $\left\{\omega\right\}$, are a measure of how easy it is for mosquitoes to find and blood feed on a host. 
+
+We let $H_i$ denote the size of the $i^{th}$ population, where $$H = \sum_i H_i.$$ The total *availability* of humans for blood feeding is:
 
 $$W = \sum_i \omega_i H_i.$$
 Availability is used to compute the overall blood feeding rate for mosquitoes and the human fraction (human blood meals as a fraction of all blood meals). If we assign a biting weight to a stratum, then the fraction of bites received by that stratum is: 
@@ -49,9 +51,7 @@ $$ \frac{\omega_i H_i}W.$$
 
 ## Relative Biting Rates 
 
-If we let $h$ denote the *average* force of infection (FoI) for a population with multiple strata, and $\xi_i$ the frailty term, then the FoI for the $i^{th}$ stratum is $$h_i = \xi_i h;$$ 
-
-We let $H_i$ denote the size of the $i^{th}$ population, where $$H = \sum_i H_i.$$ 
+The relative biting rates are defined at the top. 
 
 The relative biting rates are constrained such that 
 $$\sum_i \xi_i \frac{H_i}H = 1$$ 
@@ -85,7 +85,8 @@ sum(xi*Hi)/H
 
 ## Implementation
 
-In `exDE,` the concept of human *availability* for blood feeding is also modified by time spent, and the algorithms were designed to deal with both changing denominators and changing search weights. Infective bites in a patch are distributed among population strata by taking a stratum's availability divided by the whole. The blood feeding model outputs a vector of dEIR values for each stratum. 
+In `exDE,` the concept of human *availability* for blood feeding is also modified by time spent, and the algorithms were designed to deal with both changing denominators and search weights. In a patch, the available human population is a measure of the search weighted ambient population density.
+The infective bites in each patch are allocated among human population strata by taking a stratum's availability divided by the total availability of all blood hosts. The blood feeding model outputs a vector of dEIR values for each stratum. 
 
-A relative biting rate is an interesting summary statistic, but it not computed as part of the blood feeding model.  
+Relative biting rates are an important concept, and they are sometimes useful to compute, but they are not computed as part of the blood feeding model.  
 
