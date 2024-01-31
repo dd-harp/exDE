@@ -4,10 +4,10 @@
 \alias{make_Xpar_trace}
 \title{Make parameters for human null model}
 \usage{
-make_Xpar_trace(nPatches, Xopts = list(), kappa = 0.1, Kf = NULL)
+make_Xpar_trace(nStrata, Xopts = list(), kappa = 0.1, Kf = NULL)
 }
 \arguments{
-\item{nPatches}{the number of patches in the model}
+\item{nStrata}{the number of population strata in the model}
 
 \item{Xopts}{a \link{list} that could overwrite defaults}
 

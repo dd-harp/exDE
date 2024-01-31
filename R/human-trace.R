@@ -6,7 +6,7 @@
 #' @return a [numeric] vector of length `nStrata`
 #' @export
 F_X.trace <- function(t, y, pars, i) {
-  with(pars$Xpar[[i]], scale*Kf(t))
+  with(pars$Xpar[[i]],  pars$Hpar[[i]]$H*Kf(t))
 }
 
 #' @title Size of the human population
@@ -51,8 +51,15 @@ dXdt.trace <- function(t, y, pars, i) {
 #' @return a [list] vector
 #' @export
 setup_Xpar.trace = function(Xname, pars, i, Xopts=list()){
-  pars$Xpar[[i]] = make_Xpar_trace(pars$nPatches, Xopts)
-  pars$Hpar[[i]] = make_Hpar_trace(pars$nPatches, Xopts)
+  nStrata= pars$nPatches
+
+  pars$Hpar[[i]]$nStrata = nStrata
+  pars$Hpar[[i]]$H = checkIt(pars$Hpar[[i]]$H, nStrata)
+  pars$BFpar$TimeSpent[[i]] = diag(1, nStrata)
+  pars = make_TaR(0, pars, i, 1)
+  pars$BFpar$searchWts[[i]][[1]] = checkIt(pars$BFpar$searchWts[[i]][[1]], nStrata)
+  pars$BFpar$residence[[i]] = checkIt(pars$BFpar$residence[[i]], nStrata)
+  pars$Xpar[[i]] = make_Xpar_trace(nStrata, Xopts)
   return(pars)
 }
 
@@ -67,38 +74,23 @@ setup_Xinits.trace = function(pars, i, Xopts=list()){
 }
 
 #' @title Make parameters for human null model
-#' @param nPatches the number of patches in the model
+#' @param nStrata the number of population strata in the model
 #' @param Xopts a [list] that could overwrite defaults
 #' @param kappa value
 #' @param Kf a function
 #' @return a [list]
 #' @export
-make_Xpar_trace = function(nPatches, Xopts=list(),
+make_Xpar_trace = function(nStrata, Xopts=list(),
                          kappa = 0.1,
                          Kf = NULL){
   with(Xopts,{
     Xpar = list()
     class(Xpar) <- "trace"
-
-    Xpar$scale = checkIt(kappa, nPatches)
-    if(is.null(Kf)) Kf = function(t){return(1)}
+    kappa = checkIt(kappa, nStrata)
+    if(is.null(Kf)) Kf = function(t){return(kappa)}
     Xpar$Kf = Kf
     return(Xpar)
 })}
-
-#' @title Make parameters for human null model
-#' @param nPatches the number of patches in the model
-#' @param Hopts a [list] that could overwrite defaults
-#' @return a [list]
-#' @export
-make_Hpar_trace = function(nPatches, Hopts=list()){
-  with(Hopts,{
-    Hpar = list()
-    Hpar$wts_f = rep(1, nPatches)
-    Hpar$H = rep(1, nPatches)
-    Hpar$nStrata = nPatches
-    return(Hpar)
-  })}
 
 #' @title Add indices for human population to parameter list
 #' @description Implements [make_indices_X] for the trace model.

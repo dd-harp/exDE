@@ -1,0 +1,17 @@
+---
+title: "Heterogeneous Biting"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Heterogeneous Biting}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Heterogeneous blood feeding is a basic feature of malaria transmission. In `exDE,` heterogeneous blood feeding includes several distinct components: biting weights and heterogeneous biting; environmental heterogeneity; and time spent / time at risk. 

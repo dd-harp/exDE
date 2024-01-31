@@ -160,7 +160,6 @@ F_EIR <- function(t, y, pars, i, s) {
 #' @return [list]
 #' @export
 compute_kappa <- function(t, y, pars){
-
   for(s in 1:pars$nVectors){
     kappa <- F_kappa(t, y, pars, 1, s)
 
