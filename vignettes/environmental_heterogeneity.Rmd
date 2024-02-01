@@ -14,10 +14,67 @@ knitr::opts_chunk$set(
 )
 ```
 
-Heterogeneous blood feeding is a basic feature of malaria transmission (see [Heterogeneous Transmission](heterogeneous_transmission.html)). In `exDE` the term **environmental heterogeneity** is used to describe the distribution of the expected number of bites within a homogenous human population stratum: biting is extremely heterogeneous even for individuals who have the same expectation. The approach is motivated by a study of heterogeneous exposure by (Cooper L, *et al.*, 2019)^[Cooper L, Kang SY, *et al.* (2019). Pareto rules for malaria super-spreaders and super-spreading. Nat Commun 10, 3939, https://doi.org/10.1038/s41467-019-11861-y].
+Heterogeneous blood feeding is a basic feature of malaria transmission (see [Heterogeneous Transmission](heterogeneous_transmission.html)). In `exDE` the term **environmental heterogeneity** is used to describe the distribution of the expected number of bites within a homogenous human population stratum: biting is extremely heterogeneous even for individuals who have the same expectation. The approach is motivated by a study of heterogeneous exposure by (Cooper L, *et al.*, 2019)^[Cooper L, Kang SY, *et al.* (2019). Pareto rules for malaria super-spreaders and super-spreading. Nat Commun 10, 3939, https://doi.org/10.1038/s41467-019-11861-y]. 
 
-## The Force of Infection and Attack Rates
+In the following, we derive formulas for the force of infection (FoI) from the model for the attack rate (AR) under the Poisson and . 
 
+## Attack Rates and the Force of Infection
+
+In mechanistic models of malaria, the hazard rate for exposure is generally assumed to be a linear function of the entomological inoculation rate. In the following, we assume that the number of bites per person over a day (or over some longer interval, $\tau$), is a random variable, and we formulate approximating models for attack rates and hazard rates. 
+
+### Poisson Hazard Rates
+
+We let $E$ denote the EIR, the expected number of bites per person over a day. If we assume that the distribution of the daily EIR is Poisson, and if a fraction $b$ of infective bites cause an infection, then the relationship between the between EIR and the FoI is a Poisson compounded with a binomial, which is also Poisson: 
+
+$$
+Z \sim F_E(z) = \mbox{Poisson}(z, \mbox{mu} = bE(t))
+$$
+
+Over a day, the daily attack rate, $\alpha$, is the fraction of individuals who received at least one infection, or: 
+
+$$
+\begin{array}{rl}
+\alpha &= 1-F_E(0) \\ &= 1-\mbox{Poisson}(0, \mbox{mu} = bE(t)) \\ 
+&= 1- e^{-bE(t)} \\
+\end{array}
+$$
+
+The daily FoI, $h$, is given by a generic formula: 
+
+$$
+\alpha = 1 - e^{-h} \mbox{ or equivalently } h = -\ln (1-\alpha)
+$$
+
+In this case, the relationship between the FoI and the EIR is:
+
+$$
+   h(t) = b E(t)
+$$
+
+It is highly mathematically convenient that the relationship is invariant with respect to the sampling period.  
+
+### Negative Binomial Daily Hazards 
+
+If we assume the number of infective bites, per person, per day, has a Gamma distribution in a population, then we could model the number of infective bites as a Gamma - Poisson mixture process, or a negative binomial distribution. Under this model, the counts for bites by sporozoite positive mosquitoes over one day, $Z$, would be a negative binomial random variable with mean $E$:
+
+$$
+Z \sim F_E(z) = \mbox{NB}(z, \mbox{mu} = bE(t), \mbox{size} = 1/\phi)
+$$
+
+Assuming an infectious bite causes an infection with probability $b$, the daily attack rate is: 
+
+$$
+\begin{array}{rl}
+\alpha &= 1-F_E(0) \\ &= 1-\mbox{NB}(0, \mbox{mu} = b E(t), \mbox{size} = 1/\phi) \\
+ &= 1- \left(1+b E(t)\phi \right)^{-1/\phi}
+\end{array}
+$$
+
+This is consistent with a formula that has a continuous daily FoI: 
+
+$$
+    h = \frac{\ln \left(1 + bE(t)\phi \right)} {\phi}
+$$
 
 
 

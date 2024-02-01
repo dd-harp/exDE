@@ -10,8 +10,6 @@ LSM_EffectSizes(t, pars)
 \item{t}{current simulation time}
 
 \item{pars}{a \link{list}}
-
-\item{y}{the state of the system}
 }
 \value{
 a \link{list}

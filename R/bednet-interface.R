@@ -47,6 +47,7 @@ BedNetEffects <- function(t, pars, s) {
 #' @description This method dispatches on the type of `pars$ITNefsz`.
 #' @param t current simulation time
 #' @param pars a [list]
+#' @param s the vector species index
 #' @return a [list]
 #' @export
 BedNetEffectSizes <- function(t, pars, s) {

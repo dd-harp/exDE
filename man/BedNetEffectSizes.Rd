@@ -10,6 +10,8 @@ BedNetEffectSizes(t, pars, s)
 \item{t}{current simulation time}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the vector species index}
 }
 \value{
 a \link{list}
