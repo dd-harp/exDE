@@ -26,7 +26,7 @@ Heterogeneous transmission includes several concepts:
 
 + **[Heterogeneous Biting](heterogeneous_biting.html)** describes differences among population strata in the average rate of exposure. In effect, heterogeneous biting is a kind of *frailty.* Heterogeneous biting is implemented through *blood feeding search weights.*
 
-+ **[Environmental Heterogeneity](environmental_heterogeneity.html)** describes the distribution of the expected number of bites in a homogenous populations stratum. For example, if the expected number of bites is *Gamma* distributed, then the number of bites, per person, would have a negative binomial distribution. Environmental heterogeneity is implemented through a function `F_foi` that converts the daily entomological inoculation rate into a daily force of infection (in `Exposure`). 
++ **[Environmental Heterogeneity](environmental_heterogeneity.html)** describes the distribution of the expected number of bites in a homogenous populations stratum. For example, if the expected number of bites is *Gamma* distributed, then the number of bites, per person, would have a negative binomial distribution. Environmental heterogeneity is implemented through a function `F_foi` that converts the daily entomological inoculation rate into a daily force of infection (in `Exposure`) under some probabilistic model for the distribution of the expectation. 
 
 + **[Heterogeneous Mixing](heterogeneous_mixing.html)** describes departures in a model from the idealized *mass-action* assumption for two-species mixing. The algorithms in `exDE` compute the mixing matrix, $\beta$ integrates information about time spent, mosquito daily activity patterns, the sizes of various population strata, search weights, other vertebrate hosts, and visitors. 
 

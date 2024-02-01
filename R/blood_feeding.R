@@ -68,8 +68,11 @@ setup_BFpar_static <- function(pars){
 #' @export
 setup_BloodFeeding <- function(pars, i, s=1, BFopts = list(), residence=1, searchWts=1, F_circadian=NULL){
   nStrata = pars$Hpar[[i]]$nStrata
-  pars$BFpar$searchWts[[i]][[s]] = checkIt(searchWts, nStrata)
-  pars$BFpar$relativeBitingRate[[i]][[s]] = checkIt(searchWts, nStrata)
+  searchWts = checkIt(searchWts, nStrata)
+  pars$BFpar$searchWts[[i]][[s]] = searchWts
+  H = pars$Hpar[[i]]$H
+  rbr = searchWts*sum(H)/sum(searchWts*H)
+  pars$BFpar$relativeBitingRate[[i]][[s]] = rbr
   pars$BFpar$residence[[i]] = checkIt(residence, nStrata)
   if(is.null(F_circadian)) pars$BFpar$F_circadian[[s]] = function(d){return(1)}
   return(pars)
