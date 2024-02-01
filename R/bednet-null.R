@@ -32,7 +32,7 @@ UseBedNet.null <- function(t, y, pars) {
 #' @inheritParams BedNetEffects
 #' @return a [list]
 #' @export
-BedNetEffects.null <- function(t, pars) {
+BedNetEffects.null <- function(t, pars, s) {
   pars
 }
 
@@ -41,7 +41,7 @@ BedNetEffects.null <- function(t, pars) {
 #' @inheritParams BedNetEffectSizes
 #' @return a [list]
 #' @export
-BedNetEffectSizes.null <- function(t, pars) {
+BedNetEffectSizes.null <- function(t, pars,s) {
   pars
 }
 
@@ -51,11 +51,11 @@ BedNetEffectSizes.null <- function(t, pars) {
 #' @export
 setup_itn_null <- function(pars) {
   ITN<- list()
-  class(ITN) <- 'null'
-  pars$ITNdist<- ITN
-  pars$ITNown<- ITN
-  pars$ITNuse<- ITN
-  pars$ITNeff<- ITN
-  pars$ITNefsz<- ITN
+  class(ITN)   <- 'null'
+  pars$ITNdist <- ITN
+  pars$ITNown  <- ITN
+  pars$ITNuse  <- ITN
+  pars$ITNeff  <- ITN
+  pars$ITNefsz <- ITN
   return(pars)
 }

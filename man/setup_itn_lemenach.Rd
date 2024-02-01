@@ -9,7 +9,7 @@ setup_itn_lemenach(
   tau0_frac = c(0.68/3, 2.32/3),
   r = 0.56,
   s = 0.03,
-  phi = function(t) {
+  F_phi = function(t, pars) {
      0.8
  }
 )
@@ -24,7 +24,7 @@ in host seeking/bloodfeeding and resting/oviposition}
 
 \item{s}{probability of mosquito successfully feeding upon contact with ITN}
 
-\item{phi}{a \link{function} that takes a single argument \code{t} and returns the level of ITN coverage at that time}
+\item{F_phi}{a \link{function} that takes as argument \code{t} and \code{pars} and returns the level of ITN coverage at that time}
 }
 \value{
 none

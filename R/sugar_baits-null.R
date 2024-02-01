@@ -13,7 +13,7 @@ SugarBaits.null <- function(t, pars) {
 #' @inheritParams SugarBaitEffects
 #' @return [list]
 #' @export
-SugarBaitEffects.null <- function(t, y, pars) {
+SugarBaitEffects.null <- function(t, pars) {
   return(pars)
 }
 
@@ -22,6 +22,6 @@ SugarBaitEffects.null <- function(t, y, pars) {
 #' @inheritParams SugarBaitEffectSizes
 #' @return [list]
 #' @export
-SugarBaitEffectSizes.null <- function(t, y, pars) {
+SugarBaitEffectSizes.null <- function(t, pars) {
   return(pars)
 }

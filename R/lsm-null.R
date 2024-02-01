@@ -11,19 +11,19 @@ TreatHabitats.null <- function(t, pars) {
 
 #' @title Modify effects of LSM, the null model
 #' @description This method dispatches on the type of `pars$LSM`
-#' @inheritParams LSMeffects
+#' @inheritParams LSM_Effects
 #' @return a [list]
 #' @export
-LSMeffects.null <- function(t, y, pars) {
+LSM_Effects.null <- function(t, pars) {
    pars
 }
 
 #' @title Modify effects of LSM, the null model
 #' @description This method dispatches on the type of `pars$LSM`
-#' @inheritParams LSMeffectSizes
+#' @inheritParams LSM_EffectSizes
 #' @return a [list]
 #' @export
-LSMeffectSizes.null <- function(t, y, pars) {
+LSM_EffectSizes.null <- function(t, pars) {
    pars
 }
 
@@ -33,6 +33,7 @@ LSMeffectSizes.null <- function(t, y, pars) {
 #' @export
 setup_lsm_null <- function(pars) {
   LSM <- list()
-  class(LSM) <- 'null'
+  class(LSM) <- "null"
+  pars$LSM <- LSM
   return(pars)
 }

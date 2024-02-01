@@ -16,8 +16,8 @@ SprayHouses <- function(t, pars) {
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-IRSeffects <- function(t, pars) {
-  UseMethod("IRS_effects", pars$IRS)
+IRS_Effects <- function(t, pars) {
+  UseMethod("IRS_Effects", pars$IRS)
 }
 
 #' @title Model IRS effect sizes
@@ -26,6 +26,6 @@ IRSeffects <- function(t, pars) {
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-IRSeffectSizes <- function(t, pars) {
-  UseMethod("IRSeffectSizes", pars$IRS)
+IRS_EffectSizes <- function(t, pars) {
+  UseMethod("IRS_EffectSizes", pars$IRS)
 }

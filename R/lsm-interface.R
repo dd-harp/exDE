@@ -14,21 +14,19 @@ TreatHabitats <- function(t, pars) {
 #' @title Modify effects of LSM
 #' @description This method dispatches on the type of `pars$LSM`.
 #' @param t current simulation time
-#' @param y the state of the system
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-LSMeffects <- function(t, y, pars) {
-  UseMethod("LSM_effects", pars$LSM)
+LSM_Effects <- function(t, pars) {
+  UseMethod("LSM_Effects", pars$LSM)
 }
 
 #' @title Compute effect sizes of LSM
 #' @description This method dispatches on the type of `pars$LSM`.
 #' @param t current simulation time
-#' @param y the state of the system
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-LSMeffectSizes <- function(t, y, pars) {
-  UseMethod("LSM_effect_size", pars$LSM)
+LSM_EffectSizes <- function(t, pars) {
+  UseMethod("LSM_EffectSizes", pars$LSM)
 }

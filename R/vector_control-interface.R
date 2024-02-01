@@ -19,7 +19,7 @@ VectorControl <- function(t, y, pars) {
 #' @return a [list]
 #' @export
 VectorControlEffects <- function(t, y, pars) {
-  UseMethod("VectorControlEffectSizes", pars$VECTOR_CONTROL)
+  UseMethod("VectorControlEffects", pars$VECTOR_CONTROL)
 }
 
 #' @title Vector control effect sizes

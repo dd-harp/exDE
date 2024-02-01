@@ -4,12 +4,14 @@
 \alias{BedNetEffects.null}
 \title{Bed net ownership}
 \usage{
-\method{BedNetEffects}{null}(t, pars)
+\method{BedNetEffects}{null}(t, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the vector species index}
 }
 \value{
 a \link{list}
