@@ -9,7 +9,7 @@ setup_itn_lemenach(
   tau0_frac = c(0.68/3, 2.32/3),
   r = 0.56,
   s = 0.03,
-  phi = function(t) {
+  F_phi = function(t, pars) {
      0.8
  }
 )

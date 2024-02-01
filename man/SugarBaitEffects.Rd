@@ -4,12 +4,10 @@
 \alias{SugarBaitEffects}
 \title{Methods for the durability and effects of the sugar baits}
 \usage{
-SugarBaitEffects(t, y, pars)
+SugarBaitEffects(t, pars)
 }
 \arguments{
 \item{t}{current simulation time}
-
-\item{y}{vector of state variables}
 
 \item{pars}{a \link{list}}
 }

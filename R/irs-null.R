@@ -15,7 +15,7 @@ SprayHouses.null <- function(t, pars) {pars}
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-IRSeffects.null <- function(t, pars){pars}
+IRS_Effects.null <- function(t, pars){pars}
 
 #' @title Model IRS effect sizes
 #' @description This method dispatches on the type of `pars$IRS`.
@@ -23,7 +23,7 @@ IRSeffects.null <- function(t, pars){pars}
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-IRSeffectSizes.null <- function(t, pars){pars}
+IRS_EffectSizes.null <- function(t, pars){pars}
 
 #' @title Make parameters for the null model of IRS (do nothing)
 #' @param pars a [list]

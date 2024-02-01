@@ -9,8 +9,8 @@
 VectorControl.control <- function(t, y, pars) {
   pars = DistributeBedNets(t, pars)
   pars = OwnBedNet(t, y, pars)
-  pars = AreaSpray(t, pars)
   pars = SprayHouses(t, pars)
+  pars = AreaSpray(t, pars)
   pars = SugarBaits(t, pars)
   pars = TreatHabitats(t, pars)
   return(pars)
@@ -22,11 +22,13 @@ VectorControl.control <- function(t, y, pars) {
 #' @return a named [list]
 #' @export
 VectorControlEffects.control <- function(t, y, pars) {
-  pars = BedNetEffects(t, pars)
+  for(s in 1:pars$nVectors){
+    pars = BedNetEffects(t, pars,s)
+  }
   pars = AreaSprayEffects(t, pars)
-  pars = IRSeffects(t, pars)
+  pars = IRS_Effects(t, pars)
   pars = SugarBaitEffects(t, pars)
-  pars = LSMeffects(t, pars)
+  pars = LSM_Effects(t, pars)
   return(pars)
 }
 
@@ -36,11 +38,13 @@ VectorControlEffects.control <- function(t, y, pars) {
 #' @return a named [list]
 #' @export
 VectorControlEffectSizes.control <- function(t, y, pars) {
-  pars = BedNetEffectSizes(t, pars)
   pars = AreaSprayEffectSizes(t, pars)
-  pars = IRSeffectSizes(t, pars)
+  pars = IRS_EffectSizes(t, pars)
   pars = SugarBaitEffectSizes(t, pars)
-  pars = LSMeffectSizes(t, pars)
+  pars = LSM_EffectSizes(t, pars)
+  for(s in 1:pars$nVectors){
+    pars = BedNetEffectSizes(t, pars, s)
+  }
   return(pars)
 }
 
@@ -49,7 +53,6 @@ VectorControlEffectSizes.control <- function(t, y, pars) {
 #' @return none
 #' @export
 setup_vc_control <- function(pars) {
-  pars = setup_control(pars)
   class(pars$VECTOR_CONTROL) <- 'control'
   pars <- setup_itn_null(pars)
   pars <- setup_area_spray_null(pars)

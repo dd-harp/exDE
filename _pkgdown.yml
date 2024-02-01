@@ -698,6 +698,7 @@ reference:
   - BedNetEffects.null
   - BedNetEffectSizes.null
   - setup_itn_null
+  - BedNetEffects.lemenach
   - BedNetEffectSizes.lemenach
   - setup_itn_lemenach
 - subtitle: Indoor Residual Spraying
@@ -705,11 +706,11 @@ reference:
     Methods to implement IRS
   contents:
   - SprayHouses
-  - IRSeffects
-  - IRSeffectSizes
+  - IRS_Effects
+  - IRS_EffectSizes
   - SprayHouses.null
-  - IRSeffects.null
-  - IRSeffectSizes.null
+  - IRS_Effects.null
+  - IRS_EffectSizes.null
   - setup_irs_null
 - subtitle: Area Spraying
   desc: |
@@ -738,11 +739,11 @@ reference:
     Methods to implement LSM
   contents:
   - TreatHabitats
-  - LSMeffects
-  - LSMeffectSizes
+  - LSM_Effects
+  - LSM_EffectSizes
   - TreatHabitats.null
-  - LSMeffects.null
-  - LSMeffectSizes.null
+  - LSM_Effects.null
+  - LSM_EffectSizes.null
   - setup_lsm_null
 - subtitle: Ovitraps
   desc: |

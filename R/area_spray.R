@@ -63,7 +63,6 @@ AreaSprayEffectSizes.null <- function(t, pars) {
 #' @return [list]
 #' @export
 setup_area_spray_null <- function(pars) {
-  pars = setup_vc_control(pars)
   AREA_SPRAY <- list()
   class(AREA_SPRAY) <- 'null'
   pars$AREA_SPRAY <- AREA_SPRAY

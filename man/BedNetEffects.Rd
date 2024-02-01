@@ -4,12 +4,14 @@
 \alias{BedNetEffects}
 \title{Modify variables or parameters, called from VectorControlEffects}
 \usage{
-BedNetEffects(t, pars)
+BedNetEffects(t, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}
 
 \item{pars}{a \link{list}}
+
+\item{s}{the vector species index}
 }
 \value{
 a \link{list}

@@ -13,22 +13,20 @@ SugarBaits <- function(t, pars) {
 #' @title Methods for the durability and effects of the sugar baits
 #' @description This method dispatches on the type of `pars$SUGAR_BAITS`.
 #' @param t current simulation time
-#' @param y vector of state variables
 #' @param pars a [list]
 #' @return [list]
 #' @export
-SugarBaitEffects <- function(t, y, pars) {
+SugarBaitEffects <- function(t, pars) {
   UseMethod("SugarBaitEffects", pars$SUGAR_BAITS)
 }
 
 #' @title Methods for the effect sizes of the sugar baits
 #' @description This method dispatches on the type of `pars$SUGAR_BAITS`.
 #' @param t current simulation time
-#' @param y vector of state variables
 #' @param pars a [list]
 #' @return [list]
 #' @export
-SugarBaitEffectSizes <- function(t, y, pars) {
+SugarBaitEffectSizes <- function(t, pars) {
   UseMethod("SugarBaitEffectSizes", pars$SUGAR_BAITS)
 }
 

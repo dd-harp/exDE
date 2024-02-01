@@ -4,7 +4,7 @@
 \alias{BedNetEffectSizes}
 \title{Modify baseline bionomic parameters, called from VectorControlEffectSizes}
 \usage{
-BedNetEffectSizes(t, pars)
+BedNetEffectSizes(t, pars, s)
 }
 \arguments{
 \item{t}{current simulation time}

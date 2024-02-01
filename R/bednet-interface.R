@@ -36,9 +36,10 @@ UseBedNet <- function(t, y, pars) {
 #' @description This method dispatches on the type of `pars$ITNeff`.
 #' @param t current simulation time
 #' @param pars a [list]
+#' @param s the vector species index
 #' @return a [list]
 #' @export
-BedNetEffects <- function(t, pars) {
+BedNetEffects <- function(t, pars, s) {
   UseMethod("BedNetEffects", pars$ITNeff)
 }
 
@@ -48,6 +49,6 @@ BedNetEffects <- function(t, pars) {
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-BedNetEffectSizes <- function(t, pars) {
+BedNetEffectSizes <- function(t, pars, s) {
   UseMethod("BedNetEffectSizes", pars$ITNefsz)
 }

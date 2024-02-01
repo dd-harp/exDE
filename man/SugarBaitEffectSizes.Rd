@@ -4,12 +4,10 @@
 \alias{SugarBaitEffectSizes}
 \title{Methods for the effect sizes of the sugar baits}
 \usage{
-SugarBaitEffectSizes(t, y, pars)
+SugarBaitEffectSizes(t, pars)
 }
 \arguments{
 \item{t}{current simulation time}
-
-\item{y}{vector of state variables}
 
 \item{pars}{a \link{list}}
 }

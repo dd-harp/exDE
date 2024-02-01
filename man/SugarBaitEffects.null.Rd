@@ -4,12 +4,10 @@
 \alias{SugarBaitEffects.null}
 \title{Methods for the effects of the sugar baits}
 \usage{
-\method{SugarBaitEffects}{null}(t, y, pars)
+\method{SugarBaitEffects}{null}(t, pars)
 }
 \arguments{
 \item{t}{current simulation time}
-
-\item{y}{vector of state variables}
 
 \item{pars}{a \link{list}}
 }

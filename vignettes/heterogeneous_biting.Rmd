@@ -79,6 +79,7 @@ W = sum(searchWts*Hi)
 xi = searchWts*H/W
 xi 
 ```
+
 ```{r}
 sum(xi*Hi)/H
 ```

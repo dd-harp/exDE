@@ -18,8 +18,8 @@ TreatHabitats <- function(t, pars) {
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-LSMeffects <- function(t, y, pars) {
-  UseMethod("LSM_effects", pars$LSM)
+LSM_Effects <- function(t, pars) {
+  UseMethod("LSM_Effects", pars$LSM)
 }
 
 #' @title Compute effect sizes of LSM
@@ -29,6 +29,6 @@ LSMeffects <- function(t, y, pars) {
 #' @param pars a [list]
 #' @return a [list]
 #' @export
-LSMeffectSizes <- function(t, y, pars) {
-  UseMethod("LSM_effect_size", pars$LSM)
+LSM_EffectSizes <- function(t, pars) {
+  UseMethod("LSM_EffectSizes", pars$LSM)
 }
