@@ -145,6 +145,9 @@
     <loc>https://dd-harp.github.io/exDE/reference/BedNetEffects.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/exDE/reference/BedNetEffects.lemenach.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/exDE/reference/BedNetEffects.null.html</loc>
   </url>
   <url>
@@ -463,16 +466,16 @@
     <loc>https://dd-harp.github.io/exDE/reference/Hydrology.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/IRSeffectSizes.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/IRS_EffectSizes.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/IRSeffectSizes.null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/IRS_EffectSizes.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/IRSeffects.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/IRS_Effects.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/IRSeffects.null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/IRS_Effects.null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/LBionomics.basic.html</loc>
@@ -484,16 +487,16 @@
     <loc>https://dd-harp.github.io/exDE/reference/LBionomics.trace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/LSMeffectSizes.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/LSM_EffectSizes.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/LSMeffectSizes.null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/LSM_EffectSizes.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/LSMeffects.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/LSM_Effects.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/exDE/reference/LSMeffects.null.html</loc>
+    <loc>https://dd-harp.github.io/exDE/reference/LSM_Effects.null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/exDE/reference/LocalFrac.dynamic.html</loc>
