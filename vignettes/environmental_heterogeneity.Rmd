@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 Heterogeneous blood feeding is a basic feature of malaria transmission (see [Heterogeneous Transmission](heterogeneous_transmission.html)). In `exDE` the term **environmental heterogeneity** is used to describe the distribution of the expected number of bites within a homogenous human population stratum: biting is extremely heterogeneous even for individuals who have the same expectation. The approach is motivated by a study of heterogeneous exposure by (Cooper L, *et al.*, 2019)^[Cooper L, Kang SY, *et al.* (2019). Pareto rules for malaria super-spreaders and super-spreading. Nat Commun 10, 3939, https://doi.org/10.1038/s41467-019-11861-y]. 
 
-In the following, we derive formulas for the force of infection (FoI) from the model for the attack rate (AR) under the Poisson and . 
+In the following, we derive formulas for the force of infection (FoI) from the model for the attack rate (AR) under the Poisson and Negative Binomial families of models. 
 
 ## Attack Rates and the Force of Infection
 
