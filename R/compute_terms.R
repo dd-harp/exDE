@@ -68,8 +68,14 @@ compute_terms.cohort <- function(varslist, deout, pars, s, i) {
   d1 = length(time)
   eir = as.matrix(with(pars$EIRpar, sapply(time, pars$F_eir, bday=bday, scale=scale)))
   eir = shapeIt(eir, d1, pars$Hpar[[i]]$nStrata)
-  ni = compute_NI(deout, pars, i)
-  pr = F_pr(varslist, pars, i)
+
+  pr = list()
+  ni = list()
+  for(i in 1:pars$nHosts){
+    ni[[i]] = compute_NI(deout, pars, i)
+    pr[[i]] = F_pr(varslist, pars, i)
+  }
+
   return(list(time=time,eir=eir,pr=pr,ni=ni))
 }
 
